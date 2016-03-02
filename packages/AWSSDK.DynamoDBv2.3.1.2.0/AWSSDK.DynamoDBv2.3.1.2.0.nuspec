@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AWSSDK.DynamoDBv2</id>
+    <version>3.1.2.0</version>
+    <title>AWSSDK - Amazon DynamoDB</title>
+    <authors>Amazon Web Services</authors>
+    <owners>Amazon Web Services</owners>
+    <licenseUrl>http://aws.amazon.com/apache2.0/</licenseUrl>
+    <projectUrl>https://github.com/aws/aws-sdk-net/</projectUrl>
+    <iconUrl>http://media.amazonwebservices.com/aws_singlebox_01.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Amazon DynamoDB is a fast and flexible NoSQL database service for all applications that need consistent, single-digit millisecond latency at any scale.</description>
+    <language>en-US</language>
+    <tags>AWS Amazon cloud DynamoDB aws-sdk-v3</tags>
+    <dependencies>
+      <group>
+        <dependency id="AWSSDK.Core" version="[3.1.4.3, 3.2.0)" />
+      </group>
+      <group targetFramework=".NETPortable0.0-net45+win8+wp8+wpa81">
+        <dependency id="AWSSDK.Core" version="[3.1.4.3, 3.2.0)" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
