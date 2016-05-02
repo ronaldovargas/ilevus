@@ -1,8 +1,12 @@
-﻿using Microsoft.Owin;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Ilevus.Startup))]
-namespace Ilevus
+[assembly: OwinStartup(typeof(ilevus.Startup))]
+
+namespace ilevus
 {
     public partial class Startup
     {
