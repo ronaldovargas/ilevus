@@ -1,0 +1,60 @@
+//
+// Text Label
+//
+
+// Text Label Base
+.ilevus-text-label {
+  @include text-label-variant($color-grayscale-lighter, $font-weight-normal, uppercase);
+  //letter-spacing: .0625em;
+
+}
+a.ilevus-text-label:hover,
+a.ilevus-text-label:focus {
+  color: $color-grayscale-base;
+}
+
+// Text Label for Danger Tags
+.ilevus-text-label-blue {
+  @include text-label-variant($color-brand-blue, $font-weight-normal, normal);
+}
+
+// Text Label for Danger Tags
+.ilevus-text-label-red {
+  @include text-label-variant($color-brand-red, $font-weight-normal, normal);
+}
+
+// Text Label for Money Tags
+.ilevus-text-label-green {
+  @include text-label-variant($color-brand-green, $font-weight-normal, normal);
+}
+
+// Text Label for Score Tags
+.ilevus-text-label-orange {
+  @include text-label-variant($color-brand-orange, $font-weight-normal, normal);
+}
+
+// Text Label for Initiation Tags
+.ilevus-text-label-purple {
+  @include text-label-variant($color-brand-purple, $font-weight-normal, normal);
+}
+
+// Text Label for Form Tips
+.ilevus-text-label-tip {
+  @include text-label-variant($color-grayscale-lighter, $font-weight-normal, none);
+
+  label + & {
+  	float: right !important;
+  }
+}
+
+// Text Label for Required Fields in Forms
+.ilevus-text-label-required::after {
+  content:"*";
+  @include text-label-variant($color-brand-red, $font-weight-extrabold, uppercase);
+}
+
+.ilevus-text-title-page {
+  font-size: 1.125rem;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
