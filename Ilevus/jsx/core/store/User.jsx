@@ -1,3 +1,6 @@
+/**
+    Esta é a store da entidade de Usuário do sistema.
+*/
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");

@@ -233,6 +233,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="TildeModifyingVPP.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -276,6 +277,7 @@
     </Content>
     <Content Include="img\logo.png" />
     <Content Include="index.html" />
+    <Content Include="jsx\Application.jsx" />
     <Content Include="jsx\AppSetup.jsx" />
     <Content Include="jsx\core\store\Fluxbone.jsx" />
     <Content Include="jsx\core\store\User.jsx" />

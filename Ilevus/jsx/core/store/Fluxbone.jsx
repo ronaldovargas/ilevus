@@ -1,3 +1,18 @@
+/**
+    Este componente extende as funcionalidades de modelo e store do Backbone para que atenda
+    ao padrão de projeto Flux que é utilizado com o React. Este padrão de projeto define um fluxo
+    unidirecional de dados dentro da estrutura do frontend, onde os componentes visuais despacham
+    requisições de dados às stores. As stores não devolvem os dados diretamente à esses componentes,
+    elas recuperam os dados e disparam eventos quando estes dados estão prontos para uso. Os
+    componentes visuais que estão interessados nesses dados registram listeners nas stores apropriadas.
+
+    Essa arquitetura implementada com o Backbone.js foi chamada de Fluxbone.
+    Esta arquitetura permite que sejam contruídas interfaces reativas com um fluxo e funcionamento fáceis
+    de entender. Além de ser extramamente fácil de se utilizar com o React.
+
+    Aqui estão implementados os principais métodos da store, a store de cada entidade pode criar
+    novos métodos e especializar o funcionamento da store.
+*/
 
 var Dispatcher = require("flux").Dispatcher;
 var _ = require('underscore');

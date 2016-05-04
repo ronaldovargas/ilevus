@@ -1,3 +1,7 @@
+/**
+    Este é um modelo global diferente dos outros. Ele é responsável por todo o controle de sessão
+    e autenticação/autorização do usuário do sistema.
+*/
 
 var _ = require("underscore");
 var Backbone = require("backbone");
