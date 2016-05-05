@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 
 namespace ilevus.Controllers
 {
     [Authorize]
-    public class ValuesController : ApiController
+    public class ValuesController : BaseAPIController
     {
         // GET api/values
         public IEnumerable<string> Get()

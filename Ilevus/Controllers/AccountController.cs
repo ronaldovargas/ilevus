@@ -21,7 +21,7 @@ namespace ilevus.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseAPIController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
