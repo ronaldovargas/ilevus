@@ -6,25 +6,25 @@ var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 
-var URL = Fluxbone.BACKEND_URL+"user";
+var URL = Fluxbone.BACKEND_URL+"Account";
 
 var UserModel = Fluxbone.Model.extend({
 	url: URL,
 	validate(attrs, options) {
 		var errors = [];
-		if (attrs.name == undefined || attrs.name == "") {
+		if (attrs.FirstName == undefined || attrs.FirstName == "") {
 			errors.push("O primeiro nome é obrigatório.");
 		}
-		if (attrs.lastName == undefined || attrs.lastName == "") {
+		if (attrs.LastName == undefined || attrs.LastName == "") {
 			errors.push("O sobrenome é obrigatório.");
 		}
-		if (attrs.email == undefined || attrs.email == "") {
+		if (attrs.Email == undefined || attrs.Email == "") {
 			errors.push("O e-mail é obrigatório.");
 		}
-		if (attrs.password == undefined || attrs.password == "") {
+		if (attrs.Password == undefined || attrs.Password == "") {
 			errors.push("A senha é obrigatória.");
 		}
-		if (attrs.password != attrs.passwordconfirm) {
+		if (attrs.Password != attrs.ConfirmPassword) {
 			errors.push("As senhas digitadas não são iguais.");
 		}
 		if (errors.length > 0)
