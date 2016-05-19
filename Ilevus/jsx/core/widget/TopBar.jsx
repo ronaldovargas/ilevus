@@ -31,7 +31,8 @@ module.exports = React.createClass({
 	componentWillUnmount() {
 		UserSession.off(null, null, this);
 	},
-    onLogout() {
+    onLogout(evt) {
+        evt.preventDefault();
         UserSession.dispatch({
             action: UserSession.ACTION_LOGOUT
         });
@@ -55,13 +56,21 @@ module.exports = React.createClass({
 			return <div style={{display: 'none'}} />;
 		}
 		return (<div className="ilevus-top-bar">
-			<span className="ilevus-fill" />
-			<span className="mdi mdi-account-circle" style={{marginRight: '5px'}} />
-			<span>{this.state.user.name}</span>
-			<span title="Notificações" className="mdi mdi-bell" />
-			<a onClick={this.onLogout}>
-				<span title="Sair" className="mdi mdi-logout" />
-			</a>
+			    <span className="ilevus-fill" />
+			    <span style={{
+			            marginRight: '5px',
+			            height: '50px',
+			            width: '50px',
+			            borderRadius: '100%',
+			            backgroundPosition: 'center',
+                        backgroundSize: 'auto 100%',
+			            backgroundImage: "url(" + this.state.user.Image+")"
+			        }} />
+			    <span>{this.state.user.Name}</span>
+			    <span title="Notificações" className="mdi mdi-bell" />
+			    <a onClick={this.onLogout}>
+				    <span title="Sair" className="mdi mdi-logout" />
+			    </a>
 		</div>);
 	  }
 	});

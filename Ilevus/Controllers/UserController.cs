@@ -1,13 +1,17 @@
 ﻿using ilevus.App_Start;
+using ilevus.Attributes;
+using ilevus.Enums;
 using ilevus.Helpers;
 using ilevus.Models;
 using ilevus.Providers;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -17,7 +21,7 @@ using System.Web.Http;
 
 namespace ilevus.Controllers
 {
-    [Authorize]
+    [IlevusAuthorization]
     [RoutePrefix("api/User")]
     public class UserController : BaseAPIController
     {
@@ -27,7 +31,7 @@ namespace ilevus.Controllers
         {
             get
             {
-                return _userManager ?? Request.GetOwinContext().Get<IlevusUserManager>("");
+                return _userManager ?? Request.GetOwinContext().GetUserManager<IlevusUserManager>();
             }
             private set
             {
@@ -47,19 +51,100 @@ namespace ilevus.Controllers
         }
 
 
+        [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
+        [Route("{id:guid}/assignperms")]
+        [HttpPut]
+        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<PermissionBindingModel> permsToAssign)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var appUser = await this.UserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            foreach (PermissionBindingModel permModel in permsToAssign)
+            {
+                if (!appUser.Claims.Any(p => p.ClaimType == "IlevusPermission" && p.ClaimValue == permModel.Permission))
+                {
+
+                    await this.UserManager.AddClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
+                }
+            }
+
+            return Ok();
+        }
+
+        [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
+        [Route("{id:guid}/removeperms")]
+        [HttpPut]
+        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<PermissionBindingModel> permsToRemove)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var appUser = await this.UserManager.FindByIdAsync(id);
+
+            if (appUser == null)
+            {
+                return NotFound();
+            }
+
+            foreach (PermissionBindingModel permModel in permsToRemove)
+            {
+                if (appUser.Claims.Any(p => p.ClaimType == "IlevusPermission" && p.ClaimValue == permModel.Permission))
+                {
+
+                    await this.UserManager.RemoveClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
+                }
+            }
+
+            return Ok();
+        }
 
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var claims = from c in identity.Claims
+                         select new
+                         {
+                             subject = c.Subject.Name,
+                             type = c.Type,
+                             value = c.Value
+                         };
+            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(identity);
+            // We wouldn't normally be likely to do this:
+            var user = UserManager.FindByName(identity.Name);
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName(),
+                Email = user.Email,
                 HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
+                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
+                
+                Address = user.Address,
+                Creation = user.Creation,
+                EmailVisibility = user.EmailVisibility,
+                Image = user.Image,
+                Name = user.Name,
+                PhoneNumber = user.PhoneNumber,
+                Sex = user.Sex,
+                Status = user.Status,
+                Surname = user.Surname,
+                Type = user.Type,
+
+                Permissions = claims.Where(claim => claim.type == "IlevusPermission")
             };
         }
 

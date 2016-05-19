@@ -6,6 +6,13 @@ namespace ilevus.Models
 {
     // Models used as parameters to AccountController actions.
 
+    public class PermissionBindingModel
+    {
+        [Required]
+        [Display(Name = "Permission")]
+        public string Permission { get; set; }
+    }
+
     public class AddExternalLoginBindingModel
     {
         [Required]

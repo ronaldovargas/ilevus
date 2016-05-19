@@ -10,14 +10,8 @@ namespace ilevus
 {
     public static class WebApiConfig
     {
-        public static HttpConfiguration Create()
+        public static void Register(HttpConfiguration config)
         {
-            HttpConfiguration config = new HttpConfiguration();
-            // Web API configuration and services
-            // Configure Web API to use only bearer token authentication.
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
             // Configura o Unity para injeção de dependências.
             UnityConfig.Register(config);
 
@@ -34,7 +28,11 @@ namespace ilevus
                 routeTemplate: "{controller}/{action}",
                 defaults: new {controller="Home", action="Index"}
             );
-
+        }
+        public static HttpConfiguration Create()
+        {
+            HttpConfiguration config = new HttpConfiguration();
+            Register(config);
             return config;
         }
     }

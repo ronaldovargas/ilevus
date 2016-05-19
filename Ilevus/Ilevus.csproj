@@ -195,10 +195,16 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Enums\UserPermissions.cs" />
+    <Compile Include="Enums\UserRoles.cs" />
+    <Compile Include="Enums\UserStatus.cs" />
+    <Compile Include="Enums\EmailVisibility.cs" />
+    <Compile Include="Enums\UserType.cs" />
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
@@ -208,6 +214,7 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="TildeModifyingVPP.cs" />
     <Compile Include="Controllers\HomeController.cs" />

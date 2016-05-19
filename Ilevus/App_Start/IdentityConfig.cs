@@ -86,22 +86,35 @@ namespace ilevus.App_Start
             var userManager = new IlevusUserManager(new IlevusUserStore(db));
             var roleManager = new IlevusRoleManager(new IlevusRoleStore(db));
 
-            const string name = "admin@ilevus.com";
+            const string email = "admin@ilevus.com";
             const string password = "Admin@12345";
+
             const string roleName = "SysAdmin";
 
             //Create Role Admin if it does not exist
             var role = roleManager.FindByName(roleName);
             if (role == null)
             {
-                role = new IlevusRole(roleName);
+                role = new IlevusRole(roleName)
+                {
+                    Description = "Todas as permissões do sistema."
+                };
                 var roleresult = roleManager.Create(role);
             }
 
-            var user = userManager.FindByName(name);
+            var user = userManager.FindByName(email);
             if (user == null)
             {
-                user = new IlevusUser { UserName = name, Email = name };
+                user = new IlevusUser {
+                    UserName = email,
+                    Email = email,
+                    Name = "Administrador",
+                    Surname = "do Sistema",
+                    Address = "Sede da Ilevus",
+                    Sex = "N/A",
+                    PhoneNumber = "+55 31 9 9999-9999",
+                    Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
+                };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
@@ -111,6 +124,48 @@ namespace ilevus.App_Start
             if (!rolesForUser.Contains(role.Name))
             {
                 var result = userManager.AddToRole(user.Id, role.Name);
+            }
+
+
+            const string userEmail = "user@ilevus.com";
+            const string userPassword = "User@12345";
+
+            const string userRoleName = "User";
+
+            //Create Role Admin if it does not exist
+            var userRole = roleManager.FindByName(userRoleName);
+            if (userRole == null)
+            {
+                userRole = new IlevusRole(userRoleName)
+                {
+                    Description = "Usuário comum do sistema."
+                };
+                roleManager.Create(userRole);
+            }
+
+            var commonUser = userManager.FindByName(userEmail);
+            if (commonUser == null)
+            {
+                commonUser = new IlevusUser
+                {
+                    UserName = userEmail,
+                    Email = userEmail,
+                    Name = "Usuário",
+                    Surname = "Exemplo",
+                    Address = "Sede da Ilevus",
+                    Sex = "N/A",
+                    PhoneNumber = "+55 31 9 8888-8888",
+                    Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
+                };
+                var result = userManager.Create(commonUser, userPassword);
+                result = userManager.SetLockoutEnabled(commonUser.Id, false);
+            }
+
+            // Add user admin to Role Admin if not already added
+            var rolesForCommonUser = userManager.GetRoles(commonUser.Id);
+            if (!rolesForCommonUser.Contains(userRole.Name))
+            {
+                var result = userManager.AddToRole(commonUser.Id, userRole.Name);
             }
         }
     }

@@ -21,8 +21,8 @@ namespace ilevus
             ConfigureAuth(app);
 
             app.UseErrorPage(ErrorPageOptions.ShowAll);
-            HttpConfiguration config = WebApiConfig.Create();
-            app.UseWebApi(config);
+            //GlobalConfiguration.Configure(WebApiConfig.Register);
+            app.UseWebApi(WebApiConfig.Create());
         }
     }
 }

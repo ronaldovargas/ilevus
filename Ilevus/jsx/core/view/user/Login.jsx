@@ -34,7 +34,7 @@ module.exports = React.createClass({
 			data: data
 		});
 	},
-	componentWillMount() {
+	componentDidMount() {
 		var me = this;
 		UserSession.on("login", model => {
 			location.assign("#/home");
@@ -42,11 +42,8 @@ module.exports = React.createClass({
 		UserSession.on("loaded", () => {
 			me.setState({loaded: true});
 		}, me);
-
-	},
-	componentDidMount() {
 		if (!!UserSession.get("logged")) {
-			location.assign("#/home");
+		    location.assign("#/home");
 		}
 	},
 	componentWillUnmount() {

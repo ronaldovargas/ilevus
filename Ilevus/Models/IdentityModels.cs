@@ -9,14 +9,30 @@ using System.Linq;
 using ElCamino.AspNet.Identity.Dynamo.Helpers;
 using Amazon.DynamoDBv2.DataModel;
 using ilevus.App_Start;
+using ilevus.Enums;
 
 namespace ilevus.Models
 {
     [DynamoDBTable(ElCamino.AspNet.Identity.Dynamo.Constants.TableNames.UsersTable)]
     public class IlevusUser : IdentityUser<string, IlevusUserLogin, IlevusUserRole, IlevusUserClaim>, IGenerateKeys
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Sex { get; set; }
+        public DateTime Creation { get; set; }
+        public string Image { get; set; }
+        public string Address { get; set; }
+
+        public UserType Type { get; set; }
+        public EmailVisibility EmailVisibility { get; set; }
+        public UserStatus Status { get; set; }
+
         public IlevusUser()
         {
+            this.Type = UserType.Client;
+            this.EmailVisibility = EmailVisibility.Public;
+            this.Status = UserStatus.Active;
+            this.Creation = DateTime.Now;
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)
@@ -25,22 +41,12 @@ namespace ilevus.Models
             // Add custom user claims here
             return userIdentity;
         }
-
-        /// <summary>
-        /// Generates Row, Partition and Id keys.
-        /// All are the same in this case
-        /// </summary>
+        
         public void GenerateKeys()
         {
             Id = PeekRowKey();
             UserId = Id;
         }
-
-        /// <summary>
-        /// Generates the RowKey without setting it on the object.
-        /// In this case, just returns a new guid
-        /// </summary>
-        /// <returns></returns>
         public string PeekRowKey()
         {
             return Guid.NewGuid().ToString();
@@ -50,9 +56,10 @@ namespace ilevus.Models
     [DynamoDBTable(ElCamino.AspNet.Identity.Dynamo.Constants.TableNames.RolesTable)]
     public class IlevusRole : IdentityRole<string, IlevusUserRole>, IGenerateKeys
     {
+        public string Description { get; set; }
+
         public IlevusRole()
         {
-            this.Id = Guid.NewGuid().ToString();
         }
 
         public IlevusRole(string name)

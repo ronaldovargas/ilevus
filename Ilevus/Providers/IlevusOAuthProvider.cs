@@ -1,5 +1,6 @@
 ﻿using ilevus.App_Start;
 using ilevus.Models;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
@@ -28,17 +29,19 @@ namespace ilevus.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            IlevusUserManager userManager = context.OwinContext.Get<IlevusUserManager>("");
+            IlevusUserManager userManager = context.OwinContext.GetUserManager<IlevusUserManager>();
             IlevusUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", Messages.AuthInvalidUserCredentials);
                 return;
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
             ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
+
+            oAuthIdentity.AddClaims(IlevusPermissionsProvider.GetPermissionClaims(user, oAuthIdentity));
 
             AuthenticationProperties properties = CreateProperties(user.UserName);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);

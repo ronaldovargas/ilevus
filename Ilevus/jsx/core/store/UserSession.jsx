@@ -17,7 +17,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 
 	BACKEND_URL: BACKEND_URL,
-	url: BACKEND_URL + "user",
+	url: BACKEND_URL + "User",
 	$dispatcher: new Dispatcher(),
 	dispatch(payload) {
 		this.$dispatcher.dispatch(payload);
@@ -37,12 +37,8 @@ var UserSession = Backbone.Model.extend({
 	initialize() {
 		this.dispatchToken = this.$dispatcher.register(this.dispatchCallback.bind(this));
 		if (localStorage.token && (localStorage.token != "")) {
-			$.ajaxSetup({
-				headers: {
-					"Authorization": localStorage.token
-				}
-			});
-			this.set({loading: true});
+		    this.setAuthorization(localStorage.token);
+		    this.set({loading: true});
 			this.refreshStatus(true);
 		} else {
 			this.set({loading: false});
@@ -68,25 +64,27 @@ var UserSession = Backbone.Model.extend({
 		localStorage.token = token;
 		localStorage.userId = userId;
 	},
+	setAuthorization(token) {
+	    $.ajaxSetup({
+	        headers: {
+	            "Authorization": "Bearer "+token
+	        }
+	    });
+	},
 
 	refreshStatus(initial) {
 		var me = this;
 		$.ajax({
 			method: "GET",
-			url: BACKEND_URL + "user/session",
+			url: me.url + "/UserInfo",
 			dataType: 'json',
 			success(data, status, opts) {
-				if (data.success) {
-					me.set({
-						"logged": true,
-						"user": data.data.user,
-						"accessLevel": data.data.accessLevel,
-						"permissions": data.data.permissions
-					});
-					me.trigger("login", me);
-				} else {
-					me.trigger("fail", data.message);
-				}
+			    console.log(data);
+				me.set({
+					"logged": true,
+					"user": data
+				});
+				me.trigger("login", me);
 				if (me.get("loading")) {
 					me.set({loading: false});
 					me.trigger("loaded", true);
@@ -104,7 +102,11 @@ var UserSession = Backbone.Model.extend({
 
 	handleRequestErrors(collection, opts) {
 		if (opts.status == 400) {
-			this.trigger("fail", opts.responseJSON.message);
+		    if (opts.responseJSON.error_description) {
+		        this.trigger("fail", opts.responseJSON.error_description);
+		    } else {
+		        this.trigger("fail", opts.responseJSON.error);
+		    }
 		} else if (opts.status == 409) {
 			// Validation errors
 			try {
@@ -135,28 +137,17 @@ var UserSession = Backbone.Model.extend({
 		} else {
 			$.ajax({
 				method: "POST",
-				url: BACKEND_URL + "user/login",
+				url: BACKEND_URL + "Token",
 				dataType: 'json',
-				data: data,
+				data: {
+				    "grant_type": "password",
+				    "username": data.email,
+                    "Password": data.password
+				},
 				success(data, status, opts) {
-					console.log(data);
-					if (data.success) {
-						$.ajaxSetup({
-							headers: {
-								"Authorization": data.data.token
-							}
-						});
-						me.putStorage(data.data.token, data.data.user.id);
-						me.set({
-							"logged": true,
-							"user": data.data.user,
-							"accessLevel": data.data.accessLevel,
-							"permissions": data.data.permissions
-						});
-						me.trigger("login", me);
-					} else {
-						me.trigger("fail", data.message);
-					}
+				    me.putStorage(data.access_token, data.userName);
+				    me.setAuthorization(data.access_token);
+				    me.refreshStatus();
 				},
 				error(opts, status, errorMsg) {
 					me.handleRequestErrors([], opts);
@@ -166,25 +157,22 @@ var UserSession = Backbone.Model.extend({
 	},
 	logout() {
 		var me = this;
-		$.ajax({
+		var promise = $.ajax({
 			method: "POST",
-			url: BACKEND_URL + "user/logout",
-			dataType: 'json',
-			success(data, status, opts) {
-				me.set({logged: false, user: null});
-				$.ajaxSetup({
-					headers: {
-						"Authorization": null
-					}
-				});
-				me.clearStorage();
-				me.trigger("logout");
-				location.assign("#/");
-			},
-			error(opts, status, errorMsg) {
-				me.handleRequestErrors([], opts);
-			}
-		});
+			url: me.url + "/Logout",
+			dataType: 'json'
+		}).fail(onLogout).then(onLogout);
+		function onLogout() {
+		    me.set({ logged: false, user: null });
+		    $.ajaxSetup({
+		        headers: {
+		            "Authorization": null
+		        }
+		    });
+		    me.clearStorage();
+		    me.trigger("logout");
+		    location.assign("#/");
+		}
 	},
 
 	recoverPassword(params) {

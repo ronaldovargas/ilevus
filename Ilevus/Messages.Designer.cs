@@ -61,6 +61,15 @@ namespace ilevus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-mail e/ou senha inválido(s)..
+        /// </summary>
+        internal static string AuthInvalidUserCredentials {
+            get {
+                return ResourceManager.GetString("AuthInvalidUserCredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         internal static string LabelEmail {

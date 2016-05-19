@@ -15,7 +15,8 @@ namespace ilevus
 {
     public partial class Startup
     {
-        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static OAuthAuthorizationServerOptions OAuthAuthzOpts { get; private set; }
+        public static OAuthBearerAuthenticationOptions OAuthBearerOpts { get; private set; }
         public static string PublicClientId { get; private set; }
 
         public void ConfigureAuth(IAppBuilder app)
@@ -29,17 +30,22 @@ namespace ilevus
 
             // Configure the application for OAuth based flow
             PublicClientId = "self";
-            OAuthOptions = new OAuthAuthorizationServerOptions
+            OAuthAuthzOpts = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
+                TokenEndpointPath = new PathString("/api/Token"),
                 Provider = new IlevusOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/User/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true
             };
+            OAuthBearerOpts = new OAuthBearerAuthenticationOptions
+            {
+                AuthenticationMode = Microsoft.Owin.Security.AuthenticationMode.Active
+            };
 
             // Enable the application to use bearer tokens to authenticate users
-            app.UseOAuthBearerTokens(OAuthOptions);
+            app.UseOAuthBearerAuthentication(OAuthBearerOpts);
+            app.UseOAuthBearerTokens(OAuthAuthzOpts);
 
             // ... Code for third-part logins omitted for brevity ...
         }
