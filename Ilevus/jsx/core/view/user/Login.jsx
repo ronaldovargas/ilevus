@@ -49,9 +49,6 @@ module.exports = React.createClass({
 	    return (<div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
-                    <div className="p-y-3 text-xs-center">
-                      <img src={AppLogo} />
-                    </div>
                     
                     <form className="p-t-3" onSubmit={this.onSubmit}>
                       <div className="form-group">

@@ -120,6 +120,9 @@
   <data name="AuthInvalidUserCredentials" xml:space="preserve">
     <value>E-mail e/ou senha inválido(s).</value>
   </data>
+  <data name="LabelAddress" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
   <data name="LabelEmail" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -131,5 +134,14 @@
   </data>
   <data name="LabelPasswordConfirm" xml:space="preserve">
     <value>Confirme a senha</value>
+  </data>
+  <data name="LabelPhone" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="LabelSex" xml:space="preserve">
+    <value>Gênero</value>
+  </data>
+  <data name="LabelSurname" xml:space="preserve">
+    <value>Sobrenome</value>
   </data>
 </root>

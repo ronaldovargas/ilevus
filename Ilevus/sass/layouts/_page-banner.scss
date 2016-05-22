@@ -1,6 +1,7 @@
 .page-banner {
   padding: $page-banner-padding 0;
   text-align: center;
+  background-color: $brand-light;
 
   @include media-breakpoint-up(sm) {
     padding: ($page-banner-padding * 2) 0;

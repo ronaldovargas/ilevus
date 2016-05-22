@@ -52,25 +52,25 @@ module.exports = React.createClass({
             <button className="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
                 <form className="form-inline pull-sm-left" onSubmit={this.onSearch}>
-                  <input ref="search-term" className="form-element" type="text" />
-                  <button className="btn btn-brand" type="submit">Buscar</button>
+                  <input ref="search-term" className="form-element form-element-sm" style={{borderColor: '#393973'}} type="text" />
+                  <button className="btn btn-brand btn-sm" type="submit">Pesquisar</button>
                 </form>
                 {this.state.logged ? (
                 <ul className="nav navbar-nav pull-sm-right">
                     <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <span className="avatar avatar-xs m-r-1">
-                              <img className="img-fluid" src={this.state.user.Image} alt={this.state.user.Name} />
-                            </span>
-                            <span>{this.state.user.Name}</span>
-                        </a>
+                        <div className="dropdown">
+                            <a id="js-profile-dropdown" href="javascript:void(0)" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span className="avatar avatar-navbar m-r-1">
+                                    <img className="img-fluid" src="http://static2.blastingnews.com/media/photogallery/2016/4/26/290x290/b_290x290/tudo-pode-mudar-para-jon-snow-no-episodio-3_687287.jpg" alt={this.state.user.Name} />
+                                </span>
+                                <span style={{color: '#fff', fontSize: '13px', fontWeight: '600'}}>{this.state.user.Name}</span>
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
+                                <a className="dropdown-item" href="#">Notificações</a>
+                                <a className="dropdown-item" href="#" onClick={this.onLogout}>Logout</a>
+                            </div>
+                        </div>
                     </li>
-			        <li className="nav-item" title="Notificações">
-                        <a className="nav-link" href="#">Notificações</a>
-                    </li>
-			        <li className="nav-item">
-				        <a className="nav-link" onClick={this.onLogout}>Logout</a>
-			        </li>
                 </ul>
                 ) : (
                 <ul className="nav navbar-nav pull-sm-right">
@@ -85,22 +85,5 @@ module.exports = React.createClass({
             </div>
           </div>
         </nav>);
-        /*<div className="ilevus-top-bar">
-			    <span className="ilevus-fill" />
-			    <span style={{
-			            marginRight: '5px',
-			            height: '50px',
-			            width: '50px',
-			            borderRadius: '100%',
-			            backgroundPosition: 'center',
-                        backgroundSize: 'auto 100%',
-			            backgroundImage: "url(" + this.state.user.Image+")"
-			        }} />
-			    <span>{this.state.user.Name}</span>
-			    <span title="Notificações" className="mdi mdi-bell" />
-			    <a onClick={this.onLogout}>
-				    <span title="Sair" className="mdi mdi-logout" />
-			    </a>
-		</div>);*/
     }
 });

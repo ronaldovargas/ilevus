@@ -31,9 +31,6 @@ module.exports = React.createClass({
 		return (<div className="container">
                 <div className="row">
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
-                    <div className="p-y-3 text-xs-center">
-                      <img src={AppLogo} />
-                    </div>
 
                     <form className="p-t-3">
                       <p className="font-weight-bold">Recuperar senha</p>
@@ -43,7 +40,7 @@ module.exports = React.createClass({
                           confirmar a solicitação.
                       </p>
                       <div className="form-group">
-                        <label className="form-element-label" for="email">{Messages.get("LabelEmail")}</label>
+                        <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
                         <input className="form-element" id="email" name="email" type="email" />
                       </div>
                       <div className="form-group row">

@@ -25,6 +25,10 @@
     @include size($avatar-img-xl);
   }
 
+  &-navbar {
+    @include size($avatar-img-navbar);
+  }
+
   &-circle {
     border-radius: 50%;
   }

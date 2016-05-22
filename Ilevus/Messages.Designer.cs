@@ -70,6 +70,15 @@ namespace ilevus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endereço.
+        /// </summary>
+        internal static string LabelAddress {
+            get {
+                return ResourceManager.GetString("LabelAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         internal static string LabelEmail {
@@ -102,6 +111,33 @@ namespace ilevus {
         internal static string LabelPasswordConfirm {
             get {
                 return ResourceManager.GetString("LabelPasswordConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Telefone.
+        /// </summary>
+        internal static string LabelPhone {
+            get {
+                return ResourceManager.GetString("LabelPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gênero.
+        /// </summary>
+        internal static string LabelSex {
+            get {
+                return ResourceManager.GetString("LabelSex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sobrenome.
+        /// </summary>
+        internal static string LabelSurname {
+            get {
+                return ResourceManager.GetString("LabelSurname", resourceCulture);
             }
         }
     }
