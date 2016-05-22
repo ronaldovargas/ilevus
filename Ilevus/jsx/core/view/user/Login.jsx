@@ -41,13 +41,13 @@ module.exports = React.createClass({
 	componentDidMount() {
 		var me = this;
 		UserSession.on("login", model => {
-			//location.assign("#/home");
+			location.assign("#/home");
 		}, me);
 		UserSession.on("loaded", () => {
 			me.setState({loaded: true});
 		}, me);
 		if (!!UserSession.get("logged")) {
-		    //location.assign("#/home");
+		    location.assign("#/home");
 		}
 	},
 	componentWillUnmount() {

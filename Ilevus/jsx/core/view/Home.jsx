@@ -2,6 +2,10 @@
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 module.exports = React.createClass({
+    onSearch(evt) {
+        evt.preventDefault();
+        location.assign("#/search/" + encodeURI(this.refs['search-term'].value));
+    },
     render() {
         return (<div className="page-banner page-banner-lg" role="banner">
           <div className="container">
@@ -12,9 +16,9 @@ module.exports = React.createClass({
                   Encontre os melhores profissionais de consultoria e coaching para
                   auxiliá-lo em sua carreira.
                 </p>
-                <form className="row p-y-1">
+                <form className="row p-y-1" onSubmit={this.onSearch}>
                   <div className="form-group col-xs-12 col-sm-8 col-md-9">
-                    <input className="form-element form-element-lg" type="text" placeholder="Pesquise por nome, especialidade ou localização..." />
+                    <input ref="search-term" className="form-element form-element-lg" type="text" placeholder="Pesquise por nome, especialidade ou localização..." />
                   </div>
                   <div className="form-group col-xs-12 col-sm-4 col-md-3">
                     <button className="btn btn-lg btn-block btn-warning" type="submit">Pesquisar</button>
