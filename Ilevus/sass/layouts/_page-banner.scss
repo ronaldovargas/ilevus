@@ -1,0 +1,21 @@
+.page-banner {
+  padding: $page-banner-padding 0;
+  text-align: center;
+
+  @include media-breakpoint-up(sm) {
+    padding: ($page-banner-padding * 2) 0;
+  }
+  @include media-breakpoint-up(md) {
+    padding: ($page-banner-padding * 4) 0;
+  }
+  @include media-breakpoint-up(lg) {
+    padding: ($page-banner-padding * 6) 0;
+  }
+  @include media-breakpoint-up(xl) {
+    padding: ($page-banner-padding * 10) 0;
+  }
+}
+
+.page-banner-hr {
+  border-top-color: darken($page-banner-bg, 10%);
+}

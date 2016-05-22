@@ -70,7 +70,7 @@ module.exports = React.createClass({
 	render() {
 		var fieldEl;
 		if (this.props.fieldDef.type == 'checkbox') {
-			fieldEl = (<div className="checkbox"><label>
+			fieldEl = (<div className="checkbox btn btn-block"><label>
 				<input
 					type={this.props.fieldDef.type}
 					name={this.props.fieldDef.name}
@@ -85,7 +85,7 @@ module.exports = React.createClass({
 			fieldEl = (
 				<textarea
 					rows={this.props.fieldDef.rows}
-					className="form-control"
+					className="form-element"
 					placeholder={this.props.fieldDef.placeholder}
 					name={this.props.fieldDef.name}
 					defaultValue={this.props.fieldDef.value}
@@ -97,7 +97,7 @@ module.exports = React.createClass({
 		} else if (this.props.fieldDef.type == 'select') {
 			fieldEl = (
 				<select
-					className="form-control"
+					className="form-element"
 					placeholder={this.props.fieldDef.placeholder}
 					name={this.props.fieldDef.name}
 					defaultValue={this.props.fieldDef.value}
@@ -120,7 +120,7 @@ module.exports = React.createClass({
 			);
 		} else if (this.props.fieldDef.type == 'date') {
 			fieldEl = (<input
-				className="form-control"
+				className="form-element"
 				type='text'
 				name={this.props.fieldDef.name}
 				defaultValue={this.props.fieldDef.value}
@@ -131,7 +131,7 @@ module.exports = React.createClass({
 			/>);
 		} else if (this.props.fieldDef.type == 'daterange') {
 			fieldEl = (<input
-				className="form-control"
+				className="form-element"
 				type='text'
 				name={this.props.fieldDef.name}
 				defaultValue={this.props.fieldDef.value}
@@ -144,7 +144,7 @@ module.exports = React.createClass({
 			return this.props.fieldDef.el;
 		} else {
 			fieldEl = (<input
-				className="form-control"
+				className="form-element"
 				type={this.props.fieldDef.type}
 				name={this.props.fieldDef.name}
 				defaultValue={this.props.fieldDef.value}
@@ -155,8 +155,8 @@ module.exports = React.createClass({
 			/>);
 		}
 		return (
-			<div className={"form-group form-group-sm" + (this.props.fieldDef.type == 'hidden' ? " hidden":"")}>
-				<label htmlFor={this.state.fieldId} className="ilevus-text-label">
+			<div className={"form-group" + (this.props.fieldDef.type == 'hidden' ? " hidden":"")}>
+				<label htmlFor={this.state.fieldId} className="form-element-label">
 					{this.props.fieldDef.label}
 				</label>
 				{fieldEl}

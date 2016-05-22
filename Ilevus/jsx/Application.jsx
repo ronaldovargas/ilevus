@@ -13,9 +13,9 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 module.exports = React.createClass({
     render: function () {
-        return (<div className="ilevus-app-container">
-            <main className="ilevus-app-content">
-			    <TopBar />
+        return (<div>
+			<TopBar />
+            <main className="page-content" role="main">
                 {this.props.children}
 		    </main>
   	    </div>);

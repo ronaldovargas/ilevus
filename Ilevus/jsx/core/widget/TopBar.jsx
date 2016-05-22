@@ -4,7 +4,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
-var Logo = require('ilevus/img/logo.png');
+var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
 
 module.exports = React.createClass({
 	getInitialState() {
@@ -42,20 +42,40 @@ module.exports = React.createClass({
     	console.log("Searching:",this.refs['search'].value);
     },
 
-    openFeedback(evt) {
-    	evt.preventDefault();
-    	Modal.feedbackPost();
-    },
-    openReportProblem(evt) {
-    	evt.preventDefault();
-    	Modal.reportProblem();
-    },
-
 	render() {
-		if (!this.state.logged) {
-			return <div style={{display: 'none'}} />;
-		}
-		return (<div className="ilevus-top-bar">
+	    return (<nav className="navbar navbar-fixed-top navbar-dark bg-primary">
+          <div className="container">
+            <a className="navbar-brand" href="#/">
+              <img src={LogoWhite} />
+            </a>
+            <button className="navbar-toggler hidden-sm-up pull-right-xs" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
+            <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
+                <form className="form-inline">
+                  <input className="form-element form-element-sm" type="text" />
+                  <button className="btn btn-sm btn-neutral" type="submit">Buscar</button>
+                </form>
+                {this.state.logged ? (
+                <div className="navbar-nav">
+                    <span className="nav-item" style={{
+			                marginRight: '5px',
+			                height: '50px',
+			                width: '50px',
+			                borderRadius: '100%',
+			                backgroundPosition: 'center',
+                            backgroundSize: 'auto 100%',
+			                backgroundImage: "url(" + this.state.user.Image+")"
+			            }} />
+			        <span className="nav-item">{this.state.user.Name}</span>
+			        <span className="nav-item" title="Notificações">Notificações</span>
+			        <a className="nav-item" onClick={this.onLogout}>
+				        <span title="Sair">Logout</span>
+			        </a>
+                </div>
+                ):""}
+            </div>
+          </div>
+        </nav>);
+        /*<div className="ilevus-top-bar">
 			    <span className="ilevus-fill" />
 			    <span style={{
 			            marginRight: '5px',
@@ -71,6 +91,6 @@ module.exports = React.createClass({
 			    <a onClick={this.onLogout}>
 				    <span title="Sair" className="mdi mdi-logout" />
 			    </a>
-		</div>);
+		</div>);*/
 	  }
 	});

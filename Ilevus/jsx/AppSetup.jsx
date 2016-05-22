@@ -14,7 +14,9 @@ var IndexRedirect = require('react-router').IndexRedirect;
 
 var Application = require("ilevus/jsx/Application.jsx");
 var Error = require("ilevus/jsx/core/view/Error.jsx");
+var Home = require("ilevus/jsx/core/view/Home.jsx");
 var NotFound = require("ilevus/jsx/core/view/NotFound.jsx");
+var Search = require("ilevus/jsx/core/view/Search.jsx");
 
 var Login = require("ilevus/jsx/core/view/user/Login.jsx");
 var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
@@ -29,9 +31,11 @@ Messages.load(function (success) {
         ReactDOM.render((
 	        <Router>
 		        <Route path="/" component={Application }>
-                    <IndexRedirect to="login" />
-                    <Route path="login" component={Login } />
+                    <IndexRedirect to="home" />
+                    <Route path="home" component={Home} />
+                    <Route path="login" component={Login} />
                     <Route path="signup" component={Register} />
+                    <Route path="search/:term" component={Search} />
 
                     <Route path="*" component={NotFound } />
                 </Route>

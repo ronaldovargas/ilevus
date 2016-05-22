@@ -7,7 +7,7 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-var AppLogo = require("ilevus/img/logo.png");
+var AppLogo = require("ilevus/img/ilevus-logo-60px.png");
 
 var VerticalForm = Form.VerticalForm;
 
@@ -25,6 +25,10 @@ module.exports = React.createClass({
 				type: "password",
 				placeholder: "",
 				label: Messages.get("LabelPassword")
+			},{
+			    name: "stayconnected",
+			    type: "checkbox",
+			    placeholder: "Permanecer conectado"
 			}]
 		};
 	},
@@ -37,13 +41,13 @@ module.exports = React.createClass({
 	componentDidMount() {
 		var me = this;
 		UserSession.on("login", model => {
-			location.assign("#/home");
+			//location.assign("#/home");
 		}, me);
 		UserSession.on("loaded", () => {
 			me.setState({loaded: true});
 		}, me);
 		if (!!UserSession.get("logged")) {
-		    location.assign("#/home");
+		    //location.assign("#/home");
 		}
 	},
 	componentWillUnmount() {
@@ -53,42 +57,34 @@ module.exports = React.createClass({
 		if (!this.state.loaded) {
 			return <LoadingGauge />;
 		}
-		return (
-			<div className="container-fluid">
-				<div className="row">
-					<div className="col-xs-12 text-center">
-						<div className="ilevus-login-header">
-							<img className="ilevus-login-brand" src={AppLogo} alt="ilevus Logo" />
-							<h1>Faça seu login</h1>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-md-4 col-md-offset-4">
-						<div className="ilevus-card">
-							<div className="ilevus-login-body">
-								<VerticalForm
-									onSubmit={this.onSubmit}
-									fields={this.state.fields}
-									store={UserSession}
-									submitLabel="Fazer Login"
-									blockButtons={true}
-								/>
-							</div>
-
-							<div className="ilevus-login-footer">
-								<div className="row">
-									<div className="col-md-12 text-center">
-										<p><Link to="/recover-password">Esqueceu sua senha?</Link></p>
-										<p><Link to="/signup">Não é cadastrado? Cadastre-se grátis.</Link></p>
-									</div>
-									<br/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+	    return (<div className="container">
+                <div className="row">
+                  <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
+                    <div className="p-y-3 text-xs-center">
+                      <img src={AppLogo} />
+                    </div>
+                    <VerticalForm className="p-t-3"
+                                  onSubmit={this.onSubmit}
+                                  fields={this.state.fields}
+                                  store={UserSession}
+                                  submitLabel="Entrar"
+                                  blockButtons={true} />
+                    <div className="text-xs-center">
+                      <ul className="list-unstyled list-inline">
+                        <li>
+                            <Link to="/signup">Criar uma conta</Link>
+                        </li>
+                        <li> · </li>
+                        <li>
+                            <Link to="/recover-password">Recuperar senha</Link>
+                        </li>
+                      </ul>
+                      <p className="text-muted small p-t-2">
+                          ©2016 Ilevus. Todos os direitos reservados.
+                      </p>
+                    </div>
+                  </div>
+            </div>
+        </div>);
 	}
 });

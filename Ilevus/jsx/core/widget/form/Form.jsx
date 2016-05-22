@@ -5,7 +5,8 @@ var VerticalInput = require("ilevus/jsx/core/widget/form/VerticalInput.jsx");
 
 var VerticalForm =  React.createClass({
 	getDefaultProps() {
-		return {
+	    return {
+            className: "",
 			fields: [],
 			onCancel: null,
 			onSubmit: null,
@@ -106,7 +107,7 @@ var VerticalForm =  React.createClass({
 				</div>);
 			}
 		}
-		return (<form onSubmit={this.submitWrapper}>
+	    return (<form onSubmit={this.submitWrapper} className={this.props.className}>
 			{alerts}
 			{this.props.fields.map(field => {
 				return (<VerticalInput
@@ -118,7 +119,7 @@ var VerticalForm =  React.createClass({
 			})}
 			{!!this.props.blockButtons ?
 				(<div className="form-group">
-					<button type="submit" className="btn btn-primary btn-block">{this.props.submitLabel}</button>
+					<button type="submit" className="btn btn-brand btn-block">{this.props.submitLabel}</button>
 					{!this.props.cancelUrl ?
 						"":(
 							<a href={this.props.cancelUrl} className="btn btn-default btn-block">{this.props.cancelLabel}</a>
@@ -127,7 +128,7 @@ var VerticalForm =  React.createClass({
 				:
 				(<div className="form-group text-right">
 					<button className="btn btn-default" onClick={this.cancelWrapper}>{this.props.cancelLabel}</button>
-					<button type="submit" className="btn btn-primary">{this.props.submitLabel}</button>
+					<button type="submit" className="btn btn-brand">{this.props.submitLabel}</button>
 				</div>)
 			}
 		</form>);
