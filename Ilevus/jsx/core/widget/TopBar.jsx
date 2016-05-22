@@ -1,5 +1,6 @@
 
 var React = require("react");
+var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -68,16 +69,16 @@ module.exports = React.createClass({
                         <a className="nav-link" href="#">Notificações</a>
                     </li>
 			        <li className="nav-item">
-				        <a className="nav-link" href="#" onClick={this.onLogout}>Logout</a>
+				        <a className="nav-link" onClick={this.onLogout}>Logout</a>
 			        </li>
                 </ul>
                 ) : (
                 <ul className="nav navbar-nav pull-sm-right">
 			        <li className="nav-item">
-                        <a className="nav-link" href="#/signup">Cadastrar</a>
+                        <Link className="nav-link" to="/signup">Cadastrar</Link>
                     </li>
 			        <li className="nav-item">
-				        <a className="nav-link" href="#/login">Entrar</a>
+				        <Link className="nav-link" to="/login">Entrar</Link>
 			        </li>
                 </ul>
                 )}
