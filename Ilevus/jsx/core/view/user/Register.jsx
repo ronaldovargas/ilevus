@@ -1,15 +1,12 @@
 
 var React = require("react");
 var Link = require("react-router").Link;
-var Form = require("ilevus/jsx/core/widget/form/Form.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var AppLogo = require("ilevus/img/logo.png");
-
-var VerticalForm = Form.VerticalForm;
 
 module.exports = React.createClass({
     contextTypes: {
@@ -59,7 +56,7 @@ module.exports = React.createClass({
                       </div>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                        <input className="form-element" id="email" name="email" type="text" />
+                        <input className="form-element" id="email" name="email" type="email" />
                       </div>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="phoneNumber">{Messages.get("LabelPhone")}</label>

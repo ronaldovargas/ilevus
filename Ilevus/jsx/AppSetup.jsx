@@ -34,6 +34,7 @@ Messages.load(function (success) {
                     <IndexRedirect to="home" />
                     <Route path="home" component={Home} />
                     <Route path="login" component={Login} />
+                    <Route path="recover-password" component={RecoverPassword} />
                     <Route path="signup" component={Register} />
                     <Route path="search/:term" component={Search} />
 

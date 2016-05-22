@@ -1,22 +1,15 @@
 
 var React = require("react");
-var Form = require("ilevus/jsx/core/widget/form/Form.jsx");
+var Link = require("react-router").Link;
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var AppLogo = require("ilevus/img/logo.png");
-
-var VerticalForm = Form.VerticalForm;
 
 module.exports = React.createClass({
 	getInitialState() {
 		return {
-			fields: [{
-				name: "email",
-				type: "email",
-				placeholder: "",
-				label: "E-mail"
-			}]
 		};
 	},
 	onSubmit(data) {
@@ -35,35 +28,41 @@ module.exports = React.createClass({
 		UserSession.off(null, null, this);
 	},
 	render() {
-		return (
-			<div className="container-fluid">
-				<div className="row">
-					<div className="col-md-4 col-md-offset-4 text-center">
-						<div className="ilevus-login-header">
-							<img className="ilevus-login-brand" src={AppLogo} alt="ilevus Logo" />
-							<h1>Recupere sua senha</h1>
-							<p>Informe o endereço de e-mail cadastrado que enviaremos um link para você recuperar sua senha de acesso.</p>
-						</div>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-md-4 col-md-offset-4">
-						<div className="ilevus-card">
-							<div className="ilevus-login">
-								<div className="ilevus-login-body">
-									<VerticalForm
-										onSubmit={this.onSubmit}
-										fields={this.state.fields}
-										store={UserSession}
-										submitLabel="Enviar email de recuperação"
-										blockButtons={true}
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		);
+		return (<div className="container">
+                <div className="row">
+                  <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
+                    <div className="p-y-3 text-xs-center">
+                      <img src={AppLogo} />
+                    </div>
+
+                    <form className="p-t-3">
+                      <p className="font-weight-bold">Recuperar senha</p>
+                      <p>
+                          Nós iremos enviar instruções de como recuperar sua senha para o
+                          email em que você se cadastrou. Confira sua caixa de entrada após
+                          confirmar a solicitação.
+                      </p>
+                      <div className="form-group">
+                        <label className="form-element-label" for="email">{Messages.get("LabelEmail")}</label>
+                        <input className="form-element" id="email" name="email" type="email" />
+                      </div>
+                      <div className="form-group row">
+                        <div className="col-xs-12 col-sm-6">
+                          <input type="submit" value="Recuperar senha" className="btn btn-brand btn-block" />
+                        </div>
+                        <div className="col-xs-12 col-sm-6">
+                          <Link to="/login" className="btn btn-link btn-block">Voltar para o login</Link>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div className="text-xs-center">
+                      <p className="text-muted small p-t-2">
+                          ©2016 Ilevus. Todos os direitos reservados.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+		</div>);
 	}
 });

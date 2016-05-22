@@ -1,15 +1,12 @@
 
 var React = require("react");
 var Link = require("react-router").Link;
-var Form = require("ilevus/jsx/core/widget/form/Form.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-var AppLogo = require("ilevus/img/ilevus-logo-60px.png");
-
-var VerticalForm = Form.VerticalForm;
+var AppLogo = require("ilevus/img/logo.png");
 
 module.exports = React.createClass({
 	getInitialState() {
