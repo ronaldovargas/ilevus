@@ -37,9 +37,9 @@ module.exports = React.createClass({
             action: UserSession.ACTION_LOGOUT
         });
     },
-    onSearch(evt, id) {
+    onSearch(evt) {
     	evt.preventDefault();
-    	console.log("Searching:",this.refs['search'].value);
+    	location.assign("#/search/"+encodeURI(this.refs['search-term'].value));
     },
 
 	render() {
@@ -50,8 +50,8 @@ module.exports = React.createClass({
             </a>
             <button className="navbar-toggler hidden-sm-up pull-right-xs" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
-                <form className="form-inline">
-                  <input className="form-element form-element-sm" type="text" />
+                <form className="form-inline" onSubmit={this.onSearch}>
+                  <input ref="search-term" className="form-element form-element-sm" type="text" />
                   <button className="btn btn-sm btn-neutral" type="submit">Buscar</button>
                 </form>
                 {this.state.logged ? (
