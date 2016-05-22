@@ -1,8 +1,17 @@
-﻿var React = require("react");
+﻿
+var _ = require("underscore");
+var $ = require("jquery");
+var React = require("react");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Collapse = require("ilevus/jsx/vendor/anvil.js").collapse;
 
 module.exports = React.createClass({
     render() {
+        _.defer(() => {
+            $('[data-toggle="tooltip"]').tooltip({
+                animation: true
+            });
+        });
         return (<div>
           <div className="m-y-3" role="banner">
             <div className="container">
