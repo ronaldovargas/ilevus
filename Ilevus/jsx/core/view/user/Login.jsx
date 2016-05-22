@@ -14,25 +14,17 @@ var VerticalForm = Form.VerticalForm;
 module.exports = React.createClass({
 	getInitialState() {
 		return {
-			loaded: !UserSession.get("loading"),
-			fields: [{
-				name: "email",
-				type: "email",
-				placeholder: "",
-				label: Messages.get("LabelEmail")
-			},{
-				name: "password",
-				type: "password",
-				placeholder: "",
-				label: Messages.get("LabelPassword")
-			},{
-			    name: "stayconnected",
-			    type: "checkbox",
-			    placeholder: "Permanecer conectado"
-			}]
+			loaded: !UserSession.get("loading")
 		};
 	},
-	onSubmit(data) {
+	onSubmit(evt) {
+	    evt.preventDefault();
+	    var data = {
+	        email: this.refs['email'].value,
+	        password: this.refs['password'].value,
+	        stayconnected: this.refs['stayconnected'].checked
+	    };
+	    console.log(data);
 		UserSession.dispatch({
 			action: UserSession.ACTION_LOGIN,
 			data: data
@@ -63,12 +55,31 @@ module.exports = React.createClass({
                     <div className="p-y-3 text-xs-center">
                       <img src={AppLogo} />
                     </div>
-                    <VerticalForm className="p-t-3"
-                                  onSubmit={this.onSubmit}
-                                  fields={this.state.fields}
-                                  store={UserSession}
-                                  submitLabel="Entrar"
-                                  blockButtons={true} />
+                    
+                    <form className="p-t-3" onSubmit={this.onSubmit}>
+                      <div className="form-group">
+                        <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                        <input className="form-element" id="email" name="email" type="email"  ref="email" />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
+                        <input className="form-element" id="password" name="password" type="password"  ref="password" />
+                      </div>
+                      <div className="form-group row">
+                        <div className="col-xs-12 col-sm-6 pull-sm-right">
+                          <div className="checkbox btn btn-block">
+                            <label htmlFor="stay-connected">
+                              <input type="checkbox" id="stay-connected" ref="stayconnected" />
+                                Permanecer conectado
+                            </label>
+                          </div>
+                        </div>
+                        <div className="col-xs-12 col-sm-6">
+                          <input type="submit" value="Entrar" className="btn btn-brand btn-block" />
+                        </div>
+                      </div>
+                    </form>
+
                     <div className="text-xs-center">
                       <ul className="list-unstyled list-inline">
                         <li>

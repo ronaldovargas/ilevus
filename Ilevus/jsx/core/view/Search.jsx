@@ -19,7 +19,7 @@ module.exports = React.createClass({
                       <option>Localização</option>
                     </select>
                     <div className="checkbox">
-                      <label className="checkbox-inline" for="filter-online">
+                      <label className="checkbox-inline" htmlFor="filter-online">
                         <input type="checkbox" id="filter-online" />
                           Atendem online
                       </label>
