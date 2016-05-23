@@ -218,8 +218,8 @@
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\UserBindingModels.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -245,6 +245,7 @@
     <Content Include="jsx\core\view\user\Login.jsx" />
     <Content Include="jsx\core\view\user\RecoverPassword.jsx" />
     <Content Include="jsx\core\view\user\ResetPassword.jsx" />
+    <Content Include="jsx\core\widget\ErrorAlert.jsx" />
     <Content Include="jsx\core\widget\form\EditableDataView.jsx" />
     <Content Include="jsx\core\widget\form\Form.jsx" />
     <Content Include="jsx\core\widget\form\HorizontalInput.jsx" />
@@ -256,7 +257,12 @@
     <Content Include="jsx\core\widget\Popover.jsx" />
     <Content Include="jsx\core\widget\TopBar.jsx" />
     <Content Include="jsx\vendor\anvil.js" />
+    <Content Include="jsx\vendor\anvil\alert.jsx" />
+    <Content Include="jsx\vendor\anvil\button.jsx" />
+    <Content Include="jsx\vendor\anvil\carousel.jsx" />
     <Content Include="jsx\vendor\anvil\collapse.jsx" />
+    <Content Include="jsx\vendor\anvil\dropdown.jsx" />
+    <Content Include="jsx\vendor\anvil\modal.jsx" />
     <Content Include="jsx\vendor\anvil\tooltip.jsx" />
     <Content Include="jsx\vendor\anvil\util.jsx" />
     <Content Include="jsx\vendor\daterangepicker.js" />
@@ -281,8 +287,6 @@
     <None Include="Project_Readme.html" />
     <Content Include="sass\anvil-flex.scss" />
     <Content Include="sass\anvil.scss" />
-    <Content Include="sass\_bootstrap.scss" />
-    <Content Include="sass\_mr.style.scss" />
     <Content Include="sass\components\_avatar.scss" />
     <Content Include="sass\components\_button-group.scss" />
     <Content Include="sass\components\_buttons.scss" />
@@ -340,10 +344,13 @@
     <Content Include="sass\dependencies\_variables.scss" />
     <Content Include="sass\layouts\_page-banner.scss" />
     <Content Include="sass\layouts\_page-content.scss" />
+    <Content Include="sass\components\_alert.scss" />
+    <Content Include="sass\components\_dropdown.scss" />
+    <Content Include="sass\components\_modal.scss" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Messages.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

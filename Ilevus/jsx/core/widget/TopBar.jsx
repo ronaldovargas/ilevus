@@ -2,12 +2,16 @@
 var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var string = require("string");
 
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
 
 module.exports = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object
+    },
     getInitialState() {
         return {
             user: UserSession.get("user"),
@@ -40,7 +44,9 @@ module.exports = React.createClass({
     },
     onSearch(evt) {
         evt.preventDefault();
-        location.assign("#/search/" + encodeURI(this.refs['search-term'].value));
+        var term = this.refs['search-term'].value;
+        if (!string(term).isEmpty())
+            this.context.router.push("/search/" + encodeURI(term));
     },
 
     render() {
@@ -52,7 +58,7 @@ module.exports = React.createClass({
             <button className="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
                 <form className="form-inline pull-sm-left" onSubmit={this.onSearch}>
-                  <input ref="search-term" className="form-element form-element-sm" style={{borderColor: '#393973'}} type="text" />
+                  <input ref="search-term" className="form-element form-element-sm" style={{borderColor: '#393973'}} type="search" />
                   <button className="btn btn-brand btn-sm" type="submit">Pesquisar</button>
                 </form>
                 {this.state.logged ? (

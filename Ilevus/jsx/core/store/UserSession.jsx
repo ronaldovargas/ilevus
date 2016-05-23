@@ -36,7 +36,11 @@ var UserSession = Backbone.Model.extend({
 	},
 	initialize() {
 		this.dispatchToken = this.$dispatcher.register(this.dispatchCallback.bind(this));
-		if (localStorage.token && (localStorage.token != "")) {
+		if (sessionStorage.token && (sessionStorage.token != "")) {
+		    this.setAuthorization(sessionStorage.token);
+		    this.set({ loading: true });
+		    this.refreshStatus(true);
+		} else if (localStorage.token && (localStorage.token != "")) {
 		    this.setAuthorization(localStorage.token);
 		    this.set({loading: true});
 			this.refreshStatus(true);
@@ -59,10 +63,16 @@ var UserSession = Backbone.Model.extend({
 	clearStorage() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("userId");
+		sessionStorage.removeItem("token");
+		sessionStorage.removeItem("userId");
 	},
-	putStorage(token, userId) {
-		localStorage.token = token;
-		localStorage.userId = userId;
+	putStorage(token, userId, stayconnected) {
+	    if (stayconnected) {
+	        localStorage.token = token;
+	        localStorage.userId = userId;
+	    }
+	    sessionStorage.token = token;
+	    sessionStorage.userId = userId;
 	},
 	setAuthorization(token) {
 	    $.ajaxSetup({
@@ -123,7 +133,8 @@ var UserSession = Backbone.Model.extend({
 	},
 
 	login(data) {
-		var me = this,
+	    var me = this,
+            stayconnected = data.stayconnected,
 			errors = [];
 		if (!(data.email) || (data.email == '')) {
 			errors.push("Digite seu e-mail.");
@@ -145,7 +156,7 @@ var UserSession = Backbone.Model.extend({
                     "Password": data.password
 				},
 				success(data, status, opts) {
-				    me.putStorage(data.access_token, data.userName);
+				    me.putStorage(data.access_token, data.userName, stayconnected);
 				    me.setAuthorization(data.access_token);
 				    me.refreshStatus();
 				},

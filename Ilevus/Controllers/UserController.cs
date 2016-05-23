@@ -408,7 +408,12 @@ namespace ilevus.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new IlevusUser() { UserName = model.Email, Email = model.Email };
+            var user = new IlevusUser() {
+                UserName = model.Email,
+                Email = model.Email,
+                Name = model.Name,
+                Surname = model.Surname
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -417,7 +422,13 @@ namespace ilevus.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(new UserInfoViewModel
+            {
+                Email = user.Email,
+                Creation = user.Creation,
+                Name = user.Name,
+                Surname = user.Surname
+            });
         }
 
         // POST api/Account/RegisterExternal

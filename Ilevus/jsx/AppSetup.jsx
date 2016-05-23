@@ -11,6 +11,8 @@ var ReactDOM = require("react-dom");
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var IndexRedirect = require('react-router').IndexRedirect;
+var IndexRoute = require('react-router').IndexRoute;
+var hashHistory = require('react-router').hashHistory;
 
 var Application = require("ilevus/jsx/Application.jsx");
 var Error = require("ilevus/jsx/core/view/Error.jsx");
@@ -29,7 +31,7 @@ Numeral.language("pt-br");
 Messages.load(function (success) {
     if (success) {
         ReactDOM.render((
-	        <Router>
+	        <Router history={hashHistory}>
 		        <Route path="/" component={Application }>
                     <IndexRedirect to="home" />
                     <Route path="home" component={Home} />

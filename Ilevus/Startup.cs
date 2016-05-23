@@ -3,7 +3,9 @@ using ilevus.Models;
 using Microsoft.Owin;
 using Microsoft.Owin.Diagnostics;
 using Owin;
+using System.Configuration;
 using System.Web.Http;
+using System.Web.ModelBinding;
 
 [assembly: OwinStartup(typeof(ilevus.Startup))]
 
@@ -22,7 +24,9 @@ namespace ilevus
 
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             //GlobalConfiguration.Configure(WebApiConfig.Register);
-            app.UseWebApi(WebApiConfig.Create());
+            HttpConfiguration config = WebApiConfig.Create();
+            app.UseWebApi(config);
+            
         }
     }
 }

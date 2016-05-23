@@ -174,3 +174,14 @@ input[type="button"] {
     width: 100%;
   }
 }
+
+.close {
+    float: right;
+    margin: 0px 0px 5px 5px;
+    cursor: pointer;
+    color: inherit;
+    font-size: 1em;
+    &:hover {
+        text-decoration: none;
+    }
+}

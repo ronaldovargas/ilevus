@@ -42,7 +42,9 @@ var Store = Backbone.Collection.extend({
 	},
 	parse(response, opts) {
 		this.total = response.total;
-	    return response.data;
+		if (response.data)
+		    return response.data;
+		return response;
 	},
 	dispatchCallback(payload) {
 		if (payload.action && payload.action.match(this.dispatchAcceptRegex)) {
@@ -74,7 +76,16 @@ var Store = Backbone.Collection.extend({
 					message: "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseText
 				};
 			}
-			this.trigger("fail", resp.message);
+			if (resp.ModelState) {
+			    var errors = [];
+			    _.each(resp.ModelState, (field) => {
+			        for (var e = 0; e < field.length; e++)
+			            errors.push(field[e]);
+			    });
+			    this.trigger("fail", errors);
+			} else {
+			    this.trigger("fail", resp.Message);
+			}
 		} else if (opts.status == 409) {
 			// Validation errors
 			try {

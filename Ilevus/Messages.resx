@@ -144,4 +144,10 @@
   <data name="LabelSurname" xml:space="preserve">
     <value>Sobrenome</value>
   </data>
+  <data name="ValidationRequired" xml:space="preserve">
+    <value>O campo '{0}' é obrigatório.</value>
+  </data>
+  <data name="ValidationStringLengthMin" xml:space="preserve">
+    <value>O campo '{0}' precisa ter no mínimo {2} caracteres.</value>
+  </data>
 </root>

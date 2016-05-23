@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
+using ilevus;
 
 namespace ilevus.Models
 {
@@ -41,34 +42,34 @@ namespace ilevus.Models
 
     public class RegisterBindingModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "ValidationStringLengthMin", ErrorMessageResourceType = typeof(Messages))]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelPassword")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelPasswordConfirm")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelName")]
+        public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        public string Surname { get; set; }
     }
 
     public class RegisterExternalBindingModel
     {
-        [Required]
-        [Display(Name = "Email")]
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
         public string Email { get; set; }
     }
 

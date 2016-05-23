@@ -22,7 +22,7 @@ namespace ilevus {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Messages {
+    public class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ilevus {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ilevus.Messages", typeof(Messages).Assembly);
@@ -51,7 +51,7 @@ namespace ilevus {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to E-mail e/ou senha inválido(s)..
         /// </summary>
-        internal static string AuthInvalidUserCredentials {
+        public static string AuthInvalidUserCredentials {
             get {
                 return ResourceManager.GetString("AuthInvalidUserCredentials", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Endereço.
         /// </summary>
-        internal static string LabelAddress {
+        public static string LabelAddress {
             get {
                 return ResourceManager.GetString("LabelAddress", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
-        internal static string LabelEmail {
+        public static string LabelEmail {
             get {
                 return ResourceManager.GetString("LabelEmail", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Nome.
         /// </summary>
-        internal static string LabelName {
+        public static string LabelName {
             get {
                 return ResourceManager.GetString("LabelName", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Senha.
         /// </summary>
-        internal static string LabelPassword {
+        public static string LabelPassword {
             get {
                 return ResourceManager.GetString("LabelPassword", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Confirme a senha.
         /// </summary>
-        internal static string LabelPasswordConfirm {
+        public static string LabelPasswordConfirm {
             get {
                 return ResourceManager.GetString("LabelPasswordConfirm", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Telefone.
         /// </summary>
-        internal static string LabelPhone {
+        public static string LabelPhone {
             get {
                 return ResourceManager.GetString("LabelPhone", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Gênero.
         /// </summary>
-        internal static string LabelSex {
+        public static string LabelSex {
             get {
                 return ResourceManager.GetString("LabelSex", resourceCulture);
             }
@@ -135,9 +135,27 @@ namespace ilevus {
         /// <summary>
         ///   Looks up a localized string similar to Sobrenome.
         /// </summary>
-        internal static string LabelSurname {
+        public static string LabelSurname {
             get {
                 return ResourceManager.GetString("LabelSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo &apos;{0}&apos; é obrigatório..
+        /// </summary>
+        public static string ValidationRequired {
+            get {
+                return ResourceManager.GetString("ValidationRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O campo &apos;{0}&apos; precisa ter no mínimo {2} caracteres..
+        /// </summary>
+        public static string ValidationStringLengthMin {
+            get {
+                return ResourceManager.GetString("ValidationStringLengthMin", resourceCulture);
             }
         }
     }

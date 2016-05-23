@@ -10,7 +10,10 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var AppLogo = require("ilevus/img/logo.png");
 
 module.exports = React.createClass({
-	getInitialState() {
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState() {
 		return {
 			loaded: !UserSession.get("loading")
 		};
@@ -31,13 +34,13 @@ module.exports = React.createClass({
 	componentDidMount() {
 		var me = this;
 		UserSession.on("login", model => {
-			location.assign("#/home");
+			me.context.router.push("/home");
 		}, me);
 		UserSession.on("loaded", () => {
 			me.setState({loaded: true});
 		}, me);
 		if (!!UserSession.get("logged")) {
-		    location.assign("#/home");
+		    me.context.router.push("/home");
 		}
 	},
 	componentWillUnmount() {
