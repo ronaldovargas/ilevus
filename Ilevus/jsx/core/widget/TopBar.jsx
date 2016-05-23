@@ -67,7 +67,7 @@ module.exports = React.createClass({
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
                                 <a className="dropdown-item" href="#">Notificações</a>
-                                <a className="dropdown-item" href="#" onClick={this.onLogout}>Logout</a>
+                                <a className="dropdown-item" onClick={this.onLogout}>Logout</a>
                             </div>
                         </div>
                     </li>
