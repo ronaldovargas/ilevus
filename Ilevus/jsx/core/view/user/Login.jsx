@@ -3,6 +3,7 @@ var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var ErrorAlert = require("ilevus/jsx/core/widget/ErrorAlert.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -59,6 +60,9 @@ module.exports = React.createClass({
                         <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
                         <input className="form-element" id="password" name="password" type="password"  ref="password" />
                       </div>
+                    
+                      <ErrorAlert store={UserSession} />
+                      
                       <div className="form-group row">
                         <div className="col-xs-12 col-sm-6 pull-sm-right">
                           <div className="checkbox btn btn-block">
