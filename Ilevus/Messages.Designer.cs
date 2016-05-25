@@ -115,6 +115,15 @@ namespace ilevus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nova senha.
+        /// </summary>
+        public static string LabelPasswordNew {
+            get {
+                return ResourceManager.GetString("LabelPasswordNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telefone.
         /// </summary>
         public static string LabelPhone {

@@ -1,4 +1,5 @@
 ﻿using ilevus.Helpers;
+using log4net;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -9,6 +10,13 @@ namespace ilevus.Controllers
 {
     public class BaseAPIController : ApiController
     {
+        protected readonly ILog Log;
+
+        public BaseAPIController() : base()
+        {
+            this.Log = LogManager.GetLogger(this.GetType());
+        }
+
         protected override void Initialize(HttpControllerContext controllerContext)
         {
             base.Initialize(controllerContext);
