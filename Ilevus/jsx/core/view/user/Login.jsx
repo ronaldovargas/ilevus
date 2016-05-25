@@ -70,8 +70,7 @@ module.exports = React.createClass({
                         <div className="col-xs-12 col-sm-6 pull-sm-right">
                           <div className="checkbox btn btn-block">
                             <label htmlFor="stay-connected">
-                              <input type="checkbox" id="stay-connected" ref="stayconnected" />
-                                Permanecer conectado
+                              <input type="checkbox" id="stay-connected" ref="stayconnected" /> Permanecer conectado
                             </label>
                           </div>
                         </div>

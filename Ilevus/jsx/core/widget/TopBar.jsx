@@ -62,14 +62,14 @@ module.exports = React.createClass({
                   <button className="btn btn-brand btn-sm" type="submit">Pesquisar</button>
                 </form>
                 {this.state.logged ? (
-                <ul className="nav navbar-nav pull-sm-right">
+                <ul className="nav navbar-nav small pull-sm-right">
                     <li className="nav-item">
                         <div className="dropdown">
                             <a id="js-profile-dropdown" href="javascript:void(0)" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="avatar avatar-navbar m-r-1">
                                     <img className="img-fluid" src="http://static2.blastingnews.com/media/photogallery/2016/4/26/290x290/b_290x290/tudo-pode-mudar-para-jon-snow-no-episodio-3_687287.jpg" alt={this.state.user.Name} />
                                 </span>
-                                <span style={{color: '#fff', fontSize: '13px', fontWeight: '600'}}>{this.state.user.Name}</span>
+                                <span style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
                                 <a className="dropdown-item" href="#">Notificações</a>
@@ -79,7 +79,7 @@ module.exports = React.createClass({
                     </li>
                 </ul>
                 ) : (
-                <ul className="nav navbar-nav pull-sm-right">
+                <ul className="nav navbar-nav small pull-sm-right">
 			        <li className="nav-item">
                         <Link className="nav-link" to="/signup">Cadastrar</Link>
                     </li>
