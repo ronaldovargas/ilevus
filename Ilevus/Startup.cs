@@ -4,6 +4,8 @@ using Microsoft.Owin;
 using Microsoft.Owin.Diagnostics;
 using Owin;
 using System.Configuration;
+using System.IO;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.ModelBinding;
 
@@ -15,6 +17,7 @@ namespace ilevus
     {
         public void Configuration(IAppBuilder app)
         {
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
             IlevusDbContext context = IlevusDbContext.Create();
             //context.createIde
             IlevusDbInitializer.Initialize(context);

@@ -135,6 +135,9 @@
   <data name="LabelPasswordConfirm" xml:space="preserve">
     <value>Confirme a senha</value>
   </data>
+  <data name="LabelPasswordNew" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
   <data name="LabelPhone" xml:space="preserve">
     <value>Telefone</value>
   </data>

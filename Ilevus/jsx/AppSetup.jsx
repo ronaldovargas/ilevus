@@ -21,6 +21,7 @@ var NotFound = require("ilevus/jsx/core/view/NotFound.jsx");
 var Search = require("ilevus/jsx/core/view/Search.jsx");
 
 var Login = require("ilevus/jsx/core/view/user/Login.jsx");
+var ConfirmEmail = require("ilevus/jsx/core/view/user/ConfirmEmail.jsx");
 var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
 var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
@@ -36,7 +37,9 @@ Messages.load(function (success) {
                     <IndexRedirect to="home" />
                     <Route path="home" component={Home} />
                     <Route path="login" component={Login} />
+                    <Route path="confirm-email/:email/:token" component={ConfirmEmail} />
                     <Route path="recover-password" component={RecoverPassword} />
+                    <Route path="reset-password/:email/:token" component={ResetPassword} />
                     <Route path="signup" component={Register} />
                     <Route path="search/:term" component={Search} />
 

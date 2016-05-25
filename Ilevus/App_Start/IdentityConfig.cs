@@ -6,6 +6,9 @@ using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace ilevus.App_Start
@@ -38,6 +41,14 @@ namespace ilevus.App_Start
                 RequireLowercase = true,
                 RequireUppercase = false
             };
+
+            // Configure user lockout defaults
+            manager.UserLockoutEnabledByDefault = true;
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+
+            manager.EmailService = new IlevusEmailService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
@@ -65,6 +76,21 @@ namespace ilevus.App_Start
         }
     }
 
+    public class IlevusEmailService : IIdentityMessageService
+    {
+        
+        public Task SendAsync(IdentityMessage message)
+        {
+            SmtpClient client = new SmtpClient() {
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Host = "progolden.com.br",
+                Port = 587,
+                EnableSsl = true,
+                Credentials = new NetworkCredential("smtp@progolden.com.br", "Test!Smtp2016")
+            };
+            return client.SendMailAsync("noreply@ilevus.com", message.Destination, message.Subject, message.Body);
+        }
+    }
 
     public class IlevusDbInitializer
     {

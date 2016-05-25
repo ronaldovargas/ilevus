@@ -20,6 +20,17 @@ namespace ilevus.Models
         [Display(Name = "External access token")]
         public string ExternalAccessToken { get; set; }
     }
+    
+    public class ConfirmEmailBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(Name = "Confirmation code")]
+        public string Code { get; set; }
+    }
 
     public class ChangePasswordBindingModel
     {
@@ -37,6 +48,35 @@ namespace ilevus.Models
         [DataType(DataType.Password)]
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class RecoverPasswordViewModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
+        public string Email { get; set; }
+    }
+
+    public class ResetPasswordBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(Name = "Validation code")]
+        public string Code { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [StringLength(100, MinimumLength = 6, ErrorMessageResourceName = "ValidationStringLengthMin", ErrorMessageResourceType = typeof(Messages))]
+        [DataType(DataType.Password)]
+        [Display(ResourceType = typeof(Messages), Name = "LabelPassword")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(ResourceType = typeof(Messages), Name = "LabelPasswordConfirm")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

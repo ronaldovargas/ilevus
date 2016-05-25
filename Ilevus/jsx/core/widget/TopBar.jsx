@@ -32,6 +32,11 @@ module.exports = React.createClass({
                 logged: false
             });
         }, me);
+
+        UserSession.on("confirmationemail", code => {
+            console.log(encodeURIComponent(code));
+            Modal.alert("Sucesso", "Um e-mail de confirmação foi enviado para o endereço cadastrado.");
+        }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
@@ -47,6 +52,12 @@ module.exports = React.createClass({
         var term = this.refs['search-term'].value;
         if (!string(term).isEmpty())
             this.context.router.push("/search/" + encodeURI(term));
+    },
+    confirmEmail(evt) {
+        evt.preventDefault();
+        UserSession.dispatch({
+            action: UserSession.ACTION_CONFIRMATION_EMAIL
+        });
     },
 
     render() {
@@ -72,6 +83,7 @@ module.exports = React.createClass({
                                 <span style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
+                                <a className="dropdown-item" onClick={this.confirmEmail}>Confirmar e-mail</a>
                                 <a className="dropdown-item" href="#">Notificações</a>
                                 <a className="dropdown-item" onClick={this.onLogout}>Logout</a>
                             </div>

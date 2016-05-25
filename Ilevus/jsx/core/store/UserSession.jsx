@@ -11,6 +11,8 @@ var UserSession = Backbone.Model.extend({
 	ACTION_REFRESH: 'refreshStatus',
 	ACTION_LOGIN: 'login',
 	ACTION_LOGOUT: 'logout',
+	ACTION_CONFIRM_EMAIL: 'confirmEmail',
+	ACTION_CONFIRMATION_EMAIL: 'confirmationEmail',
 	ACTION_RECOVER_PASSWORD: 'recoverPassword',
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
 	ACTION_RESET_PASSWORD: 'resetPassword',
@@ -114,6 +116,8 @@ var UserSession = Backbone.Model.extend({
 		if (opts.status == 400) {
 		    if (opts.responseJSON.error_description) {
 		        this.trigger("fail", opts.responseJSON.error_description);
+		    } else if (opts.responseJSON.Message) {
+		        this.trigger("fail", opts.responseJSON.Message);
 		    } else {
 		        this.trigger("fail", opts.responseJSON.error);
 		    }
@@ -186,15 +190,44 @@ var UserSession = Backbone.Model.extend({
 		}
 	},
 
+	confirmEmail(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/ConfirmEmail",
+	        dataType: 'json',
+            data: params,
+	        success(data, status, opts) {
+	            me.trigger("emailconfirmed", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+	confirmationEmail(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/EmailConfirmation",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("confirmationemail", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 	recoverPassword(params) {
 		var me = this;
 		$.ajax({
 			method: "POST",
-			url: BACKEND_URL + "user/recover",
+			url: me.url + "/RecoverPassword",
 			dataType: 'json',
 			data: params,
 			success(data, status, opts) {
-				console.log("Done:", data);
 				me.trigger("recoverpassword", data);
 			},
 			error(opts, status, errorMsg) {
@@ -222,17 +255,15 @@ var UserSession = Backbone.Model.extend({
 	},
 	resetPassword(params) {
 		var me = this;
-		if (params.password !== params.passwordconfirm) {
+		if (params.Password !== params.ConfirmPassword) {
 			me.trigger("fail", "As senhas digitadas não são iguais.");
 			return;
 		}
 		$.ajax({
 			method: "POST",
-			url: BACKEND_URL + "user/reset/"+params.token,
+			url: me.url + "/ResetPassword",
 			dataType: 'json',
-			data: {
-				password: params.password
-			},
+			data: params,
 			success(data, status, opts) {
 				me.trigger("resetpassword", data);
 			},

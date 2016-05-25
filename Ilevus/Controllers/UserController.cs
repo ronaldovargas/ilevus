@@ -4,6 +4,7 @@ using ilevus.Enums;
 using ilevus.Helpers;
 using ilevus.Models;
 using ilevus.Providers;
+using log4net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -396,6 +397,89 @@ namespace ilevus.Controllers
             }
 
             return logins;
+        }
+
+        // POST: /Account/ConfirmEmail
+        [AllowAnonymous]
+        [Route("ConfirmEmail")]
+        public async Task<IHttpActionResult> ConfirmEmail(ConfirmEmailBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null || await UserManager.IsEmailConfirmedAsync(user.Id))
+            {
+                return BadRequest("Este e-mail não existe ou já foi confirmado.");
+            }
+            var result = await UserManager.ConfirmEmailAsync(user.Id, model.Code);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+            return Ok("E-mail confirmado com sucesso.");
+        }
+
+        // POST: /Account/EmailConfirmation
+        [Route("EmailConfirmation")]
+        public async Task<IHttpActionResult> EmailConfirmation()
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if (await UserManager.IsEmailConfirmedAsync(user.Id))
+            {
+                return BadRequest("Você já confirmou seu e-mail.");
+            }
+            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your e-mail", "Please confirm your e-mail with code: " + code);
+            return Ok(code);
+        }
+
+        // POST: /Account/RecoverPassword
+        [AllowAnonymous]
+        [Route("RecoverPassword")]
+        public async Task<IHttpActionResult> RecoverPassword(RecoverPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    return BadRequest("Este e-mail não está cadastrado no sistema.");
+                }
+
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password with code: " + code);
+                return Ok(code);
+            }
+
+            return BadRequest(ModelState);
+        }
+        
+        //
+        // POST: /Account/ResetPassword
+        [AllowAnonymous]
+        [Route("ResetPassword")]
+        public async Task<IHttpActionResult> ResetPassword(ResetPasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return NotFound();
+            }
+            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return Ok("Senha redefinida com sucesso.");
+            }
+
+            return GetErrorResult(result);
         }
 
         // POST api/Account/Register
