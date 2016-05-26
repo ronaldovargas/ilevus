@@ -27,6 +27,7 @@ var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
 
 var Profile = require("ilevus/jsx/core/view/user/Profile.jsx");
+var Account = require("ilevus/jsx/core/view/user/Account.jsx");
 
 Numeral.language('pt-br', require("numeral/languages/pt-br.js"));
 Numeral.language("pt-br");
@@ -44,7 +45,8 @@ Messages.load(function (success) {
                     <Route path="reset-password/:email/:token" component={ResetPassword} />
                     <Route path="signup" component={Register} />
                     <Route path="search/:term" component={Search} />
-                    <Route path="profile" component={Profile} />
+                    <Route path="user/profile" component={Profile} />
+                    <Route path="user/account" component={Account} />
 
                     <Route path="*" component={NotFound } />
                 </Route>

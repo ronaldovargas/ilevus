@@ -1,5 +1,6 @@
 ﻿
 var React = require("react");
+var Link = require("react-router").Link;
 
 module.exports = React.createClass({
     contextTypes: {
@@ -29,10 +30,10 @@ module.exports = React.createClass({
                                         <a className="nav-link" href="#">Perfil Profissional</a>
                                     </li>
                                     <li className="nav-item active">
-                                        <a className="nav-link" href="#">Perfil</a>
+                                        <Link className="nav-link" to="user/profile">Perfil</Link>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Conta</a>
+                                        <Link className="nav-link" to="user/account">Conta</Link>
                                     </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="#">Empresa</a>
@@ -47,7 +48,7 @@ module.exports = React.createClass({
                         <div className="col-sm-9 col-sm-offset-3">
                             <div className="card">
                                 <div className="card-header">
-                                    Perfil
+                                    Informações básicas
                                 </div>
                                 <div className="card-block">
                                     <form className="small ">
@@ -109,6 +110,55 @@ module.exports = React.createClass({
                                                 <span className="text-muted">
                                                     Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div className="card-header">
+                                    Meu endereço
+                                </div>
+                                <div className="card-block">
+                                    <form className="small">
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">País</label>
+                                            <div className="col-sm-3">
+                                                <select className="form-element form-element-sm" id="editProfileFormCountry">
+                                                    <option>Brasil</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormZipcode">CEP / Código Postal</label>
+                                            <div className="col-sm-4">
+                                                <input className="form-element form-element-sm" type="text" id="editProfileFormZipcode" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddress">Endereço</label>
+                                            <div className="col-sm-9">
+                                                <input className="form-element form-element-sm" type="text" id="editProfileFormAddress" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddressApt">Complemento</label>
+                                            <div className="col-sm-4">
+                                                <input className="form-element form-element-sm" type="text" id="editProfileFormAddressApt" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCity">Cidade</label>
+                                            <div className="col-sm-9">
+                                                <input className="form-element form-element-sm" type="text" id="editProfileFormCity" />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormState">Estado</label>
+                                            <div className="col-sm-3">
+                                                <select className="form-element form-element-sm" id="editProfileFormState">
+                                                    <option>Minas Gerais</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </form>

@@ -291,6 +291,7 @@
     <Content Include="package.json" />
     <Content Include="IdentityDynamoDb.pfx" />
     <Content Include="jsx\core\view\user\Profile.jsx" />
+    <Content Include="jsx\core\view\user\Account.jsx" />
     <None Include="Project_Readme.html" />
     <Content Include="sass\anvil-flex.scss" />
     <Content Include="sass\anvil.scss" />
