@@ -124,7 +124,10 @@
     <value>Endereço</value>
   </data>
   <data name="LabelEmail" xml:space="preserve">
-    <value>E-mail</value>
+    <value>Email</value>
+  </data>
+  <data name="LabelFirstName" xml:space="preserve">
+    <value>Primeiro nome</value>
   </data>
   <data name="LabelName" xml:space="preserve">
     <value>Nome</value>
@@ -133,7 +136,7 @@
     <value>Senha</value>
   </data>
   <data name="LabelPasswordConfirm" xml:space="preserve">
-    <value>Confirme a senha</value>
+    <value>Confirme sua senha</value>
   </data>
   <data name="LabelPasswordNew" xml:space="preserve">
     <value>Nova senha</value>

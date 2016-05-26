@@ -55,6 +55,7 @@ module.exports = React.createClass({
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
                     
                     <form className="p-t-3" onSubmit={this.onSubmit}>
+                      <h3>Faça seu login</h3>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
                         <input className="form-element" id="email" name="email" type="email"  ref="email" />

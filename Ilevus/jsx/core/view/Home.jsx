@@ -1,4 +1,5 @@
-﻿var React = require("react");
+﻿
+var React = require("react");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
 

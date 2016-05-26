@@ -290,6 +290,7 @@
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="IdentityDynamoDb.pfx" />
+    <Content Include="jsx\core\view\user\Profile.jsx" />
     <None Include="Project_Readme.html" />
     <Content Include="sass\anvil-flex.scss" />
     <Content Include="sass\anvil.scss" />
@@ -353,6 +354,7 @@
     <Content Include="sass\components\_alert.scss" />
     <Content Include="sass\components\_dropdown.scss" />
     <Content Include="sass\components\_modal.scss" />
+    <Content Include="sass\components\_card.scss" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Messages.resx">

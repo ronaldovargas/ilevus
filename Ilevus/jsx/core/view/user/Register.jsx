@@ -50,44 +50,31 @@ module.exports = React.createClass({
                             <h3>Crie sua conta agora</h3>
                             <p className="m-y-0">Faça seu cadastro em segundos, não precisa de cartão.</p>
                             <p>Já tem um cadastro na Ilevus? <Link to="/login">Faça seu login</Link></p>
+
+                            <ErrorAlert store={UserStore} />
+
+                            <div className="form-group row">
+                                <div className="col-xs-12 col-sm-6">
+                                    <label className="form-element-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
+                                    <input className="form-element" id="name" name="name" type="text" ref="name" />
+                                </div>
+                                <div className="col-xs-12 col-sm-6">
+                                    <label className="form-element-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
+                                    <input className="form-element" id="surname" name="surname" type="text" ref="surname" />
+                                </div>
+                            </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
                                 <input className="form-element" id="email" name="email" type="email" ref="email" />
                             </div>
-                            <div className="form-group row">
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="name">{Messages.get("LabelName")}</label>
-                                    <input className="form-element" id="name" name="name" type="text"  ref="name" />
-                                </div>
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
-                                    <input className="form-element" id="surname" name="surname" type="text"  ref="surname" />
-                                </div>
+                            <div className="form-group">
+                                <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
+                                <input className="form-element" id="password" name="password" type="password"  ref="password" />
                             </div>
-                            <div className="form-group hidden">
-                                <label className="form-element-label" htmlFor="phoneNumber">{Messages.get("LabelPhone")}</label>
-                                <input className="form-element" id="phoneNumber" name="phoneNumber" type="tel"  ref="phoneNumber" />
+                            <div className="form-group">
+                                <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
+                                <input className="form-element" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
                             </div>
-                            <div className="form-group hidden">
-                                <label className="form-element-label" htmlFor="sex">{Messages.get("LabelSex")}</label>
-                                <input className="form-element" id="sex" name="sex" type="text"  ref="sex" />
-                            </div>
-                            <div className="form-group hidden">
-                                <label className="form-element-label" htmlFor="address">{Messages.get("LabelAddress")}</label>
-                                <input className="form-element" id="address" name="address" type="text"  ref="address" />
-                            </div>
-                            <div className="form-group row">
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                                    <input className="form-element" id="password" name="password" type="password"  ref="password" />
-                                </div>
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
-                                    <input className="form-element" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
-                                </div>
-                            </div>
-
-                            <ErrorAlert store={UserStore} />
                             
                             <p className="small">
                                 Ao clicar em "Criar minha conta", você está de acordo com nossa
@@ -95,7 +82,7 @@ module.exports = React.createClass({
                             </p>
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
-                                    <input type="submit" value="Criar minha conta" className="btn btn-brand btn-block" />
+                                    <input className="btn btn-brand btn-block" type="submit" value="Criar minha conta"/>
                                 </div>
                             </div>
                         </form>

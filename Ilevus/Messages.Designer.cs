@@ -79,11 +79,20 @@ namespace ilevus {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-mail.
+        ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string LabelEmail {
             get {
                 return ResourceManager.GetString("LabelEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primeiro nome.
+        /// </summary>
+        public static string LabelFirstName {
+            get {
+                return ResourceManager.GetString("LabelFirstName", resourceCulture);
             }
         }
         
@@ -106,7 +115,7 @@ namespace ilevus {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirme a senha.
+        ///   Looks up a localized string similar to Confirme sua senha.
         /// </summary>
         public static string LabelPasswordConfirm {
             get {

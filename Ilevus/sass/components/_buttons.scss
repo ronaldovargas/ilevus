@@ -58,6 +58,7 @@ fieldset[disabled] a.btn {
 
 .btn-brand {
   @include button-variant($btn-brand-color, $btn-brand-bg, $btn-brand-border);
+  font-weight: 600;
 }
 .btn-neutral {
   @include button-variant($btn-neutral-color, $btn-neutral-bg, $btn-neutral-border);
@@ -81,6 +82,7 @@ fieldset[disabled] a.btn {
 // Remove all backgrounds
 .btn-brand-o {
   @include button-outline-variant($btn-brand-bg);
+  font-weight: 600;
 }
 .btn-neutral-o {
   @include button-outline-variant($btn-neutral-border);

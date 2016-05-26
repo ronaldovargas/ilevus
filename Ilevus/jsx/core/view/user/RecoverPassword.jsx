@@ -43,7 +43,7 @@ module.exports = React.createClass({
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
 
                     <form className="p-t-3" onSubmit={this.onSubmit}>
-                      <p className="font-weight-bold">Recuperar senha</p>
+                      <h3>Recuperar senha</h3>
                       <p>
                           Nós iremos enviar instruções de como recuperar sua senha para o
                           email em que você se cadastrou. Confira sua caixa de entrada após
