@@ -89,9 +89,9 @@ module.exports = React.createClass({
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
+                                <Link className="dropdown-item" to="/profile">Editar Perfil</Link>
                                 <a className="dropdown-item" onClick={this.confirmEmail}>Confirmar e-mail</a>
-                                
-                                <a className="dropdown-item" onClick={this.onLogout}>Logout</a>
+                                <a className="dropdown-item" onClick={this.onLogout}>Sair</a>
                             </div>
                         </div>
                     </li>
