@@ -14,7 +14,7 @@ module.exports = React.createClass({
     },
     render() {
         return (
-            <div>
+            <div className="bg-faded">
                 <div className="navbar navbar-full navbar-dark bg-inverse">
                     <div className="container">
                         <div className="row">
@@ -46,7 +46,7 @@ module.exports = React.createClass({
                 <div className="container p-y-3">
                     <div className="row">
                         <div className="col-sm-9 col-sm-offset-3">
-                            <div className="card">
+                            <div className="card m-b-2">
                                 <div className="card-header">
                                     Informações básicas
                                 </div>
@@ -114,8 +114,12 @@ module.exports = React.createClass({
                                         </div>
                                     </form>
                                 </div>
+                                <div className="card-footer text-xs-right">
+                                    <button className="btn btn-sm btn-brand">Salvar</button>
+                                </div>
                             </div>
-                            <div className="card">
+
+                            <div className="card m-b-2">
                                 <div className="card-header">
                                     Meu endereço
                                 </div>
@@ -163,8 +167,10 @@ module.exports = React.createClass({
                                         </div>
                                     </form>
                                 </div>
+                                <div className="card-footer text-xs-right">
+                                    <button className="btn btn-sm btn-brand">Atualizar endereço</button>
+                                </div>
                             </div>
-                            <button className="btn btn-brand">Salvar</button>
                         </div>
                     </div>
                 </div>
