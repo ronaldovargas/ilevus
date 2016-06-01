@@ -1,6 +1,6 @@
 
 require("ilevus/css/html5-boilerplate/main.css");
-require("ilevus/sass/anvil.scss");
+require("ilevus/sass/anvil-flex.scss");
 
 require("jquery");
 require("blueimp-file-upload/js/jquery.iframe-transport.js");
