@@ -123,11 +123,17 @@
   <data name="LabelAddress" xml:space="preserve">
     <value>Endereço</value>
   </data>
+  <data name="LabelBirthdate" xml:space="preserve">
+    <value>Data de Nascimento</value>
+  </data>
   <data name="LabelEmail" xml:space="preserve">
-    <value>Email</value>
+    <value>E-mail</value>
   </data>
   <data name="LabelFirstName" xml:space="preserve">
     <value>Primeiro nome</value>
+  </data>
+  <data name="LabelGenre" xml:space="preserve">
+    <value>Gênero</value>
   </data>
   <data name="LabelName" xml:space="preserve">
     <value>Nome</value>
@@ -143,6 +149,9 @@
   </data>
   <data name="LabelPhone" xml:space="preserve">
     <value>Telefone</value>
+  </data>
+  <data name="LabelPhoneNumber" xml:space="preserve">
+    <value>Número de Telefone</value>
   </data>
   <data name="LabelSex" xml:space="preserve">
     <value>Gênero</value>

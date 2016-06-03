@@ -135,6 +135,7 @@ namespace ilevus.Controllers
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
                 
                 Address = user.Address,
+                Birthdate = user.Birthdate,
                 Creation = user.Creation,
                 EmailVisibility = user.EmailVisibility,
                 Image = user.Image,

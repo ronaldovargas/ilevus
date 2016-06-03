@@ -26,8 +26,9 @@ var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
 var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
 
-var Profile = require("ilevus/jsx/core/view/user/Profile.jsx");
-var Account = require("ilevus/jsx/core/view/user/Account.jsx");
+var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
+var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
+var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 
 Numeral.language('pt-br', require("numeral/languages/pt-br.js"));
 Numeral.language("pt-br");
@@ -36,7 +37,7 @@ Messages.load(function (success) {
     if (success) {
         ReactDOM.render((
 	        <Router history={hashHistory}>
-		        <Route path="/" component={Application }>
+		        <Route path="/" component={Application}>
                     <IndexRedirect to="home" />
                     <Route path="home" component={Home} />
                     <Route path="login" component={Login} />
@@ -44,9 +45,13 @@ Messages.load(function (success) {
                     <Route path="recover-password" component={RecoverPassword} />
                     <Route path="reset-password/:email/:token" component={ResetPassword} />
                     <Route path="signup" component={Register} />
+
                     <Route path="search/:term" component={Search} />
-                    <Route path="user/profile" component={Profile} />
-                    <Route path="user/account" component={Account} />
+
+                    <Route path="user" component={UserManagement}>
+                        <Route path="profile" component={UserProfile} />
+                        <Route path="account" component={UserAccount} />
+                    </Route>
 
                     <Route path="*" component={NotFound } />
                 </Route>

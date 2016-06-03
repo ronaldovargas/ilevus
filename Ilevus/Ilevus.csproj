@@ -245,6 +245,7 @@
     <Content Include="jsx\core\view\Home.jsx" />
     <Content Include="jsx\core\view\NotFound.jsx" />
     <Content Include="jsx\core\view\Search.jsx" />
+    <Content Include="jsx\core\view\user\Management.jsx" />
     <Content Include="jsx\core\view\user\Register.jsx" />
     <Content Include="jsx\core\view\user\Login.jsx" />
     <Content Include="jsx\core\view\user\RecoverPassword.jsx" />

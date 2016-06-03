@@ -47,7 +47,7 @@ var UserSession = Backbone.Model.extend({
 		    this.set({loading: true});
 			this.refreshStatus(true);
 		} else {
-			this.set({loading: false});
+		    this.set({ loading: false });
 		}
 	},
 
@@ -104,7 +104,7 @@ var UserSession = Backbone.Model.extend({
 			},
 			error(opts, status, errorMsg) {
 				if (me.get("loading")) {
-					me.set({loading: false});
+				    me.set({ loading: false });
 				}
 				me.clearStorage();
 				location.assign("#/");
