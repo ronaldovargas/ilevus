@@ -37,3 +37,8 @@
   left: 0;
   z-index: $zindex-navbar-fixed;
 }
+
+// Height base on viewport
+.full-height {
+  min-height: 100vh;
+}

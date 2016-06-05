@@ -60,7 +60,7 @@ module.exports = React.createClass({
                         </div>
                     </form>
                 </div>
-                <div className="card-footer text-xs-right">
+                <div className="card-footer">
                     <button className="btn btn-sm btn-brand">Atualizar Senha</button>
                 </div>
             </div>
@@ -81,7 +81,7 @@ module.exports = React.createClass({
                         </label>
                     </div>
                 </div>
-                <div className="card-footer text-xs-right">
+                <div className="card-footer">
                     <button className="btn btn-sm btn-brand">Salvar</button>
                 </div>
 
