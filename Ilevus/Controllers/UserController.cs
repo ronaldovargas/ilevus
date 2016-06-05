@@ -198,7 +198,7 @@ namespace ilevus.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok();
+            return Ok(true);
         }
 
         // POST api/Account/SetPassword

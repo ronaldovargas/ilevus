@@ -1,6 +1,7 @@
 ﻿
 var React = require("react");
 var Link = require("react-router").Link;
+var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
@@ -19,15 +20,38 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         var me = this;
+        UserSession.on("fail", (msg) => {
+            $(this.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.error(msg);
+        }, me);
         UserSession.on("loaded", () => {
             me.setState({
                 loading: false
             });
         }, me);
+        UserSession.on("updatepassword", () => {
+            $(this.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.success(Messages.get("TextPasswordSetSuccess"));
+        }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
     },
+
+    updatePassword(event) {
+        $(this.refs["setpwd-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            OldPassword: this.refs['setpwd-oldpassword'].value,
+            NewPassword: this.refs['setpwd-password'].value,
+            ConfirmPassword: this.refs['setpwd-passwordconfirm'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PASSWORD,
+            data: data
+        });
+    },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -43,25 +67,34 @@ module.exports = React.createClass({
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormPassword">Senha Antiga</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm" type="text" id="editAccountFormPassword" />
+                                <input className="form-element form-element-sm"
+                                       type="password"
+                                       id="editAccountFormPassword"
+                                       ref="setpwd-oldpassword" />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormNewPassword">Nova Senha</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm" type="text" id="editAccountFormNewPassword" />
+                                <input className="form-element form-element-sm"
+                                       type="password"
+                                       id="editAccountFormNewPassword"
+                                       ref="setpwd-password" />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormConfirmPassword">Confirmar Senha</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm" type="text" id="editAccountFormConfirmPassword" />
+                                <input className="form-element form-element-sm"
+                                       type="password"
+                                       id="editAccountFormConfirmPassword"
+                                       ref="setpwd-passwordconfirm" />
                             </div>
                         </div>
                     </form>
                 </div>
                 <div className="card-footer text-xs-right">
-                    <button className="btn btn-sm btn-brand">Atualizar Senha</button>
+                    <button className="btn btn-sm btn-brand" ref="setpwd-save" onClick={this.updatePassword}>Atualizar Senha</button>
                 </div>
             </div>
 

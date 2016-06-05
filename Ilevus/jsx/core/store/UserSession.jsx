@@ -16,6 +16,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_RECOVER_PASSWORD: 'recoverPassword',
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
 	ACTION_RESET_PASSWORD: 'resetPassword',
+	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 
 	BACKEND_URL: BACKEND_URL,
@@ -273,12 +274,32 @@ var UserSession = Backbone.Model.extend({
 		});
 	},
 
-	updateProfile(params) {
+	updatePassword(params) {
 	    var me = this;
-	    if (params.Password !== params.ConfirmPassword) {
+	    if (params.NewPassword !== params.ConfirmPassword) {
 	        me.trigger("fail", "As senhas digitadas não são iguais.");
 	        return;
 	    }
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/ChangePassword",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("updatepassword", true);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfile(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/UpdateProfile",
