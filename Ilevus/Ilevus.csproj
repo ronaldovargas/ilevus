@@ -357,6 +357,7 @@
     <Content Include="sass\components\_dropdown.scss" />
     <Content Include="sass\components\_modal.scss" />
     <Content Include="sass\components\_card.scss" />
+    <Content Include="sass\components\_toast.scss" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Messages.resx">

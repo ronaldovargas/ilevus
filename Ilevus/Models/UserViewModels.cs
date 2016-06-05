@@ -29,6 +29,21 @@ namespace ilevus.Models
 
     public class UserInfoViewModel
     {
+        public UserInfoViewModel(IlevusUser user)
+        {
+            Email = user.Email;
+            Address = user.Address;
+            Birthdate = user.Birthdate;
+            Creation = user.Creation;
+            EmailVisibility = user.EmailVisibility;
+            Image = user.Image;
+            Name = user.Name;
+            PhoneNumber = user.PhoneNumber;
+            Sex = user.Sex;
+            Status = user.Status;
+            Surname = user.Surname;
+            Type = user.Type;
+        }
         public string Email { get; set; }
         public bool HasRegistered { get; set; }
         public string LoginProvider { get; set; }

@@ -285,7 +285,9 @@ var UserSession = Backbone.Model.extend({
 	        dataType: 'json',
 	        data: params,
 	        success(data, status, opts) {
-	            me.trigger("updateprofile", data);
+	            me.set({user: data});
+	            me.trigger("updateprofile", me);
+	            me.trigger("update", me);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

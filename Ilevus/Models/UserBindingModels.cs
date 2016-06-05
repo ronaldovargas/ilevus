@@ -106,6 +106,33 @@ namespace ilevus.Models
         public string Surname { get; set; }
     }
 
+    public class ProfileBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
+        public string Email { get; set; }
+        
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelName")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        public string Surname { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        public string Sex { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        public DateTime Birthdate { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        public string PhoneNumber { get; set; }
+    }
+
     public class RegisterExternalBindingModel
     {
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]

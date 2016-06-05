@@ -44,7 +44,15 @@ module.exports = React.createClass({
     },
     saveProfile(event) {
         $(this.refs["profile-save"]).addClass("loading").attr("disabled", "disabled");
-        var data = {};
+        var data = {
+            Birthdate: this.refs['profile-birthdate'].value,
+            Email: this.refs['profile-email'].value,
+            Name: this.refs['profile-name'].value,
+            PhoneNumber: this.refs['profile-phonenumber'].value,
+            Sex: this.refs['profile-sex'].value,
+            Surname: this.refs['profile-surname'].value
+        };
+
         UserSession.dispatch({
             action: UserSession.ACTION_UPDATE_PROFILE,
             data: data
@@ -92,7 +100,7 @@ module.exports = React.createClass({
                                 {Messages.get("LabelSex")}
                             </label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm" id="editProfileFormGender" ref="profile-sex">
+                                <select className="form-element form-element-sm" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
                                     <option value="">-- Sexo --</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
@@ -108,7 +116,7 @@ module.exports = React.createClass({
                                        type="date"
                                        id="editProfileFormBirth"
                                        ref="profile-birthdate"
-                                       defaultValue={new Date(user.Birthdate)} />
+                                       defaultValue={user.Birthdate ? user.Birthdate.substr(0, 10):null} />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -132,7 +140,7 @@ module.exports = React.createClass({
                                 <input className="form-element form-element-sm"
                                        type="tel"
                                        id="editProfileFormPhone"
-                                       ref="profile-phone"
+                                       ref="profile-phonenumber"
                                        defaultValue={user.PhoneNumber} />
                                 <span className="text-muted">
                                     Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.

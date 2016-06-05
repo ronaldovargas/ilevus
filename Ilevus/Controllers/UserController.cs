@@ -128,24 +128,8 @@ namespace ilevus.Controllers
             ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(identity);
             // We wouldn't normally be likely to do this:
             var user = UserManager.FindByName(identity.Name);
-            return new UserInfoViewModel
+            return new UserInfoViewModel(user)
             {
-                Email = user.Email,
-                HasRegistered = externalLogin == null,
-                LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null,
-                
-                Address = user.Address,
-                Birthdate = user.Birthdate,
-                Creation = user.Creation,
-                EmailVisibility = user.EmailVisibility,
-                Image = user.Image,
-                Name = user.Name,
-                PhoneNumber = user.PhoneNumber,
-                Sex = user.Sex,
-                Status = user.Status,
-                Surname = user.Surname,
-                Type = user.Type,
-
                 Permissions = claims.Where(claim => claim.type == "IlevusPermission")
             };
         }
@@ -507,13 +491,36 @@ namespace ilevus.Controllers
                 return GetErrorResult(result);
             }
 
-            return Ok(new UserInfoViewModel
+            return Ok(new UserInfoViewModel(user));
+        }
+
+        // GET api/Account/UpdateProfile
+        [Route("UpdateProfile")]
+        public async Task<IHttpActionResult> UpdateProfile(ProfileBindingModel model)
+        {
+            if (!ModelState.IsValid)
             {
-                Email = user.Email,
-                Creation = user.Creation,
-                Name = user.Name,
-                Surname = user.Surname
-            });
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+
+            user.Birthdate = model.Birthdate;
+            user.Email = model.Email;
+            user.Name = model.Name;
+            user.PhoneNumber = model.PhoneNumber;
+            user.Sex = model.Sex;
+            user.Surname = model.Surname;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new UserInfoViewModel(user));
         }
 
         // POST api/Account/RegisterExternal
