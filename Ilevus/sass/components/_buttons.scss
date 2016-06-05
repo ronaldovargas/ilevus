@@ -50,19 +50,19 @@
   }
 
   &.loading {
-      &:before {
-          content: " ";
-          white-space: nowrap;
-          display: inline-block;
-          border: 2px solid $gray-lightest; /* Light grey */
-          border-top: 2px solid $brand-success;
-          border-radius: 50%;
-          width: 16px;
-          height: 16px;
-          margin: 0px 3px 0px 0px;
-          vertical-align: middle;
-          animation: spin 2s linear infinite;
-      }
+    &:before {
+        content: " ";
+        white-space: nowrap;
+        display: inline-block;
+        border: 2px solid rgba(255,255,255,1);
+        border-top: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        margin: -3px 10px 0px -3px;
+        vertical-align: middle;
+        animation: spin 2s linear infinite;
+    }
   }
 }
 
