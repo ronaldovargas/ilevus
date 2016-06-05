@@ -1,9 +1,9 @@
 ﻿
 var React = require("react");
 var Link = require("react-router").Link;
+var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
-var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
@@ -20,28 +20,35 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         var me = this;
+        UserSession.on("fail", (msg) => {
+            $(this.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
+            $(this.refs["address-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.error(msg);
+        }, me);
         UserSession.on("loaded", () => {
             me.setState({
                 loading: false
             });
         }, me);
-
-        UserStore.on("updateprofile", () => {
-            me.setState({
-                loading: false
-            });
+        UserSession.on("updateprofile", () => {
+            $(this.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.success(Messages.get("TextProfileUpdateSuccess"));
         }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
-        UserStore.off(null, null, this);
     },
 
     saveAddress() {
         //console
     },
     saveProfile(event) {
-        $(this.refs["profile-save"]).addClass("loading").attr("disabled","disabled");
+        $(this.refs["profile-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {};
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PROFILE,
+            data: data
+        });
     },
 
     render() {
@@ -187,7 +194,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer text-xs-right">
-                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress}>Atualizar endereço</button>
+                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress} ref="address-save">Atualizar endereço</button>
                 </div>
             </div>
         </div>);

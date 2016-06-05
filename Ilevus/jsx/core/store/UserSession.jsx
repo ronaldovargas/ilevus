@@ -273,6 +273,26 @@ var UserSession = Backbone.Model.extend({
 		});
 	},
 
+	updateProfile(params) {
+	    var me = this;
+	    if (params.Password !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfile",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("updateprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 });
 
 module.exports = new UserSession();

@@ -36,7 +36,6 @@ var UserModel = Fluxbone.Model.extend({
 
 var UserStore = Fluxbone.Store.extend({
     ACTION_SIGNUP: 'user-register',
-    ACTION_UPDATE_PROFILE: 'user-updateProfile',
 	ACTION_FIND: 'user-find',
 	ACTION_DESTROY: 'user-destroy',
 	dispatchAcceptRegex: /^user-[a-zA-Z0-9]+$/,
