@@ -15,40 +15,31 @@ module.exports = React.createClass({
     render() {
         return (
             <div className="bg-faded">
-                <div className="navbar navbar-full navbar-dark bg-inverse">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <ul className="nav navbar-nav small">
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/user/dashboard">Dashboard</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Caixa de Entrada</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Perfil Profissional</a>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/user/profile">Perfil</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/user/account">Conta</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="#">Empresa</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className="container p-y-3">
                     <div className="row">
-                        <div className="col-sm-3">
-                            Possível menu
+                        <div className="col-xs-2">
+                            <ul className="nav nav-pills nav-stacked small">
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/user/dashboard">Dashboard</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Caixa de Entrada</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Perfil Profissional</a>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/user/profile">Perfil</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/user/account">Conta</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" href="#">Empresa</a>
+                                </li>
+                            </ul>
                         </div>
-                        <div className="col-sm-9">
+                        <div className="col-sm-10">
                             {this.props.children}
                         </div>
                     </div>

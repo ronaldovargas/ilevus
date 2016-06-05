@@ -61,7 +61,7 @@ module.exports = React.createClass({
     },
 
     render() {
-        return (<nav className="navbar navbar-fixed-top navbar-dark bg-primary">
+        return (<nav className="navbar navbar-full navbar-dark bg-primary">
           <div className="container-fluid">
             <a className="navbar-brand" href="#/">
               <img src={LogoWhite} />
@@ -70,7 +70,7 @@ module.exports = React.createClass({
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
                 <form className="form-inline pull-sm-left" onSubmit={this.onSearch}>
                   <input ref="search-term" className="form-element form-element-sm" style={{borderColor: '#393973'}} type="search" />
-                  <button className="btn btn-brand btn-sm" type="submit">Pesquisar</button>
+                  <button className="btn btn-sm btn-brand" type="submit">Pesquisar</button>
                 </form>
                 {this.state.logged ? (
                 <ul className="nav navbar-nav small pull-sm-right">

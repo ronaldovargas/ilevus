@@ -34,8 +34,8 @@ var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 Numeral.language('pt-br', require("numeral/languages/pt-br.js"));
 Numeral.language("pt-br");
 
-Toastr.options.positionClass = "toast-top-center";
-//Toastr.options.positionClass = "toast-top-full-width";
+//Toastr.options.positionClass = "toast-top-center";
+Toastr.options.positionClass = "toast-top-full-width";
 Toastr.options.timeOut = 5000;
 Toastr.options.extendedTimeOut = 15000;
 

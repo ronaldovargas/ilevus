@@ -246,6 +246,7 @@ $table-border-color:            $gray-lighter !default;
 
 $btn-padding-x:                  1rem !default;
 $btn-padding-y:                  .375rem !default;
+$btn-line-height:                1.25 !default;
 $btn-font-weight:                normal !default;
 
 $btn-brand-color:                #fff !default;
@@ -294,6 +295,7 @@ $btn-border-radius-sm:           $border-radius-sm !default;
 
 $input-padding-x:                .75rem !default;
 $input-padding-y:                .375rem !default;
+$input-line-height:              1.25 !default;
 
 $input-bg:                       #fff !default;
 $input-bg-disabled:              $gray-lightest !default;
@@ -392,7 +394,7 @@ $navbar-light-disabled-color:       rgba(0,0,0,.15) !default;
 
 // Navs
 
-$nav-link-padding:                          .5em 1em !default;
+$nav-link-padding:                          .3em 1em !default;
 $nav-link-hover-bg:                         $gray-lighter !default;
 
 $nav-disabled-link-color:                   $gray-light !default;
