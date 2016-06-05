@@ -1,13 +1,18 @@
 .page-banner {
   text-align: center;
-  background-color: $brand-light;
+  background: 
+      linear-gradient(rgba($brand-light, .7), rgba($brand-light, .7) ),
+      url('https://static.pexels.com/photos/27406/pexels-photo-27406.jpg'),
+      linear-gradient($brand-light, $brand-light);
+  background-size: cover;
+  background-position: center;
 }
 
 @if $enable-flex {
   .page-banner {
     display: flex;
     align-items: center;
-    min-height: 100vh;
+    min-height: 80vh;
   }
 } @else {
   .page-banner {

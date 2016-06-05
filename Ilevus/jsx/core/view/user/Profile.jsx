@@ -101,8 +101,8 @@ module.exports = React.createClass({
 							    de ilustrar seu perfil.
 						    </p>
 						    <p className="text-muted">Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 512kb.</p>
-							<button className="btn btn-sm btn-neutral">Anexar foto</button>
-							<button className="btn btn-sm btn-clean text-danger">Remover foto</button>
+							<button className="btn btn-neutral">Anexar foto</button>
+							<button className="btn btn-clean text-danger">Remover foto</button>
 					    </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand" onClick={this.saveProfile} ref="profile-save">
+                    <button className="btn btn-brand" onClick={this.saveProfile} ref="profile-save">
                         {Messages.get("LabelSave")}
                     </button>
                 </div>
@@ -292,7 +292,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress} ref="address-save">
+                    <button className="btn btn-brand" onClick={this.saveAddress} ref="address-save">
                         {Messages.get("LabelUpdateAddress")}
                     </button>
                 </div>

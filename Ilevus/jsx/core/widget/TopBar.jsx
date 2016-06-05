@@ -62,20 +62,20 @@ module.exports = React.createClass({
 
     render() {
         return (<nav className="navbar navbar-full navbar-dark bg-primary">
-          <div className="container-fluid">
+          <div className="container">
             <a className="navbar-brand" href="#/">
               <img src={LogoWhite} />
             </a>
             <button className="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
                 <form className="form-inline pull-sm-left" onSubmit={this.onSearch}>
-                  <input ref="search-term" className="form-element form-element-sm" style={{borderColor: '#393973'}} type="search" />
-                  <button className="btn btn-sm btn-brand" type="submit">Pesquisar</button>
+                  <input ref="search-term" className="form-element" style={{borderColor: '#393973'}} type="search"/>
+                  <button className="btn btn-brand" type="submit">Pesquisar</button>
                 </form>
                 {this.state.logged ? (
                 <ul className="nav navbar-nav small pull-sm-right">
                     <li className="nav-item">
-                        <a className="btn btn-sm btn-warning-o" href="#">Perfil profissional</a>
+                        <a className="btn btn-warning-o" href="#">Perfil profissional</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#">Mensagens</a>
