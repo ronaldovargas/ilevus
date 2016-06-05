@@ -2,6 +2,11 @@
 // Base styles
 //
 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .btn {
   display: inline-block;
   font-weight: $btn-font-weight;
@@ -42,6 +47,22 @@
     cursor: $cursor-disabled;
     opacity: .65;
     @include box-shadow(none);
+  }
+
+  &.loading {
+      &:before {
+          content: " ";
+          white-space: nowrap;
+          display: inline-block;
+          border: 2px solid $gray-lightest; /* Light grey */
+          border-top: 2px solid $brand-success;
+          border-radius: 50%;
+          width: 16px;
+          height: 16px;
+          margin: 0px 3px 0px 0px;
+          vertical-align: middle;
+          animation: spin 2s linear infinite;
+      }
   }
 }
 

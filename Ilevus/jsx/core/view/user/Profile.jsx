@@ -3,6 +3,7 @@ var React = require("react");
 var Link = require("react-router").Link;
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
@@ -24,10 +25,25 @@ module.exports = React.createClass({
                 loading: false
             });
         }, me);
+
+        UserStore.on("updateprofile", () => {
+            me.setState({
+                loading: false
+            });
+        }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
+        UserStore.off(null, null, this);
     },
+
+    saveAddress() {
+        //console
+    },
+    saveProfile(event) {
+        $(this.refs["profile-save"]).addClass("loading").attr("disabled","disabled");
+    },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -45,7 +61,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelName")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormFirstName" defaultValue={user.Name} />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormFirstName"
+                                       ref="profile-name"
+                                       defaultValue={user.Name} />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -53,7 +73,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelSurname")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormLastName" defaultValue={user.Surname} />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormLastName"
+                                       ref="profile-surname"
+                                       defaultValue={user.Surname} />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -61,11 +85,10 @@ module.exports = React.createClass({
                                 {Messages.get("LabelSex")}
                             </label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm" id="editProfileFormGender">
-                                    <option>Sexo</option>
-                                    <option>Masculino</option>
-                                    <option>Feminino</option>
-                                    <option>Outros</option>
+                                <select className="form-element form-element-sm" id="editProfileFormGender" ref="profile-sex">
+                                    <option value="">-- Sexo --</option>
+                                    <option value="M">Masculino</option>
+                                    <option value="F">Feminino</option>
                                 </select>
                             </div>
                         </div>
@@ -74,7 +97,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelBirthdate")}
                             </label>
                             <div className="col-sm-3">
-                                <input className="form-element form-element-sm" type="date" id="editProfileFormBirth" defaultValue={new Date(user.Birthdate)} />
+                                <input className="form-element form-element-sm"
+                                       type="date"
+                                       id="editProfileFormBirth"
+                                       ref="profile-birthdate"
+                                       defaultValue={new Date(user.Birthdate)} />
                             </div>
                         </div>
                         <div className="form-group row">
@@ -82,7 +109,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelEmail")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="email" id="editProfileFormMail" defaultValue={user.Email} />
+                                <input className="form-element form-element-sm"
+                                       type="email"
+                                       id="editProfileFormMail"
+                                       ref="profile-email"
+                                       defaultValue={user.Email} />
                                 <span className="text-muted">Nós não compartilharemos o seu endereço de email privado com outros usuários.</span>
                             </div>
                         </div>
@@ -91,7 +122,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelPhoneNumber")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="tel" id="editProfileFormPhone" defaultValue={user.PhoneNumber} />
+                                <input className="form-element form-element-sm"
+                                       type="tel"
+                                       id="editProfileFormPhone"
+                                       ref="profile-phone"
+                                       defaultValue={user.PhoneNumber} />
                                 <span className="text-muted">
                                     Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.
                                 </span>
@@ -100,7 +135,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer text-xs-right">
-                    <button className="btn btn-sm btn-brand">Salvar</button>
+                    <button className="btn btn-sm btn-brand" onClick={this.saveProfile} ref="profile-save">Salvar</button>
                 </div>
             </div>
             <div className="card m-b-2">
@@ -152,7 +187,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer text-xs-right">
-                    <button className="btn btn-sm btn-brand">Atualizar endereço</button>
+                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress}>Atualizar endereço</button>
                 </div>
             </div>
         </div>);
