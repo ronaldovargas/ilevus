@@ -192,7 +192,9 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand" onClick={this.saveProfile} ref="profile-save">Salvar</button>
+                    <button className="btn btn-sm btn-brand" onClick={this.saveProfile} ref="profile-save">
+                        {Messages.get("LabelSave")}
+                    </button>
                 </div>
             </div>
             <div className="card m-b-2">
@@ -202,7 +204,9 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <form className="small">
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormZipcode">CEP / Código Postal</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormZipcode">
+                                {Messages.get("LabelZipcode")}
+                            </label>
                             <div className="col-sm-4">
                                 <input className="form-element form-element-sm"
                                        type="text"
@@ -212,7 +216,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddress">Endereço</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddress">
+                                {Messages.get("LabelAddress")}
+                            </label>
                             <div className="col-sm-9">
                                 <input className="form-element form-element-sm"
                                        type="text"
@@ -222,7 +228,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddressApt">Complemento</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddressApt">
+                                {Messages.get("LabelComplement")}
+                            </label>
                             <div className="col-sm-4">
                                 <input className="form-element form-element-sm"
                                        type="text"
@@ -232,7 +240,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormDistrict">Bairro</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormDistrict">
+                                {Messages.get("LabelDistrict")}
+                            </label>
                             <div className="col-sm-9">
                                 <input className="form-element form-element-sm"
                                        type="text"
@@ -242,7 +252,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCity">Cidade</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCity">
+                                {Messages.get("LabelCity")}
+                            </label>
                             <div className="col-sm-9">
                                 <input className="form-element form-element-sm"
                                        type="text"
@@ -252,7 +264,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormState">Estado</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormState">
+                                {Messages.get("LabelCounty")}
+                            </label>
                             <div className="col-sm-3">
                                 <select className="form-element form-element-sm"
                                         id="editProfileFormState"
@@ -263,7 +277,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">País</label>
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">
+                                {Messages.get("LabelCountry")}
+                            </label>
                             <div className="col-sm-3">
                                 <select className="form-element form-element-sm"
                                         id="editProfileFormCountry"
@@ -276,7 +292,9 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress} ref="address-save">Atualizar endereço</button>
+                    <button className="btn btn-sm btn-brand" onClick={this.saveAddress} ref="address-save">
+                        {Messages.get("LabelUpdateAddress")}
+                    </button>
                 </div>
             </div>
         </div>);

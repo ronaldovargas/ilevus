@@ -214,6 +214,15 @@ namespace ilevus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Salvar.
+        /// </summary>
+        public static string LabelSave {
+            get {
+                return ResourceManager.GetString("LabelSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gênero.
         /// </summary>
         public static string LabelSex {
@@ -228,6 +237,15 @@ namespace ilevus {
         public static string LabelSurname {
             get {
                 return ResourceManager.GetString("LabelSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atualizar Endereço.
+        /// </summary>
+        public static string LabelUpdateAddress {
+            get {
+                return ResourceManager.GetString("LabelUpdateAddress", resourceCulture);
             }
         }
         

@@ -168,11 +168,17 @@
   <data name="LabelPhoneNumber" xml:space="preserve">
     <value>Número de Telefone</value>
   </data>
+  <data name="LabelSave" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
   <data name="LabelSex" xml:space="preserve">
     <value>Gênero</value>
   </data>
   <data name="LabelSurname" xml:space="preserve">
     <value>Sobrenome</value>
+  </data>
+  <data name="LabelUpdateAddress" xml:space="preserve">
+    <value>Atualizar Endereço</value>
   </data>
   <data name="LabelZipcode" xml:space="preserve">
     <value>CEP</value>
