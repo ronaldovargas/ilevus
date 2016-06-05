@@ -14,7 +14,7 @@ module.exports = React.createClass({
     },
     render() {
         return (
-            <div className="bg-faded">
+            <div className="bg-faded full-height">
                 <div className="container p-y-3">
                     <div className="row">
                         <div className="col-xs-2">

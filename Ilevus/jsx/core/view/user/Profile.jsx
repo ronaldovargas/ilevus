@@ -67,6 +67,30 @@ module.exports = React.createClass({
         return (<div>
             <div className="card m-b-2">
                 <div className="card-header">
+                    Foto do perfil
+                </div>
+                <div className="card-block">
+                    <div className="media m-a-0">
+					    <div className="media-left">
+                            <span className="avatar avatar-xl">
+                                <img className="img-fluid" src="http://static2.blastingnews.com/media/photogallery/2016/4/26/290x290/b_290x290/tudo-pode-mudar-para-jon-snow-no-episodio-3_687287.jpg"/>
+                            </span>
+                        </div>
+					    <div className="media-body small">
+                            <label className="font-weight-bold">Selecione uma foto</label>
+						    <p>
+							    Fotos claras e frontais do rosto são uma forma eficiente
+							    de ilustrar seu perfil.
+						    </p>
+						    <p className="text-muted">Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 512kb.</p>
+							<button className="btn btn-sm btn-neutral">Anexar foto</button>
+							<button className="btn btn-sm btn-clean text-danger">Remover foto</button>
+					    </div>
+                    </div>
+                </div>
+            </div>
+            <div className="card m-b-2">
+                <div className="card-header">
                     Informações básicas
                 </div>
                 <div className="card-block">
@@ -149,7 +173,7 @@ module.exports = React.createClass({
                         </div>
                     </form>
                 </div>
-                <div className="card-footer text-xs-right">
+                <div className="card-footer">
                     <button className="btn btn-sm btn-brand" onClick={this.saveProfile} ref="profile-save">Salvar</button>
                 </div>
             </div>
@@ -201,7 +225,7 @@ module.exports = React.createClass({
                         </div>
                     </form>
                 </div>
-                <div className="card-footer text-xs-right">
+                <div className="card-footer">
                     <button className="btn btn-sm btn-brand" onClick={this.saveAddress} ref="address-save">Atualizar endereço</button>
                 </div>
             </div>
