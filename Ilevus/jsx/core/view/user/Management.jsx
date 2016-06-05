@@ -19,13 +19,13 @@ module.exports = React.createClass({
                     <div className="row">
                         <div className="col-xs-2">
                             <ul className="nav nav-pills nav-stacked small">
-                                <li className="nav-item">
+                                <li className="nav-item hidden">
                                     <Link className="nav-link" to="/user/dashboard">Dashboard</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item hidden">
                                     <a className="nav-link" href="#">Caixa de Entrada</a>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item hidden">
                                     <a className="nav-link" href="#">Perfil Profissional</a>
                                 </li>
                                 <li className="nav-item">
@@ -34,7 +34,7 @@ module.exports = React.createClass({
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/user/account">Conta</Link>
                                 </li>
-                                <li className="nav-item">
+                                <li className="nav-item hidden">
                                     <a className="nav-link" href="#">Empresa</a>
                                 </li>
                             </ul>

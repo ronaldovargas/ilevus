@@ -94,7 +94,7 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand" ref="setpwd-save" onClick={this.updatePassword}>Atualizar Senha</button>
+                    <button className="btn btn-brand" ref="setpwd-save" onClick={this.updatePassword}>Atualizar Senha</button>
                 </div>
             </div>
 
@@ -115,7 +115,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-sm btn-brand">Salvar</button>
+                    <button className="btn btn-brand">Salvar</button>
                 </div>
 
             </div>
