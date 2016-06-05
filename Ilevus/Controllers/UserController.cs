@@ -112,6 +112,25 @@ namespace ilevus.Controllers
             return Ok();
         }
 
+        // GET api/Account/{id}
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("{Id}")]
+        public async Task<IHttpActionResult> GetPublicProfile(string Id)
+        {
+            if (Id == null)
+            {
+                return BadRequest();
+            }
+            var user = await UserManager.FindByIdAsync(Id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return Ok(new PublicProfileViewModel(user));
+        }
+
+
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]

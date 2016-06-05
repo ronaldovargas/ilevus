@@ -27,10 +27,46 @@ namespace ilevus.Models
         public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
     }
 
+    public class PublicProfileViewModel
+    {
+        public PublicProfileViewModel(IlevusUser user)
+        {
+            Id = user.UserId;
+            Creation = user.Creation;
+            Image = user.Image;
+            Name = user.Name;
+            Sex = user.Sex;
+            Surname = user.Surname;
+            
+            City = user.City;
+            County = user.County;
+            Country = user.Country;
+
+            EmailVisibility = user.EmailVisibility;
+            Type = user.Type;
+        }
+        public string Id { get; set; }
+
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Sex { get; set; }
+        
+        public string City { get; set; }
+        public string County { get; set; }
+        public string Country { get; set; }
+
+        public string Image { get; set; }
+        public DateTime Creation { get; set; }
+
+        public UserType Type { get; set; }
+        public EmailVisibility EmailVisibility { get; set; }
+    }
+
     public class UserInfoViewModel
     {
         public UserInfoViewModel(IlevusUser user)
         {
+            Id = user.UserId;
             Email = user.Email;
             Birthdate = user.Birthdate;
             Creation = user.Creation;
@@ -51,6 +87,7 @@ namespace ilevus.Models
             District = user.District;
             Zipcode = user.Zipcode;
         }
+        public string Id { get; set; }
         public string Email { get; set; }
         public bool HasRegistered { get; set; }
         public string LoginProvider { get; set; }

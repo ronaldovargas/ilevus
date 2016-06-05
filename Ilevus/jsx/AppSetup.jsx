@@ -23,6 +23,7 @@ var Search = require("ilevus/jsx/core/view/Search.jsx");
 
 var Login = require("ilevus/jsx/core/view/user/Login.jsx");
 var ConfirmEmail = require("ilevus/jsx/core/view/user/ConfirmEmail.jsx");
+var PublicProfile = require("ilevus/jsx/core/view/user/PublicProfile.jsx");
 var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
 var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
@@ -52,6 +53,7 @@ Messages.load(function (success) {
                     <Route path="reset-password/:email/:token" component={ResetPassword} />
                     <Route path="signup" component={Register} />
 
+                    <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />
 
                     <Route path="user" component={UserManagement}>

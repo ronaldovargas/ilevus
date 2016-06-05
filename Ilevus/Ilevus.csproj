@@ -202,6 +202,7 @@
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
@@ -293,6 +294,7 @@
     <Content Include="IdentityDynamoDb.pfx" />
     <Content Include="jsx\core\view\user\Profile.jsx" />
     <Content Include="jsx\core\view\user\Account.jsx" />
+    <Content Include="jsx\core\view\user\PublicProfile.jsx" />
     <None Include="Project_Readme.html" />
     <Content Include="sass\anvil-flex.scss" />
     <Content Include="sass\anvil.scss" />
