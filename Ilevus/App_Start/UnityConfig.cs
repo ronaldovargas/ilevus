@@ -1,4 +1,5 @@
 ﻿using ilevus.Helpers;
+using ilevus.Models;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ilevus
             var container = new UnityContainer();
             
             // Registra-se implementações para as dependências que precisam ser injetadas.
-            //container.RegisterType<IProductRepository, ProductRepository>(new HierarchicalLifetimeManager());
+            //container.RegisterType<, IlevusDbContext > (new HierarchicalLifetimeManager());
 
             config.DependencyResolver = new UnityResolver(container);
         }
