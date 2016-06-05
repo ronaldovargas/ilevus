@@ -20,7 +20,15 @@ namespace ilevus.Models
         public string Surname { get; set; }
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
+
         public string Address { get; set; }
+        public string Complement { get; set; }
+        public string District { get; set; }
+        public string Zipcode { get; set; }
+        public string City { get; set; }
+        public string County { get; set; }
+        public string Country { get; set; }
+
         public string Image { get; set; }
 
         public DateTime Creation { get; set; }

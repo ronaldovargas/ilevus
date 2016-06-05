@@ -495,6 +495,7 @@ namespace ilevus.Controllers
         }
 
         // GET api/Account/UpdateProfile
+        [HttpPost]
         [Route("UpdateProfile")]
         public async Task<IHttpActionResult> UpdateProfile(ProfileBindingModel model)
         {
@@ -512,6 +513,37 @@ namespace ilevus.Controllers
             user.PhoneNumber = model.PhoneNumber;
             user.Sex = model.Sex;
             user.Surname = model.Surname;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new UserInfoViewModel(user));
+        }
+
+        // GET api/Account/UpdateAddress
+        [HttpPost]
+        [Route("UpdateAddress")]
+        public async Task<IHttpActionResult> UpdateAddress(AddressBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+
+            user.Address = model.Address;
+            user.City = model.City;
+            user.Complement = model.Complement;
+            user.Country = model.Country;
+            user.County = model.County;
+            user.District = model.District;
+            user.Zipcode = model.Zipcode;
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 

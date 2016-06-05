@@ -88,6 +88,51 @@ namespace ilevus {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cidade.
+        /// </summary>
+        public static string LabelCity {
+            get {
+                return ResourceManager.GetString("LabelCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complemento.
+        /// </summary>
+        public static string LabelComplement {
+            get {
+                return ResourceManager.GetString("LabelComplement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to País.
+        /// </summary>
+        public static string LabelCountry {
+            get {
+                return ResourceManager.GetString("LabelCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estado.
+        /// </summary>
+        public static string LabelCounty {
+            get {
+                return ResourceManager.GetString("LabelCounty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bairro.
+        /// </summary>
+        public static string LabelDistrict {
+            get {
+                return ResourceManager.GetString("LabelDistrict", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string LabelEmail {
@@ -183,6 +228,15 @@ namespace ilevus {
         public static string LabelSurname {
             get {
                 return ResourceManager.GetString("LabelSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CEP.
+        /// </summary>
+        public static string LabelZipcode {
+            get {
+                return ResourceManager.GetString("LabelZipcode", resourceCulture);
             }
         }
         

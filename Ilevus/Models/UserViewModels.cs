@@ -32,7 +32,6 @@ namespace ilevus.Models
         public UserInfoViewModel(IlevusUser user)
         {
             Email = user.Email;
-            Address = user.Address;
             Birthdate = user.Birthdate;
             Creation = user.Creation;
             EmailVisibility = user.EmailVisibility;
@@ -43,6 +42,14 @@ namespace ilevus.Models
             Status = user.Status;
             Surname = user.Surname;
             Type = user.Type;
+            
+            Address = user.Address;
+            City = user.City;
+            Complement = user.Complement;
+            County = user.County;
+            Country = user.Country;
+            District = user.District;
+            Zipcode = user.Zipcode;
         }
         public string Email { get; set; }
         public bool HasRegistered { get; set; }
@@ -53,8 +60,16 @@ namespace ilevus.Models
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
         public string PhoneNumber { get; set; }
-        public string Image { get; set; }
+
         public string Address { get; set; }
+        public string City { get; set; }
+        public string Complement { get; set; }
+        public string County { get; set; }
+        public string Country { get; set; }
+        public string District { get; set; }
+        public string Zipcode { get; set; }
+
+        public string Image { get; set; }
         public DateTime Creation { get; set; }
 
         public UserType Type { get; set; }

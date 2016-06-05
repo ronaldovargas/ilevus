@@ -34,14 +34,15 @@ module.exports = React.createClass({
             $(this.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextProfileUpdateSuccess"));
         }, me);
+        UserSession.on("updateaddress", () => {
+            $(this.refs["address-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.success(Messages.get("TextAddressUpdateSuccess"));
+        }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
     },
 
-    saveAddress() {
-        //console
-    },
     saveProfile(event) {
         $(this.refs["profile-save"]).addClass("loading").attr("disabled", "disabled");
         var data = {
@@ -55,6 +56,23 @@ module.exports = React.createClass({
 
         UserSession.dispatch({
             action: UserSession.ACTION_UPDATE_PROFILE,
+            data: data
+        });
+    },
+    saveAddress() {
+        $(this.refs["address-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            Address: this.refs['address-address'].value,
+            Complement: this.refs['address-complement'].value,
+            District: this.refs['address-district'].value,
+            Zipcode: this.refs['address-zipcode'].value,
+            City: this.refs['address-city'].value,
+            County: this.refs['address-county'].value,
+            Country: this.refs['address-country'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_ADDRESS,
             data: data
         });
     },
@@ -184,42 +202,74 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <form className="small">
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">País</label>
-                            <div className="col-sm-3">
-                                <select className="form-element form-element-sm" id="editProfileFormCountry">
-                                    <option>Brasil</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormZipcode">CEP / Código Postal</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormZipcode" />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormZipcode"
+                                       ref="address-zipcode"
+                                       defaultValue={user.Zipcode} />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddress">Endereço</label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormAddress" />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormAddress"
+                                       ref="address-address"
+                                       defaultValue={user.Address} />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddressApt">Complemento</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormAddressApt" />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormAddressApt"
+                                       ref="address-complement"
+                                       defaultValue={user.Complement} />
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormDistrict">Bairro</label>
+                            <div className="col-sm-9">
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormDistrict"
+                                       ref="address-district"
+                                       defaultValue={user.District} />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCity">Cidade</label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm" type="text" id="editProfileFormCity" />
+                                <input className="form-element form-element-sm"
+                                       type="text"
+                                       id="editProfileFormCity"
+                                       ref="address-city"
+                                       defaultValue={user.City} />
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormState">Estado</label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm" id="editProfileFormState">
-                                    <option>Minas Gerais</option>
+                                <select className="form-element form-element-sm"
+                                        id="editProfileFormState"
+                                        ref="address-county"
+                                        defaultValue={user.County}>
+                                    <option value="MG">Minas Gerais</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">País</label>
+                            <div className="col-sm-3">
+                                <select className="form-element form-element-sm"
+                                        id="editProfileFormCountry"
+                                        ref="address-country"
+                                        defaultValue={user.Country}>
+                                    <option value="Brazil">Brasil</option>
                                 </select>
                             </div>
                         </div>

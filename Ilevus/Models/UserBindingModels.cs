@@ -121,16 +121,45 @@ namespace ilevus.Models
         public string Surname { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelSex")]
         public string Sex { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelBirthdate")]
         public DateTime Birthdate { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelSurname")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelPhoneNumber")]
         public string PhoneNumber { get; set; }
+    }
+
+    public class AddressBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelAddress")]
+        public string Address { get; set; }
+
+        public string Complement { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelDistrict")]
+        public string District { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelZipcode")]
+        public string Zipcode { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelCity")]
+        public string City { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelCounty")]
+        public string County { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelCountry")]
+        public string Country { get; set; }
     }
 
     public class RegisterExternalBindingModel

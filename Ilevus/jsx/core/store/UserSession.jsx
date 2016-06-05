@@ -18,6 +18,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_RESET_PASSWORD: 'resetPassword',
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
+	ACTION_UPDATE_ADDRESS: 'updateAddress',
 
 	BACKEND_URL: BACKEND_URL,
 	url: BACKEND_URL + "User",
@@ -308,6 +309,28 @@ var UserSession = Backbone.Model.extend({
 	        success(data, status, opts) {
 	            me.set({user: data});
 	            me.trigger("updateprofile", me);
+	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateAddress(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateAddress",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.set({ user: data });
+	            me.trigger("updateaddress", me);
 	            me.trigger("update", me);
 	        },
 	        error(opts, status, errorMsg) {

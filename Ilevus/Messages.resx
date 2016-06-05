@@ -126,6 +126,21 @@
   <data name="LabelBirthdate" xml:space="preserve">
     <value>Data de Nascimento</value>
   </data>
+  <data name="LabelCity" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="LabelComplement" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="LabelCountry" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="LabelCounty" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="LabelDistrict" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
   <data name="LabelEmail" xml:space="preserve">
     <value>E-mail</value>
   </data>
@@ -158,6 +173,9 @@
   </data>
   <data name="LabelSurname" xml:space="preserve">
     <value>Sobrenome</value>
+  </data>
+  <data name="LabelZipcode" xml:space="preserve">
+    <value>CEP</value>
   </data>
   <data name="ValidationRequired" xml:space="preserve">
     <value>O campo '{0}' é obrigatório.</value>
