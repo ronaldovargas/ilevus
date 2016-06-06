@@ -11,9 +11,14 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -511,6 +516,72 @@ namespace ilevus.Controllers
             }
 
             return Ok(new UserInfoViewModel(user));
+        }
+        
+        // GET api/Account/Picture/{UserId}/{Checksum}
+        [HttpGet]
+        [Route("Picture/{UserId}/{Checksum}")]
+        public async Task<HttpResponseMessage> GetPicture(string UserId, string Checksum)
+        {
+            IlevusDBContext db = new IlevusDBContext();
+            IlevusPicture picture = await db.LoadAsync<IlevusPicture>(UserId, Checksum);
+            if (picture == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
+            }
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+            result.Content = new ByteArrayContent(picture.Content);
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue(picture.Mime);
+            return result;
+        }
+
+        // POST api/Account/UpdatePicture
+        [HttpPost]
+        [Route("UpdatePicture")]
+        public async Task<IHttpActionResult> UpdatePicture()
+        {
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                return BadRequest();
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            // Read the form data.
+            await Request.Content.ReadAsMultipartAsync(provider);
+
+            // This illustrates how to get the file names.
+            MultipartFileData file = provider.FileData.Single();
+            var blob = File.ReadAllBytes(file.LocalFileName);
+            var sha = new SHA256Managed();
+            string checksum = BitConverter.ToString(sha.ComputeHash(blob)).Replace("-", String.Empty);
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            IlevusDBContext db = new IlevusDBContext();
+            IlevusPicture picture = await db.LoadAsync<IlevusPicture>(user.Id, checksum);
+            if (picture == null)
+            {
+                picture = new IlevusPicture()
+                {
+                    Content = blob,
+                    Mime = file.Headers.ContentType.ToString(),
+                    OriginalName = file.Headers.ContentDisposition.FileName,
+                    Checksum = checksum,
+                    UserId = user.Id
+                };
+                await db.SaveAsync(picture);
+            }
+            user.Image = "/api/User/Picture/" + picture.UserId + "/" + picture.Checksum;
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(picture);
         }
 
         // GET api/Account/UpdateProfile

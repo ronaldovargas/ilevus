@@ -25,6 +25,10 @@ namespace ilevus
 
             ConfigureAuth(app);
 
+            IlevusDBContext db = new IlevusDBContext();
+            var task = db.CreateTablesIfNotExistsAsync();
+            task.Wait();
+
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             //GlobalConfiguration.Configure(WebApiConfig.Register);
             HttpConfiguration config = WebApiConfig.Create();

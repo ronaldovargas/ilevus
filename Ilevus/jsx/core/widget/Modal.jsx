@@ -206,7 +206,7 @@ var Modal = {
 		$(this.$el).modal('show');
 	},
 
-	uploadFile(title, msg, url, cb) {
+	uploadFile(title, msg, url, onSuccess, onFailure) {
 		var me = this;
 		ReactDOM.render((
 			<FileUploadModal title={title} message={msg} />
@@ -216,9 +216,18 @@ var Modal = {
 		$('#file-upload-field').fileupload({
 	        url: url,
 	        dataType: 'json',
-	        done: function (evt, fied) {
-	            if ((evt.type == 'fileuploaddone') && (typeof cb == 'function'))
-	            	cb.call(me);
+	        done: function (evt, xhr) {
+	            if ((evt.type == 'fileuploaddone')) {
+	                if (typeof onSuccess == 'function')
+	                    onSuccess.call(me, evt, xhr);
+	            } else {
+	                if (typeof onFailure == 'function')
+	                    onFailure.call(me, evt, xhr);
+	            }
+	        },
+	        error: function (arg1, arg2) {
+	            if (typeof onFailure == 'function')
+	                onFailure.call(me, arg1, arg2);
 	        },
 	        progressall: function (e, data) {
 	            var progress = parseInt(data.loaded / data.total * 100, 10);

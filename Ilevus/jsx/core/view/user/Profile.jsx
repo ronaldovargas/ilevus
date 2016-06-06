@@ -6,6 +6,7 @@ var Toastr = require("toastr");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -15,7 +16,8 @@ module.exports = React.createClass({
     },
     getInitialState() {
         return {
-            loading: UserSession.get("loading")
+            loading: UserSession.get("loading"),
+            picture: UserSession.get("loading") ? null : UserSession.get("user").Image
         };
     },
     componentDidMount() {
@@ -27,7 +29,13 @@ module.exports = React.createClass({
         }, me);
         UserSession.on("loaded", () => {
             me.setState({
-                loading: false
+                loading: false,
+                picture: UserSession.get("user").Image
+            });
+        }, me);
+        UserSession.on("update", () => {
+            me.setState({
+                picture: UserSession.get("user").Image
             });
         }, me);
         UserSession.on("updateprofile", () => {
@@ -77,6 +85,26 @@ module.exports = React.createClass({
         });
     },
 
+    updatePicture() {
+        Modal.uploadFile(
+            "Enviar um foto",
+            <p>Selecione a foto que você deseja enviar:</p>,
+            UserSession.url + "/UpdatePicture",
+            (arg1, arg2) => {
+                Modal.hide();
+                Toastr.success(Messages.get("TextPictureUpdateSuccess"));
+                UserSession.dispatch({
+                    action: UserSession.ACTION_REFRESH
+                });
+            },
+            (arg1, arg2) => {
+                console.log("Failed:\n", arg1, arg2);
+                Modal.hide();
+                Toastr.error("Um erro inesperado ocorreu, tente novamente.");
+            }
+        );
+    },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -91,7 +119,7 @@ module.exports = React.createClass({
                     <div className="media m-a-0">
 					    <div className="media-left">
                             <span className="avatar avatar-xl">
-                                <img className="img-fluid" src="http://static2.blastingnews.com/media/photogallery/2016/4/26/290x290/b_290x290/tudo-pode-mudar-para-jon-snow-no-episodio-3_687287.jpg"/>
+                                <img className="img-fluid" src={this.state.picture} />
                             </span>
                         </div>
 					    <div className="media-body small">
@@ -101,7 +129,7 @@ module.exports = React.createClass({
 							    de ilustrar seu perfil.
 						    </p>
 						    <p className="text-muted">Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 512kb.</p>
-							<button className="btn btn-neutral">Anexar foto</button>
+							<button className="btn btn-neutral" onClick={this.updatePicture}>Enviar uma foto</button>
 							<button className="btn btn-clean text-danger">Remover foto</button>
 					    </div>
                     </div>

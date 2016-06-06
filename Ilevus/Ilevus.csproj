@@ -218,6 +218,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlobModels.cs" />
+    <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />

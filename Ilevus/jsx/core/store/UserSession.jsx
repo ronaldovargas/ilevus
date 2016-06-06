@@ -102,7 +102,8 @@ var UserSession = Backbone.Model.extend({
 				if (me.get("loading")) {
 					me.set({loading: false});
 					me.trigger("loaded", true);
-				}
+				} else
+				    me.trigger("update", me);
 			},
 			error(opts, status, errorMsg) {
 				if (me.get("loading")) {
