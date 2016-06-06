@@ -286,7 +286,7 @@
     <Content Include="webpack.production.config.js" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\pictures\" />
     <Folder Include="Content\" />
     <Folder Include="logs\" />
   </ItemGroup>

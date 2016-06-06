@@ -15,13 +15,22 @@ namespace ilevus.Models
         public string Checksum { get; set; }
 
         public DateTime Creation { get; set; }
-        public byte[] Content { get; set; }
         public string Mime { get; set; }
         public string OriginalName { get; set; }
 
         public IlevusPicture()
         {
             Creation = DateTime.Now;
+        }
+    }
+
+    public class IlevusBlobHelper
+    {
+        protected const string PicturesStoragePath = "~/App_Data/pictures/";
+
+        public static string GetPictureUrl(HttpServerUtility server, string checksum)
+        {
+            return server.MapPath(PicturesStoragePath + checksum + ".bin");
         }
     }
 }

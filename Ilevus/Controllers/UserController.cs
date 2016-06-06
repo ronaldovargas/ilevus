@@ -520,9 +520,11 @@ namespace ilevus.Controllers
         
         // GET api/Account/Picture/{UserId}/{Checksum}
         [HttpGet]
+        [AllowAnonymous]
         [Route("Picture/{UserId}/{Checksum}")]
         public async Task<HttpResponseMessage> GetPicture(string UserId, string Checksum)
         {
+            HttpServerUtility Server = HttpContext.Current.Server;
             IlevusDBContext db = new IlevusDBContext();
             IlevusPicture picture = await db.LoadAsync<IlevusPicture>(UserId, Checksum);
             if (picture == null)
@@ -530,7 +532,7 @@ namespace ilevus.Controllers
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new ByteArrayContent(picture.Content);
+            result.Content = new ByteArrayContent(File.ReadAllBytes(IlevusBlobHelper.GetPictureUrl(Server, picture.Checksum)));
             result.Content.Headers.ContentType = new MediaTypeHeaderValue(picture.Mime);
             return result;
         }
@@ -546,8 +548,10 @@ namespace ilevus.Controllers
                 return BadRequest();
             }
 
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
+            HttpServerUtility Server = HttpContext.Current.Server;
+            string multipartDataPath = Server.MapPath("~/App_Data");
+            
+            MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(multipartDataPath);
 
             // Read the form data.
             await Request.Content.ReadAsMultipartAsync(provider);
@@ -564,9 +568,9 @@ namespace ilevus.Controllers
             IlevusPicture picture = await db.LoadAsync<IlevusPicture>(user.Id, checksum);
             if (picture == null)
             {
+                File.Move(file.LocalFileName, IlevusBlobHelper.GetPictureUrl(Server, checksum));
                 picture = new IlevusPicture()
                 {
-                    Content = blob,
                     Mime = file.Headers.ContentType.ToString(),
                     OriginalName = file.Headers.ContentDisposition.FileName,
                     Checksum = checksum,
@@ -574,8 +578,7 @@ namespace ilevus.Controllers
                 };
                 await db.SaveAsync(picture);
             }
-            File.Delete(file.LocalFileName);
-
+            
             user.Image = "/api/User/Picture/" + picture.UserId + "/" + picture.Checksum;
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
