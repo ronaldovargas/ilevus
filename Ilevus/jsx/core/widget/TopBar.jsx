@@ -20,6 +20,12 @@ module.exports = React.createClass({
     },
     componentWillMount() {
         var me = this;
+        UserSession.on("update", session => {
+            me.setState({
+                user: session.get("user"),
+                logged: true
+            });
+        }, me);
         UserSession.on("login", session => {
             me.setState({
                 user: session.get("user"),
@@ -84,7 +90,7 @@ module.exports = React.createClass({
                         <div className="dropdown">
                             <a id="js-profile-dropdown" href="javascript:void(0)" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="avatar avatar-navbar">
-                                    <img className="img-fluid" src="http://static2.blastingnews.com/media/photogallery/2016/4/26/290x290/b_290x290/tudo-pode-mudar-para-jon-snow-no-episodio-3_687287.jpg" alt={this.state.user.Name} />
+                                    <img className="img-fluid" src={this.state.user.Image} alt={this.state.user.Name} />
                                 </span>
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>

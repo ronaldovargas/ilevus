@@ -574,6 +574,8 @@ namespace ilevus.Controllers
                 };
                 await db.SaveAsync(picture);
             }
+            File.Delete(file.LocalFileName);
+
             user.Image = "/api/User/Picture/" + picture.UserId + "/" + picture.Checksum;
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
