@@ -56,24 +56,24 @@ module.exports = React.createClass({
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
                                     <label className="form-element-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
-                                    <input className="form-element" id="name" name="name" type="text" ref="name" />
+                                    <input className="form-element form-element-lg" id="name" name="name" type="text" ref="name" />
                                 </div>
                                 <div className="col-xs-12 col-sm-6">
                                     <label className="form-element-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
-                                    <input className="form-element" id="surname" name="surname" type="text" ref="surname" />
+                                    <input className="form-element form-element-lg" id="surname" name="surname" type="text" ref="surname" />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                                <input className="form-element" id="email" name="email" type="email" ref="email" />
+                                <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
                             </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                                <input className="form-element" id="password" name="password" type="password"  ref="password" />
+                                <input className="form-element form-element-lg" id="password" name="password" type="password"  ref="password" />
                             </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
-                                <input className="form-element" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
+                                <input className="form-element form-element-lg" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
                             </div>
                             
                             <p className="small">
@@ -82,7 +82,7 @@ module.exports = React.createClass({
                             </p>
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
-                                    <input className="btn btn-brand btn-block" type="submit" value="Criar minha conta"/>
+                                    <input className="btn btn-lg btn-brand btn-block" type="submit" value="Criar minha conta"/>
                                 </div>
                             </div>
                         </form>

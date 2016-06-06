@@ -51,17 +51,17 @@ module.exports = React.createClass({
                       </p>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                        <input className="form-element" id="email" name="email" type="email" ref="email" />
+                        <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
                       </div>
 
                       <ErrorAlert store={UserSession} />
                       
                       <div className="form-group row">
                         <div className="col-xs-12 col-sm-6">
-                          <input type="submit" value="Recuperar senha" className="btn btn-brand btn-block" />
+                          <input type="submit" value="Recuperar senha" className="btn btn-lg btn-brand btn-block" />
                         </div>
                         <div className="col-xs-12 col-sm-6">
-                          <Link to="/login" className="btn btn-link btn-block">Voltar para o login</Link>
+                          <Link to="/login" className="btn btn-lg btn-link btn-block">Voltar para o login</Link>
                         </div>
                       </div>
                     </form>

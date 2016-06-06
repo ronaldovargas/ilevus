@@ -53,35 +53,32 @@ module.exports = React.createClass({
 	    return (
             <div className="container">
                 <div className="row">
-                    <div className="hidden-xs col-sm-6">
+                    <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
 
-                    </div>
-                    <div className="col-xs-12 col-sm-6">
-                    
                         <form className="p-t-3" onSubmit={this.onSubmit}>
                             <h3>Faça seu login</h3>
                             <div className="form-group">
                             <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                            <input className="form-element" id="email" name="email" type="email"  ref="email" />
+                            <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
                             </div>
                             <div className="form-group">
                             <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                            <input className="form-element" id="password" name="password" type="password"  ref="password" />
+                            <input className="form-element form-element-lg" id="password" name="password" type="password" ref="password" />
                             </div>
-                    
+
                             <ErrorAlert store={UserSession} />
-                      
+
                             <div className="form-group row">
-                            <div className="col-xs-12 col-sm-6 pull-sm-right">
-                                <div className="checkbox btn btn-block">
-                                <label htmlFor="stay-connected">
-                                    <input type="checkbox" id="stay-connected" ref="stayconnected" /> Permanecer conectado
-                                </label>
+                                <div className="col-xs-12 col-sm-6 pull-sm-right">
+                                    <div className="checkbox btn btn-lg btn-block">
+                                        <label htmlFor="stay-connected">
+                                            <input type="checkbox" id="stay-connected" ref="stayconnected" /> Permanecer conectado
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-xs-12 col-sm-6">
-                                <input type="submit" value="Entrar" className="btn btn-brand btn-block" />
-                            </div>
+                                <div className="col-xs-12 col-sm-6">
+                                    <input type="submit" value="Entrar" className="btn btn-lg btn-brand btn-block" />
+                                </div>
                             </div>
                         </form>
 

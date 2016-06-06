@@ -65,27 +65,27 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <form className="small ">
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormPassword">Senha Antiga</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormPassword">Senha Antiga</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="password"
                                        id="editAccountFormPassword"
                                        ref="setpwd-oldpassword" />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormNewPassword">Nova Senha</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormNewPassword">Nova Senha</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="password"
                                        id="editAccountFormNewPassword"
                                        ref="setpwd-password" />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editAccountFormConfirmPassword">Confirmar Senha</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormConfirmPassword">Confirmar Senha</label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="password"
                                        id="editAccountFormConfirmPassword"
                                        ref="setpwd-passwordconfirm" />
