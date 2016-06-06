@@ -114,11 +114,11 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <form className="small ">
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormFirstName">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormFirstName">
                                 {Messages.get("LabelName")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormFirstName"
                                        ref="profile-name"
@@ -126,11 +126,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormLastName">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormLastName">
                                 {Messages.get("LabelSurname")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormLastName"
                                        ref="profile-surname"
@@ -138,11 +138,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormGender">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormGender">
                                 {Messages.get("LabelSex")}
                             </label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
+                                <select className="form-element" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
                                     <option value="">-- Sexo --</option>
                                     <option value="M">Masculino</option>
                                     <option value="F">Feminino</option>
@@ -150,11 +150,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormBirth">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormBirth">
                                 {Messages.get("LabelBirthdate")}
                             </label>
                             <div className="col-sm-3">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="date"
                                        id="editProfileFormBirth"
                                        ref="profile-birthdate"
@@ -162,11 +162,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormMail">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormMail">
                                 {Messages.get("LabelEmail")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="email"
                                        id="editProfileFormMail"
                                        ref="profile-email"
@@ -175,11 +175,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormPhone">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormPhone">
                                 {Messages.get("LabelPhoneNumber")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="tel"
                                        id="editProfileFormPhone"
                                        ref="profile-phonenumber"
@@ -204,11 +204,11 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <form className="small">
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormZipcode">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormZipcode">
                                 {Messages.get("LabelZipcode")}
                             </label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormZipcode"
                                        ref="address-zipcode"
@@ -216,11 +216,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddress">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormAddress">
                                 {Messages.get("LabelAddress")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormAddress"
                                        ref="address-address"
@@ -228,11 +228,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormAddressApt">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormAddressApt">
                                 {Messages.get("LabelComplement")}
                             </label>
                             <div className="col-sm-4">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormAddressApt"
                                        ref="address-complement"
@@ -240,11 +240,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormDistrict">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormDistrict">
                                 {Messages.get("LabelDistrict")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormDistrict"
                                        ref="address-district"
@@ -252,11 +252,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCity">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormCity">
                                 {Messages.get("LabelCity")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element form-element-sm"
+                                <input className="form-element"
                                        type="text"
                                        id="editProfileFormCity"
                                        ref="address-city"
@@ -264,11 +264,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormState">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormState">
                                 {Messages.get("LabelCounty")}
                             </label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm"
+                                <select className="form-element"
                                         id="editProfileFormState"
                                         ref="address-county"
                                         defaultValue={user.County}>
@@ -277,11 +277,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 form-element-label text-sm-right" htmlFor="editProfileFormCountry">
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editProfileFormCountry">
                                 {Messages.get("LabelCountry")}
                             </label>
                             <div className="col-sm-3">
-                                <select className="form-element form-element-sm"
+                                <select className="form-element"
                                         id="editProfileFormCountry"
                                         ref="address-country"
                                         defaultValue={user.Country}>
