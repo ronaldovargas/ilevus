@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
         return <div>
             {this.state.models.map((model, index) => {
-                return <div className="card">
+                return <div className="card" key={"search-result-"+index}>
                     <div className="card-block" key={"result-"+index}>
                         <div className="media m-a-0">
                           <div className="media-left text-xs-center">
