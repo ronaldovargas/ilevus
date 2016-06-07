@@ -62,38 +62,50 @@ module.exports = React.createClass({
 
         return (<div className="m-y-3" role="banner">
             <div className="container">
-              <div className="row">
-                <div className="col-xs-12">
-                  <div className="media">
-                    <div className="media-left text-xs-center">
-                      <span className="avatar avatar-xl">
-                        <img className="img-fluid" src={user.get("Image")} alt="Jon Snow" />
-                      </span>
+                <div className="row">
+                    <div className="col-xs-12">
+                        <div className="card">
+                            <div className="card-block">
+                                <div className="media m-a-0">
+                                    <div className="media-left text-xs-center">
+                                        <span className="avatar avatar-xl">
+                                            <img className="img-fluid" src={user.get("Image")} alt="Jon Snow" />
+                                        </span>
+                                    </div>
+                                    <div className="media-body">
+                                        <h1 className="m-y-0 h4">
+                                            {user.get("Name")} {user.get("Surname")}
+                                        </h1>
+                                        <p className="m-y-0">
+                                            <span className="label label-default">Premium</span>
+                                            <small className="m-x-1">Desenvolvimento Profissional, {userLocation}</small>
+                                        </p>
+                                    </div>
+                                    <div className="media-right text-xs-right">
+                                        <h3 className="m-a-0">
+                                            <span className="label label-success font-weight-bold">4.9 <sup>/ 5.0</sup></span>
+                                        </h3>
+                                        <a className="small" href="">
+                                            Baseado em 32 avaliações
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card-footer">
+                                <div className="btn-toolbar">
+                                    <button className="btn btn-brand">Enviar mensagem</button>
+                                    <button className="btn btn-neutral">Agendar reunião</button>
+                                    <button className="btn btn-neutral">Solicitar telefone</button>
+
+                                    <div className="btn-group pull-sm-right">
+                                        <button className="btn btn-clean">Compartilhar</button>
+                                        <button className="btn btn-clean">Salvar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="media-body">
-                      <h1 className="m-y-0 h4">
-                          {user.get("Name")} {user.get("Surname")}
-                      </h1>
-                      <p className="m-y-0">
-                          Desenvolvimento Profissional, {userLocation} <span className="label label-default">Premium</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="m-y-1">
-                    <span className="label label-default">4.9</span>
-                    <a className="small" href="">Baseado em 32 avaliações</a>
-                  </div>
-                  <div>
-                    <button className="btn btn-sm ">Agendar reunião</button>
-                    <button className="btn btn-sm ">Enviar mensagem</button>
-                    <button className="btn btn-sm ">Solicitar telefone</button>
-                    <div className="pull-sm-right">
-                      <button className="btn btn-sm btn-clean">Compartilhar</button>
-                      <button className="btn btn-sm btn-clean">Salvar</button>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
         </div>);
     }
