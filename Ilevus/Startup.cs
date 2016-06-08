@@ -15,6 +15,8 @@ namespace ilevus
 {
     public partial class Startup
     {
+        public static string BaseURL = ConfigurationManager.AppSettings["BaseURL"];
+
         public void Configuration(IAppBuilder app)
         {
             log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));

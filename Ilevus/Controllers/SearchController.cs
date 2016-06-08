@@ -26,11 +26,16 @@ namespace ilevus.Controllers
         }
         
         // GET /api/Search
-        public async Task<IHttpActionResult> Get()
+        public async Task<IHttpActionResult> Get(string keywords)
         {
             IlevusDbContext db = IlevusDbContext.Create();
             var response = await db.Client.ScanAsync(new ScanRequest {
-                TableName = db.FormatTableNameWithPrefix(Constants.TableNames.UsersTable)
+                TableName = db.FormatTableNameWithPrefix(Constants.TableNames.UsersTable),
+                FilterExpression = "contains(City, :t) or contains(FullName, :t)",
+                ExpressionAttributeValues =
+                {
+                    {":t", new AttributeValue(keywords != null ? keywords.ToLower():"")}
+                }
             });
             var attrs = response.Items;
             ConcurrentBag<PublicProfileViewModel> users = new ConcurrentBag<PublicProfileViewModel>();

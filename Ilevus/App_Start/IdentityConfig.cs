@@ -98,7 +98,7 @@ namespace ilevus.App_Start
         {
             //ElCamino - Creates the DynamoDb Tables
             var userStore = new IlevusUserStore(db);
-            var task = userStore.CreateTablesIfNotExists();
+            var task = userStore.CreateCustomTablesIfNotExists();
             task.Wait();
             var roleStore = new IlevusRoleStore(db);
             task = roleStore.CreateTableIfNotExistsAsync();
@@ -136,6 +136,8 @@ namespace ilevus.App_Start
                     Email = email,
                     Name = "Administrador",
                     Surname = "do Sistema",
+                    FullName = "administrador do sistema",
+                    City = "Belo Horizonte",
                     Address = "Sede da Ilevus",
                     Sex = "N/A",
                     PhoneNumber = "+55 31 9 9999-9999",

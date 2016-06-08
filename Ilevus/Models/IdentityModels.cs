@@ -10,6 +10,9 @@ using ElCamino.AspNet.Identity.Dynamo.Helpers;
 using Amazon.DynamoDBv2.DataModel;
 using ilevus.App_Start;
 using ilevus.Enums;
+using Amazon.DynamoDBv2.Model;
+using System.Collections.Generic;
+using Amazon.DynamoDBv2;
 
 namespace ilevus.Models
 {
@@ -18,6 +21,7 @@ namespace ilevus.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string FullName { get; set; }
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
 
@@ -108,6 +112,152 @@ namespace ilevus.Models
         {
             return new IlevusDbContext();
         }
+
+        public async Task CreateCustomUserTableAsync()
+        {
+            await CreateTableAsync(GenerateCustomUserCreateTableRequest());
+        }
+
+        public CreateTableRequest GenerateCustomUserCreateTableRequest()
+        {
+            return new CreateTableRequest
+            {
+                TableName = FormatTableNameWithPrefix(ElCamino.AspNet.Identity.Dynamo.Constants.TableNames.UsersTable),
+                AttributeDefinitions = new List<AttributeDefinition>()
+                    {
+                      new AttributeDefinition
+                      {
+                        AttributeName = "Id",
+                        AttributeType = "S"
+                      },
+                      new AttributeDefinition
+                      {
+                        AttributeName = "UserId",
+                        AttributeType = "S"
+                      },
+                      new AttributeDefinition
+                      {
+                        AttributeName = "UserName",
+                        AttributeType = "S"
+                      },
+                      new AttributeDefinition
+                      {
+                        AttributeName = "Email",
+                        AttributeType = "S"
+                      },
+                      new AttributeDefinition
+                      {
+                        AttributeName = "FullName",
+                        AttributeType = "S"
+                      },
+                      new AttributeDefinition
+                      {
+                        AttributeName = "City",
+                        AttributeType = "S"
+                      }
+                    },
+                KeySchema = new List<KeySchemaElement>()
+                    {
+                      new KeySchemaElement
+                      {
+                        AttributeName = "UserId",
+                        KeyType = KeyType.HASH
+                      },
+                      new KeySchemaElement
+                      {
+                        AttributeName = "Id",
+                        KeyType = KeyType.RANGE
+                      },
+                    },
+                ProvisionedThroughput = new ProvisionedThroughput
+                {
+                    ReadCapacityUnits = 1,
+                    WriteCapacityUnits = 1
+                },
+                GlobalSecondaryIndexes = new List<GlobalSecondaryIndex>
+                    {
+                        new GlobalSecondaryIndex
+                        {
+                            IndexName = ElCamino.AspNet.Identity.Dynamo.Constants.SecondaryIndexNames.UserEmailIndex,
+                            KeySchema = new List<KeySchemaElement>()
+                            {
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "Email",
+                                    KeyType = KeyType.HASH
+                                },
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "Id",
+                                    KeyType = KeyType.RANGE
+                                },
+
+                            },
+                            Projection = new Projection
+                            {
+                                 ProjectionType = new ProjectionType("ALL")
+                            },
+                            ProvisionedThroughput = new ProvisionedThroughput
+                            {
+                                ReadCapacityUnits = 1,
+                                WriteCapacityUnits = 1
+                            },
+                        },
+                        new GlobalSecondaryIndex
+                        {
+                            IndexName = ElCamino.AspNet.Identity.Dynamo.Constants.SecondaryIndexNames.UserNameIndex,
+                            KeySchema = new List<KeySchemaElement>()
+                            {
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "UserName",
+                                    KeyType = KeyType.HASH
+                                },
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "Id",
+                                    KeyType = KeyType.RANGE
+                                },
+                            },
+                            Projection = new Projection
+                            {
+                                 ProjectionType = new ProjectionType("ALL")
+                            },
+                            ProvisionedThroughput = new ProvisionedThroughput
+                            {
+                                ReadCapacityUnits = 1,
+                                WriteCapacityUnits = 1
+                            },
+                        },
+                        new GlobalSecondaryIndex
+                        {
+                            IndexName = "SearchIndex",
+                            KeySchema = new List<KeySchemaElement>()
+                            {
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "City",
+                                    KeyType = KeyType.HASH
+                                },
+                                new KeySchemaElement
+                                {
+                                    AttributeName = "FullName",
+                                    KeyType = KeyType.RANGE
+                                },
+                            },
+                            Projection = new Projection
+                            {
+                                 ProjectionType = new ProjectionType("ALL")
+                            },
+                            ProvisionedThroughput = new ProvisionedThroughput
+                            {
+                                ReadCapacityUnits = 1,
+                                WriteCapacityUnits = 1
+                            },
+                        }
+                    },
+            };
+        }
     }
 
 
@@ -133,6 +283,17 @@ namespace ilevus.Models
         public IlevusUserStore(IlevusDbContext context)
             : base(context)
         {
+        }
+
+        public async Task CreateCustomTablesIfNotExists()
+        {
+            var ctx = Context as IlevusDbContext;
+            await Task.WhenAll(new Task[]
+            {
+                ctx.CreateCustomUserTableAsync(),
+                ctx.CreateIndexTableAsync(),
+                ctx.CreateRoleTableAsync()
+            });
         }
     }
     /*

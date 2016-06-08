@@ -505,7 +505,8 @@ namespace ilevus.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 Name = model.Name,
-                Surname = model.Surname
+                Surname = model.Surname,
+                FullName = (model.Name + " " + model.Surname).ToLower()
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -604,6 +605,7 @@ namespace ilevus.Controllers
 
             user.Birthdate = model.Birthdate;
             user.Email = model.Email;
+            user.FullName = (model.Name + " " + model.Surname).ToLower();
             user.Name = model.Name;
             user.PhoneNumber = model.PhoneNumber;
             user.Sex = model.Sex;

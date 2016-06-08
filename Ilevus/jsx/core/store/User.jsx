@@ -50,7 +50,7 @@ var UserStore = Fluxbone.Store.extend({
 	        method: "GET",
 	        url: Fluxbone.BACKEND_URL + "Search",
 	        dataType: 'json',
-	        //data: params,
+	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("search", data);
 	        },

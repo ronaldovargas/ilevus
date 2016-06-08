@@ -14,7 +14,8 @@ var Collapse = require("ilevus/jsx/vendor/anvil.js").collapse;
 module.exports = React.createClass({
     getInitialState() {
         return {
-            models: null
+            models: null,
+            term: null
         };
     },
     componentDidMount() {
@@ -24,17 +25,28 @@ module.exports = React.createClass({
         }, me);
         UserStore.on("search", (data) => {
             me.setState({
-                models: data
+                models: data,
+                term: me.props.params.term
             });
         }, me);
 
         UserStore.dispatch({
             action: UserStore.ACTION_SEARCH,
-            data: {}
+            data: {
+                keywords: me.props.params.term
+            }
         });
     },
     componentWillUnmount() {
         UserStore.off(null, null, this);
+    },
+    componentWillReceiveProps(newProps) {
+        UserStore.dispatch({
+            action: UserStore.ACTION_SEARCH,
+            data: {
+                keywords: newProps.params.term
+            }
+        });
     },
 
     renderModels() {
@@ -103,8 +115,8 @@ module.exports = React.createClass({
                 <div className="col-xs-12">
                     <div className="card">
                         <div className="card-block">
-                            <h1 className="h3 m-a-0">{this.props.params.term}</h1>
-                            <span className="small">500 resultados para "{this.props.params.term}"</span>
+                            <h1 className="h3 m-a-0">{this.state.term}</h1>
+                            <span className="small">500 resultados para "{this.state.term}"</span>
                         </div>
                         <div className="card-footer bg-faded">
                             <form className="row">
