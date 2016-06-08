@@ -136,7 +136,7 @@ namespace ilevus.App_Start
                     Email = email,
                     Name = "Administrador",
                     Surname = "do Sistema",
-                    FullName = "administrador do sistema",
+                    Keywords = "administrador do sistema belo horizonte",
                     City = "Belo Horizonte",
                     Address = "Sede da Ilevus",
                     Sex = "N/A",

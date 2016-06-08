@@ -31,7 +31,7 @@ namespace ilevus.Controllers
             IlevusDbContext db = IlevusDbContext.Create();
             var response = await db.Client.ScanAsync(new ScanRequest {
                 TableName = db.FormatTableNameWithPrefix(Constants.TableNames.UsersTable),
-                FilterExpression = "contains(City, :t) or contains(FullName, :t)",
+                FilterExpression = "contains(Keywords, :t)",
                 ExpressionAttributeValues =
                 {
                     {":t", new AttributeValue(keywords != null ? keywords.ToLower():"")}

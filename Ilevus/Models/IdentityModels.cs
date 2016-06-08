@@ -21,7 +21,7 @@ namespace ilevus.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string FullName { get; set; }
+        public string Keywords { get; set; }
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
 
@@ -147,12 +147,7 @@ namespace ilevus.Models
                       },
                       new AttributeDefinition
                       {
-                        AttributeName = "FullName",
-                        AttributeType = "S"
-                      },
-                      new AttributeDefinition
-                      {
-                        AttributeName = "City",
+                        AttributeName = "Keywords",
                         AttributeType = "S"
                       }
                     },
@@ -236,14 +231,9 @@ namespace ilevus.Models
                             {
                                 new KeySchemaElement
                                 {
-                                    AttributeName = "City",
+                                    AttributeName = "Keywords",
                                     KeyType = KeyType.HASH
-                                },
-                                new KeySchemaElement
-                                {
-                                    AttributeName = "FullName",
-                                    KeyType = KeyType.RANGE
-                                },
+                                }
                             },
                             Projection = new Projection
                             {
