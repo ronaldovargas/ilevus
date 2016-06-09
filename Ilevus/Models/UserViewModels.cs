@@ -31,7 +31,7 @@ namespace ilevus.Models
     {
         public PublicProfileViewModel(IlevusUser user)
         {
-            Id = user.UserId;
+            Id = user.Id;
             Creation = user.Creation;
             Image = user.Image;
             Name = user.Name;
@@ -66,7 +66,7 @@ namespace ilevus.Models
     {
         public UserInfoViewModel(IlevusUser user)
         {
-            Id = user.UserId;
+            Id = user.Id;
             Email = user.Email;
             Birthdate = user.Birthdate;
             Creation = user.Creation;

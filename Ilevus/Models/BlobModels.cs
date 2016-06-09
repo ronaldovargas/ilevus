@@ -1,4 +1,5 @@
-﻿using Amazon.DynamoDBv2.DataModel;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +7,13 @@ using System.Web;
 
 namespace ilevus.Models
 {
-    [DynamoDBTable(IlevusTableNames.PicturesTable)]
     public class IlevusPicture
     {
-        [DynamoDBHashKey]
-        public string UserId { get; set; }
-        [DynamoDBRangeKey]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
         public string Checksum { get; set; }
+
+        public string UserId { get; set; }
 
         public DateTime Creation { get; set; }
         public string Mime { get; set; }
@@ -20,6 +21,7 @@ namespace ilevus.Models
 
         public IlevusPicture()
         {
+            Id = ObjectId.GenerateNewId().ToString();
             Creation = DateTime.Now;
         }
     }

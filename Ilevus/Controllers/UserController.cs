@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using MongoDB.Driver;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -77,7 +78,7 @@ namespace ilevus.Controllers
 
             foreach (PermissionBindingModel permModel in permsToAssign)
             {
-                if (!appUser.Claims.Any(p => p.ClaimType == "IlevusPermission" && p.ClaimValue == permModel.Permission))
+                if (!appUser.Claims.Any(p => p.Type == "IlevusPermission" && p.Value == permModel.Permission))
                 {
 
                     await this.UserManager.AddClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
@@ -107,7 +108,7 @@ namespace ilevus.Controllers
 
             foreach (PermissionBindingModel permModel in permsToRemove)
             {
-                if (appUser.Claims.Any(p => p.ClaimType == "IlevusPermission" && p.ClaimValue == permModel.Permission))
+                if (appUser.Claims.Any(p => p.Type == "IlevusPermission" && p.Value == permModel.Permission))
                 {
 
                     await this.UserManager.RemoveClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
@@ -177,7 +178,7 @@ namespace ilevus.Controllers
             }
 
             List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
-            foreach (IlevusUserLogin linkedAccount in user.Logins)
+            foreach (UserLoginInfo linkedAccount in user.Logins)
             {
                 logins.Add(new UserLoginInfoViewModel
                 {
@@ -522,12 +523,13 @@ namespace ilevus.Controllers
         // GET api/Account/Picture/{UserId}/{Checksum}
         [HttpGet]
         [AllowAnonymous]
-        [Route("Picture/{UserId}/{Checksum}")]
-        public async Task<HttpResponseMessage> GetPicture(string UserId, string Checksum)
+        [Route("Picture/{Id}")]
+        public async Task<HttpResponseMessage> GetPicture(string Id)
         {
             HttpServerUtility Server = HttpContext.Current.Server;
-            IlevusDBContext db = new IlevusDBContext();
-            IlevusPicture picture = await db.LoadAsync<IlevusPicture>(UserId, Checksum);
+            IlevusDBContext db = IlevusDBContext.Create();
+            var collection = db.GetPicturesCollection();
+            IlevusPicture picture = await collection.Find(pic => pic.Id == Id).FirstOrDefaultAsync();
             if (picture == null)
             {
                 return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -565,8 +567,9 @@ namespace ilevus.Controllers
 
             ClaimsIdentity identity = User.Identity as ClaimsIdentity;
             var user = await UserManager.FindByNameAsync(identity.Name);
-            IlevusDBContext db = new IlevusDBContext();
-            IlevusPicture picture = await db.LoadAsync<IlevusPicture>(user.Id, checksum);
+            IlevusDBContext db = IlevusDBContext.Create();
+            var collection = db.GetPicturesCollection();
+            IlevusPicture picture = await collection.Find(pic => pic.Checksum == checksum).FirstOrDefaultAsync();
             if (picture == null)
             {
                 File.Move(file.LocalFileName, IlevusBlobHelper.GetPictureUrl(Server, checksum));
@@ -577,10 +580,10 @@ namespace ilevus.Controllers
                     Checksum = checksum,
                     UserId = user.Id
                 };
-                await db.SaveAsync(picture);
+                await collection.InsertOneAsync(picture);
             }
             
-            user.Image = "/api/User/Picture/" + picture.UserId + "/" + picture.Checksum;
+            user.Image = "/api/User/Picture/" + picture.Id;
             var result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
             {

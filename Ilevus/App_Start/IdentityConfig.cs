@@ -1,4 +1,4 @@
-﻿using ElCamino.AspNet.Identity.Dynamo;
+﻿using AspNet.Identity.MongoDB;
 using ilevus.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -24,7 +24,7 @@ namespace ilevus.App_Start
             IdentityFactoryOptions<IlevusUserManager> options,
             IOwinContext context)
         {
-            var manager = new IlevusUserManager(new IlevusUserStore(context.Get<IlevusDbContext>()));
+            var manager = new IlevusUserManager(new IlevusUserStore(context.Get<IlevusIdentityContext>()));
 
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<IlevusUser>(manager)
@@ -72,7 +72,7 @@ namespace ilevus.App_Start
             IdentityFactoryOptions<IlevusRoleManager> options,
             IOwinContext context)
         {
-            return new IlevusRoleManager(new IlevusRoleStore(context.Get<IlevusDbContext>()));
+            return new IlevusRoleManager(new IlevusRoleStore(context.Get<IlevusIdentityContext>()));
         }
     }
 
@@ -94,20 +94,15 @@ namespace ilevus.App_Start
 
     public class IlevusDbInitializer
     {
-        public static void Initialize(IlevusDbContext db)
+        public static void Initialize(IlevusIdentityContext db)
         {
-            //ElCamino - Creates the DynamoDb Tables
-            var userStore = new IlevusUserStore(db);
-            var task = userStore.CreateCustomTablesIfNotExists();
-            task.Wait();
-            var roleStore = new IlevusRoleStore(db);
-            task = roleStore.CreateTableIfNotExistsAsync();
-            task.Wait();
-            //safe to remove after tables are created once.
+            IndexChecks.EnsureUniqueIndexOnEmail(db.Users);
+            IndexChecks.EnsureUniqueIndexOnUserName(db.Users);
+            IndexChecks.EnsureUniqueIndexOnRoleName(db.Roles);
         }
 
         //Create User=Admin@Admin.com with password=Admin@12345 in the Admin role        
-        public static void InitializeIdentity(IlevusDbContext db)
+        public static void InitializeIdentity(IlevusIdentityContext db)
         {
             var userManager = new IlevusUserManager(new IlevusUserStore(db));
             var roleManager = new IlevusRoleManager(new IlevusRoleStore(db));

@@ -1,5 +1,4 @@
 ﻿using ilevus.App_Start;
-using ilevus.Models;
 using ilevus.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
@@ -21,7 +20,7 @@ namespace ilevus
 
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(IlevusDbContext.Create);
+            app.CreatePerOwinContext(IlevusIdentityContext.Create);
             app.CreatePerOwinContext<IlevusUserManager>(IlevusUserManager.Create);
             app.CreatePerOwinContext<IlevusRoleManager>(IlevusRoleManager.Create);
 
