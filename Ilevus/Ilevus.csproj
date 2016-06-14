@@ -217,11 +217,6 @@
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
-    <Compile Include="Messages.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Messages.resx</DependentUpon>
-    </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\CitiesModels.cs" />
     <Compile Include="Models\DBContext.cs" />
@@ -236,50 +231,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app.js" />
-    <Content Include="favicon.ico" />
-    <Content Include="img\logo.png" />
-    <Content Include="img\ilevus-logo-60px.png" />
-    <Content Include="img\ilevus-logo-white-20px.png" />
-    <Content Include="index.html" />
-    <Content Include="jsx\Application.jsx" />
-    <Content Include="jsx\AppSetup.jsx" />
-    <Content Include="jsx\core\store\Fluxbone.jsx" />
-    <Content Include="jsx\core\store\User.jsx" />
-    <Content Include="jsx\core\store\UserSession.jsx" />
-    <Content Include="jsx\core\util\DateUtils.jsx" />
-    <Content Include="jsx\core\util\Messages.jsx" />
-    <Content Include="jsx\core\view\Error.jsx" />
-    <Content Include="jsx\core\view\Home.jsx" />
-    <Content Include="jsx\core\view\NotFound.jsx" />
-    <Content Include="jsx\core\view\Search.jsx" />
-    <Content Include="jsx\core\view\user\Management.jsx" />
-    <Content Include="jsx\core\view\user\Register.jsx" />
-    <Content Include="jsx\core\view\user\Login.jsx" />
-    <Content Include="jsx\core\view\user\RecoverPassword.jsx" />
-    <Content Include="jsx\core\view\user\ConfirmEmail.jsx" />
-    <Content Include="jsx\core\view\user\ResetPassword.jsx" />
-    <Content Include="jsx\core\widget\ErrorAlert.jsx" />
-    <Content Include="jsx\core\widget\form\EditableDataView.jsx" />
-    <Content Include="jsx\core\widget\form\Form.jsx" />
-    <Content Include="jsx\core\widget\form\HorizontalInput.jsx" />
-    <Content Include="jsx\core\widget\form\VerticalInput.jsx" />
-    <Content Include="jsx\core\widget\LoadingGauge.jsx" />
-    <Content Include="jsx\core\widget\MainMenu.jsx" />
-    <Content Include="jsx\core\widget\Modal.jsx" />
-    <Content Include="jsx\core\widget\Pagination.jsx" />
-    <Content Include="jsx\core\widget\Popover.jsx" />
-    <Content Include="jsx\core\widget\TopBar.jsx" />
-    <Content Include="jsx\vendor\anvil.js" />
-    <Content Include="jsx\vendor\anvil\alert.jsx" />
-    <Content Include="jsx\vendor\anvil\button.jsx" />
-    <Content Include="jsx\vendor\anvil\carousel.jsx" />
-    <Content Include="jsx\vendor\anvil\collapse.jsx" />
-    <Content Include="jsx\vendor\anvil\dropdown.jsx" />
-    <Content Include="jsx\vendor\anvil\modal.jsx" />
-    <Content Include="jsx\vendor\anvil\tooltip.jsx" />
-    <Content Include="jsx\vendor\anvil\util.jsx" />
-    <Content Include="jsx\vendor\daterangepicker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -287,92 +238,33 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="webpack.config.js" />
-    <Content Include="webpack.production.config.js" />
+    <None Include="package.json" />
+    <None Include="webpack.config.js" />
+    <None Include="webpack.production.config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="build\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="img\**" />
+    <None Include="jsx\**" />
+    <None Include="logs\**" />
+    <None Include="sass\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ilevus.local.pubxml" />
+    <None Include="Properties\PublishProfiles\ilevus.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ilevus.Resources\ilevus.Resources.csproj">
+      <Project>{a8e0e134-917e-4aa9-8488-3d9ccd987c83}</Project>
+      <Name>ilevus.Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
     <Folder Include="Content\" />
-    <Folder Include="logs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-    <Content Include="package.json" />
-    <Content Include="IdentityDynamoDb.pfx" />
-    <Content Include="jsx\core\view\user\Profile.jsx" />
-    <Content Include="jsx\core\view\user\Account.jsx" />
-    <Content Include="jsx\core\view\user\PublicProfile.jsx" />
-    <None Include="Project_Readme.html" />
-    <Content Include="sass\anvil-flex.scss" />
-    <Content Include="sass\anvil.scss" />
-    <Content Include="sass\components\_avatar.scss" />
-    <Content Include="sass\components\_button-group.scss" />
-    <Content Include="sass\components\_buttons.scss" />
-    <Content Include="sass\components\_forms.scss" />
-    <Content Include="sass\components\_labels.scss" />
-    <Content Include="sass\components\_media.scss" />
-    <Content Include="sass\components\_nav.scss" />
-    <Content Include="sass\components\_navbar.scss" />
-    <Content Include="sass\components\_tables.scss" />
-    <Content Include="sass\components\_tooltip.scss" />
-    <Content Include="sass\dependencies\core\_code.scss" />
-    <Content Include="sass\dependencies\core\_grid.scss" />
-    <Content Include="sass\dependencies\core\_images.scss" />
-    <Content Include="sass\dependencies\core\_reboot.scss" />
-    <Content Include="sass\dependencies\core\_type.scss" />
-    <Content Include="sass\dependencies\mixins\_alert.scss" />
-    <Content Include="sass\dependencies\mixins\_background-variant.scss" />
-    <Content Include="sass\dependencies\mixins\_border-radius.scss" />
-    <Content Include="sass\dependencies\mixins\_breakpoints.scss" />
-    <Content Include="sass\dependencies\mixins\_buttons.scss" />
-    <Content Include="sass\dependencies\mixins\_cards.scss" />
-    <Content Include="sass\dependencies\mixins\_center-block.scss" />
-    <Content Include="sass\dependencies\mixins\_clearfix.scss" />
-    <Content Include="sass\dependencies\mixins\_forms.scss" />
-    <Content Include="sass\dependencies\mixins\_gradients.scss" />
-    <Content Include="sass\dependencies\mixins\_grid-framework.scss" />
-    <Content Include="sass\dependencies\mixins\_grid.scss" />
-    <Content Include="sass\dependencies\mixins\_hover.scss" />
-    <Content Include="sass\dependencies\mixins\_image.scss" />
-    <Content Include="sass\dependencies\mixins\_label.scss" />
-    <Content Include="sass\dependencies\mixins\_list-group.scss" />
-    <Content Include="sass\dependencies\mixins\_lists.scss" />
-    <Content Include="sass\dependencies\mixins\_nav-divider.scss" />
-    <Content Include="sass\dependencies\mixins\_navbar-align.scss" />
-    <Content Include="sass\dependencies\mixins\_pagination.scss" />
-    <Content Include="sass\dependencies\mixins\_progress.scss" />
-    <Content Include="sass\dependencies\mixins\_pulls.scss" />
-    <Content Include="sass\dependencies\mixins\_reset-filter.scss" />
-    <Content Include="sass\dependencies\mixins\_reset-text.scss" />
-    <Content Include="sass\dependencies\mixins\_resize.scss" />
-    <Content Include="sass\dependencies\mixins\_screen-reader.scss" />
-    <Content Include="sass\dependencies\mixins\_size.scss" />
-    <Content Include="sass\dependencies\mixins\_tab-focus.scss" />
-    <Content Include="sass\dependencies\mixins\_table-row.scss" />
-    <Content Include="sass\dependencies\mixins\_text-emphasis.scss" />
-    <Content Include="sass\dependencies\mixins\_text-hide.scss" />
-    <Content Include="sass\dependencies\mixins\_text-truncate.scss" />
-    <Content Include="sass\dependencies\utilities\_background.scss" />
-    <Content Include="sass\dependencies\utilities\_responsive.scss" />
-    <Content Include="sass\dependencies\utilities\_spacing.scss" />
-    <Content Include="sass\dependencies\utilities\_utilities.scss" />
-    <Content Include="sass\dependencies\_mixins.scss" />
-    <Content Include="sass\dependencies\_normalize.scss" />
-    <Content Include="sass\dependencies\_print.scss" />
-    <Content Include="sass\dependencies\_variables.scss" />
-    <Content Include="sass\layouts\_page-banner.scss" />
-    <Content Include="sass\layouts\_page-content.scss" />
-    <Content Include="sass\components\_alert.scss" />
-    <Content Include="sass\components\_dropdown.scss" />
-    <Content Include="sass\components\_modal.scss" />
-    <Content Include="sass\components\_card.scss" />
-    <Content Include="sass\components\_toast.scss" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Messages.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

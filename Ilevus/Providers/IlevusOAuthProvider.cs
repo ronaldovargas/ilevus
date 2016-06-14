@@ -1,5 +1,6 @@
 ﻿using ilevus.App_Start;
 using ilevus.Models;
+using ilevus.Resources;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;

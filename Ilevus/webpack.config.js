@@ -3,15 +3,18 @@ var node_modules_dir = path.resolve(__dirname, 'node_modules');
 var Webpack = require("webpack");
 
 module.exports = {
-	context: __dirname,
+    context: __dirname,
+    stats: { colors: true },
+    devtool: '#source-map',
     entry: {
-    	javascript: "./app.js",
-    	html: "./index.html",
-        icon: "./favicon.ico"
+        javascript: path.resolve(__dirname, 'jsx/app.js'),
+        html: path.resolve(__dirname, 'jsx/index.html'),
+        icon: path.resolve(__dirname, 'img/favicon.ico')
     },
     output: {
-        path: path.resolve(__dirname, 'build/development'),
-        filename: "app.js"
+        path: path.resolve(__dirname, 'build/Debug'),
+        filename: "app.js",
+        chunkFilename: "[hash]-[id].js"
     },
     resolve: {
     	alias: {

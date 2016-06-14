@@ -1,4 +1,4 @@
-﻿using ilevus.Helpers;
+﻿using ilevus.Resources;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Resources;
@@ -14,7 +14,7 @@ namespace ilevus.Controllers
         {
             JObject resourceObject = new JObject();
             
-            ResourceSet resourceSet = Messages.ResourceManager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true);
+            ResourceSet resourceSet = IlevusResources.Manager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true);
             IDictionaryEnumerator enumerator = resourceSet.GetEnumerator();
             while (enumerator.MoveNext())
             {

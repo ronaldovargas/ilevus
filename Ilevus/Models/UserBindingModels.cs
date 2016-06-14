@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using ilevus;
+using ilevus.Resources;
 
 namespace ilevus.Models
 {
