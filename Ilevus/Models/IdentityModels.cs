@@ -13,7 +13,6 @@ namespace ilevus.Models
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Keywords { get; set; }
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
 
@@ -32,12 +31,16 @@ namespace ilevus.Models
         public EmailVisibility EmailVisibility { get; set; }
         public UserStatus Status { get; set; }
 
+        public string SearchLanguage { get; set; }
+        public double SearchRelevance { get; set; }
+
         public IlevusUser()
         {
             this.Type = UserType.Client;
             this.EmailVisibility = EmailVisibility.Public;
             this.Status = UserStatus.Active;
             this.Creation = DateTime.Now;
+            this.SearchLanguage = "portuguese";
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)

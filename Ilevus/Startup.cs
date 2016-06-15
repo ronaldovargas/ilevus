@@ -21,13 +21,15 @@ namespace ilevus
         {
             log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
             IlevusIdentityContext context = IlevusIdentityContext.Create();
-            //context.createIde
+            
             IlevusDbInitializer.Initialize(context);
             IlevusDbInitializer.InitializeIdentity(context);
 
             ConfigureAuth(app);
 
-            //IlevusDBContext db = IlevusDBContext.Create();
+            app.CreatePerOwinContext(IlevusDBContext.Create);
+            IlevusDBContext db = IlevusDBContext.Create();
+            db.EnsureIndexes();
 
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             //GlobalConfiguration.Configure(WebApiConfig.Register);

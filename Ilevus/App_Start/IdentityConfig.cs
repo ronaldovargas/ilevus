@@ -3,6 +3,7 @@ using ilevus.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,12 +130,14 @@ namespace ilevus.App_Start
                 user = new IlevusUser {
                     UserName = email,
                     Email = email,
+                    EmailConfirmed = true,
                     Name = "Administrador",
                     Surname = "do Sistema",
-                    Keywords = "administrador do sistema belo horizonte",
                     City = "Belo Horizonte",
+                    County = "Minas Gerais",
+                    Country = "Brasil",
                     Address = "Sede da Ilevus",
-                    Sex = "N/A",
+                    Sex = "M",
                     PhoneNumber = "+55 31 9 9999-9999",
                     Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
                 };
@@ -173,10 +176,14 @@ namespace ilevus.App_Start
                 {
                     UserName = userEmail,
                     Email = userEmail,
+                    EmailConfirmed = true,
                     Name = "Usuário",
                     Surname = "Exemplo",
                     Address = "Sede da Ilevus",
-                    Sex = "N/A",
+                    City = "Belo Horizonte",
+                    County = "Minas Gerais",
+                    Country = "Brasil",
+                    Sex = "M",
                     PhoneNumber = "+55 31 9 8888-8888",
                     Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
                 };

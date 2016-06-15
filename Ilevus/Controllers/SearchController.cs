@@ -3,6 +3,7 @@ using ilevus.App_Start;
 using ilevus.Helpers;
 using ilevus.Models;
 using Microsoft.AspNet.Identity.Owin;
+using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -26,10 +27,21 @@ namespace ilevus.Controllers
         // GET /api/Search
         public async Task<IHttpActionResult> Get(string keywords)
         {
-            
-            ConcurrentBag<PublicProfileViewModel> users = new ConcurrentBag<PublicProfileViewModel>();
-            
-            return Ok(users);
+            var db = Request.GetOwinContext().Get<IlevusIdentityContext>();
+            var users = db.Users;
+            var filter = Builders<IlevusUser>.Filter.Text(keywords);
+            var projection = Builders<IlevusUser>.Projection.MetaTextScore("SearchRelevance");
+            var sort = Builders<IlevusUser>.Sort.MetaTextScore("SearchRelevance");
+            var opts = new FindOptions<IlevusUser>() {
+                Projection = projection,
+                Sort = sort
+            };
+            var results = (await users.FindAsync(filter, opts));
+            var publicUsers = new ConcurrentBag<PublicProfileViewModel>();
+            await results.ForEachAsync(user => {
+                publicUsers.Add(new PublicProfileViewModel(user));
+            });
+            return Ok(publicUsers);
         }
     }
 }

@@ -198,7 +198,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\ApplicationIdentityContext.cs" />
+    <Compile Include="App_Start\IlevusIdentityContext.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />

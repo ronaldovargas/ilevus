@@ -506,8 +506,7 @@ namespace ilevus.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 Name = model.Name,
-                Surname = model.Surname,
-                Keywords = (model.Name + " " + model.Surname).ToLower()
+                Surname = model.Surname
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -608,7 +607,6 @@ namespace ilevus.Controllers
 
             user.Birthdate = model.Birthdate;
             user.Email = model.Email;
-            user.Keywords = (model.Name + " " + model.Surname + (user.City != null ? " "+user.City:"")).ToLower();
             user.Name = model.Name;
             user.PhoneNumber = model.PhoneNumber;
             user.Sex = model.Sex;
@@ -644,9 +642,7 @@ namespace ilevus.Controllers
             user.County = model.County;
             user.District = model.District;
             user.Zipcode = model.Zipcode;
-
-            user.Keywords = (user.Name + " " + user.Surname + (model.City != null ? " " + model.City : "")).ToLower();
-
+            
             IdentityResult result = await UserManager.UpdateAsync(user);
 
             if (!result.Succeeded)
