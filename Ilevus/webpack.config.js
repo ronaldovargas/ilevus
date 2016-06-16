@@ -4,22 +4,20 @@ var Webpack = require("webpack");
 
 module.exports = {
     context: __dirname,
-    stats: { colors: true },
     devtool: '#source-map',
     entry: {
-        javascript: path.resolve(__dirname, 'jsx/app.js'),
-        html: path.resolve(__dirname, 'jsx/index.html'),
-        icon: path.resolve(__dirname, 'img/favicon.ico')
+        javascript: path.join(__dirname, "jsx", "app.js"),
+        html: path.join(__dirname, "index.html"),
+        icon: path.join(__dirname, 'img', 'favicon.ico')
     },
     output: {
-        path: path.resolve(__dirname, 'build/Debug'),
-        filename: "app.js",
-        chunkFilename: "[hash]-[id].js"
+        path: path.join(__dirname, 'build', 'Debug'),
+        filename: "bundle.js"
     },
     resolve: {
     	alias: {
     		"ilevus": __dirname,
-            "jquery.ui.widget": "./vendor/jquery.ui.widget.js"
+    		"jquery.ui.widget": "./vendor/jquery.ui.widget.js"
     	}
     },
     plugins: [

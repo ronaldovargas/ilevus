@@ -3,7 +3,7 @@
 */
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
-var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var string = require("string");
 
 var URL = Fluxbone.BACKEND_URL+"User";
@@ -14,19 +14,19 @@ var UserModel = Fluxbone.Model.extend({
 	    var errors = [];
 
 	    if (string(attrs.Email).isEmpty()) {
-			errors.push("O e-mail é obrigatório.");
+	        errors.push(Messages.get("ValidationEmailRequired"));
 	    }
 	    if (string(attrs.Name).isEmpty()) {
-	        errors.push("O nome é obrigatório.");
+	        errors.push(Messages.get("ValidationNameRequired"));
 	    }
 	    if (string(attrs.Surname).isEmpty()) {
-	        errors.push("O sobrenome é obrigatório.");
+	        errors.push(Messages.get("ValidationSurnameRequired"));
 	    }
 	    if (string(attrs.Password).isEmpty()) {
-	        errors.push("A senha é obrigatória.");
+	        errors.push(Messages.get("ValidationPasswordRequired"));
 	    }
 		if (attrs.Password != attrs.ConfirmPassword) {
-			errors.push("As senhas digitadas não são iguais.");
+		    errors.push(Messages.get("ValidationPasswordsDontMatch"));
 		}
 
 		if (errors.length > 0)
@@ -36,6 +36,7 @@ var UserModel = Fluxbone.Model.extend({
 
 var UserStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE: 'user-retrieve',
+    ACTION_SIGNUP: 'user-signup',
     ACTION_SEARCH: 'user-search',
 	ACTION_FIND: 'user-find',
 	ACTION_DESTROY: 'user-destroy',
@@ -44,6 +45,11 @@ var UserStore = Fluxbone.Store.extend({
 	url: URL,
 	model: UserModel,
 
+	signup(data) {
+	    return this.create(data, {
+            url: this.url+"/Register"
+	    });
+	},
 	search(params) {
 	    var me = this;
 	    $.ajax({

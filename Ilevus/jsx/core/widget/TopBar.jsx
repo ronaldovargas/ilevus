@@ -3,10 +3,11 @@ var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
-
-var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var Toastr = require("toastr");
 
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -41,7 +42,10 @@ module.exports = React.createClass({
 
         UserSession.on("confirmationemail", code => {
             console.log(encodeURIComponent(code));
-            Modal.alert("Sucesso", "Um e-mail de confirmação foi enviado para o endereço cadastrado.");
+            Toastr.success(Messages.get("TextEmailConfirmationSent"));
+        }, me);
+        UserSession.on("confirmationemailfail", msg => {
+            Toastr.info(msg);
         }, me);
     },
     componentWillUnmount() {
@@ -70,21 +74,21 @@ module.exports = React.createClass({
         return (<nav className="navbar navbar-full navbar-dark bg-primary">
           <div className="container">
             <a className="navbar-brand" href="#/">
-              <img src={LogoWhite} />
+              <img src={LogoWhite} alt="ilevus" />
             </a>
             <button className="navbar-toggler hidden-sm-up pull-xs-right" type="button" data-toggle="collapse" data-target="#js-navbar-collapse">&#9776;</button>
             <div className="collapse navbar-toggleable-xs" id="js-navbar-collapse">
                 <form className="form-inline pull-sm-left" onSubmit={this.onSearch}>
                   <input ref="search-term" className="form-element" style={{borderColor: '#393973'}} type="search"/>
-                  <button className="btn btn-brand" type="submit">Pesquisar</button>
+                  <button className="btn btn-brand" type="submit">{Messages.get("LabelSearch")}</button>
                 </form>
                 {this.state.logged ? (
                 <ul className="nav navbar-nav small pull-sm-right">
                     <li className="nav-item">
-                        <a className="btn btn-warning-o" href="#">Perfil profissional</a>
+                        <a className="btn btn-warning-o" href="#">{Messages.get("LabelProfessionalProfile")}</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">Mensagens</a>
+                        <a className="nav-link" href="#">{Messages.get("LabelMessages")}</a>
                     </li>
                     <li className="nav-item">
                         <div className="dropdown">
@@ -95,10 +99,10 @@ module.exports = React.createClass({
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
-                                <Link className="dropdown-item" to="user/profile">Editar Perfil</Link>
-                                <Link className="dropdown-item" to="user/account">Configurações da Conta</Link>
-                                <a className="dropdown-item" onClick={this.confirmEmail}>Confirmar e-mail</a>
-                                <a className="dropdown-item" onClick={this.onLogout}>Sair</a>
+                                <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
+                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
+                                <a className="dropdown-item" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
+                                <a className="dropdown-item" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                             </div>
                         </div>
                     </li>
@@ -106,10 +110,10 @@ module.exports = React.createClass({
                 ) : (
                 <ul className="nav navbar-nav small pull-sm-right">
 			        <li className="nav-item">
-                        <Link className="nav-link" to="/signup">Cadastrar</Link>
+                        <Link className="nav-link" to="/signup">{Messages.get("LabelSignUp")}</Link>
                     </li>
 			        <li className="nav-item">
-				        <Link className="nav-link" to="/login">Entrar</Link>
+				        <Link className="nav-link" to="/login">{Messages.get("LabelSignIn")}</Link>
 			        </li>
                 </ul>
                 )}

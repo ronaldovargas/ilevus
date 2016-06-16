@@ -1,52 +1,54 @@
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 var FULL_MONTHS = [
-	"Janeiro",
-	"Fevereiro",
-	"Março",
-	"Abril",
-	"Maio",
-	"Junho",
-	"Julho",
-	"Agosto",
-	"Setembro",
-	"Outubro",
-	"Novembro",
-	"Dezembro"
+	Messages.get("MonthJanuary"),
+	Messages.get("MonthFebruary"),
+	Messages.get("MonthMarch"),
+	Messages.get("MonthApril"),
+	Messages.get("MonthMay"),
+	Messages.get("MonthJune"),
+	Messages.get("MonthJuly"),
+	Messages.get("MonthAugust"),
+	Messages.get("MonthSeptember"),
+	Messages.get("MonthOctober"),
+	Messages.get("MonthNovember"),
+	Messages.get("MonthDecember")
 ];
 
 var SHORT_MONTHS = [
-	"jan",
-	"fev",
-	"mar",
-	"abr",
-	"mai",
-	"jun",
-	"jul",
-	"ago",
-	"set",
-	"out",
-	"nov",
-	"dez"
+	Messages.get("MonthJanuaryAbbr"),
+	Messages.get("MonthFebruaryAbbr"),
+	Messages.get("MonthMarchAbbr"),
+	Messages.get("MonthAprilAbbr"),
+	Messages.get("MonthMayAbbr"),
+	Messages.get("MonthJuneAbbr"),
+	Messages.get("MonthJulyAbbr"),
+	Messages.get("MonthAugustAbbr"),
+	Messages.get("MonthSeptemberAbbr"),
+	Messages.get("MonthOctoberAbbr"),
+	Messages.get("MonthNovemberAbbr"),
+	Messages.get("MonthDecemberAbbr")
 ];
 
 var FULL_DAYS = [
-	"Domingo",
-	"Segunda-feira",
-	"Terça-feira",
-	"Quarta-feira",
-	"Quinta-feira",
-	"Sexta-feira",
-	"Sábado"
+	Messages.get("DaySunday"),
+	Messages.get("DayMonday"),
+	Messages.get("DayTuesday"),
+	Messages.get("DayWednesday"),
+	Messages.get("DayThursday"),
+	Messages.get("DayFriday"),
+	Messages.get("DaySaturday")
 ];
 
 var SHORT_DAYS = [
-	"dom",
-	"seg",
-	"ter",
-	"qua",
-	"qui",
-	"sex",
-	"sáb"
+	Messages.get("DaySundayAbbr"),
+	Messages.get("DayMondayAbbr"),
+	Messages.get("DayTuesdayAbbr"),
+	Messages.get("DayWednesdayAbbr"),
+	Messages.get("DayThursdayAbbr"),
+	Messages.get("DayFridayAbbr"),
+	Messages.get("DaySaturdayAbbr")
 ];
 
 /**

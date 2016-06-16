@@ -25,23 +25,38 @@ namespace ilevus.Controllers
         }
         
         // GET /api/Search
-        public async Task<IHttpActionResult> Get(string keywords)
+        public async Task<IHttpActionResult> Get(string keywords, int start = 0, int limit = 20)
         {
             var db = Request.GetOwinContext().Get<IlevusIdentityContext>();
             var users = db.Users;
-            var filter = Builders<IlevusUser>.Filter.Text(keywords);
-            var projection = Builders<IlevusUser>.Projection.MetaTextScore("SearchRelevance");
-            var sort = Builders<IlevusUser>.Sort.MetaTextScore("SearchRelevance");
-            var opts = new FindOptions<IlevusUser>() {
-                Projection = projection,
-                Sort = sort
-            };
-            var results = (await users.FindAsync(filter, opts));
+            var filter = GetSearchFilter(keywords);
+            var opts = GetFindOptions(start, limit);
+            var results = await users.FindAsync(filter, opts);
+            var total = await users.CountAsync(filter);
             var publicUsers = new ConcurrentBag<PublicProfileViewModel>();
             await results.ForEachAsync(user => {
                 publicUsers.Add(new PublicProfileViewModel(user));
             });
-            return Ok(publicUsers);
+            var resp = new Dictionary<string, object>();
+            resp["data"] = publicUsers;
+            resp["total"] = total;
+            resp["success"] = true;
+            return Ok(resp);
+        }
+
+        private FilterDefinition<IlevusUser> GetSearchFilter(string keywords)
+        {
+            return Builders<IlevusUser>.Filter.Text(keywords);
+        }
+        private FindOptions<IlevusUser> GetFindOptions(int start, int limit)
+        {
+            return new FindOptions<IlevusUser>()
+            {
+                Projection = Builders<IlevusUser>.Projection.MetaTextScore("SearchRelevance"),
+                Sort = Builders<IlevusUser>.Sort.MetaTextScore("SearchRelevance"),
+                Skip = start,
+                Limit = limit
+            };
         }
     }
 }

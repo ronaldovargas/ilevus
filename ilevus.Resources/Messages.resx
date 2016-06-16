@@ -117,8 +117,59 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionBackToMainPage" xml:space="preserve">
+    <value>Voltar para a página inicial</value>
+  </data>
   <data name="AuthInvalidUserCredentials" xml:space="preserve">
     <value>E-mail e/ou senha inválido(s).</value>
+  </data>
+  <data name="DayFriday" xml:space="preserve">
+    <value>Sexta-feira</value>
+  </data>
+  <data name="DayFridayAbbr" xml:space="preserve">
+    <value>sex</value>
+  </data>
+  <data name="DayMonday" xml:space="preserve">
+    <value>Segunda-feira</value>
+  </data>
+  <data name="DayMondayAbbr" xml:space="preserve">
+    <value>seg</value>
+  </data>
+  <data name="DaySaturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="DaySaturdayAbbr" xml:space="preserve">
+    <value>sáb</value>
+  </data>
+  <data name="DaySunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="DaySundayAbbr" xml:space="preserve">
+    <value>dom</value>
+  </data>
+  <data name="DayThursday" xml:space="preserve">
+    <value>Quinta-feira</value>
+  </data>
+  <data name="DayThursdayAbbr" xml:space="preserve">
+    <value>qui</value>
+  </data>
+  <data name="DayTuesday" xml:space="preserve">
+    <value>Terça-feira</value>
+  </data>
+  <data name="DayTuesdayAbbr" xml:space="preserve">
+    <value>ter</value>
+  </data>
+  <data name="DayWednesday" xml:space="preserve">
+    <value>Quarta-feira</value>
+  </data>
+  <data name="DayWednesdayAbbr" xml:space="preserve">
+    <value>qua</value>
+  </data>
+  <data name="LabelAccountConfig" xml:space="preserve">
+    <value>Configurações da conta</value>
+  </data>
+  <data name="LabelAd" xml:space="preserve">
+    <value>Anúncio</value>
   </data>
   <data name="LabelAddress" xml:space="preserve">
     <value>Endereço</value>
@@ -132,6 +183,9 @@
   <data name="LabelComplement" xml:space="preserve">
     <value>Complemento</value>
   </data>
+  <data name="LabelConfirmEmail" xml:space="preserve">
+    <value>Confirmar e-mail</value>
+  </data>
   <data name="LabelCountry" xml:space="preserve">
     <value>País</value>
   </data>
@@ -141,14 +195,32 @@
   <data name="LabelDistrict" xml:space="preserve">
     <value>Bairro</value>
   </data>
+  <data name="LabelEditProfile" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
   <data name="LabelEmail" xml:space="preserve">
     <value>E-mail</value>
+  </data>
+  <data name="LabelExpertise" xml:space="preserve">
+    <value>Especialidade</value>
   </data>
   <data name="LabelFirstName" xml:space="preserve">
     <value>Primeiro nome</value>
   </data>
   <data name="LabelGenre" xml:space="preserve">
     <value>Gênero</value>
+  </data>
+  <data name="LabelLocalization" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="LabelLogout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="LabelMeetsOnline" xml:space="preserve">
+    <value>Atende online</value>
+  </data>
+  <data name="LabelMessages" xml:space="preserve">
+    <value>Mensagens</value>
   </data>
   <data name="LabelName" xml:space="preserve">
     <value>Nome</value>
@@ -168,11 +240,29 @@
   <data name="LabelPhoneNumber" xml:space="preserve">
     <value>Número de Telefone</value>
   </data>
+  <data name="LabelProfessionalProfile" xml:space="preserve">
+    <value>Perfil profissional</value>
+  </data>
   <data name="LabelSave" xml:space="preserve">
     <value>Salvar</value>
   </data>
+  <data name="LabelSearch" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
   <data name="LabelSex" xml:space="preserve">
     <value>Gênero</value>
+  </data>
+  <data name="LabelShare" xml:space="preserve">
+    <value>Compartilhar</value>
+  </data>
+  <data name="LabelSignIn" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="LabelSignUp" xml:space="preserve">
+    <value>Cadastrar</value>
+  </data>
+  <data name="LabelStayConnected" xml:space="preserve">
+    <value>Permanecer conectado</value>
   </data>
   <data name="LabelSurname" xml:space="preserve">
     <value>Sobrenome</value>
@@ -183,10 +273,166 @@
   <data name="LabelZipcode" xml:space="preserve">
     <value>CEP</value>
   </data>
+  <data name="MonthApril" xml:space="preserve">
+    <value>Abril</value>
+  </data>
+  <data name="MonthAprilAbbr" xml:space="preserve">
+    <value>abr</value>
+  </data>
+  <data name="MonthAugust" xml:space="preserve">
+    <value>Agosto</value>
+  </data>
+  <data name="MonthAugustAbbr" xml:space="preserve">
+    <value>ago</value>
+  </data>
+  <data name="MonthDecember" xml:space="preserve">
+    <value>Dezembro</value>
+  </data>
+  <data name="MonthDecemberAbbr" xml:space="preserve">
+    <value>dez</value>
+  </data>
+  <data name="MonthFebruary" xml:space="preserve">
+    <value>Fevereiro</value>
+  </data>
+  <data name="MonthFebruaryAbbr" xml:space="preserve">
+    <value>fev</value>
+  </data>
+  <data name="MonthJanuary" xml:space="preserve">
+    <value>Janeiro</value>
+  </data>
+  <data name="MonthJanuaryAbbr" xml:space="preserve">
+    <value>jan</value>
+  </data>
+  <data name="MonthJuly" xml:space="preserve">
+    <value>Julho</value>
+  </data>
+  <data name="MonthJulyAbbr" xml:space="preserve">
+    <value>jul</value>
+  </data>
+  <data name="MonthJune" xml:space="preserve">
+    <value>Junho</value>
+  </data>
+  <data name="MonthJuneAbbr" xml:space="preserve">
+    <value>jun</value>
+  </data>
+  <data name="MonthMarch" xml:space="preserve">
+    <value>Março</value>
+  </data>
+  <data name="MonthMarchAbbr" xml:space="preserve">
+    <value>mar</value>
+  </data>
+  <data name="MonthMay" xml:space="preserve">
+    <value>Maio</value>
+  </data>
+  <data name="MonthMayAbbr" xml:space="preserve">
+    <value>mai</value>
+  </data>
+  <data name="MonthNovember" xml:space="preserve">
+    <value>Novembro</value>
+  </data>
+  <data name="MonthNovemberAbbr" xml:space="preserve">
+    <value>nov</value>
+  </data>
+  <data name="MonthOctober" xml:space="preserve">
+    <value>Outubro</value>
+  </data>
+  <data name="MonthOctoberAbbr" xml:space="preserve">
+    <value>out</value>
+  </data>
+  <data name="MonthSeptember" xml:space="preserve">
+    <value>Setembro</value>
+  </data>
+  <data name="MonthSeptemberAbbr" xml:space="preserve">
+    <value>set</value>
+  </data>
+  <data name="TextAccountCreated" xml:space="preserve">
+    <value>Conta criada com sucesso.</value>
+  </data>
+  <data name="TextAllRightsReserved" xml:space="preserve">
+    <value>Todos os direitos reservados.</value>
+  </data>
+  <data name="TextEmailConfirmationSent" xml:space="preserve">
+    <value>Um e-mail de confirmação foi enviado para o endereço cadastrado.</value>
+  </data>
+  <data name="TextEvaluations" xml:space="preserve">
+    <value>{0} avaliações</value>
+  </data>
+  <data name="TextNotFound" xml:space="preserve">
+    <value>Você pode ter digitado algum endereço errado ou a página foi movida deste lugar.</value>
+  </data>
+  <data name="TextNotFoundOops" xml:space="preserve">
+    <value>Oops, não encontramos a página que você está procurando...</value>
+  </data>
+  <data name="TextQHaveAccount" xml:space="preserve">
+    <value>Já possui uma conta?</value>
+  </data>
+  <data name="TextRecoverPassword" xml:space="preserve">
+    <value>Recuperar sua senha</value>
+  </data>
+  <data name="TextRecoverPasswordDescription" xml:space="preserve">
+    <value>Nós iremos enviar instruções de como recuperar sua senha para o email em que você se cadastrou. Confira sua caixa de entrada após confirmar a solicitação.</value>
+  </data>
+  <data name="TextRecoverPasswordEmailSent" xml:space="preserve">
+    <value>E-mail de recuperação de senha enviado com sucesso.</value>
+  </data>
+  <data name="TextSearchNumberOfResults" xml:space="preserve">
+    <value>{0} resultado(s) encontrado(s) para "{1}".</value>
+  </data>
+  <data name="TextSearchPlaceholder" xml:space="preserve">
+    <value>Pesquise por nome, especialidade ou localização...</value>
+  </data>
+  <data name="TextSignIn" xml:space="preserve">
+    <value>Faça seu login</value>
+  </data>
+  <data name="TextSignUp" xml:space="preserve">
+    <value>Criar uma conta</value>
+  </data>
+  <data name="TextSignUpAgreement" xml:space="preserve">
+    <value>Ao clicar em "Criar minha conta", você está de acordo com nossa Política de Privacidade e Termos de Uso.</value>
+  </data>
+  <data name="TextSignUpDescription" xml:space="preserve">
+    <value>Faça seu cadastro grátis em segundos, não precisa de cartão de crédito.</value>
+  </data>
+  <data name="TextSignUpTitle" xml:space="preserve">
+    <value>Crie a sua conta agora</value>
+  </data>
+  <data name="TextSlogan" xml:space="preserve">
+    <value>Transforme sua carreira.</value>
+  </data>
+  <data name="TextSloganDescription" xml:space="preserve">
+    <value>Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira.</value>
+  </data>
+  <data name="TextTypeYourEmail" xml:space="preserve">
+    <value>Digite seu e-mail.</value>
+  </data>
+  <data name="TextTypeYourPassword" xml:space="preserve">
+    <value>Digite a sua senha.</value>
+  </data>
+  <data name="TextUnexpectedError" xml:space="preserve">
+    <value>Um erro inesperado ocorreu. Por favor, tente novamente mais tarde. Caso o erro persista, entre em contato com o suporte.</value>
+  </data>
+  <data name="TextUnexpectedErrorOops" xml:space="preserve">
+    <value>Oops, um erro inesperado ocorreu...</value>
+  </data>
+  <data name="ValidationEmailRequired" xml:space="preserve">
+    <value>O e-mail é obrigatório.</value>
+  </data>
+  <data name="ValidationNameRequired" xml:space="preserve">
+    <value>O nome é obrigatório.</value>
+  </data>
+  <data name="ValidationPasswordRequired" xml:space="preserve">
+    <value>A senha é obrigatória.</value>
+  </data>
+  <data name="ValidationPasswordsDontMatch" xml:space="preserve">
+    <value>As senhas digitadas não são iguais.</value>
+  </data>
   <data name="ValidationRequired" xml:space="preserve">
     <value>O campo '{0}' é obrigatório.</value>
   </data>
   <data name="ValidationStringLengthMin" xml:space="preserve">
     <value>O campo '{0}' precisa ter no mínimo {2} caracteres.</value>
+  </data>
+  <data name="ValidationSurnameRequired" xml:space="preserve">
+    <value>O sobrenome é obrigatório.</value>
   </data>
 </root>

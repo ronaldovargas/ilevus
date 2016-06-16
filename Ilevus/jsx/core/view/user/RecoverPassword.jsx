@@ -2,7 +2,7 @@
 var React = require("react");
 var Link = require("react-router").Link;
 var ErrorAlert = require("ilevus/jsx/core/widget/ErrorAlert.jsx");
-var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var Toastr = require("toastr");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -30,8 +30,8 @@ module.exports = React.createClass({
         var me = this;
 	    UserSession.on("recoverpassword", data => {
 	        console.log(encodeURIComponent(data));
-			Modal.alert("Sucesso", "E-mail de recuperação de senha enviado com sucesso.");
-			me.context.router.push("/home");
+	        Toastr.success(Messages.get("TextRecoverPasswordEmailSent"));
+			me.context.router.push("/login");
 		}, me);
 	},
 	componentWillUnmount() {
@@ -43,11 +43,9 @@ module.exports = React.createClass({
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
 
                     <form className="p-t-3" onSubmit={this.onSubmit}>
-                      <h3>Recuperar senha</h3>
+                      <h3>{Messages.get("TextRecoverPassword")}</h3>
                       <p>
-                          Nós iremos enviar instruções de como recuperar sua senha para o
-                          email em que você se cadastrou. Confira sua caixa de entrada após
-                          confirmar a solicitação.
+                          {Messages.get("TextRecoverPasswordDescription")}
                       </p>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
@@ -58,17 +56,17 @@ module.exports = React.createClass({
                       
                       <div className="form-group row">
                         <div className="col-xs-12 col-sm-6">
-                          <input type="submit" value="Recuperar senha" className="btn btn-lg btn-brand btn-block" />
+                          <input type="submit" value={Messages.get("TextRecoverPassword")} className="btn btn-lg btn-brand btn-block" />
                         </div>
                         <div className="col-xs-12 col-sm-6">
-                          <Link to="/login" className="btn btn-lg btn-link btn-block">Voltar para o login</Link>
+                          <Link to="/login" className="btn btn-lg btn-link btn-block">{Messages.get("TextSignIn")}</Link>
                         </div>
                       </div>
                     </form>
 
                     <div className="text-xs-center">
                       <p className="text-muted small p-t-2">
-                          ©2016 Ilevus. Todos os direitos reservados.
+                          ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
                       </p>
                     </div>
                   </div>

@@ -13,7 +13,8 @@ namespace ilevus.Controllers
         public IHttpActionResult Get()
         {
             JObject resourceObject = new JObject();
-            
+
+            resourceObject.Add("Culture", Thread.CurrentThread.CurrentCulture.Name);
             ResourceSet resourceSet = IlevusResources.Manager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true);
             IDictionaryEnumerator enumerator = resourceSet.GetEnumerator();
             while (enumerator.MoveNext())

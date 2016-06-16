@@ -8,10 +8,18 @@ var React = require("react");
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 var MainMenu = require("ilevus/jsx/core/widget/MainMenu.jsx");
 var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 module.exports = React.createClass({
+    childContextTypes: {
+        messages: React.PropTypes.object
+    },
+    getChildContext() {
+        messages: Messages
+    },
     render: function () {
         return (<div>
 			<TopBar />

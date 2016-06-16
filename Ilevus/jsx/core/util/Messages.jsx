@@ -3,16 +3,35 @@
 */
 
 var $ = require("jquery");
+var S = require("string");
 
 module.exports = {
     _loaded: false,
     _messages: null,
     _culture: null,
+    _get: function (key) {
+        if (!this._messages) {
+            throw "!!!MESSAGES_NOT_LOADED!!!";
+        }
+        return S(this._messages[key]);
+    },
     get: function (key) {
-        return this._messages ?
-            (this._messages[key] ?
-                this._messages[key]:"???"+key+"???"
-            ):"!!!MESSAGES_NOT_LOADED!!!";
+        var str = this._get(key);
+        if (str.isEmpty()) {
+            return "???" + key + "???";
+        }
+        return str.s;
+    },
+    format: function (key, values) {
+        var str = this._get(key);
+        if (str.isEmpty()) {
+            return "???" + key + "???";
+        }
+        var tplValues = {};
+        for (var i = 0; i < values.length; i++) {
+            tplValues["" + i] = values[i];
+        }
+        return str.template(tplValues).s;
     },
     load: function (callback) {
         var me = this;

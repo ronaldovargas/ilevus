@@ -4,7 +4,7 @@ var Link = require("react-router").Link;
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var ErrorAlert = require("ilevus/jsx/core/widget/ErrorAlert.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
-var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var Toastr = require("toastr");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var AppLogo = require("ilevus/img/logo.png");
@@ -19,7 +19,7 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         UserStore.on("sync", model => {
-            Modal.alert("Sucesso", "Sua conta foi salva com sucesso. Acesse seu e-mail para completar seu cadastro.");
+            Toastr.success(Messages.get("TextAccountCreated"));
             me.context.router.push("/login");
         }, me);
 
@@ -36,6 +36,7 @@ module.exports = React.createClass({
             Password: this.refs['password'].value,
             ConfirmPassword: this.refs['passwordconfirm'].value
         };
+        console.log(data);
         UserStore.dispatch({
             action: UserStore.ACTION_SIGNUP,
             data: data
@@ -47,9 +48,14 @@ module.exports = React.createClass({
                 <div className="row">
                     <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
                         <form className="p-t-3" onSubmit={this.onSubmit}>
-                            <h3>Crie sua conta agora</h3>
-                            <p className="m-y-0">Faça seu cadastro em segundos, não precisa de cartão.</p>
-                            <p>Já tem um cadastro na Ilevus? <Link to="/login">Faça seu login</Link></p>
+                            <h3>{Messages.get("TextSignUpTitle")}</h3>
+                            <p className="m-y-0">
+                                {Messages.get("TextSignUpDescription")}
+                            </p>
+                            <p>
+                                {Messages.get("TextQHaveAccount")} <Link to="/login">
+                                {Messages.get("TextSignIn")}</Link>
+                           </p>
 
                             <ErrorAlert store={UserStore} />
 
@@ -77,19 +83,18 @@ module.exports = React.createClass({
                             </div>
                             
                             <p className="small">
-                                Ao clicar em "Criar minha conta", você está de acordo com nossa
-                                Política de Privacidade e Termos de Uso.
+                                {Messages.get("TextSignUpAgreement")}
                             </p>
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
-                                    <input className="btn btn-lg btn-brand btn-block" type="submit" value="Criar minha conta"/>
+                                    <input className="btn btn-lg btn-brand btn-block" type="submit" value={Messages.get("LabelSignUp")} />
                                 </div>
                             </div>
                         </form>
 
                         <div className="text-xs-center">
                             <p className="text-muted small p-t-2">
-                                ©2016 Ilevus. Todos os direitos reservados.
+                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
                             </p>
                         </div>
                     </div>

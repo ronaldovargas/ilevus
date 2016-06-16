@@ -6,6 +6,7 @@
 var _ = require("underscore");
 var Backbone = require("backbone");
 var Dispatcher = require("flux").Dispatcher;
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserSession = Backbone.Model.extend({
 	ACTION_REFRESH: 'refreshStatus',
@@ -93,8 +94,7 @@ var UserSession = Backbone.Model.extend({
 			url: me.url + "/UserInfo",
 			dataType: 'json',
 			success(data, status, opts) {
-			    console.log(data);
-				me.set({
+			    me.set({
 					"logged": true,
 					"user": data
 				});
@@ -116,7 +116,8 @@ var UserSession = Backbone.Model.extend({
 	},
 
 	handleRequestErrors(collection, opts) {
-		if (opts.status == 400) {
+	    console.error("Error ocurred:\n", collection, "\n", opts);
+	    if (opts.status == 400) {
 		    if (opts.responseJSON.error_description) {
 		        this.trigger("fail", opts.responseJSON.error_description);
 		    } else if (opts.responseJSON.Message) {
@@ -135,7 +136,7 @@ var UserSession = Backbone.Model.extend({
 			}
 			this.trigger("fail", resp.message);
 		} else {
-			this.trigger("fail", "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseJSON.message);
+		    this.trigger("fail", Messages.get("TextUnexpectedError"));
 		}
 	},
 
@@ -144,10 +145,10 @@ var UserSession = Backbone.Model.extend({
             stayconnected = data.stayconnected,
 			errors = [];
 		if (!(data.email) || (data.email == '')) {
-			errors.push("Digite seu e-mail.");
+		    errors.push(Messages.get("TextTypeYourEmail"));
 		}
 		if (!(data.password) || (data.password == '')) {
-			errors.push("Digite sua senha.");
+		    errors.push(Messages.get("TextTypeYourPassword"));
 		}
 
 		if (errors.length > 0) {
@@ -218,7 +219,7 @@ var UserSession = Backbone.Model.extend({
 	            me.trigger("confirmationemail", data);
 	        },
 	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
+	            me.trigger("confirmationemailfail", opts.responseJSON.Message);
 	        }
 	    });
 	},
@@ -259,7 +260,7 @@ var UserSession = Backbone.Model.extend({
 	resetPassword(params) {
 		var me = this;
 		if (params.Password !== params.ConfirmPassword) {
-			me.trigger("fail", "As senhas digitadas não são iguais.");
+		    me.trigger("fail", Messages.get("ValidationPasswordsDontMatch"));
 			return;
 		}
 		$.ajax({
@@ -279,7 +280,7 @@ var UserSession = Backbone.Model.extend({
 	updatePassword(params) {
 	    var me = this;
 	    if (params.NewPassword !== params.ConfirmPassword) {
-	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        me.trigger("fail", Messages.get("ValidationPasswordsDontMatch"));
 	        return;
 	    }
 	    $.ajax({

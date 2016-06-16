@@ -18,6 +18,7 @@ var Dispatcher = require("flux").Dispatcher;
 var _ = require('underscore');
 var Backbone = require("backbone");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var Model = Backbone.Model.extend({
 	parse(response, opts) {
@@ -29,7 +30,8 @@ var Model = Backbone.Model.extend({
 });
 
 var Store = Backbone.Collection.extend({
-	BACKEND_URL: BACKEND_URL,
+    BACKEND_URL: BACKEND_URL,
+    userSession: UserSession,
 	$dispatcherActionRegex: /[a-zA-Z0-9]+$/,
 	$dispatcher: new Dispatcher(),
 	dispatchAcceptRegex: /^[a-zA-Z0-9]*-?[a-zA-Z0-9]+$/,
@@ -66,14 +68,15 @@ var Store = Backbone.Collection.extend({
 		}
 	},
 	handleRequestErrors(collection, opts) {
-		if (opts.status == 400) {
+	    console.error("Error ocurred:\n",collection,"\n", opts);
+	    if (opts.status == 400) {
 			// Validation errors
 			var resp;
 			try {
 				resp = JSON.parse(opts.responseText);
 			} catch (err) {
 				resp = {
-					message: "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseText
+				    message: Messages.get("TextUnexpectedError")
 				};
 			}
 			if (resp.ModelState) {
@@ -86,23 +89,11 @@ var Store = Backbone.Collection.extend({
 			} else {
 			    this.trigger("fail", resp.Message);
 			}
-		} else if (opts.status == 409) {
-			// Validation errors
-			try {
-				var resp = JSON.parse(opts.responseText);
-			} catch (err) {
-				resp = {
-					message: "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseText
-				};
-			}
-			this.trigger("fail", resp.message);
-		} else if (opts.status == 403) {
-			// Probably lost the session
-			UserSession.dispatch({
-				action: UserSession.ACTION_LOGOUT
-			});
+	    } else if ((opts.status == 401) || (opts.status == 403)) {
+			// Unauthorized/Forbidden
+		    this.userSession.refreshStatus();
 		} else {
-			this.trigger("fail", "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseText);
+		    this.trigger("fail", Messages.get("TextUnexpectedError"));
 		}
 	},
 	retrieve(id) {

@@ -7,6 +7,8 @@
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Numeral = require("numeral");
 var Toastr = require("toastr");
+var S = require("string");
+
 var React = require("react");
 var ReactDOM = require("react-dom");
 var Router = require('react-router').Router;
@@ -32,8 +34,14 @@ var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 
-Numeral.language('pt-br', require("numeral/languages/pt-br.js"));
-Numeral.language("pt-br");
+// string config
+S.TMPL_OPEN = '{';
+S.TMPL_CLOSE = '}';
+
+// Numeral configuration
+Numeral.language('pt-BR', require("numeral/languages/pt-br.js"));
+Numeral.language('es', require("numeral/languages/es.js"));
+Numeral.language("pt-BR");
 
 //Toastr.options.positionClass = "toast-top-center";
 Toastr.options.positionClass = "toast-top-full-width";
@@ -42,6 +50,7 @@ Toastr.options.extendedTimeOut = 15000;
 
 Messages.load(function (success) {
     if (success) {
+        Numeral.language(Messages.get("Culture"));
         ReactDOM.render((
 	        <Router history={hashHistory}>
 		        <Route path="/" component={Application}>

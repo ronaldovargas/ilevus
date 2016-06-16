@@ -56,14 +56,14 @@ module.exports = React.createClass({
                     <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
 
                         <form className="p-t-3" onSubmit={this.onSubmit}>
-                            <h3>Faça seu login</h3>
+                            <h3>{Messages.get("TextSignIn")}</h3>
                             <div className="form-group">
-                            <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                            <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
+                                <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                                <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
                             </div>
                             <div className="form-group">
-                            <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                            <input className="form-element form-element-lg" id="password" name="password" type="password" ref="password" />
+                                <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
+                                <input className="form-element form-element-lg" id="password" name="password" type="password" ref="password" />
                             </div>
 
                             <ErrorAlert store={UserSession} />
@@ -72,12 +72,12 @@ module.exports = React.createClass({
                                 <div className="col-xs-12 col-sm-6 pull-sm-right">
                                     <div className="checkbox btn btn-lg btn-block">
                                         <label htmlFor="stay-connected">
-                                            <input type="checkbox" id="stay-connected" ref="stayconnected" /> Permanecer conectado
+                                            <input type="checkbox" id="stay-connected" ref="stayconnected" /> {Messages.get("LabelStayConnected")}
                                         </label>
                                     </div>
                                 </div>
                                 <div className="col-xs-12 col-sm-6">
-                                    <input type="submit" value="Entrar" className="btn btn-lg btn-brand btn-block" />
+                                    <input type="submit" value={Messages.get("LabelSignIn")} className="btn btn-lg btn-brand btn-block" />
                                 </div>
                             </div>
                         </form>
@@ -85,15 +85,15 @@ module.exports = React.createClass({
                         <div className="text-xs-center">
                             <ul className="list-unstyled list-inline">
                             <li>
-                                <Link to="/signup">Criar uma conta</Link>
+                                <Link to="/signup">{Messages.get("TextSignUp")}</Link>
                             </li>
                             <li> · </li>
                             <li>
-                                <Link to="/recover-password">Recuperar senha</Link>
+                                <Link to="/recover-password">{Messages.get("TextRecoverPassword")}</Link>
                             </li>
                             </ul>
                             <p className="text-muted small p-t-2">
-                                ©2016 Ilevus. Todos os direitos reservados.
+                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
                             </p>
                         </div>
                     </div>
