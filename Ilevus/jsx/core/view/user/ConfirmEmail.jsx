@@ -8,6 +8,8 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var AppLogo = require("ilevus/img/logo.png");
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 module.exports = React.createClass({
 	getInitialState() {
 		return {
@@ -52,14 +54,16 @@ module.exports = React.createClass({
                         <div className="col-sm-offset-2 col-sm-8 col-xs-12 text-xs-center">
 				            {this.state.valid ?
                                 <div className="alert alert-success">
-                                    O seu endereço de e-mail foi confirmado com sucesso.
+                                    {Messages.get("TextEmailConfirmSuccess")}
                                 </div>
                             :
                                 <div className="alert alert-danger">
-                                    Não foi possível confirmar o e-mail com este código, por favor solicite outro e-mail de confirmação.
+                                    {Messages.get("TextEmailConfirmFailure")}
                                 </div>
                             }
-                            <Link to="/home" className="btn btn-brand" style={{margin: 'auto'}}>Voltar ao início</Link>
+                            <Link to="/home" className="btn btn-brand" style={{margin: 'auto'}}>
+                                {Messages.get("ActionBackToMainPage")}
+                            </Link>
                         </div>
                     </div>
                 </div>

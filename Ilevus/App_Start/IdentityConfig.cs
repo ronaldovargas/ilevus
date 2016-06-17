@@ -89,7 +89,13 @@ namespace ilevus.App_Start
                 EnableSsl = true,
                 Credentials = new NetworkCredential("smtp@progolden.com.br", "Test!Smtp2016")
             };
-            return client.SendMailAsync("noreply@ilevus.com", message.Destination, message.Subject, message.Body);
+            var email = new MailMessage(new MailAddress("noreply@ilevus.com", "ilevus"), new MailAddress(message.Destination))
+            {
+                Body = message.Body,
+                IsBodyHtml = true,
+                Subject = message.Subject
+            };
+            return client.SendMailAsync(email);
         }
     }
 

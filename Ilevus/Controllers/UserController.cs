@@ -4,6 +4,7 @@ using ilevus.Enums;
 using ilevus.Helpers;
 using ilevus.Models;
 using ilevus.Providers;
+using ilevus.Resources;
 using log4net;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -436,14 +437,24 @@ namespace ilevus.Controllers
         [Route("EmailConfirmation")]
         public async Task<IHttpActionResult> EmailConfirmation()
         {
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (await UserManager.IsEmailConfirmedAsync(user.Id))
             {
-                return BadRequest("Você já confirmou seu e-mail.");
+                return BadRequest(Messages.TextEmailAlreadyConfirmed);
             }
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            await UserManager.SendEmailAsync(user.Id, "Confirm your e-mail", "Please confirm your e-mail with code: " + code);
-            return Ok(code);
+
+            await UserManager.SendEmailAsync(user.Id,
+                Messages.EmailConfirmEmailSubject,
+                string.Format(
+                    Messages.EmailConfirmEmailBody,
+                    user.Name,
+                    BaseURL + "#/confirm-email/"
+                        + Uri.EscapeDataString(user.Email) + "/"
+                        + Uri.EscapeDataString(code)
+                )
+            );
+            return Ok(true);
         }
 
         // POST: /Account/RecoverPassword
@@ -460,8 +471,18 @@ namespace ilevus.Controllers
                 }
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password with code: " + code);
-                return Ok(code);
+
+                await UserManager.SendEmailAsync(user.Id,
+                    Messages.EmailRecoverPasswordSubject,
+                    string.Format(
+                        Messages.EmailRecoverPasswordBody,
+                        user.Name,
+                        BaseURL + "#/reset-password/"
+                            + Uri.EscapeDataString(user.Email) + "/"
+                            + Uri.EscapeDataString(code)
+                    )
+                );
+                return Ok(true);
             }
 
             return BadRequest(ModelState);
@@ -715,19 +736,9 @@ namespace ilevus.Controllers
             {
                 if (result.Errors != null)
                 {
-                    foreach (string error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error);
-                    }
+                    return BadRequest(result.Errors.First());
                 }
-
-                if (ModelState.IsValid)
-                {
-                    // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
-                }
-
-                return BadRequest(ModelState);
+                return BadRequest();
             }
 
             return null;

@@ -61,11 +61,74 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voltar para o login.
+        /// </summary>
+        public static string ActionBackToLogin {
+            get {
+                return ResourceManager.GetString("ActionBackToLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voltar para a página inicial.
         /// </summary>
         public static string ActionBackToMainPage {
             get {
                 return ResourceManager.GetString("ActionBackToMainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alterar senha.
+        /// </summary>
+        public static string ActionChangePassword {
+            get {
+                return ResourceManager.GetString("ActionChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remover foto.
+        /// </summary>
+        public static string ActionRemovePicture {
+            get {
+                return ResourceManager.GetString("ActionRemovePicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solicitar reunião.
+        /// </summary>
+        public static string ActionRequestMeeting {
+            get {
+                return ResourceManager.GetString("ActionRequestMeeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solicitar telefone.
+        /// </summary>
+        public static string ActionRequestPhone {
+            get {
+                return ResourceManager.GetString("ActionRequestPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enviar mensagem.
+        /// </summary>
+        public static string ActionSendMessage {
+            get {
+                return ResourceManager.GetString("ActionSendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enviar uma foto.
+        /// </summary>
+        public static string ActionSendPicture {
+            get {
+                return ResourceManager.GetString("ActionSendPicture", resourceCulture);
             }
         }
         
@@ -205,6 +268,51 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, confirme seu e-mail acessando o link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
+        /// </summary>
+        public static string EmailConfirmEmailBody {
+            get {
+                return ResourceManager.GetString("EmailConfirmEmailBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmação de e-mail.
+        /// </summary>
+        public static string EmailConfirmEmailSubject {
+            get {
+                return ResourceManager.GetString("EmailConfirmEmailSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, para redefinir sua senha, clique no link abaixo:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
+        /// </summary>
+        public static string EmailRecoverPasswordBody {
+            get {
+                return ResourceManager.GetString("EmailRecoverPasswordBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redefinição de senha.
+        /// </summary>
+        public static string EmailRecoverPasswordSubject {
+            get {
+                return ResourceManager.GetString("EmailRecoverPasswordSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Conta.
+        /// </summary>
+        public static string LabelAccount {
+            get {
+                return ResourceManager.GetString("LabelAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configurações da conta.
         /// </summary>
         public static string LabelAccountConfig {
@@ -232,6 +340,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informações básicas.
+        /// </summary>
+        public static string LabelBasicInfo {
+            get {
+                return ResourceManager.GetString("LabelBasicInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data de Nascimento.
         /// </summary>
         public static string LabelBirthdate {
@@ -241,11 +358,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Altere a sua senha.
+        /// </summary>
+        public static string LabelChangePassword {
+            get {
+                return ResourceManager.GetString("LabelChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cidade.
         /// </summary>
         public static string LabelCity {
             get {
                 return ResourceManager.GetString("LabelCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empresa.
+        /// </summary>
+        public static string LabelCompany {
+            get {
+                return ResourceManager.GetString("LabelCompany", resourceCulture);
             }
         }
         
@@ -282,6 +417,15 @@ namespace ilevus.Resources {
         public static string LabelCounty {
             get {
                 return ResourceManager.GetString("LabelCounty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Painel de bordo.
+        /// </summary>
+        public static string LabelDashboard {
+            get {
+                return ResourceManager.GetString("LabelDashboard", resourceCulture);
             }
         }
         
@@ -340,6 +484,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Caixa de entrada.
+        /// </summary>
+        public static string LabelInbox {
+            get {
+                return ResourceManager.GetString("LabelInbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Localização.
         /// </summary>
         public static string LabelLocalization {
@@ -376,6 +529,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Meu endereço.
+        /// </summary>
+        public static string LabelMyAddress {
+            get {
+                return ResourceManager.GetString("LabelMyAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nome.
         /// </summary>
         public static string LabelName {
@@ -399,6 +561,15 @@ namespace ilevus.Resources {
         public static string LabelPasswordConfirm {
             get {
                 return ResourceManager.GetString("LabelPasswordConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senha atual.
+        /// </summary>
+        public static string LabelPasswordCurrent {
+            get {
+                return ResourceManager.GetString("LabelPasswordCurrent", resourceCulture);
             }
         }
         
@@ -439,6 +610,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Perfil.
+        /// </summary>
+        public static string LabelProfile {
+            get {
+                return ResourceManager.GetString("LabelProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Foto do perfil.
+        /// </summary>
+        public static string LabelProfilePicture {
+            get {
+                return ResourceManager.GetString("LabelProfilePicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Salvar.
         /// </summary>
         public static string LabelSave {
@@ -453,6 +642,15 @@ namespace ilevus.Resources {
         public static string LabelSearch {
             get {
                 return ResourceManager.GetString("LabelSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecione uma foto.
+        /// </summary>
+        public static string LabelSelectPicture {
+            get {
+                return ResourceManager.GetString("LabelSelectPicture", resourceCulture);
             }
         }
         
@@ -754,6 +952,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endereço atualizado com sucesso..
+        /// </summary>
+        public static string TextAddressUpdateSuccess {
+            get {
+                return ResourceManager.GetString("TextAddressUpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Todos os direitos reservados..
         /// </summary>
         public static string TextAllRightsReserved {
@@ -763,11 +970,38 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to O seu e-mail já foi confirmado..
+        /// </summary>
+        public static string TextEmailAlreadyConfirmed {
+            get {
+                return ResourceManager.GetString("TextEmailAlreadyConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Um e-mail de confirmação foi enviado para o endereço cadastrado..
         /// </summary>
         public static string TextEmailConfirmationSent {
             get {
                 return ResourceManager.GetString("TextEmailConfirmationSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Não foi possível confirmar o e-mail com este código, por favor solicite outro e-mail de confirmação..
+        /// </summary>
+        public static string TextEmailConfirmFailure {
+            get {
+                return ResourceManager.GetString("TextEmailConfirmFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O seu endereço de e-mail foi confirmado com sucesso..
+        /// </summary>
+        public static string TextEmailConfirmSuccess {
+            get {
+                return ResourceManager.GetString("TextEmailConfirmSuccess", resourceCulture);
             }
         }
         
@@ -795,6 +1029,51 @@ namespace ilevus.Resources {
         public static string TextNotFoundOops {
             get {
                 return ResourceManager.GetString("TextNotFoundOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A sua senha foi alterada com sucesso..
+        /// </summary>
+        public static string TextPasswordSetSuccess {
+            get {
+                return ResourceManager.GetString("TextPasswordSetSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A sua foto foi atualizada com sucesso..
+        /// </summary>
+        public static string TextPictureUpdateSuccess {
+            get {
+                return ResourceManager.GetString("TextPictureUpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fotos claras e frontais do rosto são uma forma eficiente de ilustrar seu perfil..
+        /// </summary>
+        public static string TextProfilePictureDescription {
+            get {
+                return ResourceManager.GetString("TextProfilePictureDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 1MB..
+        /// </summary>
+        public static string TextProfilePictureLimitations {
+            get {
+                return ResourceManager.GetString("TextProfilePictureLimitations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dados do perfil atualizados com sucesso..
+        /// </summary>
+        public static string TextProfileUpdateSuccess {
+            get {
+                return ResourceManager.GetString("TextProfileUpdateSuccess", resourceCulture);
             }
         }
         
@@ -966,6 +1245,24 @@ namespace ilevus.Resources {
         public static string ValidationNameRequired {
             get {
                 return ResourceManager.GetString("ValidationNameRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A sua senha deve possuir pelo menos 1 número, 1 letra e 1 caractere especial..
+        /// </summary>
+        public static string ValidationPasswordFormat {
+            get {
+                return ResourceManager.GetString("ValidationPasswordFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A senha precisa ter no mínimo {0} caracteres..
+        /// </summary>
+        public static string ValidationPasswordLength {
+            get {
+                return ResourceManager.GetString("ValidationPasswordLength", resourceCulture);
             }
         }
         

@@ -15,14 +15,6 @@ namespace ilevus.Controllers
      */
     public class HomeController : BaseAPIController
     {
-        public string Env
-        {
-            get
-            {
-                return ConfigurationManager.AppSettings["Env"];
-            }
-        }
-
         [HttpGet]
         public object Index()
         {

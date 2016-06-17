@@ -39,17 +39,16 @@ module.exports = React.createClass({
     componentWillUnmount() {
         UserStore.off(null, null, this);
     },
+    componentDidUpdate() {
+        $('[data-toggle="tooltip"]').tooltip({
+            animation: true
+        });
+    },
 
     render() {
         if (!this.state.model) {
             return <LoadingGauge />;
         }
-
-        _.defer(() => {
-            $('[data-toggle="tooltip"]').tooltip({
-                animation: true
-            });
-        });
 
         var user = this.state.model;
         var userLocation = user.get("Country");
@@ -69,7 +68,7 @@ module.exports = React.createClass({
                                 <div className="media m-a-0">
                                     <div className="media-left text-xs-center">
                                         <span className="avatar avatar-xl">
-                                            <img className="img-fluid" src={user.get("Image")} alt="Jon Snow" />
+                                            <img className="img-fluid" src={user.get("Image")} alt={user.get("Name")} />
                                         </span>
                                     </div>
                                     <div className="media-body">
@@ -86,20 +85,20 @@ module.exports = React.createClass({
                                             <span className="label label-success font-weight-bold">4.9 <sup>/ 5.0</sup></span>
                                         </h3>
                                         <a className="small" href="">
-                                            Baseado em 32 avaliações
+                                            {Messages.format("TextEvaluations", [32])}
                                         </a>
                                     </div>
                                 </div>
                             </div>
                             <div className="card-footer">
                                 <div className="btn-toolbar">
-                                    <button className="btn btn-brand">Enviar mensagem</button>
-                                    <button className="btn btn-neutral">Agendar reunião</button>
-                                    <button className="btn btn-neutral">Solicitar telefone</button>
+                                    <button className="btn btn-brand">{Messages.get("ActionSendMessage")}</button>
+                                    <button className="btn btn-neutral">{Messages.get("ActionRequestMeeting")}</button>
+                                    <button className="btn btn-neutral">{Messages.get("ActionRequestPhone")}</button>
 
                                     <div className="btn-group pull-sm-right">
-                                        <button className="btn btn-clean">Compartilhar</button>
-                                        <button className="btn btn-clean">Salvar</button>
+                                        <button className="btn btn-clean">{Messages.get("LabelShare")}</button>
+                                        <button className="btn btn-clean">{Messages.get("LabelSave")}</button>
                                     </div>
                                 </div>
                             </div>

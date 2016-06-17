@@ -57,8 +57,6 @@ module.exports = React.createClass({
                                 {Messages.get("TextSignIn")}</Link>
                            </p>
 
-                            <ErrorAlert store={UserStore} />
-
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
                                     <label className="form-element-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
@@ -81,6 +79,8 @@ module.exports = React.createClass({
                                 <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
                                 <input className="form-element form-element-lg" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
                             </div>
+
+                            <ErrorAlert store={UserStore} />
                             
                             <p className="small">
                                 {Messages.get("TextSignUpAgreement")}

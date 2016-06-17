@@ -117,8 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionBackToLogin" xml:space="preserve">
+    <value>Voltar para o login</value>
+  </data>
   <data name="ActionBackToMainPage" xml:space="preserve">
     <value>Voltar para a página inicial</value>
+  </data>
+  <data name="ActionChangePassword" xml:space="preserve">
+    <value>Alterar senha</value>
+  </data>
+  <data name="ActionRemovePicture" xml:space="preserve">
+    <value>Remover foto</value>
+  </data>
+  <data name="ActionRequestMeeting" xml:space="preserve">
+    <value>Solicitar reunião</value>
+  </data>
+  <data name="ActionRequestPhone" xml:space="preserve">
+    <value>Solicitar telefone</value>
+  </data>
+  <data name="ActionSendMessage" xml:space="preserve">
+    <value>Enviar mensagem</value>
+  </data>
+  <data name="ActionSendPicture" xml:space="preserve">
+    <value>Enviar uma foto</value>
   </data>
   <data name="AuthInvalidUserCredentials" xml:space="preserve">
     <value>E-mail e/ou senha inválido(s).</value>
@@ -165,6 +186,21 @@
   <data name="DayWednesdayAbbr" xml:space="preserve">
     <value>qua</value>
   </data>
+  <data name="EmailConfirmEmailBody" xml:space="preserve">
+    <value>&lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, confirme seu e-mail acessando o link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailConfirmEmailSubject" xml:space="preserve">
+    <value>Confirmação de e-mail</value>
+  </data>
+  <data name="EmailRecoverPasswordBody" xml:space="preserve">
+    <value>&lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, para redefinir sua senha, clique no link abaixo:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailRecoverPasswordSubject" xml:space="preserve">
+    <value>Redefinição de senha</value>
+  </data>
+  <data name="LabelAccount" xml:space="preserve">
+    <value>Conta</value>
+  </data>
   <data name="LabelAccountConfig" xml:space="preserve">
     <value>Configurações da conta</value>
   </data>
@@ -174,11 +210,20 @@
   <data name="LabelAddress" xml:space="preserve">
     <value>Endereço</value>
   </data>
+  <data name="LabelBasicInfo" xml:space="preserve">
+    <value>Informações básicas</value>
+  </data>
   <data name="LabelBirthdate" xml:space="preserve">
     <value>Data de Nascimento</value>
   </data>
+  <data name="LabelChangePassword" xml:space="preserve">
+    <value>Altere a sua senha</value>
+  </data>
   <data name="LabelCity" xml:space="preserve">
     <value>Cidade</value>
+  </data>
+  <data name="LabelCompany" xml:space="preserve">
+    <value>Empresa</value>
   </data>
   <data name="LabelComplement" xml:space="preserve">
     <value>Complemento</value>
@@ -191,6 +236,9 @@
   </data>
   <data name="LabelCounty" xml:space="preserve">
     <value>Estado</value>
+  </data>
+  <data name="LabelDashboard" xml:space="preserve">
+    <value>Painel de bordo</value>
   </data>
   <data name="LabelDistrict" xml:space="preserve">
     <value>Bairro</value>
@@ -210,6 +258,9 @@
   <data name="LabelGenre" xml:space="preserve">
     <value>Gênero</value>
   </data>
+  <data name="LabelInbox" xml:space="preserve">
+    <value>Caixa de entrada</value>
+  </data>
   <data name="LabelLocalization" xml:space="preserve">
     <value>Localização</value>
   </data>
@@ -222,6 +273,9 @@
   <data name="LabelMessages" xml:space="preserve">
     <value>Mensagens</value>
   </data>
+  <data name="LabelMyAddress" xml:space="preserve">
+    <value>Meu endereço</value>
+  </data>
   <data name="LabelName" xml:space="preserve">
     <value>Nome</value>
   </data>
@@ -230,6 +284,9 @@
   </data>
   <data name="LabelPasswordConfirm" xml:space="preserve">
     <value>Confirme sua senha</value>
+  </data>
+  <data name="LabelPasswordCurrent" xml:space="preserve">
+    <value>Senha atual</value>
   </data>
   <data name="LabelPasswordNew" xml:space="preserve">
     <value>Nova senha</value>
@@ -243,11 +300,20 @@
   <data name="LabelProfessionalProfile" xml:space="preserve">
     <value>Perfil profissional</value>
   </data>
+  <data name="LabelProfile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="LabelProfilePicture" xml:space="preserve">
+    <value>Foto do perfil</value>
+  </data>
   <data name="LabelSave" xml:space="preserve">
     <value>Salvar</value>
   </data>
   <data name="LabelSearch" xml:space="preserve">
     <value>Pesquisar</value>
+  </data>
+  <data name="LabelSelectPicture" xml:space="preserve">
+    <value>Selecione uma foto</value>
   </data>
   <data name="LabelSex" xml:space="preserve">
     <value>Gênero</value>
@@ -348,11 +414,23 @@
   <data name="TextAccountCreated" xml:space="preserve">
     <value>Conta criada com sucesso.</value>
   </data>
+  <data name="TextAddressUpdateSuccess" xml:space="preserve">
+    <value>Endereço atualizado com sucesso.</value>
+  </data>
   <data name="TextAllRightsReserved" xml:space="preserve">
     <value>Todos os direitos reservados.</value>
   </data>
+  <data name="TextEmailAlreadyConfirmed" xml:space="preserve">
+    <value>O seu e-mail já foi confirmado.</value>
+  </data>
   <data name="TextEmailConfirmationSent" xml:space="preserve">
     <value>Um e-mail de confirmação foi enviado para o endereço cadastrado.</value>
+  </data>
+  <data name="TextEmailConfirmFailure" xml:space="preserve">
+    <value>Não foi possível confirmar o e-mail com este código, por favor solicite outro e-mail de confirmação.</value>
+  </data>
+  <data name="TextEmailConfirmSuccess" xml:space="preserve">
+    <value>O seu endereço de e-mail foi confirmado com sucesso.</value>
   </data>
   <data name="TextEvaluations" xml:space="preserve">
     <value>{0} avaliações</value>
@@ -362,6 +440,21 @@
   </data>
   <data name="TextNotFoundOops" xml:space="preserve">
     <value>Oops, não encontramos a página que você está procurando...</value>
+  </data>
+  <data name="TextPasswordSetSuccess" xml:space="preserve">
+    <value>A sua senha foi alterada com sucesso.</value>
+  </data>
+  <data name="TextPictureUpdateSuccess" xml:space="preserve">
+    <value>A sua foto foi atualizada com sucesso.</value>
+  </data>
+  <data name="TextProfilePictureDescription" xml:space="preserve">
+    <value>Fotos claras e frontais do rosto são uma forma eficiente de ilustrar seu perfil.</value>
+  </data>
+  <data name="TextProfilePictureLimitations" xml:space="preserve">
+    <value>Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 1MB.</value>
+  </data>
+  <data name="TextProfileUpdateSuccess" xml:space="preserve">
+    <value>Dados do perfil atualizados com sucesso.</value>
   </data>
   <data name="TextQHaveAccount" xml:space="preserve">
     <value>Já possui uma conta?</value>
@@ -419,6 +512,12 @@
   </data>
   <data name="ValidationNameRequired" xml:space="preserve">
     <value>O nome é obrigatório.</value>
+  </data>
+  <data name="ValidationPasswordFormat" xml:space="preserve">
+    <value>A sua senha deve possuir pelo menos 1 número, 1 letra e 1 caractere especial.</value>
+  </data>
+  <data name="ValidationPasswordLength" xml:space="preserve">
+    <value>A senha precisa ter no mínimo {0} caracteres.</value>
   </data>
   <data name="ValidationPasswordRequired" xml:space="preserve">
     <value>A senha é obrigatória.</value>

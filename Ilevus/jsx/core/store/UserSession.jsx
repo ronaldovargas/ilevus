@@ -5,6 +5,7 @@
 
 var _ = require("underscore");
 var Backbone = require("backbone");
+var S = require("string");
 var Dispatcher = require("flux").Dispatcher;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -118,23 +119,25 @@ var UserSession = Backbone.Model.extend({
 	handleRequestErrors(collection, opts) {
 	    console.error("Error ocurred:\n", collection, "\n", opts);
 	    if (opts.status == 400) {
-		    if (opts.responseJSON.error_description) {
-		        this.trigger("fail", opts.responseJSON.error_description);
-		    } else if (opts.responseJSON.Message) {
-		        this.trigger("fail", opts.responseJSON.Message);
-		    } else {
-		        this.trigger("fail", opts.responseJSON.error);
-		    }
-		} else if (opts.status == 409) {
-			// Validation errors
-			try {
-				var resp = JSON.parse(opts.responseText);
-			} catch (err) {
-				resp = {
-					message: "Unexpected server error "+opts.status+" "+opts.statusText+": "+opts.responseText
-				};
-			}
-			this.trigger("fail", resp.message);
+	        // Validation errors
+	        var resp;
+	        try {
+	            resp = JSON.parse(opts.responseText);
+	        } catch (err) {
+	            resp = {
+	                Message: Messages.get("TextUnexpectedError")
+	            };
+	        }
+	        if (resp.ModelState) {
+	            var errors = [];
+	            _.each(resp.ModelState, (field) => {
+	                for (var e = 0; e < field.length; e++)
+	                    errors.push(field[e]);
+	            });
+	            this.trigger("fail", errors);
+	        } else {
+	            this.trigger("fail", resp.Message);
+	        }
 		} else {
 		    this.trigger("fail", Messages.get("TextUnexpectedError"));
 		}
@@ -263,6 +266,14 @@ var UserSession = Backbone.Model.extend({
 		    me.trigger("fail", Messages.get("ValidationPasswordsDontMatch"));
 			return;
 		}
+		if (S(params.Password).length < 6) {
+		    me.trigger("fail", Messages.format("ValidationPasswordLength", [6]));
+		    return;
+		}
+		if (S(params.Password).isAlphaNumeric()) {
+		    me.trigger("fail", Messages.get("ValidationPasswordFormat"));
+		    return;
+		}
 		$.ajax({
 			method: "POST",
 			url: me.url + "/ResetPassword",
@@ -278,9 +289,26 @@ var UserSession = Backbone.Model.extend({
 	},
 
 	updatePassword(params) {
-	    var me = this;
+	    var me = this; 
+
+	    if (S(params.OldPassword).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelPasswordCurrent']));
+	        return;
+	    }
+	    if (S(params.NewPassword).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelPasswordNew']));
+	        return;
+	    }
 	    if (params.NewPassword !== params.ConfirmPassword) {
 	        me.trigger("fail", Messages.get("ValidationPasswordsDontMatch"));
+	        return;
+	    }
+	    if (S(params.NewPassword).length < 6) {
+	        me.trigger("fail", Messages.format("ValidationPasswordLength", [6]));
+	        return;
+	    }
+	    if (S(params.NewPassword).isAlphaNumeric()) {
+	        me.trigger("fail", Messages.get("ValidationPasswordFormat"));
 	        return;
 	    }
 	    $.ajax({

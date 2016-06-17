@@ -2,16 +2,13 @@
 var React = require("react");
 var Link = require("react-router").Link;
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
     },
-    onSearch(evt) {
-        evt.preventDefault();
-        var term = this.refs['search-term'].value;
-        if (!string(term).isEmpty())
-            this.context.router.push("/search/" + encodeURI(term));
-    },
+
     render() {
         return (
             <div className="container p-y-3">
@@ -19,22 +16,34 @@ module.exports = React.createClass({
                     <div className="col-xs-2">
                         <ul className="nav nav-pills nav-stacked small">
                             <li className="nav-item hidden">
-                                <Link className="nav-link" to="/user/dashboard">Dashboard</Link>
+                                <Link className="nav-link" to="/user/dashboard">
+                                    {Messages.get("LabelDashboard")}
+                                </Link>
                             </li>
                             <li className="nav-item hidden">
-                                <a className="nav-link" href="#">Caixa de Entrada</a>
+                                <a className="nav-link" href="#">
+                                    {Messages.get("LabelInbox")}
+                                </a>
                             </li>
                             <li className="nav-item hidden">
-                                <a className="nav-link" href="#">Perfil Profissional</a>
+                                <a className="nav-link" href="#">
+                                    {Messages.get("LabelProfessionalProfile")}
+                                </a>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/user/profile">Perfil</Link>
+                                <Link className="nav-link" to="/user/profile">
+                                    {Messages.get("LabelProfile")}
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/user/account">Conta</Link>
+                                <Link className="nav-link" to="/user/account">
+                                    {Messages.get("LabelAccount")}
+                                </Link>
                             </li>
                             <li className="nav-item hidden">
-                                <a className="nav-link" href="#">Empresa</a>
+                                <a className="nav-link" href="#">
+                                    {Messages.get("LabelCompany")}
+                                </a>
                             </li>
                         </ul>
                     </div>

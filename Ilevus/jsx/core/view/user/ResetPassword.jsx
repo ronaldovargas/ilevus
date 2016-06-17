@@ -50,9 +50,11 @@ module.exports = React.createClass({
                     <div className="row">
                         <div className="col-sm-offset-2 col-sm-8 col-xs-12 text-xs-center">
                             <div className="alert alert-success">
-                                A sua senha foi redefinida com sucesso.
+                                {Messages.get("TextPasswordSetSuccess")}
                             </div>
-                            <Link to="/login" className="btn btn-brand">Voltar ao login</Link>
+                            <Link to="/login" className="btn btn-brand">
+                                {Messages.get("ActionBackToLogin")}
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -63,9 +65,8 @@ module.exports = React.createClass({
             <div className="row">
                   <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
                     <form className="p-t-3" onSubmit={this.onSubmit}>
-                      <p className="font-weight-bold">Redefina sua senha</p>
-                      <p>
-                          Insira sua nova senha:
+                      <p className="font-weight-bold">
+                        {Messages.get("LabelChangePassword")}
                       </p>
                       <div className="form-group">
                         <label className="form-element-label" htmlFor="password">{Messages.get("LabelPasswordNew")}</label>
@@ -84,16 +85,18 @@ module.exports = React.createClass({
 
                       <div className="form-group row">
                         <div className="col-xs-12 col-sm-6">
-                          <input type="submit" value="Redefinir senha" className="btn btn-brand btn-block" />
+                          <input type="submit" value={Messages.get("ActionChangePassword")} className="btn btn-brand btn-block" />
                         </div>
                         <div className="col-xs-12 col-sm-6">
-                          <Link to="/login" className="btn btn-link btn-block">Voltar para o login</Link>
+                          <Link to="/login" className="btn btn-link btn-block">
+                              {Messages.get("ActionBackToLogin")}
+                          </Link>
                         </div>
                       </div>
                     </form>
                     <div className="text-xs-center">
                       <p className="text-muted small p-t-2">
-                          ©2016 Ilevus. Todos os direitos reservados.
+                          ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
                       </p>
                     </div>
                   </div>

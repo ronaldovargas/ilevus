@@ -23,8 +23,8 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         UserSession.on("fail", (msg) => {
-            $(this.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
-            $(this.refs["address-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["address-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.error(msg);
         }, me);
         UserSession.on("loaded", () => {
@@ -39,11 +39,11 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("updateprofile", () => {
-            $(this.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["profile-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextProfileUpdateSuccess"));
         }, me);
         UserSession.on("updateaddress", () => {
-            $(this.refs["address-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["address-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextAddressUpdateSuccess"));
         }, me);
     },
@@ -98,9 +98,9 @@ module.exports = React.createClass({
                 });
             },
             (arg1, arg2) => {
-                console.log("Failed:\n", arg1, arg2);
+                console.error("Picture upload failed:\n",arg1,"\n",arg2);
                 Modal.hide();
-                Toastr.error("Um erro inesperado ocorreu, tente novamente.");
+                Toastr.error(Messages.get("TextUnexpectedError"));
             }
         );
     },
@@ -113,7 +113,7 @@ module.exports = React.createClass({
         return (<div>
             <div className="card m-b-2">
                 <div className="card-header">
-                    Foto do perfil
+                    {Messages.get("LabelProfilePicture")}
                 </div>
                 <div className="card-block">
                     <div className="media m-a-0">
@@ -123,21 +123,24 @@ module.exports = React.createClass({
                             </span>
                         </div>
 					    <div className="media-body small">
-                            <label className="font-weight-bold">Selecione uma foto</label>
+                            <label className="font-weight-bold">
+                                {Messages.get("LabelSelectPicture")}
+                            </label>
 						    <p>
-							    Fotos claras e frontais do rosto são uma forma eficiente
-							    de ilustrar seu perfil.
+                                {Messages.get("TextProfilePictureDescription")}
 						    </p>
-						    <p className="text-muted">Envie um arquivo de imagem no formato JPG, GIF ou PNG de no máximo 512kb.</p>
-							<button className="btn btn-neutral" onClick={this.updatePicture}>Enviar uma foto</button>
-							<button className="btn btn-clean text-danger">Remover foto</button>
+						    <p className="text-muted">
+                                {Messages.get("TextProfilePictureLimitations")}
+                            </p>
+							<button className="btn btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
+							<button className="btn btn-clean text-danger">{Messages.get("ActionRemovePicture")}</button>
 					    </div>
                     </div>
                 </div>
             </div>
             <div className="card m-b-2">
                 <div className="card-header">
-                    Informações básicas
+                    {Messages.get("LabelBasicInfo")}
                 </div>
                 <div className="card-block">
                     <form className="small ">
@@ -227,7 +230,7 @@ module.exports = React.createClass({
             </div>
             <div className="card m-b-2">
                 <div className="card-header">
-                    Meu endereço
+                    {Messages.get("LabelMyAddress")}
                 </div>
                 <div className="card-block">
                     <form className="small">

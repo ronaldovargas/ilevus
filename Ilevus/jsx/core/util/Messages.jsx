@@ -33,6 +33,17 @@ module.exports = {
         }
         return str.template(tplValues).s;
     },
+    formatWithKeys: function (key, valueKeys) {
+        var str = this._get(key);
+        if (str.isEmpty()) {
+            return "???" + key + "???";
+        }
+        var tplValues = {};
+        for (var i = 0; i < valueKeys.length; i++) {
+            tplValues["" + i] = this.get(valueKeys[i]);
+        }
+        return str.template(tplValues).s;
+    },
     load: function (callback) {
         var me = this;
         if (me._loaded) {

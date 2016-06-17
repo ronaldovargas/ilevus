@@ -21,7 +21,7 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         UserSession.on("fail", (msg) => {
-            $(this.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.error(msg);
         }, me);
         UserSession.on("loaded", () => {
@@ -30,7 +30,7 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("updatepassword", () => {
-            $(this.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextPasswordSetSuccess"));
         }, me);
     },
@@ -60,12 +60,14 @@ module.exports = React.createClass({
         return (<div>
             <div className="card m-b-2">
                 <div className="card-header">
-                    Alterar sua senha
+                    {Messages.get("LabelChangePassword")}
                 </div>
                 <div className="card-block">
                     <form className="small ">
                         <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormPassword">Senha Antiga</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormPassword">
+                                {Messages.get("LabelPasswordCurrent")}
+                            </label>
                             <div className="col-sm-4">
                                 <input className="form-element"
                                        type="password"
@@ -74,7 +76,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormNewPassword">Nova Senha</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormNewPassword">
+                                {Messages.get("LabelPasswordNew")}
+                            </label>
                             <div className="col-sm-4">
                                 <input className="form-element"
                                        type="password"
@@ -83,7 +87,9 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormConfirmPassword">Confirmar Senha</label>
+                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormConfirmPassword">
+                                {Messages.get("LabelPasswordConfirm")}
+                            </label>
                             <div className="col-sm-4">
                                 <input className="form-element"
                                        type="password"
@@ -94,11 +100,13 @@ module.exports = React.createClass({
                     </form>
                 </div>
                 <div className="card-footer">
-                    <button className="btn btn-brand" ref="setpwd-save" onClick={this.updatePassword}>Atualizar Senha</button>
+                    <button className="btn btn-brand" ref="setpwd-save" onClick={this.updatePassword}>
+                        {Messages.get("ActionChangePassword")}
+                    </button>
                 </div>
             </div>
 
-            <div className="card m-b-2">
+            <div className="card m-b-2 hidden">
                 <div className="card-header">
                     Notificação de login
                 </div>
@@ -120,7 +128,7 @@ module.exports = React.createClass({
 
             </div>
 
-            <div className="card m-b-2">
+            <div className="card m-b-2 hidden">
                 <div className="card-header">
                     Histórico de acesso
                 </div>

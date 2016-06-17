@@ -4,7 +4,7 @@
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
-var string = require("string");
+var S = require("string");
 
 var URL = Fluxbone.BACKEND_URL+"User";
 
@@ -13,20 +13,28 @@ var UserModel = Fluxbone.Model.extend({
 	validate(attrs, options) {
 	    var errors = [];
 
-	    if (string(attrs.Email).isEmpty()) {
+	    if (S(attrs.Email).isEmpty()) {
 	        errors.push(Messages.get("ValidationEmailRequired"));
 	    }
-	    if (string(attrs.Name).isEmpty()) {
+	    if (S(attrs.Name).isEmpty()) {
 	        errors.push(Messages.get("ValidationNameRequired"));
 	    }
-	    if (string(attrs.Surname).isEmpty()) {
+	    if (S(attrs.Surname).isEmpty()) {
 	        errors.push(Messages.get("ValidationSurnameRequired"));
-	    }
-	    if (string(attrs.Password).isEmpty()) {
-	        errors.push(Messages.get("ValidationPasswordRequired"));
 	    }
 		if (attrs.Password != attrs.ConfirmPassword) {
 		    errors.push(Messages.get("ValidationPasswordsDontMatch"));
+		}
+
+		var pwd = S(attrs.Password);
+		if (pwd.isEmpty()) {
+		    errors.push(Messages.get("ValidationPasswordRequired"));
+		}
+		if (pwd.length < 6) {
+		    errors.push(Messages.format("ValidationPasswordLength", [6]));
+		}
+		if (pwd.isAlphaNumeric()) {
+		    errors.push(Messages.get("ValidationPasswordFormat"));
 		}
 
 		if (errors.length > 0)
