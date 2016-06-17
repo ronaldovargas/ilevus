@@ -1,0 +1,4 @@
+build/development/
+node_modules/
+App_Data/**/*.bin
+

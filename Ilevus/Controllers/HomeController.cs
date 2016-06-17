@@ -1,30 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 
-namespace Ilevus.Controllers
+namespace ilevus.Controllers
 {
-    public class HomeController : Controller
+    /**
+     * Controlador principal da aplicação.
+     */
+    public class HomeController : BaseAPIController
     {
-        public ActionResult Index()
+        [HttpGet]
+        public object Index()
         {
-            return View();
+            HttpResponseMessage result;
+
+            if (Env == "development")
+            {
+                string uri = HttpContext.Current.Request.Url + "build/Debug/index.html";
+                return Redirect(uri);
+            } else
+            {
+                var path = HttpContext.Current.Server.MapPath("~/index.html");
+                result = new HttpResponseMessage(HttpStatusCode.OK);
+                result.Content = new ByteArrayContent(File.ReadAllBytes(path));
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
+            }
+            
+            return result;
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        
     }
 }

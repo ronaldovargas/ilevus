@@ -1,16 +1,88 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Linq;
+using ilevus.App_Start;
+using ilevus.Enums;
+using AspNet.Identity.MongoDB;
+using MongoDB.Driver;
 
-namespace Ilevus.Models
+namespace ilevus.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    public class IlevusUser : IdentityUser
     {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Sex { get; set; }
+        public DateTime Birthdate { get; set; }
+
+        public string Address { get; set; }
+        public string Complement { get; set; }
+        public string District { get; set; }
+        public string Zipcode { get; set; }
+        public string City { get; set; }
+        public string County { get; set; }
+        public string Country { get; set; }
+
+        public string Image { get; set; }
+
+        public DateTime Creation { get; set; }
+        public UserType Type { get; set; }
+        public EmailVisibility EmailVisibility { get; set; }
+        public UserStatus Status { get; set; }
+
+        public string SearchLanguage { get; set; }
+        public double SearchRelevance { get; set; }
+
+        public IlevusUser()
+        {
+            this.Type = UserType.Client;
+            this.EmailVisibility = EmailVisibility.Public;
+            this.Status = UserStatus.Active;
+            this.Creation = DateTime.Now;
+            this.SearchLanguage = "portuguese";
+        }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)
+        {
+            var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            // Add custom user claims here
+            return userIdentity;
+        }
+        
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class IlevusRole : IdentityRole
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection")
+        public string Description { get; set; }
+
+        public IlevusRole()
+        {
+        }
+
+        public IlevusRole(string name)
+            : this()
+        {
+            this.Name = name;
+        }
+        
+    }
+    
+    
+    public class IlevusUserClaim : IdentityUserClaim { }
+
+    public class IlevusUserStore : UserStore<IlevusUser>
+    {
+        public IlevusUserStore(IlevusIdentityContext context)
+            : base(new UsersContext<IlevusUser>(context.Users))
+        {
+        }
+    }
+
+    public class IlevusRoleStore : RoleStore<IlevusRole>
+    {
+        public IlevusRoleStore(IlevusIdentityContext context)
+            : base(new RolesContext<IlevusRole>(context.Roles))
         {
         }
     }

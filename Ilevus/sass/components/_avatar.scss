@@ -1,0 +1,35 @@
+.avatar {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: $border-radius;
+  line-height: 1;
+
+  &-xs {
+    @include size($avatar-img-xs);
+  }
+
+  &-sm {
+    @include size($avatar-img-sm);
+  }
+
+  &-md {
+    @include size($avatar-img-md);
+  }
+
+  &-lg {
+    @include size($avatar-img-lg);
+  }
+
+  &-xl {
+    @include size($avatar-img-xl);
+  }
+
+  &-navbar {
+    @include size($avatar-img-navbar);
+  }
+
+  &-circle {
+    border-radius: 50%;
+  }
+}
