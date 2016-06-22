@@ -60,7 +60,7 @@ module.exports = React.createClass({
 
     renderModels() {
         if (!(this.state.models.length > 0)) {
-            return <i>Nenhum usuário encontrado.</i>;
+            return <i>{Messages.get("LabelUserNotFound")}</i>;
         }
 
         return <div>

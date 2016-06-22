@@ -239,6 +239,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <None Include="package.json" />
+    <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

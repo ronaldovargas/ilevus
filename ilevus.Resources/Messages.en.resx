@@ -534,4 +534,7 @@
   <data name="ValidationSurnameRequired" xml:space="preserve">
     <value>The Surname is required.</value>
   </data>
+  <data name="LabelUserNotFound" xml:space="preserve">
+    <value>***</value>
+  </data>
 </root>

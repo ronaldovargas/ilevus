@@ -718,6 +718,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nenhum usuário encontrado.____.
+        /// </summary>
+        public static string LabelUserNotFound {
+            get {
+                return ResourceManager.GetString("LabelUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CEP.
         /// </summary>
         public static string LabelZipcode {
