@@ -1,101 +1,537 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-	<!-- 
-		Microsoft ResX Schema
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
 
-		Version 1.3
-
-		The primary goals of this format is to allow a simple XML format 
-		that is mostly human readable. The generation and parsing of the 
-		various data types are done through the TypeConverter classes 
-		associated with the data types.
-
-		Example:
-
-		... ado.net/XML headers & schema ...
-		<resheader name="resmimetype">text/microsoft-resx</resheader>
-		<resheader name="version">1.3</resheader>
-		<resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-		<resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-		<data name="Name1">this is my long string</data>
-		<data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-		<data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-			[base64 mime encoded serialized .NET Framework object]
-		</data>
-		<data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-			[base64 mime encoded string representing a byte array form of the .NET Framework object]
-		</data>
-
-		There are any number of "resheader" rows that contain simple 
-		name/value pairs.
-
-		Each data row contains a name, and value. The row also contains a 
-		type or mimetype. Type corresponds to a .NET class that support 
-		text/value conversion through the TypeConverter architecture. 
-		Classes that don't support this are serialized and stored with the 
-		mimetype set.
-
-		The mimetype is used for serialized objects, and tells the 
-		ResXResourceReader how to depersist the object. This is currently not 
-		extensible. For a given mimetype the value must be set accordingly:
-
-		Note - application/x-microsoft.net.object.binary.base64 is the format 
-		that the ResXResourceWriter will generate, however the reader can 
-		read any of the formats listed below.
-
-		mimetype: application/x-microsoft.net.object.binary.base64
-		value   : The object must be serialized with 
-			: System.Serialization.Formatters.Binary.BinaryFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.soap.base64
-		value   : The object must be serialized with 
-			: System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-			: and then encoded with base64 encoding.
-
-		mimetype: application/x-microsoft.net.object.bytearray.base64
-		value   : The object must be serialized into a byte array 
-			: using a System.ComponentModel.TypeConverter
-			: and then encoded with base64 encoding.
-	-->
-	
-	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-		<xsd:element name="root" msdata:IsDataSet="true">
-			<xsd:complexType>
-				<xsd:choice maxOccurs="unbounded">
-					<xsd:element name="data">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
-							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-						</xsd:complexType>
-					</xsd:element>
-					<xsd:element name="resheader">
-						<xsd:complexType>
-							<xsd:sequence>
-								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-							</xsd:sequence>
-							<xsd:attribute name="name" type="xsd:string" use="required" />
-						</xsd:complexType>
-					</xsd:element>
-				</xsd:choice>
-			</xsd:complexType>
-		</xsd:element>
-	</xsd:schema>
-	<resheader name="resmimetype">
-		<value>text/microsoft-resx</value>
-	</resheader>
-	<resheader name="version">
-		<value>1.3</value>
-	</resheader>
-	<resheader name="reader">
-		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
-	<resheader name="writer">
-		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-	</resheader>
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionBackToLogin" xml:space="preserve">
+    <value>Volver para Iniciar Sesión</value>
+  </data>
+  <data name="ActionBackToMainPage" xml:space="preserve">
+    <value>Volver para la página inicial</value>
+  </data>
+  <data name="ActionChangePassword" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="ActionRemovePicture" xml:space="preserve">
+    <value>Borrar foto</value>
+  </data>
+  <data name="ActionRequestMeeting" xml:space="preserve">
+    <value>Solicitar Reunión</value>
+  </data>
+  <data name="ActionRequestPhone" xml:space="preserve">
+    <value>Solicitar Teléfono</value>
+  </data>
+  <data name="ActionSendMessage" xml:space="preserve">
+    <value>Enviar Mensaje</value>
+  </data>
+  <data name="ActionSendPicture" xml:space="preserve">
+    <value>Enviar una Foto</value>
+  </data>
+  <data name="AuthInvalidUserCredentials" xml:space="preserve">
+    <value>Correo Electrónico y/o contraseña inválidos</value>
+  </data>
+  <data name="DayFriday" xml:space="preserve">
+    <value>Viernes</value>
+  </data>
+  <data name="DayFridayAbbr" xml:space="preserve">
+    <value>vie</value>
+  </data>
+  <data name="DayMonday" xml:space="preserve">
+    <value>Lunes</value>
+  </data>
+  <data name="DayMondayAbbr" xml:space="preserve">
+    <value>lun</value>
+  </data>
+  <data name="DaySaturday" xml:space="preserve">
+    <value>Sábado</value>
+  </data>
+  <data name="DaySaturdayAbbr" xml:space="preserve">
+    <value>sáb</value>
+  </data>
+  <data name="DaySunday" xml:space="preserve">
+    <value>Domingo</value>
+  </data>
+  <data name="DaySundayAbbr" xml:space="preserve">
+    <value>dom</value>
+  </data>
+  <data name="DayThursday" xml:space="preserve">
+    <value>Jueves</value>
+  </data>
+  <data name="DayThursdayAbbr" xml:space="preserve">
+    <value>jue</value>
+  </data>
+  <data name="DayTuesday" xml:space="preserve">
+    <value>Martes</value>
+  </data>
+  <data name="DayTuesdayAbbr" xml:space="preserve">
+    <value>mar </value>
+  </data>
+  <data name="DayWednesday" xml:space="preserve">
+    <value>Miércoles</value>
+  </data>
+  <data name="DayWednesdayAbbr" xml:space="preserve">
+    <value>mié </value>
+  </data>
+  <data name="EmailConfirmEmailBody" xml:space="preserve">
+    <value>&lt;p&gt;Hola {0},&lt;/p&gt;&lt;p&gt;Por favor, confirme su correo electrónico accesando al link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailConfirmEmailSubject" xml:space="preserve">
+    <value>Confirmación de Correo Electrónico</value>
+  </data>
+  <data name="EmailRecoverPasswordBody" xml:space="preserve">
+    <value>&lt;p&gt;Hola {0},&lt;/p&gt;&lt;p&gt;Para restablecer su contraseña, por favor haga clic en el siguiente link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailRecoverPasswordSubject" xml:space="preserve">
+    <value>Restablecer Contraseña</value>
+  </data>
+  <data name="LabelAccount" xml:space="preserve">
+    <value>Cuenta</value>
+  </data>
+  <data name="LabelAccountConfig" xml:space="preserve">
+    <value>Configuraciones de la Cuenta</value>
+  </data>
+  <data name="LabelAd" xml:space="preserve">
+    <value>Anuncio</value>
+  </data>
+  <data name="LabelAddress" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="LabelBasicInfo" xml:space="preserve">
+    <value>Informaciones Básicas</value>
+  </data>
+  <data name="LabelBirthdate" xml:space="preserve">
+    <value>Fecha de Nascimiento</value>
+  </data>
+  <data name="LabelChangePassword" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="LabelCity" xml:space="preserve">
+    <value>Ciudad</value>
+  </data>
+  <data name="LabelCompany" xml:space="preserve">
+    <value>Empresa</value>
+  </data>
+  <data name="LabelComplement" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="LabelConfirmEmail" xml:space="preserve">
+    <value>Confirmar Correo Electrónico</value>
+  </data>
+  <data name="LabelCountry" xml:space="preserve">
+    <value>País</value>
+  </data>
+  <data name="LabelCounty" xml:space="preserve">
+    <value>Estado o Departamento</value>
+  </data>
+  <data name="LabelDashboard" xml:space="preserve">
+    <value>Panel de Informaciones</value>
+  </data>
+  <data name="LabelDistrict" xml:space="preserve">
+    <value>Barrio</value>
+  </data>
+  <data name="LabelEditProfile" xml:space="preserve">
+    <value>Editar Perfil</value>
+  </data>
+  <data name="LabelEmail" xml:space="preserve">
+    <value>Correo Electrónico </value>
+  </data>
+  <data name="LabelExpertise" xml:space="preserve">
+    <value>Especialidad</value>
+  </data>
+  <data name="LabelFirstName" xml:space="preserve">
+    <value>Primer Nombre</value>
+  </data>
+  <data name="LabelGenre" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="LabelInbox" xml:space="preserve">
+    <value>Buzón de Entrada</value>
+  </data>
+  <data name="LabelLocalization" xml:space="preserve">
+    <value>Localización</value>
+  </data>
+  <data name="LabelLogout" xml:space="preserve">
+    <value>Salir</value>
+  </data>
+  <data name="LabelMeetsOnline" xml:space="preserve">
+    <value>Atiende en línea</value>
+  </data>
+  <data name="LabelMessages" xml:space="preserve">
+    <value>Mensajes</value>
+  </data>
+  <data name="LabelMyAddress" xml:space="preserve">
+    <value>Mi dirección</value>
+  </data>
+  <data name="LabelName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="LabelPassword" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="LabelPasswordConfirm" xml:space="preserve">
+    <value>Confirmar contraseña nueva</value>
+  </data>
+  <data name="LabelPasswordCurrent" xml:space="preserve">
+    <value>Contraseña actual</value>
+  </data>
+  <data name="LabelPasswordNew" xml:space="preserve">
+    <value>Contraseña nueva</value>
+  </data>
+  <data name="LabelPhone" xml:space="preserve">
+    <value>Teléfono</value>
+  </data>
+  <data name="LabelPhoneNumber" xml:space="preserve">
+    <value>Número de Teléfono</value>
+  </data>
+  <data name="LabelProfessionalProfile" xml:space="preserve">
+    <value>Perfil Profesional</value>
+  </data>
+  <data name="LabelProfile" xml:space="preserve">
+    <value>Perfil  </value>
+  </data>
+  <data name="LabelProfilePicture" xml:space="preserve">
+    <value>Foto del Perfil</value>
+  </data>
+  <data name="LabelSave" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="LabelSearch" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="LabelSelectPicture" xml:space="preserve">
+    <value>Seleccione una foto</value>
+  </data>
+  <data name="LabelSex" xml:space="preserve">
+    <value>Género</value>
+  </data>
+  <data name="LabelShare" xml:space="preserve">
+    <value>Compartir</value>
+  </data>
+  <data name="LabelSignIn" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="LabelSignUp" xml:space="preserve">
+    <value>Registrar</value>
+  </data>
+  <data name="LabelStayConnected" xml:space="preserve">
+    <value>Permanecer conectado</value>
+  </data>
+  <data name="LabelSurname" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="LabelUpdateAddress" xml:space="preserve">
+    <value>Actualizar Dirección</value>
+  </data>
+  <data name="LabelZipcode" xml:space="preserve">
+    <value>Código Postal</value>
+  </data>
+  <data name="MonthApril" xml:space="preserve">
+    <value>Abril</value>
+  </data>
+  <data name="MonthAprilAbbr" xml:space="preserve">
+    <value>abr </value>
+  </data>
+  <data name="MonthAugust" xml:space="preserve">
+    <value>Agosto</value>
+  </data>
+  <data name="MonthAugustAbbr" xml:space="preserve">
+    <value>ago </value>
+  </data>
+  <data name="MonthDecember" xml:space="preserve">
+    <value>Diciembre</value>
+  </data>
+  <data name="MonthDecemberAbbr" xml:space="preserve">
+    <value>dic </value>
+  </data>
+  <data name="MonthFebruary" xml:space="preserve">
+    <value>Febrero</value>
+  </data>
+  <data name="MonthFebruaryAbbr" xml:space="preserve">
+    <value>feb </value>
+  </data>
+  <data name="MonthJanuary" xml:space="preserve">
+    <value>Enero</value>
+  </data>
+  <data name="MonthJanuaryAbbr" xml:space="preserve">
+    <value>ene </value>
+  </data>
+  <data name="MonthJuly" xml:space="preserve">
+    <value>Julio</value>
+  </data>
+  <data name="MonthJulyAbbr" xml:space="preserve">
+    <value>jul </value>
+  </data>
+  <data name="MonthJune" xml:space="preserve">
+    <value>Junio</value>
+  </data>
+  <data name="MonthJuneAbbr" xml:space="preserve">
+    <value>jun </value>
+  </data>
+  <data name="MonthMarch" xml:space="preserve">
+    <value>Marzo</value>
+  </data>
+  <data name="MonthMarchAbbr" xml:space="preserve">
+    <value>mar</value>
+  </data>
+  <data name="MonthMay" xml:space="preserve">
+    <value>Mayo</value>
+  </data>
+  <data name="MonthMayAbbr" xml:space="preserve">
+    <value>may </value>
+  </data>
+  <data name="MonthNovember" xml:space="preserve">
+    <value>Noviembre</value>
+  </data>
+  <data name="MonthNovemberAbbr" xml:space="preserve">
+    <value>nov </value>
+  </data>
+  <data name="MonthOctober" xml:space="preserve">
+    <value>Octubre</value>
+  </data>
+  <data name="MonthOctoberAbbr" xml:space="preserve">
+    <value>oct </value>
+  </data>
+  <data name="MonthSeptember" xml:space="preserve">
+    <value>Septiembre</value>
+  </data>
+  <data name="MonthSeptemberAbbr" xml:space="preserve">
+    <value>sep </value>
+  </data>
+  <data name="TextAccountCreated" xml:space="preserve">
+    <value>Cuenta creada con éxito.</value>
+  </data>
+  <data name="TextAddressUpdateSuccess" xml:space="preserve">
+    <value>Dirección actualizada con éxito.</value>
+  </data>
+  <data name="TextAllRightsReserved" xml:space="preserve">
+    <value>Todos los derechos reservados.</value>
+  </data>
+  <data name="TextEmailAlreadyConfirmed" xml:space="preserve">
+    <value>Su correo electrónico ya fue confirmado.</value>
+  </data>
+  <data name="TextEmailConfirmationSent" xml:space="preserve">
+    <value>Un correo electrónico de confirmación fue enviado para la dirección registrada.</value>
+  </data>
+  <data name="TextEmailConfirmFailure" xml:space="preserve">
+    <value>No fue posible confirmar el correo electrónico con este código. Por favor, solicite otro correo de confirmación.</value>
+  </data>
+  <data name="TextEmailConfirmSuccess" xml:space="preserve">
+    <value>Su correo electrónico fue confirmado con éxito.</value>
+  </data>
+  <data name="TextEvaluations" xml:space="preserve">
+    <value>{0} clasificaciones</value>
+  </data>
+  <data name="TextNotFound" xml:space="preserve">
+    <value>Tal vez digitó alguna dirección errada o la página no se encuentra más en este local.</value>
+  </data>
+  <data name="TextNotFoundOops" xml:space="preserve">
+    <value>Ups, no encontramos la página que usted está buscando...</value>
+  </data>
+  <data name="TextPasswordSetSuccess" xml:space="preserve">
+    <value>Su contraseña fue mudada con éxito.</value>
+  </data>
+  <data name="TextPictureUpdateSuccess" xml:space="preserve">
+    <value>Su foto fue actualizada con éxito.</value>
+  </data>
+  <data name="TextProfilePictureDescription" xml:space="preserve">
+    <value>Fotos claras y de frente son uma forma eficiente de mostrar su perfil.</value>
+  </data>
+  <data name="TextProfilePictureLimitations" xml:space="preserve">
+    <value>Envie un archivo de imagen en formato JPG, GIF o PNG de máximo 1MB.</value>
+  </data>
+  <data name="TextProfileUpdateSuccess" xml:space="preserve">
+    <value>Datos del perfil actualizados con éxito.</value>
+  </data>
+  <data name="TextQHaveAccount" xml:space="preserve">
+    <value>Ya tiene una cuenta?</value>
+  </data>
+  <data name="TextRecoverPassword" xml:space="preserve">
+    <value>Recuperar su contraseña.</value>
+  </data>
+  <data name="TextRecoverPasswordDescription" xml:space="preserve">
+    <value>Enviaremos las instrucciones para recuperar su contraseña al correo electrónico que fue registrado. Revise su buzón de entrada después de confirmar la solicitud.</value>
+  </data>
+  <data name="TextRecoverPasswordEmailSent" xml:space="preserve">
+    <value>Correo Electrónico de recuperación de contraseña enviado con éxito.</value>
+  </data>
+  <data name="TextSearchNumberOfResults" xml:space="preserve">
+    <value>{0} resultado(s) encontrado(s) para "{1}".</value>
+  </data>
+  <data name="TextSearchPlaceholder" xml:space="preserve">
+    <value>Busque por nombre, especialidad o localización...</value>
+  </data>
+  <data name="TextSignIn" xml:space="preserve">
+    <value>Ingresar</value>
+  </data>
+  <data name="TextSignUp" xml:space="preserve">
+    <value>Crear una cuenta</value>
+  </data>
+  <data name="TextSignUpAgreement" xml:space="preserve">
+    <value>Al clicar en "Crear mi Cuenta", usted está de acuerdo con nuestra Política de Privaciad y Términos de Uso.</value>
+  </data>
+  <data name="TextSignUpDescription" xml:space="preserve">
+    <value>Haga su registro gratis en segundos, no necesita de tarjeta de crédito.</value>
+  </data>
+  <data name="TextSignUpTitle" xml:space="preserve">
+    <value>Crear su cuenta ahora</value>
+  </data>
+  <data name="TextSlogan" xml:space="preserve">
+    <value>Transforme su carrera.</value>
+  </data>
+  <data name="TextSloganDescription" xml:space="preserve">
+    <value>Encuentre los mejores profesionales de consultoria y coaching para ayudarlo en su carrera.</value>
+  </data>
+  <data name="TextTypeYourEmail" xml:space="preserve">
+    <value>Digite su correo electrónico.</value>
+  </data>
+  <data name="TextTypeYourPassword" xml:space="preserve">
+    <value>Digite su contraseña.</value>
+  </data>
+  <data name="TextUnexpectedError" xml:space="preserve">
+    <value>Ocurrió un error inesperado. Por favor, intente nuevamente más tarde. Caso el error continúe, entre en contacto con el soporte.</value>
+  </data>
+  <data name="TextUnexpectedErrorOops" xml:space="preserve">
+    <value>Ups, ocurrió un error inesperado...</value>
+  </data>
+  <data name="ValidationEmailRequired" xml:space="preserve">
+    <value>El correo electrónico es obligatorio.</value>
+  </data>
+  <data name="ValidationNameRequired" xml:space="preserve">
+    <value>El nombre es obligatorio.</value>
+  </data>
+  <data name="ValidationPasswordFormat" xml:space="preserve">
+    <value>Su contraseña debe tener por lo menos 1 número, 1 letra y 1 caracter especial.</value>
+  </data>
+  <data name="ValidationPasswordLength" xml:space="preserve">
+    <value>La contraseña debe tener por lo menos {0} caracteres.</value>
+  </data>
+  <data name="ValidationPasswordRequired" xml:space="preserve">
+    <value>La contraseña es obligatoria.</value>
+  </data>
+  <data name="ValidationPasswordsDontMatch" xml:space="preserve">
+    <value>Las contraseñas digitadas no son iguales.</value>
+  </data>
+  <data name="ValidationRequired" xml:space="preserve">
+    <value>El campo '{0}' es obligatorio.</value>
+  </data>
+  <data name="ValidationStringLengthMin" xml:space="preserve">
+    <value>El campo '{0}' debe tener por lo menos {2} caracteres.</value>
+  </data>
+  <data name="ValidationSurnameRequired" xml:space="preserve">
+    <value>El apellido es obligatorio.</value>
+  </data>
 </root>
