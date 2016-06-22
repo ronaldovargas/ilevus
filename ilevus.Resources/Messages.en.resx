@@ -469,7 +469,7 @@
     <value>Password reset sent.</value>
   </data>
   <data name="TextSearchNumberOfResults" xml:space="preserve">
-    <value>{0} results) found) for "{1}".</value>
+    <value>{0} result(s) found for "{1}".</value>
   </data>
   <data name="TextSearchPlaceholder" xml:space="preserve">
     <value>Search by name, expertise or location ...</value>
