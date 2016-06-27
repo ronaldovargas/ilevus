@@ -1,0 +1,14 @@
+﻿.#{$prefix}page-banner {
+    background: 
+        linear-gradient(rgba($color-brand-base, .7), rgba($color-brand-base, .7) ),
+        url('https://static.pexels.com/photos/27406/pexels-photo-27406.jpg'),
+        linear-gradient($color-brand-base, $color-brand-base);
+    background-size: cover;
+    background-position: center;
+}
+
+.#{$prefix}page-banner-content {
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+}

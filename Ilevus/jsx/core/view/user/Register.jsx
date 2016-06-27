@@ -46,56 +46,57 @@ module.exports = React.createClass({
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
-                        <form className="p-t-3" onSubmit={this.onSubmit}>
+                    <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
+                        <form className="m-t-3" onSubmit={this.onSubmit}>
                             <h3>{Messages.get("TextSignUpTitle")}</h3>
-                            <p className="m-y-0">
-                                {Messages.get("TextSignUpDescription")}
-                            </p>
+                            <span>{Messages.get("TextSignUpDescription")}</span>
                             <p>
                                 {Messages.get("TextQHaveAccount")} <Link to="/login">
                                 {Messages.get("TextSignIn")}</Link>
-                           </p>
+                            </p>
 
-                            <div className="form-group row">
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
-                                    <input className="form-element form-element-lg" id="name" name="name" type="text" ref="name" />
-                                </div>
-                                <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
-                                    <input className="form-element form-element-lg" id="surname" name="surname" type="text" ref="surname" />
-                                </div>
+                            <div className="row">
+                                <fieldset className="ilv-form-group col-md-6">
+                                    <label className="ilv-form-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
+                                    <input className="ilv-form-control ilv-form-control-lg" id="name" name="name" type="text" ref="name" />
+                                </fieldset>
+                                <fieldset className="ilv-form-group col-md-6">
+                                    <label className="ilv-form-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
+                                    <input className="ilv-form-control ilv-form-control-lg" id="surname" name="surname" type="text" ref="surname" />
+                                </fieldset>
                             </div>
-                            <div className="form-group">
-                                <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                                <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
-                            </div>
-                            <div className="form-group">
-                                <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                                <input className="form-element form-element-lg" id="password" name="password" type="password"  ref="password" />
-                            </div>
-                            <div className="form-group">
-                                <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
-                                <input className="form-element form-element-lg" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
-                            </div>
+
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
+                            </fieldset>
+
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="password" name="password" type="password" ref="password" />
+                            </fieldset>
+
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="passwordconfirm" name="passwordconfirm" type="password"  ref="passwordconfirm" />
+                            </fieldset>
 
                             <ErrorAlert store={UserStore} />
                             
-                            <p className="small">
+                            <p className="ilv-text-small">
                                 {Messages.get("TextSignUpAgreement")}
                             </p>
-                            <div className="form-group row">
-                                <div className="col-xs-12 col-sm-6">
-                                    <input className="btn btn-lg btn-brand btn-block" type="submit" value={Messages.get("LabelSignUp")} />
-                                </div>
+                            <div className="row">
+                                <fieldset className="ilv-form-group col-md-6">
+                                    <input className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("LabelSignUp")} />
+                                </fieldset>
                             </div>
                         </form>
 
-                        <div className="text-xs-center">
-                            <p className="text-muted small p-t-2">
+                        <div className="ilv-text-xs-center m-y-3">
+                            <small className="text-muted">
                                 ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                            </p>
+                            </small>
                         </div>
                     </div>
                 </div>

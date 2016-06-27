@@ -38,39 +38,39 @@ module.exports = React.createClass({
 		UserSession.off(null, null, this);
 	},
 	render() {
-		return (<div className="container">
+	    return (
+            <div className="container">
                 <div className="row">
-                  <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
+                    <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
+                        <form className="p-t-3" onSubmit={this.onSubmit}>
+                            <h3>{Messages.get("TextRecoverPassword")}</h3>
+                            <p>{Messages.get("TextRecoverPasswordDescription")}</p>
 
-                    <form className="p-t-3" onSubmit={this.onSubmit}>
-                      <h3>{Messages.get("TextRecoverPassword")}</h3>
-                      <p>
-                          {Messages.get("TextRecoverPasswordDescription")}
-                      </p>
-                      <div className="form-group">
-                        <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                        <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
-                      </div>
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
+                            </fieldset>
 
-                      <ErrorAlert store={UserSession} />
+                            <ErrorAlert store={UserSession} />
                       
-                      <div className="form-group row">
-                        <div className="col-xs-12 col-sm-6">
-                          <input type="submit" value={Messages.get("TextRecoverPassword")} className="btn btn-lg btn-brand btn-block" />
-                        </div>
-                        <div className="col-xs-12 col-sm-6">
-                          <Link to="/login" className="btn btn-lg btn-link btn-block">{Messages.get("TextSignIn")}</Link>
-                        </div>
-                      </div>
-                    </form>
+                            <div className="row">
+                                <div className="ilv-form-group col-md-6">
+                                    <input className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("TextRecoverPassword")} />
+                                </div>
+                                <div className="ilv-form-group col-md-6">
+                                    <Link to="/login" className="ilv-btn ilv-btn-lg ilv-btn-clean ilv-btn-block">{Messages.get("TextSignIn")}</Link>
+                                </div>
+                            </div>
+                        </form>
 
-                    <div className="text-xs-center">
-                      <p className="text-muted small p-t-2">
-                          ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                      </p>
+                        <div className="ilv-text-xs-center m-y-3">
+                            <small className="text-muted">
+                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
+                            </small>
+                        </div>
                     </div>
-                  </div>
                 </div>
-		</div>);
+            </div>
+        );
 	}
 });

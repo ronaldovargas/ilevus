@@ -1,90 +1,61 @@
-@if $enable-flex {
-  .media {
-    display: flex;
-    margin-bottom: $spacer;
-  }
-  .media-body {
-    flex: 1;
-  }
-  .media-middle {
-    align-self: center;
-  }
-  .media-bottom {
-    align-self: flex-end;
-  }
-} @else {
-  .media {
-    margin-top: 15px;
+//
+// Media
+//
 
-    &:first-child {
-      margin-top: 0;
+// Media object
+
+.#{$prefix}media {
+  display: flex;
+  align-items: flex-start;
+
+  &.#{$prefix}media-middle {
+    align-items: center;
+  }
+
+  &.#{$prefix}media-bottom {
+    align-items: flex-end;
+  }
+}
+
+.#{$prefix}media-body,
+.#{$prefix}media-block {
+  flex: 1;
+}
+
+.#{$prefix}media-left {
+  flex-shrink: 0;
+  margin-right: .5rem;
+}
+
+.#{$prefix}media-right {
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+// Media list
+
+.#{$prefix}media-list {
+  @include list-unstyled;
+
+  & > .#{$prefix}media {
+    padding: $table-cell-padding;
+  }
+}
+
+.#{$prefix}media-list-sm > .#{$prefix}media {
+  padding: $table-sm-cell-padding;
+}
+
+.#{$prefix}media-list-bordered {
+  & > .#{$prefix}media {
+    border-bottom: $table-border-width solid $table-border-color;
+  }
+}
+
+.#{$prefix}media-list-hover {
+  & > .#{$prefix}media {
+    @include hover {
+      background-color: $table-bg-hover;
     }
   }
-  .media,
-  .media-body {
-    overflow: hidden;
-    zoom: 1;
-  }
-  .media-body {
-    width: 10000px;
-  }
-  .media-left,
-  .media-right,
-  .media-body {
-    display: table-cell;
-    vertical-align: top;
-  }
-  .media-middle {
-    vertical-align: middle;
-  }
-  .media-bottom {
-    vertical-align: bottom;
-  }
-}
-
-
-//
-// Images/elements as the media anchor
-//
-
-.media-object {
-  display: block;
-
-  // Fix collapse in webkit from max-width: 100% and display: table-cell.
-  &.img-thumbnail {
-    max-width: none;
-  }
-}
-
-
-//
-// Alignment
-//
-
-.media-right {
-  padding-left: 1rem;
-}
-
-.media-left {
-  padding-right: 1rem;
-}
-
-
-//
-// Headings
-//
-
-.media-heading {
-  margin-top: 0;
-  margin-bottom: 5px;
-}
-
-
-//
-// Media list variation
-//
-
-.media-list {
-  padding-left: 0;
-  list-style: none;
 }

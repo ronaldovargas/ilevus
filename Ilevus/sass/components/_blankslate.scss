@@ -1,0 +1,20 @@
+.#{$prefix}blankslate {
+	position: relative;
+	padding: $blankslate-padding-y $blankslate-padding-x;
+	text-align: center;
+	background: $blankslate-bg;
+	border: 0;
+}
+
+.#{$prefix}blankslate-sm {
+	padding: $blankslate-padding-y-sm $blankslate-padding-x-sm;
+}
+
+.#{$prefix}blankslate-lg {
+	padding: $blankslate-padding-y-lg $blankslate-padding-x-lg;
+}
+
+.#{$prefix}blankslate-bordered {
+	border: $blankslate-border-width solid $blankslate-border-color;
+	@include border-radius($blankslate-border-radius);
+}

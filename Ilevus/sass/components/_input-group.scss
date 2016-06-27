@@ -1,0 +1,162 @@
+.#{$prefix}input-group {
+  display: flex;
+  position: relative;
+  width: 100%;
+
+  .#{$prefix}form-control {
+    position: relative;
+    flex: 1;
+    margin-bottom: 0;
+    z-index: 1;
+
+    @include hover-focus-active {
+      z-index: 4;
+    }
+  }
+}
+
+.#{$prefix}input-group-addon,
+.#{$prefix}input-group-btn {
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+
+//
+// Input group addon
+//
+
+.#{$prefix}input-group-addon {
+  padding: $input-group-padding-y $input-group-padding-x;
+  margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
+  font-size: $input-group-font-size;
+  font-weight: $input-group-font-weight;
+  min-height: $input-group-height;
+  line-height: $input-group-line-height;
+  color: $input-group-color;
+  text-align: center;
+  background-color: $input-group-bg;
+  border: $input-group-border-width solid $input-group-border;
+  @include border-radius($input-group-border-radius);
+
+  .#{$prefix}radio,
+  .#{$prefix}checkbox {
+    line-height: $input-group-control-line-height;
+  }
+}
+
+
+//
+// Input group button
+//
+
+.#{$prefix}input-group-btn {
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
+
+  > .#{$prefix}btn {
+    position: relative;
+    z-index: 2;
+
+    + .#{$prefix}btn {
+      margin-left: (-$input-group-border-width);
+    }
+
+    @include hover-focus-active {
+      z-index: 3;
+    }
+  }
+
+  &:not(:last-child) {
+    > .#{$prefix}btn,
+    > .#{$prefix}btn-group {
+      margin-right: (-$input-group-border-width);
+    }
+  }
+  &:not(:first-child) {
+    > .#{$prefix}btn,
+    > .#{$prefix}btn-group {
+      margin-left: (-$input-group-border-width);
+
+      @include hover-focus-active {
+        z-index: 3;
+      }
+    }
+  }
+}
+
+
+//
+// Sizing
+//
+.#{$prefix}input-group-sm {
+
+  > .#{$prefix}form-control,
+  > .#{$prefix}input-group-addon,
+  > .#{$prefix}input-group-btn > .#{$prefix}btn {
+    height: $input-group-height-sm;
+    min-height: $input-group-height-sm;
+    line-height: $input-group-line-height-sm;
+  }
+
+  .#{$prefix}radio,
+  .#{$prefix}checkbox {
+    line-height: $input-group-control-line-height-sm;
+  }
+}
+
+.#{$prefix}input-group-lg {
+
+  > .#{$prefix}form-control,
+  > .#{$prefix}input-group-addon,
+  > .#{$prefix}input-group-btn > .#{$prefix}btn {
+    height: $input-group-height-lg;
+    min-height: $input-group-height-lg;
+    line-height: $input-group-line-height-lg;
+  }
+
+  .#{$prefix}radio,
+  .#{$prefix}checkbox {
+    line-height: $input-group-control-line-height-lg;
+  }
+}
+
+
+//
+// Border controlling
+//
+
+.#{$prefix}input-group-addon,
+.#{$prefix}input-group-btn,
+.#{$prefix}input-group .#{$prefix}form-control {
+  &:not(:first-child):not(:last-child) {
+    @include border-radius(0);
+  }
+}
+
+.#{$prefix}input-group .#{$prefix}form-control:not(:last-child),
+.#{$prefix}input-group-addon:not(:last-child),
+.#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn,
+.#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn-group > .#{$prefix}btn,
+.#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn:not(:last-child),
+.#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn-group:not(:last-child) > .#{$prefix}btn {
+  @include border-right-radius(0);
+}
+
+.#{$prefix}input-group-addon:not(:last-child) {
+  border-right: 0;
+}
+
+.#{$prefix}input-group .#{$prefix}form-control:not(:first-child),
+.#{$prefix}input-group-addon:not(:first-child),
+.#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn,
+.#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn-group > .#{$prefix}btn,
+.#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn:not(:first-child),
+.#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn-group:not(:first-child) > .#{$prefix}btn {
+  @include border-left-radius(0);
+}
+
+.#{$prefix}form-control + .#{$prefix}input-group-addon:not(:first-child) {
+  border-left: 0;
+}

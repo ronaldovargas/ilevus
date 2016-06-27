@@ -57,105 +57,94 @@ module.exports = React.createClass({
             return <LoadingGauge />;
         }
         var user = UserSession.get("user");
-        return (<div>
-            <div className="card m-b-2">
-                <div className="card-header">
-                    {Messages.get("LabelChangePassword")}
-                </div>
-                <div className="card-block">
-                    <form className="small ">
-                        <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormPassword">
-                                {Messages.get("LabelPasswordCurrent")}
-                            </label>
-                            <div className="col-sm-4">
-                                <input className="form-element"
-                                       type="password"
-                                       id="editAccountFormPassword"
-                                       ref="setpwd-oldpassword" />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormNewPassword">
-                                {Messages.get("LabelPasswordNew")}
-                            </label>
-                            <div className="col-sm-4">
-                                <input className="form-element"
-                                       type="password"
-                                       id="editAccountFormNewPassword"
-                                       ref="setpwd-password" />
-                            </div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-3 col-form-label text-sm-right" htmlFor="editAccountFormConfirmPassword">
-                                {Messages.get("LabelPasswordConfirm")}
-                            </label>
-                            <div className="col-sm-4">
-                                <input className="form-element"
-                                       type="password"
-                                       id="editAccountFormConfirmPassword"
-                                       ref="setpwd-passwordconfirm" />
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div className="card-footer">
-                    <button className="btn btn-brand" ref="setpwd-save" onClick={this.updatePassword}>
-                        {Messages.get("ActionChangePassword")}
-                    </button>
-                </div>
-            </div>
+        return (
+            <div>
+                <div className="ilv-card">
+                    <div className="ilv-card-header">
+                        <strong>
+                            {Messages.get("LabelChangePassword")}
+                        </strong>
+                    </div>
+                    <div className="ilv-card-body">
+                        <form className="ilv-text-small">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="editAccountFormPassword">{Messages.get("LabelPasswordCurrent")}</label>
+                                        <input className="ilv-form-control" type="password" id="editAccountFormPassword" ref="setpwd-oldpassword" />
+                                    </div>
 
-            <div className="card m-b-2 hidden">
-                <div className="card-header">
-                    Notificação de login
-                </div>
-                <div className="card-block small">
-                    <p>
-                        As notificações de login são um recurso extra de segurança. Quando você ativar esse recurso,
-                        informaremos sempre que alguém tentar fazer login na sua conta do Airbnb de outro navegador.
-                        Isso ajuda a manter sua conta segura.
-                    </p>
-                    <div className="checkbox">
-                        <label htmlFor="account-login-notification">
-                            <input type="checkbox" id="account-login-notification" ref="loginnotification" /> Ativar notificações de login 
-                        </label>
+                                    <div className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="editAccountFormNewPassword">{Messages.get("LabelPasswordNew")}</label>
+                                        <input className="ilv-form-control" type="password" id="editAccountFormNewPassword" ref="setpwd-password" />
+                                    </div>
+
+                                    <div className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="editAccountFormConfirmPassword">{Messages.get("LabelPasswordConfirm")}</label>
+                                        <input className="ilv-form-control" type="password" id="editAccountFormConfirmPassword" ref="setpwd-passwordconfirm" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="ilv-card-footer">
+                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updatePassword}>
+                            {Messages.get("ActionChangePassword")}
+                        </button>
                     </div>
                 </div>
+
+                <div className="card m-b-2 hidden">
+                <div className="card-header">
+                Notificação de login
+                </div>
+                <div className="card-block small">
+                <p>
+                As notificações de login são um recurso extra de segurança. Quando você ativar esse recurso,
+                informaremos sempre que alguém tentar fazer login na sua conta do Airbnb de outro navegador.
+                Isso ajuda a manter sua conta segura.
+                </p>
+                <div className="checkbox">
+                <label htmlFor="account-login-notification">
+                <input type="checkbox" id="account-login-notification" ref="loginnotification" /> Ativar notificações de login 
+                </label>
+                </div>
+                </div>
                 <div className="card-footer">
-                    <button className="btn btn-brand">Salvar</button>
+                <button className="btn btn-brand">Salvar</button>
                 </div>
 
-            </div>
+                </div>
 
-            <div className="card m-b-2 hidden">
+                <div className="card m-b-2 hidden">
                 <div className="card-header">
-                    Histórico de acesso
+                Histórico de acesso
                 </div>
                 <div className="card-block">
-                    <table className="table table-sm small m-a-0">
-                        <thead>
-                            <tr>
-                                <th>Navegador/Dispositivo</th>
-                                <th>Localização</th>
-                                <th>Quando</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Chrome, Windows 10</td>
-                                <td>Belo Horizonte, MG, Brasil</td>
-                                <td>30/05/2016, 21:14</td>
-                            </tr>
-                            <tr>
-                                <td>Firefox, Windows 8.1</td>
-                                <td>Belo Horizonte, MG, Brasil</td>
-                                <td>21/05/2016, 13:26</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table className="table table-sm small m-a-0">
+                <thead>
+                <tr>
+                <th>Navegador/Dispositivo</th>
+                <th>Localização</th>
+                <th>Quando</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <td>Chrome, Windows 10</td>
+                <td>Belo Horizonte, MG, Brasil</td>
+                <td>30/05/2016, 21:14</td>
+                </tr>
+                <tr>
+                <td>Firefox, Windows 8.1</td>
+                <td>Belo Horizonte, MG, Brasil</td>
+                <td>21/05/2016, 13:26</td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
                 </div>
             </div>
-        </div>);
+        );
     }
 });

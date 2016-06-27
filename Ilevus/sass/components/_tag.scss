@@ -1,0 +1,55 @@
+.#{$prefix}tag {
+  display: inline-block;
+  font-size: $tag-font-size;
+  font-weight: $tag-font-weight;
+  font-style: normal;
+  text-align: center;
+  vertical-align: baseline;
+  white-space: nowrap;
+  color: $tag-font-color;
+  margin: 0 $tag-margin-x;
+  padding: $tag-padding-x $tag-padding-y;
+  line-height: normal;
+  border-radius: $tag-border-radius;
+  @include tag-variant($tag-bg-base);
+
+  &:empty {
+    display: none;
+  }
+
+  & + & {
+    margin-left: .5rem;
+  }
+}
+
+a.#{$prefix}tag {
+  @include hover-focus {
+    color: $tag-link-hover-color;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+// Format variations
+
+.#{$prefix}tag-pill {
+  border-radius: $tag-pill-border-radius;
+}
+
+// Color variations
+
+.#{$prefix}tag-success {
+  @include tag-variant($tag-bg-success);
+}
+
+.#{$prefix}tag-info {
+  @include tag-variant($tag-bg-info);
+}
+
+.#{$prefix}tag-warning {
+  @include tag-variant($tag-bg-warning);
+}
+
+.#{$prefix}tag-danger {
+  @include tag-variant($tag-bg-danger);
+}

@@ -61,46 +61,46 @@ module.exports = React.createClass({
 			</div>
 		    ;
 		}
-		return <div className="container">
-            <div className="row">
-                  <div className="col-xs-12 col-sm-8 col-sm-offset-2 col-xl-6 col-xl-offset-3">
-                    <form className="p-t-3" onSubmit={this.onSubmit}>
-                      <p className="font-weight-bold">
-                        {Messages.get("LabelChangePassword")}
-                      </p>
-                      <div className="form-group">
-                        <label className="form-element-label" htmlFor="password">{Messages.get("LabelPasswordNew")}</label>
-                        <input className="form-element" id="password" name="password" type="password" ref="password" />
-                      </div>
-                      <div className="form-group">
-                        <label className="form-element-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
-                        <input className="form-element" id="passwordconfirm" name="passwordconfirm" type="password" ref="passwordconfirm" />
-                      </div>
+	    return (
+            <div className="container">
+                <div className="row">
+                    <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
+                        <form className="m-t-3" onSubmit={this.onSubmit}>
+                            <h3>{Messages.get("LabelChangePassword")}</h3>
 
-                        {this.state.error ?
-                            <div className="alert alert-danger">
-                                {this.state.error}
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="password">{Messages.get("LabelPasswordNew")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="password" name="password" type="password" ref="password" />
+                            </fieldset>
+                            <fieldset className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor="passwordconfirm">{Messages.get("LabelPasswordConfirm")}</label>
+                                <input className="ilv-form-control ilv-form-control-lg" id="passwordconfirm" name="passwordconfirm" type="password" ref="passwordconfirm" />
+                            </fieldset>
+
+                            {this.state.error ?
+                                <div className="ilv-alert ilv-alert-danger">
+                                    {this.state.error}
+                                </div>
+                            :""}
+
+                            <div className="row">
+                                <fieldset className="ilv-form-group col-md-6">
+                                    <input className="ilv-btn ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("ActionChangePassword")} />
+                                </fieldset>
+                                <fieldset className="ilv-form-group col-md-6">
+                                    <Link to="/login" className="btn btn-link btn-block">{Messages.get("ActionBackToLogin")}</Link>
+                                </fieldset>
                             </div>
-                        :""}
+                        </form>
 
-                      <div className="form-group row">
-                        <div className="col-xs-12 col-sm-6">
-                          <input type="submit" value={Messages.get("ActionChangePassword")} className="btn btn-brand btn-block" />
+                        <div className="ilv-text-xs-center m-y-3">
+                            <small className="text-muted">
+                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
+                            </small>
                         </div>
-                        <div className="col-xs-12 col-sm-6">
-                          <Link to="/login" className="btn btn-link btn-block">
-                              {Messages.get("ActionBackToLogin")}
-                          </Link>
-                        </div>
-                      </div>
-                    </form>
-                    <div className="text-xs-center">
-                      <p className="text-muted small p-t-2">
-                          ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                      </p>
                     </div>
-                  </div>
+                </div>
             </div>
-		</div>;
+        );
 	}
 });

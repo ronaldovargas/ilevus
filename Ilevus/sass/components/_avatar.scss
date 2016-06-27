@@ -1,10 +1,28 @@
-.avatar {
+//
+// Images
+//
+
+// Avatar
+.#{$prefix}avatar,
+.#{$prefix}avatar-child {
   overflow: hidden;
   display: inline-block;
   vertical-align: middle;
+  background-color: $avatar-img-bg;
   border-radius: $border-radius;
   line-height: 1;
 
+  & > img {
+    width: 100%;
+    height: auto;
+  }
+
+  &-circle {
+    border-radius: 50%;
+  }
+}
+
+.#{$prefix}avatar {
   &-xs {
     @include size($avatar-img-xs);
   }
@@ -24,12 +42,36 @@
   &-xl {
     @include size($avatar-img-xl);
   }
+}
 
-  &-navbar {
-    @include size($avatar-img-navbar);
-  }
+.#{$prefix}avatar-parent {
+  display: inline-block;
+  position: relative;
 
-  &-circle {
-    border-radius: 50%;
+  .#{$prefix}avatar-child {
+    position: absolute;
+    right: -.25rem;
+    bottom: -.25rem;
+    box-shadow: -2px -2px 0 rgba($body-bg, .8);
+
+    &-xs {
+      @include size($avatar-child-img-xs);
+    }
+
+    &-sm {
+      @include size($avatar-child-img-sm);
+    }
+
+    &-md {
+      @include size($avatar-child-img-md);
+    }
+
+    &-lg {
+      @include size($avatar-child-img-lg);
+    }
+
+    &-xl {
+      @include size($avatar-child-img-xl);
+    }
   }
 }

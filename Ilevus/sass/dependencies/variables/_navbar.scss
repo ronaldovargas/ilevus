@@ -1,0 +1,15 @@
+//
+// Navbar
+//
+
+$navbar-color-light:           #ffffff !default;
+$navbar-color-dark:            $color-neutral-base !default;
+
+$navbar-bg-brand:              $color-brand-base !default;
+$navbar-bg-dark:               $color-neutral-dark !default;
+$navbar-bg-light:              $color-brand-lightest !default;
+
+$navbar-padding-x:             0 !default;
+$navbar-padding-y:             .5rem !default;
+
+$navbar-fixed-zindex:          1030 !default;

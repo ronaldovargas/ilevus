@@ -3,6 +3,8 @@ var React = require("react");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
 
+var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
@@ -17,31 +19,31 @@ module.exports = React.createClass({
     },
     render() {
         return (
-            <div className="page-banner" role="banner">
+            <div className="ilv-page-banner" role="banner">
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-12">
-                            <div style={{color: '#fff'}}>
-                                <h1 className="display-4 font-weight-bold">
-                                    {Messages.get("TextSlogan")}
-                                </h1>
-                                <p className="lead">
-                                    {Messages.get("TextSloganDescription")}
-                                </p>
+                            <div className="ilv-page-banner-content">                              
+                                <form onSubmit={this.onSearch}>
+                                    <div className="ilv-form-group">
+                                        <img src={LogoWhite} alt="ilevus" />
+                                    </div>
+                                    <div className="ilv-form-group">
+                                        <h1>{Messages.get("TextSlogan")}</h1>
+                                        <p>{Messages.get("TextSloganDescription")}</p>
+                                    </div>
+                                    <div className="ilv-form-group">
+                                        <div className="ilv-input-group">
+                                            <input ref="search-term" className="ilv-form-control ilv-form-control-lg" type="search" placeholder={Messages.get("TextSearchPlaceholder")} />
+                                            <div className="ilv-input-group-btn">
+                                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" type="submit">
+                                                    {Messages.get("LabelSearch")}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <form className="row p-y-1" onSubmit={this.onSearch}>
-                                <div className="form-group col-xs-12 col-sm-8 col-md-9">
-                                    <input ref="search-term"
-                                           className="form-element form-element-lg"
-                                           type="search"
-                                           placeholder={Messages.get("TextSearchPlaceholder")} />
-                                </div>
-                                <div className="form-group col-xs-12 col-sm-4 col-md-3">
-                                    <button className="btn btn-lg btn-block btn-brand" type="submit">
-                                        {Messages.get("LabelSearch")}
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>

@@ -13,41 +13,41 @@ module.exports = React.createClass({
         return (
             <div className="container p-y-3">
                 <div className="row">
-                    <div className="col-xs-2">
-                        <ul className="nav nav-pills nav-stacked small">
-                            <li className="nav-item hidden">
-                                <Link className="nav-link" to="/user/dashboard">
+                    <div className="col-xs-12 m-b-1">
+                        <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
+                            <li className="ilv-nav-item hidden">
+                                <Link className="ilv-nav-link" to="/user/dashboard">
                                     {Messages.get("LabelDashboard")}
                                 </Link>
                             </li>
-                            <li className="nav-item hidden">
-                                <a className="nav-link" href="#">
+                            <li className="ilv-nav-item hidden">
+                                <a className="ilv-nav-link" href="#">
                                     {Messages.get("LabelInbox")}
                                 </a>
                             </li>
-                            <li className="nav-item hidden">
-                                <a className="nav-link" href="#">
+                            <li className="ilv-nav-item hidden">
+                                <a className="ilv-nav-link" href="#">
                                     {Messages.get("LabelProfessionalProfile")}
                                 </a>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/user/profile">
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/user/profile">
                                     {Messages.get("LabelProfile")}
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/user/account">
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/user/account">
                                     {Messages.get("LabelAccount")}
                                 </Link>
                             </li>
-                            <li className="nav-item hidden">
-                                <a className="nav-link" href="#">
+                            <li className="ilv-nav-item hidden">
+                                <a className="ilv-nav-link" href="#">
                                     {Messages.get("LabelCompany")}
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <div className="col-sm-10">
+                    <div className="col-xs-12">
                         {this.props.children}
                     </div>
                 </div>

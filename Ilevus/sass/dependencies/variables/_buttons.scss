@@ -1,0 +1,65 @@
+//
+// Buttons
+//
+
+$btn-height:                   $form-control-height !default;
+$btn-font-size:                $font-size-sm !default;
+$btn-font-weight:              600 !default;
+
+$btn-border-width:             $form-control-border-width !default;
+$btn-border-radius:            $border-radius !default;
+
+$btn-line-height:              $btn-height - ($btn-border-width * 2)  !default;
+
+$btn-padding-x:                1rem !default;
+$btn-padding-y:                0 !default;
+
+
+// Button sizing variations
+
+$btn-height-sm:                $form-control-height-sm !default;
+$btn-padding-x-sm:             .5rem !default;
+$btn-padding-y-sm:             0 !default;
+$btn-line-height-sm:           $btn-height-sm - ($btn-border-width * 2)  !default;
+
+$btn-height-lg:                $form-control-height-lg !default;
+$btn-padding-x-lg:             1.5rem !default;
+$btn-padding-y-lg:             0 !default;
+$btn-line-height-lg:           $btn-height-lg - ($btn-border-width * 2)  !default;
+
+$btn-block-spacing-y:          .5rem !default;
+
+
+// Button color variations
+
+$btn-primary-color:            #fff !default;
+$btn-primary-bg:               $color-primary-brand !default;
+$btn-primary-border:           $color-primary-brand !default;
+
+$btn-neutral-color:            $color-neutral-dark !default;
+$btn-neutral-bg:               $color-neutral-lighter !default;
+$btn-neutral-border:           $color-neutral-lighter !default;
+
+$btn-success-color:            #fff !default;
+$btn-success-bg:               $color-primary-success !default;
+$btn-success-border:           $color-primary-success !default;
+
+$btn-info-color:               #fff !default;
+$btn-info-bg:                  $color-primary-info !default;
+$btn-info-border:              $color-primary-info !default;
+
+$btn-warning-color:            #fff !default;
+$btn-warning-bg:               $color-primary-warning !default;
+$btn-warning-border:           $color-primary-warning !default;
+
+$btn-destructive-color:        #fff !default;
+$btn-destructive-bg:           $color-primary-danger !default;
+$btn-destructive-border:       $color-primary-danger !default;
+
+$btn-clean-color:              $color-neutral-dark !default;
+$btn-clean-bg:                 transparent !default;
+$btn-clean-border:             transparent !default;
+
+$btn-link-color:               $link-color !default;
+$btn-link-bg:                  transparent !default;
+$btn-link-border:              transparent !default;

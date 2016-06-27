@@ -63,43 +63,36 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12">
-                        <div className="card">
-                            <div className="card-block">
-                                <div className="media m-a-0">
-                                    <div className="media-left text-xs-center">
-                                        <span className="avatar avatar-xl">
-                                            <img className="img-fluid" src={user.get("Image")} alt={user.get("Name")} />
+                        <div className="ilv-card">
+                            <div className="ilv-card-body">
+                                <div className="ilv-media">
+                                    <div className="ilv-media-left ilv-text-xs-center">
+                                        <span className="ilv-avatar ilv-avatar-xl">
+                                            <img src={user.get("Image")} alt={user.get("Name")} />
                                         </span>
                                     </div>
-                                    <div className="media-body">
-                                        <h1 className="m-y-0 h4">
+                                    <div className="ilv-media-body">
+                                        <span className="h4">
                                             {user.get("Name")} {user.get("Surname")}
-                                        </h1>
-                                        <p className="m-y-0">
-                                            <span className="label label-default">Premium</span>
-                                            <small className="m-x-1">Desenvolvimento Profissional, {userLocation}</small>
+                                        </span>
+                                        <span className="ilv-tag">Premium</span>
+                                        <p>
+                                            Desenvolvimento Profissional, {userLocation}
                                         </p>
-                                    </div>
-                                    <div className="media-right text-xs-right">
-                                        <h3 className="m-a-0">
-                                            <span className="label label-success font-weight-bold">4.9 <sup>/ 5.0</sup></span>
-                                        </h3>
-                                        <a className="small" href="">
-                                            {Messages.format("TextEvaluations", [32])}
-                                        </a>
+                                        <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
+                                        <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                     </div>
                                 </div>
                             </div>
-                            <div className="card-footer">
-                                <div className="btn-toolbar">
-                                    <button className="btn btn-brand">{Messages.get("ActionSendMessage")}</button>
-                                    <button className="btn btn-neutral">{Messages.get("ActionRequestMeeting")}</button>
-                                    <button className="btn btn-neutral">{Messages.get("ActionRequestPhone")}</button>
-
-                                    <div className="btn-group pull-sm-right">
-                                        <button className="btn btn-clean">{Messages.get("LabelShare")}</button>
-                                        <button className="btn btn-clean">{Messages.get("LabelSave")}</button>
-                                    </div>
+                            <div className="ilv-card-footer">
+                                <div className="ilv-btn-group">
+                                    <button className="ilv-btn ilv-btn-primary">{Messages.get("ActionSendMessage")}</button>
+                                    <button className="ilv-btn ilv-btn-neutral">{Messages.get("ActionRequestMeeting")}</button>
+                                    <button className="ilv-btn ilv-btn-neutral">{Messages.get("ActionRequestPhone")}</button>
+                                </div>
+                                <div className="ilv-btn-group pull-sm-right">
+                                    <button className="ilv-btn ilv-btn-clean">{Messages.get("LabelShare")}</button>
+                                    <button className="ilv-btn ilv-btn-clean">{Messages.get("LabelSave")}</button>
                                 </div>
                             </div>
                         </div>
