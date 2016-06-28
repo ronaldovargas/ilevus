@@ -239,6 +239,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <None Include="package.json" />
+    <Content Include="sass\custom\_page-banner.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

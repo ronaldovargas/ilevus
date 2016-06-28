@@ -26,17 +26,14 @@ module.exports = React.createClass({
                             <div className="ilv-page-banner-content">                              
                                 <form onSubmit={this.onSearch}>
                                     <div className="ilv-form-group">
-                                        <img src={LogoWhite} alt="ilevus" />
-                                    </div>
-                                    <div className="ilv-form-group">
-                                        <h1>{Messages.get("TextSlogan")}</h1>
-                                        <p>{Messages.get("TextSloganDescription")}</p>
+                                        <h1 className="ilv-display-h3 ilv-font-weight-bold">{Messages.get("TextSlogan")}</h1>
+                                        <p className="ilv-text-large">{Messages.get("TextSloganDescription")}</p>
                                     </div>
                                     <div className="ilv-form-group">
                                         <div className="ilv-input-group">
                                             <input ref="search-term" className="ilv-form-control ilv-form-control-lg" type="search" placeholder={Messages.get("TextSearchPlaceholder")} />
                                             <div className="ilv-input-group-btn">
-                                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" type="submit">
+                                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success" type="submit">
                                                     {Messages.get("LabelSearch")}
                                                 </button>
                                             </div>

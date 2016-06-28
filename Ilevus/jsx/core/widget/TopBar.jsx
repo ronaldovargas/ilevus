@@ -5,6 +5,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
 var Toastr = require("toastr");
 
+var Logo = require('ilevus/img/ilevus-logo-20px.png');
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -72,12 +73,12 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="ilv-navbar ilv-navbar-primary">
+            <nav className="ilv-navbar ilv-navbar-light">
                 <div className="container">
                     <div className="ilv-navbar-nav">
                         <div className="ilv-navbar-nav-item ilv-navbar-nav-item-shrink">
                             <Link to="/home">
-                                <img src={LogoWhite} alt="ilevus" />
+                                <img src={Logo} alt="ilevus" />
                             </Link>
                         </div>
                         <div className="ilv-navbar-nav-item">
@@ -85,16 +86,19 @@ module.exports = React.createClass({
                                 <div className="ilv-input-group">
                                     <input ref="search-term" className="ilv-form-control" type="search" />
                                     <div className="ilv-input-group-btn">
-                                        <button className="ilv-btn ilv-btn-primary" type="submit">{Messages.get("LabelSearch")}</button>
+                                        <button className="ilv-btn ilv-btn-neutral" type="submit">{Messages.get("LabelSearch")}</button>
                                     </div>
                                 </div>
                             </form>
                         </div>                    
                         <div className="ilv-navbar-nav-item ilv-text-xs-right">
                             {this.state.logged ? (
-                                <ul className="ilv-nav ilv-nav-inline ilv-text-small">
+                                <ul className="ilv-nav ilv-nav-inline">
                                     <li className="ilv-nav-item">
-                                        <a className="ilv-nav-link" href="#">{Messages.get("LabelMessages")}</a>
+                                        <a className="ilv-btn ilv-btn-warning" href="#">{Messages.get("LabelProfessionalProfile")}</a>
+                                    </li>
+                                    <li className="ilv-nav-item">
+                                        <a className="ilv-btn ilv-btn-clean" href="#">{Messages.get("LabelMessages")}</a>
                                     </li>
                                     <li className="ilv-nav-item">
                                         <div className="dropdown">
@@ -109,18 +113,16 @@ module.exports = React.createClass({
                                             </div>
                                         </div>
                                     </li>
-                                    <li className="ilv-nav-item">
-                                        <a className="ilv-btn ilv-btn-warning" href="#">{Messages.get("LabelProfessionalProfile")}</a>
-                                    </li>
                                 </ul>
                             ) : (
                                 <ul className="ilv-nav ilv-nav-inline ilv-text-small">
+                                    <li className="ilv-nav-item">
+				                        <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
+                                    </li>
 			                        <li className="ilv-nav-item">
-                                        <Link className="ilv-nav-link" to="/signup">{Messages.get("LabelSignUp")}</Link>
+                                        <Link className="ilv-btn ilv-btn-success" to="/signup">{Messages.get("LabelSignUp")}</Link>
 			                        </li>
-			                        <li className="ilv-nav-item">
-				                        <Link className="ilv-nav-link" to="/login">{Messages.get("LabelSignIn")}</Link>
-			                        </li>
+			                        
                                 </ul>
                             )}
                         </div>

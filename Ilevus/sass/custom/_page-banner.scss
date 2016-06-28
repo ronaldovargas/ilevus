@@ -1,14 +1,16 @@
 ﻿.#{$prefix}page-banner {
     background: 
-        linear-gradient(rgba($color-brand-base, .7), rgba($color-brand-base, .7) ),
-        url('https://static.pexels.com/photos/27406/pexels-photo-27406.jpg'),
-        linear-gradient($color-brand-base, $color-brand-base);
-    background-size: cover;
-    background-position: center;
+        linear-gradient(rgba($color-secondary-lightblue, .55), rgba($color-secondary-lightblue, .75) ),
+        url('https://austinphotographer.files.wordpress.com/2012/11/dub-9804.jpg'),
+        linear-gradient($color-brand-lightest, $color-brand-lightest);
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
 }
 
 .#{$prefix}page-banner-content {
     display: flex;
     align-items: center;
+    padding: 4rem 0;
     min-height: 80vh;
 }
