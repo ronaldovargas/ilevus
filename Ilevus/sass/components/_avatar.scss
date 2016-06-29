@@ -33,3 +33,42 @@
     border-radius: 50%;
   }
 }
+
+.avatar-fluid {
+    background-color: transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    padding: 0px;
+    margin: 0px auto;
+    overflow: hidden;
+    display: inline-block;
+
+    &-xs {
+        @include size($avatar-img-xs);
+    }
+
+    &-sm {
+        @include size($avatar-img-sm);
+    }
+
+    &-md {
+        @include size($avatar-img-md);
+    }
+
+    &-lg {
+        @include size($avatar-img-lg);
+    }
+
+    &-xl {
+        @include size($avatar-img-xl);
+    }
+
+    &-navbar {
+        @include size($avatar-img-navbar);
+    }
+
+    &-circle {
+        border-radius: 50%;
+    }
+}

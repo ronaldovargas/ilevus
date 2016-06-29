@@ -1,6 +1,7 @@
 ﻿
 var _ = require("underscore");
 var $ = require("jquery");
+var S = require("string");
 var React = require("react");
 var Toastr = require("toastr");
 
@@ -10,6 +11,8 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -67,9 +70,9 @@ module.exports = React.createClass({
                             <div className="card-block">
                                 <div className="media m-a-0">
                                     <div className="media-left text-xs-center">
-                                        <span className="avatar avatar-xl">
-                                            <img className="img-fluid" src={user.get("Image")} alt={user.get("Name")} />
-                                        </span>
+                                        <div className="avatar-fluid avatar-fluid-xl"
+                                            style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
+                                        />
                                     </div>
                                     <div className="media-body">
                                         <h1 className="m-y-0 h4">

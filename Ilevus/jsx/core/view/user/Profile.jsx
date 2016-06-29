@@ -106,8 +106,8 @@ module.exports = React.createClass({
 
     updatePicture() {
         Modal.uploadFile(
-            "Enviar um foto",
-            <p>Selecione a foto que você deseja enviar:</p>,
+            Messages.get("ActionSendPicture"),
+            <p>{Messages.get("TextSendPicture")}</p>,
             UserSession.url + "/UpdatePicture",
             (arg1, arg2) => {
                 Modal.hide();
@@ -141,11 +141,9 @@ module.exports = React.createClass({
                 <div className="card-block">
                     <div className="media m-a-0">
 					    <div className="media-left">
-                            <span className="avatar avatar-xl">
-                                <img className="img-fluid"
-                                     src={pic.isEmpty() ? UserIcon : pic.s} 
-                                     />
-                            </span>
+                            <div className="avatar-fluid avatar-fluid-xl"
+                                 style={{backgroundImage: "url("+(pic.isEmpty() ? UserIcon : pic.s)+")"}}
+                                 />
                         </div>
 					    <div className="media-body small">
                             <label className="font-weight-bold">

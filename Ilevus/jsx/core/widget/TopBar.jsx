@@ -95,12 +95,12 @@ module.exports = React.createClass({
                     <li className="nav-item">
                         <div className="dropdown">
                             <a id="js-profile-dropdown" href="javascript:void(0)" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span className="avatar avatar-navbar">
-                                    <img className="img-fluid"
-                                         src={string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image}
-                                         alt={this.state.user.Name}
-                                         />
-                                </span>
+                                <div className="avatar-fluid avatar-fluid-navbar"
+                                    style={{
+                                        backgroundImage: "url(" +
+                                            (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                    }}
+                                />
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">

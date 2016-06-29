@@ -538,10 +538,10 @@
     <value>Nenhum usuário encontrado.____</value>
   </data>
   <data name="ValidationPictureMaxSize" xml:space="preserve">
-    <value>A foto deve ter no máximo 2MB.</value>
+    <value>A foto deve ter no máximo 1MB.</value>
   </data>
   <data name="ValidationPictureType" xml:space="preserve">
-    <value>A foto deve ser um arquivo PNG ou JPG.</value>
+    <value>A foto deve ser um arquivo PNG, GIF ou JPG.</value>
   </data>
   <data name="ActionCancel" xml:space="preserve">
     <value>Cancelar</value>
@@ -554,5 +554,8 @@
   </data>
   <data name="TextRemovePictureConfirmation" xml:space="preserve">
     <value>Tem certeza de que deseja remover sua foto?</value>
+  </data>
+  <data name="TextSendPicture" xml:space="preserve">
+    <value>Selecione a foto que você deseja enviar:</value>
   </data>
 </root>

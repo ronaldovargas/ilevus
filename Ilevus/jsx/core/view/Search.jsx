@@ -1,6 +1,7 @@
 ﻿
 var _ = require("underscore");
 var $ = require("jquery");
+var S = require("string");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -12,6 +13,8 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Collapse = require("ilevus/jsx/vendor/anvil.js").collapse;
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
     getInitialState() {
@@ -69,9 +72,9 @@ module.exports = React.createClass({
                     <div className="card-block" key={"result-"+index}>
                         <div className="media m-a-0">
                           <div className="media-left text-xs-center">
-                            <span className="avatar avatar-xl">
-                              <img className="img-fluid" src={model.Image} alt={model.Name} />
-                            </span>
+                            <div className="avatar-fluid avatar-fluid-xl"
+                                style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }}
+                            />
                           </div>
                           <div className="media-body">
                             <div>

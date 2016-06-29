@@ -1177,6 +1177,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecione a foto que você deseja enviar:.
+        /// </summary>
+        public static string TextSendPicture {
+            get {
+                return ResourceManager.GetString("TextSendPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faça seu login.
         /// </summary>
         public static string TextSignIn {
@@ -1330,7 +1339,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A foto deve ter no máximo 2MB..
+        ///   Looks up a localized string similar to A foto deve ter no máximo 1MB..
         /// </summary>
         public static string ValidationPictureMaxSize {
             get {
@@ -1339,7 +1348,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A foto deve ser um arquivo PNG ou JPG..
+        ///   Looks up a localized string similar to A foto deve ser um arquivo PNG, GIF ou JPG..
         /// </summary>
         public static string ValidationPictureType {
             get {

@@ -35,7 +35,7 @@ namespace ilevus.Models
             "image/jpeg",
             "image/gif"
         };
-        protected static readonly int _maxSize = 2048*1024;
+        protected static readonly int _maxSize = 1024*1024;
 
         public static bool isValidMimeType(string mime)
         {
