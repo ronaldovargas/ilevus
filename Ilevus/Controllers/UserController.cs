@@ -525,6 +525,11 @@ namespace ilevus.Controllers
                 return BadRequest(ModelState);
             }
 
+            var existent = await UserManager.FindByEmailAsync(model.Email);
+            if (existent != null)
+            {
+                return BadRequest(Messages.ValidationEmailExists);
+            }
             var user = new IlevusUser() {
                 UserName = model.Email,
                 Email = model.Email,

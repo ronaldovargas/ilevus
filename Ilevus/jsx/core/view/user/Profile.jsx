@@ -206,9 +206,9 @@ module.exports = React.createClass({
                             </label>
                             <div className="col-sm-3">
                                 <select className="form-element" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
-                                    <option value="">-- Sexo --</option>
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Feminino</option>
+                                    <option value="">-- {Messages.get("LabelSex")} --</option>
+                                    <option value="M">{Messages.get("SexMale")}</option>
+                                    <option value="F">{Messages.get("SexFemale")}</option>
                                 </select>
                             </div>
                         </div>
@@ -235,7 +235,7 @@ module.exports = React.createClass({
                                        id="editProfileFormMail"
                                        ref="profile-email"
                                        defaultValue={user.Email} />
-                                <span className="text-muted">Nós não compartilharemos o seu endereço de email privado com outros usuários.</span>
+                                <span className="text-muted">{Messages.get("TextEmailWillNotBeShared")}</span>
                             </div>
                         </div>
                         <div className="form-group row">
@@ -252,9 +252,7 @@ module.exports = React.createClass({
                                        mask="111 111111111"
                                        value={user.PhoneNumber} />
                                 <span className="text-muted">
-                                    Ex: 011 998886677<br />
-                                    Seu número de telefone adiciona mais segurança à sua conta na Ilevus.
-                                    Nós não iremos compartilhar essa informação com outros usuários.
+                                    {Messages.get("TextPhoneHelp")}
                                 </span>
                             </div>
                         </div>

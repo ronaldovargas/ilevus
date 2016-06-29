@@ -138,6 +138,8 @@ var UserSession = Backbone.Model.extend({
 	                }
 	            });
 	            this.trigger("fail", errors);
+	        } else if (resp.error_description) {
+	            this.trigger("fail", resp.error_description);
 	        } else {
 	            this.trigger("fail", resp.Message);
 	        }

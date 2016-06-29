@@ -86,9 +86,9 @@ module.exports = React.createClass({
                             </p>
                             <div>
                               <div className="btn-group">
-                                <button className="btn btn-sm" data-toggle="tooltip" title="Agendar reunião">R</button>
-                                <button className="btn btn-sm" data-toggle="tooltip" title="Enviar mensagem">M</button>
-                                <button className="btn btn-sm" data-toggle="tooltip" title="Solicitar telefone">T</button>
+                                <button className="btn btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestMeeting")}>R</button>
+                                <button className="btn btn-sm" data-toggle="tooltip" title={Messages.get("ActionSendMessage")}>M</button>
+                                <button className="btn btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestPhone")}>T</button>
                               </div>
                               <div className="btn-group">
                                 <button className="btn btn-sm btn-clean">{Messages.get("LabelSave")}</button>

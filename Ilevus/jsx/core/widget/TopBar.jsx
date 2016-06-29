@@ -104,8 +104,8 @@ module.exports = React.createClass({
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
-                                <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
-                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
+                                <Link className="dropdown-item" to="user/profile">{Messages.get("LabelProfile")}</Link>
+                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccount")}</Link>
                                 <a className="dropdown-item" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
                                 <a className="dropdown-item" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                             </div>

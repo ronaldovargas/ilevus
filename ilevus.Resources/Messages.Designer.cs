@@ -736,7 +736,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nenhum usuário encontrado.____.
+        ///   Looks up a localized string similar to Nenhum usuário encontrado..
         /// </summary>
         public static string LabelUserNotFound {
             get {
@@ -979,6 +979,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Feminino.
+        /// </summary>
+        public static string SexFemale {
+            get {
+                return ResourceManager.GetString("SexFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Masculino.
+        /// </summary>
+        public static string SexMale {
+            get {
+                return ResourceManager.GetString("SexMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conta criada com sucesso..
         /// </summary>
         public static string TextAccountCreated {
@@ -1042,6 +1060,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nós não compartilharemos o seu endereço de email privado com outros usuários..
+        /// </summary>
+        public static string TextEmailWillNotBeShared {
+            get {
+                return ResourceManager.GetString("TextEmailWillNotBeShared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} avaliações.
         /// </summary>
         public static string TextEvaluations {
@@ -1074,6 +1101,15 @@ namespace ilevus.Resources {
         public static string TextPasswordSetSuccess {
             get {
                 return ResourceManager.GetString("TextPasswordSetSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ex: &quot;011 998886677&quot;. Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários..
+        /// </summary>
+        public static string TextPhoneHelp {
+            get {
+                return ResourceManager.GetString("TextPhoneHelp", resourceCulture);
             }
         }
         
@@ -1281,6 +1317,15 @@ namespace ilevus.Resources {
         public static string TextUnexpectedErrorOops {
             get {
                 return ResourceManager.GetString("TextUnexpectedErrorOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Este endereço de e-mail já está em uso..
+        /// </summary>
+        public static string ValidationEmailExists {
+            get {
+                return ResourceManager.GetString("ValidationEmailExists", resourceCulture);
             }
         }
         

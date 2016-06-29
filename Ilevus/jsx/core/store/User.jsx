@@ -13,18 +13,15 @@ var UserModel = Fluxbone.Model.extend({
 	validate(attrs, options) {
 	    var errors = [];
 
-	    if (S(attrs.Email).isEmpty()) {
-	        errors.push(Messages.get("ValidationEmailRequired"));
-	    }
 	    if (S(attrs.Name).isEmpty()) {
 	        errors.push(Messages.get("ValidationNameRequired"));
 	    }
 	    if (S(attrs.Surname).isEmpty()) {
 	        errors.push(Messages.get("ValidationSurnameRequired"));
 	    }
-		if (attrs.Password != attrs.ConfirmPassword) {
-		    errors.push(Messages.get("ValidationPasswordsDontMatch"));
-		}
+	    if (S(attrs.Email).isEmpty()) {
+	        errors.push(Messages.get("ValidationEmailRequired"));
+	    }
 
 		var pwd = S(attrs.Password);
 		if (pwd.isEmpty()) {
@@ -35,6 +32,10 @@ var UserModel = Fluxbone.Model.extend({
 		}
 		if (pwd.isAlphaNumeric()) {
 		    errors.push(Messages.get("ValidationPasswordFormat"));
+		}
+
+		if (attrs.Password != attrs.ConfirmPassword) {
+		    errors.push(Messages.get("ValidationPasswordsDontMatch"));
 		}
 
 		if (errors.length > 0)

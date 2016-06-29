@@ -59,17 +59,19 @@ module.exports = React.createClass({
 
                             <div className="form-group row">
                                 <div className="col-xs-12 col-sm-6">
-                                    <label className="form-element-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
-                                    <input className="form-element form-element-lg" id="name" name="name" type="text" ref="name" />
+                                    <label className="form-element-label" htmlFor="name">
+                                        {Messages.get("LabelName")}
+                                    </label>
+                                    <input className="form-element form-element-lg" id="name" name="name" type="text" ref="name" spellCheck={false} />
                                 </div>
                                 <div className="col-xs-12 col-sm-6">
                                     <label className="form-element-label" htmlFor="surname">{Messages.get("LabelSurname")}</label>
-                                    <input className="form-element form-element-lg" id="surname" name="surname" type="text" ref="surname" />
+                                    <input className="form-element form-element-lg" id="surname" name="surname" type="text" ref="surname" spellCheck={false} />
                                 </div>
                             </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                                <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" />
+                                <input className="form-element form-element-lg" id="email" name="email" type="email" ref="email" spellCheck={false} />
                             </div>
                             <div className="form-group">
                                 <label className="form-element-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
