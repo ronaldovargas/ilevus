@@ -444,14 +444,15 @@ namespace ilevus.Controllers
             }
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
+            string link = BaseURL + "#/confirm-email/"
+                    + Uri.EscapeDataString(user.Email) + "/"
+                    + Uri.EscapeDataString(code);
             await UserManager.SendEmailAsync(user.Id,
                 Messages.EmailConfirmEmailSubject,
                 string.Format(
                     Messages.EmailConfirmEmailBody,
                     user.Name,
-                    BaseURL + "#/confirm-email/"
-                        + Uri.EscapeDataString(user.Email) + "/"
-                        + Uri.EscapeDataString(code)
+                    "<a href='" + link + "'>" + link + "</a>"
                 )
             );
             return Ok(true);
@@ -472,14 +473,15 @@ namespace ilevus.Controllers
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
+                string link = BaseURL + "#/reset-password/"
+                            + Uri.EscapeDataString(user.Email) + "/"
+                            + Uri.EscapeDataString(code);
                 await UserManager.SendEmailAsync(user.Id,
                     Messages.EmailRecoverPasswordSubject,
                     string.Format(
                         Messages.EmailRecoverPasswordBody,
                         user.Name,
-                        BaseURL + "#/reset-password/"
-                            + Uri.EscapeDataString(user.Email) + "/"
-                            + Uri.EscapeDataString(code)
+                        "<a href='" + link + "'>" + link + "</a>"
                     )
                 );
                 return Ok(true);

@@ -132,8 +132,10 @@ var UserSession = Backbone.Model.extend({
 	        if (resp.ModelState) {
 	            var errors = [];
 	            _.each(resp.ModelState, (field) => {
-	                for (var e = 0; e < field.length; e++)
+	                for (var e = 0; e < field.length; e++) {
 	                    errors.push(field[e]);
+	                    errors.push("&nbsp;");
+	                }
 	            });
 	            this.trigger("fail", errors);
 	        } else {
@@ -328,10 +330,10 @@ var UserSession = Backbone.Model.extend({
 
 	updateProfile(params) {
 	    var me = this;
-	    /*if (params.NewPassword !== params.ConfirmPassword) {
-	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	    if (S(params.Birthdate).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelBirthdate']));
 	        return;
-	    }*/
+	    }
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/UpdateProfile",

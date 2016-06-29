@@ -1,6 +1,7 @@
 ﻿
 var S = require("string");
 var React = require("react");
+var MaskedInput = require("react-maskedinput");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
@@ -61,7 +62,7 @@ module.exports = React.createClass({
             Birthdate: this.refs['profile-birthdate'].value,
             Email: this.refs['profile-email'].value,
             Name: this.refs['profile-name'].value,
-            PhoneNumber: this.refs['profile-phonenumber'].value,
+            PhoneNumber: this.refs['profile-phonenumber'].mask.getRawValue().trim(),
             Sex: this.refs['profile-sex'].value,
             Surname: this.refs['profile-surname'].value
         };
@@ -180,6 +181,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormFirstName"
                                        ref="profile-name"
                                        defaultValue={user.Name} />
@@ -192,6 +194,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormLastName"
                                        ref="profile-surname"
                                        defaultValue={user.Surname} />
@@ -228,6 +231,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="email"
+                                       spellCheck={false}
                                        id="editProfileFormMail"
                                        ref="profile-email"
                                        defaultValue={user.Email} />
@@ -239,13 +243,18 @@ module.exports = React.createClass({
                                 {Messages.get("LabelPhoneNumber")}
                             </label>
                             <div className="col-sm-9">
-                                <input className="form-element"
+                                <MaskedInput className="form-element"
                                        type="tel"
+                                       spellCheck={false}
                                        id="editProfileFormPhone"
                                        ref="profile-phonenumber"
-                                       defaultValue={user.PhoneNumber} />
+                                       placeholderChar=" "
+                                       mask="111 111111111"
+                                       value={user.PhoneNumber} />
                                 <span className="text-muted">
-                                    Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.
+                                    Ex: 011 998886677<br />
+                                    Seu número de telefone adiciona mais segurança à sua conta na Ilevus.
+                                    Nós não iremos compartilhar essa informação com outros usuários.
                                 </span>
                             </div>
                         </div>
@@ -270,6 +279,7 @@ module.exports = React.createClass({
                             <div className="col-sm-4">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormZipcode"
                                        ref="address-zipcode"
                                        defaultValue={user.Zipcode} />
@@ -282,6 +292,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormAddress"
                                        ref="address-address"
                                        defaultValue={user.Address} />
@@ -294,6 +305,7 @@ module.exports = React.createClass({
                             <div className="col-sm-4">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormAddressApt"
                                        ref="address-complement"
                                        defaultValue={user.Complement} />
@@ -306,6 +318,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormDistrict"
                                        ref="address-district"
                                        defaultValue={user.District} />
@@ -318,6 +331,7 @@ module.exports = React.createClass({
                             <div className="col-sm-9">
                                 <input className="form-element"
                                        type="text"
+                                       spellCheck={false}
                                        id="editProfileFormCity"
                                        ref="address-city"
                                        defaultValue={user.City} />
