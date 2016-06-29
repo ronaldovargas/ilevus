@@ -21,6 +21,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
+	ACTION_REMOVE_PICTURE: 'removePicture',
 
 	BACKEND_URL: BACKEND_URL,
 	url: BACKEND_URL + "User",
@@ -361,6 +362,22 @@ var UserSession = Backbone.Model.extend({
 	        success(data, status, opts) {
 	            me.set({ user: data });
 	            me.trigger("updateaddress", me);
+	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	removePicture() {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/RemovePicture",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.get("user").Image = null;
 	            me.trigger("update", me);
 	        },
 	        error(opts, status, errorMsg) {

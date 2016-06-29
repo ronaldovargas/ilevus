@@ -581,7 +581,20 @@ namespace ilevus.Controllers
 
             // This illustrates how to get the file names.
             MultipartFileData file = provider.FileData.Single();
+            string mime = file.Headers.ContentType.ToString();
+            if (!IlevusBlobHelper.isValidMimeType(mime))
+            {
+                File.Delete(file.LocalFileName);
+                return BadRequest(Messages.ValidationPictureType);
+            }
+
             var blob = File.ReadAllBytes(file.LocalFileName);
+            if (!IlevusBlobHelper.isValidSize(blob.Length))
+            {
+                File.Delete(file.LocalFileName);
+                return BadRequest(Messages.ValidationPictureMaxSize);
+            }
+
             var sha = new SHA256Managed();
             string checksum = BitConverter.ToString(sha.ComputeHash(blob)).Replace("-", String.Empty);
 
@@ -595,7 +608,7 @@ namespace ilevus.Controllers
                 File.Move(file.LocalFileName, IlevusBlobHelper.GetPictureUrl(Server, checksum));
                 picture = new IlevusPicture()
                 {
-                    Mime = file.Headers.ContentType.ToString(),
+                    Mime = mime,
                     OriginalName = file.Headers.ContentDisposition.FileName,
                     Checksum = checksum,
                     UserId = user.Id
@@ -611,6 +624,22 @@ namespace ilevus.Controllers
             }
 
             return Ok(picture);
+        }
+
+        [HttpPost]
+        [Route("RemovePicture")]
+        public async Task<IHttpActionResult> RemovePicture()
+        {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            user.Image = null;
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(true);
         }
 
         // GET api/Account/UpdateProfile

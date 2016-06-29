@@ -1,4 +1,5 @@
 ﻿
+var S = require("string");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -9,6 +10,8 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -34,6 +37,7 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("update", () => {
+            $(me.refs['picture-remove']).removeClass("loading").removeAttr("disabled", "disabled");
             me.setState({
                 picture: UserSession.get("user").Image
             });
@@ -85,6 +89,21 @@ module.exports = React.createClass({
         });
     },
 
+    removePicture(evt) {
+        evt.preventDefault();
+        Modal.confirm(
+            Messages.get("LabelWarning"),
+            Messages.get("TextRemovePictureConfirmation"),
+            () => {
+                Modal.hide();
+                $(this.refs['picture-remove']).addClass("loading").attr("disabled", "disabled");
+                UserSession.dispatch({
+                    action: UserSession.ACTION_REMOVE_PICTURE
+                });
+            }
+        );
+    },
+
     updatePicture() {
         Modal.uploadFile(
             "Enviar um foto",
@@ -97,10 +116,13 @@ module.exports = React.createClass({
                     action: UserSession.ACTION_REFRESH
                 });
             },
-            (arg1, arg2) => {
-                console.error("Picture upload failed:\n",arg1,"\n",arg2);
+            (xhr, status) => {
                 Modal.hide();
-                Toastr.error(Messages.get("TextUnexpectedError"));
+                if (xhr.responseJSON && xhr.responseJSON.Message) {
+                    Toastr.error(xhr.responseJSON.Message);
+                } else {
+                    Toastr.error(Messages.get("TextUnexpectedError"));
+                }
             }
         );
     },
@@ -110,6 +132,7 @@ module.exports = React.createClass({
             return <LoadingGauge />;
         }
         var user = UserSession.get("user");
+        var pic = S(this.state.picture);
         return (<div>
             <div className="card m-b-2">
                 <div className="card-header">
@@ -119,7 +142,9 @@ module.exports = React.createClass({
                     <div className="media m-a-0">
 					    <div className="media-left">
                             <span className="avatar avatar-xl">
-                                <img className="img-fluid" src={this.state.picture} />
+                                <img className="img-fluid"
+                                     src={pic.isEmpty() ? UserIcon : pic.s} 
+                                     />
                             </span>
                         </div>
 					    <div className="media-body small">
@@ -132,8 +157,14 @@ module.exports = React.createClass({
 						    <p className="text-muted">
                                 {Messages.get("TextProfilePictureLimitations")}
                             </p>
-							<button className="btn btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
-							<button className="btn btn-clean text-danger">{Messages.get("ActionRemovePicture")}</button>
+							<button className="btn btn-neutral" onClick={this.updatePicture}>
+                                {Messages.get("ActionSendPicture")}
+                            </button>
+                            {pic.isEmpty() ? "":
+							    <button className="btn btn-clean text-danger" onClick={this.removePicture} ref="picture-remove">
+                                    {Messages.get("ActionRemovePicture")}
+                                </button>
+                            }
 					    </div>
                     </div>
                 </div>

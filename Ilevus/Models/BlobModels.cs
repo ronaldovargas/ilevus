@@ -29,6 +29,22 @@ namespace ilevus.Models
     public class IlevusBlobHelper
     {
         protected const string PicturesStoragePath = "~/App_Data/pictures/";
+        protected static readonly List<string> _mimes = new List<string> {
+            "image/png",
+            "image/jpg",
+            "image/jpeg",
+            "image/gif"
+        };
+        protected static readonly int _maxSize = 2048*1024;
+
+        public static bool isValidMimeType(string mime)
+        {
+            return _mimes.Contains(mime);
+        }
+        public static bool isValidSize(int bytes)
+        {
+            return bytes <= _maxSize;
+        }
 
         public static string GetPictureUrl(HttpServerUtility server, string checksum)
         {

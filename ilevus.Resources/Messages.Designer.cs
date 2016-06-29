@@ -79,11 +79,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancelar.
+        /// </summary>
+        public static string ActionCancel {
+            get {
+                return ResourceManager.GetString("ActionCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterar senha.
         /// </summary>
         public static string ActionChangePassword {
             get {
                 return ResourceManager.GetString("ActionChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmar.
+        /// </summary>
+        public static string ActionConfirm {
+            get {
+                return ResourceManager.GetString("ActionConfirm", resourceCulture);
             }
         }
         
@@ -727,6 +745,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aviso.
+        /// </summary>
+        public static string LabelWarning {
+            get {
+                return ResourceManager.GetString("LabelWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CEP.
         /// </summary>
         public static string LabelZipcode {
@@ -1123,6 +1150,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tem certeza de que deseja remover sua foto?.
+        /// </summary>
+        public static string TextRemovePictureConfirmation {
+            get {
+                return ResourceManager.GetString("TextRemovePictureConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} resultado(s) encontrado(s) para &quot;{1}&quot;..
         /// </summary>
         public static string TextSearchNumberOfResults {
@@ -1290,6 +1326,24 @@ namespace ilevus.Resources {
         public static string ValidationPasswordsDontMatch {
             get {
                 return ResourceManager.GetString("ValidationPasswordsDontMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A foto deve ter no máximo 2MB..
+        /// </summary>
+        public static string ValidationPictureMaxSize {
+            get {
+                return ResourceManager.GetString("ValidationPictureMaxSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A foto deve ser um arquivo PNG ou JPG..
+        /// </summary>
+        public static string ValidationPictureType {
+            get {
+                return ResourceManager.GetString("ValidationPictureType", resourceCulture);
             }
         }
         

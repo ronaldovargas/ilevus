@@ -6,6 +6,7 @@ var string = require("string");
 var Toastr = require("toastr");
 
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+var UserIcon = require("ilevus/img/user.png");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -60,6 +61,7 @@ module.exports = React.createClass({
     onSearch(evt) {
         evt.preventDefault();
         var term = this.refs['search-term'].value;
+        this.refs['search-term'].value = "";
         if (!string(term).isEmpty())
             this.context.router.push("/search/" + encodeURI(term));
     },
@@ -94,7 +96,10 @@ module.exports = React.createClass({
                         <div className="dropdown">
                             <a id="js-profile-dropdown" href="javascript:void(0)" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="avatar avatar-navbar">
-                                    <img className="img-fluid" src={this.state.user.Image} alt={this.state.user.Name} />
+                                    <img className="img-fluid"
+                                         src={string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image}
+                                         alt={this.state.user.Name}
+                                         />
                                 </span>
                                 <span className="hidden-sm-up m-l-1" style={{color: '#fff', fontWeight: '600'}}>{this.state.user.Name}</span>
                             </a>

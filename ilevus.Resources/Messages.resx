@@ -537,4 +537,22 @@
   <data name="LabelUserNotFound" xml:space="preserve">
     <value>Nenhum usuário encontrado.____</value>
   </data>
+  <data name="ValidationPictureMaxSize" xml:space="preserve">
+    <value>A foto deve ter no máximo 2MB.</value>
+  </data>
+  <data name="ValidationPictureType" xml:space="preserve">
+    <value>A foto deve ser um arquivo PNG ou JPG.</value>
+  </data>
+  <data name="ActionCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ActionConfirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="LabelWarning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="TextRemovePictureConfirmation" xml:space="preserve">
+    <value>Tem certeza de que deseja remover sua foto?</value>
+  </data>
 </root>
