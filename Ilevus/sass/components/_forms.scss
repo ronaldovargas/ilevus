@@ -123,6 +123,11 @@ textarea.#{$prefix}form-control {
       margin-bottom: 0;
     }
 
+    // Add left margin to sequential form groups
+    .#{$prefix}form-group + .#{$prefix}form-group {
+        margin-left: 1rem;
+    }
+
     // Allow folks to *not* use `.form-group`
     .#{$prefix}form-control {
       display: inline-block;

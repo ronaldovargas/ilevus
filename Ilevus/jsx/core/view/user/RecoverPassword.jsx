@@ -42,26 +42,27 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
-                        <form className="p-t-3" onSubmit={this.onSubmit}>
-                            <h3>{Messages.get("TextRecoverPassword")}</h3>
-                            <p>{Messages.get("TextRecoverPasswordDescription")}</p>
+                        <div className="ilv-card m-t-3">
+                            <div className="ilv-card-body">
+                                <form onSubmit={this.onSubmit}>
+                                    <h3>{Messages.get("TextRecoverPassword")}</h3>
+                                    <p>{Messages.get("TextRecoverPasswordDescription")}</p>
 
-                            <fieldset className="ilv-form-group">
-                                <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                                <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
-                            </fieldset>
+                                    <fieldset className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                                        <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
+                                    </fieldset>
 
-                            <ErrorAlert store={UserSession} />
-                      
-                            <div className="row">
-                                <div className="ilv-form-group col-md-6">
-                                    <input className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("TextRecoverPassword")} />
-                                </div>
-                                <div className="ilv-form-group col-md-6">
-                                    <Link to="/login" className="ilv-btn ilv-btn-lg ilv-btn-clean ilv-btn-block">{Messages.get("TextSignIn")}</Link>
-                                </div>
+                                    <ErrorAlert store={UserSession} />
+
+                                    <fieldset>
+                                        <input className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("TextRecoverPassword")} />
+                                    </fieldset>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        
+                        <Link to="/login" className="ilv-font-weight-semibold">{Messages.get("TextRecoverPasswordRemember")}</Link>
 
                         <div className="ilv-text-xs-center m-y-3">
                             <small className="text-muted">

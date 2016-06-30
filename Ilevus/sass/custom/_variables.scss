@@ -5,17 +5,68 @@ $prefix: 'ilv-';
 
 
 //
+// Scaffolding
+//
+$body-bg:                      #f5f7f9;
+
+
+//
 // Colors
 //
-$color-brand-dark:             #393972;
-$color-brand-base:             #4C4C98;
-$color-brand-light:            #5959B2;
-$color-brand-lighter:          #7F7FFE;
+$color-brand-dark:             #4527A0;
+$color-brand-base:             #673AB7;
+$color-brand-light:            #7E57C2;
+$color-brand-lighter:          #9575CD;
 $color-brand-lightest:         #f5f7f9;
-$color-brand-inverse:          #ffffff;
+$color-brand-inverse:          #FFFFFF;
+
+$color-primary-brand:          $color-brand-base !default;
+$color-primary-success:        #4bca81 !default;
+$color-primary-info:           #654982 !default;
+$color-primary-warning:        #f6c342 !default;
+$color-primary-danger:         #c23934 !default;
+
+$color-secondary-lightgreen:   #d4ece6 !default;
+$color-secondary-lightblue:    #22C8EB;
+$color-secondary-lightyellow:  #fff2cf !default;
+$color-secondary-lightred:     #f8d0c8 !default;
+
+$color-neutral-dark:           #383f56 !default;
+$color-neutral-base:           #4f6a92 !default;
+$color-neutral-light:          #a7b8d1 !default;
+$color-neutral-lighter:        #cfd7e6 !default;
+$color-neutral-lightest:       #eef1f6 !default;
+
+
+//
+// Link
+//
+$link-color:                   $color-secondary-lightblue;
+$link-decoration:              none;
+$link-hover-color:             $link-color;
+$link-hover-decoration:        underline;
+
+
+//
+// Forms
+//
+$form-control-border-focus:    $color-secondary-lightblue;
 
 
 //
 // Navbar
 //
 $navbar-padding-y:             1.5rem;
+
+
+//
+// Cards
+//
+$card-bg:                      #ffffff;
+$card-header-bg:               $card-bg;
+$card-footer-bg:               $card-bg;
+
+$card-border-color:            $card-bg;
+
+$card-padding-x:               1rem !default;
+$card-padding-y:               1rem !default;

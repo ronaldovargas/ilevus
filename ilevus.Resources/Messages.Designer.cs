@@ -1114,6 +1114,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lembrou sua senha? Faça seu login.
+        /// </summary>
+        public static string TextRecoverPasswordRemember {
+            get {
+                return ResourceManager.GetString("TextRecoverPasswordRemember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} resultado(s) encontrado(s) para &quot;{1}&quot;..
         /// </summary>
         public static string TextSearchNumberOfResults {

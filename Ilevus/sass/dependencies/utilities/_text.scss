@@ -32,5 +32,6 @@
 // Weight and italics
 
 .#{$prefix}font-weight-normal  { font-weight: normal; }
+.#{$prefix}font-weight-semibold{ font-weight: 600; }
 .#{$prefix}font-weight-bold    { font-weight: bold; }
 .#{$prefix}font-italic         { font-style: italic; }

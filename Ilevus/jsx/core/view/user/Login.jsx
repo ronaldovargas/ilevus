@@ -54,38 +54,42 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
+                        <div className="ilv-card m-t-3">
+                            <div className="ilv-card-body">
+                                <form onSubmit={this.onSubmit}>
+                                    <h3>{Messages.get("TextSignIn")}</h3>
+                                    <fieldset className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
+                                        <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
+                                    </fieldset>
+                                    <fieldset className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
+                                        <input className="ilv-form-control ilv-form-control-lg" id="password" name="password" type="password" ref="password" />
+                                    </fieldset>
 
-                        <form className="m-t-3" onSubmit={this.onSubmit}>
-                            <h3>{Messages.get("TextSignIn")}</h3>
-                            <fieldset className="ilv-form-group">
-                                <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
-                                <input className="ilv-form-control ilv-form-control-lg" id="email" name="email" type="email" ref="email" />
-                            </fieldset>
-                            <fieldset className="ilv-form-group">
-                                <label className="ilv-form-label" htmlFor="password">{Messages.get("LabelPassword")}</label>
-                                <input className="ilv-form-control ilv-form-control-lg" id="password" name="password" type="password" ref="password" />
-                            </fieldset>
+                                    <ErrorAlert store={UserSession} />
 
-                            <ErrorAlert store={UserSession} />
-
-                            <div className="row">
-                                <fieldset className="ilv-form-group col-md-6">
-                                    <input type="submit" value={Messages.get("LabelSignIn")} className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" />
-                                </fieldset>
-                                <fieldset className="ilv-form-group col-md-6">
-                                    <div className="ilv-checkbox ilv-btn-lg ilv-btn-block">
-                                        <label htmlFor="stay-connected">
-                                            <input className="ilv-control-input" type="checkbox" id="stay-connected" ref="stayconnected" />
-                                            <span className="ilv-control-indicator"></span>
-                                            <span className="ilv-control-label">{Messages.get("LabelStayConnected")}</span>
-                                        </label>
+                                    <div className="row">
+                                        <fieldset className="ilv-form-group col-md-6">
+                                            <input type="submit" value={Messages.get("LabelSignIn")} className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" />
+                                        </fieldset>
+                                        <fieldset className="ilv-form-group col-md-6">
+                                            <div className="ilv-checkbox ilv-btn-lg ilv-btn-block">
+                                                <label htmlFor="stay-connected">
+                                                    <input className="ilv-control-input" type="checkbox" id="stay-connected" ref="stayconnected" />
+                                                    <span className="ilv-control-indicator"></span>
+                                                    <span className="ilv-control-label">{Messages.get("LabelStayConnected")}</span>
+                                                </label>
+                                            </div>
+                                        </fieldset>
                                     </div>
-                                </fieldset>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        
 
                         <div className="ilv-text-xs-center m-y-3">
-                            <ul className="ilv-nav ilv-nav-inline m-b-1">
+                            <ul className="ilv-nav ilv-nav-inline ilv-font-weight-semibold m-b-1">
                                 <li className="ilv-nav-item">
                                     <Link className="ilv-nav-link" to="/signup">{Messages.get("TextSignUp")}</Link>
                                 </li>

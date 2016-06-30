@@ -83,24 +83,23 @@ module.exports = React.createClass({
                                         <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
                                         <span className="ilv-tag ilv-tag-warning">Premium</span>
                                     </div>
-                                    <p className="ilv-text-small">Desenvolvimento Profissional</p>
                                     <div>
-                                        <div className="ilv-btn-group">
-                                            <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Agendar reunião">R</button>
-                                            <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Enviar mensagem">M</button>
-                                            <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Solicitar telefone">T</button>
-                                        </div>
-                                        <div className="ilv-btn-group">
+                                        <p className="ilv-text-small">Desenvolvimento Profissional</p>
+                                        <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
+                                        <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                        <div className="ilv-btn-group m-l-1">
                                             <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelSave")}</button>
                                             <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelShare")}</button>
-                                        </div>
+                                        </div>                                      
                                     </div>
                                 </div>
                                 <div className="ilv-media-right ilv-text-xs-center">
-                                    <h3>
-                                        <span className="ilv-tag ilv-tag-success font-weight-bold">4.9 <sup>/ 5.0</sup></span>
-                                    </h3>
-                                    <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                    <div className="ilv-btn-group">
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Agendar reunião">R</button>
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Enviar mensagem">M</button>
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Solicitar telefone">T</button>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -124,25 +123,29 @@ module.exports = React.createClass({
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
                                         <h1 className="h3 m-a-0">{this.state.term}</h1>
-                                        <span className="small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
+                                        <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
                                     </div>
-                                    <div className="ilv-card-footer bg-faded">
-                                        <form className="row">
-                                            <div className="col-sm-3">
+                                    <div className="ilv-card-footer">
+                                        <form className="ilv-form-inline">
+                                            <fieldset className="ilv-form-group">
                                                 <select className="ilv-form-control ilv-form-control-sm">
                                                     <option>{Messages.get("LabelLocalization")}</option>
                                                 </select>
-                                            </div>
-                                            <div className="col-sm-3">
+                                            </fieldset>
+                                            <fieldset className="ilv-form-group">
                                                 <select className="ilv-form-control ilv-form-control-sm">
                                                 <option>{Messages.get("LabelExpertise")}</option>
                                                 </select>
-                                            </div>
-                                            <div className="checkbox col-sm-2">
-                                                <label htmlFor="filter-online">
-                                                <input type="checkbox" id="filter-online" /> {Messages.get("LabelMeetsOnline")}
-                                                </label>
-                                            </div>
+                                            </fieldset>
+                                            <fieldset className="ilv-form-group">
+                                                <div className="ilv-checkbox">
+                                                    <label htmlFor="filter-online">
+                                                        <input className="ilv-control-input" type="checkbox" id="filter-online" ref="stayconnected" />
+                                                        <span className="ilv-control-indicator"></span>
+                                                        <span className="ilv-control-label">{Messages.get("LabelMeetsOnline")}</span>
+                                                    </label>
+                                                </div>
+                                            </fieldset>
                                         </form>
                                     </div>
                                 </div>
@@ -155,7 +158,7 @@ module.exports = React.createClass({
                     <div className="row">
                         <div className="col-xs-12 col-md-9">
                             {this.renderModels()}
-                            <div>
+                            <div className="hidden">
                                 <div style={{width: '100%', padding: '50px 0', textAlign: 'center', backgroundColor: '#eee', borderRadius: '2px', marginBottom: '1rem'}}>
                                     <h2 className="font-weight-bold">{Messages.get("LabelAd")}</h2>
                                 </div>

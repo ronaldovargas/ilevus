@@ -534,4 +534,7 @@
   <data name="ValidationSurnameRequired" xml:space="preserve">
     <value>O sobrenome é obrigatório.</value>
   </data>
+  <data name="TextRecoverPasswordRemember" xml:space="preserve">
+    <value>Lembrou sua senha? Faça seu login</value>
+  </data>
 </root>

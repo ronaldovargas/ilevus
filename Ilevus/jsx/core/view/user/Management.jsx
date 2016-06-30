@@ -13,8 +13,8 @@ module.exports = React.createClass({
         return (
             <div className="container p-y-3">
                 <div className="row">
-                    <div className="col-xs-12 m-b-1">
-                        <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
+                    <div className="col-xs-2 m-b-1">
+                        <ul className="ilv-nav ilv-nav-stacked ilv-nav-menu">
                             <li className="ilv-nav-item hidden">
                                 <Link className="ilv-nav-link" to="/user/dashboard">
                                     {Messages.get("LabelDashboard")}
@@ -47,7 +47,7 @@ module.exports = React.createClass({
                             </li>
                         </ul>
                     </div>
-                    <div className="col-xs-12">
+                    <div className="col-xs-10">
                         {this.props.children}
                     </div>
                 </div>
