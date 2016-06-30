@@ -46,7 +46,7 @@ module.exports = React.createClass({
                             <div className="ilv-card-body">
                                 <form onSubmit={this.onSubmit}>
                                     <h3>{Messages.get("TextRecoverPassword")}</h3>
-                                    <p>{Messages.get("TextRecoverPasswordDescription")}</p>
+                                    <p className="ilv-text-small">{Messages.get("TextRecoverPasswordDescription")}</p>
 
                                     <fieldset className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
@@ -61,10 +61,9 @@ module.exports = React.createClass({
                                 </form>
                             </div>
                         </div>
-                        
-                        <Link to="/login" className="ilv-font-weight-semibold">{Messages.get("TextRecoverPasswordRemember")}</Link>
 
                         <div className="ilv-text-xs-center m-y-3">
+                            <p><Link to="/login" className="ilv-font-weight-semibold">{Messages.get("TextRecoverPasswordRemember")}</Link></p>
                             <small className="text-muted">
                                 ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
                             </small>

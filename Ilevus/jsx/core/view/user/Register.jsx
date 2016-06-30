@@ -48,10 +48,11 @@ module.exports = React.createClass({
                 <div className="row">
                     <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
                         <div className="ilv-card m-t-3">
+                            <div className="ilv-card-header">
+                                <h3>{Messages.get("TextSignUpTitle")}</h3>
+                            </div>
                             <div className="ilv-card-body">
                                 <form onSubmit={this.onSubmit}>
-                                    <h3>{Messages.get("TextSignUpTitle")}</h3>
-                                    <p>{Messages.get("TextSignUpDescription")}</p>
                                     <div className="row">
                                         <fieldset className="ilv-form-group col-md-6">
                                             <label className="ilv-form-label" htmlFor="name">{Messages.get("LabelFirstName")}</label>
