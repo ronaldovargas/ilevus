@@ -646,7 +646,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selecione uma foto.
+        ///   Looks up a localized string similar to Selecione uma foto de perfil.
         /// </summary>
         public static string LabelSelectPicture {
             get {
@@ -1186,7 +1186,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transforme sua carreira..
+        ///   Looks up a localized string similar to Conduzindo seu sucesso.
         /// </summary>
         public static string TextSlogan {
             get {
@@ -1195,7 +1195,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira..
+        ///   Looks up a localized string similar to Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira profissional..
         /// </summary>
         public static string TextSloganDescription {
             get {

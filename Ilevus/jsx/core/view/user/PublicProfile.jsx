@@ -72,15 +72,23 @@ module.exports = React.createClass({
                                         </span>
                                     </div>
                                     <div className="ilv-media-body">
-                                        <span className="h4">
+                                        <span className="h2">
                                             {user.get("Name")} {user.get("Surname")}
                                         </span>
-                                        <span className="ilv-tag">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning">Premium</span>
                                         <p>
-                                            Desenvolvimento Profissional, {userLocation}
+                                            <span>Desenvolvimento Profissional, {userLocation}</span>
                                         </p>
-                                        <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
-                                        <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                    </div>
+                                    <div className="ilv-media-right">
+                                        <div className="ilv-text-xs-center">
+                                            <span className="ilv-btn ilv-btn-success">
+                                                4.9 <sup>/ 5.0</sup>
+                                            </span>
+                                            <p>
+                                                <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

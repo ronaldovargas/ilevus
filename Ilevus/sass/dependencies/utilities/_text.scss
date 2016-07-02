@@ -33,5 +33,6 @@
 
 .#{$prefix}font-weight-normal  { font-weight: normal; }
 .#{$prefix}font-weight-semibold{ font-weight: 600; }
-.#{$prefix}font-weight-bold    { font-weight: bold; }
+.#{$prefix}font-weight-bold    { font-weight: 700; }
+.#{$prefix}font-weight-extrabold { font-weight: 800; }
 .#{$prefix}font-italic         { font-style: italic; }

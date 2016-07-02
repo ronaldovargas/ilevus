@@ -313,7 +313,7 @@
     <value>Pesquisar</value>
   </data>
   <data name="LabelSelectPicture" xml:space="preserve">
-    <value>Selecione uma foto</value>
+    <value>Selecione uma foto de perfil</value>
   </data>
   <data name="LabelSex" xml:space="preserve">
     <value>Gênero</value>
@@ -490,10 +490,10 @@
     <value>Crie a sua conta agora</value>
   </data>
   <data name="TextSlogan" xml:space="preserve">
-    <value>Transforme sua carreira.</value>
+    <value>Conduzindo seu sucesso</value>
   </data>
   <data name="TextSloganDescription" xml:space="preserve">
-    <value>Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira.</value>
+    <value>Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira profissional.</value>
   </data>
   <data name="TextTypeYourEmail" xml:space="preserve">
     <value>Digite seu e-mail.</value>

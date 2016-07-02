@@ -32,6 +32,7 @@ var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
 
 var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
+var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 
 // string config
@@ -67,6 +68,7 @@ Messages.load(function (success) {
 
                     <Route path="user" component={UserManagement}>
                         <Route path="profile" component={UserProfile} />
+                        <Route path="professionalprofile" component={UserProfessionalProfile} />
                         <Route path="account" component={UserAccount} />
                     </Route>
 

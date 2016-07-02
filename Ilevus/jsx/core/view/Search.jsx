@@ -61,8 +61,8 @@ module.exports = React.createClass({
         if (!(this.state.models.length > 0)) {
             return (
                 <div className="ilv-blankslate ilv-blankslate-lg">
-                    <h3>Nenhum usuário encontrado!</h3>
-                    <p>Verifique os termos ou os filtros que utilizou e tente pesquisar novamente.</p>
+                    <h3>Parece que não encontramos ninguém :(</h3>
+                    <p>Verifique se os termos que pesquisou estão corretos ou se algum filtro está habilitado.</p>
                 </div>
             );
         }

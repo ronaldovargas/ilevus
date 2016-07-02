@@ -66,7 +66,7 @@ module.exports = React.createClass({
                         </strong>
                     </div>
                     <div className="ilv-card-body">
-                        <form className="ilv-text-small">
+                        <form>
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="ilv-form-group">
@@ -79,7 +79,7 @@ module.exports = React.createClass({
                                         <input className="ilv-form-control" type="password" id="editAccountFormNewPassword" ref="setpwd-password" />
                                     </div>
 
-                                    <div className="ilv-form-group">
+                                    <div className="ilv-form-group m-b-0">
                                         <label className="ilv-form-label" htmlFor="editAccountFormConfirmPassword">{Messages.get("LabelPasswordConfirm")}</label>
                                         <input className="ilv-form-control" type="password" id="editAccountFormConfirmPassword" ref="setpwd-passwordconfirm" />
                                     </div>

@@ -95,7 +95,7 @@ module.exports = React.createClass({
                             {this.state.logged ? (
                                 <ul className="ilv-nav ilv-nav-inline">
                                     <li className="ilv-nav-item">
-                                        <a className="ilv-btn ilv-btn-warning" href="#">{Messages.get("LabelProfessionalProfile")}</a>
+                                        <Link className="ilv-btn ilv-btn-destructive" to="/user/professionalprofile">{Messages.get("LabelProfessionalProfile")}</Link>
                                     </li>
                                     <li className="ilv-nav-item">
                                         <a className="ilv-btn ilv-btn-clean" href="#">{Messages.get("LabelMessages")}</a>
@@ -108,8 +108,8 @@ module.exports = React.createClass({
                                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
                                                 <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
-                                                <a className="dropdown-item" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
-                                                <a className="dropdown-item" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
+                                                <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
+                                                <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                             </div>
                                         </div>
                                     </li>

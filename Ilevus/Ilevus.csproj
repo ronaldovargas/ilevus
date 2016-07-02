@@ -239,9 +239,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
     <None Include="package.json" />
     <Content Include="sass\custom\_page-banner.scss" />
     <Content Include="sass\custom\_card.scss" />
+    <Content Include="sass\vendor\_bootstrap.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>
