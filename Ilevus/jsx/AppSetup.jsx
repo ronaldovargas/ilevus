@@ -68,7 +68,7 @@ Messages.load(function (success) {
 
                     <Route path="user" component={UserManagement}>
                         <Route path="profile" component={UserProfile} />
-                        <Route path="professionalprofile" component={UserProfessionalProfile} />
+                        <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="account" component={UserAccount} />
                     </Route>
 

@@ -13,7 +13,7 @@ var bannerSLogan = {
 }
 
 var bannerLead = {
-    fontSize: "1.375rem"
+    fontSize: "1.25rem"
 }
 
 module.exports = React.createClass({
@@ -35,7 +35,7 @@ module.exports = React.createClass({
                             <div className="ilv-page-banner-content">                              
                                 <form onSubmit={this.onSearch}>
                                     <div className="ilv-form-group">
-                                        <h1 className="ilv-display-h1 ilv-text-uppercase ilv-font-weight-extrabold" style={bannerSLogan}>{Messages.get("TextSlogan")}.</h1>
+                                        <h1 className="ilv-display-h1 ilv-text-uppercase ilv-font-weight-extrabold m-b-2" style={bannerSLogan}>{Messages.get("TextSlogan")}.</h1>
                                         <p style={bannerLead}>{Messages.get("TextSloganDescription")}</p>
                                     </div>
                                     <div className="ilv-form-group">

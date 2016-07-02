@@ -31,7 +31,7 @@ module.exports = React.createClass({
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/professionalprofile">
+                                <Link className="ilv-nav-link" to="/user/professional-profile">
                                     {Messages.get("LabelProfessionalProfile")}
                                 </Link>
                             </li>

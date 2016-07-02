@@ -62,7 +62,7 @@ module.exports = React.createClass({
                 <div className="ilv-card">
                     <div className="ilv-card-header">
                         <strong>
-                            Experiência
+                            Experiência profissional
                         </strong>
                     </div>
                     <div className="ilv-card-body">
@@ -157,7 +157,6 @@ module.exports = React.createClass({
                                             </div>
                                         </fieldset>
 
-
                                         <fieldset className="ilv-form-group">
                                             <label className="ilv-form-label" htmlFor="newExperienceDescription">Descrição</label>
                                             <textarea className="ilv-form-control" id="newExperienceDescription" />
@@ -171,6 +170,81 @@ module.exports = React.createClass({
 
                     </div>
                 </div>
+
+                <div className="ilv-card">
+                    <div className="ilv-card-header">
+                        <strong>Formação acadêmica</strong>
+                    </div>
+                    <div className="ilv-card-body">
+                        <ul className="ilv-media-list ilv-media-list-bordered">
+                            <li className="ilv-media">
+                                <div className="ilv-media-body">
+                                    <h4>Universidade Federal de Minas Gerais</h4>
+                                    <span className="ilv-text-large">Bacharel em Administração e Economia</span>
+                                    <p className="ilv-text-small">2010 - 2014</p>
+                                    <p>
+                                        Descrição sobre atividades realizadas durante o período de graduação.
+                                    </p>
+                                </div>
+                                <div className="ilv-media-right">
+                                    <button className="ilv-btn ilv-btn-link">Editar</button>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <div className="ilv-form-group">
+                            <button className="ilv-btn ilv-btn-link">Adicionar nova formação</button>
+                        </div>
+
+                        <div className="row">
+                            <div className="col-md-6">
+                                <form className="ilv-card">
+                                    <div className="ilv-card-body">
+                                        <fieldset className="ilv-form-group">
+                                            <label className="ilv-form-label" htmlFor="newFormationSchoolName">Instituição de ensino</label>
+                                            <input className="ilv-form-control" type="password" id="newFormationSchoolName"/>
+                                        </fieldset>
+
+                                        <fieldset className="ilv-form-group">
+                                            <label className="ilv-form-label" htmlFor="newFormationArea">Área de atuação</label>
+                                            <input className="ilv-form-control" type="password" id="newFormationArea"/>
+                                        </fieldset>
+
+                                        <fieldset className="ilv-form-group">
+                                            <label className="ilv-form-label" htmlFor="newFormationDegree">Formação</label>
+                                            <select className="ilv-form-control" id="newFormationDegree">
+                                                <option>Bacharel</option>
+                                                <option>Mestrado</option>
+                                                <option>Doutorado</option>
+                                            </select>
+                                        </fieldset>
+
+                                        <fieldset className="ilv-form-group">
+                                            <label className="ilv-form-label" htmlFor="newFormationTimePeriod">Período</label>
+                                            <div className="row">
+                                                <div className="col-xs-6">
+                                                    <input className="ilv-form-control" type="number" id="newFormationTimePeriod" placeholder="Ano" />
+                                                </div>
+                                                <div className="col-xs-6">
+                                                    <input className="ilv-form-control" type="number" placeholder="Ano" />
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset className="ilv-form-group">
+                                            <label className="ilv-form-label" htmlFor="newFormationDescription">Descrição</label>
+                                            <textarea className="ilv-form-control" id="newFormationDescription" />
+                                        </fieldset>
+                                        <button className="ilv-btn ilv-btn-primary">Adicionar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
             </div>
         );
     }
