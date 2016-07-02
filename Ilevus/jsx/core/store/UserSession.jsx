@@ -21,6 +21,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
+	ACTION_REMOVE_PICTURE: 'removePicture',
 
 	BACKEND_URL: BACKEND_URL,
 	url: BACKEND_URL + "User",
@@ -131,10 +132,14 @@ var UserSession = Backbone.Model.extend({
 	        if (resp.ModelState) {
 	            var errors = [];
 	            _.each(resp.ModelState, (field) => {
-	                for (var e = 0; e < field.length; e++)
+	                for (var e = 0; e < field.length; e++) {
 	                    errors.push(field[e]);
+	                    errors.push("&nbsp;");
+	                }
 	            });
 	            this.trigger("fail", errors);
+	        } else if (resp.error_description) {
+	            this.trigger("fail", resp.error_description);
 	        } else {
 	            this.trigger("fail", resp.Message);
 	        }
@@ -327,10 +332,10 @@ var UserSession = Backbone.Model.extend({
 
 	updateProfile(params) {
 	    var me = this;
-	    /*if (params.NewPassword !== params.ConfirmPassword) {
-	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	    if (S(params.Birthdate).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelBirthdate']));
 	        return;
-	    }*/
+	    }
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/UpdateProfile",
@@ -361,6 +366,22 @@ var UserSession = Backbone.Model.extend({
 	        success(data, status, opts) {
 	            me.set({ user: data });
 	            me.trigger("updateaddress", me);
+	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	removePicture() {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/RemovePicture",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.get("user").Image = null;
 	            me.trigger("update", me);
 	        },
 	        error(opts, status, errorMsg) {

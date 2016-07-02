@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "ilevus",
   "scripts": {
-    "whichnode":  "where webpack",
+    "whichnode": "where webpack",
     "prestart": "npm install",
-    "devbuild": "webpack --colors",
-    "devstart": "set NODE_ENV=development && webpack-dev-server --compress --progress --port 8081 --inline -w",
-    "devwatch": "set NODE_ENV=development && webpack -d --watch --watch-poll --colors --progress",
+    "devbuild": "set NODE_ENV=development && webpack --colors",
+    "devstart": "webpack-dev-server --compress --progress --port 8081 --inline -w",
+    "devwatch": "set NODE_ENV=development && webpack --watch --watch-poll --colors --progress",
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "set NODE_ENV=production && webpack --colors --progress --config webpack.production.config.js --optimize-dedupe --optimize-occurrence-order --optimize-minimize"
   },
@@ -30,6 +30,7 @@
   "dependencies": {
     "backbone": "^1.3.3",
     "blueimp-file-upload": "^9.12.4",
+    "bootstrap": "^4.0.0-alpha.2",
     "flux": "^2.1.1",
     "history": "^2.1.1",
     "jquery": "^2.2.3",
@@ -37,7 +38,7 @@
     "numeral": "^1.5.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
-    "react-maskedinput": "^3.1.3",
+    "react-maskedinput": "^3.2.0",
     "react-router": "^2.4.0",
     "string": "^3.3.1",
     "tether": "^1.3.2",

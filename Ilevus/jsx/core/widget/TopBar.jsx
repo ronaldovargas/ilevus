@@ -7,6 +7,7 @@ var Toastr = require("toastr");
 
 var Logo = require('ilevus/img/ilevus-logo-20px.png');
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+var UserIcon = require("ilevus/img/user.png");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -61,6 +62,7 @@ module.exports = React.createClass({
     onSearch(evt) {
         evt.preventDefault();
         var term = this.refs['search-term'].value;
+        this.refs['search-term'].value = "";
         if (!string(term).isEmpty())
             this.context.router.push("/search/" + encodeURI(term));
     },
@@ -95,15 +97,24 @@ module.exports = React.createClass({
                             {this.state.logged ? (
                                 <ul className="ilv-nav ilv-nav-inline">
                                     <li className="ilv-nav-item">
-                                        <Link className="ilv-btn ilv-btn-destructive" to="/user/professionalprofile">{Messages.get("LabelProfessionalProfile")}</Link>
+                                        <Link className="ilv-btn ilv-btn-destructive" to="/user/professionalprofile">
+                                            {Messages.get("LabelProfessionalProfile")}
+                                        </Link>
                                     </li>
                                     <li className="ilv-nav-item">
-                                        <a className="ilv-btn ilv-btn-clean" href="#">{Messages.get("LabelMessages")}</a>
+                                        <a className="ilv-btn ilv-btn-clean" href="#">
+                                            {Messages.get("LabelMessages")}
+                                       </a>
                                     </li>
                                     <li className="ilv-nav-item">
                                         <div className="dropdown">
-                                            <a id="js-profile-dropdown" className="ilv-avatar ilv-avatar-sm" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <img src={this.state.user.Image} alt={this.state.user.Name} />
+                                            <a id="js-profile-dropdown" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div className="avatar-fluid avatar-fluid-sm"
+                                                    style={{
+                                                        backgroundImage: "url(" +
+                                                            (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                                        }}
+                                                />
                                             </a>
                                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
                                                 <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>

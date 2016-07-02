@@ -46,8 +46,8 @@ Numeral.language("pt-BR");
 
 //Toastr.options.positionClass = "toast-top-center";
 Toastr.options.positionClass = "toast-top-full-width";
-Toastr.options.timeOut = 5000;
-Toastr.options.extendedTimeOut = 15000;
+Toastr.options.timeOut = 4000;
+Toastr.options.extendedTimeOut = 10000;
 
 Messages.load(function (success) {
     if (success) {

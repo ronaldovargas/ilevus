@@ -1,5 +1,7 @@
 ﻿
+var S = require("string");
 var React = require("react");
+var MaskedInput = require("react-maskedinput");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
@@ -9,6 +11,8 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -34,6 +38,7 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("update", () => {
+            $(me.refs['picture-remove']).removeClass("loading").removeAttr("disabled", "disabled");
             me.setState({
                 picture: UserSession.get("user").Image
             });
@@ -57,7 +62,7 @@ module.exports = React.createClass({
             Birthdate: this.refs['profile-birthdate'].value,
             Email: this.refs['profile-email'].value,
             Name: this.refs['profile-name'].value,
-            PhoneNumber: this.refs['profile-phonenumber'].value,
+            PhoneNumber: this.refs['profile-phonenumber'].mask.getRawValue().trim(),
             Sex: this.refs['profile-sex'].value,
             Surname: this.refs['profile-surname'].value
         };
@@ -85,10 +90,25 @@ module.exports = React.createClass({
         });
     },
 
+    removePicture(evt) {
+        evt.preventDefault();
+        Modal.confirm(
+            Messages.get("LabelWarning"),
+            Messages.get("TextRemovePictureConfirmation"),
+            () => {
+                Modal.hide();
+                $(this.refs['picture-remove']).addClass("loading").attr("disabled", "disabled");
+                UserSession.dispatch({
+                    action: UserSession.ACTION_REMOVE_PICTURE
+                });
+            }
+        );
+    },
+
     updatePicture() {
         Modal.uploadFile(
-            "Enviar um foto",
-            <p>Selecione a foto que você deseja enviar:</p>,
+            Messages.get("ActionSendPicture"),
+            <p>{Messages.get("TextSendPicture")}</p>,
             UserSession.url + "/UpdatePicture",
             (arg1, arg2) => {
                 Modal.hide();
@@ -97,10 +117,13 @@ module.exports = React.createClass({
                     action: UserSession.ACTION_REFRESH
                 });
             },
-            (arg1, arg2) => {
-                console.error("Picture upload failed:\n",arg1,"\n",arg2);
+            (xhr, status) => {
                 Modal.hide();
-                Toastr.error(Messages.get("TextUnexpectedError"));
+                if (xhr.responseJSON && xhr.responseJSON.Message) {
+                    Toastr.error(xhr.responseJSON.Message);
+                } else {
+                    Toastr.error(Messages.get("TextUnexpectedError"));
+                }
             }
         );
     },
@@ -110,6 +133,7 @@ module.exports = React.createClass({
             return <LoadingGauge />;
         }
         var user = UserSession.get("user");
+        var pic = S(this.state.picture);
         return (
             <div>
                 <div className="ilv-card">
@@ -119,9 +143,11 @@ module.exports = React.createClass({
                     <div className="ilv-card-body">
                         <div className="ilv-media">
 					        <div className="ilv-media-left">
-                                <span className="ilv-avatar ilv-avatar-xl">
-                                    <img src={this.state.picture} />
-                                </span>
+                                <div className="media-left">
+                                    <div className="avatar-fluid avatar-fluid-xl"
+                                        style={{backgroundImage: "url("+(pic.isEmpty() ? UserIcon : pic.s)+")"}}
+                                    />
+                                </div>
                             </div>
 					        <div className="ilv-media-body">
                                 <span className="ilv-font-weight-semibold">{Messages.get("LabelSelectPicture")}</span>
@@ -132,6 +158,11 @@ module.exports = React.createClass({
                     <div className="ilv-card-footer">
                         <button className="ilv-btn ilv-btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
 						<button className="ilv-btn ilv-btn-link">{Messages.get("ActionRemovePicture")}</button>
+						{pic.isEmpty() ? "":
+                            <button className="ilv-btn ilv-btn-link" onClick={this.removePicture} ref="picture-remove">
+                                {Messages.get("ActionRemovePicture")}
+                            </button>
+					    }
                     </div>
                 </div>
 

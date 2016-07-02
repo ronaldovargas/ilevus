@@ -537,4 +537,46 @@
   <data name="TextRecoverPasswordRemember" xml:space="preserve">
     <value>Lembrou sua senha? Faça seu login</value>
   </data>
+  <data name="TextUserNotFound" xml:space="preserve">
+    <value>Parece que não encontramos ninguém :(</value>
+  </data>
+  <data name="ValidationPictureMaxSize" xml:space="preserve">
+    <value>A foto deve ter no máximo 1MB.</value>
+  </data>
+  <data name="ValidationPictureType" xml:space="preserve">
+    <value>A foto deve ser um arquivo PNG, GIF ou JPG.</value>
+  </data>
+  <data name="ActionCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ActionConfirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="LabelWarning" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="TextRemovePictureConfirmation" xml:space="preserve">
+    <value>Tem certeza de que deseja remover sua foto?</value>
+  </data>
+  <data name="TextSendPicture" xml:space="preserve">
+    <value>Selecione a foto que você deseja enviar:</value>
+  </data>
+  <data name="SexFemale" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="SexMale" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="TextEmailWillNotBeShared" xml:space="preserve">
+    <value>Nós não compartilharemos o seu endereço de email privado com outros usuários.</value>
+  </data>
+  <data name="TextPhoneHelp" xml:space="preserve">
+    <value>Ex: "011 998886677". Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.</value>
+  </data>
+  <data name="ValidationEmailExists" xml:space="preserve">
+    <value>Este endereço de e-mail já está em uso.</value>
+  </data>
+  <data name="TextSearchVerifyTerms" xml:space="preserve">
+    <value>Verifique se os termos que pesquisou estão corretos ou se algum filtro está habilitado.</value>
+  </data>
 </root>

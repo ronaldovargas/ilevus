@@ -444,14 +444,15 @@ namespace ilevus.Controllers
             }
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
+            string link = BaseURL + "#/confirm-email/"
+                    + Uri.EscapeDataString(user.Email) + "/"
+                    + Uri.EscapeDataString(code);
             await UserManager.SendEmailAsync(user.Id,
                 Messages.EmailConfirmEmailSubject,
                 string.Format(
                     Messages.EmailConfirmEmailBody,
                     user.Name,
-                    BaseURL + "#/confirm-email/"
-                        + Uri.EscapeDataString(user.Email) + "/"
-                        + Uri.EscapeDataString(code)
+                    "<a href='" + link + "'>" + link + "</a>"
                 )
             );
             return Ok(true);
@@ -472,14 +473,15 @@ namespace ilevus.Controllers
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
+                string link = BaseURL + "#/reset-password/"
+                            + Uri.EscapeDataString(user.Email) + "/"
+                            + Uri.EscapeDataString(code);
                 await UserManager.SendEmailAsync(user.Id,
                     Messages.EmailRecoverPasswordSubject,
                     string.Format(
                         Messages.EmailRecoverPasswordBody,
                         user.Name,
-                        BaseURL + "#/reset-password/"
-                            + Uri.EscapeDataString(user.Email) + "/"
-                            + Uri.EscapeDataString(code)
+                        "<a href='" + link + "'>" + link + "</a>"
                     )
                 );
                 return Ok(true);
@@ -523,6 +525,11 @@ namespace ilevus.Controllers
                 return BadRequest(ModelState);
             }
 
+            var existent = await UserManager.FindByEmailAsync(model.Email);
+            if (existent != null)
+            {
+                return BadRequest(Messages.ValidationEmailExists);
+            }
             var user = new IlevusUser() {
                 UserName = model.Email,
                 Email = model.Email,
@@ -581,7 +588,20 @@ namespace ilevus.Controllers
 
             // This illustrates how to get the file names.
             MultipartFileData file = provider.FileData.Single();
+            string mime = file.Headers.ContentType.ToString();
+            if (!IlevusBlobHelper.isValidMimeType(mime))
+            {
+                File.Delete(file.LocalFileName);
+                return BadRequest(Messages.ValidationPictureType);
+            }
+
             var blob = File.ReadAllBytes(file.LocalFileName);
+            if (!IlevusBlobHelper.isValidSize(blob.Length))
+            {
+                File.Delete(file.LocalFileName);
+                return BadRequest(Messages.ValidationPictureMaxSize);
+            }
+
             var sha = new SHA256Managed();
             string checksum = BitConverter.ToString(sha.ComputeHash(blob)).Replace("-", String.Empty);
 
@@ -595,7 +615,7 @@ namespace ilevus.Controllers
                 File.Move(file.LocalFileName, IlevusBlobHelper.GetPictureUrl(Server, checksum));
                 picture = new IlevusPicture()
                 {
-                    Mime = file.Headers.ContentType.ToString(),
+                    Mime = mime,
                     OriginalName = file.Headers.ContentDisposition.FileName,
                     Checksum = checksum,
                     UserId = user.Id
@@ -611,6 +631,22 @@ namespace ilevus.Controllers
             }
 
             return Ok(picture);
+        }
+
+        [HttpPost]
+        [Route("RemovePicture")]
+        public async Task<IHttpActionResult> RemovePicture()
+        {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            user.Image = null;
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(true);
         }
 
         // GET api/Account/UpdateProfile

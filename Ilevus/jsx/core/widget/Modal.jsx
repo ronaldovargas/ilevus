@@ -4,6 +4,8 @@ var $ = require('jquery');
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 var EL = document.getElementById("main-global-modal");
 
 var AlertModal = React.createClass({
@@ -19,7 +21,7 @@ var AlertModal = React.createClass({
 	        			{this.props.message}
 	      			</div>
 	      			<div className="modal-footer">
-	        			<button type="button" className="btn btn-sm btn-default" data-dismiss="modal">Ok</button>
+	        			<button type="button" className="btn btn-brand" data-dismiss="modal">Ok</button>
 	      			</div>
 				</div>
 			</div>
@@ -40,8 +42,12 @@ var ConfirmModal = React.createClass({
 	        			{this.props.message}
 	      			</div>
 	      			<div className="modal-footer">
-	        			<button type="button" className="btn btn-sm btn-default" data-dismiss="modal">Cancelar</button>
-	        			<button type="button" className="btn btn-sm btn-primary" onClick={this.props.onConfirm}>Confirmar</button>
+	        			<button type="button" className="btn btn-clean" data-dismiss="modal">
+                            {Messages.get("ActionCancel")}
+                        </button>
+	        			<button type="button" className="btn btn-brand" onClick={this.props.onConfirm}>
+                            {Messages.get("ActionConfirm")}
+                        </button>
 	      			</div>
 				</div>
 			</div>

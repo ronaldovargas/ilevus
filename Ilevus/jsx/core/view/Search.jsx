@@ -1,6 +1,7 @@
 ﻿
 var _ = require("underscore");
 var $ = require("jquery");
+var S = require("string");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -11,6 +12,8 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
     getInitialState() {
@@ -61,8 +64,8 @@ module.exports = React.createClass({
         if (!(this.state.models.length > 0)) {
             return (
                 <div className="ilv-blankslate ilv-blankslate-lg">
-                    <h3>Parece que não encontramos ninguém :(</h3>
-                    <p>Verifique se os termos que pesquisou estão corretos ou se algum filtro está habilitado.</p>
+                    <h3>{Messages.get("TextUserNotFound")}</h3>
+                    <p>{Messages.get("TextSearchVerifyTerms")}</p>
                 </div>
             );
         }
@@ -95,9 +98,9 @@ module.exports = React.createClass({
                                 </div>
                                 <div className="ilv-media-right ilv-text-xs-center">
                                     <div className="ilv-btn-group">
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Agendar reunião">R</button>
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Enviar mensagem">M</button>
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title="Solicitar telefone">T</button>
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestMeeting")}>R</button>
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionSendMessage")}>M</button>
+                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestPhone")}>T</button>
                                     </div>
                                     
                                 </div>
