@@ -95,7 +95,7 @@ module.exports = React.createClass({
                             {this.state.logged ? (
                                 <ul className="ilv-nav ilv-nav-inline">
                                     <li className="ilv-nav-item">
-                                        <Link className="ilv-btn ilv-btn-destructive" to="/user/professionalprofile">{Messages.get("LabelProfessionalProfile")}</Link>
+                                        <Link className="ilv-btn ilv-btn-destructive" to="/user/professional-profile">{Messages.get("LabelProfessionalProfile")}</Link>
                                     </li>
                                     <li className="ilv-nav-item">
                                         <a className="ilv-btn ilv-btn-clean" href="#">{Messages.get("LabelMessages")}</a>

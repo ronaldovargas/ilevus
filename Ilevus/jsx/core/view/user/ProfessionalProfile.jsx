@@ -62,7 +62,7 @@ module.exports = React.createClass({
                 <div className="ilv-card">
                     <div className="ilv-card-header">
                         <strong>
-                            Experiência
+                            Experiência profissional
                         </strong>
                     </div>
                     <div className="ilv-card-body">
@@ -157,7 +157,6 @@ module.exports = React.createClass({
                                             </div>
                                         </fieldset>
 
-
                                         <fieldset className="ilv-form-group">
                                             <label className="ilv-form-label" htmlFor="newExperienceDescription">Descrição</label>
                                             <textarea className="ilv-form-control" id="newExperienceDescription" />
@@ -174,9 +173,7 @@ module.exports = React.createClass({
 
                 <div className="ilv-card">
                     <div className="ilv-card-header">
-                        <strong>
-                            Formação
-                        </strong>
+                        <strong>Formação acadêmica</strong>
                     </div>
                     <div className="ilv-card-body">
                         <ul className="ilv-media-list ilv-media-list-bordered">
