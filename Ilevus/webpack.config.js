@@ -1,6 +1,7 @@
 var path = require('path');
 var node_modules_dir = path.resolve(__dirname, 'node_modules');
 var Webpack = require("webpack");
+var autoprefixer = require("autoprefixer");
 
 module.exports = {
     context: __dirname,
@@ -26,6 +27,9 @@ module.exports = {
                   jQuery: "jquery"
               })
     ],
+    postcss: function () {
+        return [autoprefixer];
+    },
     module: {
         loaders: [{
             test: /\.jsx$/,
@@ -36,10 +40,10 @@ module.exports = {
             }
         },{
             test: /\.scss$/,
-            loader: "style-loader!css-loader!sass-loader"
+            loader: "style-loader!css-loader!postcss-loader!sass-loader"
         },{
         	test: /\.css$/,
-        	loader: "style-loader!css-loader"
+        	loader: "style-loader!css-loader!postcss-loader"
         },{
         	test: /\.html$|\.ico$/,
         	loader: "file?name=[name].[ext]"
