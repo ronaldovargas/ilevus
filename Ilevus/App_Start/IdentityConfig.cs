@@ -145,7 +145,7 @@ namespace ilevus.App_Start
                     Address = "Sede da Ilevus",
                     Sex = "M",
                     PhoneNumber = "+55 31 9 9999-9999",
-                    Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
+                    Image = null
                 };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
@@ -191,7 +191,7 @@ namespace ilevus.App_Start
                     Country = "Brasil",
                     Sex = "M",
                     PhoneNumber = "+55 31 9 8888-8888",
-                    Image = "http://ichef.bbci.co.uk/news/976/mcs/media/images/82639000/jpg/_82639965_game-of-thrones-season-2-jon-snow.jpg"
+                    Image = null
                 };
                 var result = userManager.Create(commonUser, userPassword);
                 result = userManager.SetLockoutEnabled(commonUser.Id, false);

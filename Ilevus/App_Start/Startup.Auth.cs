@@ -3,10 +3,13 @@ using ilevus.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Owin.Security.Providers.LinkedIn;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +19,10 @@ namespace ilevus
     {
         public static OAuthAuthorizationServerOptions OAuthAuthzOpts { get; private set; }
         public static OAuthBearerAuthenticationOptions OAuthBearerOpts { get; private set; }
+        public static FacebookAuthenticationOptions facebookAuthOptions { get; private set; }
+        public static LinkedInAuthenticationOptions linkedinAuthOptions { get; private set; }
+
+        public static readonly string FacebookAppToken = ConfigurationManager.AppSettings["FacebookAppToken"];
         public static string PublicClientId { get; private set; }
 
         public void ConfigureAuth(IAppBuilder app)
@@ -46,7 +53,19 @@ namespace ilevus
             app.UseOAuthBearerAuthentication(OAuthBearerOpts);
             app.UseOAuthBearerTokens(OAuthAuthzOpts);
 
-            // ... Code for third-part logins omitted for brevity ...
+            // Code for third party logins
+            linkedinAuthOptions = new LinkedInAuthenticationOptions
+            {
+                ClientId = ConfigurationManager.AppSettings["LinkedinClient"],
+                ClientSecret = ConfigurationManager.AppSettings["LinkedinSecret"]
+            };
+
+            facebookAuthOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = ConfigurationManager.AppSettings["FacebookClient"],
+                AppSecret = ConfigurationManager.AppSettings["FacebookSecret"]
+            };
+            
         }
     }
 }

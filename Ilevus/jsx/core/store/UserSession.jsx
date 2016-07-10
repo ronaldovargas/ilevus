@@ -10,8 +10,11 @@ var Dispatcher = require("flux").Dispatcher;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserSession = Backbone.Model.extend({
-	ACTION_REFRESH: 'refreshStatus',
+    ACTION_REFRESH: 'refreshStatus',
+    ACTION_AUTH_CALLBACK: 'authCallback',
 	ACTION_LOGIN: 'login',
+	ACTION_LOGIN_FACEBOOK: 'loginWithFacebook',
+	ACTION_LOGIN_LINKEDIN: 'loginWithLinkedin',
 	ACTION_LOGOUT: 'logout',
 	ACTION_CONFIRM_EMAIL: 'confirmEmail',
 	ACTION_CONFIRMATION_EMAIL: 'confirmationEmail',
@@ -148,6 +151,13 @@ var UserSession = Backbone.Model.extend({
 		}
 	},
 
+	authCallback(token) {
+	    var me = this;
+	    me.putStorage(token, null, true);
+	    me.setAuthorization(token);
+	    me.refreshStatus();
+	},
+
 	login(data) {
 	    var me = this,
             stayconnected = data.stayconnected,
@@ -182,6 +192,45 @@ var UserSession = Backbone.Model.extend({
 			});
 		}
 	},
+	loginWithFacebook(token) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/LoginWithFacebook",
+	        dataType: 'json',
+	        data: {
+	            "AccessToken": token
+	        },
+	        success(data, status, opts) {
+	            me.putStorage(data.access_token, data.userName, true);
+	            me.setAuthorization(data.access_token);
+	            me.refreshStatus();
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+	loginWithLinkedin(token) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/LoginWithLinkedin",
+	        dataType: 'json',
+	        data: {
+	            "AccessToken": token
+	        },
+	        success(data, status, opts) {
+	            me.putStorage(data.access_token, data.userName, true);
+	            me.setAuthorization(data.access_token);
+	            me.refreshStatus();
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 	logout() {
 		var me = this;
 		var promise = $.ajax({

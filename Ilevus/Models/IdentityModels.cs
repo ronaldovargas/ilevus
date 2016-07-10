@@ -6,6 +6,7 @@ using ilevus.App_Start;
 using ilevus.Enums;
 using AspNet.Identity.MongoDB;
 using MongoDB.Driver;
+using ilevus.Helpers;
 
 namespace ilevus.Models
 {
@@ -24,6 +25,15 @@ namespace ilevus.Models
         public string County { get; set; }
         public string Country { get; set; }
 
+        public string Headline { get; set; }
+        public string Industry { get; set; }
+        public string Specialties { get; set; }
+        public string Summary { get; set; }
+
+        public string LinkedinProfileUrl { get; set; }
+
+        public string Culture { get; set; }
+
         public string Image { get; set; }
 
         public DateTime Creation { get; set; }
@@ -41,12 +51,15 @@ namespace ilevus.Models
             this.Status = UserStatus.Active;
             this.Creation = DateTime.Now;
             this.SearchLanguage = "portuguese";
+            this.Culture = CultureHelper.GetDefaultCulture();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)
         {
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
+            userIdentity.AddClaim(new Claim(IlevusClaimTypes.UserCulture, this.Culture, ClaimValueTypes.String));
+
             return userIdentity;
         }
         

@@ -1,4 +1,5 @@
-﻿using ilevus.Models;
+﻿using ilevus.Helpers;
+using ilevus.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace ilevus.Providers
 
         public static Claim CreateClaim(string permission)
         {
-            return new Claim("IlevusPermission", permission, ClaimValueTypes.String);
+            return new Claim(IlevusClaimTypes.UserPermission, permission, ClaimValueTypes.String);
         }
     }
 }

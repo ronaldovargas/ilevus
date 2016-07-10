@@ -164,9 +164,15 @@ namespace ilevus.Models
 
     public class RegisterExternalBindingModel
     {
-        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
-        public string Email { get; set; }
+        [Required]
+        public string UserName { get; set; }
+
+        [Required]
+        public string Provider { get; set; }
+
+        [Required]
+        public string ExternalAccessToken { get; set; }
+
     }
 
     public class RemoveLoginBindingModel

@@ -2,10 +2,12 @@
 using log4net;
 using System.Configuration;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Web.SessionState;
 
 namespace ilevus.Controllers
 {
@@ -39,11 +41,20 @@ namespace ilevus.Controllers
             base.Initialize(controllerContext);
 
             string cultureName = null;
+            if (User != null && User.Identity != null)
+            {
+                var identity = (User.Identity as ClaimsIdentity);
+                Claim cult = identity.Claims.Where(claim => claim.Type == IlevusClaimTypes.UserCulture)
+                    .FirstOrDefault();
+                if (cult != null)
+                    cultureName = cult.Value;
+            } else
+            {
+                cultureName = Request.Headers != null && Request.Headers.AcceptLanguage != null && Request.Headers.AcceptLanguage.Count > 0 ?
+                    Request.Headers.AcceptLanguage.First().Value :  // obtain it from HTTP header AcceptLanguages
+                    null;
+            }
 
-            // Attempt to read the culture cookie from Request
-            cultureName = Request.Headers != null && Request.Headers.AcceptLanguage != null && Request.Headers.AcceptLanguage.Count > 0 ?
-                Request.Headers.AcceptLanguage.First().Value :  // obtain it from HTTP header AcceptLanguages
-                null;
             // Validate culture name
             cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
 

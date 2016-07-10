@@ -15,7 +15,7 @@ namespace ilevus.Models
 
         public string State { get; set; }
     }
-
+    
     public class ManageInfoViewModel
     {
         public string LocalLoginProvider { get; set; }
@@ -33,6 +33,7 @@ namespace ilevus.Models
         {
             Id = user.Id;
             Creation = user.Creation;
+            Culture = user.Culture;
             Image = user.Image;
             Name = user.Name;
             Sex = user.Sex;
@@ -55,6 +56,7 @@ namespace ilevus.Models
         public string County { get; set; }
         public string Country { get; set; }
 
+        public string Culture { get; set; }
         public string Image { get; set; }
         public DateTime Creation { get; set; }
 
@@ -70,6 +72,7 @@ namespace ilevus.Models
             Email = user.Email;
             Birthdate = user.Birthdate;
             Creation = user.Creation;
+            Culture = user.Culture;
             EmailVisibility = user.EmailVisibility;
             Image = user.Image;
             Name = user.Name;
@@ -106,6 +109,7 @@ namespace ilevus.Models
         public string District { get; set; }
         public string Zipcode { get; set; }
 
+        public string Culture { get; set; }
         public string Image { get; set; }
         public DateTime Creation { get; set; }
 

@@ -157,7 +157,6 @@ module.exports = React.createClass({
                     </div>
                     <div className="ilv-card-footer">
                         <button className="ilv-btn ilv-btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
-						<button className="ilv-btn ilv-btn-link">{Messages.get("ActionRemovePicture")}</button>
 						{pic.isEmpty() ? "":
                             <button className="ilv-btn ilv-btn-link" onClick={this.removePicture} ref="picture-remove">
                                 {Messages.get("ActionRemovePicture")}

@@ -11,11 +11,13 @@ var S = require("string");
 
 var React = require("react");
 var ReactDOM = require("react-dom");
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var IndexRedirect = require('react-router').IndexRedirect;
-var IndexRoute = require('react-router').IndexRoute;
-var hashHistory = require('react-router').hashHistory;
+var ReactRouter = require("react-router");
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var IndexRedirect = ReactRouter.IndexRedirect;
+var IndexRoute = ReactRouter.IndexRoute;
+var browserHistory = ReactRouter.browserHistory;
+var hashHistory = ReactRouter.hashHistory;
 
 var Application = require("ilevus/jsx/Application.jsx");
 var Error = require("ilevus/jsx/core/view/Error.jsx");
@@ -51,13 +53,27 @@ Toastr.options.extendedTimeOut = 10000;
 
 Messages.load(function (success) {
     if (success) {
-        Numeral.language(Messages.get("Culture"));
+        var culture = Messages.get("Culture");
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: Messages.get("FacebookClientId"),
+                status: true, // check login status
+                cookie: true, // enable cookies to allow the server to access the session
+                xfbml: true,  // parse XFBML
+                oauth: true,
+                version: 'v2.6'
+            });
+        };
+
+        Numeral.language(culture);
         ReactDOM.render((
 	        <Router history={hashHistory}>
 		        <Route path="/" component={Application}>
                     <IndexRedirect to="home" />
                     <Route path="home" component={Home} />
                     <Route path="login" component={Login} />
+                    <Route path="auth-callback/:accessToken" component={Login} />
                     <Route path="confirm-email/:email/:token" component={ConfirmEmail} />
                     <Route path="recover-password" component={RecoverPassword} />
                     <Route path="reset-password/:email/:token" component={ResetPassword} />
@@ -78,6 +94,14 @@ Messages.load(function (success) {
   	        ),
   	        document.getElementById('main-body')
         );
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/pt_BR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk')); var auth2 = {};
     } else {
         ReactDOM.render(<Error />, document.getElementById('main-body'));
     }

@@ -33,19 +33,69 @@ module.exports = React.createClass({
 	},
 	componentDidMount() {
 		var me = this;
-		UserSession.on("login", model => {
-			me.context.router.push("/home");
-		}, me);
-		UserSession.on("loaded", () => {
-			me.setState({loaded: true});
-		}, me);
+		
 		if (!!UserSession.get("logged")) {
 		    me.context.router.push("/home");
+		} else {
+		    UserSession.on("login", model => {
+		        me.context.router.push("/home");
+		    }, me);
+
+		    if (me.props.params && me.props.params.accessToken) {
+		        if (me.state.loaded) {
+		            UserSession.dispatch({
+		                action: UserSession.ACTION_AUTH_CALLBACK,
+		                data: me.props.params.accessToken
+		            });
+		        } else {
+		            UserSession.on("loaded", () => {
+		                UserSession.dispatch({
+		                    action: UserSession.ACTION_AUTH_CALLBACK,
+		                    data: me.props.params.accessToken
+		                });
+		            }, me);
+		        }
+		    } else {
+		        UserSession.on("loaded", () => {
+		            me.setState({ loaded: true });
+		        }, me);
+		    }
 		}
 	},
 	componentWillUnmount() {
 		UserSession.off(null, null, this);
 	},
+
+	loginWithFacebook() {
+	    if (typeof FB != 'undefined') {
+	        var me = this;
+	        FB.login((response) => {
+	            if (response.status === 'connected') {
+	                UserSession.dispatch({
+	                    action: UserSession.ACTION_LOGIN_FACEBOOK,
+	                    data: response.authResponse.accessToken
+	                });
+	            } else {
+	                console.warn("Facebook not authorized:\n",response);
+	            }
+	        },{
+	            scope: 'public_profile,email'
+	        });
+	    }
+	},
+
+	loginWithLinkedin() {
+	    console.log(IN);
+	    IN.User.authorize((arg) => {
+	        console.log(IN);
+	        console.log(IN.API.Profile());
+	        /*UserSession.dispatch({
+	            action: UserSession.ACTION_LOGIN_LINKEDIN,
+	            data: IN.ENV.auth.anonymous_token
+	        });*/
+	    });
+	},
+
 	render() {
 		if (!this.state.loaded) {
 			return <LoadingGauge />;
@@ -57,6 +107,12 @@ module.exports = React.createClass({
                         <div className="ilv-card m-t-3">
                             <div className="ilv-card-header">
                                 <h3>{Messages.get("TextSignIn")}</h3>
+                            </div>
+                            <div>
+                                <a className="ilv-btn ilv-btn-primary" href="/api/User/LoginWithLinkedin">
+                                    Linkedin
+                                </a>
+                                <button className="ilv-btn ilv-btn-primary" onClick={this.loginWithFacebook}>Facebook</button>
                             </div>
                             <div className="ilv-card-body">
                                 <form onSubmit={this.onSubmit}>

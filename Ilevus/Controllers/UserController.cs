@@ -1,4 +1,5 @@
-﻿using ilevus.App_Start;
+﻿using Facebook;
+using ilevus.App_Start;
 using ilevus.Attributes;
 using ilevus.Enums;
 using ilevus.Helpers;
@@ -12,6 +13,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -23,9 +25,12 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.SessionState;
 
 namespace ilevus.Controllers
 {
@@ -58,67 +63,7 @@ namespace ilevus.Controllers
             AccessTokenFormat = accessTokenFormat;
         }
 
-
-        [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
-        [Route("{id:guid}/assignperms")]
-        [HttpPut]
-        public async Task<IHttpActionResult> AssignClaimsToUser([FromUri] string id, [FromBody] List<PermissionBindingModel> permsToAssign)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var appUser = await this.UserManager.FindByIdAsync(id);
-
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            foreach (PermissionBindingModel permModel in permsToAssign)
-            {
-                if (!appUser.Claims.Any(p => p.Type == "IlevusPermission" && p.Value == permModel.Permission))
-                {
-
-                    await this.UserManager.AddClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
-                }
-            }
-
-            return Ok();
-        }
-
-        [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
-        [Route("{id:guid}/removeperms")]
-        [HttpPut]
-        public async Task<IHttpActionResult> RemoveClaimsFromUser([FromUri] string id, [FromBody] List<PermissionBindingModel> permsToRemove)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var appUser = await this.UserManager.FindByIdAsync(id);
-
-            if (appUser == null)
-            {
-                return NotFound();
-            }
-
-            foreach (PermissionBindingModel permModel in permsToRemove)
-            {
-                if (appUser.Claims.Any(p => p.Type == "IlevusPermission" && p.Value == permModel.Permission))
-                {
-
-                    await this.UserManager.RemoveClaimAsync(id, IlevusPermissionsProvider.CreateClaim(permModel.Permission));
-                }
-            }
-
-            return Ok();
-        }
-
+        
         // GET api/Account/{id}
         [AllowAnonymous]
         [HttpGet]
@@ -167,46 +112,7 @@ namespace ilevus.Controllers
             Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
             return Ok();
         }
-
-
-        [Route("ManageInfo")]
-        public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
-        {
-            IlevusUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-            if (user == null)
-            {
-                return null;
-            }
-
-            List<UserLoginInfoViewModel> logins = new List<UserLoginInfoViewModel>();
-            foreach (UserLoginInfo linkedAccount in user.Logins)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = linkedAccount.LoginProvider,
-                    ProviderKey = linkedAccount.ProviderKey
-                });
-            }
-
-            if (user.PasswordHash != null)
-            {
-                logins.Add(new UserLoginInfoViewModel
-                {
-                    LoginProvider = LocalLoginProvider,
-                    ProviderKey = user.UserName,
-                });
-            }
-
-            return new ManageInfoViewModel
-            {
-                LocalLoginProvider = LocalLoginProvider,
-                Email = user.UserName,
-                Logins = logins,
-                ExternalLoginProviders = GetExternalLogins(returnUrl, generateState)
-            };
-        }
-
-
+        
         // POST api/Account/ChangePassword
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -312,104 +218,7 @@ namespace ilevus.Controllers
 
             return Ok();
         }
-
-        // GET api/Account/ExternalLogin
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
-        [AllowAnonymous]
-        [Route("ExternalLogin", Name = "ExternalLogin")]
-        public async Task<IHttpActionResult> GetExternalLogin(string provider, string error = null)
-        {
-            if (error != null)
-            {
-                return Redirect(Url.Content("~/") + "#error=" + Uri.EscapeDataString(error));
-            }
-
-            if (!User.Identity.IsAuthenticated)
-            {
-                return new ChallengeResult(provider, this);
-            }
-
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
-
-            if (externalLogin == null)
-            {
-                return InternalServerError();
-            }
-
-            if (externalLogin.LoginProvider != provider)
-            {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                return new ChallengeResult(provider, this);
-            }
-
-            IlevusUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
-
-            bool hasRegistered = user != null;
-
-            if (hasRegistered)
-            {
-                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-
-                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                   OAuthDefaults.AuthenticationType);
-                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    CookieAuthenticationDefaults.AuthenticationType);
-
-                AuthenticationProperties properties = IlevusOAuthProvider.CreateProperties(user.UserName);
-                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
-            }
-            else
-            {
-                IEnumerable<Claim> claims = externalLogin.GetClaims();
-                ClaimsIdentity identity = new ClaimsIdentity(claims, OAuthDefaults.AuthenticationType);
-                Authentication.SignIn(identity);
-            }
-
-            return Ok();
-        }
-
-        // GET api/Account/ExternalLogins?returnUrl=%2F&generateState=true
-        [AllowAnonymous]
-        [Route("ExternalLogins")]
-        public IEnumerable<ExternalLoginViewModel> GetExternalLogins(string returnUrl, bool generateState = false)
-        {
-            IEnumerable<AuthenticationDescription> descriptions = Authentication.GetExternalAuthenticationTypes();
-            List<ExternalLoginViewModel> logins = new List<ExternalLoginViewModel>();
-
-            string state;
-
-            if (generateState)
-            {
-                const int strengthInBits = 256;
-                state = RandomOAuthStateGenerator.Generate(strengthInBits);
-            }
-            else
-            {
-                state = null;
-            }
-
-            foreach (AuthenticationDescription description in descriptions)
-            {
-                ExternalLoginViewModel login = new ExternalLoginViewModel
-                {
-                    Name = description.Caption,
-                    Url = Url.Route("ExternalLogin", new
-                    {
-                        provider = description.AuthenticationType,
-                        response_type = "token",
-                        client_id = Startup.PublicClientId,
-                        redirect_uri = new Uri(Request.RequestUri, returnUrl).AbsoluteUri,
-                        state = state
-                    }),
-                    State = state
-                };
-                logins.Add(login);
-            }
-
-            return logins;
-        }
-
+        
         // POST: /Account/ConfirmEmail
         [AllowAnonymous]
         [Route("ConfirmEmail")]
@@ -709,52 +518,307 @@ namespace ilevus.Controllers
 
             return Ok(new UserInfoViewModel(user));
         }
-
-        // POST api/Account/RegisterExternal
-        [OverrideAuthentication]
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
-        [Route("RegisterExternal")]
-        public async Task<IHttpActionResult> RegisterExternal(RegisterExternalBindingModel model)
+        
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("LoginWithFacebook")]
+        public async Task<IHttpActionResult> LoginWithFacebook(SocialLoginBindingModel model)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrEmpty(model.AccessToken))
             {
-                return BadRequest(ModelState);
+                return BadRequest("An access token must be provided.");
+            }
+            FacebookClient client = new FacebookClient(model.AccessToken);
+            FacebookUser facebookUser = client.Get<FacebookUser>(
+                "https://graph.facebook.com/me?fields=email,id,first_name,last_name,locale,location,work,verified"
+            );
+
+            IlevusUser user = await UserManager.FindAsync(new UserLoginInfo("Facebook", facebookUser.id));
+
+            bool hasRegistered = user != null;
+
+            if (!hasRegistered)
+            {
+                user = await UserManager.FindByEmailAsync(facebookUser.email);
             }
 
-            var info = await Authentication.GetExternalLoginInfoAsync();
-            if (info == null)
+            if (user == null)
             {
-                return InternalServerError();
+                user = new IlevusUser()
+                {
+                    UserName = facebookUser.email,
+                    Email = facebookUser.email,
+                    EmailConfirmed = facebookUser.verified,
+                    Name = facebookUser.first_name,
+                    Surname = facebookUser.last_name,
+                    Image = "https://graph.facebook.com/" + facebookUser.id + "/picture?height=160&width=160",
+                    Culture = CultureHelper.GetImplementedCulture(facebookUser.locale)
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
             }
 
-            var user = new IlevusUser() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
+            if (!hasRegistered)
             {
-                return GetErrorResult(result);
+                var info = new ExternalLoginInfo()
+                {
+                    DefaultUserName = user.UserName,
+                    Login = new UserLoginInfo("Facebook", facebookUser.id)
+                };
+
+                IdentityResult result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
             }
 
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-            return Ok();
+            //generate access token response
+            var accessTokenResponse = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user.UserName);
+            
+            return Ok(accessTokenResponse);
         }
 
-        protected override void Dispose(bool disposing)
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("LoginWithLinkedin")]
+        public IHttpActionResult LoginWithLinkedin()
         {
-            if (disposing && _userManager != null)
+            string redirect = Uri.EscapeDataString(BaseURL + "api/User/LoginWithLinkedinCallback");
+            string str = Startup.linkedinAuthOptions.ClientId + DateTime.Now.Day.ToString()+ DateTime.Now.Month.ToString();
+            var state = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
+
+            return Redirect("https://www.linkedin.com/oauth/v2/authorization"
+                + "?response_type=code"
+                + "&client_id="+Startup.linkedinAuthOptions.ClientId
+                + "&redirect_uri="+redirect
+                + "&state="+state
+                + "&scope=r_basicprofile%20r_emailaddress"
+            );
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("LoginWithLinkedinCallback")]
+        public async Task<IHttpActionResult> GetLoginWithLinkedinCallback(string code, string state)
+        {
+            if (string.IsNullOrEmpty(code))
             {
-                _userManager.Dispose();
-                _userManager = null;
+                return BadRequest("A code must be provided.");
+            }
+            string str = Startup.linkedinAuthOptions.ClientId + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString();
+            var stateCalc = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
+            if (!stateCalc.Equals(state, StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Invalid request state.");
             }
 
-            base.Dispose(disposing);
+            LinkedinClient client = await LinkedinClient.Create(code, Startup.linkedinAuthOptions.ClientId,
+                Startup.linkedinAuthOptions.ClientSecret, BaseURL + "api/User/LoginWithLinkedinCallback");
+
+            if (client == null)
+            {
+                return BadRequest("Error retrieving the access token for linkedin.");
+            }
+            var linkedinUser = await client.Get< LinkedinUser>(
+                "https://api.linkedin.com/v1/people/~"
+                + ":(id,first-name,last-name,headline,picture-url,email-address,summary,specialties,industry,public-profile-url)"
+            );
+
+            IlevusUser user = await UserManager.FindAsync(new UserLoginInfo("Linkedin", linkedinUser.id));
+
+            bool hasRegistered = user != null;
+
+            if (!hasRegistered)
+            {
+                user = await UserManager.FindByEmailAsync(linkedinUser.emailAddress);
+            }
+
+            if (user == null)
+            {
+                user = new IlevusUser()
+                {
+                    UserName = linkedinUser.emailAddress,
+                    Email = linkedinUser.emailAddress,
+                    EmailConfirmed = true,
+                    Name = linkedinUser.firstName,
+                    Surname = linkedinUser.lastName,
+                    Image = linkedinUser.pictureUrl,
+                    Industry = linkedinUser.industry,
+                    Headline = linkedinUser.headline,
+                    Summary = linkedinUser.summary,
+                    Specialties = linkedinUser.specialties,
+                    LinkedinProfileUrl = linkedinUser.publicProfileUrl
+                };
+
+                IdentityResult result = await UserManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+
+            if (!hasRegistered)
+            {
+                var info = new ExternalLoginInfo()
+                {
+                    DefaultUserName = user.UserName,
+                    Login = new UserLoginInfo("Linkedin", linkedinUser.id)
+                };
+
+                IdentityResult result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+
+            //generate access token response
+            var accessTokenResponse = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user.UserName);
+
+            return Redirect(BaseURL + "#/auth-callback/"
+                + Uri.EscapeDataString(accessTokenResponse.GetValue("access_token").ToString())
+            );
         }
+
+        public class SocialLoginBindingModel
+        {
+            public string AccessToken { get; set; }
+        }
+        
+        class FacebookUser
+        {
+            public string id { get; set; }
+            public string first_name { get; set; }
+            public string last_name { get; set; }
+            public string email { get; set; }
+            public string locale { get; set; }
+            public bool verified { get; set; }
+            public object location { get; set; }
+            public object work { get; set; }
+        }
+        
+
+
+
+
+
 
         #region Helpers
+        
+        public class ParsedExternalAccessToken
+        {
+            public string user_id { get; set; }
+            public string app_id { get; set; }
+        }
+
+        private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
+        {
+            ParsedExternalAccessToken parsedToken = new ParsedExternalAccessToken();
+            return parsedToken;
+
+            var verifyTokenEndPoint = "";
+
+            if (provider == "Facebook")
+            {
+                //You can get it from here: https://developers.facebook.com/tools/accesstoken/
+                //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
+                verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}",
+                    accessToken, Startup.FacebookAppToken);
+            }
+            
+            var client = new HttpClient();
+            var uri = new Uri(verifyTokenEndPoint);
+            var response = await client.GetAsync(uri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+
+                dynamic jObj = (JObject) Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+
+                parsedToken = new ParsedExternalAccessToken();
+
+                if (provider == "Facebook")
+                {
+                    parsedToken.user_id = jObj["data"]["user_id"];
+                    parsedToken.app_id = jObj["data"]["app_id"];
+
+                    if (!string.Equals(Startup.facebookAuthOptions.AppId, parsedToken.app_id, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return null;
+                    }
+                }
+                else
+                {
+                    
+
+                }
+
+            }
+
+            return parsedToken;
+        }
+
+        private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
+        {
+
+            Uri redirectUri;
+
+            var redirectUriString = GetQueryString(Request, "redirect_uri");
+
+            if (string.IsNullOrWhiteSpace(redirectUriString))
+            {
+                return "redirect_uri is required";
+            }
+
+            bool validUri = Uri.TryCreate(redirectUriString, UriKind.Absolute, out redirectUri);
+
+            if (!validUri)
+            {
+                return "redirect_uri is invalid";
+            }
+
+            var clientId = GetQueryString(Request, "client_id");
+
+            if (string.IsNullOrWhiteSpace(clientId))
+            {
+                return "client_Id is required";
+            }
+            /*
+            var client = UserManager.FindClient(clientId);
+
+            if (client == null)
+            {
+                return string.Format("Client_id '{0}' is not registered in the system.", clientId);
+            }
+
+            if (!string.Equals(client.AllowedOrigin, redirectUri.GetLeftPart(UriPartial.Authority), StringComparison.OrdinalIgnoreCase))
+            {
+                return string.Format("The given URL is not allowed by Client_id '{0}' configuration.", clientId);
+            }
+            */
+            redirectUriOutput = redirectUri.AbsoluteUri;
+
+            return string.Empty;
+
+        }
+
+        private string GetQueryString(HttpRequestMessage request, string key)
+        {
+            var queryStrings = request.GetQueryNameValuePairs();
+
+            if (queryStrings == null) return null;
+
+            var match = queryStrings.FirstOrDefault(keyValue => string.Compare(keyValue.Key, key, true) == 0);
+
+            if (string.IsNullOrEmpty(match.Value)) return null;
+
+            return match.Value;
+        }
 
         private IAuthenticationManager Authentication
         {
@@ -779,12 +843,16 @@ namespace ilevus.Controllers
 
             return null;
         }
-
+        
         private class ExternalLoginData
         {
             public string LoginProvider { get; set; }
             public string ProviderKey { get; set; }
+            public string ProviderId { get; set; }
             public string UserName { get; set; }
+            public string Name { get; set; }
+            public string Picture { get; set; }
+            public string ExternalAccessToken { get; set; }
 
             public IList<Claim> GetClaims()
             {
@@ -808,8 +876,7 @@ namespace ilevus.Controllers
 
                 Claim providerKeyClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
 
-                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer)
-                    || String.IsNullOrEmpty(providerKeyClaim.Value))
+                if (providerKeyClaim == null || String.IsNullOrEmpty(providerKeyClaim.Issuer) || String.IsNullOrEmpty(providerKeyClaim.Value))
                 {
                     return null;
                 }
@@ -823,29 +890,12 @@ namespace ilevus.Controllers
                 {
                     LoginProvider = providerKeyClaim.Issuer,
                     ProviderKey = providerKeyClaim.Value,
-                    UserName = identity.FindFirstValue(ClaimTypes.Name)
+                    ProviderId = identity.FindFirstValue("ExternalId"),
+                    UserName = identity.FindFirstValue("ExternalEmail"),
+                    ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
+                    Name = identity.FindFirstValue("ExternalName"),
+                    Picture = identity.FindFirstValue("ExternalPicture")
                 };
-            }
-        }
-
-        private static class RandomOAuthStateGenerator
-        {
-            private static RandomNumberGenerator _random = new RNGCryptoServiceProvider();
-
-            public static string Generate(int strengthInBits)
-            {
-                const int bitsPerByte = 8;
-
-                if (strengthInBits % bitsPerByte != 0)
-                {
-                    throw new ArgumentException("strengthInBits must be evenly divisible by 8.", "strengthInBits");
-                }
-
-                int strengthInBytes = strengthInBits / bitsPerByte;
-
-                byte[] data = new byte[strengthInBytes];
-                _random.GetBytes(data);
-                return HttpServerUtility.UrlTokenEncode(data);
             }
         }
 

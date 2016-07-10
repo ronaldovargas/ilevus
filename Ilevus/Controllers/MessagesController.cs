@@ -21,6 +21,8 @@ namespace ilevus.Controllers
             {
                 resourceObject.Add(enumerator.Key.ToString(), enumerator.Value.ToString());
             }
+            resourceObject.Add("LinkedinClientId", Startup.linkedinAuthOptions.ClientId);
+            resourceObject.Add("FacebookClientId", Startup.facebookAuthOptions.AppId);
 
             return Ok(resourceObject);
         }
