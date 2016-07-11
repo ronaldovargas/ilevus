@@ -53,6 +53,9 @@ module.exports = {
         },{
         	test: /\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
         	loader: "file-loader"
+        }, {
+            test: /\.md$/,
+            loader: "raw-loader"
         }]
     }
 };

@@ -43,6 +43,13 @@ namespace ilevus.Models
             County = user.County;
             Country = user.Country;
 
+            Headline = user.Headline;
+            Industry = user.Industry;
+            Summary = user.Summary;
+            Specialties = user.Specialties;
+
+            LinkedinProfileUrl = user.LinkedinProfileUrl;
+
             EmailVisibility = user.EmailVisibility;
             Type = user.Type;
         }
@@ -55,7 +62,14 @@ namespace ilevus.Models
         public string City { get; set; }
         public string County { get; set; }
         public string Country { get; set; }
+        
+        public string Headline { get; set; }
+        public string Industry { get; set; }
+        public string Specialties { get; set; }
+        public string Summary { get; set; }
 
+        public string LinkedinProfileUrl { get; set; }
+        
         public string Culture { get; set; }
         public string Image { get; set; }
         public DateTime Creation { get; set; }

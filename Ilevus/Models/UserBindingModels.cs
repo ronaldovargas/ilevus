@@ -32,6 +32,13 @@ namespace ilevus.Models
         public string Code { get; set; }
     }
 
+    public class ChangeEmailBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
+        public string Email { get; set; }
+    }
+
     public class ChangePasswordBindingModel
     {
         [Required]
@@ -108,10 +115,6 @@ namespace ilevus.Models
 
     public class ProfileBindingModel
     {
-        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelEmail")]
-        public string Email { get; set; }
-        
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
         [Display(ResourceType = typeof(Messages), Name = "LabelName")]
         public string Name { get; set; }

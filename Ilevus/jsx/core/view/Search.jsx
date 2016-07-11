@@ -55,9 +55,9 @@ module.exports = React.createClass({
         });
     },
     componentDidUpdate() {
-        $('[data-toggle="tooltip"]').tooltip({
+        /*$('[data-toggle="tooltip"]').tooltip({
             animation: true
-        });
+        });*/
     },
 
     renderModels() {
@@ -72,6 +72,9 @@ module.exports = React.createClass({
 
         return <div>
             {this.state.models.map((model, index) => {
+
+                var industry = S(model.Industry);
+                var headline = S(model.Headline);
                 return (
                     <div className="ilv-card" key={"search-result-"+index}>
                         <div className="ilv-card-body" key={"result-"+index}>
@@ -87,13 +90,13 @@ module.exports = React.createClass({
                                         <span className="ilv-tag ilv-tag-warning">Premium</span>
                                     </div>
                                     <div>
-                                        <p className="ilv-text-small">Desenvolvimento Profissional</p>
+                                        {industry.isEmpty() ? "":<p className="ilv-text-small">{industry.s}</p>}
                                         <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
                                         <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                         <div className="ilv-btn-group m-l-1">
                                             <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelSave")}</button>
                                             <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelShare")}</button>
-                                        </div>                                      
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="ilv-media-right ilv-text-xs-center">

@@ -61,6 +61,36 @@ module.exports = React.createClass({
             <div>
                 <div className="ilv-card">
                     <div className="ilv-card-header">
+                        <strong>{Messages.get("LabelChangeLanguage")}</strong>
+                    </div>
+                    <div className="ilv-card-body">
+                        <form>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="ilv-form-group">
+                                        <label className="ilv-form-label" htmlFor="editAccountCulture">
+                                            {Messages.get("LabelLanguage")}
+                                        </label>
+                                        <select className="ilv-form-control" id="editAccountCulture" ref="account-culture" defaultValue={user.Culture}>
+                                            <option value="">-- {Messages.get("LabelLanguage")} --</option>
+                                            <option value="pt-br">{Messages.get("LanguagePortuguese")}</option>
+                                            <option value="en">{Messages.get("LanguageEnglish")}</option>
+                                            <option value="es">{Messages.get("LanguageSpanish")}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="ilv-card-footer">
+                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updateLanguage}>
+                            {Messages.get("ActionChangeLanguage")}
+                        </button>
+                    </div>
+                </div>
+
+                <div className="ilv-card">
+                    <div className="ilv-card-header">
                         <strong>
                             {Messages.get("LabelChangePassword")}
                         </strong>
@@ -90,6 +120,43 @@ module.exports = React.createClass({
                     <div className="ilv-card-footer">
                         <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updatePassword}>
                             {Messages.get("ActionChangePassword")}
+                        </button>
+                    </div>
+                </div>
+
+                <div className="ilv-card">
+                    <div className="ilv-card-header">
+                        <strong>
+                            {Messages.get("LabelChangeEmail")}
+                        </strong>
+                    </div>
+                    <div className="ilv-card-body">
+                        <form>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    
+                                    <div className="ilv-form-group m-b-0">
+                                        <label className="ilv-form-label" htmlFor="editProfileFormMail">
+                                            {Messages.get("LabelEmail")}
+                                        </label>
+                                        <input className="ilv-form-control"
+                                               type="email"
+                                               spellCheck={false}
+                                               id="editProfileFormMail"
+                                               ref="profile-email"
+                                               defaultValue={user.Email} />
+                                        <span className="ilv-text-small">
+                                            {Messages.get("TextEmailWillNotBeShared")}
+                                        </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="ilv-card-footer">
+                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updateEmail}>
+                            {Messages.get("ActionChangeEmail")}
                         </button>
                     </div>
                 </div>

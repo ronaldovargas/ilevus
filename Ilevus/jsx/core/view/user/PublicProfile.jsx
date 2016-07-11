@@ -2,6 +2,7 @@
 var _ = require("underscore");
 var $ = require("jquery");
 var S = require("string");
+var Marked = require("marked");
 var React = require("react");
 var Toastr = require("toastr");
 
@@ -43,9 +44,9 @@ module.exports = React.createClass({
         UserStore.off(null, null, this);
     },
     componentDidUpdate() {
-        $('[data-toggle="tooltip"]').tooltip({
+        /*$('[data-toggle="tooltip"]').tooltip({
             animation: true
-        });
+        });*/
     },
 
     render() {
@@ -61,6 +62,11 @@ module.exports = React.createClass({
         if (user.get("City")) {
             userLocation = user.get("City") + ", " + userLocation;
         }
+        userLocation = S(userLocation);
+        var industry = S(user.get("Industry"));
+        var headline = S(user.get("Headline"));
+        var summary = S(user.get("Summary"));
+        var specialties = S(user.get("Specialties"));
 
         return (<div className="m-y-3" role="banner">
             <div className="container">
@@ -79,9 +85,15 @@ module.exports = React.createClass({
                                             {user.get("Name")} {user.get("Surname")}
                                         </span>
                                         <span className="ilv-tag ilv-tag-warning">Premium</span>
-                                        <p>
-                                            <span>Desenvolvimento Profissional, {userLocation}</span>
-                                        </p>
+                                        <div>
+                                            {headline.isEmpty() ? "":<div>
+                                                {headline.s}
+                                            </div>}
+                                            <div>
+                                                {industry.isEmpty() ? "":industry.s}
+                                                {userLocation.isEmpty() ? "":" | "+userLocation.s}
+                                           </div>
+                                        </div>
                                     </div>
                                     <div className="ilv-media-right">
                                         <div className="ilv-text-xs-center">
@@ -107,6 +119,13 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                         </div>
+
+                        {summary.isEmpty() ? "":<div className="ilv-card">
+                            <div className="ilv-card-header">
+                                <strong>{Messages.get("LabelSummary")}</strong>
+                            </div>
+                            <div className="ilv-card-body" dangerouslySetInnerHTML={{__html: Marked(summary.s)}} />
+                        </div>}
                     </div>
                 </div>
             </div>

@@ -88,6 +88,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Atualizar e-mail.
+        /// </summary>
+        public static string ActionChangeEmail {
+            get {
+                return ResourceManager.GetString("ActionChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Atualizar idioma.
+        /// </summary>
+        public static string ActionChangeLanguage {
+            get {
+                return ResourceManager.GetString("ActionChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterar senha.
         /// </summary>
         public static string ActionChangePassword {
@@ -376,6 +394,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alterar endereço de e-mail.
+        /// </summary>
+        public static string LabelChangeEmail {
+            get {
+                return ResourceManager.GetString("LabelChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alterar idioma de exibição.
+        /// </summary>
+        public static string LabelChangeLanguage {
+            get {
+                return ResourceManager.GetString("LabelChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Altere a sua senha.
         /// </summary>
         public static string LabelChangePassword {
@@ -507,6 +543,15 @@ namespace ilevus.Resources {
         public static string LabelInbox {
             get {
                 return ResourceManager.GetString("LabelInbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idioma de exibição.
+        /// </summary>
+        public static string LabelLanguage {
+            get {
+                return ResourceManager.GetString("LabelLanguage", resourceCulture);
             }
         }
         
@@ -750,6 +795,33 @@ namespace ilevus.Resources {
         public static string LabelZipcode {
             get {
                 return ResourceManager.GetString("LabelZipcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inglês.
+        /// </summary>
+        public static string LanguageEnglish {
+            get {
+                return ResourceManager.GetString("LanguageEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Português.
+        /// </summary>
+        public static string LanguagePortuguese {
+            get {
+                return ResourceManager.GetString("LanguagePortuguese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Espanhol.
+        /// </summary>
+        public static string LanguageSpanish {
+            get {
+                return ResourceManager.GetString("LanguageSpanish", resourceCulture);
             }
         }
         

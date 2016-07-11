@@ -579,4 +579,28 @@
   <data name="TextSearchVerifyTerms" xml:space="preserve">
     <value>Verifique se os termos que pesquisou estão corretos ou se algum filtro está habilitado.</value>
   </data>
+  <data name="ActionChangeEmail" xml:space="preserve">
+    <value>Atualizar e-mail</value>
+  </data>
+  <data name="ActionChangeLanguage" xml:space="preserve">
+    <value>Atualizar idioma</value>
+  </data>
+  <data name="LabelChangeEmail" xml:space="preserve">
+    <value>Alterar endereço de e-mail</value>
+  </data>
+  <data name="LabelChangeLanguage" xml:space="preserve">
+    <value>Alterar idioma de exibição</value>
+  </data>
+  <data name="LabelLanguage" xml:space="preserve">
+    <value>Idioma de exibição</value>
+  </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>Inglês</value>
+  </data>
+  <data name="LanguagePortuguese" xml:space="preserve">
+    <value>Português</value>
+  </data>
+  <data name="LanguageSpanish" xml:space="preserve">
+    <value>Espanhol</value>
+  </data>
 </root>

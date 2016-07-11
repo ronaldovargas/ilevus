@@ -8,6 +8,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Numeral = require("numeral");
 var Toastr = require("toastr");
 var S = require("string");
+var Marked = require("marked");
 
 var React = require("react");
 var ReactDOM = require("react-dom");
@@ -37,6 +38,8 @@ var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
 var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 
+var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
+
 // string config
 S.TMPL_OPEN = '{';
 S.TMPL_CLOSE = '}';
@@ -50,6 +53,18 @@ Numeral.language("pt-BR");
 Toastr.options.positionClass = "toast-top-full-width";
 Toastr.options.timeOut = 4000;
 Toastr.options.extendedTimeOut = 10000;
+
+// Marked configuration
+Marked.setOptions({
+    renderer: new Marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false
+});
 
 Messages.load(function (success) {
     if (success) {
@@ -78,6 +93,10 @@ Messages.load(function (success) {
                     <Route path="recover-password" component={RecoverPassword} />
                     <Route path="reset-password/:email/:token" component={ResetPassword} />
                     <Route path="signup" component={Register} />
+
+                    <Route path="help">
+                        <IndexRoute component={MarkdownGuide} />
+                    </Route>
 
                     <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />

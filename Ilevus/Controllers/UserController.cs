@@ -11,13 +11,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
-using Microsoft.Owin.Security.OAuth;
 using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -30,7 +27,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.SessionState;
 
 namespace ilevus.Controllers
 {
@@ -472,7 +468,6 @@ namespace ilevus.Controllers
             var user = await UserManager.FindByNameAsync(identity.Name);
 
             user.Birthdate = model.Birthdate;
-            user.Email = model.Email;
             user.Name = model.Name;
             user.PhoneNumber = model.PhoneNumber;
             user.Sex = model.Sex;
