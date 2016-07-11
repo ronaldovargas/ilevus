@@ -67,7 +67,8 @@ Marked.setOptions({
 });
 
 Messages.load(function (success) {
-    if (success) {
+    // FIXME Pog pro fiorini
+    if (success || !success) {
         var culture = Messages.get("Culture");
 
         // Facebook API config.
@@ -82,7 +83,9 @@ Messages.load(function (success) {
             });
         };
 
-        Numeral.language(culture);
+        if (success)
+            Numeral.language(culture);
+
         ReactDOM.render((
 	        <Router history={hashHistory}>
 		        <Route path="/" component={Application}>

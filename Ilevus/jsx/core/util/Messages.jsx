@@ -11,7 +11,8 @@ module.exports = {
     _culture: null,
     _get: function (key) {
         if (!this._messages) {
-            throw "!!!MESSAGES_NOT_LOADED!!!";
+            //throw "messages not loaded error.";
+            return S(null);
         }
         return S(this._messages[key]);
     },
