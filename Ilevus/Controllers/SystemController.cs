@@ -110,7 +110,7 @@ namespace ilevus.Controllers
             return Ok();
         }
 
-
+        [HostAuthentication(DefaultAuthenticationTypes.ApplicationCookie)]
         [Route("User/ManageInfo")]
         public async Task<ManageInfoViewModel> GetManageInfo(string returnUrl, bool generateState = false)
         {

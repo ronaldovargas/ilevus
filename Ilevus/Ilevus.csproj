@@ -227,6 +227,9 @@
     <Compile Include="Enums\UserStatus.cs" />
     <Compile Include="Enums\EmailVisibility.cs" />
     <Compile Include="Enums\UserType.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ChallengeResult.cs" />
     <Compile Include="Helpers\CultureHelper.cs" />
     <Compile Include="Helpers\IlevusClaimTypes.cs" />
@@ -246,6 +249,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Global.asax" />
     <Content Include="img\user.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

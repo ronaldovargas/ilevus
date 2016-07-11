@@ -132,6 +132,7 @@ namespace ilevus.Models
         public UserStatus Status { get; set; }
 
         public IEnumerable Permissions { get; set; }
+        public IEnumerable Claims { get; set; }
     }
 
     public class UserLoginInfoViewModel

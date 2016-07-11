@@ -21,6 +21,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_RECOVER_PASSWORD: 'recoverPassword',
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
 	ACTION_RESET_PASSWORD: 'resetPassword',
+	ACTION_UPDATE_CULTURE: 'updateCulture',
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
@@ -72,17 +73,17 @@ var UserSession = Backbone.Model.extend({
 
 	clearStorage() {
 		localStorage.removeItem("token");
-		localStorage.removeItem("userId");
+		localStorage.removeItem("stayconnected");
 		sessionStorage.removeItem("token");
-		sessionStorage.removeItem("userId");
+		sessionStorage.removeItem("stayconnected");
 	},
 	putStorage(token, userId, stayconnected) {
 	    if (stayconnected) {
 	        localStorage.token = token;
-	        localStorage.userId = userId;
+	        localStorage.stayconnected = stayconnected;
 	    }
 	    sessionStorage.token = token;
-	    sessionStorage.userId = userId;
+	    sessionStorage.stayconnected = stayconnected;
 	},
 	setAuthorization(token) {
 	    $.ajaxSetup({
@@ -183,8 +184,7 @@ var UserSession = Backbone.Model.extend({
 				},
 				success(data, status, opts) {
 				    me.putStorage(data.access_token, data.userName, stayconnected);
-				    me.setAuthorization(data.access_token);
-				    me.refreshStatus();
+				    location.reload();
 				},
 				error(opts, status, errorMsg) {
 					me.handleRequestErrors([], opts);
@@ -203,8 +203,7 @@ var UserSession = Backbone.Model.extend({
 	        },
 	        success(data, status, opts) {
 	            me.putStorage(data.access_token, data.userName, true);
-	            me.setAuthorization(data.access_token);
-	            me.refreshStatus();
+	            location.reload();
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
@@ -222,8 +221,7 @@ var UserSession = Backbone.Model.extend({
 	        },
 	        success(data, status, opts) {
 	            me.putStorage(data.access_token, data.userName, true);
-	            me.setAuthorization(data.access_token);
-	            me.refreshStatus();
+	            location.reload(); 
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
@@ -342,6 +340,28 @@ var UserSession = Backbone.Model.extend({
 		});
 	},
 
+	updateCulture(params) {
+	    var me = this;
+
+	    if (S(params.Culture).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelLanguage']));
+	        return;
+	    }
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/ChangeCulture",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.putStorage(data.access_token, data.userName, sessionStorage.stayconnected || localStorage.stayconnected);
+	            location.reload();
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 	updatePassword(params) {
 	    var me = this; 
 
@@ -353,8 +373,12 @@ var UserSession = Backbone.Model.extend({
 	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelPasswordNew']));
 	        return;
 	    }
+	    if (S(params.ConfirmPassword).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelPasswordConfirm']));
+	        return;
+	    }
 	    if (params.NewPassword !== params.ConfirmPassword) {
-	        me.trigger("fail", Messages.get("ValidationPasswordsDontMatch"));
+	        me.trigger("fail", Messages.get("ValidationPasswordsDontMatchOnChange"));
 	        return;
 	    }
 	    if (S(params.NewPassword).length < 6) {

@@ -70,12 +70,13 @@ Messages.load(function (success) {
     if (success) {
         var culture = Messages.get("Culture");
 
+        // Facebook API config.
         window.fbAsyncInit = function () {
             FB.init({
                 appId: Messages.get("FacebookClientId"),
-                status: true, // check login status
+                status: false, // check login status
                 cookie: true, // enable cookies to allow the server to access the session
-                xfbml: true,  // parse XFBML
+                xfbml: false,  // parse XFBML
                 oauth: true,
                 version: 'v2.6'
             });

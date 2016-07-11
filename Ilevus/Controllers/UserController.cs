@@ -97,7 +97,8 @@ namespace ilevus.Controllers
             var user = UserManager.FindByName(identity.Name);
             return new UserInfoViewModel(user)
             {
-                Permissions = claims.Where(claim => claim.type == "IlevusPermission")
+                Permissions = claims.Where(claim => claim.type == "IlevusPermission"),
+                Claims = claims
             };
         }
 
@@ -513,7 +514,34 @@ namespace ilevus.Controllers
 
             return Ok(new UserInfoViewModel(user));
         }
-        
+
+        // GET api/Account/UpdateProfile
+        [HttpPost]
+        [Route("ChangeCulture")]
+        public async Task<IHttpActionResult> ChangeCulture(ChangeCultureBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+
+            user.Culture = model.Culture;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+            //var newPrincipal = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user);
+            JObject accessTokenResponse = await IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user, UserManager, Request.GetOwinContext());
+
+            return Ok(accessTokenResponse);
+        }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("LoginWithFacebook")]
@@ -573,7 +601,7 @@ namespace ilevus.Controllers
             }
 
             //generate access token response
-            var accessTokenResponse = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user.UserName);
+            JObject accessTokenResponse = await IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user, UserManager, Request.GetOwinContext());
             
             return Ok(accessTokenResponse);
         }
@@ -672,7 +700,7 @@ namespace ilevus.Controllers
             }
 
             //generate access token response
-            var accessTokenResponse = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user.UserName);
+            JObject accessTokenResponse = await IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user, UserManager, Request.GetOwinContext());
 
             return Redirect(BaseURL + "#/auth-callback/"
                 + Uri.EscapeDataString(accessTokenResponse.GetValue("access_token").ToString())

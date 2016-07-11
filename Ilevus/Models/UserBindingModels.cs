@@ -32,6 +32,13 @@ namespace ilevus.Models
         public string Code { get; set; }
     }
 
+    public class ChangeCultureBindingModel
+    {
+        [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelLanguage")]
+        public string Culture { get; set; }
+    }
+
     public class ChangeEmailBindingModel
     {
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]

@@ -763,6 +763,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resumo.
+        /// </summary>
+        public static string LabelSummary {
+            get {
+                return ResourceManager.GetString("LabelSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sobrenome.
         /// </summary>
         public static string LabelSurname {
@@ -1470,6 +1479,15 @@ namespace ilevus.Resources {
         public static string ValidationPasswordsDontMatch {
             get {
                 return ResourceManager.GetString("ValidationPasswordsDontMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A nova senha digitada não é igual à confirmação da senha..
+        /// </summary>
+        public static string ValidationPasswordsDontMatchOnChange {
+            get {
+                return ResourceManager.GetString("ValidationPasswordsDontMatchOnChange", resourceCulture);
             }
         }
         

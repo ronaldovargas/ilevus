@@ -2,6 +2,7 @@
 using ilevus.Models;
 using ilevus.Resources;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
@@ -29,26 +30,22 @@ namespace ilevus.Providers
             _publicClientId = publicClientId;
         }
 
-        public static JObject GenerateLocalAccessTokenResponse(string userName)
+        public static async Task<JObject> GenerateLocalAccessTokenResponse(IlevusUser user, IlevusUserManager userManager, IOwinContext context)
         {
-            var tokenExpiration = TimeSpan.FromDays(14);
-            ClaimsIdentity identity = new ClaimsIdentity(OAuthDefaults.AuthenticationType);
-            identity.AddClaim(new Claim(ClaimTypes.Name, userName));
-            identity.AddClaim(new Claim("role", "user"));
+            ClaimsIdentity cookiesIdentity = await CreateCookieIdentity(user, userManager);
+            context.Request.Context.Authentication.SignIn(cookiesIdentity);
 
-            var props = CreateProperties(userName);
-            props.IssuedUtc = DateTime.UtcNow;
-            props.ExpiresUtc = DateTime.UtcNow.Add(tokenExpiration);
-
-            var ticket = new AuthenticationTicket(identity, props);
+            ClaimsIdentity oAuthIdentity = await CreateOAuthIdentity(user, userManager);
+            AuthenticationProperties properties = CreateProperties(user.UserName);
+            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
 
             var accessToken = Startup.OAuthBearerOpts.AccessTokenFormat.Protect(ticket);
 
             JObject tokenResponse = new JObject(
-                                        new JProperty("userName", userName),
+                                        new JProperty("userName", user.UserName),
                                         new JProperty("access_token", accessToken),
                                         new JProperty("token_type", "bearer"),
-                                        new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
+                                        new JProperty("expires_in", Startup.OAuthAuthzOpts.AccessTokenExpireTimeSpan.TotalSeconds.ToString()),
                                         new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
                                         new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString())
             );
@@ -66,15 +63,13 @@ namespace ilevus.Providers
                 return;
             }
 
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
+            ClaimsIdentity cookiesIdentity = await CreateCookieIdentity(user, userManager);
+            context.Request.Context.Authentication.SignIn(cookiesIdentity);
 
-            oAuthIdentity.AddClaims(IlevusPermissionsProvider.GetPermissionClaims(user, oAuthIdentity));
-
+            ClaimsIdentity oAuthIdentity = await CreateOAuthIdentity(user, userManager);
             AuthenticationProperties properties = CreateProperties(user.UserName);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
             context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
@@ -119,7 +114,26 @@ namespace ilevus.Providers
             {
                 { "userName", userName }
             };
-            return new AuthenticationProperties(data);
+            var props = new AuthenticationProperties(data);
+            props.IssuedUtc = DateTime.UtcNow;
+            props.ExpiresUtc = DateTime.UtcNow.Add(Startup.OAuthAuthzOpts.AccessTokenExpireTimeSpan);
+            return props;
+        }
+
+        protected static async Task<ClaimsIdentity> CreateOAuthIdentity(IlevusUser user, IlevusUserManager userManager)
+        {
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, OAuthDefaults.AuthenticationType);
+            oAuthIdentity.AddClaims(IlevusPermissionsProvider.GetPermissionClaims(user, oAuthIdentity));
+
+            return oAuthIdentity;
+        }
+
+        protected static async Task<ClaimsIdentity> CreateCookieIdentity(IlevusUser user, IlevusUserManager userManager)
+        {
+            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, CookieAuthenticationDefaults.AuthenticationType);
+            oAuthIdentity.AddClaims(IlevusPermissionsProvider.GetPermissionClaims(user, oAuthIdentity));
+
+            return oAuthIdentity;
         }
     }
 }

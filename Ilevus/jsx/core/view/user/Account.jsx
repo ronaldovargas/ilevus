@@ -38,6 +38,18 @@ module.exports = React.createClass({
         UserSession.off(null, null, this);
     },
 
+    updateLanguage(event) {
+        $(this.refs["culture-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            Culture: this.refs['account-culture'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_CULTURE,
+            data: data
+        });
+    },
+
     updatePassword(event) {
         $(this.refs["setpwd-save"]).addClass("loading").attr("disabled", "disabled");
         var data = {
@@ -83,7 +95,7 @@ module.exports = React.createClass({
                         </form>
                     </div>
                     <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updateLanguage}>
+                        <button className="ilv-btn ilv-btn-primary" ref="culture-save" onClick={this.updateLanguage}>
                             {Messages.get("ActionChangeLanguage")}
                         </button>
                     </div>
@@ -124,7 +136,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                <div className="ilv-card">
+                <div className="ilv-card hidden">
                     <div className="ilv-card-header">
                         <strong>
                             {Messages.get("LabelChangeEmail")}

@@ -603,4 +603,10 @@
   <data name="LanguageSpanish" xml:space="preserve">
     <value>Espanhol</value>
   </data>
+  <data name="ValidationPasswordsDontMatchOnChange" xml:space="preserve">
+    <value>A nova senha digitada não é igual à confirmação da senha.</value>
+  </data>
+  <data name="LabelSummary" xml:space="preserve">
+    <value>Resumo</value>
+  </data>
 </root>
