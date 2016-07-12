@@ -1,7 +1,7 @@
 /**
-    Este é o arquivo que faz o setup do aplicação (frontend).
-    Aqui são definidas as rotas das telas, configurações de locale,
-    entre outras operações de inicialização da aplicação.
+    Este ï¿½ o arquivo que faz o setup do aplicaï¿½ï¿½o (frontend).
+    Aqui sï¿½o definidas as rotas das telas, configuraï¿½ï¿½es de locale,
+    entre outras operaï¿½ï¿½es de inicializaï¿½ï¿½o da aplicaï¿½ï¿½o.
 */
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -32,6 +32,8 @@ var PublicProfile = require("ilevus/jsx/core/view/user/PublicProfile.jsx");
 var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
 var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
+
+var ProfileWizard = require("ilevus/jsx/core/view/user/ProfileWizard.jsx");
 
 var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
@@ -110,6 +112,8 @@ Messages.load(function (success) {
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="account" component={UserAccount} />
                     </Route>
+
+                    <Route path="profile-wizard" component={ProfileWizard} />
 
                     <Route path="*" component={NotFound } />
                 </Route>
