@@ -1,10 +1,12 @@
 var React = require("react");
 
+var Link = require("react-router").Link;
+
 module.exports = React.createClass({
   render() {
     return (
       <div className="container">
-        <div className="row p-y-3">
+        <div className="row p-t-3">
 
           <div className="col-sm-6">
             <div className="text-xs-center m-b-2">
