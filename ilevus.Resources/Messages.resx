@@ -609,4 +609,7 @@
   <data name="LabelSummary" xml:space="preserve">
     <value>Resumo</value>
   </data>
+  <data name="TextCreateYourProfessionalProfile" xml:space="preserve">
+    <value>Crie seu perfil profissional na Ilevus.</value>
+  </data>
 </root>

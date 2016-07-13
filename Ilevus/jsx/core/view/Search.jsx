@@ -73,8 +73,8 @@ module.exports = React.createClass({
         return <div>
             {this.state.models.map((model, index) => {
 
-                var industry = S(model.Industry);
-                var headline = S(model.Headline);
+                var industry = S(model.Professional.Industry);
+                var headline = S(model.Professional.Headline);
                 return (
                     <div className="ilv-card" key={"search-result-"+index}>
                         <div className="ilv-card-body" key={"result-"+index}>

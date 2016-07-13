@@ -1096,6 +1096,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crie seu perfil profissional na Ilevus..
+        /// </summary>
+        public static string TextCreateYourProfessionalProfile {
+            get {
+                return ResourceManager.GetString("TextCreateYourProfessionalProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to O seu e-mail já foi confirmado..
         /// </summary>
         public static string TextEmailAlreadyConfirmed {

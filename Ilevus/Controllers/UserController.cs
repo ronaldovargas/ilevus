@@ -102,6 +102,16 @@ namespace ilevus.Controllers
             };
         }
 
+        // GET api/Account/UserInfo
+        [Route("ProfessionalProfile")]
+        public ProfessionalProfileViewModel GetProfessionalProfile()
+        {
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            // We wouldn't normally be likely to do this:
+            var user = UserManager.FindByName(identity.Name);
+            return new ProfessionalProfileViewModel(user);
+        }
+
         // POST api/Account/Logout
         [Route("Logout")]
         public IHttpActionResult Logout()

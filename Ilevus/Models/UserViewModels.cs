@@ -43,10 +43,7 @@ namespace ilevus.Models
             County = user.County;
             Country = user.Country;
 
-            Headline = user.Headline;
-            Industry = user.Industry;
-            Summary = user.Summary;
-            Specialties = user.Specialties;
+            Professional = new ProfessionalProfileViewModel(user);
 
             LinkedinProfileUrl = user.LinkedinProfileUrl;
 
@@ -63,10 +60,7 @@ namespace ilevus.Models
         public string County { get; set; }
         public string Country { get; set; }
         
-        public string Headline { get; set; }
-        public string Industry { get; set; }
-        public string Specialties { get; set; }
-        public string Summary { get; set; }
+        public ProfessionalProfileViewModel Professional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
         
@@ -133,6 +127,26 @@ namespace ilevus.Models
 
         public IEnumerable Permissions { get; set; }
         public IEnumerable Claims { get; set; }
+    }
+
+    public class ProfessionalProfileViewModel
+    {
+        public ProfessionalProfileViewModel(IlevusUser user)
+        {
+            Id = user.Id;
+            Headline = user.Headline;
+            Industry = user.Industry;
+            Summary = user.Summary;
+            Specialties = user.Specialties;
+        }
+        public string Id { get; set; }
+
+        // Basic information
+        public string Headline { get; set; }
+        public string Industry { get; set; }
+        public string Specialties { get; set; }
+        public string Summary { get; set; }
+
     }
 
     public class UserLoginInfoViewModel

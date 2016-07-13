@@ -11,6 +11,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserSession = Backbone.Model.extend({
     ACTION_REFRESH: 'refreshStatus',
+    ACTION_RETRIEVE_PROFESSIONAL_PROFILE: 'retrieveProfessionalProfile',
     ACTION_AUTH_CALLBACK: 'authCallback',
 	ACTION_LOGIN: 'login',
 	ACTION_LOGIN_FACEBOOK: 'loginWithFacebook',
@@ -247,6 +248,21 @@ var UserSession = Backbone.Model.extend({
 		    me.trigger("logout");
 		    location.assign("#/");
 		}
+	},
+
+	retrieveProfessionalProfile() {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/ProfessionalProfile",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
 	},
 
 	confirmEmail(params) {

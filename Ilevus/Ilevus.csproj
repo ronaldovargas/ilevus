@@ -260,6 +260,12 @@
     </Content>
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
+    <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
+    <Content Include="jsx\core\view\user\ProfileWizard.jsx" />
+    <Content Include="jsx\core\view\user\ProfileWizardAddress.jsx" />
+    <Content Include="jsx\core\view\user\ProfileWizardBasic.jsx" />
+    <Content Include="jsx\core\view\user\ProfileWizardCareer.jsx" />
+    <Content Include="jsx\core\view\user\ProfileWizardEducation.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

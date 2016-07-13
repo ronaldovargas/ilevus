@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
             <div className="m-y-2">
               <span className="ilv-progress">
-                <span className="ilv-progress-bar" style="width: 0%"></span>
+                <span className="ilv-progress-bar" style={{width: "0%"}}></span>
               </span>
             </div>
 

@@ -117,10 +117,8 @@ Messages.load(function (success) {
                         <Route path="account" component={UserAccount} />
                     </Route>
 
-                    <Route path="become-a-professional">
-                      <IndexRoute component={ProfileWizard} />
-                      
-                      <Route path="basic-information" component={ProfileWizardBasic} />
+                    <Route path="become-a-professional" component={ProfileWizard}>
+                      <Route path="basic" component={ProfileWizardBasic} />
                       <Route path="address" component={ProfileWizardAddress} />
                       <Route path="career" component={ProfileWizardCareer} />
                       <Route path="education" component={ProfileWizardEducation} />
