@@ -41,13 +41,13 @@ module.exports = React.createClass({
     },
 
     render() {
-        if (!this.state.professionalData) {
+        /*if (!this.state.professionalData) {
             return <LoadingGauge />;
-        }
+        }*/
         return (
               <div className="container">
                   {this.props.children ? this.props.children:<div className="row p-t-3">
-        
+
                   <div className="col-sm-6">
                     <div className="text-xs-center m-b-2">
                       <h2>{Messages.get("TextCreateYourProfessionalProfile")}</h2>

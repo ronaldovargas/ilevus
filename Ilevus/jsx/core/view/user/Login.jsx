@@ -33,7 +33,7 @@ module.exports = React.createClass({
 	},
 	componentDidMount() {
 		var me = this;
-		
+
 		if (!!UserSession.get("logged")) {
 		    me.context.router.push("/home");
 		} else {
@@ -108,13 +108,14 @@ module.exports = React.createClass({
                             <div className="ilv-card-header">
                                 <h3>{Messages.get("TextSignIn")}</h3>
                             </div>
-                            <div>
-                                <a className="ilv-btn ilv-btn-primary" href="/api/User/LoginWithLinkedin">
-                                    Linkedin
-                                </a>
-                                <button className="ilv-btn ilv-btn-primary" onClick={this.loginWithFacebook}>Facebook</button>
-                            </div>
                             <div className="ilv-card-body">
+                                <fieldset className="ilv-form-group">
+                                    <a className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-linkedin" href="/api/User/LoginWithLinkedin">Fazer login com o LinkedIn</a>
+                                </fieldset>
+                                <fieldset className="ilv-form-group">
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-facebook" onClick={this.loginWithFacebook}>Fazer login com o Facebook</button>
+                                </fieldset>
+                                <hr/>
                                 <form onSubmit={this.onSubmit}>
                                     <fieldset className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="email">{Messages.get("LabelEmail")}</label>
@@ -142,7 +143,7 @@ module.exports = React.createClass({
                                 </form>
                             </div>
                         </div>
-                        
+
 
                         <div className="ilv-text-xs-center m-y-3">
                             <ul className="ilv-nav ilv-nav-inline ilv-font-weight-semibold m-b-1">
