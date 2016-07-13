@@ -1,5 +1,7 @@
 var React = require("react");
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
 var Link = require("react-router").Link;
 
 module.exports = React.createClass({
@@ -17,43 +19,42 @@ module.exports = React.createClass({
 
             <div className="ilv-card">
               <div className="ilv-card-header">
-                <h3>Comece por suas informações básicas</h3>
+                <h3>{Messages.get("TextWizardHeaderBasic")}Comece por suas informações básicas</h3>
               </div>
 
               <div className="ilv-card-body">
                 <form>
-
+                  
                   <fieldset className="ilv-form-group">
-                    <label className="ilv-form-label">Nome</label>
-                    <input className="ilv-form-control ilv-form-control-lg" type="text" />
+                    <label className="ilv-form-label">{Messages.get("LabelAbstract")}Resumo</label>
+                    <textarea className="ilv-form-control ilv-form-control-lg"></textarea>
                   </fieldset>
 
                   <fieldset className="ilv-form-group">
-                    <label className="ilv-form-label">Sobrenome</label>
-                    <input className="ilv-form-control ilv-form-control-lg" type="text" />
-                  </fieldset>
-
-                  <fieldset className="ilv-form-group">
-                    <label className="ilv-form-label">Telefone</label>
+                    <label className="ilv-form-label">{Messages.get("LabelPhone")}Telefone</label>
                     <input className="ilv-form-control ilv-form-control-lg" type="phone" />
                   </fieldset>
 
                   <fieldset className="ilv-form-group">
-                    <label className="ilv-form-label">Idiomas</label>
+                    <label className="ilv-form-label">{Messages.get("LabelLanguages")}Idiomas</label>
                     <select className="ilv-form-control ilv-form-control-lg m-b-1">
                       <option selected>Português</option>
                       <option>English</option>
                       <option>Español</option>
                     </select>
-                    <a className="ilv-font-weight-semibold" href="">Adicionar idioma</a>
+                    <a className="ilv-font-weight-semibold" href="">{Messages.get("LabelAddLanguage")}Adicionar idioma</a>
                   </fieldset>
 
                 </form>
               </div>
 
               <div className="ilv-card-footer ilv-text-xs-right">
-                <a className="ilv-btn ilv-btn-clean" href="profile-wizard.html">Voltar</a>
-                <a className="ilv-btn ilv-btn-neutral" href="profile-wizard-address.html">Próximo</a>
+                <Link className="ilv-btn ilv-btn-clean" to="/become-a-professional">
+                    {Messages.get("LabelReturn")}Voltar
+                </Link>
+                <Link className="ilv-btn ilv-btn-neutral" to="/become-a-professional/address">
+                    {Messages.get("LabelNext")}Próximo
+                </Link>
               </div>
 
             </div>

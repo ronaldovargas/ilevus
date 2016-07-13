@@ -62,7 +62,7 @@ module.exports = React.createClass({
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">{Messages.get("LabelStep1")}Passo 1</strong>
                               <h3 className="m-a-0">{Messages.get("LabelBasicInformation")}Informações básicas</h3>
                               <p>Lorem ipsum dolor sit amet.</p>
-                              <Link className="ilv-font-weight-semibold" to="/become-a-professional/career">
+                              <Link className="ilv-font-weight-semibold" to="/become-a-professional/basic">
                                   {Messages.get("LabelChangeInformation")}Alterar informações
                               </Link>
                             </div>
