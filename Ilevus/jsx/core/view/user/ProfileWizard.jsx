@@ -59,11 +59,11 @@ module.exports = React.createClass({
 
                           <li className="ilv-media ilv-media-middle p-b-2">
                             <div className="ilv-media-body">
-                              <strong className="ilv-text-small ilv-text-uppercase text-muted">Passo 1</strong>
-                              <h3 className="m-a-0">Informações básicas</h3>
+                              <strong className="ilv-text-small ilv-text-uppercase text-muted">{Messages.get("LabelStep1")}Passo 1</strong>
+                              <h3 className="m-a-0">{Messages.get("LabelBasicInformation")}Informações básicas</h3>
                               <p>Lorem ipsum dolor sit amet.</p>
                               <Link className="ilv-font-weight-semibold" to="/become-a-professional/career">
-                                  Alterar informações
+                                  {Messages.get("LabelChangeInformation")}Alterar informações
                               </Link>
                             </div>
                             <div className="ilv-media-right">
@@ -73,19 +73,19 @@ module.exports = React.createClass({
 
                           <li className="ilv-media ilv-media-middle p-y-2">
                             <div className="ilv-media-body">
-                              <strong className="ilv-text-small ilv-text-uppercase text-muted">Passo 2</strong>
-                              <h3 className="m-a-0">Carreira profissional e formação</h3>
+                              <strong className="ilv-text-small ilv-text-uppercase text-muted">{Messages.get("LabelStep2")}Passo 2</strong>
+                              <h3 className="m-a-0">{Messages.get("LabelCareerEducation")}Carreira profissional e formação</h3>
                               <p>Lorem ipsum dolor sit amet.</p>
                               <Link className="ilv-btn ilv-btn-success" to="/become-a-professional/career">
-                                  Continuar
+                                  {Messages.get("LabelContinue")}Continuar
                               </Link>
                             </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
                             <div className="ilv-media-body">
-                              <strong className="ilv-text-small ilv-text-uppercase text-muted">Passo 3</strong>
-                              <h3 className="m-a-0">Serviços prestados</h3>
+                              <strong className="ilv-text-small ilv-text-uppercase text-muted">{Messages.get("LabelStep3")}Passo 3</strong>
+                              <h3 className="m-a-0">{Messages.get("LabelServices")}Serviços prestados</h3>
                               <p>Lorem ipsum dolor sit amet.</p>
                             </div>
                           </li>
