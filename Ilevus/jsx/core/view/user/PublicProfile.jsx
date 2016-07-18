@@ -63,10 +63,10 @@ module.exports = React.createClass({
             userLocation = user.get("City") + ", " + userLocation;
         }
         userLocation = S(userLocation);
-        var industry = S(user.get("Professional").Industry);
-        var headline = S(user.get("Professional").Headline);
-        var summary = S(user.get("Professional").Summary);
-        var specialties = S(user.get("Professional").Specialties);
+        var industry = S(user.get("Professional").Professional.Industry);
+        var headline = S(user.get("Professional").Professional.Headline);
+        var summary = S(user.get("Professional").Professional.Summary);
+        var specialties = S(user.get("Professional").Professional.Specialties);
 
         return (<div className="m-y-3" role="banner">
             <div className="container">

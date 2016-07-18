@@ -134,20 +134,12 @@ namespace ilevus.Models
         public ProfessionalProfileViewModel(IlevusUser user)
         {
             Id = user.Id;
-            Headline = user.Headline;
-            Industry = user.Industry;
-            Summary = user.Summary;
-            Specialties = user.Specialties;
+            Professional = user.Professional;
         }
         public string Id { get; set; }
-
-        // Basic information
-        public string Headline { get; set; }
-        public string Industry { get; set; }
-        public string Specialties { get; set; }
-        public string Summary { get; set; }
-
+        public UserProfessionalProfile Professional { get; set; }
     }
+
 
     public class UserLoginInfoViewModel
     {

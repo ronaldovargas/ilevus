@@ -22,10 +22,13 @@ var UserSession = Backbone.Model.extend({
 	ACTION_RECOVER_PASSWORD: 'recoverPassword',
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
 	ACTION_RESET_PASSWORD: 'resetPassword',
+
 	ACTION_UPDATE_CULTURE: 'updateCulture',
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
+	ACTION_UPDATE_PROFESSIONAL_BASIC: 'updateProfessionalBasic',
+
 	ACTION_REMOVE_PICTURE: 'removePicture',
 
 	BACKEND_URL: BACKEND_URL,
@@ -456,6 +459,26 @@ var UserSession = Backbone.Model.extend({
 	            me.set({ user: data });
 	            me.trigger("updateaddress", me);
 	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfessionalBasic(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfessionalBasic",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

@@ -609,7 +609,79 @@
   <data name="LabelSummary" xml:space="preserve">
     <value>Resumo</value>
   </data>
+  <data name="LabelActuationArea" xml:space="preserve">
+    <value>Área de atuação</value>
+  </data>
+  <data name="LabelBasicInformation" xml:space="preserve">
+    <value>Informações básicas</value>
+  </data>
+  <data name="LabelChangeInformation" xml:space="preserve">
+    <value>Alterar informações</value>
+  </data>
+  <data name="LabelContinue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="LabelHeadline" xml:space="preserve">
+    <value>Frase de apresentação</value>
+  </data>
+  <data name="LabelLoginWithFacebook" xml:space="preserve">
+    <value>Fazer login com o Facebook</value>
+  </data>
+  <data name="LabelLoginWithLinkedin" xml:space="preserve">
+    <value>Fazer login com o Linkedin</value>
+  </data>
+  <data name="LabelSpecialties" xml:space="preserve">
+    <value>Especialidades</value>
+  </data>
+  <data name="LabelStep" xml:space="preserve">
+    <value>Passo</value>
+  </data>
+  <data name="TextBasicProfessionalInfo" xml:space="preserve">
+    <value>Insira informações gerais sobre suas habilidades profissionais.</value>
+  </data>
+  <data name="TextCareerEducation" xml:space="preserve">
+    <value>Carreira profissional e formação</value>
+  </data>
+  <data name="TextCareerProfessionalInfo" xml:space="preserve">
+    <value>Insira suas experiências profissionais e sua formação acadêmica.</value>
+  </data>
   <data name="TextCreateYourProfessionalProfile" xml:space="preserve">
     <value>Crie seu perfil profissional na Ilevus.</value>
+  </data>
+  <data name="TextOfferedServices" xml:space="preserve">
+    <value>Serviços oferecidos</value>
+  </data>
+  <data name="TextServicesProfessionalInfo" xml:space="preserve">
+    <value>Indique e descreva os serviços que você oferece.</value>
+  </data>
+  <data name="ActionAddLanguage" xml:space="preserve">
+    <value>Adicionar idioma</value>
+  </data>
+  <data name="ActionRemoveLanguage" xml:space="preserve">
+    <value>Remover idioma</value>
+  </data>
+  <data name="LabelBack" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="LabelIndustry" xml:space="preserve">
+    <value>Área de atuação</value>
+  </data>
+  <data name="LabelLanguages" xml:space="preserve">
+    <value>Idiomas</value>
+  </data>
+  <data name="LabelNext" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="LabelPrevious" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="TextDataSavedSuccessfully" xml:space="preserve">
+    <value>Dados salvos com sucesso.</value>
+  </data>
+  <data name="TextWizardHeaderBasic" xml:space="preserve">
+    <value>Comece por suas informações básicas</value>
+  </data>
+  <data name="LabelSelectLanguage" xml:space="preserve">
+    <value>Selecione um idioma</value>
   </data>
 </root>
