@@ -181,6 +181,8 @@ namespace ilevus.Models
         public string Specialties { get; set; }
         public string Summary { get; set; }
         public IEnumerable<string> SpokenLanguages { get; set; }
+
+        public IEnumerable<UserEducation> Education { get; set; }
     }
 
     public class RegisterExternalBindingModel

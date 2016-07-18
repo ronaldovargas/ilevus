@@ -69,12 +69,14 @@ namespace ilevus.Models
         public UserProfessionalProfile()
         {
             BasicInfo = false;
+            EducationInfo = false;
             CareerInfo = false;
             ServicesInfo = false;
         }
 
         // Wizard steps concluded?
         public bool BasicInfo { get; set; }
+        public bool EducationInfo { get; set; }
         public bool CareerInfo { get; set; }
         public bool ServicesInfo { get; set; }
 
@@ -85,6 +87,20 @@ namespace ilevus.Models
         public string Summary { get; set; }
         public IEnumerable<string> SpokenLanguages { get; set; }
 
+        // Education info
+        public IEnumerable<UserEducation> Education { get; set; }
+
+    }
+
+    public class UserEducation
+    {
+        public bool Finished { get; set; }
+        public string Institution { get; set; }
+        public string Area { get; set; }
+        public string Type { get; set; }
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public string Description { get; set; }
     }
 
     public class IlevusRole : IdentityRole

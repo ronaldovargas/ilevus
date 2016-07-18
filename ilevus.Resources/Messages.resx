@@ -643,7 +643,7 @@
     <value>Carreira profissional e formação</value>
   </data>
   <data name="TextCareerProfessionalInfo" xml:space="preserve">
-    <value>Insira suas experiências profissionais e sua formação acadêmica.</value>
+    <value>Insira as informações sobre suas experiências profissionais.</value>
   </data>
   <data name="TextCreateYourProfessionalProfile" xml:space="preserve">
     <value>Crie seu perfil profissional na Ilevus.</value>
@@ -681,7 +681,82 @@
   <data name="TextWizardHeaderBasic" xml:space="preserve">
     <value>Comece por suas informações básicas</value>
   </data>
+  <data name="ActionAddNewEducation" xml:space="preserve">
+    <value>Adicionar nova formação</value>
+  </data>
+  <data name="ActionEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ActionRemove" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="ActionSaveEducation" xml:space="preserve">
+    <value>Salvar formação</value>
+  </data>
+  <data name="EducationTypeBachelor" xml:space="preserve">
+    <value>Bacharel</value>
+  </data>
+  <data name="EducationTypeMasters" xml:space="preserve">
+    <value>Mestrado</value>
+  </data>
+  <data name="EducationTypeOther" xml:space="preserve">
+    <value>Outro</value>
+  </data>
+  <data name="EducationTypePhD" xml:space="preserve">
+    <value>Doutorado</value>
+  </data>
+  <data name="EducationTypeSpecialization" xml:space="preserve">
+    <value>Especialização</value>
+  </data>
+  <data name="EducationTypeTechnical" xml:space="preserve">
+    <value>Técnico</value>
+  </data>
+  <data name="LabelBeginYear" xml:space="preserve">
+    <value>Ano de início</value>
+  </data>
+  <data name="LabelCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="LabelDescription" xml:space="preserve">
+    <value>Descrição</value>
+  </data>
+  <data name="LabelEducationArea" xml:space="preserve">
+    <value>Área</value>
+  </data>
+  <data name="LabelEducationInstitution" xml:space="preserve">
+    <value>Instituição de ensino</value>
+  </data>
+  <data name="LabelEducationType" xml:space="preserve">
+    <value>Nível de formação</value>
+  </data>
+  <data name="LabelEndYear" xml:space="preserve">
+    <value>Ano de conclusão</value>
+  </data>
+  <data name="LabelFinished" xml:space="preserve">
+    <value>Concluído</value>
+  </data>
+  <data name="LabelPeriod" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="LabelSelect" xml:space="preserve">
+    <value>Selecione</value>
+  </data>
   <data name="LabelSelectLanguage" xml:space="preserve">
     <value>Selecione um idioma</value>
+  </data>
+  <data name="LabelStartedAt" xml:space="preserve">
+    <value>Iniciado em</value>
+  </data>
+  <data name="LabelTo" xml:space="preserve">
+    <value>até</value>
+  </data>
+  <data name="TextCareer" xml:space="preserve">
+    <value>Experiência profissional</value>
+  </data>
+  <data name="TextEducation" xml:space="preserve">
+    <value>Formação acadêmica</value>
+  </data>
+  <data name="TextEducationProfessionalInfo" xml:space="preserve">
+    <value>Informe sua formação acadêmica.</value>
   </data>
 </root>

@@ -96,9 +96,34 @@ module.exports = React.createClass({
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                   {Messages.get("LabelStep")} 2
                               </strong>
-                              <h3 className="m-a-0">{Messages.get("TextCareerEducation")}</h3>
+                              <h3 className="m-a-0">{Messages.get("TextEducation")}</h3>
+                              <p>{Messages.get("TextEducationProfessionalInfo")}</p>
+                                {this.state.professionalData.BasicInfo ? (this.state.professionalData.EducationInfo ?
+                                <Link className="ilv-font-weight-semibold" to="/become-a-professional/education">
+                                    {Messages.get("LabelChangeInformation")}
+                                </Link>
+                                :
+                                <Link className="ilv-btn ilv-btn-success" to="/become-a-professional/education">
+                                    {Messages.get("LabelContinue")}
+                                </Link>
+                                ):""}
+                            </div>
+                            <div className="ilv-media-right">
+                                {this.state.professionalData.EducationInfo ?
+                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
+                                :""}
+                            </div>
+                          </li>
+
+                          <li className="ilv-media ilv-media-middle p-y-2">
+                            <div className="ilv-media-body">
+                              <strong className="ilv-text-small ilv-text-uppercase text-muted">
+                                  {Messages.get("LabelStep")} 3
+                              </strong>
+                              <h3 className="m-a-0">{Messages.get("TextCareer")}</h3>
                               <p>{Messages.get("TextCareerProfessionalInfo")}</p>
-                              {this.state.professionalData.BasicInfo ? (this.state.professionalData.CareerInfo ?
+                              {this.state.professionalData.BasicInfo && this.state.professionalData.EducationInfo
+                                ? (this.state.professionalData.CareerInfo ?
                                 <Link className="ilv-font-weight-semibold" to="/become-a-professional/career">
                                     {Messages.get("LabelChangeInformation")}
                                 </Link>
@@ -113,11 +138,12 @@ module.exports = React.createClass({
                           <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
-                                  {Messages.get("LabelStep")} 3
+                                  {Messages.get("LabelStep")} 4
                               </strong>
                               <h3 className="m-a-0">{Messages.get("TextOfferedServices")}</h3>
                               <p>{Messages.get("TextServicesProfessionalInfo")}</p>
-                              {this.state.professionalData.BasicInfo && this.state.professionalData.CareerInfo ? (this.state.professionalData.ServicesInfo ?
+                              {this.state.professionalData.BasicInfo && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
+                                ? (this.state.professionalData.ServicesInfo ?
                                 <Link className="ilv-font-weight-semibold" to="/become-a-professional/services">
                                     {Messages.get("LabelChangeInformation")}
                                 </Link>

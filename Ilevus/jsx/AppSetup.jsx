@@ -33,11 +33,11 @@ var RecoverPassword = require("ilevus/jsx/core/view/user/RecoverPassword.jsx");
 var Register = require("ilevus/jsx/core/view/user/Register.jsx");
 var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
 
-var ProfileWizard = require("ilevus/jsx/core/view/user/ProfileWizard.jsx");
-var ProfileWizardBasic = require("ilevus/jsx/core/view/user/ProfileWizardBasic.jsx");
-var ProfileWizardAddress = require("ilevus/jsx/core/view/user/ProfileWizardAddress.jsx");
-var ProfileWizardCareer = require("ilevus/jsx/core/view/user/ProfileWizardCareer.jsx");
-var ProfileWizardEducation = require("ilevus/jsx/core/view/user/ProfileWizardEducation.jsx");
+var ProfileWizard = require("ilevus/jsx/core/view/user/wizard/ProfileWizard.jsx");
+var ProfileWizardBasic = require("ilevus/jsx/core/view/user/wizard/ProfileWizardBasic.jsx");
+var ProfileWizardEducation = require("ilevus/jsx/core/view/user/wizard/ProfileWizardEducation.jsx");
+var ProfileWizardCareer = require("ilevus/jsx/core/view/user/wizard/ProfileWizardCareer.jsx");
+var ProfileWizardServices = require("ilevus/jsx/core/view/user/wizard/ProfileWizardServices.jsx");
 
 var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
@@ -119,9 +119,9 @@ Messages.load(function (success) {
 
                     <Route path="become-a-professional" component={ProfileWizard}>
                       <Route path="basic" component={ProfileWizardBasic} />
-                      <Route path="address" component={ProfileWizardAddress} />
-                      <Route path="career" component={ProfileWizardCareer} />
                       <Route path="education" component={ProfileWizardEducation} />
+                      <Route path="career" component={ProfileWizardCareer} />
+                      <Route path="services" component={ProfileWizardServices} />
                     </Route>
 
                     <Route path="*" component={NotFound } />

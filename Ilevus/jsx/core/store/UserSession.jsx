@@ -28,6 +28,9 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
 	ACTION_UPDATE_PROFESSIONAL_BASIC: 'updateProfessionalBasic',
+	ACTION_UPDATE_PROFESSIONAL_EDUCATION: 'updateProfessionalEducation',
+	ACTION_UPDATE_PROFESSIONAL_CAREER: 'updateProfessionalCareer',
+	ACTION_UPDATE_PROFESSIONAL_SERVICES: 'updateProfessionalServices',
 
 	ACTION_REMOVE_PICTURE: 'removePicture',
 
@@ -475,6 +478,66 @@ var UserSession = Backbone.Model.extend({
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/UpdateProfessionalBasic",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfessionalEducation(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfessionalEducation",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfessionalCareer(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfessionalCareer",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfessionalServices(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfessionalServices",
 	        dataType: 'json',
 	        data: params,
 	        success(data, status, opts) {
