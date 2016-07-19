@@ -133,7 +133,7 @@ module.exports = React.createClass({
 				                        <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
                                     </li>
 			                        <li className="ilv-nav-item">
-                                        <Link className="ilv-btn ilv-btn-success" to="/signup">{Messages.get("LabelSignUp")}</Link>
+                                        <Link className="ilv-btn ilv-btn-primary" to="/signup">{Messages.get("LabelSignUp")}</Link>
 			                        </li>
 
                                 </ul>
