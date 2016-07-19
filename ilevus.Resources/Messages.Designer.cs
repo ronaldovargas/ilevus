@@ -1852,7 +1852,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Conduzindo seu sucesso.
+        ///   Looks up a localized string similar to Conduza seu sucesso.
         /// </summary>
         public static string TextSlogan {
             get {
@@ -1861,7 +1861,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Encontre os melhores profissionais de consultoria e coaching para auxiliá-lo em sua carreira profissional..
+        ///   Looks up a localized string similar to Encontre os melhores profissionais de coaching e consultoria profissional do mundo..
         /// </summary>
         public static string TextSloganDescription {
             get {

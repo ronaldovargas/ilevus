@@ -29,12 +29,14 @@ module.exports = React.createClass({
                               <div className="ilv-lp-banner-content">
                                   <form onSubmit={this.onSearch}>
                                       <div className="ilv-text-xs-center">
-                                          <h1 className="ilv-lp-banner-slogan">Conduza seu sucesso{Messages.get("TextSlogan")}</h1>
-                                          <p className="ilv-lp-banner-lead">Encontre os melhores profissionais de coaching e consultoria profissional do mundo.{Messages.get("TextSloganDescription")}</p>
+                                          <h1 className="ilv-lp-banner-slogan">{Messages.get("TextSlogan")}</h1>
+                                          <p className="ilv-lp-banner-lead">{Messages.get("TextSloganDescription")}</p>
                                       </div>
                                       <div className="ilv-form-group center-block">
                                           <div className="ilv-input-group">
-                                              <input ref="search-term" className="ilv-form-control ilv-form-control-lg ilv-lp-banner-form-control" type="search" placeholder={Messages.get("TextSearchPlaceholder")} />
+                                              <input ref="search-term"
+                                                     className="ilv-form-control ilv-form-control-lg ilv-lp-banner-form-control"
+                                                     type="search" placeholder={Messages.get("TextSearchPlaceholder")} />
                                               <div className="ilv-input-group-btn">
                                                   <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success ilv-lp-banner-btn" type="submit">
                                                       {Messages.get("LabelSearch")}
