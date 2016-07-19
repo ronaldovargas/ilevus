@@ -49,7 +49,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-section">
+              <div className="ilv-lp-section ilv-lp-section-white">
                   <div className="container">
                       <div className="row">
                           <div className="col-md-8 col-md-offset-2">
@@ -92,10 +92,21 @@ module.exports = React.createClass({
                   <div className="container">
                       <div className="row">
                           <div className="col-md-6">
-                              <h2 className="m-t-3 m-b-2">Agende uma reunião hoje mesmo.</h2>
+                              <h2 className="m-b-2">Agende uma reunião hoje mesmo.</h2>
                               <p className="ilv-text-large m-b-2">
                                 Escolha entre os melhores profissionais do mundo e envie uma mensagem para agendar sua primeira reunião.
                               </p>
+                              <form className="ilv-form-inline">
+                      						<fieldset className="ilv-form-group">
+                        							<input className="ilv-form-control ilv-form-control-lg" type="text" placeholder="Localização"/>
+                      						</fieldset>
+                      						<fieldset className="ilv-form-group">
+                        							<input className="ilv-form-control ilv-form-control-lg" type="text" placeholder="Especialidade"/>
+                      						</fieldset>
+                                  <fieldset className="ilv-form-group">
+                    						      <button className="ilv-btn ilv-btn-lg ilv-btn-success" type="submit">Pesquisar</button>
+                                  </fieldset>
+                    					</form>
                           </div>
                       </div>
                   </div>
@@ -241,15 +252,39 @@ module.exports = React.createClass({
                                   </div>
                               </div>
                           </div>
+                          <div className="col-xs-12 text-xs-center m-t-2">
+                              <button className="ilv-btn ilv-btn-destructive ilv-btn-lg">Crie seu perfil profssional agora</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div className="ilv-lp-footer">
+                  <div className="container">
+                      <div className="row">
+                          <div className="col-sm-6">
+                              <h3 className="ilv-font-weight-normal m-t-3 m-b-2">
+                                  "O sistema da ilevus mudou minha vida. Através das ferramentas disponibilizadas gratuitamente na
+                                  plataforma, pude coordenar melhor meu trabalho e enxugar meus processos, trazendo benefícios
+                                  para mim e para meus clientes."
+                              </h3>
+                              <p className="ilv-text-large" style={{opacity: ".7"}}>João da Silva, Gestor de RH.</p>
+                          </div>
+                          <div className="col-sm-6">
+                              <img className="img-fluid" style={{borderRadius: ".25rem"}} src="http://cdn.c.photoshelter.com/img-get2/I0000g3IU_90eThI/fit=1000x750/Business-Profile-Photograph.jpg" />
+                          </div>
                       </div>
                   </div>
               </div>
 
               <footer className="ilv-lp-footer">
                   <div className="container">
-                      <div className="col-xs-12">
-                          <div className="ilv-text-xs-center">
-                            <img src={LogoWhite} alt="ilevus" />
+                      <div className="row">
+                          <div className="col-xs-12">
+                              <div className="ilv-text-xs-center">
+                                <img className="m-b-1" src={LogoWhite} alt="ilevus" />
+                                <p className="ilv-text-small">© 2016 Ilevus. Todos os direitos reservados.</p>
+                              </div>
                           </div>
                       </div>
                   </div>
