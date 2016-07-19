@@ -61,6 +61,33 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar idioma.
+        /// </summary>
+        public static string ActionAddLanguage {
+            get {
+                return ResourceManager.GetString("ActionAddLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adicionar nova experiência profissional.
+        /// </summary>
+        public static string ActionAddNewCareerExperience {
+            get {
+                return ResourceManager.GetString("ActionAddNewCareerExperience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adicionar nova formação.
+        /// </summary>
+        public static string ActionAddNewEducation {
+            get {
+                return ResourceManager.GetString("ActionAddNewEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voltar para o login.
         /// </summary>
         public static string ActionBackToLogin {
@@ -124,6 +151,33 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string ActionEdit {
+            get {
+                return ResourceManager.GetString("ActionEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remover.
+        /// </summary>
+        public static string ActionRemove {
+            get {
+                return ResourceManager.GetString("ActionRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remover idioma.
+        /// </summary>
+        public static string ActionRemoveLanguage {
+            get {
+                return ResourceManager.GetString("ActionRemoveLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remover foto.
         /// </summary>
         public static string ActionRemovePicture {
@@ -147,6 +201,24 @@ namespace ilevus.Resources {
         public static string ActionRequestPhone {
             get {
                 return ResourceManager.GetString("ActionRequestPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salvar experiência profissional.
+        /// </summary>
+        public static string ActionSaveCareerExperience {
+            get {
+                return ResourceManager.GetString("ActionSaveCareerExperience", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salvar formação.
+        /// </summary>
+        public static string ActionSaveEducation {
+            get {
+                return ResourceManager.GetString("ActionSaveEducation", resourceCulture);
             }
         }
         
@@ -304,6 +376,60 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bacharel.
+        /// </summary>
+        public static string EducationTypeBachelor {
+            get {
+                return ResourceManager.GetString("EducationTypeBachelor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mestrado.
+        /// </summary>
+        public static string EducationTypeMasters {
+            get {
+                return ResourceManager.GetString("EducationTypeMasters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outro.
+        /// </summary>
+        public static string EducationTypeOther {
+            get {
+                return ResourceManager.GetString("EducationTypeOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doutorado.
+        /// </summary>
+        public static string EducationTypePhD {
+            get {
+                return ResourceManager.GetString("EducationTypePhD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Especialização.
+        /// </summary>
+        public static string EducationTypeSpecialization {
+            get {
+                return ResourceManager.GetString("EducationTypeSpecialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Técnico.
+        /// </summary>
+        public static string EducationTypeTechnical {
+            get {
+                return ResourceManager.GetString("EducationTypeTechnical", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, confirme seu e-mail acessando o link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
         /// </summary>
         public static string EmailConfirmEmailBody {
@@ -358,6 +484,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Área de atuação.
+        /// </summary>
+        public static string LabelActuationArea {
+            get {
+                return ResourceManager.GetString("LabelActuationArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Anúncio.
         /// </summary>
         public static string LabelAd {
@@ -376,11 +511,38 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Voltar.
+        /// </summary>
+        public static string LabelBack {
+            get {
+                return ResourceManager.GetString("LabelBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informações básicas.
         /// </summary>
         public static string LabelBasicInfo {
             get {
                 return ResourceManager.GetString("LabelBasicInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informações básicas.
+        /// </summary>
+        public static string LabelBasicInformation {
+            get {
+                return ResourceManager.GetString("LabelBasicInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ano de início.
+        /// </summary>
+        public static string LabelBeginYear {
+            get {
+                return ResourceManager.GetString("LabelBeginYear", resourceCulture);
             }
         }
         
@@ -394,11 +556,56 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancelar.
+        /// </summary>
+        public static string LabelCancel {
+            get {
+                return ResourceManager.GetString("LabelCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empresa / Instituição.
+        /// </summary>
+        public static string LabelCareerInstitution {
+            get {
+                return ResourceManager.GetString("LabelCareerInstitution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Localização.
+        /// </summary>
+        public static string LabelCareerLocation {
+            get {
+                return ResourceManager.GetString("LabelCareerLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cargo / Função.
+        /// </summary>
+        public static string LabelCareerRole {
+            get {
+                return ResourceManager.GetString("LabelCareerRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alterar endereço de e-mail.
         /// </summary>
         public static string LabelChangeEmail {
             get {
                 return ResourceManager.GetString("LabelChangeEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alterar informações.
+        /// </summary>
+        public static string LabelChangeInformation {
+            get {
+                return ResourceManager.GetString("LabelChangeInformation", resourceCulture);
             }
         }
         
@@ -457,6 +664,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continuar.
+        /// </summary>
+        public static string LabelContinue {
+            get {
+                return ResourceManager.GetString("LabelContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to País.
         /// </summary>
         public static string LabelCountry {
@@ -484,6 +700,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descrição.
+        /// </summary>
+        public static string LabelDescription {
+            get {
+                return ResourceManager.GetString("LabelDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bairro.
         /// </summary>
         public static string LabelDistrict {
@@ -502,6 +727,33 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Área.
+        /// </summary>
+        public static string LabelEducationArea {
+            get {
+                return ResourceManager.GetString("LabelEducationArea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instituição de ensino.
+        /// </summary>
+        public static string LabelEducationInstitution {
+            get {
+                return ResourceManager.GetString("LabelEducationInstitution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nível de formação.
+        /// </summary>
+        public static string LabelEducationType {
+            get {
+                return ResourceManager.GetString("LabelEducationType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string LabelEmail {
@@ -511,11 +763,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ano de conclusão.
+        /// </summary>
+        public static string LabelEndYear {
+            get {
+                return ResourceManager.GetString("LabelEndYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Especialidade.
         /// </summary>
         public static string LabelExpertise {
             get {
                 return ResourceManager.GetString("LabelExpertise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Concluído.
+        /// </summary>
+        public static string LabelFinished {
+            get {
+                return ResourceManager.GetString("LabelFinished", resourceCulture);
             }
         }
         
@@ -538,11 +808,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frase de apresentação.
+        /// </summary>
+        public static string LabelHeadline {
+            get {
+                return ResourceManager.GetString("LabelHeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Caixa de entrada.
         /// </summary>
         public static string LabelInbox {
             get {
                 return ResourceManager.GetString("LabelInbox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Área de atuação.
+        /// </summary>
+        public static string LabelIndustry {
+            get {
+                return ResourceManager.GetString("LabelIndustry", resourceCulture);
             }
         }
         
@@ -556,11 +844,38 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Idiomas.
+        /// </summary>
+        public static string LabelLanguages {
+            get {
+                return ResourceManager.GetString("LabelLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Localização.
         /// </summary>
         public static string LabelLocalization {
             get {
                 return ResourceManager.GetString("LabelLocalization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fazer login com o Facebook.
+        /// </summary>
+        public static string LabelLoginWithFacebook {
+            get {
+                return ResourceManager.GetString("LabelLoginWithFacebook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fazer login com o Linkedin.
+        /// </summary>
+        public static string LabelLoginWithLinkedin {
+            get {
+                return ResourceManager.GetString("LabelLoginWithLinkedin", resourceCulture);
             }
         }
         
@@ -610,6 +925,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Próximo.
+        /// </summary>
+        public static string LabelNext {
+            get {
+                return ResourceManager.GetString("LabelNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Senha.
         /// </summary>
         public static string LabelPassword {
@@ -646,6 +970,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Período.
+        /// </summary>
+        public static string LabelPeriod {
+            get {
+                return ResourceManager.GetString("LabelPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Telefone.
         /// </summary>
         public static string LabelPhone {
@@ -660,6 +993,15 @@ namespace ilevus.Resources {
         public static string LabelPhoneNumber {
             get {
                 return ResourceManager.GetString("LabelPhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anterior.
+        /// </summary>
+        public static string LabelPrevious {
+            get {
+                return ResourceManager.GetString("LabelPrevious", resourceCulture);
             }
         }
         
@@ -709,6 +1051,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecione.
+        /// </summary>
+        public static string LabelSelect {
+            get {
+                return ResourceManager.GetString("LabelSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecione um idioma.
+        /// </summary>
+        public static string LabelSelectLanguage {
+            get {
+                return ResourceManager.GetString("LabelSelectLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecione uma foto de perfil.
         /// </summary>
         public static string LabelSelectPicture {
@@ -754,11 +1114,38 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Especialidades.
+        /// </summary>
+        public static string LabelSpecialties {
+            get {
+                return ResourceManager.GetString("LabelSpecialties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciado em.
+        /// </summary>
+        public static string LabelStartedAt {
+            get {
+                return ResourceManager.GetString("LabelStartedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Permanecer conectado.
         /// </summary>
         public static string LabelStayConnected {
             get {
                 return ResourceManager.GetString("LabelStayConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passo.
+        /// </summary>
+        public static string LabelStep {
+            get {
+                return ResourceManager.GetString("LabelStep", resourceCulture);
             }
         }
         
@@ -777,6 +1164,15 @@ namespace ilevus.Resources {
         public static string LabelSurname {
             get {
                 return ResourceManager.GetString("LabelSurname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to até.
+        /// </summary>
+        public static string LabelTo {
+            get {
+                return ResourceManager.GetString("LabelTo", resourceCulture);
             }
         }
         
@@ -1096,11 +1492,74 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insira informações gerais sobre suas habilidades profissionais..
+        /// </summary>
+        public static string TextBasicProfessionalInfo {
+            get {
+                return ResourceManager.GetString("TextBasicProfessionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experiência profissional.
+        /// </summary>
+        public static string TextCareer {
+            get {
+                return ResourceManager.GetString("TextCareer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carreira profissional e formação.
+        /// </summary>
+        public static string TextCareerEducation {
+            get {
+                return ResourceManager.GetString("TextCareerEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insira as informações sobre suas experiências profissionais..
+        /// </summary>
+        public static string TextCareerProfessionalInfo {
+            get {
+                return ResourceManager.GetString("TextCareerProfessionalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Crie seu perfil profissional na Ilevus..
         /// </summary>
         public static string TextCreateYourProfessionalProfile {
             get {
                 return ResourceManager.GetString("TextCreateYourProfessionalProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dados salvos com sucesso..
+        /// </summary>
+        public static string TextDataSavedSuccessfully {
+            get {
+                return ResourceManager.GetString("TextDataSavedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formação acadêmica.
+        /// </summary>
+        public static string TextEducation {
+            get {
+                return ResourceManager.GetString("TextEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe sua formação acadêmica..
+        /// </summary>
+        public static string TextEducationProfessionalInfo {
+            get {
+                return ResourceManager.GetString("TextEducationProfessionalInfo", resourceCulture);
             }
         }
         
@@ -1173,6 +1632,15 @@ namespace ilevus.Resources {
         public static string TextNotFoundOops {
             get {
                 return ResourceManager.GetString("TextNotFoundOops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serviços oferecidos.
+        /// </summary>
+        public static string TextOfferedServices {
+            get {
+                return ResourceManager.GetString("TextOfferedServices", resourceCulture);
             }
         }
         
@@ -1312,11 +1780,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visualizar o meu perfil.
+        /// </summary>
+        public static string TextSeeMyProfile {
+            get {
+                return ResourceManager.GetString("TextSeeMyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecione a foto que você deseja enviar:.
         /// </summary>
         public static string TextSendPicture {
             get {
                 return ResourceManager.GetString("TextSendPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indique e descreva os serviços que você oferece..
+        /// </summary>
+        public static string TextServicesProfessionalInfo {
+            get {
+                return ResourceManager.GetString("TextServicesProfessionalInfo", resourceCulture);
             }
         }
         
@@ -1425,6 +1911,15 @@ namespace ilevus.Resources {
         public static string TextUserNotFound {
             get {
                 return ResourceManager.GetString("TextUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comece por suas informações básicas.
+        /// </summary>
+        public static string TextWizardHeaderBasic {
+            get {
+                return ResourceManager.GetString("TextWizardHeaderBasic", resourceCulture);
             }
         }
         

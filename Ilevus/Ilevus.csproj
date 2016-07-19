@@ -258,17 +258,24 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="jsx\core\util\Languages.json" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
-    <Content Include="jsx\core\view\user\ProfileWizard.jsx" />
-    <Content Include="jsx\core\view\user\ProfileWizardAddress.jsx" />
-    <Content Include="jsx\core\view\user\ProfileWizardBasic.jsx" />
-    <Content Include="jsx\core\view\user\ProfileWizardCareer.jsx" />
-    <Content Include="jsx\core\view\user\ProfileWizardEducation.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizard.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizardServices.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizardBasic.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizardCareer.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizardEducation.jsx" />
+    <Content Include="jsx\core\widget\LanguageSelect.jsx" />
+    <Content Include="jsx\core\widget\user\EducationForm.jsx" />
+    <Content Include="jsx\core\widget\user\CareerForm.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
+    <Content Include="sass\custom\_buttons-social.scss" />
+    <Content Include="sass\components\_progress.scss" />
+    <Content Include="sass\custom\_general.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

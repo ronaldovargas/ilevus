@@ -1,3 +1,28 @@
+
+.#{$prefix}tag-input {
+  display: inline-block;
+  padding: 0.5rem;
+  vertical-align: middle;
+  min-width: 4rem;
+  width: 100%;
+  min-height: 2.5rem;
+  background-color: $form-control-bg;
+  border: $form-control-border-width solid $form-control-border-color;
+  @include border-radius($form-control-border-radius);
+
+  // Disabled
+  &:disabled,
+  &[readonly] {
+    background-color: $form-control-bg-disabled;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: $cursor-disabled;
+  }
+}
+
+
 .#{$prefix}tag {
   display: inline-block;
   font-size: $tag-font-size;

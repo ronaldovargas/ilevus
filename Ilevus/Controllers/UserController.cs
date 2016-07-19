@@ -525,6 +525,91 @@ namespace ilevus.Controllers
             return Ok(new UserInfoViewModel(user));
         }
 
+        // GET api/Account/UpdateAddress
+        [HttpPost]
+        [Route("UpdateProfessionalBasic")]
+        public async Task<IHttpActionResult> UpdateProfessionalBasic(ProfessionalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            var professional = user.Professional;
+
+            professional.Industry = model.Industry;
+            professional.Headline = model.Headline;
+            professional.Specialties = model.Specialties;
+            professional.Summary = model.Summary;
+            professional.SpokenLanguages = model.SpokenLanguages;
+            professional.BasicInfo = true;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new ProfessionalProfileViewModel(user));
+        }
+
+        // GET api/Account/UpdateAddress
+        [HttpPost]
+        [Route("UpdateProfessionalEducation")]
+        public async Task<IHttpActionResult> UpdateProfessionalEducation(ProfessionalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            var professional = user.Professional;
+
+            professional.Education = model.Education;
+            professional.EducationInfo = true;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new ProfessionalProfileViewModel(user));
+        }
+
+        // GET api/Account/UpdateAddress
+        [HttpPost]
+        [Route("UpdateProfessionalCareer")]
+        public async Task<IHttpActionResult> UpdateProfessionalCareer(ProfessionalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            var professional = user.Professional;
+
+            professional.Career = model.Career;
+            professional.CareerInfo = true;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new ProfessionalProfileViewModel(user));
+        }
+
         // GET api/Account/UpdateProfile
         [HttpPost]
         [Route("ChangeCulture")]
@@ -680,10 +765,12 @@ namespace ilevus.Controllers
                     Name = linkedinUser.firstName,
                     Surname = linkedinUser.lastName,
                     Image = linkedinUser.pictureUrl,
-                    Industry = linkedinUser.industry,
-                    Headline = linkedinUser.headline,
-                    Summary = linkedinUser.summary,
-                    Specialties = linkedinUser.specialties,
+                    Professional = new UserProfessionalProfile() {
+                        Industry = linkedinUser.industry,
+                        Headline = linkedinUser.headline,
+                        Summary = linkedinUser.summary,
+                        Specialties = linkedinUser.specialties
+                    },
                     LinkedinProfileUrl = linkedinUser.publicProfileUrl
                 };
 
@@ -751,7 +838,6 @@ namespace ilevus.Controllers
         private async Task<ParsedExternalAccessToken> VerifyExternalAccessToken(string provider, string accessToken)
         {
             ParsedExternalAccessToken parsedToken = new ParsedExternalAccessToken();
-            return parsedToken;
 
             var verifyTokenEndPoint = "";
 

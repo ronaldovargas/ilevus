@@ -110,10 +110,14 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-card-body">
                                 <fieldset className="ilv-form-group">
-                                    <a className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-linkedin" href="/api/User/LoginWithLinkedin">{Messages.get("LabelLoginWithLinkedin")}Fazer login com o LinkedIn</a>
+                                    <a className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-linkedin" href="/api/User/LoginWithLinkedin">
+                                        {Messages.get("LabelLoginWithLinkedin")}
+                                    </a>
                                 </fieldset>
                                 <fieldset className="ilv-form-group">
-                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-facebook" onClick={this.loginWithFacebook}>{Messages.get("LabelLoginWithFacebook")}Fazer login com o Facebook</button>
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-facebook" onClick={this.loginWithFacebook}>
+                                        {Messages.get("LabelLoginWithFacebook")}
+                                    </button>
                                 </fieldset>
                                 <hr/>
                                 <form onSubmit={this.onSubmit}>

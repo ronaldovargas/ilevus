@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using ilevus.Resources;
+using System.Collections.Generic;
 
 namespace ilevus.Models
 {
@@ -170,6 +171,20 @@ namespace ilevus.Models
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
         [Display(ResourceType = typeof(Messages), Name = "LabelCountry")]
         public string Country { get; set; }
+    }
+
+    public class ProfessionalBindingModel
+    {
+        // Basic professional info
+        public string Headline { get; set; }
+        public string Industry { get; set; }
+        public string Specialties { get; set; }
+        public string Summary { get; set; }
+        public IEnumerable<string> SpokenLanguages { get; set; }
+
+        public IEnumerable<UserEducation> Education { get; set; }
+
+        public IEnumerable<UserCareer> Career { get; set; }
     }
 
     public class RegisterExternalBindingModel

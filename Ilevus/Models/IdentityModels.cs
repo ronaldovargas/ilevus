@@ -7,6 +7,7 @@ using ilevus.Enums;
 using AspNet.Identity.MongoDB;
 using MongoDB.Driver;
 using ilevus.Helpers;
+using System.Collections.Generic;
 
 namespace ilevus.Models
 {
@@ -25,10 +26,7 @@ namespace ilevus.Models
         public string County { get; set; }
         public string Country { get; set; }
 
-        public string Headline { get; set; }
-        public string Industry { get; set; }
-        public string Specialties { get; set; }
-        public string Summary { get; set; }
+        public UserProfessionalProfile Professional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
 
@@ -52,6 +50,7 @@ namespace ilevus.Models
             this.Creation = DateTime.Now;
             this.SearchLanguage = "portuguese";
             this.Culture = CultureHelper.GetDefaultCulture();
+            this.Professional = new UserProfessionalProfile();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)
@@ -63,6 +62,59 @@ namespace ilevus.Models
             return userIdentity;
         }
         
+    }
+
+    public class UserProfessionalProfile
+    {
+        public UserProfessionalProfile()
+        {
+            BasicInfo = false;
+            EducationInfo = false;
+            CareerInfo = false;
+            ServicesInfo = false;
+        }
+
+        // Wizard steps concluded?
+        public bool BasicInfo { get; set; }
+        public bool EducationInfo { get; set; }
+        public bool CareerInfo { get; set; }
+        public bool ServicesInfo { get; set; }
+
+        // Basic professional info
+        public string Headline { get; set; }
+        public string Industry { get; set; }
+        public string Specialties { get; set; }
+        public string Summary { get; set; }
+        public IEnumerable<string> SpokenLanguages { get; set; }
+
+        // Education info
+        public IEnumerable<UserEducation> Education { get; set; }
+
+        // Education info
+        public IEnumerable<UserCareer> Career { get; set; }
+
+    }
+
+    public class UserEducation
+    {
+        public bool Finished { get; set; }
+        public string Institution { get; set; }
+        public string Area { get; set; }
+        public string Type { get; set; }
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class UserCareer
+    {
+        public bool Finished { get; set; }
+        public string Institution { get; set; }
+        public string Role { get; set; }
+        public string Location { get; set; }
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public string Description { get; set; }
     }
 
     public class IlevusRole : IdentityRole

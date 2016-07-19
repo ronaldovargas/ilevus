@@ -17,7 +17,7 @@ namespace ilevus
             if (HttpContext.Current.Request.IsSecureConnection.Equals(false) && HttpContext.Current.Request.IsLocal.Equals(false))
             {
                 Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"]
-            + HttpContext.Current.Request.RawUrl);
+                    + HttpContext.Current.Request.RawUrl);
             }
         }
 
