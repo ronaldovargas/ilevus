@@ -107,9 +107,11 @@ module.exports = React.createClass({
                   <div className="container">
                       <div className="row">
                         <div className="col-md-6 p-t-2 pull-md-right">
-                            <h2 className="m-t-3 m-b-2">Faça parte da maior rede de profissionais em coaching do Brasil e do mundo.</h2>
-                            <p className="ilv-text-large m-b-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae neque at enim varius efficitur
-                            auctor nec lacus. Proin tortor tellus, bibendum at efficitur in, molestie a dui.</p>
+                            <h2 className="m-t-3 m-b-2">Faça parte da maior rede de profissionais em coaching do mundo.</h2>
+                            <p className="ilv-text-large m-b-2">
+                                É um profissional especializado em coaching? Crie seu perfil e divulgue seus serviços de
+                                coaching e consultoria para clientes do mundo todo.
+                            </p>
                             <button className="ilv-btn ilv-btn-lg ilv-btn-destructive">Crie seu perfil profissional</button>
                         </div>
                         <div className="col-md-6">
@@ -122,8 +124,124 @@ module.exports = React.createClass({
               <div className="ilv-lp-section">
                   <div className="container">
                       <div className="row">
-                          <div className="col-xs-12">
-                              <p>Ferramentas disponiveis</p>
+                          <div className="col-md-8 col-md-offset-2 ilv-text-xs-center">
+                              <h2 className="m-b-2">Diversas ferramentas a sua disposição.</h2>
+                              <p className="ilv-text-large m-b-3">
+                                  Na Ilevus você tem acesso a ferramentas de ponta que irão te auxiliar nas tarefas do dia a dia.
+                                  Torne seu trabalho mais dinâmico e produtivo, crie seu perfil profissional agora.
+                              </p>
+                              <br/>
+                              <br/>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Roda da vida</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Rota de ação</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Grande jornada</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">S.M.A.R.T</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Dar e receber</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Roda da realização</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Lista de desejos</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Ganhos e perdas</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">DISC</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">Missão e visão</span>
+                                  </div>
+                              </div>
+                          </div>
+                          <div className="col-md-3 m-b-3">
+                              <div className="ilv-media ilv-media-middle">
+                                  <div className="ilv-media-left">
+                                      <i className="material-icons md-48">&#xE84E;</i>
+                                  </div>
+                                  <div className="ilv-media-body">
+                                      <span className="ilv-text-large ilv-font-weight-semibold">E muito mais...</span>
+                                  </div>
+                              </div>
                           </div>
                       </div>
                   </div>
