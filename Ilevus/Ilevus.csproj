@@ -269,6 +269,7 @@
     <Content Include="jsx\core\view\user\wizard\ProfileWizardEducation.jsx" />
     <Content Include="jsx\core\widget\LanguageSelect.jsx" />
     <Content Include="jsx\core\widget\user\EducationForm.jsx" />
+    <Content Include="jsx\core\widget\user\CareerForm.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

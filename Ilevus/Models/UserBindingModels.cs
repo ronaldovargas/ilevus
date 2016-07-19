@@ -183,6 +183,8 @@ namespace ilevus.Models
         public IEnumerable<string> SpokenLanguages { get; set; }
 
         public IEnumerable<UserEducation> Education { get; set; }
+
+        public IEnumerable<UserCareer> Career { get; set; }
     }
 
     public class RegisterExternalBindingModel

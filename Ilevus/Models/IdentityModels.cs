@@ -90,6 +90,9 @@ namespace ilevus.Models
         // Education info
         public IEnumerable<UserEducation> Education { get; set; }
 
+        // Education info
+        public IEnumerable<UserCareer> Career { get; set; }
+
     }
 
     public class UserEducation
@@ -98,6 +101,17 @@ namespace ilevus.Models
         public string Institution { get; set; }
         public string Area { get; set; }
         public string Type { get; set; }
+        public string Begin { get; set; }
+        public string End { get; set; }
+        public string Description { get; set; }
+    }
+
+    public class UserCareer
+    {
+        public bool Finished { get; set; }
+        public string Institution { get; set; }
+        public string Role { get; set; }
+        public string Location { get; set; }
         public string Begin { get; set; }
         public string End { get; set; }
         public string Description { get; set; }

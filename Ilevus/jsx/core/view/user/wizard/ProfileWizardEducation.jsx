@@ -20,7 +20,7 @@ module.exports = React.createClass({
     },
     getInitialState() {
         return {
-            educations: this.context.professionalData.Education,
+            educations: this.context.professionalData.Education || [],
             adding: false,
             editing: -1
         };

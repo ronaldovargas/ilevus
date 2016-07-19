@@ -681,6 +681,9 @@
   <data name="TextWizardHeaderBasic" xml:space="preserve">
     <value>Comece por suas informações básicas</value>
   </data>
+  <data name="ActionAddNewCareerExperience" xml:space="preserve">
+    <value>Adicionar nova experiência profissional</value>
+  </data>
   <data name="ActionAddNewEducation" xml:space="preserve">
     <value>Adicionar nova formação</value>
   </data>
@@ -689,6 +692,9 @@
   </data>
   <data name="ActionRemove" xml:space="preserve">
     <value>Remover</value>
+  </data>
+  <data name="ActionSaveCareerExperience" xml:space="preserve">
+    <value>Salvar experiência profissional</value>
   </data>
   <data name="ActionSaveEducation" xml:space="preserve">
     <value>Salvar formação</value>
@@ -716,6 +722,15 @@
   </data>
   <data name="LabelCancel" xml:space="preserve">
     <value>Cancelar</value>
+  </data>
+  <data name="LabelCareerInstitution" xml:space="preserve">
+    <value>Empresa / Instituição</value>
+  </data>
+  <data name="LabelCareerLocation" xml:space="preserve">
+    <value>Localização</value>
+  </data>
+  <data name="LabelCareerRole" xml:space="preserve">
+    <value>Cargo / Função</value>
   </data>
   <data name="LabelDescription" xml:space="preserve">
     <value>Descrição</value>
@@ -758,5 +773,8 @@
   </data>
   <data name="TextEducationProfessionalInfo" xml:space="preserve">
     <value>Informe sua formação acadêmica.</value>
+  </data>
+  <data name="TextSeeMyProfile" xml:space="preserve">
+    <value>Visualizar o meu perfil</value>
   </data>
 </root>

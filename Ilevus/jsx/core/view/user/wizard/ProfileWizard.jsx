@@ -133,6 +133,11 @@ module.exports = React.createClass({
                                 </Link>
                               ):""}
                             </div>
+                            <div className="ilv-media-right">
+                                {this.state.professionalData.CareerInfo ?
+                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
+                                :""}
+                            </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
@@ -153,7 +158,23 @@ module.exports = React.createClass({
                                 </Link>
                               ):""}
                             </div>
+                            <div className="ilv-media-right">
+                                {this.state.professionalData.ServicesInfo ?
+                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
+                                :""}
+                            </div>
                           </li>
+                          {this.state.professionalData.BasicInfo && this.state.professionalData.EducationInfo
+                            && this.state.professionalData.CareerInfo && this.state.professionalData.ServicesInfo ?
+                                <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
+                                    <div className="ilv-media-body">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
+                                              to={"/profile"+this.state.professionalData.Id}>
+                                            {Messages.get("TextSeeMyProfile")}
+                                        </Link>
+                                    </div>
+                                </li>
+                          :""}
 
                         </ul>
                       </div>
