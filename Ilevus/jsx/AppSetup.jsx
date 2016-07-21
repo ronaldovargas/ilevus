@@ -36,6 +36,7 @@ var ResetPassword = require("ilevus/jsx/core/view/user/ResetPassword.jsx");
 
 var ProfileWizard = require("ilevus/jsx/core/view/user/wizard/ProfileWizard.jsx");
 var ProfileWizardBasic = require("ilevus/jsx/core/view/user/wizard/ProfileWizardBasic.jsx");
+var ProfileWizardAddress = require("ilevus/jsx/core/view/user/wizard/ProfileWizardAddress.jsx");
 var ProfileWizardEducation = require("ilevus/jsx/core/view/user/wizard/ProfileWizardEducation.jsx");
 var ProfileWizardCareer = require("ilevus/jsx/core/view/user/wizard/ProfileWizardCareer.jsx");
 var ProfileWizardServices = require("ilevus/jsx/core/view/user/wizard/ProfileWizardServices.jsx");
@@ -133,6 +134,7 @@ Messages.load(function (success) {
 
                     <Route path="become-a-professional" component={ProfileWizard}>
                       <Route path="basic" component={ProfileWizardBasic} />
+                      <Route path="address" component={ProfileWizardAddress} />
                       <Route path="education" component={ProfileWizardEducation} />
                       <Route path="career" component={ProfileWizardCareer} />
                       <Route path="services" component={ProfileWizardServices} />

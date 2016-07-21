@@ -49,17 +49,21 @@ namespace ilevus.Models
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Email),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Name),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Surname),
-                Builders<IlevusUser>.IndexKeys.Text(u => u.City),
-                Builders<IlevusUser>.IndexKeys.Text(u => u.County),
-                Builders<IlevusUser>.IndexKeys.Text(u => u.Country)
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.City),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.County),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Country),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Industry),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Specialties)
             );
             var weights = new BsonDocument();
             weights["Email"] = 10;
             weights["Surname"] = 8;
             weights["Name"] = 6;
-            weights["City"] = 4;
-            weights["County"] = 2;
-            weights["Country"] = 1;
+            weights["Professional.Industry"] = 6;
+            weights["Professional.Specialties"] = 6;
+            weights["Professional.City"] = 4;
+            weights["Professional.County"] = 2;
+            weights["Professional.Country"] = 1;
             var textOpts = new CreateIndexOptions<IlevusUser>()
             {
                 DefaultLanguage = "portuguese",

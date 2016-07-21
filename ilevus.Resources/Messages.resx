@@ -777,4 +777,13 @@
   <data name="TextSeeMyProfile" xml:space="preserve">
     <value>Visualizar o meu perfil</value>
   </data>
+  <data name="ActionCreateMyAccount" xml:space="preserve">
+    <value>Criar minha conta</value>
+  </data>
+  <data name="TextAddressInfo" xml:space="preserve">
+    <value>Insira sua localização e seu endereço profissional.</value>
+  </data>
+  <data name="TextWizardHeaderAddress" xml:space="preserve">
+    <value>Informe o seu endereço</value>
+  </data>
 </root>

@@ -39,10 +39,6 @@ namespace ilevus.Models
             Sex = user.Sex;
             Surname = user.Surname;
             
-            City = user.City;
-            County = user.County;
-            Country = user.Country;
-
             Professional = new ProfessionalProfileViewModel(user);
 
             LinkedinProfileUrl = user.LinkedinProfileUrl;
@@ -78,6 +74,7 @@ namespace ilevus.Models
         {
             Id = user.Id;
             Email = user.Email;
+            EmailConfirmed = user.EmailConfirmed;
             Birthdate = user.Birthdate;
             Creation = user.Creation;
             Culture = user.Culture;
@@ -89,17 +86,13 @@ namespace ilevus.Models
             Status = user.Status;
             Surname = user.Surname;
             Type = user.Type;
-            
-            Address = user.Address;
-            City = user.City;
-            Complement = user.Complement;
-            County = user.County;
-            Country = user.Country;
-            District = user.District;
-            Zipcode = user.Zipcode;
+
+            Professional = new ProfessionalProfileViewModel(user);
+
         }
         public string Id { get; set; }
         public string Email { get; set; }
+        public bool EmailConfirmed { get; set; }
         public bool HasRegistered { get; set; }
         public string LoginProvider { get; set; }
 
@@ -109,13 +102,7 @@ namespace ilevus.Models
         public DateTime Birthdate { get; set; }
         public string PhoneNumber { get; set; }
 
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string Complement { get; set; }
-        public string County { get; set; }
-        public string Country { get; set; }
-        public string District { get; set; }
-        public string Zipcode { get; set; }
+        public ProfessionalProfileViewModel Professional { get; set; }
 
         public string Culture { get; set; }
         public string Image { get; set; }

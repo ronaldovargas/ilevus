@@ -80,9 +80,8 @@ module.exports = React.createClass({
                         <div className="ilv-card-body" key={"result-"+index}>
                             <div className="ilv-media">
                                 <div className="ilv-media-left ilv-text-xs-center">
-                                    <span className="ilv-avatar ilv-avatar-xl">
-                                        <img src={model.Image} alt={model.Name} />
-                                    </span>
+                                    <div className="avatar-fluid avatar-fluid-xl"
+                                         style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
                                 </div>
                                 <div className="ilv-media-body">
                                     <div>

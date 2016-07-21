@@ -97,7 +97,7 @@ module.exports = React.createClass({
 					<div className="col-sm-6 col-sm-offset-3">
 						<div className="m-y-2">
                             <span className="ilv-progress">
-                                <span className="ilv-progress-bar" style={{width: "50%"}} />
+                                <span className="ilv-progress-bar" style={{width: "60%"}} />
                            </span>
                         </div>
 						<div className="ilv-card">

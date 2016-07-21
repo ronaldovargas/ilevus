@@ -7,6 +7,7 @@ var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
+var AddressForm = require("ilevus/jsx/core/widget/user/AddressForm.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
@@ -73,15 +74,7 @@ module.exports = React.createClass({
     },
     saveAddress() {
         $(this.refs["address-save"]).addClass("loading").attr("disabled", "disabled");
-        var data = {
-            Address: this.refs['address-address'].value,
-            Complement: this.refs['address-complement'].value,
-            District: this.refs['address-district'].value,
-            Zipcode: this.refs['address-zipcode'].value,
-            City: this.refs['address-city'].value,
-            County: this.refs['address-county'].value,
-            Country: this.refs['address-country'].value
-        };
+        var data = this.refs['form-address'].getValues();
 
         UserSession.dispatch({
             action: UserSession.ACTION_UPDATE_ADDRESS,
@@ -248,89 +241,10 @@ module.exports = React.createClass({
                         <strong>{Messages.get("LabelMyAddress")}</strong>
                     </div>
                     <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormZipcode">
-                                            {Messages.get("LabelZipcode")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormZipcode"
-                                               ref="address-zipcode"
-                                               defaultValue={user.Zipcode} />
-                                    </div>
-
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormAddress">
-                                            {Messages.get("LabelAddress")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormAddress"
-                                               ref="address-address"
-                                               defaultValue={user.Address} />
-                                    </div>
-
-                                    <div className="ilv-form-group ">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormAddressApt">
-                                            {Messages.get("LabelComplement")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormAddressApt"
-                                               ref="address-complement"
-                                               defaultValue={user.Complement} />
-                                    </div>
-
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormDistrict">
-                                            {Messages.get("LabelDistrict")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormDistrict"
-                                               ref="address-district"
-                                               defaultValue={user.District} />
-                                    </div>
-
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormCity">
-                                            {Messages.get("LabelCity")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormCity"
-                                               ref="address-city"
-                                               defaultValue={user.City} />
-                                    </div>
-
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormState">
-                                            {Messages.get("LabelCounty")}
-                                        </label>
-                                        <select className="ilv-form-control" id="editProfileFormState" ref="address-county" defaultValue={user.County}>
-                                            <option value="MG">Minas Gerais</option>
-                                        </select>
-                                    </div>
-
-                                    <div className="ilv-form-group  m-b-0">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormCountry">
-                                            {Messages.get("LabelCountry")}
-                                        </label>
-                                        <select className="ilv-form-control" id="editProfileFormCountry" ref="address-country" defaultValue={user.Country}>
-                                            <option value="Brazil">Brasil</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <AddressForm
+                            addressData={user.Professional.Professional}
+                            ref="form-address"
+                        />
                     </div>
                     <div className="ilv-card-footer">
                         <button className="ilv-btn ilv-btn-primary" onClick={this.saveAddress} ref="address-save">{Messages.get("LabelUpdateAddress")}</button>

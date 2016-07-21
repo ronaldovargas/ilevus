@@ -35,23 +35,6 @@ namespace ilevus.Controllers
         {
             this.Log = LogManager.GetLogger(this.GetType());
         }
-
-        protected override void Initialize(HttpControllerContext controllerContext)
-        {
-            base.Initialize(controllerContext);
-            if (!User.Identity.IsAuthenticated)
-            {
-                string cultureName = Request.Headers != null && Request.Headers.AcceptLanguage != null && Request.Headers.AcceptLanguage.Count > 0 ?
-                    Request.Headers.AcceptLanguage.First().Value :  // obtain it from HTTP header AcceptLanguages
-                    null;
-
-                // Validate culture name
-                cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
-
-                // Modify current thread's cultures            
-                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
-                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
-            }
-        }
+        
     }
 }

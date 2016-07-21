@@ -507,13 +507,14 @@ namespace ilevus.Controllers
             ClaimsIdentity identity = User.Identity as ClaimsIdentity;
             var user = await UserManager.FindByNameAsync(identity.Name);
 
-            user.Address = model.Address;
-            user.City = model.City;
-            user.Complement = model.Complement;
-            user.Country = model.Country;
-            user.County = model.County;
-            user.District = model.District;
-            user.Zipcode = model.Zipcode;
+            user.Professional.AddressInfo = true;
+            user.Professional.Address = model.Address;
+            user.Professional.City = model.City;
+            user.Professional.Complement = model.Complement;
+            user.Professional.Country = model.Country;
+            user.Professional.County = model.County;
+            user.Professional.District = model.District;
+            user.Professional.Zipcode = model.Zipcode;
             
             IdentityResult result = await UserManager.UpdateAsync(user);
 

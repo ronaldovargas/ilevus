@@ -151,6 +151,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Criar minha conta.
+        /// </summary>
+        public static string ActionCreateMyAccount {
+            get {
+                return ResourceManager.GetString("ActionCreateMyAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar.
         /// </summary>
         public static string ActionEdit {
@@ -1474,6 +1483,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insira sua localização e seu endereço profissional..
+        /// </summary>
+        public static string TextAddressInfo {
+            get {
+                return ResourceManager.GetString("TextAddressInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endereço atualizado com sucesso..
         /// </summary>
         public static string TextAddressUpdateSuccess {
@@ -1911,6 +1929,15 @@ namespace ilevus.Resources {
         public static string TextUserNotFound {
             get {
                 return ResourceManager.GetString("TextUserNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o seu endereço.
+        /// </summary>
+        public static string TextWizardHeaderAddress {
+            get {
+                return ResourceManager.GetString("TextWizardHeaderAddress", resourceCulture);
             }
         }
         

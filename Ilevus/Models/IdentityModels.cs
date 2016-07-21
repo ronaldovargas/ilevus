@@ -17,15 +17,7 @@ namespace ilevus.Models
         public string Surname { get; set; }
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
-
-        public string Address { get; set; }
-        public string Complement { get; set; }
-        public string District { get; set; }
-        public string Zipcode { get; set; }
-        public string City { get; set; }
-        public string County { get; set; }
-        public string Country { get; set; }
-
+        
         public UserProfessionalProfile Professional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
@@ -69,6 +61,7 @@ namespace ilevus.Models
         public UserProfessionalProfile()
         {
             BasicInfo = false;
+            AddressInfo = false;
             EducationInfo = false;
             CareerInfo = false;
             ServicesInfo = false;
@@ -76,6 +69,7 @@ namespace ilevus.Models
 
         // Wizard steps concluded?
         public bool BasicInfo { get; set; }
+        public bool AddressInfo { get; set; }
         public bool EducationInfo { get; set; }
         public bool CareerInfo { get; set; }
         public bool ServicesInfo { get; set; }
@@ -86,6 +80,15 @@ namespace ilevus.Models
         public string Specialties { get; set; }
         public string Summary { get; set; }
         public IEnumerable<string> SpokenLanguages { get; set; }
+
+        // Address info
+        public string Address { get; set; }
+        public string Complement { get; set; }
+        public string District { get; set; }
+        public string Zipcode { get; set; }
+        public string City { get; set; }
+        public string County { get; set; }
+        public string Country { get; set; }
 
         // Education info
         public IEnumerable<UserEducation> Education { get; set; }

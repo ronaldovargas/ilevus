@@ -461,6 +461,7 @@ var UserSession = Backbone.Model.extend({
 	        success(data, status, opts) {
 	            me.set({ user: data });
 	            me.trigger("updateaddress", me);
+	            me.trigger("professionalprofile", data.Professional);
 	            me.trigger("update", me);
 	        },
 	        error(opts, status, errorMsg) {

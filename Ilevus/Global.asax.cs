@@ -19,6 +19,20 @@ namespace ilevus
                 Response.Redirect("https://" + Request.ServerVariables["HTTP_HOST"]
                     + HttpContext.Current.Request.RawUrl);
             }
+            else
+            {
+                string cultureName = Request.Headers != null
+                    && Request.Headers.Get("Accept-Language") != null ?
+                        Request.Headers.Get("Accept-Language").Split(',')[0] :  // obtain it from HTTP header AcceptLanguages
+                        null;
+
+                // Validate culture name
+                cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
+
+                // Modify current thread's cultures            
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
+                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+            }
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)

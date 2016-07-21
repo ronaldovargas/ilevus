@@ -10,10 +10,14 @@ module.exports = React.createClass({
       <div className="container">
 				<div className="p-y-3">
 					<div className="col-sm-6 col-sm-offset-3">
-						<div className="m-y-2"><span className="ilv-progress"><span className="ilv-progress-bar" style={{width: "50%"}}></span></span></div>
+						<div className="m-y-2">
+                            <span className="ilv-progress">
+                                <span className="ilv-progress-bar" style={{width: "80%"}} />
+                            </span>
+                        </div>
 						<div className="ilv-card">
 							<div className="ilv-card-header">
-								<h3>{Messages.get("TextWizardHeaderAddress")}Informe o seu endereço</h3>
+								<h3>{Messages.get("TextWizardHeaderAddress")}</h3>
 							</div>
 							<div className="ilv-card-body">
 								<form>

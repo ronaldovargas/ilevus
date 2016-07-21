@@ -83,7 +83,10 @@ module.exports = React.createClass({
 
                                     <p className="ilv-text-small">{Messages.get("TextSignUpAgreement")}</p>
                                     <fieldset>
-                                        <input className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("LabelSignUp")} />
+                                        <input
+                                               className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block"
+                                               type="submit"
+                                               value={Messages.get("ActionCreateMyAccount")} />
                                     </fieldset>
                                 </form>
                             </div>

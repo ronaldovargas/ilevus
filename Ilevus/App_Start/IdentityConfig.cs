@@ -139,13 +139,16 @@ namespace ilevus.App_Start
                     EmailConfirmed = true,
                     Name = "Administrador",
                     Surname = "do Sistema",
-                    City = "Belo Horizonte",
-                    County = "Minas Gerais",
-                    Country = "Brasil",
-                    Address = "Sede da Ilevus",
                     Sex = "M",
-                    PhoneNumber = "+55 31 9 9999-9999",
-                    Image = null
+                    PhoneNumber = "031 999999999",
+                    Image = null,
+                    
+                    Professional = new UserProfessionalProfile() {
+                        City = "Belo Horizonte",
+                        County = "Minas Gerais",
+                        Country = "Brasil",
+                        Address = "Sede da Ilevus",
+                    }
                 };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
@@ -185,13 +188,17 @@ namespace ilevus.App_Start
                     EmailConfirmed = true,
                     Name = "Usuário",
                     Surname = "Exemplo",
-                    Address = "Sede da Ilevus",
-                    City = "Belo Horizonte",
-                    County = "Minas Gerais",
-                    Country = "Brasil",
                     Sex = "M",
-                    PhoneNumber = "+55 31 9 8888-8888",
-                    Image = null
+                    PhoneNumber = "031 988888888",
+                    Image = null,
+
+                    Professional = new UserProfessionalProfile()
+                    {
+                        City = "Belo Horizonte",
+                        County = "Minas Gerais",
+                        Country = "Brasil",
+                        Address = "Sede da Ilevus",
+                    }
                 };
                 var result = userManager.Create(commonUser, userPassword);
                 result = userManager.SetLockoutEnabled(commonUser.Id, false);

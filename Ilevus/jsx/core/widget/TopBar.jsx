@@ -121,7 +121,12 @@ module.exports = React.createClass({
                                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
                                                 <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
-                                                <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
+                                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
+                                                {this.state.user.EmailConfirmed ? "":
+                                                    <a className="dropdown-item" href="" onClick={this.confirmEmail}>
+                                                        {Messages.get("LabelConfirmEmail")}
+                                                    </a>
+                                                }
                                                 <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                             </div>
                                         </div>
