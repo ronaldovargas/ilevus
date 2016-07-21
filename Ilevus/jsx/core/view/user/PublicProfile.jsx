@@ -68,6 +68,9 @@ module.exports = React.createClass({
         var summary = S(user.get("Professional").Professional.Summary);
         var specialties = S(user.get("Professional").Professional.Specialties);
 
+        var educations = user.get("Professional").Professional.Education || [];
+        var careers = user.get("Professional").Professional.Career || [];
+        
         return (<div className="m-y-3" role="banner">
             <div className="container">
                 <div className="row">
@@ -120,12 +123,62 @@ module.exports = React.createClass({
                             </div>
                         </div>
 
-                        {summary.isEmpty() ? "":<div className="ilv-card">
+                        {summary.isEmpty() ? "":<div className="ilv-card m-b-3">
                             <div className="ilv-card-header">
                                 <strong>{Messages.get("LabelSummary")}</strong>
                             </div>
                             <div className="ilv-card-body" dangerouslySetInnerHTML={{__html: Marked(summary.s)}} />
                         </div>}
+
+                        {careers.length > 0 ? <div className="ilv-card m-b-3">
+                            <div className="ilv-card-header">
+                                <strong>{Messages.get("TextEducation")}</strong>
+                            </div>
+                            <div className="ilv-card-body ilv-media-list ilv-media-list-bordered">
+                                {careers.map((career, index) => {
+                                    return <li className="ilv-media ilv-media-middle" key={"education-" + index}>
+										<div className="ilv-media-body">
+											<h4>{career.Role}</h4>
+                                            <span className="ilv-text-large">
+                                                {career.Institution} | {career.Location}
+                                            </span>
+                                            <div className="ilv-text-large">{career.Finished ?
+                                                    career.Begin + " " + Messages.get("LabelTo") + " " + career.End
+                                                    :
+                                                    Messages.get("LabelStartedAt") + " " + career.Begin
+                                                }
+                                            </div>
+											<p>{career.Description}</p>
+										</div>
+                                    </li>;
+                                })}
+                            </div>
+                        </div>:""}
+
+                        {educations.length > 0 ? <div className="ilv-card m-b-3">
+                            <div className="ilv-card-header">
+                                <strong>{Messages.get("TextEducation")}</strong>
+                            </div>
+                            <div className="ilv-card-body ilv-media-list ilv-media-list-bordered">
+                                {educations.map((education, index) => {
+                                return <li className="ilv-media ilv-media-middle" key={"education-" + index}>
+										<div className="ilv-media-body">
+											<h4>{education.Institution}</h4>
+                                            <span className="ilv-text-large">
+                                                {Messages.get("EducationType" + education.Type)} | {education.Area}
+                                            </span>
+                                            <div className="ilv-text-large">{education.Finished ?
+                                                    education.Begin + " " + Messages.get("LabelTo") + " " + education.End
+                                                    :
+                                                    Messages.get("LabelStartedAt") + " " + education.Begin
+                                                }
+                                            </div>
+											<p>{education.Description}</p>
+										</div>
+                                    </li>;
+                                })}
+                            </div>
+                        </div>:""}
                     </div>
                 </div>
             </div>

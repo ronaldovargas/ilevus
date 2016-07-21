@@ -4,6 +4,7 @@
     entre outras opera��es de inicializa��o da aplica��o.
 */
 
+var _ = require("underscore");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Numeral = require("numeral");
 var Toastr = require("toastr");
@@ -78,16 +79,29 @@ Messages.load(function (success) {
         var culture = Messages.get("Culture");
 
         // Facebook API config.
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: Messages.get("FacebookClientId"),
-                status: false, // check login status
-                cookie: true, // enable cookies to allow the server to access the session
-                xfbml: false,  // parse XFBML
-                oauth: true,
-                version: 'v2.6'
+        if (typeof FB == 'undefined') {
+            window.fbAsyncInit = function () {
+                _.defer(() => {
+                    FB.init({
+                        appId: Messages.get("FacebookClientId"),
+                        cookie: false, // enable cookies to allow the server to access the session
+                        oauth: false,
+                        status: false,
+                        version: 'v2.6'
+                    });
+                });
+            };
+        } else {
+            _.defer(() => {
+                FB.init({
+                    appId: Messages.get("FacebookClientId"),
+                    cookie: false, // enable cookies to allow the server to access the session
+                    oauth: false,
+                    status: false,
+                    version: 'v2.6'
+                });
             });
-        };
+        }
 
         if (success)
             Numeral.language(culture);
@@ -131,13 +145,6 @@ Messages.load(function (success) {
   	        document.getElementById('main-body')
         );
 
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/pt_BR/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk')); var auth2 = {};
     } else {
         ReactDOM.render(<Error />, document.getElementById('main-body'));
     }

@@ -14,11 +14,22 @@ var MainMenu = require("ilevus/jsx/core/widget/MainMenu.jsx");
 var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 module.exports = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object
+    },
     childContextTypes: {
         messages: React.PropTypes.object
     },
     getChildContext() {
         messages: Messages
+    },
+    componentWillMount() {
+        this.context.router.listen(this.onRouteChange);
+    },
+    onRouteChange(route) {
+        if (typeof ga == 'function') {
+            ga('send', 'pageview');
+        }
     },
     render: function () {
         return (<div>
