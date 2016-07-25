@@ -197,6 +197,14 @@ printseq("Removing '" + projeto + "\\bin\\build': ")
 shutil.rmtree(dirDeployLocal + "\\bin\\build")
 print("done.")
 
+printseq("Removing '" + projeto + "\\jsx: ")
+shutil.rmtree(dirDeployLocal + "\\jsx")
+print("done.")
+
+printseq("Removing '" + projeto + "\\sass: ")
+shutil.rmtree(dirDeployLocal + "\\sass")
+print("done.")
+
 printseq("Removing '" + projeto + "\\bin\\roslyn': ")
 shutil.rmtree(dirDeployLocal + "\\bin\\roslyn")
 print("done.")

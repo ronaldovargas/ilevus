@@ -67,7 +67,7 @@ module.exports = React.createClass({
                           <div className="col-md-8 col-md-offset-2">
                               <div className="ilv-text-xs-center">
                                   <h1 className="ilv-lp-section-heading">
-                                      Crescimento profissional é na Ilevus
+                                      Crescimento profissional é na Ilevus<small><sup>&reg;</sup></small>
                                   </h1>
                                   <p className="ilv-lp-section-lead">
                                       Desenvolva sua carreira junto dos melhores profissionais do mercado e acelere o seu caminho até o sucesso.
@@ -153,7 +153,7 @@ module.exports = React.createClass({
                           <div className="col-md-8 col-md-offset-2 ilv-text-xs-center">
                               <h2 className="m-b-2">Diversas ferramentas a sua disposição.</h2>
                               <p className="ilv-text-large m-b-3">
-                                  Na Ilevus você tem acesso a ferramentas de ponta que irão te auxiliar nas tarefas do dia a dia.
+                                  Na Ilevus<sup>&reg;</sup> você tem acesso a ferramentas de ponta que irão te auxiliar nas tarefas do dia a dia.
                                   Torne seu trabalho mais dinâmico e produtivo, crie seu perfil profissional agora.
                               </p>
                               <br/>
@@ -281,7 +281,7 @@ module.exports = React.createClass({
                       <div className="row">
                           <div className="col-xs-12">
                               <h3 className="ilv-font-weight-normal m-b-2">
-                                  "O sistema da ilevus mudou minha vida. Através das ferramentas disponibilizadas gratuitamente na
+                                  "O sistema da Ilevus<sup>&reg;</sup> mudou minha vida. Através das ferramentas disponibilizadas gratuitamente na
                                   plataforma, pude coordenar melhor meu trabalho e enxugar meus processos, trazendo benefícios
                                   para mim e para meus clientes."
                               </h3>

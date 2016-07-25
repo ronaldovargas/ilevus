@@ -278,6 +278,7 @@
     <Content Include="sass\custom\_buttons-social.scss" />
     <Content Include="sass\components\_progress.scss" />
     <Content Include="sass\custom\_general.scss" />
+    <Content Include="sass\custom\_landing-page.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>
