@@ -250,7 +250,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="img\flags%402x.png" />
+    <Content Include="img\flags.png" />
     <Content Include="img\user.png" />
+    <Content Include="jsx\vendor\intlTelInput.js" />
+    <Content Include="jsx\vendor\utils.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -279,6 +283,9 @@
     <Content Include="sass\components\_progress.scss" />
     <Content Include="sass\custom\_general.scss" />
     <Content Include="sass\custom\_landing-page.scss" />
+    <Content Include="sass\vendor\intl-tel-input\_intlTelInput.scss" />
+    <Content Include="sass\vendor\intl-tel-input\_sprite%402x.scss" />
+    <Content Include="sass\vendor\intl-tel-input\_sprite.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

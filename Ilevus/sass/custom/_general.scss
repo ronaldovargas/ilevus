@@ -1,3 +1,7 @@
 ﻿a {
     cursor: pointer;
 }
+
+.#{$prefix}invalid {
+    border-color: $color-primary-danger !important;
+}

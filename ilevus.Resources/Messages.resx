@@ -571,7 +571,7 @@
     <value>Nós não compartilharemos o seu endereço de email privado com outros usuários.</value>
   </data>
   <data name="TextPhoneHelp" xml:space="preserve">
-    <value>Ex: "011 998886677". Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.</value>
+    <value>Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários.</value>
   </data>
   <data name="ValidationEmailExists" xml:space="preserve">
     <value>Este endereço de e-mail já está em uso.</value>
@@ -785,5 +785,8 @@
   </data>
   <data name="TextWizardHeaderAddress" xml:space="preserve">
     <value>Informe o seu endereço</value>
+  </data>
+  <data name="ValidationPhoneNumberInvalid" xml:space="preserve">
+    <value>O número de telefone fornecido é inválido.</value>
   </data>
 </root>

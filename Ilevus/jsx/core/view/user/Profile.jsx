@@ -1,5 +1,7 @@
 ﻿
 var S = require("string");
+require("ilevus/jsx/vendor/intlTelInput.js");
+
 var React = require("react");
 var MaskedInput = require("react-maskedinput");
 var Link = require("react-router").Link;
@@ -25,6 +27,7 @@ module.exports = React.createClass({
             picture: UserSession.get("loading") ? null : UserSession.get("user").Image
         };
     },
+    phoneFilterRe: /[0-9\-\+ ]/,
     componentDidMount() {
         var me = this;
         UserSession.on("fail", (msg) => {
@@ -52,17 +55,27 @@ module.exports = React.createClass({
             $(me.refs["address-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextAddressUpdateSuccess"));
         }, me);
+
+        this.updatePhoneInput();
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
     },
 
+    componentDidUpdate() {
+        this.updatePhoneInput();
+    },
+
     saveProfile(event) {
+        if (!this.phoneNumberValidation()) {
+            Toastr.error(Messages.get("ValidationPhoneNumberInvalid"));
+            return;
+        }
         $(this.refs["profile-save"]).addClass("loading").attr("disabled", "disabled");
         var data = {
             Birthdate: this.refs['profile-birthdate'].value,
             Name: this.refs['profile-name'].value,
-            PhoneNumber: this.refs['profile-phonenumber'].mask.getRawValue().trim(),
+            PhoneNumber: $.trim($("#editProfileFormPhone").val()),
             Sex: this.refs['profile-sex'].value,
             Surname: this.refs['profile-surname'].value
         };
@@ -119,6 +132,24 @@ module.exports = React.createClass({
             }
         );
     },
+
+    updatePhoneInput() {
+        $("#editProfileFormPhone").intlTelInput();
+    },
+    phoneNumberValidation() {
+        if (!$("#editProfileFormPhone").intlTelInput("isValidNumber")) {
+            $("#editProfileFormPhone").addClass("ilv-invalid");
+            return false;
+        } else {
+            $("#editProfileFormPhone").removeClass("ilv-invalid");
+            return true;
+        }
+    },
+    phoneNumberFilter(event, opts) {
+        if (event.key && event.key.match && !event.key.match(this.phoneFilterRe))
+            event.preventDefault();
+    },
+
 
     render() {
         if (this.state.loading) {
@@ -215,14 +246,12 @@ module.exports = React.createClass({
                                         <label className="ilv-form-label" htmlFor="editProfileFormPhone">
                                             {Messages.get("LabelPhoneNumber")}
                                         </label>
-                                        <MaskedInput className="ilv-form-control"
+                                        <input onKeyPress={this.phoneNumberFilter} onKeyUp={this.phoneNumberValidation}
                                                      type="tel"
                                                      spellCheck={false}
                                                      id="editProfileFormPhone"
                                                      ref="profile-phonenumber"
-                                                     placeholderChar=" "
-                                                     mask="111 111111111"
-                                                     value={user.PhoneNumber} />
+                                                     defaultValue={user.PhoneNumber} />
                                         <span className="ilv-text-small">
                                             {Messages.get("TextPhoneHelp")}
                                         </span>

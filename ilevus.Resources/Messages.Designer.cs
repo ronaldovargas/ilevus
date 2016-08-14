@@ -1672,7 +1672,7 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ex: &quot;011 998886677&quot;. Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários..
+        ///   Looks up a localized string similar to Seu número de telefone adiciona mais segurança à sua conta na Ilevus. Nós não iremos compartilhar essa informação com outros usuários..
         /// </summary>
         public static string TextPhoneHelp {
             get {
@@ -2019,6 +2019,15 @@ namespace ilevus.Resources {
         public static string ValidationPasswordsDontMatchOnChange {
             get {
                 return ResourceManager.GetString("ValidationPasswordsDontMatchOnChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O número de telefone fornecido é inválido..
+        /// </summary>
+        public static string ValidationPhoneNumberInvalid {
+            get {
+                return ResourceManager.GetString("ValidationPhoneNumberInvalid", resourceCulture);
             }
         }
         

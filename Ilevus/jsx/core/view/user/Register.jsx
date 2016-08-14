@@ -22,7 +22,6 @@ module.exports = React.createClass({
             Toastr.success(Messages.get("TextAccountCreated"));
             me.context.router.push("/login");
         }, me);
-
     },
     componentWillUnmount() {
         UserStore.off(null, null, this);
@@ -42,6 +41,7 @@ module.exports = React.createClass({
             data: data
         });
     },
+
     render() {
         return (
             <div className="container">
