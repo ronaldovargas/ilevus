@@ -99,14 +99,8 @@ module.exports = React.createClass({
         return (
           <div className="container">
             <div className="p-y-3">
-              <div className="col-sm-6 col-sm-offset-3">
-
-                <div className="m-y-2">
-                  <span className="ilv-progress">
-                    <span className="ilv-progress-bar" style={{width: "0%"}}></span>
-                  </span>
-                </div>
-                  
+              <div className="col-sm-6 offset-sm-3">
+                 
                 <form onSubmit={this.saveInfo}>
                     <div className="ilv-card">
                       <div className="ilv-card-header">
@@ -152,18 +146,27 @@ module.exports = React.createClass({
 
                           <fieldset className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelLanguages")}</label>
-                            <div className="ilv-tag-input m-b-1" readonly={true}>
+                            <div className="ilv-input-group">
+                                <LanguageSelect className="ilv-form-control ilv-form-control-lg"
+                                                ref="field-lang"
+                                                filter={this.filterLanguages}
+                                                spellCheck={false} />
+                                <div className="ilv-input-group-btn">
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-success" onClick={this.addLanguage}>
+                                        <i className="ilv-icon material-icons md-24">&#xE145;</i>
+                                    </button>
+                                </div>
+                            </div>
+                          </fieldset>
+
+                          <fieldset className="ilv-form-group">
+                            <div className="ilv-tag-input m-b-1 ilv-text-xs-center" style={{backgroundColor: '#f5f7f9'}} readonly={true}>
                                 {langs.map((lang, index) => {
-                                    return <span className="ilv-tag" key={"lang-"+index}>
+                                    return <span className="ilv-tag" key={"lang-" + index }>
                                         {lang.name} <a title={Messages.get("ActionRemoveLanguage")} onClick={this.removeLanguage.bind(this, index)}>&times;</a>
                                     </span>;
                                 })}
                             </div>
-                            <LanguageSelect className="ilv-form-control ilv-form-control-lg"
-                                ref="field-lang"
-                                filter={this.filterLanguages}
-                                spellCheck={false} />
-                            <a className="ilv-font-weight-semibold" onClick={this.addLanguage}>{Messages.get("ActionAddLanguage")}</a>
                           </fieldset>
                       </div>
 

@@ -51,7 +51,7 @@ module.exports = React.createClass({
 			<div className="m-y-3" role="banner">
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-offset-2 col-sm-8 col-xs-12 text-xs-center">
+                        <div className="offset-sm-2 col-sm-8 col-xs-12 text-xs-center">
 				            {this.state.valid ?
                                 <div className="alert alert-success">
                                     {Messages.get("TextEmailConfirmSuccess")}

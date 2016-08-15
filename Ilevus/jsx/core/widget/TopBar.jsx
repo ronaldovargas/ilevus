@@ -103,33 +103,31 @@ module.exports = React.createClass({
                                             {Messages.get("LabelProfessionalProfile")}
                                         </Link>
                                     </li>
-                                    <li className="ilv-nav-item">
-                                        <a className="ilv-btn ilv-btn-clean" href="#">
-                                            {Messages.get("LabelMessages")}
+                                    <li className="ilv-nav-item m-l-1">
+                                        <a className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" href="#">
+                                            <i className="ilv-icon material-icons md-24">&#xE0CB;</i>
                                        </a>
                                     </li>
-                                    <li className="ilv-nav-item">
-                                        <div className="dropdown">
-                                            <a id="js-profile-dropdown" href="javascript:void(0)" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <div className="avatar-fluid avatar-fluid-sm"
-                                                    style={{
-                                                        backgroundImage: "url(" +
-                                                            (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
-                                                        }}
-                                                />
+                                    <li className="ilv-nav-item m-l-1">
+                                        <span className="dropdown">
+                                            <a href="javascript:;" className="ilv-avatar-fluid ilv-avatar-fluid-sm" data-toggle="dropdown"
+                                               style={{
+                                                backgroundImage: "url(" +
+                                                    (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                                }}>
                                             </a>
-                                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="js-profile-dropdown">
+                                            <div className="dropdown-menu dropdown-menu-right">
                                                 <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
-                                                {this.state.user.EmailConfirmed ? "":
+                                                {this.state.user.EmailConfirmed ? "" :
                                                     <a className="dropdown-item" href="" onClick={this.confirmEmail}>
                                                         {Messages.get("LabelConfirmEmail")}
                                                     </a>
                                                 }
                                                 <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                             </div>
-                                        </div>
+                                        </span>
                                     </li>
                                 </ul>
                             ) : (

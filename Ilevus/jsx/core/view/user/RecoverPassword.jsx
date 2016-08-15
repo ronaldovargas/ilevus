@@ -41,7 +41,7 @@ module.exports = React.createClass({
 	    return (
             <div className="container">
                 <div className="row">
-                    <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
+                    <div className="col-md-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
                         <div className="ilv-card m-t-3">
                             <div className="ilv-card-body">
                                 <form onSubmit={this.onSubmit}>

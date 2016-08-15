@@ -1204,6 +1204,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ainda trabalho aqui.
+        /// </summary>
+        public static string LabelWorkHere {
+            get {
+                return ResourceManager.GetString("LabelWorkHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CEP.
         /// </summary>
         public static string LabelZipcode {

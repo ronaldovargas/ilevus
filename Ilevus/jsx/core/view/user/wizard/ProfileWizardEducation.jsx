@@ -94,12 +94,7 @@ module.exports = React.createClass({
     render() {
         return (<div className="container">
 				<div className="p-y-3">
-					<div className="col-sm-6 col-sm-offset-3">
-						<div className="m-y-2">
-                            <span className="ilv-progress">
-                                <span className="ilv-progress-bar" style={{width: "40%"}} />
-                           </span>
-                        </div>
+					<div className="col-sm-6 offset-sm-3">
 						<div className="ilv-card">
 							<div className="ilv-card-header">
 								<h3>{Messages.get("TextEducation")}</h3>
@@ -114,11 +109,11 @@ module.exports = React.createClass({
                                         }
                                         return <li className="ilv-media ilv-media-middle" key={"educ-"+index}>
 										    <div className="ilv-media-body">
-											    <h4>{education.Institution}</h4>
-                                                <span className="ilv-text-large">
+											    <h4 className="m-a-0">{education.Institution}</h4>
+                                                <span>
                                                     {Messages.get("EducationType" + education.Type)} | {education.Area}
                                                 </span>
-                                                <div className="ilv-text-large">
+                                                <div className="ilv-text-small text-muted">
                                                     {education.Finished ?
                                                         education.Begin+" "+Messages.get("LabelTo")+" "+education.End
                                                         :
@@ -128,11 +123,11 @@ module.exports = React.createClass({
 											    <p>{education.Description}</p>
                                             </div>
                                             <div className="ilv-media-right">
-											    <button className="ilv-btn ilv-btn-link" onClick={this.startEditing.bind(this,index)}>
-                                                    {Messages.get("ActionEdit")}
-											    </button><br />
-                                                <button className="ilv-btn ilv-btn-clean text-danger" onClick={this.removeEducation.bind(this,index)}>
-                                                    {Messages.get("ActionRemove")}
+											    <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0" onClick={this.startEditing.bind(this,index)}>
+                                                    <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
+											    </button>
+                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger p-x-0 m-l-1" onClick={this.removeEducation.bind(this,index)}>
+                                                    <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
                                                 </button>
                                             </div>
 									    </li>;
@@ -159,7 +154,7 @@ module.exports = React.createClass({
                                     <Link className="ilv-btn ilv-btn-clean" to="/become-a-professional">
                                         {Messages.get("LabelBack")}
                                     </Link>
-                                    <button className="ilv-btn ilv-btn-neutral"
+                                    <button className="ilv-btn ilv-btn-primary"
                                        onClick={this.saveInfo}
                                        ref="btn-submit">
                                         {Messages.get("LabelSave")}

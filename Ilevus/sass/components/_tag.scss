@@ -20,6 +20,10 @@
   &:disabled {
     cursor: $cursor-disabled;
   }
+
+  .#{$prefix}tag {
+    margin: .125rem;
+  }
 }
 
 

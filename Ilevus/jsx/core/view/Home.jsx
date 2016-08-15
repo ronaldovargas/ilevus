@@ -64,7 +64,7 @@ module.exports = React.createClass({
               <div className="ilv-lp-section ilv-lp-section-white">
                   <div className="container">
                       <div className="row">
-                          <div className="col-md-8 col-md-offset-2">
+                          <div className="col-md-8 offset-md-2">
                               <div className="ilv-text-xs-center">
                                   <h1 className="ilv-lp-section-heading">
                                       Crescimento profissional é na Ilevus<small><sup>&reg;</sup></small>
@@ -122,8 +122,8 @@ module.exports = React.createClass({
                                   </fieldset>
                               </form>
                           </div>
-                          <div className="col-md-6">
-                              <img className="center-block" style={{height: "250px"}} src={IconMeet}/>
+                          <div className="col-md-6 ilv-text-xs-center">
+                              <img style={{height: "250px"}} src={IconMeet}/>
                           </div>
                       </div>
                   </div>
@@ -140,8 +140,8 @@ module.exports = React.createClass({
                             </p>
                             <button className="ilv-btn ilv-btn-lg ilv-btn-destructive">Crie seu perfil profissional</button>
                         </div>
-                        <div className="col-xs-12 col-md-6">
-                            <img className="center-block" style={{"height": "500px"}} src={ImgNetworking} alt="ilevus" />
+                        <div className="col-xs-12 col-md-6 ilv-text-xs-center">
+                            <img style={{"height": "500px"}} src={ImgNetworking} alt="ilevus" />
                         </div>
                       </div>
                   </div>
@@ -150,7 +150,7 @@ module.exports = React.createClass({
               <div className="ilv-lp-section">
                   <div className="container">
                       <div className="row">
-                          <div className="col-md-8 col-md-offset-2 ilv-text-xs-center">
+                          <div className="col-md-8 offset-md-2 ilv-text-xs-center">
                               <h2 className="m-b-2">Diversas ferramentas a sua disposição.</h2>
                               <p className="ilv-text-large m-b-3">
                                   Na Ilevus<sup>&reg;</sup> você tem acesso a ferramentas de ponta que irão te auxiliar nas tarefas do dia a dia.

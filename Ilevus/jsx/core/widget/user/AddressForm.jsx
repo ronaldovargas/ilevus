@@ -72,7 +72,7 @@ module.exports = React.createClass({
                     defaultValue={user.District} />
             </fieldset>
 
-            <fieldset className="ilv-form-group  m-b-0">
+            <fieldset className="ilv-form-group">
                 <label className="ilv-form-label" htmlFor="editProfileFormCountry">
                     {Messages.get("LabelCountry")}
                 </label>

@@ -104,7 +104,7 @@ module.exports = React.createClass({
                                spellCheck={false}
                                id="educationEnd"
                                ref="field-end"
-                               disabled={!this.state.finished}
+                               disabled={this.state.finished}
                                placeholder={Messages.get("LabelEndYear")}
                                defaultValue={this.props.career.End} />
 				    </div>
@@ -122,7 +122,7 @@ module.exports = React.createClass({
                                onChange={this.finishedChange} />
                         <span className="ilv-control-indicator"></span>
                         <span className="ilv-control-label">
-                            {Messages.get("LabelFinished")}
+                            {Messages.get("LabelWorkHere")}
                         </span>
 				    </label>
 			    </div>

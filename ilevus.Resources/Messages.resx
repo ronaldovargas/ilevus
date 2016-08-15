@@ -789,4 +789,7 @@
   <data name="ValidationPhoneNumberInvalid" xml:space="preserve">
     <value>O número de telefone fornecido é inválido.</value>
   </data>
+  <data name="LabelWorkHere" xml:space="preserve">
+    <value>Ainda trabalho aqui</value>
+  </data>
 </root>

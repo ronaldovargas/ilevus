@@ -41,12 +41,7 @@ module.exports = React.createClass({
     render() {
     return (<div className="container">
 		<div className="p-y-3">
-			<div className="col-sm-6 col-sm-offset-3">
-				<div className="m-y-2">
-                    <span className="ilv-progress">
-                        <span className="ilv-progress-bar" style={{width: "20%"}} />
-                    </span>
-                </div>
+			<div className="col-sm-6 offset-sm-3">
 
 				<div className="ilv-card">
 					<div className="ilv-card-header">

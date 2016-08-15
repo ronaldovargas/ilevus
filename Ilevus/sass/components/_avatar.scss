@@ -76,15 +76,15 @@
   }
 }
 
-.avatar-fluid {
+.#{$prefix}avatar-fluid {
     background-color: transparent;
-    background-position: center;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: auto 100%;
-    padding: 0px;
-    margin: 0px auto;
+    background-size: cover;
     overflow: hidden;
     display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
 
     &-xs {
         @include size($avatar-img-xs);
