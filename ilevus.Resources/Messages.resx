@@ -792,4 +792,7 @@
   <data name="LabelWorkHere" xml:space="preserve">
     <value>Ainda trabalho aqui</value>
   </data>
+  <data name="TextSelectYourCountry" xml:space="preserve">
+    <value>Selecione seu país</value>
+  </data>
 </root>

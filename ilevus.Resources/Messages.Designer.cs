@@ -1816,6 +1816,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecione seu país.
+        /// </summary>
+        public static string TextSelectYourCountry {
+            get {
+                return ResourceManager.GetString("TextSelectYourCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecione a foto que você deseja enviar:.
         /// </summary>
         public static string TextSendPicture {

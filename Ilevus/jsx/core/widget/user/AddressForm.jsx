@@ -4,6 +4,8 @@ var React = require("react");
 var MaskedInput = require("react-maskedinput");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
+var Countries = require("ilevus/jsx/core/util/Countries.json");
+
 module.exports = React.createClass({
     propTypes: {
         addressData: React.PropTypes.object.isRequired
@@ -77,7 +79,12 @@ module.exports = React.createClass({
                     {Messages.get("LabelCountry")}
                 </label>
                 <select className="ilv-form-control" id="editProfileFormCountry" ref="address-country" defaultValue={user.Country}>
-                    <option value="Brazil">Brasil</option>
+                    <option value="">-- {Messages.get("TextSelectYourCountry")} --</option>
+                    {Countries.map((country, index) => {
+                        return <option key={"country-"+index} value={country.name}>
+                            {country.name == country.native ? country.name : country.native + " (" + country.name + ")"}
+                        </option>;
+                    })}
                 </select>
             </fieldset>
 
