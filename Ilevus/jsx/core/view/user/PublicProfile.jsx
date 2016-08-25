@@ -15,6 +15,8 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
 
+var Languages = require("ilevus/jsx/core/util/Languages.json");
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -70,6 +72,8 @@ module.exports = React.createClass({
 
         var educations = user.get("Professional").Professional.Education || [];
         var careers = user.get("Professional").Professional.Career || [];
+
+        var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
         
         return (<div className="m-y-3" role="banner">
             <div className="container">
@@ -208,15 +212,23 @@ module.exports = React.createClass({
                                         </div>
                                     }
 
-                                    <div className="ilv-media p-t-2">
-                                        <div className="ilv-media-left m-r-1">
-                                            <i className="ilv-icon material-icons md-24">&#xE894;</i>
-                                        </div>
-                                        <div className="ilv-media-body">
-                                            <p className="h4">{Messages.get("LabelLanguages")}</p>
-                                            Inglês, Português, Espanhol
-                                        </div>
-                                    </div>
+                                    {spokenLanguages.length > 0
+                                        ?
+                                            <div className="ilv-media p-t-2">
+                                                <div className="ilv-media-left m-r-1">
+                                                    <i className="ilv-icon material-icons md-24">&#xE894;</i>
+                                                </div>
+                                                <div className="ilv-media-body">
+                                                    <p className="h4">{Messages.get("LabelLanguages")}</p>
+                                                    {spokenLanguages.map((spokenLanguage, index) => {
+                                                        return <span key={"spokenLanguage-" + index}>
+                                                            {spokenLanguage}{index < (spokenLanguages.length - 1) ? ", " :"."}
+                                                        </span>;
+                                                    })}
+                                                </div>
+                                            </div>
+                                        :""
+                                    }
                                 </div>
                             </div>
                         </div>
