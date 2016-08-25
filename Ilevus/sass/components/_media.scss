@@ -47,7 +47,7 @@
 }
 
 .#{$prefix}media-list-bordered {
-  & > .#{$prefix}media {
+  & > .#{$prefix}media:not(:last-child) {
     border-bottom: $table-border-width solid $table-border-color;
   }
 }

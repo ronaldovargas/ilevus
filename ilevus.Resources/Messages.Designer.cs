@@ -475,6 +475,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sobre mim.
+        /// </summary>
+        public static string LabelAboutMe {
+            get {
+                return ResourceManager.GetString("LabelAboutMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conta.
         /// </summary>
         public static string LabelAccount {
@@ -777,6 +786,15 @@ namespace ilevus.Resources {
         public static string LabelEndYear {
             get {
                 return ResourceManager.GetString("LabelEndYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Experiência.
+        /// </summary>
+        public static string LabelExperience {
+            get {
+                return ResourceManager.GetString("LabelExperience", resourceCulture);
             }
         }
         

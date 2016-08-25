@@ -795,4 +795,10 @@
   <data name="TextSelectYourCountry" xml:space="preserve">
     <value>Selecione seu país</value>
   </data>
+  <data name="LabelAboutMe" xml:space="preserve">
+    <value>Sobre mim</value>
+  </data>
+  <data name="LabelExperience" xml:space="preserve">
+    <value>Experiência</value>
+  </data>
 </root>
