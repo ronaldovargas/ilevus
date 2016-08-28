@@ -74,7 +74,7 @@ module.exports = React.createClass({
         var careers = user.get("Professional").Professional.Career || [];
 
         var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
-        
+
         return (<div className="m-y-3" role="banner">
             <div className="container">
                 <div className="row">
@@ -221,8 +221,10 @@ module.exports = React.createClass({
                                                 <div className="ilv-media-body">
                                                     <p className="h4">{Messages.get("LabelLanguages")}</p>
                                                     {spokenLanguages.map((spokenLanguage, index) => {
+                                                        var lang = Languages.Mapped[spokenLanguage];
                                                         return <span key={"spokenLanguage-" + index}>
-                                                            {spokenLanguage}{index < (spokenLanguages.length - 1) ? ", " :"."}
+                                                            {lang.nativeName}{lang.name != lang.nativeName ? " ("+lang.name+")":""}
+                                                            {spokenLanguages.length > 1 && index < (spokenLanguages.length - 1) ? ", " :"."}
                                                         </span>;
                                                     })}
                                                 </div>
