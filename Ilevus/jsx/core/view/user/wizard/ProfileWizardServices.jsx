@@ -1,71 +1,159 @@
 var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var LanguageSelect = require("ilevus/jsx/core/widget/LanguageSelect.jsx");
+var ServiceForm = require("ilevus/jsx/core/widget/user/ServiceForm.jsx");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-var Link = require("react-router").Link;
-
 module.exports = React.createClass({
-  render() {
-    return (
-      <div className="container">
+    contextTypes: {
+        router: React.PropTypes.object,
+        professionalData: React.PropTypes.object.isRequired,
+        userId: React.PropTypes.string.isRequired
+    },
+    getInitialState() {
+        return {
+            services: this.context.professionalData.Services || [],
+            adding: false,
+            editing: -1
+        };
+    },
+    componentDidMount() {
+        var me = this;
+        UserSession.on("professionalprofile", (data) => {
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            me.context.router.push("/become-a-professional");
+        }, me);
+    },
+    componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+
+    saveInfo(event) {
+        event.preventDefault();
+        $(this.refs['btn-submit']).attr("disabled", true);
+        var data = {
+            Services: this.state.services
+        };
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PROFESSIONAL_SERVICES,
+            data: data
+        });
+    },
+
+    addService(data) {
+        if (data) {
+            this.state.services.push(data);
+            this.setState({
+                adding: false
+            });
+        }
+    },
+    removeService(index, event) {
+        event.preventDefault();
+        this.state.services.splice(index, 1);
+        this.forceUpdate();
+    },
+    tweakAdding(event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: !this.state.adding,
+            editing: -1
+        });
+    },
+    startEditing(index, event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: false,
+            editing: index
+        });
+    },
+    editService(data) {
+        if (data) {
+            this.state.services[this.state.editing] = data;
+            this.setState({
+                adding: false,
+                editing: -1
+            });
+        }
+    },
+    cancelEditing() {
+        this.setState({
+            adding: false,
+            editing: -1
+        });
+    },
+
+    render() {
+        return (<div className="container">
 				<div className="p-y-3">
-					<div className="col-sm-6 col-sm-offset-3">
-						<div className="m-y-2">
-                            <span className="ilv-progress">
-                                <span className="ilv-progress-bar" style={{width: "80%"}} />
-                            </span>
-                        </div>
+					<div className="col-sm-6 offset-sm-3">
+
 						<div className="ilv-card">
 							<div className="ilv-card-header">
-								<h3>{Messages.get("TextWizardHeaderAddress")}</h3>
+								<h3>{Messages.get("TextOfferedServices")}</h3>
 							</div>
 							<div className="ilv-card-body">
-								<form>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-address">{Messages.get("LabelAddress")}Endereço postal</label>
-    										<input className="ilv-form-control ilv-form-control-lg" id="profile-wizard-address" type="text" />
-  									</fieldset>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-zipcode">{Messages.get("LabelZipCode")}CEP</label>
-    										<input className="ilv-form-control ilv-form-control-lg" id="profile-wizard-zipcode" type="text" />
-  									</fieldset>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-address-extra">{Messages.get("LabelAddressDetails")}Complemento</label>
-    										<input className="ilv-form-control ilv-form-control-lg" id="profile-wizard-address-extra" type="text" />
-  									</fieldset>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-city">{Messages.get("LabelCity")}Cidade</label>
-    										<select className="ilv-form-control ilv-form-control-lg" id="profile-wizard-city">
-									         <option selected>Belo Horizonte</option>
-    										</select>
-  									</fieldset>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-country">{Messages.get("LabelCountry")}País</label>
-    										<select className="ilv-form-control ilv-form-control-lg" id="profile-wizard-country">
-  								         <option selected>Brasil</option>
-    										</select>
-  									</fieldset>
-  									<fieldset className="ilv-form-group">
-    										<label className="ilv-form-label" htmlFor="profile-wizard-state">{Messages.get("LabelState")}Estado</label>
-    										<select className="ilv-form-control ilv-form-control-lg" id="profile-wizard-state">
-					                  <option selected>Minas Gerais</option>
-    										</select>
-  									</fieldset>
-  								</form>
+								<ul className="ilv-media-list ilv-media-list-bordered">
+								    {this.state.services.map((service, index) => {
+								        if (index == this.state.editing) {
+								            return <ServiceForm onSubmit={this.editService}
+                                                onCancel={this.cancelEditing}
+                                                service={this.state.services[this.state.editing]} />;
+								        }
+								        return <li className="ilv-media ilv-media-middle" key={"career-" + index}>
+										    <div className="ilv-media-body">
+											    <h4 className="m-a-0">
+                                                    {service.Name}
+                                                </h4>
+										    </div>
+                                            <div className="ilv-media-right">
+											    <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0" onClick={this.startEditing.bind(this,index)}>
+                                                    <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
+											    </button>
+                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger p-x-0 m-l-1" onClick={this.removeService.bind(this, index)}>
+                                                    <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
+                                                </button>
+                                            </div>
+                                        </li>;
+								    })}
+
+								    {!this.state.adding && (this.state.editing < 0) ?
+                                        <li className="ilv-media">
+                                            <div className="ilv-media-body ilv-text-xs-center">
+                                                <button className="ilv-btn ilv-btn-link" onClick={this.tweakAdding}>
+                                                    {Messages.get("ActionAddNewOfferedService")}
+                                                </button>
+                                            </div>
+                                        </li>
+								    :""}
+								</ul>
+							    {this.state.adding ?
+                                    <ServiceForm onSubmit={this.addService}
+                                                onCancel={this.tweakAdding} />
+							    :""}
 							</div>
-							<div className="ilv-card-footer ilv-text-xs-right">
-                  <Link className="ilv-btn ilv-btn-clean" to="/become-a-professional/basic">
-                      {Messages.get("LabelReturn")}Voltar
-                  </Link>
-                  <Link className="ilv-btn ilv-btn-success" to="/become-a-professional">
-                      {Messages.get("LabelFinish")}Concluir
-                  </Link>
-              </div>
+
+						    {!this.state.adding && (this.state.editing < 0) ?
+                                <div className="ilv-card-footer ilv-text-xs-right">
+                                    <Link className="ilv-btn ilv-btn-clean" to="/become-a-professional">
+                                        {Messages.get("LabelBack")}
+                                    </Link>
+                                    <button className="ilv-btn ilv-btn-primary"
+                                            onClick={this.saveInfo}
+                                            ref="btn-submit">{Messages.get("LabelSave")}
+                                    </button>
+                                </div>
+						    :""}
 						</div>
 					</div>
 				</div>
-			</div>
-
-    );
-  }
+        </div>);
+        }
 });

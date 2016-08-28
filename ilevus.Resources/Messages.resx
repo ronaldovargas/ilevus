@@ -801,4 +801,16 @@
   <data name="LabelExperience" xml:space="preserve">
     <value>Experiência</value>
   </data>
+  <data name="ActionAddNewOfferedService" xml:space="preserve">
+    <value>Adicionar novo serviço</value>
+  </data>
+  <data name="ActionSaveOfferedService" xml:space="preserve">
+    <value>Salvar serviço</value>
+  </data>
+  <data name="LabelPrice" xml:space="preserve">
+    <value>Preço</value>
+  </data>
+  <data name="LabelService" xml:space="preserve">
+    <value>Serviço</value>
+  </data>
 </root>

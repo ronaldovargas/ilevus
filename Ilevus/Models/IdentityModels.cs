@@ -96,6 +96,9 @@ namespace ilevus.Models
         // Education info
         public IEnumerable<UserCareer> Career { get; set; }
 
+        // Education info
+        public IEnumerable<UserService> Services { get; set; }
+
     }
 
     public class UserEducation
@@ -118,6 +121,12 @@ namespace ilevus.Models
         public string Begin { get; set; }
         public string End { get; set; }
         public string Description { get; set; }
+    }
+
+    public class UserService
+    {
+        public string Name { get; set; }
+        public double Price { get; set; }
     }
 
     public class IlevusRole : IdentityRole

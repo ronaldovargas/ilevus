@@ -88,6 +88,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicionar novo serviço.
+        /// </summary>
+        public static string ActionAddNewOfferedService {
+            get {
+                return ResourceManager.GetString("ActionAddNewOfferedService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Voltar para o login.
         /// </summary>
         public static string ActionBackToLogin {
@@ -228,6 +237,15 @@ namespace ilevus.Resources {
         public static string ActionSaveEducation {
             get {
                 return ResourceManager.GetString("ActionSaveEducation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Salvar serviço.
+        /// </summary>
+        public static string ActionSaveOfferedService {
+            get {
+                return ResourceManager.GetString("ActionSaveOfferedService", resourceCulture);
             }
         }
         
@@ -1033,6 +1051,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preço.
+        /// </summary>
+        public static string LabelPrice {
+            get {
+                return ResourceManager.GetString("LabelPrice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perfil profissional.
         /// </summary>
         public static string LabelProfessionalProfile {
@@ -1101,6 +1128,15 @@ namespace ilevus.Resources {
         public static string LabelSelectPicture {
             get {
                 return ResourceManager.GetString("LabelSelectPicture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serviço.
+        /// </summary>
+        public static string LabelService {
+            get {
+                return ResourceManager.GetString("LabelService", resourceCulture);
             }
         }
         

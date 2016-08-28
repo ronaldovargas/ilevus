@@ -185,6 +185,8 @@ namespace ilevus.Models
         public IEnumerable<UserEducation> Education { get; set; }
 
         public IEnumerable<UserCareer> Career { get; set; }
+
+        public IEnumerable<UserService> Services { get; set; }
     }
 
     public class RegisterExternalBindingModel

@@ -611,6 +611,32 @@ namespace ilevus.Controllers
             return Ok(new ProfessionalProfileViewModel(user));
         }
 
+        // GET api/Account/UpdateAddress
+        [HttpPost]
+        [Route("UpdateProfessionalServices")]
+        public async Task<IHttpActionResult> UpdateProfessionalServices(ProfessionalBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            var professional = user.Professional;
+
+            professional.Services = model.Services;
+            professional.ServicesInfo = true;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(new ProfessionalProfileViewModel(user));
+        }
         // GET api/Account/UpdateProfile
         [HttpPost]
         [Route("ChangeCulture")]

@@ -277,6 +277,7 @@
     <Content Include="jsx\core\widget\user\CareerForm.jsx" />
     <Content Include="jsx\core\view\user\wizard\ProfileWizardAddress.jsx" />
     <Content Include="jsx\core\widget\user\AddressForm.jsx" />
+    <Content Include="jsx\core\widget\user\ServiceForm.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
