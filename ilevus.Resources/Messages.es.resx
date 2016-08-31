@@ -534,4 +534,256 @@
   <data name="ValidationSurnameRequired" xml:space="preserve">
     <value>El apellido es obligatorio.</value>
   </data>
+  <data name="ActionAddLanguage" xml:space="preserve">
+    <value>Agregar idioma</value>
+  </data>
+  <data name="ActionAddNewCareerExperience" xml:space="preserve">
+    <value>Agregar nueva experiencia profesional</value>
+  </data>
+  <data name="ActionAddNewEducation" xml:space="preserve">
+    <value>Agregar nueva formación</value>
+  </data>
+  <data name="ActionCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ActionChangeEmail" xml:space="preserve">
+    <value>Actualizar correo electrónico</value>
+  </data>
+  <data name="ActionChangeLanguage" xml:space="preserve">
+    <value>Actualizar idioma</value>
+  </data>
+  <data name="ActionConfirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="ActionCreateMyAccount" xml:space="preserve">
+    <value>Crear mi cuenta</value>
+  </data>
+  <data name="ActionEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="ActionRemove" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="ActionRemoveLanguage" xml:space="preserve">
+    <value>Eliminar idioma</value>
+  </data>
+  <data name="ActionSaveCareerExperience" xml:space="preserve">
+    <value>Guardar experiencia profesional</value>
+  </data>
+  <data name="ActionSaveEducation" xml:space="preserve">
+    <value>Guardar formación</value>
+  </data>
+  <data name="EducationTypeBachelor" xml:space="preserve">
+    <value>Profesional</value>
+  </data>
+  <data name="EducationTypeMasters" xml:space="preserve">
+    <value>Maestria</value>
+  </data>
+  <data name="EducationTypeOther" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="EducationTypePhD" xml:space="preserve">
+    <value>Doctorado</value>
+  </data>
+  <data name="EducationTypeSpecialization" xml:space="preserve">
+    <value>Especialización</value>
+  </data>
+  <data name="EducationTypeTechnical" xml:space="preserve">
+    <value>Técnico</value>
+  </data>
+  <data name="LabelActuationArea" xml:space="preserve">
+    <value>Área de actuación</value>
+  </data>
+  <data name="LabelBack" xml:space="preserve">
+    <value>Volver</value>
+  </data>
+  <data name="LabelBasicInformation" xml:space="preserve">
+    <value>Información Básica</value>
+  </data>
+  <data name="LabelBeginYear" xml:space="preserve">
+    <value>Año de Inicio</value>
+  </data>
+  <data name="LabelCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="LabelCareerInstitution" xml:space="preserve">
+    <value>Empresa / Institución</value>
+  </data>
+  <data name="LabelCareerLocation" xml:space="preserve">
+    <value>Localización</value>
+  </data>
+  <data name="LabelCareerRole" xml:space="preserve">
+    <value>Cargo / Función</value>
+  </data>
+  <data name="LabelChangeEmail" xml:space="preserve">
+    <value>Cambiar dirección de correo electrónico</value>
+  </data>
+  <data name="LabelChangeInformation" xml:space="preserve">
+    <value>Cambiar Información</value>
+  </data>
+  <data name="LabelChangeLanguage" xml:space="preserve">
+    <value>Cambiar idioma de exhibición</value>
+  </data>
+  <data name="LabelContinue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="LabelDescription" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="LabelEducationArea" xml:space="preserve">
+    <value>Área</value>
+  </data>
+  <data name="LabelEducationInstitution" xml:space="preserve">
+    <value>Institución de Enseño</value>
+  </data>
+  <data name="LabelEducationType" xml:space="preserve">
+    <value>Nivel de formación</value>
+  </data>
+  <data name="LabelEndYear" xml:space="preserve">
+    <value>Año de finalización</value>
+  </data>
+  <data name="LabelFinished" xml:space="preserve">
+    <value>Finalizado</value>
+  </data>
+  <data name="LabelHeadline" xml:space="preserve">
+    <value>Frase de presentación</value>
+  </data>
+  <data name="LabelIndustry" xml:space="preserve">
+    <value>Área de actuación</value>
+  </data>
+  <data name="LabelLanguage" xml:space="preserve">
+    <value>Idioma de exhibición</value>
+  </data>
+  <data name="LabelLanguages" xml:space="preserve">
+    <value>Idiomas</value>
+  </data>
+  <data name="LabelLoginWithFacebook" xml:space="preserve">
+    <value>Conectar con Facebook</value>
+  </data>
+  <data name="LabelLoginWithLinkedin" xml:space="preserve">
+    <value>Conectar con Linkedin</value>
+  </data>
+  <data name="LabelNext" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="LabelPeriod" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="LabelPrevious" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="LabelSelect" xml:space="preserve">
+    <value>Seleccione</value>
+  </data>
+  <data name="LabelSelectLanguage" xml:space="preserve">
+    <value>Seleccione un idioma</value>
+  </data>
+  <data name="LabelSpecialties" xml:space="preserve">
+    <value>Especialidades</value>
+  </data>
+  <data name="LabelStartedAt" xml:space="preserve">
+    <value>Inicio en</value>
+  </data>
+  <data name="LabelStep" xml:space="preserve">
+    <value>Paso</value>
+  </data>
+  <data name="LabelSummary" xml:space="preserve">
+    <value>Resumen</value>
+  </data>
+  <data name="LabelTo" xml:space="preserve">
+    <value>hasta</value>
+  </data>
+  <data name="LabelWarning" xml:space="preserve">
+    <value>Aviso </value>
+  </data>
+  <data name="LanguageEnglish" xml:space="preserve">
+    <value>Inglés</value>
+  </data>
+  <data name="LanguagePortuguese" xml:space="preserve">
+    <value>Portugués</value>
+  </data>
+  <data name="LanguageSpanish" xml:space="preserve">
+    <value>Español</value>
+  </data>
+  <data name="SexFemale" xml:space="preserve">
+    <value>Femenino</value>
+  </data>
+  <data name="SexMale" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="TextAddressInfo" xml:space="preserve">
+    <value>Agregue su localización y su dirección profesional.</value>
+  </data>
+  <data name="TextBasicProfessionalInfo" xml:space="preserve">
+    <value>Agregue información general sobre sus habilidades profesionales.</value>
+  </data>
+  <data name="TextCareer" xml:space="preserve">
+    <value>Experiencia profesional</value>
+  </data>
+  <data name="TextCareerEducation" xml:space="preserve">
+    <value>Carrera profesional y formación</value>
+  </data>
+  <data name="TextCareerProfessionalInfo" xml:space="preserve">
+    <value>Agregue información sobre sus experiencias profesionales.</value>
+  </data>
+  <data name="TextCreateYourProfessionalProfile" xml:space="preserve">
+    <value>Cree su perfil profesional en Ilevus</value>
+  </data>
+  <data name="TextDataSavedSuccessfully" xml:space="preserve">
+    <value>Datos guardados con éxito.</value>
+  </data>
+  <data name="TextEducation" xml:space="preserve">
+    <value>Formación académica</value>
+  </data>
+  <data name="TextEducationProfessionalInfo" xml:space="preserve">
+    <value>Adicione su formación académica</value>
+  </data>
+  <data name="TextEmailWillNotBeShared" xml:space="preserve">
+    <value>Nosotros no compartiremos su dirección de correo electrónico privado con otros usuarios.</value>
+  </data>
+  <data name="TextOfferedServices" xml:space="preserve">
+    <value>Servicios ofrecidos</value>
+  </data>
+  <data name="TextPhoneHelp" xml:space="preserve">
+    <value>Ejemplo: "011 998886677". Su número de teléfono agrega más seguridad a su cuenta en Ilevus. Nosotros no compartiremos esa información con otros usuarios.</value>
+  </data>
+  <data name="TextRecoverPasswordRemember" xml:space="preserve">
+    <value>Recordó su contraseña? Accese a su cuenta</value>
+  </data>
+  <data name="TextRemovePictureConfirmation" xml:space="preserve">
+    <value>Está seguro que desea eliminar su foto?</value>
+  </data>
+  <data name="TextSearchVerifyTerms" xml:space="preserve">
+    <value>Verifique si los términos que buscó están correctos o si algún filtro está habilitado.</value>
+  </data>
+  <data name="TextSeeMyProfile" xml:space="preserve">
+    <value>Ver mi perfil</value>
+  </data>
+  <data name="TextSendPicture" xml:space="preserve">
+    <value>Seleccione la foto que desea enviar:</value>
+  </data>
+  <data name="TextServicesProfessionalInfo" xml:space="preserve">
+    <value>Indique y describa los servicios que usted ofrece.</value>
+  </data>
+  <data name="TextUserNotFound" xml:space="preserve">
+    <value>Parece que no encontramos a nadie :(</value>
+  </data>
+  <data name="TextWizardHeaderAddress" xml:space="preserve">
+    <value>Digite su dirección</value>
+  </data>
+  <data name="TextWizardHeaderBasic" xml:space="preserve">
+    <value>Comience por sus informaciones básicas</value>
+  </data>
+  <data name="ValidationEmailExists" xml:space="preserve">
+    <value>Este correo electrónico ya está en uso.</value>
+  </data>
+  <data name="ValidationPasswordsDontMatchOnChange" xml:space="preserve">
+    <value>La nueva contraseña digitada no es igual a la confirmación de la contraseña.</value>
+  </data>
+  <data name="ValidationPictureMaxSize" xml:space="preserve">
+    <value>La foto debe ser máximo de 1MB.</value>
+  </data>
+  <data name="ValidationPictureType" xml:space="preserve">
+    <value>La foto debe ser un archivo PNG, GIF ou JPG</value>
+  </data>
 </root>
