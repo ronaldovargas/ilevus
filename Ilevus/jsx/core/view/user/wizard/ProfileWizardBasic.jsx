@@ -20,11 +20,14 @@ module.exports = React.createClass({
     getInitialState() {
         var map = LanguageSelect.LanguagesMap, lang,
             langs = this.context.professionalData.SpokenLanguages || [],
-            langsMap = {};
+            langsMap = {}, code;
         for (var i = 0; i < langs.length; i++) {
-            lang = map[langs[i]];
-            langs[i] = lang;
-            langsMap[lang.code] = lang;
+            code = langs[i];
+            lang = map[code];
+            if (lang)
+                lang.code = code;
+            langs[i] = lang || code;
+            langsMap[code] = lang || code;
         }
         return {
             languages: langs,
@@ -163,7 +166,8 @@ module.exports = React.createClass({
                             <div className="ilv-tag-input m-b-1 ilv-text-xs-center" style={{backgroundColor: '#f5f7f9'}} readonly={true}>
                                 {langs.map((lang, index) => {
                                     return <span className="ilv-tag" key={"lang-" + index }>
-                                        {lang.name} <a title={Messages.get("ActionRemoveLanguage")} onClick={this.removeLanguage.bind(this, index)}>&times;</a>
+                                        {lang.nativeName ? lang.nativeName : lang} <a title={Messages.get("ActionRemoveLanguage")}
+                                                                                      onClick={this.removeLanguage.bind(this, index)}>&times;</a>
                                     </span>;
                                 })}
                             </div>
