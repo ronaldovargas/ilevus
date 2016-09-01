@@ -164,10 +164,10 @@ module.exports = React.createClass({
                         <strong>{Messages.get("LabelProfilePicture")}</strong>
                     </div>
                     <div className="ilv-card-body">
-                        <div className="ilv-media">
+                        <div className="ilv-media ilv-media-middle">
 					        <div className="ilv-media-left">
                                 <div className="media-left">
-                                    <div className="avatar-fluid avatar-fluid-xl"
+                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-lg"
                                         style={{backgroundImage: "url("+(pic.isEmpty() ? UserIcon : pic.s)+")"}}
                                     />
                                 </div>

@@ -70,47 +70,52 @@ module.exports = React.createClass({
             );
         }
 
-        return <div>
-            {this.state.models.map((model, index) => {
-
-                var industry = S(model.Professional.Professional.Industry);
-                var headline = S(model.Professional.Professional.Headline);
-                return (
-                    <div className="ilv-card" key={"search-result-"+index}>
-                        <div className="ilv-card-body" key={"result-"+index}>
-                            <div className="ilv-media">
-                                <div className="ilv-media-left ilv-text-xs-center">
-                                    <div className="avatar-fluid avatar-fluid-xl"
-                                         style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
+        return <div className="ilv-card">
+            <div className="ilv-card-body">
+                {this.state.models.map((model, index) => {
+                    var industry = S(model.Professional.Professional.Industry);
+                    var headline = S(model.Professional.Professional.Headline);
+                    return (
+                        <div className="p-y-1" style={{ borderBottom: "1px solid #cfd7e6" }} key={"search-result-"+index}>
+                            <div className="ilv-media" key={"result-"+index}>
+                                <div className="ilv-media-left ilv-text-xs-center m-r-1">
+                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
+                                        style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
+                                    <div>
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
+                                            <i className="ilv-icon material-icons md-18">&#xE866;</i>
+                                        </button>
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
+                                            <i className="ilv-icon material-icons md-18">&#xE80D;</i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="ilv-media-body">
-                                    <div>
+                                    <div style={{marginBottom: ".25rem"}}>
                                         <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
-                                        <span className="ilv-tag ilv-tag-warning">Premium</span>
+                                        
                                     </div>
                                     <div>
-                                        {industry.isEmpty() ? "":<p className="ilv-text-small">{industry.s}</p>}
+                                        <p className="ilv-text-small">
+                                            <span className="ilv-tag m-l-0">Premium</span>
+                                            { industry.isEmpty() ? "" : industry.s }
+                                        </p>
                                         <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
                                         <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
-                                        <div className="ilv-btn-group m-l-1">
-                                            <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelSave")}</button>
-                                            <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelShare")}</button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div className="ilv-media-right ilv-text-xs-center">
-                                    <div className="ilv-btn-group">
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestMeeting")}>R</button>
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionSendMessage")}>M</button>
-                                        <button className="ilv-btn ilv-btn-sm" data-toggle="tooltip" title={Messages.get("ActionRequestPhone")}>T</button>
-                                    </div>
-                                    
+                                <div className="ilv-media-right ilv-text-small">
+                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
+                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}</a></p>
+                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                );
-            })}
+                    );
+                })}
+                <p className="ilv-text-small" style={{margin: ".625rem 0 0"}}>{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</p>
+            </div>
+ 
         </div>;
     },
 
@@ -161,16 +166,8 @@ module.exports = React.createClass({
 
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-12 col-md-9">
+                        <div className="col-xs-12">
                             {this.renderModels()}
-                            <div className="hidden">
-                                <div style={{width: '100%', padding: '50px 0', textAlign: 'center', backgroundColor: '#eee', borderRadius: '2px', marginBottom: '1rem'}}>
-                                    <h2 className="font-weight-bold">{Messages.get("LabelAd")}</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-xs-12 col-md-3">
-                            <div style={{width: '100%', height: '400px', backgroundColor: '#eee', borderRadius: '2px', marginBottom: '1rem'}}></div>
                         </div>
                     </div>
                 </div>

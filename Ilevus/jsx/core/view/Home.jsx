@@ -42,7 +42,7 @@ module.exports = React.createClass({
                                           <h1 className="ilv-lp-banner-slogan">{Messages.get("TextSlogan")}</h1>
                                           <p className="ilv-lp-banner-lead">{Messages.get("TextSloganDescription")}</p>
                                       </div>
-                                      <div className="ilv-form-group center-block">
+                                      <div className="center-block">
                                           <div className="ilv-input-group">
                                               <input ref="search-term"
                                                      className="ilv-form-control ilv-form-control-lg ilv-lp-banner-form-control"

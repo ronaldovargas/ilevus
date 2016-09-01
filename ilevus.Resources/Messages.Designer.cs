@@ -1699,6 +1699,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Você não tem nenhuma notificação.
+        /// </summary>
+        public static string TextNoNotifications {
+            get {
+                return ResourceManager.GetString("TextNoNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Você pode ter digitado algum endereço errado ou a página foi movida deste lugar..
         /// </summary>
         public static string TextNotFound {

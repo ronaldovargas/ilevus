@@ -813,4 +813,7 @@
   <data name="LabelService" xml:space="preserve">
     <value>Serviço</value>
   </data>
+  <data name="TextNoNotifications" xml:space="preserve">
+    <value>Você não tem nenhuma notificação</value>
+  </data>
 </root>

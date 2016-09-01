@@ -104,9 +104,17 @@ module.exports = React.createClass({
                                         </Link>
                                     </li>
                                     <li className="ilv-nav-item m-l-1">
-                                        <a className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" href="#">
-                                            <i className="ilv-icon material-icons md-24">&#xE0CB;</i>
-                                       </a>
+                                        <span className="dropdown">
+                                            <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
+                                                <i className="ilv-icon material-icons md-24">&#xE7F4;</i>
+                                           </a>
+                                            <div className="dropdown-menu dropdown-menu-right" style={{ minWidth: "18rem" }}>
+                                                <div className="ilv-blankslate">
+                                                    <p><i className="ilv-icon material-icons md-36">&#xE7F4;</i></p>
+                                                    <p><small>{Messages.get("TextNoNotifications")}</small></p>
+                                                </div>
+                                            </div>
+                                        </span>
                                     </li>
                                     <li className="ilv-nav-item m-l-1">
                                         <span className="dropdown">
