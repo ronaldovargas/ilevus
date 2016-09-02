@@ -70,52 +70,48 @@ module.exports = React.createClass({
             );
         }
 
-        return <div className="ilv-card">
-            <div className="ilv-card-body">
-                {this.state.models.map((model, index) => {
-                    var industry = S(model.Professional.Professional.Industry);
-                    var headline = S(model.Professional.Professional.Headline);
-                    return (
-                        <div className="p-y-1" style={{ borderBottom: "1px solid #cfd7e6" }} key={"search-result-"+index}>
-                            <div className="ilv-media" key={"result-"+index}>
-                                <div className="ilv-media-left ilv-text-xs-center m-r-1">
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
-                                        style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
-                                    <div>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE866;</i>
-                                        </button>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE80D;</i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div className="ilv-media-body">
-                                    <div style={{marginBottom: ".25rem"}}>
-                                        <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
-                                        
-                                    </div>
-                                    <div>
-                                        <p className="ilv-text-small">
-                                            <span className="ilv-tag m-l-0">Premium</span>
-                                            { industry.isEmpty() ? "" : industry.s }
-                                        </p>
-                                        <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
-                                        <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
-                                    </div>
-                                </div>
-                                <div className="ilv-media-right ilv-text-small">
-                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
-                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}</a></p>
-                                    <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>
+        return <div>
+            {this.state.models.map((model, index) => {
+                var industry = S(model.Professional.Professional.Industry);
+                var headline = S(model.Professional.Professional.Headline);
+                return (
+                    <div className="p-y-1" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
+                        <div className="ilv-media" key={"result-"+index}>
+                            <div className="ilv-media-left ilv-text-xs-center m-r-1">
+                                <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
+                                    style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
+                                <div>
+                                    <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
+                                        <i className="ilv-icon material-icons md-18">&#xE866;</i>
+                                    </button>
+                                    <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
+                                        <i className="ilv-icon material-icons md-18">&#xE80D;</i>
+                                    </button>
                                 </div>
                             </div>
+                            <div className="ilv-media-body">
+                                <div style={{marginBottom: ".25rem"}}>
+                                    <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
+                                        
+                                </div>
+                                <div>
+                                    <p className="ilv-text-small">
+                                        <span className="ilv-tag m-l-0">Premium</span>
+                                        { industry.isEmpty() ? "" : industry.s }
+                                    </p>
+                                    <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
+                                    <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                </div>
+                            </div>
+                            <div className="ilv-media-right ilv-text-small">
+                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
+                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}</a></p>
+                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>
+                            </div>
                         </div>
-                    );
-                })}
-                <p className="ilv-text-small" style={{margin: ".625rem 0 0"}}>{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</p>
-            </div>
- 
+                    </div>
+                );
+            })} 
         </div>;
     },
 
@@ -132,42 +128,40 @@ module.exports = React.createClass({
                             <div className="col-xs-12">
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
-                                        <h1 className="h3 m-a-0">{this.state.term}</h1>
-                                        <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
-                                    </div>
-                                    <div className="ilv-card-footer">
-                                        <form className="ilv-form-inline">
-                                            <fieldset className="ilv-form-group">
-                                                <select className="ilv-form-control ilv-form-control-sm">
-                                                    <option>{Messages.get("LabelLocalization")}</option>
-                                                </select>
-                                            </fieldset>
-                                            <fieldset className="ilv-form-group">
-                                                <select className="ilv-form-control ilv-form-control-sm">
-                                                <option>{Messages.get("LabelExpertise")}</option>
-                                                </select>
-                                            </fieldset>
-                                            <fieldset className="ilv-form-group">
-                                                <div className="ilv-checkbox">
-                                                    <label htmlFor="filter-online">
-                                                        <input className="ilv-control-input" type="checkbox" id="filter-online" ref="stayconnected" />
-                                                        <span className="ilv-control-indicator"></span>
-                                                        <span className="ilv-control-label">{Messages.get("LabelMeetsOnline")}</span>
-                                                    </label>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                        <div className="ilv-media ilv-media-middle p-b-1 m-b-1">
+                                            <div className="ilv-media-body">
+                                                <h1 className="h3 m-a-0">{this.state.term}</h1>
+                                                <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
+                                            </div>
+                                            <div className="ilv-media-right">
+                                                <form className="ilv-form-inline">
+                                                    <fieldset className="ilv-form-group">
+                                                        <select className="ilv-form-control ilv-form-control-sm">
+                                                            <option>{Messages.get("LabelLocalization")}</option>
+                                                        </select>
+                                                    </fieldset>
+                                                    <fieldset className="ilv-form-group">
+                                                        <select className="ilv-form-control ilv-form-control-sm">
+                                                        <option>{Messages.get("LabelExpertise")}</option>
+                                                        </select>
+                                                    </fieldset>
+                                                    <fieldset className="ilv-form-group">
+                                                        <div className="ilv-checkbox">
+                                                            <label htmlFor="filter-online">
+                                                                <input className="ilv-control-input" type="checkbox" id="filter-online" ref="stayconnected" />
+                                                                <span className="ilv-control-indicator"></span>
+                                                                <span className="ilv-control-label">{Messages.get("LabelMeetsOnline")}</span>
+                                                            </label>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        {this.renderModels()}
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container">
-                    <div className="row">
-                        <div className="col-xs-12">
-                            {this.renderModels()}
                         </div>
                     </div>
                 </div>

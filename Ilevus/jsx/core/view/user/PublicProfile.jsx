@@ -118,18 +118,15 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-card-footer">
                                 <button className="ilv-btn ilv-btn-primary">
-                                    <i className="ilv-icon material-icons md-18">&#xE878;</i>
-                                    {Messages.get("ActionRequestMeeting")}
+                                    <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
                                 </button>
 
-                                <button className="ilv-btn ilv-btn-primary">
-                                    <i className="ilv-icon material-icons md-18">&#xE0BE;</i>
-                                    {Messages.get("ActionSendMessage")}
-                                </button>
-                                
                                 <button className="ilv-btn ilv-btn-neutral">
-                                    <i className="ilv-icon material-icons md-18">&#xE0B0;</i>
-                                    {Messages.get("ActionRequestPhone")}
+                                    <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
+                                </button>
+
+                                <button className="ilv-btn ilv-btn-neutral">
+                                    <i className="ilv-icon material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}
                                 </button>
 
                                 <div className="ilv-btn-group pull-sm-right">

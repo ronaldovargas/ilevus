@@ -52,6 +52,10 @@
   }
 }
 
+.#{$prefix}btn + .#{$prefix}btn {
+  margin-left: $btn-block-spacing-y;
+}
+
 a.#{$prefix}btn.disabled,
 fieldset[disabled] a.#{$prefix}btn {
   pointer-events: none;

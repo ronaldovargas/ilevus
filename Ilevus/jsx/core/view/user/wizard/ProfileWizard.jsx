@@ -71,6 +71,9 @@ module.exports = React.createClass({
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 1
+                                    {this.state.professionalData.BasicInfo ?
+                                        <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                    :""}
                               </strong>
                               <h3 className="m-a-0">{Messages.get("LabelBasicInformation")}</h3>
                               <p>{Messages.get("TextBasicProfessionalInfo")}</p>
@@ -84,17 +87,15 @@ module.exports = React.createClass({
                                 </Link>
                               }
                             </div>
-                            <div className="ilv-media-right">
-                              {this.state.professionalData.BasicInfo ?
-                                <i className="material-icons md-24 text-success">&#xE86C;</i>
-                               :""}
-                            </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-y-2">
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                   {Messages.get("LabelStep")} 2
+                                  {this.state.professionalData.AddressInfo ?
+                                    <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                  :""}
                               </strong>
                               <h3 className="m-a-0">{Messages.get("LabelAddress")}</h3>
                               <p>{Messages.get("TextAddressInfo")}</p>
@@ -108,17 +109,15 @@ module.exports = React.createClass({
                                     </Link>
                                 ):""}
                             </div>
-                            <div className="ilv-media-right">
-                                {this.state.professionalData.AddressInfo ?
-                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
-                                :""}
-                            </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-y-2">
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                   {Messages.get("LabelStep")} 3
+                                  {this.state.professionalData.EducationInfo ?
+                                    <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                  :""}
                               </strong>
                               <h3 className="m-a-0">{Messages.get("TextEducation")}</h3>
                               <p>{Messages.get("TextEducationProfessionalInfo")}</p>
@@ -133,17 +132,15 @@ module.exports = React.createClass({
                                         </Link>
                                 ):""}
                             </div>
-                            <div className="ilv-media-right">
-                                {this.state.professionalData.EducationInfo ?
-                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
-                                :""}
-                            </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-y-2">
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                   {Messages.get("LabelStep")} 4
+                                  {this.state.professionalData.CareerInfo ?
+                                    <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                  :""}
                               </strong>
                               <h3 className="m-a-0">{Messages.get("TextCareer")}</h3>
                               <p>{Messages.get("TextCareerProfessionalInfo")}</p>
@@ -159,17 +156,15 @@ module.exports = React.createClass({
                                     </Link>
                               ):""}
                             </div>
-                            <div className="ilv-media-right">
-                                {this.state.professionalData.CareerInfo ?
-                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
-                                :""}
-                            </div>
                           </li>
 
                           <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
                             <div className="ilv-media-body">
                               <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                   {Messages.get("LabelStep")} 5
+                                  {this.state.professionalData.ServicesInfo ?
+                                    <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                  :""}
                               </strong>
                               <h3 className="m-a-0">{Messages.get("TextOfferedServices")}</h3>
                               <p>{Messages.get("TextServicesProfessionalInfo")}</p>
@@ -184,11 +179,6 @@ module.exports = React.createClass({
                                         {Messages.get("LabelContinue")}
                                     </Link>
                               ):""}
-                            </div>
-                            <div className="ilv-media-right">
-                                {this.state.professionalData.ServicesInfo ?
-                                    <i className="material-icons md-24 text-success">&#xE86C;</i>
-                                :""}
                             </div>
                           </li>
                           {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
@@ -209,7 +199,7 @@ module.exports = React.createClass({
                     </div>
                   </div>
 
-                  <div className="col-sm-6">
+                  <div className="col-sm-6 hidden-sm-down">
                     <img className="ilv-img-fluid" src="http://previews.123rf.com/images/serrnovik/serrnovik0908/serrnovik090800149/5414688-Confident-young-business-woman-with-pen-and-amazing-smile-look-at-camera-isolated-on-white-Stock-Photo.jpg"/>
                   </div>
 
