@@ -179,10 +179,11 @@ module.exports = React.createClass({
                                                         return <div key={"education-" + index}>
 											                <strong>{career.Role} </strong>
                                                             <span>
-                                                                em {career.Institution} - {career.Location}, {career.Finished
+                                                                em {career.Institution} - {career.Location}{!career.Begin ?
+                                                                    "":", "+(career.Finished
                                                                     ? career.Begin + " " + Messages.get("LabelTo") + " " + career.End
                                                                     : Messages.get("LabelStartedAt") + " " + career.Begin
-                                                                }.
+                                                                )}.
                                                             </span>
                                                         </div>;
                                                     })}
@@ -203,10 +204,11 @@ module.exports = React.createClass({
                                                         return <div key={"education-" + index}>
 											                <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
                                                             <span>
-                                                                na {education.Institution}, {education.Finished
+                                                                na {education.Institution}{!education.Begin ?
+                                                                    "":", "+(education.Finished
                                                                     ? education.Begin + " " + Messages.get("LabelTo") + " " + education.End
                                                                     : Messages.get("LabelStartedAt") + " " + education.Begin
-                                                                }.
+                                                                )}.
                                                             </span>
                                                         </div>;
                                                     })}

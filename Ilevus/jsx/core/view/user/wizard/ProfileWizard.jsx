@@ -187,7 +187,7 @@ module.exports = React.createClass({
                                 <li className="ilv-media ilv-media-middle p-t-2 p-b-0">
                                     <div className="ilv-media-body">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
-                                              to={"/profile"+this.state.professionalData.Id}>
+                                              to={"/profile/"+this.state.data.Id}>
                                             {Messages.get("TextSeeMyProfile")}
                                         </Link>
                                     </div>

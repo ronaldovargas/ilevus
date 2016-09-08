@@ -22,6 +22,9 @@ module.exports = React.createClass({
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             me.context.router.push("/become-a-professional");
         }, me);
+        UserSession.on("fail", (msg) => {
+            $(me.refs['btn-submit']).removeAttr("disabled");
+        }, me);
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);

@@ -114,11 +114,11 @@ module.exports = React.createClass({
                                                     {Messages.get("EducationType" + education.Type)} | {education.Area}
                                                 </span>
                                                 <div className="ilv-text-small text-muted">
-                                                    {education.Finished ?
+                                                    {!education.Begin ? "":(education.Finished ?
                                                         education.Begin+" "+Messages.get("LabelTo")+" "+education.End
                                                         :
                                                         Messages.get("LabelStartedAt") + " " + education.Begin
-                                                    }
+                                                    )}
                                                 </div>
 											    <p>{education.Description}</p>
                                             </div>
