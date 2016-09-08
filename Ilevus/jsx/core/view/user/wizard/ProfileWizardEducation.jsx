@@ -84,6 +84,20 @@ module.exports = React.createClass({
             });
         }
     },
+    orderUp(index, event) {
+        event && event.preventDefault();
+        var aux = this.state.educations[index];
+        this.state.educations[index] = this.state.educations[index - 1];
+        this.state.educations[index - 1] = aux;
+        this.forceUpdate();
+    },
+    orderDown(index, event) {
+        event && event.preventDefault();
+        var aux = this.state.educations[index];
+        this.state.educations[index] = this.state.educations[index + 1];
+        this.state.educations[index + 1] = aux;
+        this.forceUpdate();
+    },
     cancelEditing() {
         this.setState({
             adding: false,
@@ -123,6 +137,22 @@ module.exports = React.createClass({
 											    <p>{education.Description}</p>
                                             </div>
                                             <div className="ilv-media-right">
+                                                {this.state.educations.length > 1 ?
+                                                    (index < this.state.educations.length-1 ?
+                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0"
+                                                                onClick={this.orderDown.bind(this, index)}>
+                                                            <i className="ilv-icon material-icons md-18">&#xE5DB;</i>
+											            </button>
+                                                    :"")
+                                                :""}
+                                                {this.state.educations.length > 1 ?
+                                                    (index > 0 ?
+                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0"
+                                                                onClick={this.orderUp.bind(this, index)}>
+                                                            <i className="ilv-icon material-icons md-18">&#xE5D8;</i>
+                                                        </button>
+                                                    :"")
+                                                :""}
 											    <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0" onClick={this.startEditing.bind(this,index)}>
                                                     <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
 											    </button>
