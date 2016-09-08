@@ -52,7 +52,7 @@ module.exports = {
         	loader: "url-loader?limit=10000&mimetype=application/font-woff"
         },{
         	test: /\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
-        	loader: "file-loader"
+        	loader: "file-loader?name=images/[name].[ext]"
         },{
             test: /\.md$/,
             loader: "raw-loader"

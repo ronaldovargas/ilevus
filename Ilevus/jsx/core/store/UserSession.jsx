@@ -302,7 +302,11 @@ var UserSession = Backbone.Model.extend({
 	},
 
 	recoverPassword(params) {
-		var me = this;
+	    var me = this;
+	    if (S(params.Email).isEmpty()) {
+	        me.trigger("fail", Messages.formatWithKeys("ValidationRequired", ['LabelEmail']));
+	        return;
+	    }
 		$.ajax({
 			method: "POST",
 			url: me.url + "/RecoverPassword",

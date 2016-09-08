@@ -28,7 +28,7 @@ module.exports = React.createClass({
     },
     onRouteChange(route) {
         if (typeof ga == 'function') {
-            ga('send', 'pageview');
+            ga('send', 'pageview', route.pathname);
         }
     },
     render: function () {
