@@ -239,6 +239,7 @@
     <Compile Include="Models\CitiesModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\SystemModels.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
