@@ -160,3 +160,85 @@
 .#{$prefix}form-control + .#{$prefix}input-group-addon:not(:first-child) {
   border-left: 0;
 }
+
+
+//
+// Stacked input groups for small devices
+//
+
+@include media-breakpoint-down(sm) {
+  .#{$prefix}input-group {
+    flex-direction: column;
+  }
+
+
+  //
+  // Input group button
+  //
+
+  .#{$prefix}input-group-btn {
+
+    > .#{$prefix}btn {
+      display: block;
+      width: 100%;
+    }
+
+    &:not(:last-child) {
+      > .#{$prefix}btn,
+      > .#{$prefix}btn-group {
+        margin-right: 0;
+        margin-bottom: (-$input-group-border-width);
+      }
+    }
+    &:not(:first-child) {
+      > .#{$prefix}btn,
+      > .#{$prefix}btn-group {
+        margin-top: (-$input-group-border-width);
+        margin-left: 0;
+      }
+    }
+  }
+
+
+  //
+  // Border controlling
+  //
+
+  .#{$prefix}input-group-addon,
+  .#{$prefix}input-group-btn,
+  .#{$prefix}input-group .#{$prefix}form-control {
+    &:not(:first-child):not(:last-child) {
+      @include border-radius(0);
+    }
+  }
+
+  .#{$prefix}input-group .#{$prefix}form-control:not(:last-child),
+  .#{$prefix}input-group-addon:not(:last-child),
+  .#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn,
+  .#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn-group > .#{$prefix}btn,
+  .#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn:not(:last-child),
+  .#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn-group:not(:last-child) > .#{$prefix}btn {
+    @include border-top-radius($input-group-border-radius);
+    @include border-bottom-radius(0);
+  }
+
+  .#{$prefix}input-group-addon:not(:last-child) {
+    border-right-width: $input-group-border-width;
+    border-bottom-width: 0;
+  }
+
+  .#{$prefix}input-group .#{$prefix}form-control:not(:first-child),
+  .#{$prefix}input-group-addon:not(:first-child),
+  .#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn,
+  .#{$prefix}input-group-btn:not(:first-child) > .#{$prefix}btn-group > .#{$prefix}btn,
+  .#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn:not(:first-child),
+  .#{$prefix}input-group-btn:not(:last-child) > .#{$prefix}btn-group:not(:first-child) > .#{$prefix}btn {
+    @include border-top-radius(0);
+    @include border-bottom-radius($input-group-border-radius);
+  }
+
+  .#{$prefix}form-control + .#{$prefix}input-group-addon:not(:first-child) {
+    border-top-width: 0;
+    border-left-width: $input-group-border-width;
+  }
+}

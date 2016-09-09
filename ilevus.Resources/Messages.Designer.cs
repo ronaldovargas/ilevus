@@ -1762,6 +1762,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Presente.
+        /// </summary>
+        public static string TextPresent {
+            get {
+                return ResourceManager.GetString("TextPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fotos claras e frontais do rosto são uma forma eficiente de ilustrar seu perfil..
         /// </summary>
         public static string TextProfilePictureDescription {

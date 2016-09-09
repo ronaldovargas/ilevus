@@ -78,22 +78,26 @@ module.exports = React.createClass({
             <nav className="ilv-navbar ilv-navbar-light">
                 <div className="container">
                     <div className="ilv-navbar-nav">
-                        <div className="ilv-navbar-nav-item ilv-navbar-nav-item-shrink">
-                            <Link to="/home">
-                                <img src={Logo} alt="ilevus" />
-                            </Link>
-                        </div>
                         <div className="ilv-navbar-nav-item">
-                            <form onSubmit={this.onSearch}>
-                                <div className="ilv-input-group">
-                                    <input ref="search-term" className="ilv-form-control" type="search" />
-                                    <div className="ilv-input-group-btn">
-                                        <button className="ilv-btn ilv-btn-icon ilv-btn-neutral" type="submit">
-                                          <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
-                                        </button>
-                                    </div>
+                            <div className="ilv-media ilv-media-middle">
+                                <div className="ilv-media-left m-r-1">
+                                    <Link to="/home">
+                                        <img src={Logo} alt="ilevus" />
+                                    </Link>
                                 </div>
-                            </form>
+                                <div className="ilv-media-body">
+                                    <form onSubmit={this.onSearch}>
+                                        <div className="ilv-input-group">
+                                            <input ref="search-term" className="ilv-form-control ilv-form-control-long" type="search" />
+                                            <div className="ilv-input-group-btn">
+                                                <button className="ilv-btn ilv-btn-icon ilv-btn-neutral" type="submit">
+                                                  <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> 
                         </div>
                         <div className="ilv-navbar-nav-item ilv-text-xs-right">
                             {this.state.logged ? (

@@ -816,4 +816,7 @@
   <data name="TextNoNotifications" xml:space="preserve">
     <value>Você não tem nenhuma notificação</value>
   </data>
+  <data name="TextPresent" xml:space="preserve">
+    <value>Presente</value>
+  </data>
 </root>

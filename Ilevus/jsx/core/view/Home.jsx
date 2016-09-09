@@ -3,8 +3,9 @@ var React = require("react");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
 
-var ImgNetworking = require('ilevus/img/lp-networking.png');
+var ImgNetworking = require('ilevus/img/lp-networking.jpg');
 var ImgBanner = require('ilevus/img/lp-banner.jpg');
+var ImgMeeting = require('ilevus/img/img-wizard.png');
 
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
 
@@ -100,7 +101,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-section ilv-lp-section-inverse">
+              <div className="ilv-lp-section ilv-lp-section-inverse p-b-0">
                   <div className="container">
                       <div className="row">
                           <div className="col-md-6 m-y-3">
@@ -110,20 +111,20 @@ module.exports = React.createClass({
                                     Escolha entre os melhores profissionais do mundo e envie uma mensagem para agendar sua primeira reunião.
                                   </p>
                               </div>
-                              <form className="ilv-form-inline">
+                              <form className="ilv-form">
                                   <fieldset className="ilv-form-group">
-                                      <input className="ilv-form-control ilv-form-control-lg" type="text" placeholder="Localização"/>
+                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Localização"/>
                                   </fieldset>
                                   <fieldset className="ilv-form-group">
-                                      <input className="ilv-form-control ilv-form-control-lg" type="text" placeholder="Especialidade"/>
+                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Especialidade"/>
                                   </fieldset>
                                   <fieldset className="ilv-form-group">
-                                      <button className="ilv-btn ilv-btn-block ilv-btn-lg ilv-btn-success" type="submit">Pesquisar</button>
+                                      <button className="ilv-btn ilv-btn-lg ilv-btn-success" type="submit">Pesquisar</button>
                                   </fieldset>
                               </form>
                           </div>
                           <div className="col-md-6 ilv-text-xs-center">
-                              <img style={{height: "250px"}} src={IconMeet}/>
+                              <img style={{height: "500px"}} src={ImgMeeting}/>
                           </div>
                       </div>
                   </div>

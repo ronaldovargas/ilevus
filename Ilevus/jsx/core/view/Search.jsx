@@ -80,30 +80,21 @@ module.exports = React.createClass({
                             <div className="ilv-media-left ilv-text-xs-center m-r-1">
                                 <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
                                     style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
-                                <div>
-                                    <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
-                                        <i className="ilv-icon material-icons md-18">&#xE866;</i>
-                                    </button>
-                                    <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-x-0">
-                                        <i className="ilv-icon material-icons md-18">&#xE80D;</i>
-                                    </button>
-                                </div>
                             </div>
-                            <div className="ilv-media-body">
+                            <div className="ilv-media-body" style={{borderRight: "1px solid #eee"}}>
                                 <div style={{marginBottom: ".25rem"}}>
                                     <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
-                                        
                                 </div>
                                 <div>
                                     <p className="ilv-text-small">
-                                        <span className="ilv-tag m-l-0">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
                                     <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
                                     <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
-                            <div className="ilv-media-right ilv-text-small">
+                            <div className="ilv-media-right ilv-text-small" style={{minWidth: "12rem"}}>
                                 <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
                                 <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}</a></p>
                                 <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>

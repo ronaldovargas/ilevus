@@ -84,6 +84,22 @@ textarea.#{$prefix}form-control {
   min-height: $form-control-height-lg;
 }
 
+// Form control width
+.#{$prefix}form-control-short {
+  min-width: $form-control-width-short;
+  max-width: $form-control-width-short;
+}
+
+.#{$prefix}form-control-medium {
+  min-width: $form-control-width-medium;
+  max-width: $form-control-width-medium;
+}
+
+.#{$prefix}form-control-long {
+  min-width: $form-control-width-long;
+  max-width: $form-control-width-long;
+}
+
 
 //
 // Form components

@@ -92,9 +92,9 @@ module.exports = React.createClass({
                                         <span className="h2">
                                             {user.get("Name")} {user.get("Surname")}
                                         </span>
-                                        <span className="ilv-tag ilv-tag-warning">Premium</span>
-                                        <div className="ilv-text-large ilv-font-weight-semibold">
-                                            {industry.isEmpty() ? "":industry.s}
+                                        <div>
+                                            <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
+                                            <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
                                         </div>
                                         <div className="ilv-text-small">
                                             {specialties.isEmpty() ? "":"Especialista em: "+specialties.s}
@@ -179,11 +179,19 @@ module.exports = React.createClass({
                                                         return <div key={"education-" + index}>
 											                <strong>{career.Role} </strong>
                                                             <span>
+<<<<<<< Updated upstream
                                                                 em {career.Institution} - {career.Location}{!career.Begin ?
                                                                     "":", "+(career.Finished
                                                                     ? career.Begin + " " + Messages.get("LabelTo") + " " + career.End
                                                                     : Messages.get("LabelStartedAt") + " " + career.Begin
                                                                 )}.
+=======
+                                                                em {career.Institution} - {career.Location}
+                                                                {career.Finished
+                                                                    ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
+                                                                    : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
+                                                                }.
+>>>>>>> Stashed changes
                                                             </span>
                                                         </div>;
                                                     })}
@@ -204,11 +212,19 @@ module.exports = React.createClass({
                                                         return <div key={"education-" + index}>
 											                <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
                                                             <span>
+<<<<<<< Updated upstream
                                                                 na {education.Institution}{!education.Begin ?
                                                                     "":", "+(education.Finished
                                                                     ? education.Begin + " " + Messages.get("LabelTo") + " " + education.End
                                                                     : Messages.get("LabelStartedAt") + " " + education.Begin
                                                                 )}.
+=======
+                                                                na {education.Institution}
+                                                                {education.Finished
+                                                                    ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
+                                                                    : ", " + Messages.get("LabelStartedAt") + " " + education.Begin
+                                                                }.
+>>>>>>> Stashed changes
                                                             </span>
                                                         </div>;
                                                     })}

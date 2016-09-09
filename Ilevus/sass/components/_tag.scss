@@ -40,6 +40,7 @@
   padding: $tag-padding-x $tag-padding-y;
   line-height: normal;
   border-radius: $tag-border-radius;
+  text-transform: uppercase;
   @include tag-variant($tag-bg-base);
 
   &:empty {

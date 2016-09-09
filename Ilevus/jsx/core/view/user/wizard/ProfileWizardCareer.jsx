@@ -130,11 +130,18 @@ module.exports = React.createClass({
                                                     {career.Institution} | {career.Location}
                                                 </span>
                                                 <div className="ilv-text-small text-muted">
+<<<<<<< Updated upstream
                                                     {!career.Begin ? "":(career.Finished ?
                                                         career.Begin + " " + Messages.get("LabelTo") + " " + career.End
                                                         :
                                                         Messages.get("LabelStartedAt") + " " + career.Begin
                                                     )}
+=======
+                                                    {career.Finished
+                                                        ? career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
+                                                        : Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
+                                                    }
+>>>>>>> Stashed changes
                                                 </div>
 											    <p>{career.Description}</p>
                                             </div>

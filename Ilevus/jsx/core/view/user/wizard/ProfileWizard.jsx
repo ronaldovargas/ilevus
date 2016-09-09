@@ -9,6 +9,8 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
+var ImgWizard = require('ilevus/img/img-wizard.png');
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -200,7 +202,7 @@ module.exports = React.createClass({
                   </div>
 
                   <div className="col-sm-6 hidden-sm-down">
-                    <img className="ilv-img-fluid" src="http://previews.123rf.com/images/serrnovik/serrnovik0908/serrnovik090800149/5414688-Confident-young-business-woman-with-pen-and-amazing-smile-look-at-camera-isolated-on-white-Stock-Photo.jpg"/>
+                    <img className="ilv-img-fluid" src={ImgWizard} />
                   </div>
 
                 </div>}
