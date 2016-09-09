@@ -799,6 +799,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endereço de email.
+        /// </summary>
+        public static string LabelEmailAddress {
+            get {
+                return ResourceManager.GetString("LabelEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ano de conclusão.
         /// </summary>
         public static string LabelEndYear {

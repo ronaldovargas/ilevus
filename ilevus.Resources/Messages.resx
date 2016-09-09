@@ -819,4 +819,7 @@
   <data name="TextPresent" xml:space="preserve">
     <value>Presente</value>
   </data>
+  <data name="LabelEmailAddress" xml:space="preserve">
+    <value>Endereço de email</value>
+  </data>
 </root>
