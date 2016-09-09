@@ -128,18 +128,10 @@ module.exports = React.createClass({
                                                     {Messages.get("EducationType" + education.Type)} | {education.Area}
                                                 </span>
                                                 <div className="ilv-text-small text-muted">
-<<<<<<< Updated upstream
-                                                    {!education.Begin ? "":(education.Finished ?
-                                                        education.Begin+" "+Messages.get("LabelTo")+" "+education.End
-                                                        :
-                                                        Messages.get("LabelStartedAt") + " " + education.Begin
-                                                    )}
-=======
                                                     {education.Finished
                                                         ? education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
                                                         : Messages.get("LabelStartedAt") + " " + education.Begin
                                                     }
->>>>>>> Stashed changes
                                                 </div>
 											    <p>{education.Description}</p>
                                             </div>
