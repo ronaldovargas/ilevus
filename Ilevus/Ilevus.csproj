@@ -265,6 +265,9 @@
     </Content>
     <Content Include="jsx\core\util\Languages.json" />
     <Content Include="jsx\core\util\Countries.json" />
+    <Content Include="jsx\core\view\admin\AdminPanelUsers.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanel.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelTranslate.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />

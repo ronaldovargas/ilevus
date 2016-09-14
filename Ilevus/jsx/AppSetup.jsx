@@ -46,6 +46,10 @@ var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
 var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 
+var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
+var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
+var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
+
 var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
 
 // string config
@@ -130,6 +134,11 @@ Messages.load(function (success) {
                         <Route path="profile" component={UserProfile} />
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="account" component={UserAccount} />
+                    </Route>
+
+                    <Route path="admin" component={AdminPanel}>
+                        <Route path="users" component={AdminPanelUsers} />
+                        <Route path="translate" component={AdminPanelTranslate} />
                     </Route>
 
                     <Route path="become-a-professional" component={ProfileWizard}>

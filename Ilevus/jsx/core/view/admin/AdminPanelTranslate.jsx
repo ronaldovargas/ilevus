@@ -19,7 +19,7 @@ module.exports = React.createClass({
                         </div>
                     </div>
                     <div className="ilv-card-body">
-                        <table>
+                        <table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
                             <thead>
                                 <tr>
                                     <th>Código</th>
@@ -33,12 +33,12 @@ module.exports = React.createClass({
                                     <td>LabelName</td>
                                     <td>Nome</td>
                                     <td>Name</td>
-                                    <td>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon" title="Editar Entrada">
-                                            <i className="ilv-icon material-icons">&#xE3C9;</i>
+                                    <td className="ilv-text-xs-right">
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Editar Entrada">
+                                            <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
                                         </button>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon" title="Excluir Tradução">
-                                            <i className="ilv-icon material-icons">&#xE872;</i>
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Excluir Tradução">
+                                            <i className="ilv-icon material-icons md-18">&#xE872;</i>
                                         </button>
                                     </td>
                                 </tr>

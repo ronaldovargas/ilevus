@@ -91,3 +91,10 @@
 .#{$prefix}table-fixed {
   table-layout: fixed;
 }
+
+.#{$prefix}table-middle {
+
+  th, td {
+    vertical-align: middle;
+  }
+}

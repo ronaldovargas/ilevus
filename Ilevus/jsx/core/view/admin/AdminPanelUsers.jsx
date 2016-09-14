@@ -12,37 +12,38 @@ module.exports = React.createClass({
                         <strong>Usuários</strong>
                     </div>
                     <div className="ilv-card-body">
-                        <table>
+                        <table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
                             <thead>
                                 <tr>
                                     <th>Nome</th>
                                     <th>Email</th>
                                     <th>Nível de Acesso</th>
-                                    <th>Confirmação de Email</th>
-                                    <th>Tem perfil profissional</th>
+                                    <th>Status</th>
+                                    <th>Perfil Profissional</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Henrique Fiorini</td>
+                                    <td>
+                                        Henrique Fiorini
+                                        <i title="Email verificado"
+                                           className="ilv-icon material-icons md-18 ilv-text-info"
+                                           style={{margin: "-4px 0 0 5px"}}>&#xE8E8;</i>
+                                    </td>
                                     <td>henriquehfr2@gmail.com</td>
                                     <td>Usuário</td>
-                                    <td>
-                                        <span className="ilv-text-info">
-                                            <i className="ilv-icon material-icons">&#xE8E8;</i> Verificado
-                                        </span>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon" title="Resetar Senha">
-                                            <i className="ilv-icon material-icons">&#xE897;</i>
+                                    <td>Ativo</td>
+                                    <td>N/A</td>
+                                    <td className="ilv-text-xs-right">
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Editar Usuário">
+                                            <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
                                         </button>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon" title="Bloquear Usuário">
-                                            <i className="ilv-icon material-icons">&#xE14B;</i>
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Bloquear Usuário">
+                                            <i className="ilv-icon material-icons md-18">&#xE14B;</i>
                                         </button>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon" title="Excluir Conta">
-                                            <i className="ilv-icon material-icons">&#xE872;</i>
+                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Excluir Conta">
+                                            <i className="ilv-icon material-icons md-18">&#xE872;</i>
                                         </button>
                                     </td>
                                 </tr>
