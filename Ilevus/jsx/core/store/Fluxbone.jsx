@@ -19,6 +19,8 @@ var _ = require('underscore');
 var Backbone = require("backbone");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Toastr = require("toastr")
 
 var Model = Backbone.Model.extend({
 	parse(response, opts) {
@@ -41,6 +43,10 @@ var Store = Backbone.Collection.extend({
 	initialize() {
 		this.dispatchToken = this.$dispatcher.register(this.dispatchCallback.bind(this));
 		this.on("error", this.handleRequestErrors, this);
+		this.on("fail", (msg) => {
+		    Toastr.remove();
+		    Toastr.error(msg);
+		}, this);
 	},
 	parse(response, opts) {
 		this.total = response.total;

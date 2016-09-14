@@ -822,4 +822,16 @@
   <data name="LabelEmailAddress" xml:space="preserve">
     <value>Endereço de email</value>
   </data>
+  <data name="EmailAccountBlockBody" xml:space="preserve">
+    <value>&lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Devido à falta de confirmação de seu e-mail por um período superior à 7 dias, sua conta foi bloqueada.&lt;/p&gt;&lt;p&gt;Para desbloquear sua conta clique no link abaixo e confirme seu endereço de e-mail:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailAccountBlockSubject" xml:space="preserve">
+    <value>Sua conta foi bloqueada</value>
+  </data>
+  <data name="EmailWelcomeBody" xml:space="preserve">
+    <value>&lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Bem-vindo à ilevus, a maior rede de coaching e treinamento.&lt;/p&gt;&lt;p&gt;Para confirmar seu e-mail e usufruir de todos os recursos da ilevus, clique no link abaixo:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus</value>
+  </data>
+  <data name="EmailWelcomeSubject" xml:space="preserve">
+    <value>Bem-vindo à ilevus</value>
+  </data>
 </root>

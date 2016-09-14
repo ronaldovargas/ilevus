@@ -457,6 +457,24 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Devido à falta de confirmação de seu e-mail por um período superior à 7 dias, sua conta foi bloqueada.&lt;/p&gt;&lt;p&gt;Para desbloquear sua conta clique no link abaixo e confirme seu endereço de e-mail:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
+        /// </summary>
+        public static string EmailAccountBlockBody {
+            get {
+                return ResourceManager.GetString("EmailAccountBlockBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sua conta foi bloqueada.
+        /// </summary>
+        public static string EmailAccountBlockSubject {
+            get {
+                return ResourceManager.GetString("EmailAccountBlockSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Por favor, confirme seu e-mail acessando o link:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
         /// </summary>
         public static string EmailConfirmEmailBody {
@@ -489,6 +507,24 @@ namespace ilevus.Resources {
         public static string EmailRecoverPasswordSubject {
             get {
                 return ResourceManager.GetString("EmailRecoverPasswordSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Olá {0},&lt;/p&gt;&lt;p&gt;Bem-vindo à ilevus, a maior rede de coaching e treinamento.&lt;/p&gt;&lt;p&gt;Para confirmar seu e-mail e usufruir de todos os recursos da ilevus, clique no link abaixo:&lt;br /&gt;{1}&lt;/p&gt;--&lt;br /&gt;Equipe ilevus.
+        /// </summary>
+        public static string EmailWelcomeBody {
+            get {
+                return ResourceManager.GetString("EmailWelcomeBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bem-vindo à ilevus.
+        /// </summary>
+        public static string EmailWelcomeSubject {
+            get {
+                return ResourceManager.GetString("EmailWelcomeSubject", resourceCulture);
             }
         }
         

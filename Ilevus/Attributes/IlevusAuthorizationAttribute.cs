@@ -31,7 +31,7 @@ namespace ilevus.Attributes
             if (!principal.Identity.IsAuthenticated)
             {
                 actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-                return Task.FromResult<object>(null);
+                return Task.FromResult("Not authenticated");
             }
 
             if (Permission != null)
@@ -39,7 +39,7 @@ namespace ilevus.Attributes
                 if (!(principal.HasClaim(claim => claim.Type == "IlevusPermission" && ((claim.Value == "All") || (claim.Value == Permission)))))
                 {
                     actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
-                    return Task.FromResult<object>(null);
+                    return Task.FromResult("User dont have the permission for this resource.");
                 }
             }
             

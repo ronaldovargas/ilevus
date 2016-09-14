@@ -268,6 +268,8 @@
     <Content Include="jsx\core\view\admin\AdminPanelUsers.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanel.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelTranslate.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelEmails.jsx" />
+    <Content Include="jsx\core\store\System.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />

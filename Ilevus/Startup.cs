@@ -30,6 +30,7 @@ namespace ilevus
             app.CreatePerOwinContext(IlevusDBContext.Create);
             IlevusDBContext db = IlevusDBContext.Create();
             db.EnsureIndexes();
+            db.EnsureSystemConfig();
 
             app.UseErrorPage(ErrorPageOptions.ShowAll);
             //GlobalConfiguration.Configure(WebApiConfig.Register);

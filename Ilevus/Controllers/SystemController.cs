@@ -50,6 +50,14 @@ namespace ilevus.Controllers
         }
 
 
+        [IlevusAuthorization]
+        [Route("Config")]
+        [HttpGet]
+        public IHttpActionResult GetConfig()
+        {
+            return Ok(IlevusDBContext.SystemConfiguration);
+        }
+
         [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
         [Route("User/{id:guid}/assignperms")]
         [HttpPut]

@@ -7,6 +7,8 @@ namespace ilevus.Enums
 {
     public class UserPermissions
     {
+        public const string ManageSystemEmails = "ManageSystemEmails";
+
         public const string ManageUserPermissions = "ManageUserPermissions";
         public const string ManageUsers = "ManageUsers";
     }

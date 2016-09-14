@@ -1,8 +1,12 @@
-﻿using MongoDB.Bson;
+﻿using ilevus.Helpers;
+using ilevus.Resources;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -12,12 +16,14 @@ namespace ilevus.Models
     {
         public const string CitiesTable = "ilevus_cities";
         public const string PicturesTable = "ilevus_pictures";
+        public const string SystemConfigTable = "ilevus_system";
     }
 
 
     public class IlevusDBContext : MongoClient, IDisposable
     {
         public IMongoDatabase IlevusDatabase { get; private set; }
+        public static SystemConfig SystemConfiguration { get; private set; }
 
         public static IlevusDBContext Create()
         {
@@ -32,6 +38,96 @@ namespace ilevus.Models
         public IMongoCollection<IlevusPicture> GetPicturesCollection()
         {
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
+        }
+
+        public void EnsureSystemConfig()
+        {
+            var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
+            var configs = configCollection.Find(FilterDefinition<SystemConfig>.Empty).FirstOrDefault();
+            if (configs == null)
+            {
+                ResourceSet pt_br = IlevusResources.Manager.GetResourceSet(new CultureInfo(CultureHelper.GetImplementedCulture("pt-br")), true, true);
+                ResourceSet en = IlevusResources.Manager.GetResourceSet(new CultureInfo(CultureHelper.GetImplementedCulture("en")), true, true);
+                ResourceSet es = IlevusResources.Manager.GetResourceSet(new CultureInfo(CultureHelper.GetImplementedCulture("es")), true, true);
+
+                configs = new SystemConfig() {
+                    AccountBlockingMessages = new SystemTranslatedEmail()
+                    {
+                        pt_br = new SystemEmail()
+                        {
+                            Subject = pt_br.GetString("EmailAccountBlockSubject"),
+                            Template = pt_br.GetString("EmailAccountBlockBody")
+                        },
+                        en = new SystemEmail()
+                        {
+                            Subject = en.GetString("EmailAccountBlockSubject"),
+                            Template = en.GetString("EmailAccountBlockBody")
+                        },
+                        es = new SystemEmail()
+                        {
+                            Subject = es.GetString("EmailAccountBlockSubject"),
+                            Template = es.GetString("EmailAccountBlockBody")
+                        }
+                    },
+                    EmailValidationMessages = new SystemTranslatedEmail()
+                    {
+                        pt_br = new SystemEmail()
+                        {
+                            Subject = pt_br.GetString("EmailConfirmEmailSubject"),
+                            Template = pt_br.GetString("EmailConfirmEmailBody")
+                        },
+                        en = new SystemEmail()
+                        {
+                            Subject = en.GetString("EmailConfirmEmailSubject"),
+                            Template = en.GetString("EmailConfirmEmailBody")
+                        },
+                        es = new SystemEmail()
+                        {
+                            Subject = es.GetString("EmailConfirmEmailSubject"),
+                            Template = es.GetString("EmailConfirmEmailBody")
+                        }
+                    },
+                    RecoverPasswordMessages = new SystemTranslatedEmail()
+                    {
+                        pt_br = new SystemEmail()
+                        {
+                            Subject = pt_br.GetString("EmailRecoverPasswordSubject"),
+                            Template = pt_br.GetString("EmailRecoverPasswordBody")
+                        },
+                        en = new SystemEmail()
+                        {
+                            Subject = en.GetString("EmailRecoverPasswordSubject"),
+                            Template = en.GetString("EmailRecoverPasswordBody")
+                        },
+                        es = new SystemEmail()
+                        {
+                            Subject = es.GetString("EmailRecoverPasswordSubject"),
+                            Template = es.GetString("EmailRecoverPasswordBody")
+                        }
+                    },
+                    WelcomeMessages = new SystemTranslatedEmail()
+                    {
+                        pt_br = new SystemEmail()
+                        {
+                            Subject = pt_br.GetString("EmailWelcomeSubject"),
+                            Template = pt_br.GetString("EmailWelcomeBody")
+                        },
+                        en = new SystemEmail()
+                        {
+                            Subject = en.GetString("EmailWelcomeSubject"),
+                            Template = en.GetString("EmailWelcomeBody")
+                        },
+                        es = new SystemEmail()
+                        {
+                            Subject = es.GetString("EmailWelcomeSubject"),
+                            Template = es.GetString("EmailWelcomeBody")
+                        }
+                    }
+                };
+
+                configCollection.InsertOne(configs);
+            }
+            SystemConfiguration = configs;
         }
 
         public void EnsureIndexes()
