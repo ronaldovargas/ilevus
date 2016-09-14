@@ -32,7 +32,9 @@ module.exports = React.createClass({
             Toastr.remove();
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             $("button").removeAttr("disabled");
-            console.log(config);
+        }, me);
+        SystemStore.on("fail", (msg) => {
+            $("button").removeAttr("disabled");
         }, me);
 
         SystemStore.dispatch({
@@ -79,7 +81,7 @@ module.exports = React.createClass({
                         <form>
                             <div className="row">
                                 <div className="col-xs-12">
-
+                                    
                                     <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor={which + "-pt-br-subject"}>
                                             {Messages.get("LanguagePortuguese")}
@@ -152,6 +154,24 @@ module.exports = React.createClass({
             return <LoadingGauge />;
         }
         return (<div>
+            <div className="ilv-card">
+                <div className="ilv-card-header">
+                    <strong>
+                        {Messages.get("LabelInstructions")}
+                    </strong>
+                </div>
+                <div className="ilv-cerd-body">
+                    <p>{Messages.get("TextAdminConfigEmailHelp")}</p>
+                    <ul>
+                        <li>
+                            <code>{"{0}"}</code> - {Messages.get("TextAdminConfigEmailHelpNameItem")}
+                        </li>
+                        <li>
+                            <code>{"{1}"}</code> - {Messages.get("TextAdminConfigEmailHelpLinkItem")}
+                        </li>
+                    </ul>
+                </div>
+            </div>
             {this.renderEmailForm(this.state.config.WelcomeMessages, "Welcome")}
             {this.renderEmailForm(this.state.config.EmailValidationMessages, "EmailValidation")}
             {this.renderEmailForm(this.state.config.RecoverPasswordMessages, "RecoverPassword")}

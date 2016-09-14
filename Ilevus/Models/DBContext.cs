@@ -40,10 +40,15 @@ namespace ilevus.Models
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
         }
 
-        public Task UpdateSystemConfig()
+        public async Task<bool> UpdateSystemConfig()
         {
             var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
-            return configCollection.ReplaceOneAsync(Builders<SystemConfig>.Filter.Eq("_id", SystemConfiguration.Id), SystemConfiguration);
+            var result = await configCollection.ReplaceOneAsync(FilterDefinition<SystemConfig>.Empty, SystemConfiguration);
+            if (result.MatchedCount > 0)
+            {
+                return true;
+            }
+            return false;
         }
 
         public void EnsureSystemConfig()

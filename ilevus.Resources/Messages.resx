@@ -849,4 +849,16 @@
   <data name="TextOfferedServicesHelp" xml:space="preserve">
     <value>Para saber sobre o preço de outros serviços ou solicitar outras informações, envie uma mensagem para o profissional e esclareça todas suas dúvidas.</value>
   </data>
+  <data name="LabelInstructions" xml:space="preserve">
+    <value>Instruções</value>
+  </data>
+  <data name="TextAdminConfigEmailHelp" xml:space="preserve">
+    <value>No corpo dos e-mails, os seguintes marcadores serão substituídos pelos valores indicados:</value>
+  </data>
+  <data name="TextAdminConfigEmailHelpLinkItem" xml:space="preserve">
+    <value>Link para a ação contextual do e-mail. Exemplo: no e-mail de recuperação de senha, o link redireciona para a tela de alteração da senha.</value>
+  </data>
+  <data name="TextAdminConfigEmailHelpNameItem" xml:space="preserve">
+    <value>Nome da pessoa à quem o e-mail será enviado.</value>
+  </data>
 </root>

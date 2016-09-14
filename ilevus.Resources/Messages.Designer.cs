@@ -934,6 +934,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instruções.
+        /// </summary>
+        public static string LabelInstructions {
+            get {
+                return ResourceManager.GetString("LabelInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Idioma de exibição.
         /// </summary>
         public static string LabelLanguage {
@@ -1641,6 +1650,33 @@ namespace ilevus.Resources {
         public static string TextAddressUpdateSuccess {
             get {
                 return ResourceManager.GetString("TextAddressUpdateSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No corpo dos e-mails, os seguintes marcadores serão substituídos pelos valores indicados:.
+        /// </summary>
+        public static string TextAdminConfigEmailHelp {
+            get {
+                return ResourceManager.GetString("TextAdminConfigEmailHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link para a ação contextual do e-mail. Exemplo: no e-mail de recuperação de senha, o link redireciona para a tela de alteração da senha..
+        /// </summary>
+        public static string TextAdminConfigEmailHelpLinkItem {
+            get {
+                return ResourceManager.GetString("TextAdminConfigEmailHelpLinkItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome da pessoa à quem o e-mail será enviado..
+        /// </summary>
+        public static string TextAdminConfigEmailHelpNameItem {
+            get {
+                return ResourceManager.GetString("TextAdminConfigEmailHelpNameItem", resourceCulture);
             }
         }
         

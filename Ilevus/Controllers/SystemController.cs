@@ -64,8 +64,39 @@ namespace ilevus.Controllers
         public async Task<IHttpActionResult> UpdateWelcomeEmail(SystemTranslatedEmail model)
         {
             IlevusDBContext.SystemConfiguration.WelcomeMessages = model;
-            await IlevusDBContext.Create().UpdateSystemConfig();
-            return Ok(IlevusDBContext.SystemConfiguration);
+            if (await IlevusDBContext.Create().UpdateSystemConfig())
+                return Ok(IlevusDBContext.SystemConfiguration);
+            return BadRequest();
+        }
+        [IlevusAuthorization]
+        [Route("Config/EmailValidation")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateEmailValidationEmail(SystemTranslatedEmail model)
+        {
+            IlevusDBContext.SystemConfiguration.EmailValidationMessages = model;
+            if (await IlevusDBContext.Create().UpdateSystemConfig())
+                return Ok(IlevusDBContext.SystemConfiguration);
+            return BadRequest();
+        }
+        [IlevusAuthorization]
+        [Route("Config/RecoverPassword")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateRecoverPasswordEmail(SystemTranslatedEmail model)
+        {
+            IlevusDBContext.SystemConfiguration.RecoverPasswordMessages = model;
+            if (await IlevusDBContext.Create().UpdateSystemConfig())
+                return Ok(IlevusDBContext.SystemConfiguration);
+            return BadRequest();
+        }
+        [IlevusAuthorization]
+        [Route("Config/AccountBlocking")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateAccountBlockingEmail(SystemTranslatedEmail model)
+        {
+            IlevusDBContext.SystemConfiguration.AccountBlockingMessages = model;
+            if (await IlevusDBContext.Create().UpdateSystemConfig())
+                return Ok(IlevusDBContext.SystemConfiguration);
+            return BadRequest();
         }
 
         [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
