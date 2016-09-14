@@ -64,7 +64,7 @@ namespace ilevus.Controllers
         public async Task<IHttpActionResult> UpdateWelcomeEmail(SystemTranslatedEmail model)
         {
             IlevusDBContext.SystemConfiguration.WelcomeMessages = model;
-            await IlevusDBContext.UpdateSystemConfig();
+            await IlevusDBContext.Create().UpdateSystemConfig();
             return Ok(IlevusDBContext.SystemConfiguration);
         }
 

@@ -40,10 +40,10 @@ namespace ilevus.Models
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
         }
 
-        public static Task UpdateSystemConfig()
+        public Task UpdateSystemConfig()
         {
             var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
-            return Task.FromResult<object>(null);
+            return configCollection.ReplaceOneAsync(Builders<SystemConfig>.Filter.Eq("_id", SystemConfiguration.Id), SystemConfiguration);
         }
 
         public void EnsureSystemConfig()

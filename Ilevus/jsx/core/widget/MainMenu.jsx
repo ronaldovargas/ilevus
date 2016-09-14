@@ -5,6 +5,9 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var WhiteLogo = require('ilevus/img/logo.png');
 
 module.exports = React.createClass({
+    contextTypes: {
+        admin: React.PropTypes.bool.isRequired
+    },
     getInitialState() {
         return {
             user: UserSession.get("user"),

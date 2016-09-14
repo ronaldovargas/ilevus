@@ -13,6 +13,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
     contextTypes: {
+        admin: React.PropTypes.bool.isRequired,
         router: React.PropTypes.object
     },
     getInitialState() {
@@ -132,6 +133,9 @@ module.exports = React.createClass({
                                                 <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
                                                 <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
+                                                {!this.context.admin ? "":
+                                                    <Link className="dropdown-item" to="/admin/users">{Messages.get("LabelAdminPanel")}</Link>
+                                                }
                                                 {this.state.user.EmailConfirmed ? "" :
                                                     <a className="dropdown-item" href="" onClick={this.confirmEmail}>
                                                         {Messages.get("LabelConfirmEmail")}

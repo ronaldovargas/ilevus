@@ -107,10 +107,17 @@ var UserSession = Backbone.Model.extend({
 			url: me.url + "/UserInfo",
 			dataType: 'json',
 			success(data, status, opts) {
+			    var permClaims = !data.Claims ? [] : data.Claims.filter((claim) => {
+			        if (claim.type == "IlevusUserPermission") {
+			            return true;;
+			        }
+			        return false;
+			    });
 			    me.set({
-					"logged": true,
+			        "logged": true,
+			        "permissions": permClaims.map((claim) => { return claim.value; }),
 					"user": data
-				});
+			    });
 				me.trigger("login", me);
 				if (me.get("loading")) {
 					me.set({loading: false});
@@ -244,7 +251,7 @@ var UserSession = Backbone.Model.extend({
 			dataType: 'json'
 		}).fail(onLogout).then(onLogout);
 		function onLogout() {
-		    me.set({ logged: false, user: null });
+		    me.set({ logged: false, permissions: [], user: null });
 		    $.ajaxSetup({
 		        headers: {
 		            "Authorization": null
