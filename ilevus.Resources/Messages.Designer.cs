@@ -844,6 +844,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E-mail de boas vindas.
+        /// </summary>
+        public static string LabelEmailWelcome {
+            get {
+                return ResourceManager.GetString("LabelEmailWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ano de conclusão.
         /// </summary>
         public static string LabelEndYear {
@@ -1285,11 +1294,29 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Traduções.
+        /// </summary>
+        public static string LabelTranslations {
+            get {
+                return ResourceManager.GetString("LabelTranslations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Atualizar Endereço.
         /// </summary>
         public static string LabelUpdateAddress {
             get {
                 return ResourceManager.GetString("LabelUpdateAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usuários.
+        /// </summary>
+        public static string LabelUsers {
+            get {
+                return ResourceManager.GetString("LabelUsers", resourceCulture);
             }
         }
         

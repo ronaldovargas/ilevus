@@ -20,6 +20,7 @@ var SystemConfigModel = Fluxbone.Model.extend({
 
 var SystemStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
+    ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
     dispatchAcceptRegex: /^system-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -32,6 +33,25 @@ var SystemStore = Fluxbone.Store.extend({
 	        url: me.url + "/Config",
 	        dataType: 'json',
 	        success(data, status, opts) {
+	            me.trigger("retrieve-config", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateConfigEmail(params) {
+	    var me = this;
+	    var which = params.which;
+	    delete params.which;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Config/"+which,
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("update-config-email", data);
 	            me.trigger("retrieve-config", data);
 	        },
 	        error(opts, status, errorMsg) {

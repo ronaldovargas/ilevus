@@ -58,6 +58,16 @@ namespace ilevus.Controllers
             return Ok(IlevusDBContext.SystemConfiguration);
         }
 
+        [IlevusAuthorization]
+        [Route("Config/Welcome")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateWelcomeEmail(SystemTranslatedEmail model)
+        {
+            IlevusDBContext.SystemConfiguration.WelcomeMessages = model;
+            await IlevusDBContext.UpdateSystemConfig();
+            return Ok(IlevusDBContext.SystemConfiguration);
+        }
+
         [IlevusAuthorization(Permission = UserPermissions.ManageUserPermissions)]
         [Route("User/{id:guid}/assignperms")]
         [HttpPut]

@@ -22,12 +22,12 @@ module.exports = React.createClass({
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/admin/emails">
-                                    {Messages.get("LabelEmail")}
+                                    {Messages.get("LabelEmails")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/admin/translate">
-                                    Traduções
+                                    {Messages.get("LabelTranslations")}
                                 </Link>
                             </li>
                         </ul>

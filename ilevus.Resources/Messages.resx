@@ -834,4 +834,13 @@
   <data name="EmailWelcomeSubject" xml:space="preserve">
     <value>Bem-vindo à ilevus</value>
   </data>
+  <data name="LabelEmailWelcome" xml:space="preserve">
+    <value>E-mail de boas vindas</value>
+  </data>
+  <data name="LabelTranslations" xml:space="preserve">
+    <value>Traduções</value>
+  </data>
+  <data name="LabelUsers" xml:space="preserve">
+    <value>Usuários</value>
+  </data>
 </root>

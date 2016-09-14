@@ -40,6 +40,12 @@ namespace ilevus.Models
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
         }
 
+        public static Task UpdateSystemConfig()
+        {
+            var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
+            return Task.FromResult<object>(null);
+        }
+
         public void EnsureSystemConfig()
         {
             var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
