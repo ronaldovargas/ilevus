@@ -149,24 +149,6 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-card-body">
                                 <div className="ilv-media-list ilv-media-list-bordered">
-                                    {services.length > 0
-                                        ?
-                                            <div className="ilv-media p-b-2">
-                                                <div className="ilv-media-left m-r-1">
-                                                    <i className="ilv-icon material-icons md-24">&#xE0AF;</i>
-                                                </div>
-                                                <div className="ilv-media-body">
-                                                    <p className="h4">{Messages.get("TextOfferedServices")}</p>
-                                                    {services.map((service, index) => {
-                                                        return <div key={"service-" + index}>
-											                <strong>{service.Name} </strong>
-                                                        </div>;
-                                                    })}
-                                                </div>
-                                            </div>
-                                        :""
-                                    }
-
                                     {careers.length > 0
                                         ?
                                             <div className="ilv-media p-y-2">
@@ -252,6 +234,47 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                         </div>
+                    
+                        {services.length > 0
+                            ?
+                            <div className="ilv-card">
+                                <div className="ilv-card-header">
+                                    <strong>{Messages.get("TextOfferedServices")}</strong>
+                                </div>
+                                <div className="ilv-card-body">
+                                    <div className="row">
+                                        <div className="col-md-8">
+                                            <table className="ilv-table ilv-table-sm ilv-table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{Messages.get("LabelService")}</th>
+                                                        <th className="ilv-text-xs-right">{Messages.get("LabelPrice")}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {services.map((service, index) => {
+                                                        return (
+                                                            <tr key={"service-" + index}>
+                                                                <td className="ilv-font-weight-semibold">{service.Name}</td>
+                                                                <td className="ilv-text-xs-right">{service.Price}</td>
+                                                            </tr>
+                                                        );
+                                                    })}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div className="col-md-4">
+                                            <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
+                                            <p>{Messages.get("TextOfferedServicesHelp")}</p>
+                                            <button className="ilv-btn ilv-btn-block ilv-btn-primary">
+                                                <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
+                                            </button>
+                                        </div>
+                                    </div>                                                      
+                                </div>
+                            </div>
+                            :""
+                        }
                     </div>
                 </div>
             </div>

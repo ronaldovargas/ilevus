@@ -1285,6 +1285,15 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dica.
+        /// </summary>
+        public static string LabelTip {
+            get {
+                return ResourceManager.GetString("LabelTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to até.
         /// </summary>
         public static string LabelTo {
@@ -1803,6 +1812,15 @@ namespace ilevus.Resources {
         public static string TextOfferedServices {
             get {
                 return ResourceManager.GetString("TextOfferedServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Para saber sobre o preço de outros serviços ou solicitar outras informações, envie uma mensagem para o profissional e esclareça todas suas dúvidas..
+        /// </summary>
+        public static string TextOfferedServicesHelp {
+            get {
+                return ResourceManager.GetString("TextOfferedServicesHelp", resourceCulture);
             }
         }
         
