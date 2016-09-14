@@ -834,4 +834,10 @@
   <data name="EmailWelcomeSubject" xml:space="preserve">
     <value>Bem-vindo à ilevus</value>
   </data>
+  <data name="LabelTip" xml:space="preserve">
+    <value>Dica</value>
+  </data>
+  <data name="TextOfferedServicesHelp" xml:space="preserve">
+    <value>Para saber sobre o preço de outros serviços ou solicitar outras informações, envie uma mensagem para o profissional e esclareça todas suas dúvidas.</value>
+  </data>
 </root>
