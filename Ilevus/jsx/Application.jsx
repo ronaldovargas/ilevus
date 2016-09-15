@@ -39,7 +39,7 @@ module.exports = React.createClass({
     componentWillMount() {
         this.context.router.listen(this.onRouteChange);
     },
-    conponentDidMount() {
+    componentDidMount() {
         var me = this;
         UserSession.on("loaded", () => {
             me.setState({ loading: false });
