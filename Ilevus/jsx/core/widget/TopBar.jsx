@@ -101,7 +101,7 @@ module.exports = React.createClass({
                     </form>
 
                     {this.state.logged ? (
-                        <div className="nav navbar-nav pull-xs-right">
+                        <div className="nav navbar-nav pull-sm-right">
                             <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                 <Link className="nav-item ilv-btn ilv-btn-destructive" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
 
@@ -142,7 +142,7 @@ module.exports = React.createClass({
                             </div>
                         </div>
                     ) : (
-                        <div className="nav navbar-nav pull-xs-right">
+                        <div className="nav navbar-nav pull-sm-right">
                             <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                 <Link className="nav-item ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
                                 <Link className="nav-item ilv-btn ilv-btn-primary" to="/signup">{Messages.get("LabelSignUp")}</Link>
