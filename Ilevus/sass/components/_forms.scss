@@ -130,6 +130,7 @@ textarea.#{$prefix}form-control {
 // Form orientation
 //
 .#{$prefix}form-inline {
+  display: inline-block;
 
   @include media-breakpoint-up(sm) {
     // Inline-block all the things for "inline"

@@ -76,89 +76,69 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="ilv-navbar ilv-navbar-light">
+            <nav className="navbar navbar-full navbar-light bg-faded">
                 <div className="container">
-                    <div className="ilv-navbar-nav">
-                        <div className="ilv-navbar-nav-item">
-                            <div className="ilv-media ilv-media-middle">
-                                <div className="ilv-media-left m-r-1">
-                                    <Link to="/home">
-                                        <img src={Logo} alt="ilevus" />
-                                    </Link>
-                                </div>
-                                <div className="ilv-media-body">
-                                    <form onSubmit={this.onSearch}>
-                                        <div className="ilv-input-group">
-                                            <input ref="search-term" className="ilv-form-control ilv-form-control-long" type="search" />
-                                            <div className="ilv-input-group-btn">
-                                                <button className="ilv-btn ilv-btn-icon ilv-btn-neutral" type="submit">
-                                                  <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> 
-                        </div>
-                        <div className="ilv-navbar-nav-item ilv-text-xs-right">
-                            {this.state.logged ? (
-                                <ul className="ilv-nav ilv-nav-inline">
-                                    <li className="ilv-nav-item">
-                                        <Link className="ilv-btn ilv-btn-destructive" to="/become-a-professional">
-                                            {Messages.get("LabelProfessionalProfile")}
-                                        </Link>
-                                    </li>
-                                    <li className="ilv-nav-item m-l-1">
-                                        <span className="dropdown">
-                                            <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
-                                                <i className="ilv-icon material-icons md-24">&#xE7F4;</i>
-                                           </a>
-                                            <div className="dropdown-menu dropdown-menu-right" style={{ minWidth: "18rem" }}>
-                                                <div className="ilv-blankslate">
-                                                    <p><i className="ilv-icon material-icons md-36">&#xE7F4;</i></p>
-                                                    <p><small>{Messages.get("TextNoNotifications")}</small></p>
-                                                </div>
-                                            </div>
-                                        </span>
-                                    </li>
-                                    <li className="ilv-nav-item m-l-1">
-                                        <span className="dropdown">
-                                            <a href="javascript:;" className="ilv-avatar-fluid ilv-avatar-fluid-sm" data-toggle="dropdown"
-                                               style={{
-                                                backgroundImage: "url(" +
-                                                    (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
-                                                }}>
-                                            </a>
-                                            <div className="dropdown-menu dropdown-menu-right">
-                                                <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
-                                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
-                                                <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
-                                                {!this.context.admin ? "":
-                                                    <Link className="dropdown-item" to="/admin/users">{Messages.get("LabelAdminPanel")}</Link>
-                                                }
-                                                {this.state.user.EmailConfirmed ? "" :
-                                                    <a className="dropdown-item" href="" onClick={this.confirmEmail}>
-                                                        {Messages.get("LabelConfirmEmail")}
-                                                    </a>
-                                                }
-                                                <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
-                                            </div>
-                                        </span>
-                                    </li>
-                                </ul>
-                            ) : (
-                                <ul className="ilv-nav ilv-nav-inline ilv-text-small">
-                                    <li className="ilv-nav-item">
-				                        <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
-                                    </li>
-			                        <li className="ilv-nav-item">
-                                        <Link className="ilv-btn ilv-btn-primary" to="/signup">{Messages.get("LabelSignUp")}</Link>
-			                        </li>
+                    <Link to="/home" className="navbar-brand">
+                        <img src={Logo} alt="ilevus" />
+                    </Link>
 
-                                </ul>
-                            )}
+                    <form className="ilv-form-inline" onSubmit={this.onSearch}>
+                        <div className="ilv-input-group">
+                            <input ref="search-term" className="ilv-form-control ilv-form-control-long" type="search" />
+                            <div className="ilv-input-group-btn">
+                                <button className="ilv-btn ilv-btn-icon ilv-btn-neutral" type="submit">
+                                    <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
+
+                    {this.state.logged ? (
+                        <div className="nav navbar-nav pull-xs-right">
+                            <Link className="nav-item ilv-btn ilv-btn-destructive" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
+
+                            <div className="dropdown nav-item">
+                                <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
+                                    <i className="ilv-icon material-icons md-24">&#xE7F4;</i>
+                                </a>
+                                <div className="dropdown-menu dropdown-menu-right" style={{ minWidth: "18rem" }}>
+                                    <div className="ilv-blankslate">
+                                        <p><i className="ilv-icon material-icons md-36">&#xE7F4;</i></p>
+                                        <p><small>{Messages.get("TextNoNotifications")}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="dropdown nav-item">
+                                <a href="javascript:;" className="ilv-avatar-fluid ilv-avatar-fluid-sm" data-toggle="dropdown"
+                                    style={{
+                                    backgroundImage: "url(" +
+                                        (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                    }}>
+                                </a>
+                                <div className="dropdown-menu dropdown-menu-right">
+                                    <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
+                                    <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
+                                    <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
+                                    {!this.context.admin ? "":
+                                        <Link className="dropdown-item" to="/admin/users">{Messages.get("LabelAdminPanel")}</Link>
+                                    }
+                                    {this.state.user.EmailConfirmed ? "" :
+                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>
+                                            {Messages.get("LabelConfirmEmail")}
+                                        </a>
+                                    }
+                                    <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    ) : (
+                        <div className="nav navbar-nav pull-xs-right">
+                            <Link className="nav-item ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
+                            <Link className="nav-item ilv-btn ilv-btn-primary" to="/signup">{Messages.get("LabelSignUp")}</Link>
+                        </div>
+                    )}
                 </div>
             </nav>
         );
