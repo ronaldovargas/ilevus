@@ -138,8 +138,8 @@ Messages.load(function (success) {
                     </Route>
 
                     <Route path="admin" component={AdminPanel}>
-                        <Route path="users" component={AdminPanelUsers} />
                         <Route path="emails" component={AdminPanelEmails} />
+                        <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />
                     </Route>
 

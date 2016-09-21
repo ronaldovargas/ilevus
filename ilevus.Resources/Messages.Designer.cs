@@ -835,11 +835,47 @@ namespace ilevus.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conta Bloqueada.
+        /// </summary>
+        public static string LabelEmailAccountBlocking {
+            get {
+                return ResourceManager.GetString("LabelEmailAccountBlocking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endereço de email.
         /// </summary>
         public static string LabelEmailAddress {
             get {
                 return ResourceManager.GetString("LabelEmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email de Validação.
+        /// </summary>
+        public static string LabelEmailEmailValidation {
+            get {
+                return ResourceManager.GetString("LabelEmailEmailValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recuperação de Senha.
+        /// </summary>
+        public static string LabelEmailRecoverPassword {
+            get {
+                return ResourceManager.GetString("LabelEmailRecoverPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emails.
+        /// </summary>
+        public static string LabelEmails {
+            get {
+                return ResourceManager.GetString("LabelEmails", resourceCulture);
             }
         }
         
@@ -1002,6 +1038,15 @@ namespace ilevus.Resources {
         public static string LabelMeetsOnline {
             get {
                 return ResourceManager.GetString("LabelMeetsOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mensagem.
+        /// </summary>
+        public static string LabelMessage {
+            get {
+                return ResourceManager.GetString("LabelMessage", resourceCulture);
             }
         }
         
@@ -1272,6 +1317,15 @@ namespace ilevus.Resources {
         public static string LabelStep {
             get {
                 return ResourceManager.GetString("LabelStep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assunto.
+        /// </summary>
+        public static string LabelSubject {
+            get {
+                return ResourceManager.GetString("LabelSubject", resourceCulture);
             }
         }
         

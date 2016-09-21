@@ -16,13 +16,13 @@ module.exports = React.createClass({
                     <div className="col-xs-2 m-b-1">
                         <ul className="ilv-nav ilv-nav-stacked ilv-nav-menu">
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/users">
-                                    {Messages.get("LabelUsers")}
+                                <Link className="ilv-nav-link" to="/admin/emails">
+                                    {Messages.get("LabelEmails")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/emails">
-                                    {Messages.get("LabelEmails")}
+                                <Link className="ilv-nav-link" to="/admin/users">
+                                    {Messages.get("LabelUsers")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">

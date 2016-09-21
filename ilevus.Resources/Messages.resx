@@ -861,4 +861,25 @@
   <data name="TextAdminConfigEmailHelpNameItem" xml:space="preserve">
     <value>Nome da pessoa à quem o e-mail será enviado.</value>
   </data>
+  <data name="LabelEmailAccountBlocking" xml:space="preserve">
+    <value>Conta Bloqueada</value>
+  </data>
+  <data name="LabelEmailEmailValidation" xml:space="preserve">
+    <value>Email de Validação</value>
+  </data>
+  <data name="LabelEmailRecoverPassword" xml:space="preserve">
+    <value>Recuperação de Senha</value>
+  </data>
+  <data name="LabelEmails" xml:space="preserve">
+    <value>Emails</value>
+  </data>
+  <data name="LabelAdminPanel" xml:space="preserve">
+    <value>Painel Administrativo</value>
+  </data>
+  <data name="LabelMessage" xml:space="preserve">
+    <value>Mensagem</value>
+  </data>
+  <data name="LabelSubject" xml:space="preserve">
+    <value>Assunto</value>
+  </data>
 </root>

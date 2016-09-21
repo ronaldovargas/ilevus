@@ -71,82 +71,130 @@ module.exports = React.createClass({
     },
 
     renderEmailForm(email, which) {
-        return (<div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>
-                            {Messages.get("LabelEmail"+which)}
-                        </strong>
+        return (
+            <div className="ilv-card">
+                <div className="ilv-card-header">
+                    <div className="ilv-media ilv-media-middle">
+                        <div className="ilv-media-body">
+                            <strong>{Messages.get("LabelEmail" + which)}</strong>
+                        </div>
+                        <div className="ilv-media-right">
+                            <button className="ilv-btn ilv-btn-link" data-toggle="collapse" href={"#" + which + "-container" }>
+                                {Messages.get("ActionEdit")}    
+                            </button>
+                        </div>
                     </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-xs-12">
-                                    
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor={which + "-pt-br-subject"}>
-                                            {Messages.get("LanguagePortuguese")}
-                                        </label>
-                                        <input spellCheck={false}
-                                               typeof="text"
-                                               className="ilv-form-control m-b-1"
-                                               id={which + "-pt-br-subject"}
-                                               ref={which + "-pt-br-subject"}
-                                               defaultValue={email.pt_br.Subject} />
-                                        <textarea rows={5}
-                                                  spellCheck={false}
-                                                  className="ilv-form-control"
-                                                  id={which + "-pt-br"}
-                                                  ref={which + "-pt-br"}
-                                                  defaultValue={email.pt_br.Template} />
-                                    </div>
+                </div>
+                <div className="ilv-card-body collapse" id={which + "-container"}>
+                    <ul className="ilv-text-sm nav nav-tabs m-b-1">
+                        <li className="nav-item">
+                            <a className="nav-link active" data-toggle="tab" href={"#" + which + "-pt-br-form" }>
+                                {Messages.get("LanguagePortuguese")}
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="tab" href={"#" + which + "-en-form" }>
+                                {Messages.get("LanguageEnglish")}
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" data-toggle="tab" href={"#" + which + "-es-form" }>
+                                {Messages.get("LanguageSpanish")}
+                            </a>
+                        </li>
+                    </ul>
 
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor={which + "-en-subject"}>
-                                            {Messages.get("LanguageEnglish")}
-                                        </label>
-                                        <input spellCheck={false}
-                                               typeof="text"
-                                               className="ilv-form-control m-b-1"
-                                               id={which + "-en-subject"}
-                                               ref={which + "-en-subject"}
-                                               defaultValue={email.en.Subject} />
-                                        <textarea rows={5}
-                                                  spellCheck={false}
-                                                  className="ilv-form-control"
-                                                  id={which + "-en"}
-                                                  ref={which + "-en"}
-                                                  defaultValue={email.en.Template} />
-                                    </div>
-
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor={which + "-es-subject"}>
-                                            {Messages.get("LanguageSpanish")}
-                                        </label>
-                                        <input spellCheck={false}
-                                               typeof="text"
-                                               className="ilv-form-control m-b-1"
-                                               id={which + "-es-subject"}
-                                               ref={which + "-es-subject"}
-                                               defaultValue={email.es.Subject} />
-                                        <textarea rows={5}
-                                                  spellCheck={false}
-                                                  className="ilv-form-control"
-                                                  id={which + "-es"}
-                                                  ref={which + "-es"}
-                                                  defaultValue={email.es.Template} />
-                                    </div>
-                                </div>
+                    <form className="tab-content">         
+                        <div className="tab-pane fade active in" id={which + "-pt-br-form" }>
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-pt-br-subject"}>
+                                    {Messages.get("LabelSubject")}
+                                </label>
+                                <input spellCheck={false}
+                                       typeof="text"
+                                       className="ilv-form-control"
+                                       id={which + "-pt-br-subject"}
+                                       ref={which + "-pt-br-subject"}
+                                       defaultValue={email.pt_br.Subject} />
                             </div>
-                        </form>
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary"
-                                ref={which + "-save"}
-                                onClick={this.updateTranslatedEmail.bind(this, which)}>
-                            {Messages.get("LabelSave")}
-                        </button>
-                    </div>
-        </div>);
+
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-pt-br"}>
+                                    {Messages.get("LabelMessage")}
+                                </label>
+                                <textarea rows={5}
+                                          spellCheck={false}
+                                          className="ilv-form-control"
+                                          id={which + "-pt-br"}
+                                          ref={which + "-pt-br"}
+                                          defaultValue={email.pt_br.Template} />
+                            </div>
+                        </div>
+
+                        <div className="tab-pane fade" id={which + "-en-form" }>
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-en-subject"}>
+                                    {Messages.get("LabelSubject")}
+                                </label>
+                                <input spellCheck={false}
+                                       typeof="text"
+                                       className="ilv-form-control"
+                                       id={which + "-en-subject"}
+                                       ref={which + "-en-subject"}
+                                       defaultValue={email.en.Subject} />
+                            </div>
+                            
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-en"}>
+                                    {Messages.get("LabelMessage")}
+                                </label>
+                                <textarea rows={5}
+                                        spellCheck={false}
+                                        className="ilv-form-control"
+                                        id={which + "-en"}
+                                        ref={which + "-en"}
+                                        defaultValue={email.en.Template} />
+                            </div>
+                        </div>
+
+                        <div className="tab-pane fade" id={which + "-es-form" }>
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-es-subject"}>
+                                    {Messages.get("LabelSubject")}
+                                </label>
+                                <input spellCheck={false}
+                                       typeof="text"
+                                       className="ilv-form-control"
+                                       id={which + "-es-subject"}
+                                       ref={which + "-es-subject"}
+                                       defaultValue={email.es.Subject} />
+                            </div>
+
+                            <div className="ilv-form-group">
+                                <label className="ilv-form-label" htmlFor={which + "-es"}>
+                                    {Messages.get("LabelMessage")}
+                                </label>
+                                <textarea rows={5}
+                                          spellCheck={false}
+                                          className="ilv-form-control"
+                                          id={which + "-es"}
+                                          ref={which + "-es"}
+                                          defaultValue={email.es.Template} />
+                            </div>
+                        </div>
+                    </form>
+                
+                    <button className="ilv-btn ilv-btn-primary"
+                            ref={which + "-save"}
+                            onClick={this.updateTranslatedEmail.bind(this, which)}>
+                        {Messages.get("LabelSave")}
+                    </button>
+                    <button className="ilv-btn ilv-btn-clean" data-toggle="collapse" href={"#" + which + "-container" }>
+                        {Messages.get("ActionCancel")}
+                    </button>
+                </div>
+            </div>
+        );
     },
 
     render() {
@@ -160,7 +208,7 @@ module.exports = React.createClass({
                         {Messages.get("LabelInstructions")}
                     </strong>
                 </div>
-                <div className="ilv-cerd-body">
+                <div className="ilv-card-body">
                     <p>{Messages.get("TextAdminConfigEmailHelp")}</p>
                     <ul>
                         <li>
