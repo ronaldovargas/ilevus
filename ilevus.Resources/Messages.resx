@@ -882,4 +882,7 @@
   <data name="LabelSubject" xml:space="preserve">
     <value>Assunto</value>
   </data>
+  <data name="LabelCode" xml:space="preserve">
+    <value>Código</value>
+  </data>
 </root>

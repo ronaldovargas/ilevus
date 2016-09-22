@@ -15,6 +15,9 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-media-left">
                                 <button className="ilv-btn ilv-btn-link">Adicionar idioma</button>
+                                <button className="ilv-btn ilv-btn-primary">
+                                    {Messages.get("LabelSave")}
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -22,10 +25,9 @@ module.exports = React.createClass({
                         <table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
                             <thead>
                                 <tr>
-                                    <th>Código</th>
-                                    <th>PT_BR</th>
-                                    <th>EN_US</th>
-                                    <th></th>
+                                    <th>{Messages.get("LabelCode")}</th>
+                                    <th>{Messages.get("LanguagePortuguese")}</th>
+                                    <th>{Messages.get("LanguageEnglish")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -33,14 +35,6 @@ module.exports = React.createClass({
                                     <td>LabelName</td>
                                     <td>Nome</td>
                                     <td>Name</td>
-                                    <td className="ilv-text-xs-right">
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Editar Entrada">
-                                            <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
-                                        </button>
-                                        <button className="ilv-btn ilv-btn-clean ilv-btn-icon p-a-0" title="Excluir Tradução">
-                                            <i className="ilv-icon material-icons md-18">&#xE872;</i>
-                                        </button>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
