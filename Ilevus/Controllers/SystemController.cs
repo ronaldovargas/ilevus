@@ -49,6 +49,13 @@ namespace ilevus.Controllers
             UserManager = userManager;
         }
 
+        [IlevusAuthorization]
+        [Route("Messages")]
+        [HttpGet]
+        public IHttpActionResult GetMessages()
+        {
+            return Ok(IlevusDBContext.Messages);
+        }
 
         [IlevusAuthorization]
         [Route("Config")]

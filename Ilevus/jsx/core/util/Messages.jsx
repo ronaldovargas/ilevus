@@ -16,9 +16,24 @@ module.exports = {
         }
         return S(this._messages[key]);
     },
+    _reportUnexistentKey(key) {
+        if (S(key).isEmpty())
+            return;
+        $.ajax({
+            method: "POST",
+            url: BACKEND_URL + "Messages/Report?key=" + key,
+            success() {
+                console.warn("Reported unexistent key:", key);
+            },
+            error() {
+                console.error("Failed to report unexistent key:", key);
+            }
+        });
+    },
     get: function (key) {
         var str = this._get(key);
         if (str.isEmpty()) {
+            this._reportUnexistentKey(key);
             return "???" + key + "???";
         }
         return str.s;
@@ -26,6 +41,7 @@ module.exports = {
     format: function (key, values) {
         var str = this._get(key);
         if (str.isEmpty()) {
+            this._reportUnexistentKey(key);
             return "???" + key + "???";
         }
         var tplValues = {};
@@ -37,6 +53,7 @@ module.exports = {
     formatWithKeys: function (key, valueKeys) {
         var str = this._get(key);
         if (str.isEmpty()) {
+            this._reportUnexistentKey(key);
             return "???" + key + "???";
         }
         var tplValues = {};
@@ -52,7 +69,7 @@ module.exports = {
             return null;
         }
         $.ajax({
-            url: BACKEND_URL + "Messages",
+            url: BACKEND_URL + "Messages/Current",
             method: "GET",
             dataType: 'json',
             success: function (data, status, opts) {

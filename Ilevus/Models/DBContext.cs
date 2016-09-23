@@ -3,6 +3,8 @@ using ilevus.Resources;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,6 +19,7 @@ namespace ilevus.Models
         public const string CitiesTable = "ilevus_cities";
         public const string PicturesTable = "ilevus_pictures";
         public const string SystemConfigTable = "ilevus_system";
+        public const string SystemMessagesTable = "ilevus_messages";
     }
 
 
@@ -24,6 +27,7 @@ namespace ilevus.Models
     {
         public IMongoDatabase IlevusDatabase { get; private set; }
         public static SystemConfig SystemConfiguration { get; private set; }
+        public static IDictionary<string, SystemMessages> Messages { get; private set; }
 
         public static IlevusDBContext Create()
         {
@@ -49,6 +53,83 @@ namespace ilevus.Models
                 return true;
             }
             return false;
+        }
+
+        public async Task<bool> AddSystemMessagesKey(string key)
+        {
+            var ptBR = Messages["pt-br"];
+            var en = Messages["en"];
+            var es = Messages["es"];
+            SystemLabel label;
+            try
+            {
+                label = ptBR.Messages[key];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                ptBR.Add(key, new SystemLabel()
+                {
+                    Content = "???"+key+"???",
+                    New = true,
+                    Reviewed = false
+                });
+            }
+            try
+            {
+                label = en.Messages[key];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                en.Add(key, new SystemLabel()
+                {
+                    Content = "???" + key + "???",
+                    New = true,
+                    Reviewed = false
+                });
+            }
+            try
+            {
+                label = es.Messages[key];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                es.Add(key, new SystemLabel()
+                {
+                    Content = "???" + key + "???",
+                    New = true,
+                    Reviewed = false
+                });
+            }
+
+            return await SaveSystemMessages();
+        }
+
+        private async Task<bool> SaveSystemMessages()
+        {
+            var ptBR = Messages["pt-br"];
+            var en = Messages["en"];
+            var es = Messages["es"];
+            var filter = new FilterDefinitionBuilder<SystemMessages>();
+            var msgCol = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
+
+            var result = await msgCol.ReplaceOneAsync(filter.Where((msg) => msg.Id == ptBR.Id), ptBR);
+            if (result.MatchedCount == 0)
+            {
+                return false;
+            }
+            
+            result = await msgCol.ReplaceOneAsync(filter.Where((msg) => msg.Id == en.Id), en);
+            if (result.MatchedCount == 0)
+            {
+                return false;
+            }
+
+            result = await msgCol.ReplaceOneAsync(filter.Where((msg) => msg.Id == es.Id), es);
+            if (result.MatchedCount == 0)
+            {
+                return false;
+            }
+            return true;
         }
 
         public void EnsureSystemConfig()
@@ -139,6 +220,71 @@ namespace ilevus.Models
                 configCollection.InsertOne(configs);
             }
             SystemConfiguration = configs;
+
+            var msgCollection = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
+            Messages = new ConcurrentDictionary<string, SystemMessages>();
+            var msgs = msgCollection.Find(FilterDefinition<SystemMessages>.Empty).ToList();
+            foreach (var msg in msgs)
+            {
+                Messages.Add(msg.Language, msg);
+            }
+
+            var lang = CultureHelper.GetImplementedCulture("pt-br");
+            SystemMessages messages;
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
+
+            lang = CultureHelper.GetImplementedCulture("en");
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
+
+            lang = CultureHelper.GetImplementedCulture("es");
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
+        }
+
+        private SystemMessages CreateMSystemMessages(string lang, IMongoCollection<SystemMessages> msgCollection)
+        {
+            var msgs = new SystemMessages()
+            {
+                Language = lang
+            };
+            var culture = new CultureInfo(lang);
+            ResourceSet resourceSet = IlevusResources.Manager.GetResourceSet(culture, true, true);
+            IDictionaryEnumerator enumerator = resourceSet.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                var msg = new SystemLabel()
+                {
+                    Content = enumerator.Value.ToString(),
+                    Reviewed = true,
+                    New = false
+                };
+                msgs.Add(enumerator.Key.ToString(), msg);
+            }
+            msgCollection.InsertOne(msgs);
+            return msgs;
         }
 
         public void EnsureIndexes()

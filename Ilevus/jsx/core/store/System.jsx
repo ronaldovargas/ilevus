@@ -19,12 +19,28 @@ var SystemConfigModel = Fluxbone.Model.extend({
 });
 
 var SystemStore = Fluxbone.Store.extend({
+    ACTION_RETRIEVE_MESSAGES: 'system-retrieveMessages',
     ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
     ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
     dispatchAcceptRegex: /^system-[a-zA-Z0-9]+$/,
 
 	url: URL,
 	model: SystemConfigModel,
+
+	retrieveMessages() {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Messages",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-messages", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
 
 	retrieveConfig() {
 	    var me = this;

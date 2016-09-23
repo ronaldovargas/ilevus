@@ -37,7 +37,7 @@ namespace ilevus.Helpers
                 return GetDefaultCulture(); // return Default culture if it is invalid
                                             // if it is implemented, accept it
             if (_cultures.Where(c => c.Equals(name, StringComparison.InvariantCultureIgnoreCase)).Count() > 0)
-                return name; // accept it
+                return name.ToLower(); // accept it
                              // Find a close match. For example, if you have "en-US" defined and the user requests "en-GB", 
                              // the function will return closes match that is "en-US" because at least the language is the same (ie English)  
             var n = GetNeutralCulture(name);

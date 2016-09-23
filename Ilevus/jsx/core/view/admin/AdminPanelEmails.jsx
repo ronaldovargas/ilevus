@@ -26,7 +26,6 @@ module.exports = React.createClass({
                 loading: false,
                 config: config
             });
-            console.log(config);
         }, me);
         SystemStore.on("update-config-email", (config) => {
             Toastr.remove();

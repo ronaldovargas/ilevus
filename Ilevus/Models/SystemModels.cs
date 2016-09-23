@@ -1,6 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -44,4 +46,45 @@ namespace ilevus.Models
         public string Subject { get; set; }
         public string Template { get; set; }
     }
+
+    public class SystemMessages
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        
+        public string Language { get; set; }
+        public ConcurrentDictionary<string, SystemLabel> Messages { get; set; }
+
+        public SystemMessages()
+        {
+            Id = ObjectId.GenerateNewId().ToString();
+            Messages = new ConcurrentDictionary<string, SystemLabel>();
+        }
+        
+        public void Add(string key, SystemLabel label)
+        {
+            Messages.AddOrUpdate(key, (theKey) => {
+                return label;
+            }, (theKey, value) => {
+                return label;
+            });
+        }
+    }
+
+    public class SystemLabel
+    {
+        public bool Reviewed { get; set; }
+        public bool New { get; set; }
+        public DateTime LastModified { get; set; }
+        public string Content { get; set; }
+
+        public SystemLabel()
+        {
+            New = true;
+            Reviewed = false;
+            LastModified = DateTime.Now;
+        }
+
+    }
+
 }
