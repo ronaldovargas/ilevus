@@ -36,3 +36,13 @@
 .#{$prefix}font-weight-bold    { font-weight: 700; }
 .#{$prefix}font-weight-extrabold { font-weight: 800; }
 .#{$prefix}font-italic         { font-style: italic; }
+
+//
+// Contextual text
+//
+
+.#{$prefix}text-primary          { color: $color-primary-brand; }
+.#{$prefix}text-info             { color: $color-primary-info; }
+.#{$prefix}text-success          { color: $color-primary-success; }
+.#{$prefix}text-warning          { color: $color-primary-warning; }
+.#{$prefix}text-danger           { color: $color-primary-danger; }

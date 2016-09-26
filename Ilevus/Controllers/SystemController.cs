@@ -58,6 +58,19 @@ namespace ilevus.Controllers
         }
 
         [IlevusAuthorization]
+        [Route("Messages")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateMessage(MessageBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            if (! await db.UpdateSystemMessage(model))
+            {
+                return BadRequest("Something happenned...");
+            }
+            return Ok("Message updated successfully.");
+        }
+
+        [IlevusAuthorization]
         [Route("Config")]
         [HttpGet]
         public IHttpActionResult GetConfig()

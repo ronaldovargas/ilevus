@@ -87,4 +87,12 @@ namespace ilevus.Models
 
     }
 
+    public class MessageBindingModel
+    {
+        public string Key { get; set; }
+        public string OldKey { get; set; }
+        public string Content { get; set; }
+        public string Lang { get; set; }
+    }
+
 }

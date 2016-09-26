@@ -104,6 +104,79 @@ namespace ilevus.Models
             return await SaveSystemMessages();
         }
 
+        public async Task<bool> UpdateSystemMessage(MessageBindingModel model)
+        {
+            var ptBR = Messages["pt-br"];
+            var en = Messages["en"];
+            var es = Messages["es"];
+            SystemLabel label;
+            if ("ptBR".Equals(model.Lang, StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (ptBR.Messages.ContainsKey(model.OldKey))
+                {
+                    if (!ptBR.Messages.TryRemove(model.OldKey, out label))
+                        return false;
+                    label.New = false;
+                    label.Reviewed = false;
+                    label.Content = model.Content;
+                    ptBR.Add(model.Key, label);
+                }
+                else
+                {
+                    ptBR.Add(model.Key, new SystemLabel()
+                    {
+                        Content = model.Content,
+                        New = true,
+                        Reviewed = false
+                    });
+                }
+            } else if ("en".Equals(model.Lang, StringComparison.OrdinalIgnoreCase))
+            {
+                if (en.Messages.ContainsKey(model.OldKey)) {
+                    if (!en.Messages.TryRemove(model.OldKey, out label))
+                        return false;
+                    label.New = false;
+                    label.Reviewed = false;
+                    label.Content = model.Content;
+                    en.Add(model.Key, label);
+                }
+                else
+                {
+                    en.Add(model.Key, new SystemLabel()
+                    {
+                        Content = model.Content,
+                        New = true,
+                        Reviewed = false
+                    });
+                }
+            } else if ("es".Equals(model.Lang, StringComparison.OrdinalIgnoreCase))
+            {
+                if (es.Messages.ContainsKey(model.OldKey))
+                {
+                    if (!es.Messages.TryRemove(model.OldKey, out label))
+                        return false;
+                    label.New = false;
+                    label.Reviewed = false;
+                    label.Content = model.Content;
+                    es.Add(model.Key, label);
+                }
+                else
+                {
+                    es.Add(model.Key, new SystemLabel()
+                    {
+                        Content = model.Content,
+                        New = true,
+                        Reviewed = false
+                    });
+                }
+            } else
+            {
+                return false;
+            }
+            
+            return await SaveSystemMessages();
+        }
+
         private async Task<bool> SaveSystemMessages()
         {
             var ptBR = Messages["pt-br"];

@@ -12,15 +12,15 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 function filterNew(value) {
-    return value[1].New;
+    return value[1] && value[1].New;
 }
 
 function filterNotReviewed(value) {
-    return !value[1].Reviewed;
+    return value[1] && !value[1].New && !value[1].Reviewed;
 }
 
 function filterAll(value) {
-    return (!value[1].New) && value[1].Reviewed;
+    return value[1] && (!value[1].New) && value[1].Reviewed;
 }
 
 module.exports = React.createClass({
@@ -30,7 +30,8 @@ module.exports = React.createClass({
     getInitialState() {
         return {
             loading: true,
-            lang: "ptBR"
+            lang: "ptBR",
+            editKey: null
         };
     },
     componentDidMount() {
@@ -42,6 +43,7 @@ module.exports = React.createClass({
             me.setState({
                 loading: false,
                 raw: messages,
+                editKey: null,
                 ptBR: {
                     New: _.filter(ptBR, filterNew),
                     NotReviewed: _.filter(ptBR, filterNotReviewed),
@@ -58,46 +60,33 @@ module.exports = React.createClass({
                     All: _.filter(es, filterAll)
                 }
             });
-        }, me);
-        SystemStore.on("update-messages", (config) => {
-            Toastr.remove();
-            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
-            $("button").removeAttr("disabled");
-        }, me);
-        SystemStore.on("fail", (msg) => {
             $("button").removeAttr("disabled");
         }, me);
 
-        SystemStore.dispatch({
-            action: SystemStore.ACTION_RETRIEVE_MESSAGES
-        });
+        SystemStore.on("update-translation", () => {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            me.refreshMessages();
+        }, me);
+
+        SystemStore.on("add-translation-key", () => {
+            me.refreshMessages();
+        }, me);
+
+        SystemStore.on("fail", (msg) => {
+            $("button").removeAttr("disabled");
+            $(me.refs["save-btn"]).removeAttr("disabled");
+        }, me);
+
+        me.refreshMessages();
     },
     componentWillUnmount() {
         SystemStore.off(null, null, this);
     },
 
-    updateTranslatedEmail(which, event) {
-        event.preventDefault();
-        $(this.refs[which + "-save"]).attr("disabled", "disabled");
-        var data = {
-            which: which,
-            pt_br: {
-                Subject: this.refs[which + "-pt-br-subject"].value,
-                Template: this.refs[which + "-pt-br"].value
-            },
-            en: {
-                Subject: this.refs[which + "-en-subject"].value,
-                Template: this.refs[which + "-en"].value
-            },
-            es: {
-                Subject: this.refs[which + "-es-subject"].value,
-                Template: this.refs[which + "-es"].value
-            }
-        };
-
+    refreshMessages() {
         SystemStore.dispatch({
-            action: SystemStore.ACTION_UPDATE_CONFIG_EMAIL,
-            data: data
+            action: SystemStore.ACTION_RETRIEVE_MESSAGES
         });
     },
 
@@ -106,6 +95,56 @@ module.exports = React.createClass({
         this.setState({
             lang: lang
         });
+    },
+
+    addTranslationKey(event) {
+        event && event.preventDefault();
+        $(this.refs['add-btn']).attr("disabled", "disabled");
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_ADD_TRANSLATION_KEY,
+            data: "--New--"
+        });
+    },
+
+    tweakEditing(key, event) {
+        event && event.preventDefault();
+        this.setState({
+            editKey: key
+        });
+    },
+
+    saveMessage(event) {
+        event && event.preventDefault();
+        $(this.refs["save-btn"]).attr("disabled", "disabled");
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_UPDATE_TRANSLATION,
+            data: {
+                OldKey: this.state.editKey,
+                Key: this.refs['key-input-' + this.state.editKey].value,
+                Content: this.refs['content-input-' + this.state.editKey].value,
+                Lang: this.state.lang
+            }
+        });
+    },
+
+    onKeyUp(event) {
+        if (event.key == "Enter") {
+            this.saveMessage(event);
+        } else if (event.key == "Escape") {
+            this.setState({
+                editKey: null
+            });
+        }
+    },
+
+
+
+    renderEditInput(ref, defaultValue) {
+        return <input onKeyUp={this.onKeyUp}
+                      type="text"
+                      className="ilv-form-control"
+                      defaultValue={defaultValue}
+                      ref={ref} />;
     },
 
     renderTable(messages) {
@@ -118,22 +157,37 @@ module.exports = React.createClass({
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>LabelName</td>
-                    <td>Nome</td>
-                    <td><i className="material-icons">&#xE876;</i></td>
-                </tr>
                 {messages.map((msg, index) => {
-                    return <tr key={'label-'+index}>
-                        <td>{msg[0]}</td>
-                        <td>{msg[1].Content}</td>
+                    return (msg[0] == this.state.editKey ? <tr key={'label-'+index}>
+                        <td>{this.renderEditInput('key-input-' + msg[0], msg[0])}</td>
+                        <td>{this.renderEditInput('content-input-' + msg[0], msg[1].Content)}</td>
+                        <td>
+                            <a onClick={this.saveMessage} ref="save-btn">
+                                <i className="material-icons ilv-text-success" title={Messages.get("LabelSave")}>&#xE876;</i>
+                            </a> <a onClick={this.tweakEditing.bind(this, null)}>
+                                <i className="material-icons ilv-text-danger" title={Messages.get("ActionCancel")}>&#xE14B;</i>
+                            </a>
+                        </td>
+                    </tr>
+                    :
+                    <tr key={'label-' + index}>
+                        <td>
+                            <a title={Messages.get("LabelActions")}>
+                                <i class="material-icons">&#xE313;</i>
+                            </a> <span onClick={this.tweakEditing.bind(this, msg[0])}>
+                                {msg[0]}
+                            </span>
+                        </td>
+                        <td>
+                            <span onClick={this.tweakEditing.bind(this, msg[0])}>{msg[1].Content}</span>
+                        </td>
                         <td>{msg[1].New ? "":(
-                            msg[1].Revised ?
+                            msg[1].Reviewed ?
                                 <i className="material-icons">&#xE877;</i>
                                 :
                                 <i className="material-icons">&#xE876;</i>
                         )}</td>
-                    </tr>;
+                    </tr>);
                 })}
             </tbody>
         </table>;
@@ -203,6 +257,13 @@ module.exports = React.createClass({
 
                         <div className="tab-content">
                             <div className="tab-pane fade active in">
+                                <div className="row">
+                                    <div className="col-xs-12">
+                                        <button className="ilv-btn ilv-btn-primary ilv-btn-sm" onClick={this.addTranslationKey} ref='add-btn'>
+                                            {Messages.get("LabelAddNewMessage")}
+                                        </button>
+                                    </div>
+                                </div>
                                 {this.renderMessages(this.state[this.state.lang])}
                             </div>
                         </div>
