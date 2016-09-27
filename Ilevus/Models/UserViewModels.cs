@@ -74,6 +74,7 @@ namespace ilevus.Models
         {
             Id = user.Id;
             Email = user.Email;
+            EmailChange = user.EmailChange;
             EmailConfirmed = user.EmailConfirmed;
             Birthdate = user.Birthdate;
             Creation = user.Creation;
@@ -92,6 +93,7 @@ namespace ilevus.Models
         }
         public string Id { get; set; }
         public string Email { get; set; }
+        public string EmailChange { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool HasRegistered { get; set; }
         public string LoginProvider { get; set; }

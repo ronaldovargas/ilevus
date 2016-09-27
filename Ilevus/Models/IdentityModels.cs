@@ -34,6 +34,9 @@ namespace ilevus.Models
         public string SearchLanguage { get; set; }
         public double SearchRelevance { get; set; }
 
+        public string EmailChangeToken { get; set; }
+        public string EmailChange { get; set; }
+
         public IlevusUser()
         {
             this.Type = UserType.Client;

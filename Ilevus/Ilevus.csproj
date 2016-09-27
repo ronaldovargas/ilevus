@@ -284,6 +284,7 @@
     <Content Include="jsx\core\view\user\wizard\ProfileWizardAddress.jsx" />
     <Content Include="jsx\core\widget\user\AddressForm.jsx" />
     <Content Include="jsx\core\widget\user\ServiceForm.jsx" />
+    <Content Include="jsx\core\view\user\ConfirmEmailChange.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

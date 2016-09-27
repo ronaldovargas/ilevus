@@ -44,7 +44,6 @@ module.exports = React.createClass({
         }, me);
 
         UserSession.on("confirmationemail", code => {
-            console.log(encodeURIComponent(code));
             Toastr.success(Messages.get("TextEmailConfirmationSent"));
         }, me);
         UserSession.on("confirmationemailfail", msg => {

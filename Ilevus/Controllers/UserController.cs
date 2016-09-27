@@ -15,6 +15,7 @@ using MongoDB.Driver;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -248,6 +249,36 @@ namespace ilevus.Controllers
             }
             return Ok("E-mail confirmado com sucesso.");
         }
+        
+        [AllowAnonymous]
+        [Route("ConfirmEmailChange")]
+        public async Task<IHttpActionResult> ConfirmEmailChange(ConfirmEmailBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var user = await UserManager.FindByEmailAsync(model.Email);
+            if (user == null || string.IsNullOrEmpty(user.EmailChange))
+            {
+                return BadRequest("Este e-mail não existe ou já foi confirmado.");
+            }
+            if (!model.Code.Equals(user.EmailChangeToken, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return BadRequest("Código de confirmação inválido.");
+            }
+            user.Email = user.EmailChange;
+            user.UserName = user.EmailChange;
+            user.EmailChange = null;
+            user.EmailChangeToken = null;
+            var result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+            return Ok("E-mail confirmado com sucesso.");
+        }
 
         // POST: /Account/EmailConfirmation
         [Route("EmailConfirmation")]
@@ -258,15 +289,35 @@ namespace ilevus.Controllers
             {
                 return BadRequest(Messages.TextEmailAlreadyConfirmed);
             }
+
+            CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+            var implemented = CultureHelper.GetImplementedCulture(culture.Name);
             var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
             string link = BaseURL + "#/confirm-email/"
                     + Uri.EscapeDataString(user.Email) + "/"
                     + Uri.EscapeDataString(code);
+            string subject;
+            string message;
+            if ("en".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+            {
+                subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Subject;
+                message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Template;
+            }
+            else if ("es".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+            {
+                subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Subject;
+                message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Template;
+            }
+            else
+            {
+                subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Subject;
+                message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Template;
+            }
             await UserManager.SendEmailAsync(user.Id,
-                Messages.EmailConfirmEmailSubject,
+                subject,
                 string.Format(
-                    Messages.EmailConfirmEmailBody,
+                    message,
                     user.Name,
                     "<a href='" + link + "'>" + link + "</a>"
                 )
@@ -525,6 +576,76 @@ namespace ilevus.Controllers
 
             return Ok(new UserInfoViewModel(user));
         }
+
+        [HttpPost]
+        [Route("UpdateEmail")]
+        public async Task<IHttpActionResult> UpdateEmail(ChangeEmailBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Digite o e-mail.");
+            }
+
+            CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+            var implemented = CultureHelper.GetImplementedCulture(culture.Name);
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+
+            if (user.EmailConfirmed)
+            {
+                var str = user.Email + model.Email + DateTime.Now.Ticks.ToString();
+                user.EmailChangeToken = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
+                user.EmailChange = model.Email;
+
+                string link = BaseURL + "#/confirm-email-change/"
+                        + Uri.EscapeDataString(user.Email) + "/"
+                        + Uri.EscapeDataString(user.EmailChangeToken);
+                string subject;
+                string message;
+                if ("en".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Subject;
+                    message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Template;
+                }
+                else if ("es".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Subject;
+                    message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Template;
+                }
+                else
+                {
+                    subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Subject;
+                    message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Template;
+                }
+                var mailService = new IlevusEmailService();
+                await mailService.SendAsync(new IdentityMessage() {
+                    Destination = user.EmailChange,
+                    Subject = subject,
+                    Body = string.Format(
+                        message,
+                        user.Name,
+                        "<a href='" + link + "'>" + link + "</a>"
+                    )
+                });
+            }
+            else
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+            }
+            IdentityResult result = await UserManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+            //var newPrincipal = IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user);
+            JObject accessTokenResponse = await IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user, UserManager, Request.GetOwinContext());
+
+            return Ok(accessTokenResponse);
+        }
+
 
         // GET api/Account/UpdateAddress
         [HttpPost]

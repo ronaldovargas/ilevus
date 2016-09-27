@@ -1,4 +1,5 @@
 ﻿
+var S = require("string");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -21,7 +22,8 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         UserSession.on("fail", (msg) => {
-            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            $("button").removeAttr("disabled");
+            Toastr.remove();
             Toastr.error(msg);
         }, me);
         UserSession.on("loaded", () => {
@@ -31,7 +33,20 @@ module.exports = React.createClass({
         }, me);
         UserSession.on("updatepassword", () => {
             $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.remove();
             Toastr.success(Messages.get("TextPasswordSetSuccess"));
+        }, me);
+
+        UserSession.on("update-confirmed-email", () => {
+            $("button").removeAttr("disabled");
+            Toastr.remove();
+            Toastr.success(Messages.get("TextChangeEmailConfirmationSent"));
+            this.refs['profile-email'].value = "";
+            me.forceUpdate();
+        }, me);
+
+        UserSession.on("confirmationemail", () => {
+            $("button").removeAttr("disabled");
         }, me);
     },
     componentWillUnmount() {
@@ -61,6 +76,37 @@ module.exports = React.createClass({
         UserSession.dispatch({
             action: UserSession.ACTION_UPDATE_PASSWORD,
             data: data
+        });
+    },
+
+    updateEmail(event) {
+        event.preventDefault();
+        var email = S(this.refs['profile-email'].value);
+        if (email.isEmpty()) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeYourEmail"));
+            return;
+        }
+        $(this.refs["email-save"]).attr("disabled", "disabled");
+        var user = UserSession.get("user");
+        if (user.EmailConfirmed) {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UPDATE_CONFIRMED_EMAIL,
+                data: email.s
+            });
+        } else {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UPDATE_EMAIL,
+                data: email.s
+            });
+        }
+    },
+
+    confirmEmail(event) {
+        event.preventDefault();
+        $(this.refs["email-confirm"]).attr("disabled", "disabled");
+        UserSession.dispatch({
+            action: UserSession.ACTION_CONFIRMATION_EMAIL
         });
     },
 
@@ -136,7 +182,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                <div className="ilv-card hidden">
+                <div className="ilv-card">
                     <div className="ilv-card-header">
                         <strong>
                             {Messages.get("LabelChangeEmail")}
@@ -144,19 +190,40 @@ module.exports = React.createClass({
                     </div>
                     <div className="ilv-card-body">
                         <form>
+                            {user.EmailConfirmed ?
+                                <div className="media m-b-1">
+                                    <div className="media-header">
+                                        <strong>{Messages.get("LabelActualEmail")}</strong>
+                                    </div>
+                                    <div className="media-body">
+                                        <div>
+                                            {user.Email} <i className="ilv-text-success material-icons md-18"
+                                                            title={Messages.get("TextEmailConfirmed")}>&#xE86C;</i>
+                                        </div>
+                                        {user.EmailChange ? <div>
+                                            {user.EmailChange} <i className="ilv-text-warning material-icons md-18"
+                                                                  title={Messages.get("TextEmailWaitingConfirmation")}>&#xE887;</i>
+                                        </div>:""}
+                                    </div>
+                                </div>
+                            :""}
+                            {user.EmailConfirmed ? "" :<div>
+                                {user.Email} <button className="ilv-btn ilv-btn-primary ilv-btn-sm" onClick={this.confirmEmail} ref="email-confirm">
+                                    {Messages.get("LabelConfirmEmail")}
+                                </button>
+                            </div>}
                             <div className="row">
                                 <div className="col-md-6">
-                                    
                                     <div className="ilv-form-group m-b-0">
                                         <label className="ilv-form-label" htmlFor="editProfileFormMail">
-                                            {Messages.get("LabelEmail")}
+                                            {user.EmailConfirmed ? Messages.get("LabelNewEmail"):Messages.get("LabelEmail")}
                                         </label>
                                         <input className="ilv-form-control"
                                                type="email"
                                                spellCheck={false}
                                                id="editProfileFormMail"
                                                ref="profile-email"
-                                               defaultValue={user.Email} />
+                                               defaultValue={user.EmailConfirmed ? "":user.Email} />
                                         <span className="ilv-text-small">
                                             {Messages.get("TextEmailWillNotBeShared")}
                                         </span>
@@ -167,7 +234,7 @@ module.exports = React.createClass({
                         </form>
                     </div>
                     <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updateEmail}>
+                        <button className="ilv-btn ilv-btn-primary" ref="email-save" onClick={this.updateEmail}>
                             {Messages.get("ActionChangeEmail")}
                         </button>
                     </div>

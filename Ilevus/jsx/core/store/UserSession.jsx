@@ -18,6 +18,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_LOGIN_LINKEDIN: 'loginWithLinkedin',
 	ACTION_LOGOUT: 'logout',
 	ACTION_CONFIRM_EMAIL: 'confirmEmail',
+	ACTION_CONFIRM_EMAIL_CHANGE: 'confirmEmailChange',
 	ACTION_CONFIRMATION_EMAIL: 'confirmationEmail',
 	ACTION_RECOVER_PASSWORD: 'recoverPassword',
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
@@ -25,6 +26,8 @@ var UserSession = Backbone.Model.extend({
 
 	ACTION_UPDATE_CULTURE: 'updateCulture',
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
+	ACTION_UPDATE_CONFIRMED_EMAIL: 'updateConfirmedEmail',
+	ACTION_UPDATE_EMAIL: 'updateEmail',
 	ACTION_UPDATE_PROFILE: 'updateProfile',
 	ACTION_UPDATE_ADDRESS: 'updateAddress',
 	ACTION_UPDATE_PROFESSIONAL_BASIC: 'updateProfessionalBasic',
@@ -293,6 +296,23 @@ var UserSession = Backbone.Model.extend({
 	        }
 	    });
 	},
+
+	confirmEmailChange(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/ConfirmEmailChange",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("emailconfirmed", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 	confirmationEmail(params) {
 	    var me = this;
 	    $.ajax({
@@ -429,6 +449,44 @@ var UserSession = Backbone.Model.extend({
 	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("updatepassword", true);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateConfirmedEmail(email) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateEmail",
+	        dataType: 'json',
+	        data: {
+	            Email: email
+	        },
+	        success(data, status, opts) {
+	            me.get("user").EmailChange = email;
+	            me.trigger("update-confirmed-email");
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateEmail(email) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateEmail",
+	        dataType: 'json',
+	        data: {
+	            Email: email
+	        },
+	        success(data, status, opts) {
+	            me.putStorage(data.access_token, data.userName, sessionStorage.stayconnected || localStorage.stayconnected);
+	            location.reload();
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

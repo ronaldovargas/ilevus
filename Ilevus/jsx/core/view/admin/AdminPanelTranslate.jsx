@@ -172,7 +172,7 @@ module.exports = React.createClass({
                     :
                     <tr key={'label-' + index}>
                         <td>
-                            <a title={Messages.get("LabelActions")}>
+                            <a title={Messages.get("LabelActions")} className="hidden">
                                 <i class="material-icons">&#xE313;</i>
                             </a> <span onClick={this.tweakEditing.bind(this, msg[0])}>
                                 {msg[0]}
