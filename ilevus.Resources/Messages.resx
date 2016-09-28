@@ -885,4 +885,7 @@
   <data name="LabelCode" xml:space="preserve">
     <value>Código</value>
   </data>
+  <data name="LabelState" xml:space="preserve">
+    <value>Estado</value>
+  </data>
 </root>

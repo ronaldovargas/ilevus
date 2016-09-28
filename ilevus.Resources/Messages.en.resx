@@ -789,4 +789,7 @@
   <data name="ValidationPictureType" xml:space="preserve">
     <value>The photo must be a PNG, GIF or JPG.</value>
   </data>
+  <data name="LabelState" xml:space="preserve">
+    <value>State</value>
+  </data>
 </root>

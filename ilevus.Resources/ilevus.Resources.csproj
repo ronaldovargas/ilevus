@@ -55,6 +55,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.es.resx</DependentUpon>
     </Compile>
+    <Compile Include="Messages1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Messages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
