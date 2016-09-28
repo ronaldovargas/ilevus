@@ -165,7 +165,7 @@ namespace ilevus.Models
         public string City { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]
-        [Display(ResourceType = typeof(Messages), Name = "LabelCounty")]
+        [Display(ResourceType = typeof(Messages), Name = "LabelState")]
         public string County { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Messages), ErrorMessageResourceName = "ValidationRequired")]

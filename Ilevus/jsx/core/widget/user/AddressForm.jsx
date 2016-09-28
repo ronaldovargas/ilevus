@@ -90,7 +90,7 @@ module.exports = React.createClass({
 
             <fieldset className="ilv-form-group">
                 <label className="ilv-form-label" htmlFor="editProfileFormState">
-                    {Messages.get("LabelCounty")}
+                    {Messages.get("LabelState")}
                 </label>
                 <input className="ilv-form-control"
                         type="text"
