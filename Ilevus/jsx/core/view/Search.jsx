@@ -124,29 +124,6 @@ module.exports = React.createClass({
                                                 <h1 className="h3 m-a-0">{this.state.term}</h1>
                                                 <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
                                             </div>
-                                            <div className="ilv-media-right">
-                                                <form className="ilv-form-inline">
-                                                    <fieldset className="ilv-form-group">
-                                                        <select className="ilv-form-control ilv-form-control-sm">
-                                                            <option>{Messages.get("LabelLocalization")}</option>
-                                                        </select>
-                                                    </fieldset>
-                                                    <fieldset className="ilv-form-group">
-                                                        <select className="ilv-form-control ilv-form-control-sm">
-                                                        <option>{Messages.get("LabelExpertise")}</option>
-                                                        </select>
-                                                    </fieldset>
-                                                    <fieldset className="ilv-form-group">
-                                                        <div className="ilv-checkbox">
-                                                            <label htmlFor="filter-online">
-                                                                <input className="ilv-control-input" type="checkbox" id="filter-online" ref="stayconnected" />
-                                                                <span className="ilv-control-indicator"></span>
-                                                                <span className="ilv-control-label">{Messages.get("LabelMeetsOnline")}</span>
-                                                            </label>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
-                                            </div>
                                         </div>
 
                                         {this.renderModels()}
