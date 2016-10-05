@@ -2,75 +2,46 @@
 // Navbar
 //
 
-
-// Base styles
-.#{$prefix}navbar {
-  padding: $navbar-padding-y $navbar-padding-x;
-
-  .#{$prefix}nav-link {
-    font-weight: 600;
-  }
+.#{$prefix}navbar-form {
+    @extend .#{$prefix}form-inline;
 }
 
-.#{$prefix}navbar-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.#{$prefix}navbar-search-input {
+    min-width: 16rem;
 }
 
-.#{$prefix}navbar-nav-item {
-  flex: 1 0 0;
-  margin: 0 .75rem;
-
-  &:first-child { margin-left: 0; }
-  &:last-child { margin-right: 0; }
+.#{$prefix}navbar-search-btn {
+    margin-left: .5rem;
 }
 
-.#{$prefix}navbar-nav-item-shrink {
-  flex: 0;
-}
+@include media-breakpoint-down(sm) {
+    .#{$prefix}navbar-form {
+        display: inherit;
+    }
 
+    .#{$prefix}navbar-search {
+        padding: 2.5rem 0 .75rem;
+    }
 
-// Navbar positioning
-.#{$prefix}navbar-fixed-top,
-.#{$prefix}navbar-fixed-bottom {
-  position: fixed;
-  right: 0;
-  left: 0;
-  width: 100%;
-  z-index: $navbar-fixed-zindex;
-}
+    .#{$prefix}navbar-search-input {
+        margin-bottom: .25rem;
+    }
 
-.#{$prefix}navbar-fixed-top {
-  top: 0;
-}
+    .#{$prefix}navbar-search-btn {
+        margin-left: 0;
+    }
 
-.#{$prefix}navbar-fixed-bottom {
-  bottom: 0;
-}
+    .#{$prefix}navbar-search-input,
+    .#{$prefix}navbar-search-btn {
+        display: block;
+        min-width: 100%;
+        max-width: 100%;
+    }
 
+    .nav-item {
+        display: block;
+        width: 100%;
+        margin: .5rem 0 !important;
+    }
 
-// Navbar variations
-.#{$prefix}navbar-primary {
-  background-color: $navbar-bg-brand;
-
-  .#{$prefix}nav-link {
-    color: $navbar-color-light;
-  }
-}
-
-.#{$prefix}navbar-light {
-  background-color: $navbar-bg-light;
-
-  .#{$prefix}nav-link {
-    color: $navbar-color-dark;
-  }
-}
-
-.#{$prefix}navbar-dark {
-  background-color: $navbar-bg-dark;
-
-  .#{$prefix}nav-link {
-    color: $navbar-color-light;
-  }
 }

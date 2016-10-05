@@ -190,33 +190,11 @@ module.exports = React.createClass({
                     </div>
                     <div className="ilv-card-body">
                         <form>
-                            {user.EmailConfirmed ?
-                                <div className="media m-b-1">
-                                    <div className="media-header">
-                                        <strong>{Messages.get("LabelActualEmail")}</strong>
-                                    </div>
-                                    <div className="media-body">
-                                        <div>
-                                            {user.Email} <i className="ilv-text-success material-icons md-18"
-                                                            title={Messages.get("TextEmailConfirmed")}>&#xE86C;</i>
-                                        </div>
-                                        {user.EmailChange ? <div>
-                                            {user.EmailChange} <i className="ilv-text-warning material-icons md-18"
-                                                                  title={Messages.get("TextEmailWaitingConfirmation")}>&#xE887;</i>
-                                        </div>:""}
-                                    </div>
-                                </div>
-                            :""}
-                            {user.EmailConfirmed ? "" :<div>
-                                {user.Email} <button className="ilv-btn ilv-btn-primary ilv-btn-sm" onClick={this.confirmEmail} ref="email-confirm">
-                                    {Messages.get("LabelConfirmEmail")}
-                                </button>
-                            </div>}
                             <div className="row">
                                 <div className="col-md-6">
-                                    <div className="ilv-form-group m-b-0">
+                                    <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editProfileFormMail">
-                                            {user.EmailConfirmed ? Messages.get("LabelNewEmail"):Messages.get("LabelEmail")}
+                                            {user.EmailConfirmed ? Messages.get("LabelNewEmail") : Messages.get("LabelEmail")}
                                         </label>
                                         <input className="ilv-form-control"
                                                type="email"
@@ -229,10 +207,36 @@ module.exports = React.createClass({
                                         </span>
                                     </div>
 
+                                    {user.EmailConfirmed ?
+                                        <div className="ilv-form-group">
+                                            <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
+                                            <div>
+                                                {user.Email} <i className="ilv-text-success material-icons md-18"
+                                                                title={Messages.get("TextEmailConfirmed")}>&#xE86C;</i>
+                                            </div>
+                                            {user.EmailChange ?
+                                                <div>
+                                                    {user.EmailChange} <i className="ilv-text-warning material-icons md-18"
+                                                                          title={Messages.get("TextEmailWaitingConfirmation")}>&#xE887;</i>
+                                                </div>
+                                            : "" }
+                                        </div>
+                                    : "" }
+
+                                    {user.EmailConfirmed ? "" :
+                                        <div className="ilv-form-group m-b-0">
+                                            <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
+                                            <input className="ilv-form-control" value={user.Email} disabled />
+                                            <a className="ilv-text-small" href="javascrip:;" onClick={this.confirmEmail} ref="email-confirm">
+                                                {Messages.get("LabelConfirmEmail")}
+                                            </a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </form>
                     </div>
+
                     <div className="ilv-card-footer">
                         <button className="ilv-btn ilv-btn-primary" ref="email-save" onClick={this.updateEmail}>
                             {Messages.get("ActionChangeEmail")}

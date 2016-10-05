@@ -190,27 +190,6 @@ module.exports = React.createClass({
 
                 <div className="ilv-card">
                     <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelEmailAddress")}</strong>
-                    </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group m-b-0">
-                                        <label className="ilv-form-label">{Messages.get("LabelEmail")}</label>
-                                        <input className="ilv-form-control" defaultValue={user.Email} />
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" disabled>{Messages.get("LabelChangeEmail")}</button>
-                    </div>
-                </div>
-
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
                         <strong>{Messages.get("LabelBasicInfo")}</strong>
                     </div>
                     <div className="ilv-card-body">
