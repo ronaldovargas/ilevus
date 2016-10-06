@@ -69,7 +69,7 @@ namespace ilevus.Models
             {
                 ptBR.Add(key, new SystemLabel()
                 {
-                    Content = "???"+key+"???",
+                    Content = "???" + key + "???",
                     New = true,
                     Reviewed = false
                 });
@@ -104,76 +104,46 @@ namespace ilevus.Models
             return await SaveSystemMessages();
         }
 
-        public async Task<bool> UpdateSystemMessage(MessageBindingModel model)
+        public async Task<bool> ReviewSystemMessagesKey(string key, string lang)
         {
-            var ptBR = Messages["pt-br"];
-            var en = Messages["en"];
-            var es = Messages["es"];
+            var msgs = Messages[lang];
             SystemLabel label;
-            if ("ptBR".Equals(model.Lang, StringComparison.InvariantCultureIgnoreCase))
+            try
             {
-                if (ptBR.Messages.ContainsKey(model.OldKey))
-                {
-                    if (!ptBR.Messages.TryRemove(model.OldKey, out label))
-                        return false;
-                    label.New = false;
-                    label.Reviewed = false;
-                    label.Content = model.Content;
-                    ptBR.Add(model.Key, label);
-                }
-                else
-                {
-                    ptBR.Add(model.Key, new SystemLabel()
-                    {
-                        Content = model.Content,
-                        New = true,
-                        Reviewed = false
-                    });
-                }
-            } else if ("en".Equals(model.Lang, StringComparison.OrdinalIgnoreCase))
-            {
-                if (en.Messages.ContainsKey(model.OldKey)) {
-                    if (!en.Messages.TryRemove(model.OldKey, out label))
-                        return false;
-                    label.New = false;
-                    label.Reviewed = false;
-                    label.Content = model.Content;
-                    en.Add(model.Key, label);
-                }
-                else
-                {
-                    en.Add(model.Key, new SystemLabel()
-                    {
-                        Content = model.Content,
-                        New = true,
-                        Reviewed = false
-                    });
-                }
-            } else if ("es".Equals(model.Lang, StringComparison.OrdinalIgnoreCase))
-            {
-                if (es.Messages.ContainsKey(model.OldKey))
-                {
-                    if (!es.Messages.TryRemove(model.OldKey, out label))
-                        return false;
-                    label.New = false;
-                    label.Reviewed = false;
-                    label.Content = model.Content;
-                    es.Add(model.Key, label);
-                }
-                else
-                {
-                    es.Add(model.Key, new SystemLabel()
-                    {
-                        Content = model.Content,
-                        New = true,
-                        Reviewed = false
-                    });
-                }
-            } else
+                label = msgs.Messages[key];
+                label.Reviewed = true;
+                label.New = false;
+            }
+            catch (KeyNotFoundException ex)
             {
                 return false;
             }
             
+            return await SaveSystemMessages();
+        }
+
+        public async Task<bool> UpdateSystemMessage(MessageBindingModel model)
+        {
+            var msgs = Messages[model.Lang];
+            SystemLabel label;
+            if (msgs.Messages.ContainsKey(model.OldKey))
+            {
+                if (!msgs.Messages.TryRemove(model.OldKey, out label))
+                    return false;
+                label.New = false;
+                label.Reviewed = false;
+                label.Content = model.Content;
+                msgs.Add(model.Key, label);
+            }
+            else
+            {
+                msgs.Add(model.Key, new SystemLabel()
+                {
+                    Content = model.Content,
+                    New = true,
+                    Reviewed = false
+                });
+            }
             return await SaveSystemMessages();
         }
 
@@ -379,13 +349,15 @@ namespace ilevus.Models
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.County),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Country),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Industry),
+                Builders<IlevusUser>.IndexKeys.Text("Professional.Services.Name"),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Specialties)
             );
-            var weights = new BsonDocument();
+             var weights = new BsonDocument();
             weights["Email"] = 10;
             weights["Surname"] = 8;
             weights["Name"] = 6;
             weights["Professional.Industry"] = 6;
+            weights["Professional.Services.Name"] = 6;
             weights["Professional.Specialties"] = 6;
             weights["Professional.City"] = 4;
             weights["Professional.County"] = 2;

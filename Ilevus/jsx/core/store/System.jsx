@@ -23,6 +23,7 @@ var SystemStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
     ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
     ACTION_ADD_TRANSLATION_KEY: "system-addTranslationKey",
+    ACTION_REVIEW_TRANSLATION_KEY: "system-reviewTranslationKey",
     ACTION_UPDATE_TRANSLATION: "system-updateTranslation",
     dispatchAcceptRegex: /^system-[a-zA-Z0-9]+$/,
 
@@ -36,6 +37,21 @@ var SystemStore = Fluxbone.Store.extend({
 	        url: BACKEND_URL + "Messages/Report?key=" + key,
 	        success() {
 	            me.trigger("add-translation-key");
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	reviewTranslationKey(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Messages/Review",
+	        data: params,
+	        success() {
+	            me.trigger("review-translation-key");
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

@@ -69,6 +69,32 @@ namespace ilevus.Controllers
             }
             return Ok("Message updated successfully.");
         }
+        [IlevusAuthorization]
+        [HttpPost]
+        [Route("Messages/Review")]
+        public async Task<IHttpActionResult> ReviewMessageKey(MessageBindingModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.Key))
+            {
+                return BadRequest("You must provide a key.");
+            }
+            var db = IlevusDBContext.Create();
+            try
+            {
+                if (await db.ReviewSystemMessagesKey(model.Key, model.Lang))
+                {
+                    return Ok("Key reviewed.");
+                }
+                else
+                {
+                    return BadRequest("Um problema inesperado ocorreu.");
+                }
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
 
         [IlevusAuthorization]
         [Route("Config")]

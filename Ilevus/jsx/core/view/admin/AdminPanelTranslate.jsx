@@ -1,4 +1,6 @@
 ﻿
+var S = require("string");
+var $ = require("jquery");
 var _ = require("underscore");
 var React = require("react");
 var Link = require("react-router").Link;
@@ -30,7 +32,7 @@ module.exports = React.createClass({
     getInitialState() {
         return {
             loading: true,
-            lang: "ptBR",
+            lang: "pt-br",
             editKey: null
         };
     },
@@ -44,7 +46,7 @@ module.exports = React.createClass({
                 loading: false,
                 raw: messages,
                 editKey: null,
-                ptBR: {
+                "pt-br": {
                     New: _.filter(ptBR, filterNew),
                     NotReviewed: _.filter(ptBR, filterNotReviewed),
                     All: _.filter(ptBR, filterAll)
@@ -70,6 +72,14 @@ module.exports = React.createClass({
         }, me);
 
         SystemStore.on("add-translation-key", () => {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextTranslationKeyAdded"));
+            me.refreshMessages();
+        }, me);
+
+        SystemStore.on("review-translation-key", () => {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             me.refreshMessages();
         }, me);
 
@@ -99,10 +109,16 @@ module.exports = React.createClass({
 
     addTranslationKey(event) {
         event && event.preventDefault();
+        var value = S(this.refs["new-message-label"].value);
+        if (value.isEmpty()) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeNewKey"));
+            return;
+        }
         $(this.refs['add-btn']).attr("disabled", "disabled");
         SystemStore.dispatch({
             action: SystemStore.ACTION_ADD_TRANSLATION_KEY,
-            data: "--New--"
+            data: value.s
         });
     },
 
@@ -135,6 +151,17 @@ module.exports = React.createClass({
                 editKey: null
             });
         }
+    },
+
+    reviewTranslation(key, event) {
+        event && event.preventDefault();
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_REVIEW_TRANSLATION_KEY,
+            data: {
+                Key: key,
+                Lang: this.state.lang
+            }
+        });
     },
 
 
@@ -185,7 +212,8 @@ module.exports = React.createClass({
                             msg[1].Reviewed ?
                                 <i className="material-icons">&#xE877;</i>
                                 :
-                                <i className="material-icons">&#xE876;</i>
+                                <a className="material-icons" onClick={this.reviewTranslation.bind(this, msg[0])}
+                                   title={Messages.get("ActionReview")}>&#xE876;</a>
                         )}</td>
                     </tr>);
                 })}
@@ -236,8 +264,8 @@ module.exports = React.createClass({
                     <div className="ilv-card-body">
                         <ul className="ilv-text-sm nav nav-tabs m-b-1">
                             <li className="nav-item">
-                                <a className={"nav-link" + (this.state.lang == 'ptBR' ? " active" : "")}
-                                   onClick={this.changeLanguage.bind(this, "ptBR")}>
+                                <a className={"nav-link" + (this.state.lang == "pt-br" ? " active" : "")}
+                                   onClick={this.changeLanguage.bind(this, "pt-br")}>
                                     {Messages.get("LanguagePortuguese")}
                                 </a>
                             </li>
@@ -257,13 +285,21 @@ module.exports = React.createClass({
 
                         <div className="tab-content">
                             <div className="tab-pane fade active in">
-                                <div className="row">
-                                    <div className="col-xs-12">
-                                        <button className="ilv-btn ilv-btn-primary ilv-btn-sm" onClick={this.addTranslationKey} ref='add-btn'>
-                                            {Messages.get("LabelAddNewMessage")}
+                                <form className="ilv-form-inline" onSubmit={this.addTranslationKey}>
+                                    <div className="ilv-form-group">
+                                        <input type="text"
+                                               spellcheck={false}
+                                               className="ilv-form-control"
+                                               ref="new-message-label"
+                                               placeholder={Messages.get("LabelNewKey")}
+                                        />
+                                        <button type="submit"
+                                                className="ilv-btn ilv-btn-primary"
+                                                ref='add-btn'>
+                                                {Messages.get("LabelAddNewMessage")}
                                         </button>
                                     </div>
-                                </div>
+                                </form>
                                 {this.renderMessages(this.state[this.state.lang])}
                             </div>
                         </div>
