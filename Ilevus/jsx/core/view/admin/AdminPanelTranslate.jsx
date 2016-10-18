@@ -180,7 +180,7 @@ module.exports = React.createClass({
                 <tr>
                     <th>{Messages.get("LabelKey")}</th>
                     <th>{Messages.get("LabelContent")}</th>
-                    <th>{Messages.get("LabelStatus")}</th>
+                    <th className="ilv-text-xs-right">{Messages.get("LabelStatus")}</th>
                 </tr>
             </thead>
             <tbody>
@@ -188,11 +188,11 @@ module.exports = React.createClass({
                     return (msg[0] == this.state.editKey ? <tr key={'label-'+index}>
                         <td>{this.renderEditInput('key-input-' + msg[0], msg[0])}</td>
                         <td>{this.renderEditInput('content-input-' + msg[0], msg[1].Content)}</td>
-                        <td>
+                        <td className="ilv-text-xs-right">
                             <a onClick={this.saveMessage} ref="save-btn">
                                 <i className="material-icons ilv-text-success" title={Messages.get("LabelSave")}>&#xE876;</i>
                             </a> <a onClick={this.tweakEditing.bind(this, null)}>
-                                <i className="material-icons ilv-text-danger" title={Messages.get("ActionCancel")}>&#xE14B;</i>
+                                <i className="material-icons ilv-text-danger" title={Messages.get("ActionCancel")}>&#xE5CD;</i>
                             </a>
                         </td>
                     </tr>
@@ -208,9 +208,9 @@ module.exports = React.createClass({
                         <td>
                             <span onClick={this.tweakEditing.bind(this, msg[0])}>{msg[1].Content}</span>
                         </td>
-                        <td>{msg[1].New ? "":(
+                        <td className="ilv-text-xs-right">{msg[1].New ? "":(
                             msg[1].Reviewed ?
-                                <i className="material-icons">&#xE877;</i>
+                                <i className="material-icons ilv-text-info">&#xE877;</i>
                                 :
                                 <a className="material-icons" onClick={this.reviewTranslation.bind(this, msg[0])}
                                    title={Messages.get("ActionReview")}>&#xE876;</a>
@@ -226,7 +226,8 @@ module.exports = React.createClass({
         {messages.New.length > 0 ?
             <div className="ilv-media">
                 <div className="ilv-media-body">
-                    <h3>{Messages.get("LabelNew")}</h3>
+                    <h4>{Messages.get("LabelNew")}</h4>
+                    <hr />
                     {this.renderTable(messages.New)}
                 </div>
             </div>
@@ -234,14 +235,16 @@ module.exports = React.createClass({
         {messages.NotReviewed.length > 0 ?
             <div className="ilv-media">
                 <div className="ilv-media-body">
-                    <h3>{Messages.get("LabelNotReviewed")}</h3>
+                    <h4>{Messages.get("LabelNotReviewed")}</h4>
+                    <hr />
                     {this.renderTable(messages.NotReviewed)}
                 </div>
             </div>
         :""}
             <div className="ilv-media">
                 <div className="ilv-media-body">
-                    <h3>{Messages.get("LabelReviewed")}</h3>
+                    <h4>{Messages.get("LabelReviewed")}</h4>
+                    <hr />
                     {this.renderTable(messages.All)}
                 </div>
             </div>
@@ -255,11 +258,7 @@ module.exports = React.createClass({
             <div>
                 <div className="ilv-card">
                     <div className="ilv-card-header">
-                        <div className="ilv-media">
-                            <div className="ilv-media-body">
-                                <h1>{Messages.get("LabelTranslations")}</h1>
-                            </div>
-                        </div>
+                        <strong>{Messages.get("LabelTranslations")}</strong>
                     </div>
                     <div className="ilv-card-body">
                         <ul className="ilv-text-sm nav nav-tabs m-b-1">
