@@ -52,6 +52,10 @@ var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
 var AdminPanelEmails = require("ilevus/jsx/core/view/admin/AdminPanelEmails.jsx");
 var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
 
+var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
+var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
+var NotificationsTimeline = require("ilevus/jsx/core/view/notifications/NotificationsTimeline.jsx");
+
 var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
 
 // string config
@@ -143,6 +147,11 @@ Messages.load(function (success) {
                         <Route path="emails" component={AdminPanelEmails} />
                         <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />
+                    </Route>
+
+                    <Route path="notifications" component={Notifications}>
+                        <Route path="messages" component={NotificationsMessages} />
+                        <Route path="timeline" component={NotificationsTimeline} />
                     </Route>
 
                     <Route path="become-a-professional" component={ProfileWizard}>

@@ -285,6 +285,9 @@
     <Content Include="jsx\core\widget\user\AddressForm.jsx" />
     <Content Include="jsx\core\widget\user\ServiceForm.jsx" />
     <Content Include="jsx\core\view\user\ConfirmEmailChange.jsx" />
+    <Content Include="jsx\core\view\notifications\Notifications.jsx" />
+    <Content Include="jsx\core\view\notifications\NotificationsMessages.jsx" />
+    <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
@@ -295,6 +298,8 @@
     <Content Include="sass\vendor\intl-tel-input\_intlTelInput.scss" />
     <Content Include="sass\vendor\intl-tel-input\_sprite%402x.scss" />
     <Content Include="sass\vendor\intl-tel-input\_sprite.scss" />
+    <Content Include="sass\layouts\_chat.scss" />
+    <Content Include="sass\dependencies\variables\_chat.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

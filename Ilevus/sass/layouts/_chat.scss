@@ -1,0 +1,125 @@
+﻿.#{$prefix}chat {
+  display: flex;
+  width: 100%;
+
+  .#{$prefix}chat-list,
+  .#{$prefix}chat-messages {
+    position: relative;
+    float: left;
+  }
+
+  .#{$prefix}chat-list { width: 33.333333%; }
+  .#{$prefix}chat-messages { width: 66.666667%; }
+}
+
+
+//
+// Chat contact list container
+//
+.#{$prefix}chat-list-header,
+.#{$prefix}chat-list-search,
+.#{$prefix}chat-list-item {
+  display: block;
+  margin: 0;
+  padding: .75rem;
+}
+
+.#{$prefix}chat-list-header,
+.#{$prefix}chat-list-item {
+  user-select: none;
+}
+
+.#{$prefix}chat-list-header {
+  border-bottom: 1px solid #DEE5EC;
+}
+
+.#{$prefix}chat-list-search {
+  background-color: #F3F6F8;
+  border-bottom: 1px solid #DEE5EC;
+}
+
+.#{$prefix}chat-list-item {
+  cursor: pointer;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #DEE5EC;
+  }
+
+  &:active,
+  &.active {
+    background-color: #E5E9F2;
+
+    &:hover {
+      background-color: #E5E9F2;
+    }
+  }
+
+  @include hover-focus {
+    background-color: #F3F6F8;
+  }
+}
+
+.#{$prefix}chat-list-name,
+.#{$prefix}chat-list-message {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.#{$prefix}chat-list-name {
+  font-weight: 600;
+}
+
+
+//
+// Chat messages container
+//
+.#{$prefix}chat-messages {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #DEE5EC;
+}
+
+.#{$prefix}chat-messages-header,
+.#{$prefix}chat-messages-body,
+.#{$prefix}chat-messages-footer {
+  margin: 0;
+  padding: .75rem;
+}
+
+.#{$prefix}chat-messages-header,
+.#{$prefix}chat-messages-footer {
+  flex: 0 1 auto;
+}
+
+.#{$prefix}chat-messages-body {
+  flex: 1 1 auto;
+}
+
+.#{$prefix}chat-messages-header {
+  border-bottom: 1px solid #DEE5EC;
+}
+
+.#{$prefix}chat-messages-bubble {
+    position: relative;
+    display: inline-block;
+    clear: both;
+    max-width: 60%;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    vertical-align: top;
+    border-radius: .25rem;
+
+    &.in {
+      float: left;
+      background-color: #F3F6F8;
+      align-self: flex-start;
+    }
+
+    &.out {
+      float: right;
+      color: #fff;
+      background-color: $color-brand-light;
+      align-self: flex-start;
+    }
+}
