@@ -96,7 +96,12 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-media-right ilv-text-small" style={{minWidth: "12rem"}}>
                                 <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
-                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}</a></p>
+                                <p style={{marginBottom: ".25rem"}}>
+                                    <Link to={"/notifications/messages/"+model.Id}>
+                                        <i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>
+                                        {Messages.get("ActionSendMessage")}
+                                    </Link>
+                                </p>
                                 <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>
                             </div>
                         </div>

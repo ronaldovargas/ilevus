@@ -218,6 +218,7 @@
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
     <Compile Include="Models\BlobModels.cs" />
+    <Compile Include="Models\ChatModels.cs" />
     <Compile Include="Models\CitiesModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -270,6 +272,7 @@
     <Content Include="jsx\core\view\admin\AdminPanelTranslate.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelEmails.jsx" />
     <Content Include="jsx\core\store\System.jsx" />
+    <Content Include="jsx\core\store\Chat.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -299,7 +302,8 @@
     <Content Include="sass\vendor\intl-tel-input\_sprite%402x.scss" />
     <Content Include="sass\vendor\intl-tel-input\_sprite.scss" />
     <Content Include="sass\layouts\_chat.scss" />
-    <Content Include="sass\dependencies\variables\_chat.scss" />
+    <Content Include="sass\dependencies\core\_icons.scss" />
+    <Content Include="sass\dependencies\variables\_progress.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

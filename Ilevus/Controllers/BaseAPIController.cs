@@ -1,7 +1,10 @@
-﻿using ilevus.Helpers;
+﻿using ilevus.App_Start;
+using ilevus.Helpers;
 using log4net;
+using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading;
 using System.Web;
@@ -26,6 +29,18 @@ namespace ilevus.Controllers
             get
             {
                 return ConfigurationManager.AppSettings["BaseURL"];
+            }
+        }
+        protected IlevusUserManager _userManager;
+        public IlevusUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<IlevusUserManager>();
+            }
+            protected set
+            {
+                _userManager = value;
             }
         }
 

@@ -36,18 +36,7 @@ namespace ilevus.Controllers
     public class UserController : BaseAPIController
     {
         private const string LocalLoginProvider = "Local";
-        private IlevusUserManager _userManager;
-        public IlevusUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? Request.GetOwinContext().GetUserManager<IlevusUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         public UserController()

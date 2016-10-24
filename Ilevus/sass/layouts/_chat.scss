@@ -102,7 +102,7 @@
 
 .#{$prefix}chat-messages-bubble {
     position: relative;
-    display: inline-block;
+    display: block;
     clear: both;
     max-width: 60%;
     margin-bottom: .5rem;
@@ -121,5 +121,11 @@
       color: #fff;
       background-color: $color-brand-light;
       align-self: flex-start;
+    }
+
+    &.center {
+      text-align: center;
+      background-color: transparent;
+      max-width: 100%;
     }
 }

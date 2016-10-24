@@ -17,6 +17,7 @@ namespace ilevus.Models
     public class IlevusTableNames
     {
         public const string CitiesTable = "ilevus_cities";
+        public const string ConversationsTable = "ilevus_conversations";
         public const string PicturesTable = "ilevus_pictures";
         public const string SystemConfigTable = "ilevus_system";
         public const string SystemMessagesTable = "ilevus_messages";
@@ -38,7 +39,12 @@ namespace ilevus.Models
         {
             IlevusDatabase = GetDatabase("ilevus");
         }
-        
+
+        public IMongoCollection<ChatConversation> GetConversationsCollection()
+        {
+            return IlevusDatabase.GetCollection<ChatConversation>(IlevusTableNames.ConversationsTable);
+        }
+
         public IMongoCollection<IlevusPicture> GetPicturesCollection()
         {
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
@@ -333,13 +339,23 @@ namespace ilevus.Models
         public void EnsureIndexes()
         {
             // Criando índice para busca em texto no usuário.
+            var conversations = GetConversationsCollection();
             var pictures = GetPicturesCollection();
             var users = IlevusDatabase.GetCollection<IlevusUser>("users");
 
             var checksum = Builders<IlevusPicture>.IndexKeys.Ascending(pic => pic.Checksum);
-            var unique = new CreateIndexOptions { Unique = true };
+            var unique = new CreateIndexOptions { Unique = true,  };
 
             pictures.Indexes.CreateOne(checksum, unique);
+
+            var authors = Builders<ChatConversation>.IndexKeys.Combine(
+                Builders<ChatConversation>.IndexKeys.Ascending(conversation => conversation.FirstUser),
+                Builders<ChatConversation>.IndexKeys.Ascending(conversation => conversation.SecondUser)
+            );
+            var daySort = Builders<ChatConversation>.IndexKeys.Descending(conversation => conversation.Day);
+
+            conversations.Indexes.CreateOne(authors);
+            conversations.Indexes.CreateOne(daySort);
 
             var text = Builders<IlevusUser>.IndexKeys.Combine(
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Email),

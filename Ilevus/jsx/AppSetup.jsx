@@ -151,6 +151,7 @@ Messages.load(function (success) {
 
                     <Route path="notifications" component={Notifications}>
                         <Route path="messages" component={NotificationsMessages} />
+                        <Route path="messages/:destination" component={NotificationsMessages} />
                         <Route path="timeline" component={NotificationsTimeline} />
                     </Route>
 
