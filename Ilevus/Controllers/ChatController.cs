@@ -63,6 +63,41 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Poll")]
+        public async Task<IHttpActionResult> PollNewMessages(string Destination, DateTime Since)
+        {
+            if (string.IsNullOrWhiteSpace(Destination))
+            {
+                return BadRequest("You must provide a destination id.");
+            }
+            var filters = Builders<ChatConversation>.Filter;
+            var user = UserManager.FindByName(User.Identity.Name);
+            var partner = await UserManager.FindByIdAsync(Destination);
+            var collection = IlevusDBContext.Create().GetConversationsCollection();
+            var first = string.Compare(partner.Id, user.Id) > 0 ? user : partner;
+            var second = string.Compare(partner.Id, user.Id) < 0 ? user : partner;
+            try
+            {
+                var results = await collection.FindAsync(
+                    filters.And(
+                        filters.Eq("FirstUser", first.Id),
+                        filters.Eq("SecondUser", second.Id)
+                    )
+                );
+                var conversation = await results.FirstOrDefaultAsync();
+                if (conversation != null)
+                {
+                    return Ok(new ChatConversationViewModel(conversation, partner));
+                }
+                return BadRequest("Invalid conversation");
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
         [HttpPost]
         [Route("Send")]
         public async Task<IHttpActionResult> SendMessage(ChatMessageBindingModel model)
@@ -102,8 +137,7 @@ namespace ilevus.Controllers
                     msg = new ChatMessage()
                     {
                         AuthorId = user.Id,
-                        Content = model.Content,
-                        Creation = DateTime.Now
+                        Content = model.Content
                     };
                     conversation.Messages.Add(msg);
                     await collection.InsertOneAsync(conversation);
@@ -113,8 +147,7 @@ namespace ilevus.Controllers
                     msg = new ChatMessage()
                     {
                         AuthorId = user.Id,
-                        Content = model.Content,
-                        Creation = DateTime.Now
+                        Content = model.Content
                     };
                     await collection.UpdateOneAsync(
                         docFilter, Builders<ChatConversation>.Update.AddToSet("Messages", msg)

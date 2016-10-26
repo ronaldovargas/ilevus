@@ -1,6 +1,8 @@
 ﻿
+var _ = require("underscore");
 var S = require("string");
 var moment = require("moment");
+var momentRange = require("moment-range");
 var React = require("react");
 var Link = require("react-router").Link;
 
@@ -28,9 +30,21 @@ module.exports = React.createClass({
 
         ChatStore.on("retrieve-conversation", (conversation) => {
             me.setState({
-                conversation: conversation
+                conversation: conversation,
+                lastPoll: moment()
             });
+            _.delay(this.pollNewMessages, 10000);
         }, me);
+
+        ChatStore.on("poll-new-messages", (conversation) => {
+            console.log(conversation);
+            me.setState({
+                conversation: conversation,
+                lastPoll: moment()
+            });
+            _.delay(this.pollNewMessages, 10000);
+        }, me);
+
         ChatStore.on("send-message", (msg) => {
             var pos = this.state.conversation.Messages.length - 1;
             this.state.conversation.Messages[pos] = msg;
@@ -46,6 +60,16 @@ module.exports = React.createClass({
     },
     componentWillUnmount() {
         ChatStore.off(null, null, this);
+    },
+
+    pollNewMessages() {
+        ChatStore.dispatch({
+            action: ChatStore.ACTION_POLL_NEW_MESSAGES,
+            data: {
+                Destination: this.state.destination,
+                Since: this.state.lastPoll.format("YYYY-MM-DThh:mm:ss")
+            }
+        });
     },
 
     sendMessage(event) {
@@ -77,9 +101,11 @@ module.exports = React.createClass({
             </div>;
         }
         var conversation = this.state.conversation;
-        console.log(conversation);
+        
         var dest = conversation.Destination;
         var msgs = conversation.Messages;
+        var now = moment();
+        var lastDay;
         return (<div className="ilv-chat-messages">
             <div className="ilv-chat-messages-header">
                 <div className="ilv-media ilv-media-middle">
@@ -98,6 +124,9 @@ module.exports = React.createClass({
                 {!msgs || msgs.length <= 0 ? <div className="ilv-chat-messages-bubble center">
                     <i>{Messages.get("TextNoMessagesYet")}</i>
                 </div> : msgs.map((msg, idx) => {
+                    var day = moment(conversation.Day);
+                    var creation = moment(msg.Creation);
+                    var diff = moment.range(creation, now).diff("hours");
                     return <div className={"ilv-chat-messages-bubble " + (msg.AuthorId == UserSession.get("user").Id ? "out" : "in")}
                                 key={"chat-msg-" + idx}>
                         <div className="ilv-media">
@@ -105,13 +134,15 @@ module.exports = React.createClass({
                                 {msg.Content}
                             </div>
                             <div className="ilv-media-right">
-                                <small>{msg.Preview ? "P" : moment(msg.Creation).fromNow()}</small>
+                                <small>
+                                    {msg.Preview ? "P" : (diff < 24 ? creation.format('hh:mm') : creation.format('D/MM/YYYY hh:mm'))}
+                                </small>
                             </div>
                         </div>
                     </div>;
                 })}
             </div>
-            <div className="ilv-chat-messages-footer">
+            <form className="ilv-chat-messages-footer" onSubmit={this.sendMessage}>
                 <div className="ilv-input-group">
                     <input className="ilv-form-control ilv-form-control-kg"
                            type="text"
@@ -119,12 +150,12 @@ module.exports = React.createClass({
                            spellCheck={false}
                            placeholder="Type a message..."/>
                     <div className="ilv-input-group-btn">
-                        <button className="ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-neutral" onClick={this.sendMessage}>
+                        <button className="ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-neutral" type='submit'>
                             <i className="ilv-icon material-icons md-24">&#xE163;</i>
                         </button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>);
     },
     render() {

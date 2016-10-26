@@ -18,12 +18,12 @@ namespace ilevus.Models
 
         public string FirstUser { get; set; }
         public string SecondUser { get; set; }
-        public ConcurrentBag<ChatMessage> Messages { get; set; }
+        public List<ChatMessage> Messages { get; set; }
 
         public ChatConversation()
         {
             Id = ObjectId.GenerateNewId().ToString();
-            Messages = new ConcurrentBag<ChatMessage>();
+            Messages = new List<ChatMessage>();
             Day = DateTime.Today;
         }
     }
@@ -33,6 +33,13 @@ namespace ilevus.Models
         public string Content { get; set; }
         public DateTime Creation { get; set; }
         public string AuthorId { get; set; }
+        public bool Unread { get; set; }
+
+        public ChatMessage()
+        {
+            Unread = true;
+            Creation = DateTime.Now;
+        }
     }
 
     public class ChatConversationViewModel
