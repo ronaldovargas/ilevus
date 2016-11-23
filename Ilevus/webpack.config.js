@@ -18,7 +18,8 @@ module.exports = {
     resolve: {
     	alias: {
     		"ilevus": __dirname,
-    		"jquery.ui.widget": "./vendor/jquery.ui.widget.js"
+    		"jquery.ui.widget": "./vendor/jquery.ui.widget.js",
+    		"jquery-ui/widget": "./vendor/jquery.ui.widget.js"
     	}
     },
     plugins: [
