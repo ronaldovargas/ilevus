@@ -36,9 +36,9 @@ $btn-primary-color:            #fff !default;
 $btn-primary-bg:               $color-primary-brand !default;
 $btn-primary-border:           $color-primary-brand !default;
 
-$btn-neutral-color:            $color-neutral-dark !default;
-$btn-neutral-bg:               $color-neutral-lighter !default;
-$btn-neutral-border:           $color-neutral-lighter !default;
+$btn-neutral-color:            $color-primary-brand !default;
+$btn-neutral-bg:               #fff !default;
+$btn-neutral-border:           $color-primary-brand !default;
 
 $btn-success-color:            #fff !default;
 $btn-success-bg:               $color-primary-success !default;

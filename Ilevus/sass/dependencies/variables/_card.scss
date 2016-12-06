@@ -7,13 +7,10 @@ $card-header-bg:               $card-bg !default;
 $card-footer-bg:               $card-bg !default;
 
 $card-border-width:            $border-width !default;
-$card-border-color:            $color-neutral-lighter !default;
+$card-border-color:            rgba(0,0,0,.15) !default;
 $card-border-radius:           $border-radius !default;
 
 $card-padding-x:               .75rem !default;
 $card-padding-y:               .75rem !default;
 
 $card-spacer:                  $spacer !default;
-
-$card-dashboard-column-count:  4 !default;
-$card-dashboard-column-gap:    .625rem !default;

@@ -79,202 +79,208 @@ module.exports = React.createClass({
         return (<div className="m-y-3" role="banner">
             <div className="container">
                 <div className="row">
-                    <div className="col-xs-12">
-                        <div className="ilv-card">
-                            <div className="ilv-card-body">
-                                <div className="ilv-media">
-                                    <div className="ilv-media-left ilv-text-xs-center">
-                                        <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
-                                            style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
-                                        />
-                                    </div>
-                                    <div className="ilv-media-body">
-                                        <span className="h2">
-                                            {user.get("Name")} {user.get("Surname")}
-                                        </span>
-                                        <div>
-                                            <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
-                                            <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
-                                        </div>
-                                        <div className="ilv-text-small">
-                                            {specialties.isEmpty() ? "":"Especialista em: "+specialties.s}
-                                        </div>
-                                        <p className="ilv-text-small">
-                                            {userLocation.isEmpty() ? "":userLocation.s}
-                                        </p>
-                                        {headline.isEmpty() ? "":<div>{headline.s}</div>}
-                                    </div>
-                                    <div className="ilv-media-right">
-                                        <div className="ilv-text-xs-center">
-                                            <span className="ilv-btn ilv-btn-success">
-                                                4.9 <sup>/ 5.0</sup>
-                                            </span>
-                                            <p>
-                                                <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
-                                            </p>
-                                        </div>
-                                    </div>
+                    <div className="col-xs-8">
+                        <div className="m-b-3">
+                            <div className="ilv-media">
+                                <div className="ilv-media-left ilv-text-xs-center">
+                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
+                                        style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
+                                    />
                                 </div>
-                            </div>
-                            <div className="ilv-card-footer">
-                                <button className="ilv-btn ilv-btn-primary">
-                                    <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
-                                </button>
-
-                                <button className="ilv-btn ilv-btn-neutral">
-                                    <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
-                                </button>
-
-                                <button className="ilv-btn ilv-btn-neutral">
-                                    <i className="ilv-icon material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}
-                                </button>
-
-                                <div className="ilv-btn-group pull-sm-right">
-                                    <button className="ilv-btn ilv-btn-clean">
-                                        <i className="ilv-icon material-icons md-18">&#xE80D;</i>
-                                        {Messages.get("LabelShare")}
-                                    </button>
-
-                                    <button className="ilv-btn ilv-btn-clean">
-                                        <i className="ilv-icon material-icons md-18">&#xE866;</i>
-                                        {Messages.get("LabelSave")}
-                                    </button>
+                                <div className="ilv-media-body">
+                                    <span className="h2">
+                                        {user.get("Name")} {user.get("Surname")}
+                                    </span>
+                                    <p>
+                                        <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
+                                        <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
+                                    </p>
+                                    <p className="ilv-text-small">
+                                        {specialties.isEmpty() ? "":"Especialista em: "+specialties.s}
+                                    </p>
+                                    <p className="ilv-text-small">
+                                        {userLocation.isEmpty() ? "":userLocation.s}
+                                    </p>
+                                    <p>
+                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success m-r-1">
+                                            4.9 <sup>/ 5.0</sup>
+                                        </span>
+                                        <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
+                        
+                        {headline.isEmpty() ? "" :
+                            <div className="m-b-3">
+                                <h4>{Messages.get("LabelHeadline")}</h4>
+                                <hr />
+                                {headline.s}
+                            </div>              
+                        }
 
-                        <div className="ilv-card">
-                            <div className="ilv-card-header">
-                                <strong>{Messages.get("LabelExperience")}</strong>
-                            </div>
-                            <div className="ilv-card-body">
-                                <div className="ilv-media-list ilv-media-list-bordered">
-                                    {careers.length > 0
-                                        ?
-                                            <div className="ilv-media p-y-2">
-                                                <div className="ilv-media-left m-r-1">
-                                                    <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
-                                                </div>
-                                                <div className="ilv-media-body">
-                                                    <p className="h4">{Messages.get("TextCareer")}</p>
-                                                    {careers.map((career, index) => {
-                                                        return <div key={"education-" + index}>
-											                <strong>{career.Role} </strong>
-                                                            <span>
-                                                                em {career.Institution} - {career.Location}
-                                                                {career.Finished
-                                                                    ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
-                                                                    : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
-                                                                }.
-                                                            </span>
-                                                        </div>;
-                                                    })}
-                                                </div>
-                                            </div>
-                                        :""
-                                    }
-
-                                    {educations.length > 0
-                                        ?
-                                            <div className="ilv-media p-y-2">
-                                                <div className="ilv-media-left m-r-1">
-                                                    <i className="ilv-icon material-icons md-24">&#xE80C;</i>
-                                                </div>
-                                                <div className="ilv-media-body">
-                                                    <p className="h4">{Messages.get("TextEducation")}</p>
-                                                    {educations.map((education, index) => {
-                                                        return <div key={"education-" + index}>
-											                <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
-                                                            <span>
-                                                                na {education.Institution}
-                                                                {education.Finished
-                                                                    ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
-                                                                    : ", " + Messages.get("LabelStartedAt") + " " + education.Begin
-                                                                }.
-                                                            </span>
-                                                        </div>;
-                                                    })}
-                                                </div>
-                                            </div>
-                                        :""
-                                    }
-
-                                    {summary.isEmpty()
-                                        ? ""
-                                        :<div className="ilv-media p-y-2">
+                        <div className="m-b-3">
+                            <h4>{Messages.get("LabelExperience")}</h4>
+                            <hr />
+                            <div className="ilv-media-list">
+                                {careers.length > 0
+                                    ?
+                                        <div className="ilv-media p-y-1">
                                             <div className="ilv-media-left m-r-1">
-                                                <i className="ilv-icon material-icons md-24">&#xE851;</i>
+                                                <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
                                             </div>
                                             <div className="ilv-media-body">
-                                                <p className="h4">{Messages.get("LabelAboutMe")}</p>
-                                                <div dangerouslySetInnerHTML={{__html: Marked(summary.s)}} />
+                                                <p className="h5">{Messages.get("TextCareer")}</p>
+                                                {careers.map((career, index) => {
+                                                    return <div key={"education-" + index}>
+											            <strong>{career.Role} </strong>
+                                                        <span>
+                                                            em {career.Institution} - {career.Location}
+                                                            {career.Finished
+                                                                ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
+                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
+                                                            }.
+                                                        </span>
+                                                    </div>;
+                                                })}
                                             </div>
                                         </div>
-                                    }
+                                    :""
+                                }
 
-                                    {spokenLanguages.length > 0
-                                        ?
-                                            <div className="ilv-media p-t-2">
-                                                <div className="ilv-media-left m-r-1">
-                                                    <i className="ilv-icon material-icons md-24">&#xE894;</i>
-                                                </div>
-                                                <div className="ilv-media-body">
-                                                    <p className="h4">{Messages.get("LabelLanguages")}</p>
-                                                    {spokenLanguages.map((spokenLanguage, index) => {
-                                                        var lang = Languages.Mapped[spokenLanguage];
-                                                        return <span key={"spokenLanguage-" + index}>
-                                                            {lang.nativeName}{lang.name != lang.nativeName ? " ("+lang.name+")":""}
-                                                            {spokenLanguages.length > 1 && index < (spokenLanguages.length - 1) ? ", " :"."}
-                                                        </span>;
-                                                    })}
-                                                </div>
+                                {educations.length > 0
+                                    ?
+                                        <div className="ilv-media p-y-1">
+                                            <div className="ilv-media-left m-r-1">
+                                                <i className="ilv-icon material-icons md-24">&#xE80C;</i>
                                             </div>
-                                        :""
-                                    }
-                                </div>
+                                            <div className="ilv-media-body">
+                                                <p className="h5">{Messages.get("TextEducation")}</p>
+                                                {educations.map((education, index) => {
+                                                    return <div key={"education-" + index}>
+											            <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
+                                                        <span>
+                                                            na {education.Institution}
+                                                            {education.Finished
+                                                                ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
+                                                                : ", " + Messages.get("LabelStartedAt") + " " + education.Begin
+                                                            }.
+                                                        </span>
+                                                    </div>;
+                                                })}
+                                            </div>
+                                        </div>
+                                    :""
+                                }
+
+                                {summary.isEmpty()
+                                    ? ""
+                                    :<div className="ilv-media p-y-1">
+                                        <div className="ilv-media-left m-r-1">
+                                            <i className="ilv-icon material-icons md-24">&#xE851;</i>
+                                        </div>
+                                        <div className="ilv-media-body">
+                                            <p className="h5">{Messages.get("LabelAboutMe")}</p>
+                                            <div dangerouslySetInnerHTML={{__html: Marked(summary.s)}} />
+                                        </div>
+                                    </div>
+                                }
+
+                                {spokenLanguages.length > 0
+                                    ?
+                                        <div className="ilv-media p-y-1">
+                                            <div className="ilv-media-left m-r-1">
+                                                <i className="ilv-icon material-icons md-24">&#xE894;</i>
+                                            </div>
+                                            <div className="ilv-media-body">
+                                                <p className="h5">{Messages.get("LabelLanguages")}</p>
+                                                {spokenLanguages.map((spokenLanguage, index) => {
+                                                    var lang = Languages.Mapped[spokenLanguage];
+                                                    return <span key={"spokenLanguage-" + index}>
+                                                        {lang.nativeName}{lang.name != lang.nativeName ? " ("+lang.name+")":""}
+                                                        {spokenLanguages.length > 1 && index < (spokenLanguages.length - 1) ? ", " :"."}
+                                                    </span>;
+                                                })}
+                                            </div>
+                                        </div>
+                                    :""
+                                }
                             </div>
+
                         </div>
-                    
+                        
                         {services.length > 0
                             ?
-                            <div className="ilv-card">
-                                <div className="ilv-card-header">
-                                    <strong>{Messages.get("TextOfferedServices")}</strong>
-                                </div>
-                                <div className="ilv-card-body">
-                                    <div className="row">
-                                        <div className="col-md-8">
-                                            <table className="ilv-table ilv-table-sm ilv-table-hover">
-                                                <thead>
-                                                    <tr>
-                                                        <th>{Messages.get("LabelService")}</th>
-                                                        <th className="ilv-text-xs-right">{Messages.get("LabelPrice")}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {services.map((service, index) => {
-                                                        return (
-                                                            <tr key={"service-" + index}>
-                                                                <td className="ilv-font-weight-semibold">{service.Name}</td>
-                                                                <td className="ilv-text-xs-right">{service.Price}</td>
-                                                            </tr>
-                                                        );
-                                                    })}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
-                                            <p>{Messages.get("TextOfferedServicesHelp")}</p>
-                                            <button className="ilv-btn ilv-btn-block ilv-btn-primary">
-                                                <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
-                                            </button>
-                                        </div>
-                                    </div>                                                      
+                            <div className="m-b-3">
+                                <h4>{Messages.get("TextOfferedServices")}</h4>
+                                <div className="ilv-card">
+                                    <div className="ilv-card-body">
+                                        <div className="row">
+                                            <div className="col-md-8">
+                                                <table className="ilv-table ilv-table-sm ilv-table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{Messages.get("LabelService")}</th>
+                                                            <th className="ilv-text-xs-right">{Messages.get("LabelPrice")}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {services.map((service, index) => {
+                                                            return (
+                                                                <tr key={"service-" + index}>
+                                                                    <td className="ilv-font-weight-semibold">{service.Name}</td>
+                                                                    <td className="ilv-text-xs-right">{service.Price}</td>
+                                                                </tr>
+                                                            );
+                                                        })}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div className="col-md-4">
+                                                <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
+                                                <p>{Messages.get("TextOfferedServicesHelp")}</p>
+                                                <button className="ilv-btn ilv-btn-block ilv-btn-primary">
+                                                    <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
+                                                </button>
+                                            </div>
+                                        </div>                                                      
+                                    </div>
                                 </div>
                             </div>
                             :""
                         }
+                    </div>
+                    <div className="col-xs-4">
+                        <div className="ilv-card">
+                            <div className="ilv-card-body">
+                                <div className="ilv-form-group">
+                                    <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block">
+                                        <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
+                                    </button>
+                                </div>
+                                <div className="text-xs-center">
+                                    <small className="text-muted">Você ainda não será cobrado pelo agendamento</small>
+                                </div>
+                                <hr />
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <button className="ilv-btn ilv-btn-block ilv-btn-neutral">
+                                            {Messages.get("ActionSendMessage")}
+                                        </button>
+                                    </div>
+                                    <div className="col-md-6">
+                                         <button className="ilv-btn ilv-btn-block ilv-btn-neutral">
+                                            {Messages.get("ActionRequestPhone")}
+                                         </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="text-xs-center">
+                            <button className="ilv-btn ilv-btn-clean">
+                                <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

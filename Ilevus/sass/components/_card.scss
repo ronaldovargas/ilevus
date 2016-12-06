@@ -1,17 +1,17 @@
 .#{$prefix}card {
 	padding: 0;
-	border-radius: $card-border-radius;
+	border-radius: 3px;
 	background-clip: padding-box;
-	background-color: $card-bg;
-	border: $card-border-width solid $card-border-color;
+	background-color: white;
+	border: 1px solid $color-neutral-lighter;
 	margin-bottom: $card-spacer;
 
 	> *:first-child {
-		@include border-top-radius($card-border-radius);
+		@include border-top-radius(3px);
 	}
 
 	> *:last-child {
-		@include border-bottom-radius($card-border-radius);
+		@include border-bottom-radius(3px);
 	}
 }
 
@@ -33,20 +33,4 @@
 .#{$prefix}card-footer {
   background-color: $card-footer-bg;
   border-top: $card-border-width solid $card-border-color;
-}
-
-// Card dashboard
-@include media-breakpoint-up(sm) {
-	.#{$prefix}card-dashboard {
-		display: flex;
-	  flex-flow: row wrap;
-	  margin-left: -$card-spacer;
-		margin-right: -$card-spacer;
-
-    .#{$prefix}card {
-			flex: 1 0 0;
-      margin-right: $card-spacer;
-      margin-left: $card-spacer;
-    }
-  }
 }

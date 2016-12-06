@@ -75,7 +75,7 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="navbar navbar-full navbar-light bg-faded">
+            <nav className="navbar navbar-full ilv-navbar">
                 <div className="container">
                     <div className="row">
                         <Link to="/home" className="navbar-brand">
@@ -94,8 +94,9 @@ module.exports = React.createClass({
                         <form className="ilv-navbar-form" onSubmit={this.onSearch}>
                             <div className="ilv-navbar-search collapse navbar-toggleable-xs" id="js-navbar-search">
                                 <input ref="search-term" className="ilv-form-control ilv-navbar-search-input" type="search" />
-                                <button className="ilv-btn ilv-btn-icon ilv-btn-neutral ilv-navbar-search-btn" type="submit">
+                                <button className="ilv-btn ilv-btn-icon ilv-btn-primary ilv-navbar-search-btn" type="submit">
                                     <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
+                                    {Messages.get("LabelSearch")}
                                 </button>
                             </div>
                         </form>
@@ -149,7 +150,7 @@ module.exports = React.createClass({
                             <div className="nav navbar-nav pull-sm-right">
                                 <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                     <Link className="nav-item ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
-                                    <Link className="nav-item ilv-btn ilv-btn-primary" to="/signup">{Messages.get("LabelSignUp")}</Link>
+                                    <Link className="nav-item ilv-btn ilv-btn-neutral" to="/signup">{Messages.get("LabelSignUp")}</Link>
                                 </div>
                             </div>
                         )}

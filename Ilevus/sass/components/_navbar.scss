@@ -2,6 +2,12 @@
 // Navbar
 //
 
+.#{$prefix}navbar {
+    background-color: white;
+    border-bottom: 1px solid rgba(0,0,0,.15);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+}
+
 .#{$prefix}navbar-form {
     @extend .#{$prefix}form-inline;
 }
