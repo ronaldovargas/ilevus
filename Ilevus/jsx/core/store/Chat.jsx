@@ -19,6 +19,7 @@ var ChatModel = Fluxbone.Model.extend({
 });
 
 var ChatStore = Fluxbone.Store.extend({
+    ACTION_POLL_CONTACTS: 'chat-pollContacts',
     ACTION_POLL_NEW_MESSAGES: 'chat-pollNewMessages',
     ACTION_RETRIEVE_CONVERSATION: 'chat-retrieveConversation',
     ACTION_SEND_MESSAGE: 'chat-sendMessage',
@@ -26,6 +27,24 @@ var ChatStore = Fluxbone.Store.extend({
 
 	url: URL,
 	model: ChatModel,
+
+	pollContacts(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/PollContacts",
+	        dataType: 'json',
+	        data: {
+	            Since: params.Since
+	        },
+	        success(data, status, opts) {
+	            me.trigger("poll-contacts", data.Contacts);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
 
 	pollNewMessages(params) {
 	    var me = this;

@@ -98,6 +98,35 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("PollContacts")]
+        public async Task<IHttpActionResult> PollContacts(DateTime Since)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<ChatConversation>.Filter;
+            var user = UserManager.FindByName(User.Identity.Name);
+            var collection = db.GetConversationsCollection();
+            try
+            {
+                var results = await collection.FindAsync(
+                    filters.Or(
+                        filters.Eq("FirstUser", user.Id),
+                        filters.Eq("SecondUser", user.Id)
+                    )
+                );
+                var conversations = await results.ToListAsync();
+                if (conversations != null)
+                {
+                    return Ok(new ChatContactsViewModel(conversations, user.Id, db.GetUsersCollection()));
+                }
+                return BadRequest("Invalid conversation");
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
         [HttpPost]
         [Route("Send")]
         public async Task<IHttpActionResult> SendMessage(ChatMessageBindingModel model)
@@ -119,8 +148,8 @@ namespace ilevus.Controllers
             var second = string.Compare(partner.Id, user.Id) < 0 ? user : partner;
             var docFilter = filters.And(
                filters.Eq("FirstUser", first.Id),
-               filters.Eq("SecondUser", second.Id),
-               filters.Eq("Day", DateTime.Today)
+               filters.Eq("SecondUser", second.Id)
+               // filters.Eq("Day", DateTime.Today) // Uncomment if per-day conversation is active
            );
             try
             {

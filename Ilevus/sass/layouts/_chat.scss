@@ -41,6 +41,8 @@
 
 .#{$prefix}chat-list-item {
   cursor: pointer;
+  color: inherit !important;
+  text-decoration: none !important;
 
   &:not(:last-child) {
     border-bottom: 1px solid #DEE5EC;

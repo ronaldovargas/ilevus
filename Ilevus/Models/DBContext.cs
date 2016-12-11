@@ -21,6 +21,7 @@ namespace ilevus.Models
         public const string PicturesTable = "ilevus_pictures";
         public const string SystemConfigTable = "ilevus_system";
         public const string SystemMessagesTable = "ilevus_messages";
+        public const string UsersTable = "users";
     }
 
 
@@ -48,6 +49,11 @@ namespace ilevus.Models
         public IMongoCollection<IlevusPicture> GetPicturesCollection()
         {
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
+        }
+
+        public IMongoCollection<IlevusUser> GetUsersCollection()
+        {
+            return IlevusDatabase.GetCollection<IlevusUser>(IlevusTableNames.UsersTable);
         }
 
         public async Task<bool> UpdateSystemConfig()
