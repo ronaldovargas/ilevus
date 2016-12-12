@@ -82,13 +82,13 @@ module.exports = React.createClass({
                     <div className="col-xs-8">
                         <div className="mb-3">
                             <div className="ilv-media">
-                                <div className="ilv-media-left ilv-text-xs-center m-r-1">
+                                <div className="ilv-media-left ilv-text-xs-center mr-1">
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
                                         style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
                                     />
                                 </div>
                                 <div className="ilv-media-body">
-                                    <span className="h2">
+                                    <span className="h1">
                                         {user.get("Name")} {user.get("Surname")}
                                     </span>
                                     <p>
@@ -111,6 +111,119 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         
+                        <div className="mb-3">
+                            <h4>{Messages.get("LabelBookMeeting")}</h4>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <a href="#">
+                                                <i className="material-icons md-36">&#xE314;</i>
+                                            </a>
+                                        </th>
+                                        <th>
+                                            <div className="">Hoje</div>
+                                            <div className="">12 dez</div>
+                                        </th>
+                                        <th>
+                                            <div className="">Terça</div>
+                                            <div className="">13 dez</div>
+                                        </th>
+                                        <th>
+                                            <div className="">Quarta</div>
+                                            <div className="">14 dez</div>
+                                        </th>
+                                        <th>
+                                            <div className="">Quinta</div>
+                                            <div className="">15 dez</div>
+                                        </th>
+                                        <th>
+                                            <div className="">Sexta</div>
+                                            <div className="">16 dez</div>
+                                        </th>
+                                        <th>
+                                            <a href="#">
+                                                <i className="material-icons md-36">&#xE5CC;</i>
+                                            </a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#">09:00</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#">09:30</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#">10:00</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#">10:30</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            ...
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <a href="#">mais</a>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         {headline.isEmpty() ? "" :
                             <div className="mb-3">
                                 <h4>{Messages.get("LabelHeadline")}</h4>
