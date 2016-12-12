@@ -75,9 +75,9 @@ module.exports = React.createClass({
                 var industry = S(model.Professional.Professional.Industry);
                 var headline = S(model.Professional.Professional.Headline);
                 return (
-                    <div className="p-y-1" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
+                    <div className="py-1" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
                         <div className="ilv-media" key={"result-"+index}>
-                            <div className="ilv-media-left ilv-text-xs-center m-r-1">
+                            <div className="ilv-media-left ilv-text-xs-center mr-1">
                                 <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
                                     style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
                             </div>
@@ -87,10 +87,10 @@ module.exports = React.createClass({
                                 </div>
                                 <div>
                                     <p className="ilv-text-small">
-                                        <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning ml-0">Premium</span>
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
-                                    <span className="ilv-tag ilv-tag-success m-l-0">4.9 <sup>/ 5.0</sup></span>
+                                    <span className="ilv-tag ilv-tag-success ml-0">4.9 <sup>/ 5.0</sup></span>
                                     <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
@@ -118,15 +118,15 @@ module.exports = React.createClass({
 
         return (
             <div>
-                <div className="m-t-2" role="banner">
+                <div className="mt-2" role="banner">
                     <div className="container">
                         <div className="row">
                             <div className="col-xs-12">
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
-                                        <div className="ilv-media ilv-media-middle p-b-1 m-b-1">
+                                        <div className="ilv-media ilv-media-middle pb-1 mb-1">
                                             <div className="ilv-media-body">
-                                                <h1 className="h3 m-a-0">{this.state.term}</h1>
+                                                <h1 className="h3 ma-0">{this.state.term}</h1>
                                                 <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
                                             </div>
                                         </div>

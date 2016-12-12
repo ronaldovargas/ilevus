@@ -370,7 +370,6 @@
     <None Include="sass\components\_navbar.scss" />
     <None Include="sass\components\_tables.scss" />
     <None Include="sass\components\_tag.scss" />
-    <None Include="sass\custom\_card.scss" />
     <None Include="sass\custom\_page-banner.scss" />
     <None Include="sass\custom\_variables.scss" />
     <None Include="sass\dependencies\core\_code.scss" />

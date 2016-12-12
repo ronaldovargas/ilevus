@@ -75,14 +75,14 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="navbar navbar-full ilv-navbar">
+            <nav className="navbar navbar-fixed-top ilv-navbar">
                 <div className="container">
                     <div className="row">
                         <Link to="/home" className="navbar-brand">
                             <img src={Logo} alt="ilevus" />
                         </Link>
 
-                        <div className="hidden-sm-up pull-xs-right">
+                        <div className="hidden-sm-up float-xs-right">
                             <button className="navbar-toggler ilv-btn ilv-btn-clean ilv-btn-icon" type="button" data-toggle="collapse" data-target="#js-navbar-search">
                                 <i className="ilv-icon material-icons">&#xE8B6;</i>
                             </button>
@@ -102,7 +102,7 @@ module.exports = React.createClass({
                         </form>
 
                         {this.state.logged ? (
-                            <div className="nav navbar-nav pull-sm-right">
+                            <div className="nav navbar-nav float-sm-right">
                                 <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                     <hr className="hidden-sm-up nav-item" />
 
@@ -147,7 +147,7 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                         ) : (
-                            <div className="nav navbar-nav pull-sm-right">
+                            <div className="nav navbar-nav float-sm-right">
                                 <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                     <Link className="nav-item ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
                                     <Link className="nav-item ilv-btn ilv-btn-neutral" to="/signup">{Messages.get("LabelSignUp")}</Link>

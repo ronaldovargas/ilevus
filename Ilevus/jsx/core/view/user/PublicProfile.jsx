@@ -76,13 +76,13 @@ module.exports = React.createClass({
 
         var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
 
-        return (<div className="m-y-3" role="banner">
+        return (<div className="my-3" role="banner">
             <div className="container">
                 <div className="row">
                     <div className="col-xs-8">
-                        <div className="m-b-3">
+                        <div className="mb-3">
                             <div className="ilv-media">
-                                <div className="ilv-media-left ilv-text-xs-center">
+                                <div className="ilv-media-left ilv-text-xs-center m-r-1">
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
                                         style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
                                     />
@@ -92,7 +92,7 @@ module.exports = React.createClass({
                                         {user.get("Name")} {user.get("Surname")}
                                     </span>
                                     <p>
-                                        <span className="ilv-tag ilv-tag-warning m-l-0">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning ml-0">Premium</span>
                                         <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
                                     </p>
                                     <p className="ilv-text-small">
@@ -102,7 +102,7 @@ module.exports = React.createClass({
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
                                     <p>
-                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success m-r-1">
+                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success mr-1">
                                             4.9 <sup>/ 5.0</sup>
                                         </span>
                                         <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
@@ -112,21 +112,21 @@ module.exports = React.createClass({
                         </div>
                         
                         {headline.isEmpty() ? "" :
-                            <div className="m-b-3">
+                            <div className="mb-3">
                                 <h4>{Messages.get("LabelHeadline")}</h4>
                                 <hr />
                                 {headline.s}
                             </div>              
                         }
 
-                        <div className="m-b-3">
+                        <div className="mb-3">
                             <h4>{Messages.get("LabelExperience")}</h4>
                             <hr />
                             <div className="ilv-media-list">
                                 {careers.length > 0
                                     ?
-                                        <div className="ilv-media p-y-1">
-                                            <div className="ilv-media-left m-r-1">
+                                        <div className="ilv-media py-1">
+                                            <div className="ilv-media-left mr-1">
                                                 <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -150,8 +150,8 @@ module.exports = React.createClass({
 
                                 {educations.length > 0
                                     ?
-                                        <div className="ilv-media p-y-1">
-                                            <div className="ilv-media-left m-r-1">
+                                        <div className="ilv-media py-1">
+                                            <div className="ilv-media-left mr-1">
                                                 <i className="ilv-icon material-icons md-24">&#xE80C;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -175,8 +175,8 @@ module.exports = React.createClass({
 
                                 {summary.isEmpty()
                                     ? ""
-                                    :<div className="ilv-media p-y-1">
-                                        <div className="ilv-media-left m-r-1">
+                                    :<div className="ilv-media py-1">
+                                        <div className="ilv-media-left mr-1">
                                             <i className="ilv-icon material-icons md-24">&#xE851;</i>
                                         </div>
                                         <div className="ilv-media-body">
@@ -188,8 +188,8 @@ module.exports = React.createClass({
 
                                 {spokenLanguages.length > 0
                                     ?
-                                        <div className="ilv-media p-y-1">
-                                            <div className="ilv-media-left m-r-1">
+                                        <div className="ilv-media py-1">
+                                            <div className="ilv-media-left mr-1">
                                                 <i className="ilv-icon material-icons md-24">&#xE894;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -211,7 +211,7 @@ module.exports = React.createClass({
                         
                         {services.length > 0
                             ?
-                            <div className="m-b-3">
+                            <div className="mb-3">
                                 <h4>{Messages.get("TextOfferedServices")}</h4>
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
