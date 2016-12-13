@@ -6,6 +6,9 @@
 
 var _ = require("underscore");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var moment = require("moment");
+var moment_pt_br = require("moment/locale/pt-br.js");
+var moment_es = require("moment/locale/es.js");
 var Numeral = require("numeral");
 var Toastr = require("toastr");
 var S = require("string");
@@ -114,8 +117,10 @@ Messages.load(function (success) {
             });
         }
 
-        if (success)
+        if (success) {
             Numeral.language(culture);
+            moment.locale(S(culture).toLowerCase());
+        }
 
         ReactDOM.render((
 	        <Router history={hashHistory}>

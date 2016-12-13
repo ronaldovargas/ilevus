@@ -218,6 +218,7 @@
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -274,6 +275,7 @@
     <Content Include="jsx\core\view\admin\AdminPanelEmails.jsx" />
     <Content Include="jsx\core\store\System.jsx" />
     <Content Include="jsx\core\store\Chat.jsx" />
+    <Content Include="jsx\core\store\Schedule.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -293,7 +295,6 @@
     <Content Include="jsx\core\view\notifications\NotificationsMessages.jsx" />
     <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
     <Content Include="jsx\core\widget\user\MeetingSchedule.jsx" />
-    <Content Include="jsx\core\widget\form\MeetingScheduleForm.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

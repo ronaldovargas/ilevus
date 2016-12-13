@@ -13,12 +13,25 @@ namespace ilevus.Models
         public string Id { get; set; }
         
         public string UserId { get; set; }
-        public string Description { get; set; }
+        public string CoacheeFullName { get; set; }
+        public string CoacheeEmail { get; set; }
+        public string CoacheePhone { get; set; }
+        public string Subject { get; set; }
         public DateTime Begin { get; set; }
 
         public MeetingSchedule()
         {
             Id = ObjectId.GenerateNewId().ToString();
         }
+    }
+
+    public class MeetingBindingModel
+    {
+        public string UserId { get; set; }
+        public string CoacheeFullName { get; set; }
+        public string CoacheeEmail { get; set; }
+        public string CoacheePhone { get; set; }
+        public string Subject { get; set; }
+        public DateTime Begin { get; set; }
     }
 }

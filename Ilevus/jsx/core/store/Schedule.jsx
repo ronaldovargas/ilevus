@@ -19,26 +19,26 @@ var ScheduleModel = Fluxbone.Model.extend({
 });
 
 var ScheduleStore = Fluxbone.Store.extend({
-    ACTION_POLL_CONTACTS: 'schedule-pollContacts',
-    ACTION_POLL_NEW_MESSAGES: 'schedule-pollNewMessages',
-    ACTION_RETRIEVE_CONVERSATION: 'schedule-retrieveConversation',
-    ACTION_SEND_MESSAGE: 'schedule-sendMessage',
+    ACTION_RETRIEVE_MEETINGS: 'schedule-retrieveMeetings',
+    ACTION_BOOK_MEETING: 'schedule-bookMeeting',
     dispatchAcceptRegex: /^schedule-[a-zA-Z0-9]+$/,
 
 	url: URL,
 	model: ScheduleModel,
 
-	pollContacts(params) {
+	retrieveMeetings(params) {
 	    var me = this;
 	    $.ajax({
 	        method: "GET",
-	        url: me.url + "/PollContacts",
+	        url: me.url + "/Meetings",
 	        dataType: 'json',
 	        data: {
-	            Since: params.Since
+	            UserId: params.UserId,
+	            From: params.From,
+	            To: params.To
 	        },
 	        success(data, status, opts) {
-	            me.trigger("poll-contacts", data.Contacts);
+	            me.trigger("retrieve-meetings", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
@@ -46,55 +46,22 @@ var ScheduleStore = Fluxbone.Store.extend({
 	    });
 	},
 
-	pollNewMessages(params) {
-	    var me = this;
-	    $.ajax({
-	        method: "GET",
-	        url: me.url + "/Poll",
-	        dataType: 'json',
-	        data: {
-	            Destination: params.Destination,
-	            Since: params.Since
-	        },
-	        success(data, status, opts) {
-	            me.trigger("poll-new-messages", data);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
-	},
-
-	retrieveConversation(destination) {
-	    var me = this;
-	    $.ajax({
-	        method: "GET",
-	        url: me.url + "/Ensure",
-	        dataType: 'json',
-	        data: {
-                Destination: destination
-	        },
-	        success(data, status, opts) {
-	            me.trigger("retrieve-conversation", data);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
-	},
-
-	sendMessage(params) {
+	bookMeeting(params) {
 	    var me = this;
 	    $.ajax({
 	        method: "POST",
-	        url: me.url + "/Send",
+	        url: me.url + "/BookMeeting",
 	        dataType: 'json',
 	        data: {
-	            Destination: params.Destination,
-                Content: params.Content
+	            UserId: params.UserId,
+	            CoacheeEmail: params.CoacheeEmail,
+	            CoacheeFullName: params.CoacheeFullName,
+	            CoacheePhone: params.CoacheePhone,
+	            Subject: params.Subject,
+	            Begin: params.Begin
 	        },
 	        success(data, status, opts) {
-	            me.trigger("send-message", data);
+	            me.trigger("book-meeting", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
