@@ -1,4 +1,5 @@
 ﻿var React = require("react");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var MeetingScheduleForm = React.createClass({
     render() {
@@ -38,10 +39,6 @@ var MeetingScheduleForm = React.createClass({
                 <div className="col-md-8">
                     <form>
                         <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelFirstMeeting")}</label>
-                            <input className="ilv-form-control" type="text" />
-                        </div>
-                        <div className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelCompleteName")}</label>
                             <input className="ilv-form-control" type="text" />
                         </div>
@@ -64,6 +61,4 @@ var MeetingScheduleForm = React.createClass({
     }
 });
 
-module.exports = {
-    MeetingScheduleForm: MeetingScheduleForm
-};
+module.exports = MeetingScheduleForm;

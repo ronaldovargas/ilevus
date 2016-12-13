@@ -13,7 +13,7 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
-var ScheduleMeetingForm = require("ilevus/jsx/core/widget/form/MeetingScheduleForm.jsx");
+var MeetingScheduleForm = require("ilevus/jsx/core/widget/form/MeetingScheduleForm.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
