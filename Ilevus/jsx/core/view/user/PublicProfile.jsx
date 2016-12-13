@@ -4,12 +4,15 @@ var $ = require("jquery");
 var S = require("string");
 var Marked = require("marked");
 var React = require("react");
+var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -49,6 +52,10 @@ module.exports = React.createClass({
         /*$('[data-toggle="tooltip"]').tooltip({
             animation: true
         });*/
+    },
+
+    openMeetingSchedule() {
+        Modal.largeModal(Messages.get("LabelBookMeeting"), <MeetingSchedule user={this.state.model} />);
     },
 
     render() {
@@ -111,113 +118,7 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         
-                        <div className="mb-3">
-                            <h4>{Messages.get("LabelBookMeeting")}</h4>
-                            <table className="ilv-schedule">
-                                <thead>
-                                    <tr>
-                                        <th width="45">
-                                            <a href="#">
-                                                <i className="material-icons md-36">&#xE314;</i>
-                                            </a>
-                                        </th>
-                                        <th>
-                                            <div className="">Hoje</div>
-                                            <div className="">12 dez</div>
-                                        </th>
-                                        <th>
-                                            <div className="">Terça</div>
-                                            <div className="">13 dez</div>
-                                        </th>
-                                        <th>
-                                            <div className="">Quarta</div>
-                                            <div className="">14 dez</div>
-                                        </th>
-                                        <th>
-                                            <div className="">Quinta</div>
-                                            <div className="">15 dez</div>
-                                        </th>
-                                        <th>
-                                            <div className="">Sexta</div>
-                                            <div className="">16 dez</div>
-                                        </th>
-                                        <th width="45">
-                                            <a href="#">
-                                                <i className="material-icons md-36">&#xE5CC;</i>
-                                            </a>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#">09:00</a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#">09:30</a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#">10:00</a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#">10:30</a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            ...
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="#">mais</a>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        
                         {headline.isEmpty() ? "" :
                             <div className="mb-3">
                                 <h4>{Messages.get("LabelHeadline")}</h4>
@@ -361,7 +262,7 @@ module.exports = React.createClass({
                         <div className="ilv-card">
                             <div className="ilv-card-body">
                                 <div className="ilv-form-group">
-                                    <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block">
+                                    <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule}>
                                         <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
                                     </button>
                                 </div>
@@ -371,9 +272,9 @@ module.exports = React.createClass({
                                 <hr />
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <button className="ilv-btn ilv-btn-block ilv-btn-neutral">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("id")}>
                                             {Messages.get("ActionSendMessage")}
-                                        </button>
+                                        </Link>
                                     </div>
                                     <div className="col-md-6">
                                          <button className="ilv-btn ilv-btn-block ilv-btn-neutral">
