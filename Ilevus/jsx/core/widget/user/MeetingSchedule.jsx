@@ -95,8 +95,9 @@ module.exports = React.createClass({
 
     isHourBooked(hour) {
         for (var i = 0; i < this.state.meetings.length; i++) {
-            if (hour.isSame(moment(this.state.meetings[i].Begin), 'minute'))
+            if (hour.isSame(moment(this.state.meetings[i].Begin), 'minute')) {
                 return true;
+            }
         }
         return false;
     },
@@ -117,7 +118,7 @@ module.exports = React.createClass({
             }
             hoursEnabled.push(accepts[i].indexOf(true) >= 0);
         }
-        var hour = moment().hours(0).minutes(0);
+        var hour = moment(this.state.begin).hours(0).minutes(0);
 
         return (<table className="ilv-schedule">
             <thead>
