@@ -85,7 +85,7 @@ module.exports = React.createClass({
                                         </Link>
                                     </div>
                                     <div className="ilv-media-right">
-                                        <span>© 2016 Ilevus. Todos os direitos reservados.</span>
+                                        <span>©2016 Ilevus. {Messages.get("TextAllRightsReserved")}</span>
                                     </div>
                                 </div>
                             </div>

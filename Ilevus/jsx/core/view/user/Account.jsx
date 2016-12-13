@@ -224,7 +224,7 @@ module.exports = React.createClass({
                                     : "" }
 
                                     {user.EmailConfirmed ? "" :
-                                        <div className="ilv-form-group m-b-0">
+                                        <div className="ilv-form-group mb-0">
                                             <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
                                             <input className="ilv-form-control" value={user.Email} disabled />
                                             <a className="ilv-text-small" href="javascrip:;" onClick={this.confirmEmail} ref="email-confirm">
@@ -244,7 +244,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                <div className="card m-b-2 hidden">
+                <div className="card mb-2 hidden">
                 <div className="card-header">
                 Notificação de login
                 </div>
@@ -266,12 +266,12 @@ module.exports = React.createClass({
 
                 </div>
 
-                <div className="card m-b-2 hidden">
+                <div className="card mb-2 hidden">
                 <div className="card-header">
                 Histórico de acesso
                 </div>
                 <div className="card-block">
-                <table className="table table-sm small m-a-0">
+                <table className="table table-sm small ma-0">
                 <thead>
                 <tr>
                 <th>Navegador/Dispositivo</th>

@@ -45,7 +45,7 @@ module.exports = React.createClass({
 	},
 	render() {
 		if (this.state.reseted) {
-		    return <div className="m-y-3" role="banner">
+		    return <div className="my-3" role="banner">
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-offset-2 col-sm-8 col-xs-12 text-xs-center">
@@ -65,7 +65,7 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3">
-                        <form className="m-t-3" onSubmit={this.onSubmit}>
+                        <form className="mt-3" onSubmit={this.onSubmit}>
                             <h3>{Messages.get("LabelChangePassword")}</h3>
 
                             <fieldset className="ilv-form-group">
@@ -92,12 +92,6 @@ module.exports = React.createClass({
                                 </fieldset>
                             </div>
                         </form>
-
-                        <div className="ilv-text-xs-center m-y-3">
-                            <small className="text-muted">
-                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                            </small>
-                        </div>
                     </div>
                 </div>
             </div>
