@@ -38,6 +38,7 @@ namespace ilevus.Models
             Name = user.Name;
             Sex = user.Sex;
             Surname = user.Surname;
+            PhoneNumber = user.PhoneNumber;
             
             Professional = new ProfessionalProfileViewModel(user);
 
@@ -51,7 +52,9 @@ namespace ilevus.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Sex { get; set; }
-        
+        public string PhoneNumber { get; set; }
+
+
         public string City { get; set; }
         public string County { get; set; }
         public string Country { get; set; }

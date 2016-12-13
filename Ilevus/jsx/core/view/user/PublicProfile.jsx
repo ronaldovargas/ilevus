@@ -13,7 +13,9 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
+var UserContactInfo = require("ilevus/jsx/core/widget/user/UserContactInfo.jsx");
 
+var Analytics = require("ilevus/jsx/core/util/Analytics.js");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
@@ -56,6 +58,12 @@ module.exports = React.createClass({
 
     openMeetingSchedule() {
         
+    },
+
+    openPhoneDialog(event) {
+        event && event.preventDefault();
+        Analytics.sendPhoneRequestEvent();
+        Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={this.state.model } />);
     },
 
     render() {
@@ -280,9 +288,9 @@ module.exports = React.createClass({
                                         </Link>
                                     </div>
                                     <div className="col-md-6">
-                                         <button className="ilv-btn ilv-btn-block ilv-btn-neutral">
+                                        {!user.get("PhoneNumber") ? "":<button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
                                             {Messages.get("ActionRequestPhone")}
-                                         </button>
+                                         </button>}
                                     </div>
                                 </div>
                             </div>

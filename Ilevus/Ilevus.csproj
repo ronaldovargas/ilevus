@@ -258,6 +258,7 @@
     <Content Include="img\flags%402x.png" />
     <Content Include="img\flags.png" />
     <Content Include="img\user.png" />
+    <Content Include="jsx\core\util\Analytics.js" />
     <Content Include="jsx\vendor\intlTelInput.js" />
     <Content Include="jsx\vendor\utils.js" />
     <Content Include="Web.config" />
@@ -295,6 +296,7 @@
     <Content Include="jsx\core\view\notifications\NotificationsMessages.jsx" />
     <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
     <Content Include="jsx\core\widget\user\MeetingSchedule.jsx" />
+    <Content Include="jsx\core\widget\user\UserContactInfo.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
