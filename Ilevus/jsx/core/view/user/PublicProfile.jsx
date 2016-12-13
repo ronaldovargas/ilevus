@@ -118,6 +118,10 @@ module.exports = React.createClass({
                             </div>
                         </div>
                         
+                        <div className="mb-3">
+                            <h4>{Messages.get("LabelBookMeeting")}</h4>
+                            <MeetingSchedule user={user} />
+                        </div>
                         
                         {headline.isEmpty() ? "" :
                             <div className="mb-3">
