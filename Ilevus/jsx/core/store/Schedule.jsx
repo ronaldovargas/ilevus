@@ -19,11 +19,11 @@ var ScheduleModel = Fluxbone.Model.extend({
 });
 
 var ScheduleStore = Fluxbone.Store.extend({
-    ACTION_POLL_CONTACTS: 'chat-pollContacts',
-    ACTION_POLL_NEW_MESSAGES: 'chat-pollNewMessages',
-    ACTION_RETRIEVE_CONVERSATION: 'chat-retrieveConversation',
-    ACTION_SEND_MESSAGE: 'chat-sendMessage',
-    dispatchAcceptRegex: /^chat-[a-zA-Z0-9]+$/,
+    ACTION_POLL_CONTACTS: 'schedule-pollContacts',
+    ACTION_POLL_NEW_MESSAGES: 'schedule-pollNewMessages',
+    ACTION_RETRIEVE_CONVERSATION: 'schedule-retrieveConversation',
+    ACTION_SEND_MESSAGE: 'schedule-sendMessage',
+    dispatchAcceptRegex: /^schedule-[a-zA-Z0-9]+$/,
 
 	url: URL,
 	model: ScheduleModel,

@@ -291,19 +291,6 @@ module.exports = React.createClass({
                       </div>
                   </div>
               </div>
-
-              <footer className="ilv-lp-footer">
-                  <div className="container">
-                      <div className="row">
-                          <div className="col-xs-12">
-                              <div className="ilv-text-xs-center">
-                                <img className="m-b-1" src={LogoWhite} alt="ilevus" />
-                                <p className="ilv-text-small m-a-0">© 2016 Ilevus. Todos os direitos reservados.</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </footer>
           </div>
         );
     }

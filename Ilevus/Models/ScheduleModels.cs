@@ -15,7 +15,6 @@ namespace ilevus.Models
         public string UserId { get; set; }
         public string Description { get; set; }
         public DateTime Begin { get; set; }
-        public TimeSpan Duration { get; set; }
 
         public MeetingSchedule()
         {

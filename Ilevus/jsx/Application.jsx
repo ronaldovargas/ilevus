@@ -17,6 +17,8 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
+var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -71,6 +73,18 @@ module.exports = React.createClass({
 			<TopBar />
             <main className="page-content" role="main">
                 {this.props.children}
+                <footer className="ilv-lp-footer">
+                  <div className="container">
+                      <div className="row">
+                          <div className="col-xs-12">
+                              <div className="ilv-text-xs-center">
+                                <img className="m-b-1" src={LogoWhite} alt="ilevus" />
+                                <p className="ilv-text-small m-a-0">© 2016 Ilevus. Todos os direitos reservados.</p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                </footer>
 		    </main>
   	    </div>);
     }

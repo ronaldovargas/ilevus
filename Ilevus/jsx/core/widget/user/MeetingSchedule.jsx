@@ -23,7 +23,7 @@ module.exports = React.createClass({
     },
     getInitialState() {
         return {
-            meetings: null,
+            meetings: [],
             begin: moment().day(0).milliseconds(0).seconds(0).minutes(0).hours(0),
             end: moment().day(6).milliseconds(999).seconds(59).minutes(59).hours(23),
             today: moment()
@@ -58,7 +58,7 @@ module.exports = React.createClass({
         });
     },
 
-    renderCalendar() {
+    renderCalendarForBooking() {
         var days = [];
         for (var day = 0; day < 7; day++) {
             days.push(moment(this.state.begin).day(day));
@@ -92,10 +92,10 @@ module.exports = React.createClass({
         console.log(this.state.today.format("dddd YYYY-MM-D HH:mm:ss"));
         console.log(this.state.end.format("dddd YYYY-MM-D HH:mm:ss"));
         if (!this.state.meetings) {
-            return this.renderCalendar();
+            return <div />;
         }
         return <div>
-            {this.renderCalendar()}
+            {this.renderCalendarForBooking()}
         </div>;
     }
 });

@@ -279,7 +279,7 @@ module.exports = React.createClass({
                                 <hr />
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("id")}>
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
                                             {Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>
