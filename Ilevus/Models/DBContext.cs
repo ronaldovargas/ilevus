@@ -18,6 +18,7 @@ namespace ilevus.Models
     {
         public const string CitiesTable = "ilevus_cities";
         public const string ConversationsTable = "ilevus_conversations";
+        public const string MeetingScheduleTable = "ilevus_meeting_schedule";
         public const string PicturesTable = "ilevus_pictures";
         public const string SystemConfigTable = "ilevus_system";
         public const string SystemMessagesTable = "ilevus_messages";
@@ -44,6 +45,11 @@ namespace ilevus.Models
         public IMongoCollection<ChatConversation> GetConversationsCollection()
         {
             return IlevusDatabase.GetCollection<ChatConversation>(IlevusTableNames.ConversationsTable);
+        }
+
+        public IMongoCollection<MeetingSchedule> GetMeetingScheduleCollection()
+        {
+            return IlevusDatabase.GetCollection<MeetingSchedule>(IlevusTableNames.MeetingScheduleTable);
         }
 
         public IMongoCollection<IlevusPicture> GetPicturesCollection()
@@ -344,8 +350,8 @@ namespace ilevus.Models
 
         public void EnsureIndexes()
         {
-            // Criando índice para busca em texto no usuário.
             var conversations = GetConversationsCollection();
+            var meetings = GetMeetingScheduleCollection();
             var pictures = GetPicturesCollection();
             var users = IlevusDatabase.GetCollection<IlevusUser>("users");
 
@@ -362,6 +368,17 @@ namespace ilevus.Models
 
             conversations.Indexes.CreateOne(authors);
             conversations.Indexes.CreateOne(daySort);
+
+            var tableFilter = Builders<MeetingSchedule>.IndexKeys.Combine(
+                Builders<MeetingSchedule>.IndexKeys.Ascending(meeting => meeting.UserId),
+                Builders<MeetingSchedule>.IndexKeys.Ascending(meeting => meeting.Begin)
+            );
+            var begin = Builders<MeetingSchedule>.IndexKeys.Ascending(meeting => meeting.Begin);
+            var userId = Builders<MeetingSchedule>.IndexKeys.Ascending(meeting => meeting.UserId);
+
+            meetings.Indexes.CreateOne(tableFilter);
+            meetings.Indexes.CreateOne(begin);
+            meetings.Indexes.CreateOne(userId);
 
             var text = Builders<IlevusUser>.IndexKeys.Combine(
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Email),

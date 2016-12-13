@@ -241,6 +241,7 @@
     <Compile Include="Models\CitiesModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ScheduleModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
@@ -291,6 +292,7 @@
     <Content Include="jsx\core\view\notifications\Notifications.jsx" />
     <Content Include="jsx\core\view\notifications\NotificationsMessages.jsx" />
     <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
+    <Content Include="jsx\core\widget\user\MeetingSchedule.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
