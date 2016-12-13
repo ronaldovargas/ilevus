@@ -1,14 +1,14 @@
 ﻿var React = require("react");
 
-var ScheduleMeetingForm = React.CreateClass({
+var MeetingScheduleForm = React.createClass({
     render() {
         return(
             <div className="row">
                 <div className="col-md-4">
                     <div className="ilv-form-group text-xs-center">
                         <div className="ilv-avatar-fluid ilv-avatar-fluid-xl mb-1"
-                            style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }} />
-                        <p className="h3"> {user.get("Name")} {user.get("Surname")} </p>
+                            style={{ backgroundImage: "url()" }} />
+                        <p className="h3"> Nome Sobrenome </p>
                         
                         <span>{Messages.get("LabelInvestmentPrice")}</span>
                         <p className="h1">R$150,00</p>
@@ -65,5 +65,5 @@ var ScheduleMeetingForm = React.CreateClass({
 });
 
 module.exports = {
-    ScheduleMeetingForm
+    MeetingScheduleForm: MeetingScheduleForm
 };

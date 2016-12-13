@@ -13,7 +13,7 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
-var ScheduleMeetingForm = require("ilevus/jsx/core/widget/form/ScheduleMeeting.jsx");
+var ScheduleMeetingForm = require("ilevus/jsx/core/widget/form/MeetingScheduleForm.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -55,10 +55,10 @@ module.exports = React.createClass({
         });*/
     },
 
-    openMeetingSchedule(user) {
+    openMeetingSchedule() {
         Modal.largeModal(
             Messages.get("LabelBookMeeting"),
-            <ScheduleMeetingForm />
+            <MeetingScheduleForm />
         );
     },
 
@@ -269,7 +269,7 @@ module.exports = React.createClass({
                         <div className="ilv-card">
                             <div className="ilv-card-body">
                                 <div className="ilv-form-group">
-                                    <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule(user)}>
+                                    <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule}>
                                         <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
                                     </button>
                                 </div>
