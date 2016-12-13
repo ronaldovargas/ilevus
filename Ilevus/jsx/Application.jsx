@@ -7,6 +7,7 @@
 var React = require("react");
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
+var Link = require("react-router").Link;
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
@@ -17,7 +18,7 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
-var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+var Logo = require('ilevus/img/ilevus-logo-20px.png');
 
 module.exports = React.createClass({
     contextTypes: {
@@ -74,16 +75,22 @@ module.exports = React.createClass({
             <main className="page-content" role="main">
                 {this.props.children}
                 <footer className="ilv-lp-footer">
-                  <div className="container">
-                      <div className="row">
-                          <div className="col-xs-12">
-                              <div className="ilv-text-xs-center">
-                                <img className="m-b-1" src={LogoWhite} alt="ilevus" />
-                                <p className="ilv-text-small m-a-0">© 2016 Ilevus. Todos os direitos reservados.</p>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-xs-12">
+                                <div className="ilv-media ilv-media-middle">
+                                    <div className="ilv-media-body">
+                                        <Link to="/home" className="navbar-brand">
+                                            <img src={Logo} alt="ilevus" />
+                                        </Link>
+                                    </div>
+                                    <div className="ilv-media-right">
+                                        <span>© 2016 Ilevus. Todos os direitos reservados.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </footer>
 		    </main>
   	    </div>);
