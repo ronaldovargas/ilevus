@@ -143,10 +143,12 @@ module.exports = React.createClass({
             <tbody>
                 {hoursEnabled.map((enabled, idx) => {
                     var columns = accepts[idx].map((day, dayIdx) => {
+                        var now = moment();
                         var bookHour = moment(hour).day(dayIdx);
                         var booked = this.isHourBooked(bookHour);
+                        var antecipated = bookHour.isSameOrAfter(now.hours(now.hours() + 6), 'minute');
                         return (<td key={"hour-" + idx + "-day-" + dayIdx}>
-                            {day && (!booked) ?
+                            {day && antecipated && (!booked) ?
                             <a onClick={this.bookHour.bind(this, bookHour)}>
                                 {hour.format("HH:mm")}
                             </a>
