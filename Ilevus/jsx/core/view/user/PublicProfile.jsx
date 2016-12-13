@@ -63,7 +63,7 @@ module.exports = React.createClass({
     openPhoneDialog(event) {
         event && event.preventDefault();
         Analytics.sendPhoneRequestEvent();
-        Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={this.state.model } />);
+        Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={this.state.model.attributes} />);
     },
 
     render() {

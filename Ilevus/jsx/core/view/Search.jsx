@@ -10,7 +10,10 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var UserContactInfo = require("ilevus/jsx/core/widget/user/UserContactInfo.jsx");
 
+var Analytics = require("ilevus/jsx/core/util/Analytics.js");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
@@ -60,6 +63,12 @@ module.exports = React.createClass({
         });*/
     },
 
+    openPhoneDialog(user, event) {
+        event && event.preventDefault();
+        Analytics.sendPhoneRequestEvent();
+        Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={user} />);
+    },
+
     renderModels() {
         if (!(this.state.models.length > 0)) {
             return (
@@ -102,7 +111,11 @@ module.exports = React.createClass({
                                         {Messages.get("ActionSendMessage")}
                                     </Link>
                                 </p>
-                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}</a></p>
+                                {!model.PhoneNumber ? "" :(<p style={{ marginBottom: ".25rem" } }>
+                                    <a href="" onClick={this.openPhoneDialog.bind(this, model)}>
+                                        <i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}
+                                    </a>
+                                </p>)}
                             </div>
                         </div>
                     </div>

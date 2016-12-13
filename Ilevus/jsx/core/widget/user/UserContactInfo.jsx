@@ -13,8 +13,8 @@ module.exports = React.createClass({
         console.log(this.props.user);
         var user = this.props.addressData;
         return <div className={this.props.className}>
-            <h3 className="ilv-text-primary">{this.props.user.get("Name")} {this.props.user.get("Surname")}</h3>
-            <h4>{Messages.get("LabelPhoneNumber")}: {this.props.user.get("PhoneNumber")}</h4>
+            <h3 className="ilv-text-primary">{this.props.user.Name} {this.props.user.Surname}</h3>
+            <h4>{Messages.get("LabelPhoneNumber")}: {this.props.user.PhoneNumber}</h4>
         </div>;
     }
 });
