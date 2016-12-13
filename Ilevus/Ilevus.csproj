@@ -304,6 +304,7 @@
     <Content Include="sass\layouts\_chat.scss" />
     <Content Include="sass\dependencies\core\_icons.scss" />
     <Content Include="sass\dependencies\variables\_progress.scss" />
+    <Content Include="sass\custom\_schedule.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

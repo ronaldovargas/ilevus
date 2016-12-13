@@ -113,10 +113,10 @@ module.exports = React.createClass({
                         
                         <div className="mb-3">
                             <h4>{Messages.get("LabelBookMeeting")}</h4>
-                            <table>
+                            <table className="ilv-schedule">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th width="45">
                                             <a href="#">
                                                 <i className="material-icons md-36">&#xE314;</i>
                                             </a>
@@ -141,7 +141,7 @@ module.exports = React.createClass({
                                             <div className="">Sexta</div>
                                             <div className="">16 dez</div>
                                         </th>
-                                        <th>
+                                        <th width="45">
                                             <a href="#">
                                                 <i className="material-icons md-36">&#xE5CC;</i>
                                             </a>
@@ -159,7 +159,6 @@ module.exports = React.createClass({
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -168,7 +167,6 @@ module.exports = React.createClass({
                                         <td>
                                             <a href="#">09:30</a>
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -183,7 +181,6 @@ module.exports = React.createClass({
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -192,7 +189,6 @@ module.exports = React.createClass({
                                         <td>
                                             <a href="#">10:30</a>
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -207,7 +203,6 @@ module.exports = React.createClass({
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -216,7 +211,6 @@ module.exports = React.createClass({
                                         <td>
                                             <a href="#">mais</a>
                                         </td>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
