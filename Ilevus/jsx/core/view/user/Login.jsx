@@ -104,7 +104,7 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-                        <div className="ilv-card m-t-3">
+                        <div className="ilv-card mt-3">
                             <div className="ilv-card-header">
                                 <h3>{Messages.get("TextSignIn")}</h3>
                             </div>
@@ -149,8 +149,8 @@ module.exports = React.createClass({
                         </div>
 
 
-                        <div className="ilv-text-xs-center m-y-3">
-                            <ul className="ilv-nav ilv-nav-inline ilv-font-weight-semibold m-b-1">
+                        <div className="ilv-text-xs-center my-3">
+                            <ul className="ilv-nav ilv-nav-inline ilv-font-weight-semibold mb-1">
                                 <li className="ilv-nav-item">
                                     <Link className="ilv-nav-link" to="/signup">{Messages.get("TextSignUp")}</Link>
                                 </li>
@@ -159,9 +159,6 @@ module.exports = React.createClass({
                                     <Link className="ilv-nav-link" to="/recover-password">{Messages.get("TextRecoverPassword")}</Link>
                                 </li>
                             </ul>
-                            <small className="text-muted">
-                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                            </small>
                         </div>
                     </div>
                 </div>

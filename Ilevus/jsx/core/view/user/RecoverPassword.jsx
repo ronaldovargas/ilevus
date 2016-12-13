@@ -42,7 +42,7 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col-md-10 offset-sm-1 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
-                        <div className="ilv-card m-t-3">
+                        <div className="ilv-card mt-3">
                             <div className="ilv-card-body">
                                 <form onSubmit={this.onSubmit}>
                                     <h3>{Messages.get("TextRecoverPassword")}</h3>
@@ -62,11 +62,8 @@ module.exports = React.createClass({
                             </div>
                         </div>
 
-                        <div className="ilv-text-xs-center m-y-3">
+                        <div className="ilv-text-xs-center my-3">
                             <p><Link to="/login" className="ilv-font-weight-semibold">{Messages.get("TextRecoverPasswordRemember")}</Link></p>
-                            <small className="text-muted">
-                                ©2016 Ilevus. {Messages.get("TextAllRightsReserved")}
-                            </small>
                         </div>
                     </div>
                 </div>

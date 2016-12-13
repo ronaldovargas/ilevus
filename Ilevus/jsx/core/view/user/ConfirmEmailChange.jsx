@@ -48,7 +48,7 @@ module.exports = React.createClass({
 			return <LoadingGauge />;
 		}
 		return (
-			<div className="m-y-3" role="banner">
+			<div className="my-3" role="banner">
                 <div className="container">
                     <div className="row">
                         <div className="offset-sm-2 col-sm-8 col-xs-12 text-xs-center">
