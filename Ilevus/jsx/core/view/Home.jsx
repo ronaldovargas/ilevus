@@ -101,7 +101,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-section ilv-lp-section-inverse p-b-0">
+              <div className="ilv-lp-section ilv-lp-section-inverse p-b-0 hidden">
                   <div className="container">
                       <div className="row">
                           <div className="col-md-6 m-y-3">
@@ -130,7 +130,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-section ilv-lp-section-white p-b-0">
+              <div className="ilv-lp-section ilv-lp-section-white p-b-0 hidden">
                   <div className="container">
                       <div className="row">
                         <div className="col-xs-12 col-md-6 m-y-2 text-xs-center text-sm-left pull-md-right">
@@ -148,7 +148,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-section">
+              <div className="ilv-lp-section hidden">
                   <div className="container">
                       <div className="row">
                           <div className="col-md-8 offset-md-2 ilv-text-xs-center">
@@ -277,7 +277,7 @@ module.exports = React.createClass({
                   </div>
               </div>
 
-              <div className="ilv-lp-testimonial">
+              <div className="ilv-lp-testimonial hidden">
                   <div className="container">
                       <div className="row">
                           <div className="col-xs-12">

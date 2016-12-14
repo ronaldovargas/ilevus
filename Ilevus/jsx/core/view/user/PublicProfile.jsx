@@ -274,11 +274,11 @@ module.exports = React.createClass({
                             <div className="ilv-card-body">
                                 <div className="ilv-form-group">
                                     <button className="ilv-btn ilv-btn-primary ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule}>
-                                        <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}
+                                        <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionBookMeeting")}
                                     </button>
                                 </div>
                                 <div className="text-xs-center">
-                                    <small className="text-muted">Você ainda não será cobrado pelo agendamento</small>
+                                    <small className="text-muted">{Messages.get("TextBookingWillNotCharge")}</small>
                                 </div>
                                 <hr />
                                 <div className="row">

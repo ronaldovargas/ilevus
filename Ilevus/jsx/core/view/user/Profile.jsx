@@ -159,125 +159,112 @@ module.exports = React.createClass({
         var pic = S(this.state.picture);
         return (
             <div>
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelProfilePicture")}</strong>
-                    </div>
-                    <div className="ilv-card-body">
+                <div className="mb-3">
+                    <h4 className="mb-2">{Messages.get("LabelProfilePicture")}</h4>
+                    <div className="ilv-form-group">
                         <div className="ilv-media ilv-media-middle">
 					        <div className="ilv-media-left">
                                 <div className="media-left">
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-lg"
-                                        style={{backgroundImage: "url("+(pic.isEmpty() ? UserIcon : pic.s)+")"}}
-                                    />
+                                         style={{backgroundImage: "url("+(pic.isEmpty() ? UserIcon : pic.s)+")"}} />
                                 </div>
-                            </div>
+					        </div>
 					        <div className="ilv-media-body">
                                 <span className="ilv-font-weight-semibold">{Messages.get("LabelSelectPicture")}</span>
-                                <p className="ilv-text-small text-muted m-a-0">{Messages.get("TextProfilePictureLimitations")}</p>						        
+                                <p className="ilv-text-small text-muted m-a-0">{Messages.get("TextProfilePictureLimitations")}</p>
 					        </div>
                         </div>
                     </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
-						{pic.isEmpty() ? "":
-                            <button className="ilv-btn ilv-btn-link" onClick={this.removePicture} ref="picture-remove">
-                                {Messages.get("ActionRemovePicture")}
-                            </button>
-					    }
-                    </div>
+                    <button className="ilv-btn ilv-btn-neutral" onClick={this.updatePicture}>{Messages.get("ActionSendPicture")}</button>
+                    {pic.isEmpty() ? "" :
+                        <button className="ilv-btn ilv-btn-link" onClick={this.removePicture} ref="picture-remove">
+                            {Messages.get("ActionRemovePicture")}
+                        </button>
+                    }
                 </div>
 
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelBasicInfo")}</strong>
-                    </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormFirstName">
-                                            {Messages.get("LabelName")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormFirstName"
-                                               ref="profile-name"
-                                               defaultValue={user.Name} />
-                                    </div>
 
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormLastName">
-                                            {Messages.get("LabelSurname")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="text"
-                                               spellCheck={false}
-                                               id="editProfileFormLastName"
-                                               ref="profile-surname"
-                                               defaultValue={user.Surname} />
-                                    </div>
+                <div className="mb-3">
+                    <h4 className="mb-2">{Messages.get("LabelBasicInfo")}</h4>
+                    <form>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormFirstName">
+                                        {Messages.get("LabelName")}
+                                    </label>
+                                    <input className="ilv-form-control"
+                                            type="text"
+                                            spellCheck={false}
+                                            id="editProfileFormFirstName"
+                                            ref="profile-name"
+                                            defaultValue={user.Name} />
+                                </div>
 
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormGender">
-                                            {Messages.get("LabelSex")}
-                                        </label>
-                                        <select className="ilv-form-control" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
-                                            <option value="">-- {Messages.get("LabelSex")} --</option>
-                                            <option value="M">{Messages.get("SexMale")}</option>
-                                            <option value="F">{Messages.get("SexFemale")}</option>
-                                        </select>
-                                    </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormLastName">
+                                        {Messages.get("LabelSurname")}
+                                    </label>
+                                    <input className="ilv-form-control"
+                                            type="text"
+                                            spellCheck={false}
+                                            id="editProfileFormLastName"
+                                            ref="profile-surname"
+                                            defaultValue={user.Surname} />
+                                </div>
 
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormBirth">
-                                            {Messages.get("LabelBirthdate")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="date"
-                                               id="editProfileFormBirth"
-                                               ref="profile-birthdate"
-                                               defaultValue={user.Birthdate ? user.Birthdate.substr(0, 10):null} />
-                                    </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormGender">
+                                        {Messages.get("LabelSex")}
+                                    </label>
+                                    <select className="ilv-form-control" id="editProfileFormGender" ref="profile-sex" defaultValue={user.Sex}>
+                                        <option value="">-- {Messages.get("LabelSex")} --</option>
+                                        <option value="M">{Messages.get("SexMale")}</option>
+                                        <option value="F">{Messages.get("SexFemale")}</option>
+                                    </select>
+                                </div>
 
-                                    <div className="ilv-form-group m-b-0">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormPhone">
-                                            {Messages.get("LabelPhoneNumber")}
-                                        </label>
-                                        <input onKeyPress={this.phoneNumberFilter} onKeyUp={this.phoneNumberValidation}
-                                                     type="tel"
-                                                     spellCheck={false}
-                                                     id="editProfileFormPhone"
-                                                     ref="profile-phonenumber"
-                                                     defaultValue={user.PhoneNumber} />
-                                        <span className="ilv-text-small">
-                                            {Messages.get("TextPhoneHelp")}
-                                        </span>
-                                    </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormBirth">
+                                        {Messages.get("LabelBirthdate")}
+                                    </label>
+                                    <input className="ilv-form-control"
+                                            type="date"
+                                            id="editProfileFormBirth"
+                                            ref="profile-birthdate"
+                                            defaultValue={user.Birthdate ? user.Birthdate.substr(0, 10):null} />
+                                </div>
+
+                                <div className="ilv-form-group m-b-0">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormPhone">
+                                        {Messages.get("LabelPhoneNumber")}
+                                    </label>
+                                    <input onKeyPress={this.phoneNumberFilter} onKeyUp={this.phoneNumberValidation}
+                                                    type="tel"
+                                                    spellCheck={false}
+                                                    id="editProfileFormPhone"
+                                                    ref="profile-phonenumber"
+                                                    defaultValue={user.PhoneNumber} />
+                                    <span className="ilv-text-small">
+                                        {Messages.get("TextPhoneHelp")}
+                                    </span>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" onClick={this.saveProfile} ref="profile-save">{Messages.get("LabelSave")}</button>
-                    </div>
+                        </div>
+                    </form>
+                    <button className="ilv-btn ilv-btn-primary" onClick={this.saveProfile} ref="profile-save">{Messages.get("LabelSave")}</button>
                 </div>
 
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelMyAddress")}</strong>
+                <div className="mb-3">
+
+                    <h4 className="mb-2">{Messages.get("LabelMyAddress")}</h4>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <AddressForm addressData={user.Professional.Professional}
+                                         ref="form-address" />
+                        </div>
                     </div>
-                    <div className="ilv-card-body">
-                        <AddressForm
-                            addressData={user.Professional.Professional}
-                            ref="form-address"
-                        />
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" onClick={this.saveAddress} ref="address-save">{Messages.get("LabelUpdateAddress")}</button>
-                    </div>
+                    <button className="ilv-btn ilv-btn-primary" onClick={this.saveAddress} ref="address-save">{Messages.get("LabelUpdateAddress")}</button>
                 </div>
             </div>
         );

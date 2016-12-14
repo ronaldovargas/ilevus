@@ -117,182 +117,112 @@ module.exports = React.createClass({
         var user = UserSession.get("user");
         return (
             <div>
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelChangeLanguage")}</strong>
-                    </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editAccountCulture">
-                                            {Messages.get("LabelLanguage")}
-                                        </label>
-                                        <select className="ilv-form-control" id="editAccountCulture" ref="account-culture" defaultValue={user.Culture}>
-                                            <option value="">-- {Messages.get("LabelLanguage")} --</option>
-                                            <option value="pt-br">{Messages.get("LanguagePortuguese")}</option>
-                                            <option value="en">{Messages.get("LanguageEnglish")}</option>
-                                            <option value="es">{Messages.get("LanguageSpanish")}</option>
-                                        </select>
-                                    </div>
+                <div className="mb-3">
+                    <h4 className="mb-2">{Messages.get("LabelChangeLanguage")}</h4>
+                    <form>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editAccountCulture">
+                                        {Messages.get("LabelLanguage")}
+                                    </label>
+                                    <select className="ilv-form-control" id="editAccountCulture" ref="account-culture" defaultValue={user.Culture}>
+                                        <option value="">-- {Messages.get("LabelLanguage")} --</option>
+                                        <option value="pt-br">{Messages.get("LanguagePortuguese")}</option>
+                                        <option value="en">{Messages.get("LanguageEnglish")}</option>
+                                        <option value="es">{Messages.get("LanguageSpanish")}</option>
+                                    </select>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" ref="culture-save" onClick={this.updateLanguage}>
-                            {Messages.get("ActionChangeLanguage")}
-                        </button>
-                    </div>
+                        </div>
+                    </form>
+                    <button className="ilv-btn ilv-btn-primary" ref="culture-save" onClick={this.updateLanguage}>
+                        {Messages.get("ActionChangeLanguage")}
+                    </button>
                 </div>
 
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>
-                            {Messages.get("LabelChangePassword")}
-                        </strong>
-                    </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editAccountFormPassword">{Messages.get("LabelPasswordCurrent")}</label>
-                                        <input className="ilv-form-control" type="password" id="editAccountFormPassword" ref="setpwd-oldpassword" />
-                                    </div>
+                <div className="mb-3">
+                    <h4 className="mb-2">
+                        {Messages.get("LabelChangePassword")}
+                    </h4>
+                    <form>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editAccountFormPassword">{Messages.get("LabelPasswordCurrent")}</label>
+                                    <input className="ilv-form-control" type="password" id="editAccountFormPassword" ref="setpwd-oldpassword" />
+                                </div>
 
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editAccountFormNewPassword">{Messages.get("LabelPasswordNew")}</label>
-                                        <input className="ilv-form-control" type="password" id="editAccountFormNewPassword" ref="setpwd-password" />
-                                    </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editAccountFormNewPassword">{Messages.get("LabelPasswordNew")}</label>
+                                    <input className="ilv-form-control" type="password" id="editAccountFormNewPassword" ref="setpwd-password" />
+                                </div>
 
-                                    <div className="ilv-form-group m-b-0">
-                                        <label className="ilv-form-label" htmlFor="editAccountFormConfirmPassword">{Messages.get("LabelPasswordConfirm")}</label>
-                                        <input className="ilv-form-control" type="password" id="editAccountFormConfirmPassword" ref="setpwd-passwordconfirm" />
-                                    </div>
+                                <div className="ilv-form-group m-b-0">
+                                    <label className="ilv-form-label" htmlFor="editAccountFormConfirmPassword">{Messages.get("LabelPasswordConfirm")}</label>
+                                    <input className="ilv-form-control" type="password" id="editAccountFormConfirmPassword" ref="setpwd-passwordconfirm" />
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updatePassword}>
-                            {Messages.get("ActionChangePassword")}
-                        </button>
-                    </div>
+                        </div>
+                    </form>
+                    <button className="ilv-btn ilv-btn-primary" ref="setpwd-save" onClick={this.updatePassword}>
+                        {Messages.get("ActionChangePassword")}
+                    </button>
                 </div>
 
-                <div className="ilv-card">
-                    <div className="ilv-card-header">
-                        <strong>
-                            {Messages.get("LabelChangeEmail")}
-                        </strong>
-                    </div>
-                    <div className="ilv-card-body">
-                        <form>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="ilv-form-group">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormMail">
-                                            {user.EmailConfirmed ? Messages.get("LabelNewEmail") : Messages.get("LabelEmail")}
-                                        </label>
-                                        <input className="ilv-form-control"
-                                               type="email"
-                                               spellCheck={false}
-                                               id="editProfileFormMail"
-                                               ref="profile-email"
-                                               defaultValue={user.EmailConfirmed ? "":user.Email} />
-                                        <span className="ilv-text-small">
-                                            {Messages.get("TextEmailWillNotBeShared")}
-                                        </span>
-                                    </div>
+                <div className="mb-3">
+                    <h4 className="mb-2">
+                        {Messages.get("LabelChangeEmail")}
+                    </h4>
+                    <form>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label" htmlFor="editProfileFormMail">
+                                        {user.EmailConfirmed ? Messages.get("LabelNewEmail") : Messages.get("LabelEmail")}
+                                    </label>
+                                    <input className="ilv-form-control"
+                                            type="email"
+                                            spellCheck={false}
+                                            id="editProfileFormMail"
+                                            ref="profile-email"
+                                            defaultValue={user.EmailConfirmed ? "":user.Email} />
+                                    <span className="ilv-text-small">
+                                        {Messages.get("TextEmailWillNotBeShared")}
+                                    </span>
+                                </div>
 
-                                    {user.EmailConfirmed ?
-                                        <div className="ilv-form-group">
-                                            <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
+                                {user.EmailConfirmed ?
+                                    <div className="ilv-form-group">
+                                        <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
+                                        <div>
+                                            {user.Email} <i className="ilv-text-success material-icons md-18"
+                                                            title={Messages.get("TextEmailConfirmed")}>&#xE86C;</i>
+                                        </div>
+                                        {user.EmailChange ?
                                             <div>
-                                                {user.Email} <i className="ilv-text-success material-icons md-18"
-                                                                title={Messages.get("TextEmailConfirmed")}>&#xE86C;</i>
+                                                {user.EmailChange} <i className="ilv-text-warning material-icons md-18"
+                                                                        title={Messages.get("TextEmailWaitingConfirmation")}>&#xE887;</i>
                                             </div>
-                                            {user.EmailChange ?
-                                                <div>
-                                                    {user.EmailChange} <i className="ilv-text-warning material-icons md-18"
-                                                                          title={Messages.get("TextEmailWaitingConfirmation")}>&#xE887;</i>
-                                                </div>
-                                            : "" }
-                                        </div>
-                                    : "" }
+                                        : "" }
+                                    </div>
+                                : "" }
 
-                                    {user.EmailConfirmed ? "" :
-                                        <div className="ilv-form-group mb-0">
-                                            <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
-                                            <input className="ilv-form-control" value={user.Email} disabled />
-                                            <a className="ilv-text-small" href="javascrip:;" onClick={this.confirmEmail} ref="email-confirm">
-                                                {Messages.get("LabelConfirmEmail")}
-                                            </a>
-                                        </div>
-                                    }
-                                </div>
+                                {user.EmailConfirmed ? "" :
+                                    <div className="ilv-form-group mb-0">
+                                        <label className="ilv-form-label">{Messages.get("LabelActualEmail")}</label>
+                                        <input className="ilv-form-control" value={user.Email} disabled />
+                                        <a className="ilv-text-small" href="javascrip:;" onClick={this.confirmEmail} ref="email-confirm">
+                                            {Messages.get("LabelConfirmEmail")}
+                                        </a>
+                                    </div>
+                                }
                             </div>
-                        </form>
-                    </div>
-
-                    <div className="ilv-card-footer">
-                        <button className="ilv-btn ilv-btn-primary" ref="email-save" onClick={this.updateEmail}>
-                            {Messages.get("ActionChangeEmail")}
-                        </button>
-                    </div>
-                </div>
-
-                <div className="card mb-2 hidden">
-                <div className="card-header">
-                Notificação de login
-                </div>
-                <div className="card-block small">
-                <p>
-                As notificações de login são um recurso extra de segurança. Quando você ativar esse recurso,
-                informaremos sempre que alguém tentar fazer login na sua conta do Airbnb de outro navegador.
-                Isso ajuda a manter sua conta segura.
-                </p>
-                <div className="checkbox">
-                <label htmlFor="account-login-notification">
-                <input type="checkbox" id="account-login-notification" ref="loginnotification" /> Ativar notificações de login 
-                </label>
-                </div>
-                </div>
-                <div className="card-footer">
-                <button className="btn btn-brand">Salvar</button>
-                </div>
-
-                </div>
-
-                <div className="card mb-2 hidden">
-                <div className="card-header">
-                Histórico de acesso
-                </div>
-                <div className="card-block">
-                <table className="table table-sm small ma-0">
-                <thead>
-                <tr>
-                <th>Navegador/Dispositivo</th>
-                <th>Localização</th>
-                <th>Quando</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <td>Chrome, Windows 10</td>
-                <td>Belo Horizonte, MG, Brasil</td>
-                <td>30/05/2016, 21:14</td>
-                </tr>
-                <tr>
-                <td>Firefox, Windows 8.1</td>
-                <td>Belo Horizonte, MG, Brasil</td>
-                <td>21/05/2016, 13:26</td>
-                </tr>
-                </tbody>
-                </table>
-                </div>
+                        </div>
+                    </form>
+                    <button className="ilv-btn ilv-btn-primary" ref="email-save" onClick={this.updateEmail}>
+                        {Messages.get("ActionChangeEmail")}
+                    </button>
                 </div>
             </div>
         );

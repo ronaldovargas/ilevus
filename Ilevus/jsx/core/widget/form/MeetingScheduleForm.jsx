@@ -104,7 +104,7 @@ var MeetingScheduleForm = React.createClass({
                             <label className="ilv-form-label">{Messages.get("LabelInterviewSubject")}</label>
                             <textarea className="ilv-form-control" ref="subject"></textarea>
                         </div>
-                        <input  className="ilv-btn ilv-btn-primary ilv-btn-block" type="submit" value={Messages.get("LabelSave")} disabled={this.state.saving} />
+                        <input className="ilv-btn ilv-btn-lg ilv-btn-primary" type="submit" value={Messages.get("LabelSave")} disabled={this.state.saving} />
                     </form>
                 </div>
             </div>
