@@ -67,13 +67,26 @@ module.exports = React.createClass({
                                         </div>
                                     </div>
                                 </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label">{Messages.get("DeactivateScheduling")}</label>
+                                    <p>{Messages.get("DeactivateSchedulingHelpText")}</p>
+                                    <div className="ilv-radio">
+										<label for="ex-form-radio-stacked-1">
+											<input className="ilv-control-input" id="ex-form-radio-stacked-1" name="ex-form-radio-stacked" type="radio" />
+                                            <span className="ilv-control-indicator"></span>
+                                            <span className="ilv-control-label">{Messages.get("AllowScheduling")}</span>
+										</label>
+                                    </div>
+									<div className="ilv-radio">
+										<label for="ex-form-radio-stacked-2">
+											<input className="ilv-control-input" id="ex-form-radio-stacked-2" name="ex-form-radio-stacked" type="radio" />
+                                            <span className="ilv-control-indicator"></span>
+                                            <span className="ilv-control-label">{Messages.get("LockScheduling")}</span>
+										</label>
+									</div>
+                                </div>
                                 <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelSave")}</button>
                             </form>
-                        </div>
-                        <div className="mb-3">
-                            <h4 className="mb-2">{Messages.get("DeactivateScheduling")}</h4>
-                            <p>{Messages.get("DeactivateSchedulingHelpText")}</p>
-                            <button className="ilv-btn ilv-btn-destructive">{Messages.get("DeactivateScheduling")}</button>
                         </div>
                     </div>
                     <div className="col-md-8">
