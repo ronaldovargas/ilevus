@@ -39,7 +39,8 @@ namespace ilevus.Models
             Sex = user.Sex;
             Surname = user.Surname;
             PhoneNumber = user.PhoneNumber;
-            
+
+            ScheduleConfig = user.ScheduleConfig;
             Professional = new ProfessionalProfileViewModel(user);
 
             LinkedinProfileUrl = user.LinkedinProfileUrl;
@@ -59,6 +60,7 @@ namespace ilevus.Models
         public string County { get; set; }
         public string Country { get; set; }
         
+        public UserScheduleConfig ScheduleConfig { get; set; }
         public ProfessionalProfileViewModel Professional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
@@ -91,6 +93,7 @@ namespace ilevus.Models
             Surname = user.Surname;
             Type = user.Type;
 
+            ScheduleConfig = user.ScheduleConfig;
             Professional = new ProfessionalProfileViewModel(user);
 
         }
@@ -107,6 +110,7 @@ namespace ilevus.Models
         public DateTime Birthdate { get; set; }
         public string PhoneNumber { get; set; }
 
+        public UserScheduleConfig ScheduleConfig { get; set; }
         public ProfessionalProfileViewModel Professional { get; set; }
 
         public string Culture { get; set; }

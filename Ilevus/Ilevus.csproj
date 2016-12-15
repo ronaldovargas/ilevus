@@ -297,9 +297,10 @@
     <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
     <Content Include="jsx\core\widget\user\MeetingSchedule.jsx" />
     <Content Include="jsx\core\widget\user\UserContactInfo.jsx" />
-    <Content Include="jsx\core\widget\form\MeetingScheduleForm.jsx" />
+    <Content Include="jsx\core\widget\user\MeetingScheduleForm.jsx" />
     <Content Include="jsx\core\view\user\Dashboard.jsx" />
     <Content Include="jsx\core\view\user\Schedule.jsx" />
+    <Content Include="jsx\core\widget\user\MeetingScheduleConfig.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

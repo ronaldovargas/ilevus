@@ -4,7 +4,7 @@ var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
-var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
+var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingScheduleConfig.jsx");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -12,30 +12,33 @@ module.exports = React.createClass({
     },
 
     getInitialState() {
+        var configs = UserSession.get("user").ScheduleConfig;
         return {
-            model: null
+            antecedence: configs.Antecedence,
+            enabled: configs.Enabled,
+            interval: configs.Interval,
+            config: JSON.parse(configs.HourConfig)
         };
     },
 
     componentDidMount() {
         var me = this;
-        UserStore.on("fail", (msg) => {
-            Toastr.error(msg);
-        }, me);
-        UserStore.on("retrieve", (model) => {
-            me.setState({
-                model: model
-            });
-        }, me);
-
-        UserStore.dispatch({
-            action: UserStore.ACTION_RETRIEVE,
-            data: this.props.params.id
-        });
     },
 
     componentWillUnmount() {
         UserStore.off(null, null, this);
+    },
+
+    changeInterval(event) {
+        this.setState({
+            interval: parseInt(this.refs['interval'].value)
+        });
+    },
+
+    enabledChange() {
+        this.setState({
+            enabled: !this.state.enabled
+        });
     },
 
     render() {
@@ -45,45 +48,38 @@ module.exports = React.createClass({
                 <div className="row">
                     <div className="col-md-4">
                         <div className="mb-3">
-                            <h4 className="mb-2">{Messages.get("ScheduleConfigurations")}</h4>
+                            <h4 className="mb-2">{Messages.get("LabelScheduleConfigurations")}</h4>
                             <form>
                                 <div className="ilv-form-group">
-                                    <label className="ilv-form-label">{Messages.get("MeetingDuration")}</label>
-                                    <select className="ilv-form-control">
-                                        <option>15 minutos</option>
-                                        <option>30 minutos</option>
-                                        <option>45 minutos</option>
-                                        <option>60 minutos</option>
-                                        <option>90 minutos</option>
-                                        <option>120 minutos</option>
+                                    <label className="ilv-form-label">{Messages.get("LabelMeetingDuration")}</label>
+                                    <select className="ilv-form-control" onChange={this.changeInterval} ref="interval" defaultValue={this.state.interval} disabled={!this.state.enabled}>
+                                        <option value="15">15 {Messages.get("LabelMinutes")}</option>
+                                        <option value="30">30 {Messages.get("LabelMinutes")}</option>
+                                        <option value="45">45 {Messages.get("LabelMinutes")}</option>
+                                        <option value="60">60 {Messages.get("LabelMinutes")}</option>
+                                        <option value="90">90 {Messages.get("LabelMinutes")}</option>
+                                        <option value="120">120 {Messages.get("LabelMinutes")}</option>
                                     </select>
                                 </div>
                                 <div className="ilv-form-group">
-                                    <label className="ilv-form-label">{Messages.get("MinAdvanceForScheduling")}</label>
+                                    <label className="ilv-form-label">{Messages.get("LabelAntecedence")}</label>
                                     <div className="ilv-input-group">
-                                        <input className="ilv-form-control" type="number" />
+                                        <input className="ilv-form-control" type="number" defaultValue={this.state.antecedence} disabled={!this.state.enabled} />
                                         <div className="ilv-input-group-addon">
-                                            Horas
+                                            {Messages.get("LabelHours")}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="ilv-form-group">
                                     <label className="ilv-form-label">{Messages.get("DeactivateScheduling")}</label>
                                     <p>{Messages.get("DeactivateSchedulingHelpText")}</p>
-                                    <div className="ilv-radio">
-										<label for="ex-form-radio-stacked-1">
-											<input className="ilv-control-input" id="ex-form-radio-stacked-1" name="ex-form-radio-stacked" type="radio" />
+                                    <div className="ilv-checkbox">
+										<label htmlFor="ex-form-checkebox">
+											<input className="ilv-control-input" id="ex-form-checkebox" name="ex-form-radio-stacked" type="checkbox" onChange={this.enabledChange} />
                                             <span className="ilv-control-indicator"></span>
-                                            <span className="ilv-control-label">{Messages.get("AllowScheduling")}</span>
+                                            <span className="ilv-control-label">{Messages.get("LabelEnableSchedule")}</span>
 										</label>
                                     </div>
-									<div className="ilv-radio">
-										<label for="ex-form-radio-stacked-2">
-											<input className="ilv-control-input" id="ex-form-radio-stacked-2" name="ex-form-radio-stacked" type="radio" />
-                                            <span className="ilv-control-indicator"></span>
-                                            <span className="ilv-control-label">{Messages.get("LockScheduling")}</span>
-										</label>
-									</div>
                                 </div>
                                 <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelSave")}</button>
                             </form>
@@ -91,7 +87,11 @@ module.exports = React.createClass({
                     </div>
                     <div className="col-md-8">
                         <label className="ilv-form-label">{Messages.get("LabelSchedule")}</label>
-                        <MeetingSchedule user={user} />
+                        {this.state.enabled ?
+                            <MeetingScheduleConfig interval={this.state.interval} config={this.state.config} />
+                            :
+                            <p><i>A agenda não está habilitada.</i></p>
+                        }
                     </div>
                 </div>
             </div>   

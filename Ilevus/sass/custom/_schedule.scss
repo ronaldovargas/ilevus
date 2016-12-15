@@ -27,6 +27,9 @@
     line-height: 35px;
     text-align: center;
 
+    &.checked {
+        background: $color-secondary-lightgreen;
+    }
     &:not(:last-child) {
         border-right: 4px solid white;
     }

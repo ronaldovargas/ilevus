@@ -72,6 +72,7 @@ module.exports = React.createClass({
         }
 
         var user = this.state.model;
+        var scheduleConfig = user.get("ScheduleConfig");
         var userLocation = user.get("Country");
         if (user.get("County")) {
             userLocation = user.get("County") + ", " + userLocation;
@@ -133,10 +134,13 @@ module.exports = React.createClass({
                                 {headline.s}
                             </div>              
                         }
-                        <div className="mb-3">
-                            <h4>{Messages.get("LabelBookMeeting")}</h4>
-                            <MeetingSchedule user={user} />
-                        </div>
+
+                        {!scheduleConfig.Enabled ? "":
+                            <div className="mb-3">
+                                <h4>{Messages.get("LabelBookMeeting")}</h4>
+                                <MeetingSchedule user={user} />
+                            </div>
+                        }
 
                         <div className="mb-3">
                             <h4>{Messages.get("LabelExperience")}</h4>

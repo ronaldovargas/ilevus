@@ -18,6 +18,7 @@ namespace ilevus.Models
         public string Sex { get; set; }
         public DateTime Birthdate { get; set; }
         
+        public UserScheduleConfig ScheduleConfig { get; set; }
         public UserProfessionalProfile Professional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
@@ -45,6 +46,7 @@ namespace ilevus.Models
             this.Creation = DateTime.Now;
             this.SearchLanguage = "portuguese";
             this.Culture = CultureHelper.GetDefaultCulture();
+            this.ScheduleConfig = new UserScheduleConfig();
             this.Professional = new UserProfessionalProfile();
         }
 
@@ -57,6 +59,22 @@ namespace ilevus.Models
             return userIdentity;
         }
         
+    }
+
+    public class UserScheduleConfig
+    {
+        public bool Enabled { get; set; }
+        public int Interval { get; set; }
+        public int Antecedence { get; set; }
+        public string HourConfig { get; set; }
+
+        public UserScheduleConfig()
+        {
+            this.Enabled = false;
+            this.Interval = 30;
+            this.Antecedence = 12;
+            this.HourConfig = "[]";
+        }
     }
 
     public class UserProfessionalProfile
@@ -103,7 +121,7 @@ namespace ilevus.Models
         public IEnumerable<UserService> Services { get; set; }
 
     }
-
+    
     public class UserEducation
     {
         public bool Finished { get; set; }
