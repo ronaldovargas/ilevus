@@ -107,9 +107,11 @@ module.exports = React.createClass({
                                     <div className="collapse navbar-toggleable-xs" id="js-navbar-menu">
                                         <hr className="hidden-sm-up nav-item" />
 
-                                        <Link className="nav-item ilv-btn ilv-btn-destructive" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
-
-                                        <div className="dropdown nav-item">
+                                        <div className="nav-item">
+                                            <Link className="nav-link" to="/become-a-professional">{Messages.get("LabelProfessional")}</Link>
+                                        </div>
+                                        
+                                        <div className="dropdown nav-item hidden">
                                             <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
                                                 <i className="ilv-icon material-icons md-24">&#xE7F4;</i> <span className="hidden-sm-up m-l-1">{Messages.get("LabelNotifications")}</span>
                                             </a>

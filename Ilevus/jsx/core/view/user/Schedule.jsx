@@ -42,7 +42,45 @@ module.exports = React.createClass({
         var user = this.state.model;
         return (
             <div>
-                <MeetingSchedule user={user} />
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="mb-3">
+                            <h4 className="mb-2">{Messages.get("ScheduleConfigurations")}</h4>
+                            <form>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label">{Messages.get("MeetingDuration")}</label>
+                                    <select className="ilv-form-control">
+                                        <option>15 minutos</option>
+                                        <option>30 minutos</option>
+                                        <option>45 minutos</option>
+                                        <option>60 minutos</option>
+                                        <option>90 minutos</option>
+                                        <option>120 minutos</option>
+                                    </select>
+                                </div>
+                                <div className="ilv-form-group">
+                                    <label className="ilv-form-label">{Messages.get("MinAdvanceForScheduling")}</label>
+                                    <div className="ilv-input-group">
+                                        <input className="ilv-form-control" type="number" />
+                                        <div className="ilv-input-group-addon">
+                                            Horas
+                                        </div>
+                                    </div>
+                                </div>
+                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelSave")}</button>
+                            </form>
+                        </div>
+                        <div className="mb-3">
+                            <h4 className="mb-2">{Messages.get("DeactivateScheduling")}</h4>
+                            <p>{Messages.get("DeactivateSchedulingHelpText")}</p>
+                            <button className="ilv-btn ilv-btn-destructive">{Messages.get("DeactivateScheduling")}</button>
+                        </div>
+                    </div>
+                    <div className="col-md-8">
+                        <label className="ilv-form-label">{Messages.get("LabelSchedule")}</label>
+                        <MeetingSchedule user={user} />
+                    </div>
+                </div>
             </div>   
         )
     }
