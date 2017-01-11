@@ -83,5 +83,31 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
+        
+        [HttpPost]
+        [Route("Config")]
+        public async Task<IHttpActionResult> SaveConfig(UserScheduleConfig model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                user.ScheduleConfig = model;
+                var result = await UserManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+                return Ok(true);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ var ScheduleModel = Fluxbone.Model.extend({
 var ScheduleStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_MEETINGS: 'schedule-retrieveMeetings',
     ACTION_BOOK_MEETING: 'schedule-bookMeeting',
+    ACTION_SAVE_CONFIG: 'schedule-saveConfig',
     dispatchAcceptRegex: /^schedule-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -62,6 +63,22 @@ var ScheduleStore = Fluxbone.Store.extend({
 	        },
 	        success(data, status, opts) {
 	            me.trigger("book-meeting", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	saveConfig(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Config",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("save-config", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

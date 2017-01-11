@@ -103,19 +103,15 @@ module.exports = React.createClass({
     },
 
     renderCalendarForBooking() {
+        var configs = this.props.user.get("ScheduleConfig");
         var days = [];
         for (var day = 0; day < 7; day++) {
             days.push(moment(this.state.begin).day(day));
         }
-        var interval = 30;
-        var accepts = [];
+        var interval = configs.Interval;
+        var accepts = JSON.parse(configs.HourConfig);
         var hoursEnabled = [];
-        for (var i = 0; i < (24 * 60 / interval) ; i++) {
-            if ((i >= 16 && i < 24) || (i >= 28 && i < 36)) {
-                accepts.push([false, true, true, true, true, true, true]);
-            } else {
-                accepts.push([false, false, false, false, false, false, false]);
-            }
+        for (var i = 0; i < accepts.length ; i++) {
             hoursEnabled.push(accepts[i].indexOf(true) >= 0);
         }
         var hour = moment(this.state.begin).hours(0).minutes(0);
@@ -147,7 +143,7 @@ module.exports = React.createClass({
                         var now = moment();
                         var bookHour = moment(hour).day(dayIdx);
                         var booked = this.isHourBooked(bookHour);
-                        var antecipated = bookHour.isSameOrAfter(now.hours(now.hours() + 6), 'minute');
+                        var antecipated = bookHour.isSameOrAfter(now.hours(now.hours() + configs.Antecedence), 'minute');
                         return (<td key={"hour-" + idx + "-day-" + dayIdx}>
                             {day && antecipated && (!booked) ?
                             <a onClick={this.bookHour.bind(this, bookHour)}>

@@ -1,6 +1,7 @@
 ﻿using ilevus.App_Start;
 using ilevus.Helpers;
 using log4net;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Configuration;
 using System.Linq;
@@ -50,6 +51,25 @@ namespace ilevus.Controllers
         {
             this.Log = LogManager.GetLogger(this.GetType());
         }
-        
+
+        protected IHttpActionResult GetErrorResult(IdentityResult result)
+        {
+            if (result == null)
+            {
+                return InternalServerError();
+            }
+
+            if (!result.Succeeded)
+            {
+                if (result.Errors != null)
+                {
+                    return BadRequest(result.Errors.First());
+                }
+                return BadRequest();
+            }
+
+            return null;
+        }
+
     }
 }

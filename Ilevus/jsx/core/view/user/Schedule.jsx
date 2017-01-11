@@ -3,8 +3,10 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
-var UserStore = require("ilevus/jsx/core/store/User.jsx");
+var ScheduleStore = require("ilevus/jsx/core/store/Schedule.jsx");
 var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingScheduleConfig.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
     contextTypes: {
@@ -23,10 +25,14 @@ module.exports = React.createClass({
 
     componentDidMount() {
         var me = this;
+        ScheduleStore.on("save-config", () => {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+        }, me);
     },
 
     componentWillUnmount() {
-        UserStore.off(null, null, this);
+        ScheduleStore.off(null, null, this);
     },
 
     changeInterval(event) {
@@ -38,6 +44,19 @@ module.exports = React.createClass({
     enabledChange() {
         this.setState({
             enabled: !this.state.enabled
+        });
+    },
+
+    saveConfig(event) {
+        event && event.preventDefault();
+        ScheduleStore.dispatch({
+            action: ScheduleStore.ACTION_SAVE_CONFIG,
+            data: {
+                Enabled: this.state.enabled,
+                Antecedence: this.state.enabled ? this.refs['antecedence'].valueAsNumber : this.state.antecedence,
+                Interval: this.state.interval,
+                HourConfig: this.state.enabled ? JSON.stringify(this.refs['schedule-config'].getConfigs()): "[]"
+            }
         });
     },
 
@@ -64,7 +83,7 @@ module.exports = React.createClass({
                                 <div className="ilv-form-group">
                                     <label className="ilv-form-label">{Messages.get("LabelAntecedence")}</label>
                                     <div className="ilv-input-group">
-                                        <input className="ilv-form-control" type="number" defaultValue={this.state.antecedence} disabled={!this.state.enabled} />
+                                        <input className="ilv-form-control" type="number" defaultValue={this.state.antecedence} disabled={!this.state.enabled} ref='antecedence' />
                                         <div className="ilv-input-group-addon">
                                             {Messages.get("LabelHours")}
                                         </div>
@@ -75,20 +94,20 @@ module.exports = React.createClass({
                                     <p>{Messages.get("DeactivateSchedulingHelpText")}</p>
                                     <div className="ilv-checkbox">
 										<label htmlFor="ex-form-checkebox">
-											<input className="ilv-control-input" id="ex-form-checkebox" name="ex-form-radio-stacked" type="checkbox" onChange={this.enabledChange} />
+											<input className="ilv-control-input" id="ex-form-checkebox" name="ex-form-radio-stacked" type="checkbox" onChange={this.enabledChange} checked={this.state.enabled} />
                                             <span className="ilv-control-indicator"></span>
                                             <span className="ilv-control-label">{Messages.get("LabelEnableSchedule")}</span>
 										</label>
                                     </div>
                                 </div>
-                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelSave")}</button>
+                                <button className="ilv-btn ilv-btn-primary" onClick={this.saveConfig}>{Messages.get("LabelSave")}</button>
                             </form>
                         </div>
                     </div>
                     <div className="col-md-8">
                         <label className="ilv-form-label">{Messages.get("LabelSchedule")}</label>
                         {this.state.enabled ?
-                            <MeetingScheduleConfig interval={this.state.interval} config={this.state.config} />
+                            <MeetingScheduleConfig interval={this.state.interval} config={this.state.config} ref="schedule-config" />
                             :
                             <p><i>A agenda não está habilitada.</i></p>
                         }

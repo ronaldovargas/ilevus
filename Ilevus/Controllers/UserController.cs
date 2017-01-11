@@ -1081,25 +1081,6 @@ namespace ilevus.Controllers
             get { return Request.GetOwinContext().Authentication; }
         }
 
-        private IHttpActionResult GetErrorResult(IdentityResult result)
-        {
-            if (result == null)
-            {
-                return InternalServerError();
-            }
-
-            if (!result.Succeeded)
-            {
-                if (result.Errors != null)
-                {
-                    return BadRequest(result.Errors.First());
-                }
-                return BadRequest();
-            }
-
-            return null;
-        }
-        
         private class ExternalLoginData
         {
             public string LoginProvider { get; set; }
