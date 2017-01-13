@@ -11,18 +11,18 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div className="container my-3">
-                <div className="row">
-                    <div className="col-xs-12 mb-3">
+            <div className="container my-5">
+                <div className="row mb-5">
+                    <div className="col">
                         <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/dashboard">
-                                    {Messages.get("LabelDashboard")}
+                                {Messages.get("LabelDashboard")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/schedule">
-                                    {Messages.get("LabelSchedule")}
+                                {Messages.get("LabelSchedule")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item hidden">
@@ -32,17 +32,17 @@ module.exports = React.createClass({
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/profile">
-                                    {Messages.get("LabelProfile")}
+                                {Messages.get("LabelProfile")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item hidden">
                                 <Link className="ilv-nav-link" to="/user/professional-profile">
-                                    {Messages.get("LabelProfessionalProfile")}
+                                {Messages.get("LabelProfessionalProfile")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/account">
-                                    {Messages.get("LabelAccount")}
+                                {Messages.get("LabelAccount")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item hidden">
@@ -52,7 +52,9 @@ module.exports = React.createClass({
                             </li>
                         </ul>
                     </div>
-                    <div className="col-xs-12">
+                </div>
+                <div className="row">
+                    <div className="col">
                         {this.props.children}
                     </div>
                 </div>
