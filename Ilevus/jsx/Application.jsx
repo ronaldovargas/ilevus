@@ -77,7 +77,7 @@ module.exports = React.createClass({
                 <footer className="ilv-lp-footer">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xs-12">
+                            <div className="col">
                                 <div className="ilv-media ilv-media-middle">
                                     <div className="ilv-media-body">
                                         <Link to="/home" className="navbar-brand">

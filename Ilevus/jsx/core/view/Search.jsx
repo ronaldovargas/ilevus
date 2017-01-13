@@ -84,13 +84,13 @@ module.exports = React.createClass({
                 var industry = S(model.Professional.Professional.Industry);
                 var headline = S(model.Professional.Professional.Headline);
                 return (
-                    <div className="py-1" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
+                    <div className="py-3" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
                         <div className="ilv-media" key={"result-"+index}>
-                            <div className="ilv-media-left ilv-text-xs-center mr-1">
+                            <div className="ilv-media-left ilv-text-xs-center mr-3">
                                 <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
                                     style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
                             </div>
-                            <div className="ilv-media-body" style={{borderRight: "1px solid #eee"}}>
+                            <div className="ilv-media-body">
                                 <div style={{marginBottom: ".25rem"}}>
                                     <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
                                 </div>
@@ -131,22 +131,18 @@ module.exports = React.createClass({
 
         return (
             <div>
-                <div className="mt-2" role="banner">
+                <div className="my-5" role="banner">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xs-12">
-                                <div className="ilv-card">
-                                    <div className="ilv-card-body">
-                                        <div className="ilv-media ilv-media-middle pb-1 mb-1">
-                                            <div className="ilv-media-body">
-                                                <h1 className="h3 ma-0">{this.state.term}</h1>
-                                                <span className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</span>
-                                            </div>
-                                        </div>
-
-                                        {this.renderModels()}
+                            <div className="col">
+                                <div className="ilv-media ilv-media-middle mb-3">
+                                    <div className="ilv-media-body">
+                                        <h2>{this.state.term}</h2>
+                                        <p className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</p>
                                     </div>
                                 </div>
+
+                                {this.renderModels()}
                             </div>
                         </div>
                     </div>

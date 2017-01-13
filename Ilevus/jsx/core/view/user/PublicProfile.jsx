@@ -92,13 +92,13 @@ module.exports = React.createClass({
 
         var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
 
-        return (<div className="my-3" role="banner">
+        return (<div className="my-5" role="banner">
             <div className="container">
                 <div className="row">
-                    <div className="col-xs-8">
-                        <div className="mb-3">
+                    <div className="col-8">
+                        <div className="mb-5">
                             <div className="ilv-media">
-                                <div className="ilv-media-left ilv-text-xs-center mr-1">
+                                <div className="ilv-media-left ilv-text-xs-center mr-3">
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
                                         style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
                                     />
@@ -118,7 +118,7 @@ module.exports = React.createClass({
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
                                     <p>
-                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success mr-1">
+                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success mr-3">
                                             4.9 <sup>/ 5.0</sup>
                                         </span>
                                         <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
@@ -128,7 +128,7 @@ module.exports = React.createClass({
                         </div>
                                                 
                         {headline.isEmpty() ? "" :
-                            <div className="mb-3">
+                            <div className="mb-5">
                                 <h4>{Messages.get("LabelHeadline")}</h4>
                                 <hr />
                                 {headline.s}
@@ -136,20 +136,20 @@ module.exports = React.createClass({
                         }
 
                         {!scheduleConfig.Enabled ? "":
-                            <div className="mb-3">
+                            <div className="mb-5">
                                 <h4>{Messages.get("LabelBookMeeting")}</h4>
                                 <MeetingSchedule user={user} />
                             </div>
                         }
 
-                        <div className="mb-3">
+                        <div className="mb-5">
                             <h4>{Messages.get("LabelExperience")}</h4>
                             <hr />
                             <div className="ilv-media-list">
                                 {careers.length > 0
                                     ?
-                                        <div className="ilv-media py-1">
-                                            <div className="ilv-media-left mr-1">
+                                        <div className="ilv-media py-3">
+                                            <div className="ilv-media-left mr-3">
                                                 <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -173,8 +173,8 @@ module.exports = React.createClass({
 
                                 {educations.length > 0
                                     ?
-                                        <div className="ilv-media py-1">
-                                            <div className="ilv-media-left mr-1">
+                                        <div className="ilv-media py-3">
+                                            <div className="ilv-media-left mr-3">
                                                 <i className="ilv-icon material-icons md-24">&#xE80C;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -198,8 +198,8 @@ module.exports = React.createClass({
 
                                 {summary.isEmpty()
                                     ? ""
-                                    :<div className="ilv-media py-1">
-                                        <div className="ilv-media-left mr-1">
+                                    :<div className="ilv-media py-3">
+                                        <div className="ilv-media-left mr-3">
                                             <i className="ilv-icon material-icons md-24">&#xE851;</i>
                                         </div>
                                         <div className="ilv-media-body">
@@ -211,8 +211,8 @@ module.exports = React.createClass({
 
                                 {spokenLanguages.length > 0
                                     ?
-                                        <div className="ilv-media py-1">
-                                            <div className="ilv-media-left mr-1">
+                                        <div className="ilv-media py-3">
+                                            <div className="ilv-media-left mr-3">
                                                 <i className="ilv-icon material-icons md-24">&#xE894;</i>
                                             </div>
                                             <div className="ilv-media-body">
@@ -239,7 +239,7 @@ module.exports = React.createClass({
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
                                         <div className="row">
-                                            <div className="col-md-8">
+                                            <div className="col-8">
                                                 <table className="ilv-table ilv-table-sm ilv-table-hover">
                                                     <thead>
                                                         <tr>
@@ -259,7 +259,7 @@ module.exports = React.createClass({
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div className="col-md-4">
+                                            <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
                                                 <p>{Messages.get("TextOfferedServicesHelp")}</p>
                                                 <button className="ilv-btn ilv-btn-block ilv-btn-primary">
@@ -273,7 +273,7 @@ module.exports = React.createClass({
                             :""
                         }
                     </div>
-                    <div className="col-xs-4">
+                    <div className="col-4">
                         <div className="ilv-card">
                             <div className="ilv-card-body">
                                 <div className="ilv-form-group">
@@ -281,29 +281,34 @@ module.exports = React.createClass({
                                         <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionBookMeeting")}
                                     </button>
                                 </div>
-                                <div className="text-xs-center">
+                                <div className="text-center">
                                     <small className="text-muted">{Messages.get("TextBookingWillNotCharge")}</small>
                                 </div>
-                                <hr />
+                                
+                            </div>
+                        </div>
+                        <div className="ilv-card">
+                            <div className="ilv-card-body">
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral">
+                                    <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
+                                </button>
+                            </div>
+                            <div className="ilv-card-footer">
                                 <div className="row">
-                                    <div className="col-md-6">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
-                                            {Messages.get("ActionSendMessage")}
+                                    <div className="col">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>
-                                    <div className="col-md-6">
-                                        {!user.get("PhoneNumber") ? "":<button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
-                                            {Messages.get("ActionRequestPhone")}
-                                         </button>}
-                                    </div>
+                                    {!user.get("PhoneNumber") ? "" :
+                                        <div className="col">
+                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
+                                            </button>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
-                        <div className="text-xs-center">
-                            <button className="ilv-btn ilv-btn-clean">
-                                <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
-                            </button>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

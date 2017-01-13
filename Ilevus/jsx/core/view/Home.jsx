@@ -17,7 +17,7 @@ var IconNetworking = require("ilevus/img/networking.svg");
 var IconMeet = require("ilevus/img/meet.svg");
 
 var StyleBanner = {
-  backgroundImage: 'url(' + ImgBanner + ')'
+    backgroundImage: 'url(' + ImgBanner + ')'
 }
 
 module.exports = React.createClass({
@@ -36,7 +36,7 @@ module.exports = React.createClass({
               <div className="ilv-lp-banner" style={StyleBanner} role="banner">
                   <div className="container">
                       <div className="row">
-                          <div className="col-xs-12">
+                          <div className="col">
                               <div className="ilv-lp-banner-content">
                                   <form onSubmit={this.onSearch}>
                                       <div className="ilv-text-xs-center">
@@ -65,7 +65,7 @@ module.exports = React.createClass({
               <div className="ilv-lp-section ilv-lp-section-white">
                   <div className="container">
                       <div className="row">
-                          <div className="col-md-8 offset-md-2">
+                          <div className="col">
                               <div className="ilv-text-xs-center">
                                   <h1 className="ilv-lp-section-heading">
                                       Crescimento profissional é na Ilevus<small><sup>&reg;</sup></small>
@@ -76,27 +76,27 @@ module.exports = React.createClass({
                               </div>
                           </div>
                       </div>
-                      <div className="row m-b-3">
-              						<div className="col-xs-12 col-md-4 m-b-3 ilv-text-xs-center">
-                              <img className="ilv-lp-icon-lg m-b-2" src={IconSupport}/>
-            							    <h3>Suporte Profissional</h3>
-    							            <p>Encontre profissionais especializados em várias áreas de conhecimento, para te dar suporte na elaboração e execução dos seus projetos pessoais.</p>
-              						</div>
-              						<div className="col-xs-12 col-md-4 m-b-3 ilv-text-xs-center">
-                              <img className="ilv-lp-icon-lg m-b-2" src={IconNetworking}/>
+                      <div className="row mb-3">
+              				<div className="col mb-3 text-center">
+                              <img className="ilv-lp-icon-lg mb-2" src={IconSupport} />
+            				<h3>Suporte Profissional</h3>
+    						<p>Encontre profissionais especializados em várias áreas de conhecimento, para te dar suporte na elaboração e execução dos seus projetos pessoais.</p>
+              				</div>
+              						<div className="col mb-3 text-center">
+                              <img className="ilv-lp-icon-lg mb-2" src={IconNetworking} />
                 							<h3>Networking</h3>
                 							<p>Agende reuniões, envie mensagens e troque conhecimento com pessoas que podem ajudar a mudar seu futuro.</p>
               						</div>
-              						<div className="col-xs-12 col-md-4 ilv-text-xs-center">
-                              <img className="ilv-lp-icon-lg m-b-2" src={IconGrowth}/>
+              						<div className="col text-center">
+                              <img className="ilv-lp-icon-lg mb-2" src={IconGrowth} />
                 							<h3>Crescimento Pessoal</h3>
                 							<p>Torne-se uma pessoa melhor através de orientações que irão te ajudar a alcançar seus objetivos de forma a ser um destaque.</p>
               						</div>
-            					</div>
+                      </div>
                       <div className="row">
-              						<div className="col-xs-12 ilv-text-xs-center">
+              						<div className="col text-center">
                               <button className="ilv-btn ilv-btn-primary ilv-btn-lg">Comece agora</button>
-                          </div>
+              						</div>
                       </div>
                   </div>
               </div>
@@ -108,15 +108,15 @@ module.exports = React.createClass({
                               <div className="ilv-form-group">
                                   <h2 className="m-b-2">Agende uma reunião hoje mesmo.</h2>
                                   <p className="ilv-text-large m-b-2">
-                                    Escolha entre os melhores profissionais do mundo e envie uma mensagem para agendar sua primeira reunião.
+                                      Escolha entre os melhores profissionais do mundo e envie uma mensagem para agendar sua primeira reunião.
                                   </p>
                               </div>
                               <form className="ilv-form">
                                   <fieldset className="ilv-form-group">
-                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Localização"/>
+                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Localização" />
                                   </fieldset>
                                   <fieldset className="ilv-form-group">
-                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Especialidade"/>
+                                      <input className="ilv-form-control ilv-form-control-long ilv-form-control-lg" type="text" placeholder="Especialidade" />
                                   </fieldset>
                                   <fieldset className="ilv-form-group">
                                       <button className="ilv-btn ilv-btn-lg ilv-btn-success" type="submit">Pesquisar</button>
@@ -124,7 +124,7 @@ module.exports = React.createClass({
                               </form>
                           </div>
                           <div className="col-md-6 ilv-text-xs-center">
-                              <img style={{height: "500px"}} src={ImgMeeting}/>
+                              <img style={{height: "500px"}} src={ImgMeeting} />
                           </div>
                       </div>
                   </div>
@@ -157,8 +157,8 @@ module.exports = React.createClass({
                                   Na Ilevus<sup>&reg;</sup> você tem acesso a ferramentas de ponta que irão te auxiliar nas tarefas do dia a dia.
                                   Torne seu trabalho mais dinâmico e produtivo, crie seu perfil profissional agora.
                               </p>
-                              <br/>
-                              <br/>
+                              <br />
+                              <br />
                           </div>
                           <div className="col-md-3 m-b-3">
                               <div className="ilv-media ilv-media-middle">
