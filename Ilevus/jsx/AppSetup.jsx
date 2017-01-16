@@ -45,12 +45,13 @@ var ProfileWizardEducation = require("ilevus/jsx/core/view/user/wizard/ProfileWi
 var ProfileWizardCareer = require("ilevus/jsx/core/view/user/wizard/ProfileWizardCareer.jsx");
 var ProfileWizardServices = require("ilevus/jsx/core/view/user/wizard/ProfileWizardServices.jsx");
 
-var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
-var UserDashboard = require("ilevus/jsx/core/view/user/Dashboard.jsx");
-var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
-var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
-var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
+var UserDashboard = require("ilevus/jsx/core/view/user/Dashboard.jsx");
+var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
+var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
+var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
+var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
+var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
 
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
@@ -144,12 +145,13 @@ Messages.load(function (success) {
                     <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />
 
+                    <Route path="view-schedule" component={UserViewSchedule} />
                     <Route path="user" component={UserManagement}>
-                        <Route path="dashboard" component={UserDashboard} />
-                        <Route path="schedule" component={UserSchedule} />
-                        <Route path="profile" component={UserProfile} />
-                        <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="account" component={UserAccount} />
+                        <Route path="dashboard" component={UserDashboard} />
+                        <Route path="professional-profile" component={UserProfessionalProfile} />
+                        <Route path="profile" component={UserProfile} />
+                        <Route path="schedule" component={UserSchedule} />
                     </Route>
 
                     <Route path="admin" component={AdminPanel}>

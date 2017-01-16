@@ -301,6 +301,7 @@
     <Content Include="jsx\core\view\user\Dashboard.jsx" />
     <Content Include="jsx\core\view\user\Schedule.jsx" />
     <Content Include="jsx\core\widget\user\MeetingScheduleConfig.jsx" />
+    <Content Include="jsx\core\view\user\ViewSchedule.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

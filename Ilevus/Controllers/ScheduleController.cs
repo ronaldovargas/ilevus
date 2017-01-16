@@ -35,10 +35,40 @@ namespace ilevus.Controllers
             try
             {
                 var results = await collection.FindAsync(
-                    filters.Or(
+                    filters.And(
                         filters.Eq("UserId", UserId),
                         filters.Gte("Begin", From),
                         filters.Lte("Begin", To)
+                    )
+                );
+                var meetings = await results.ToListAsync();
+                if (meetings != null)
+                {
+                    return Ok(meetings);
+                }
+                return Ok(new List<MeetingSchedule>());
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpGet]
+        [Route("MyMeetings")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> GetMyMeetings()
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            var db = IlevusDBContext.Create();
+            var filters = Builders<MeetingSchedule>.Filter;
+            var collection = db.GetMeetingScheduleCollection();
+            try
+            {
+                var results = await collection.FindAsync(
+                    filters.And(
+                        filters.Eq("UserId", user.Id),
+                        filters.Gte("Begin", DateTime.Now)
                     )
                 );
                 var meetings = await results.ToListAsync();

@@ -95,6 +95,18 @@ module.exports = React.createClass({
                             <div className="nav-item">
                                 <Link className="nav-link" to="/become-a-professional">{Messages.get("LabelProfessional")}</Link>
                             </div>
+
+                            <div className="nav-item">
+                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMessages")} to="/notifications/messages">
+                                    <i className="ilv-icon material-icons">&#xE0C9;</i>
+                                </Link>
+                            </div>
+
+                            <div className="nav-item">
+                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMyAgenda")} to="/view-schedule">
+                                    <i className="ilv-icon material-icons">&#xE8E9;</i>
+                                </Link>
+                            </div>
                                         
                             <div className="dropdown nav-item hidden">
                                 <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
@@ -118,9 +130,10 @@ module.exports = React.createClass({
                                     <span className="hidden-sm-up ml-1">{this.state.user.Name} {this.state.user.Surname}</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <Link className="dropdown-item" to="user/profile">{Messages.get("LabelEditProfile")}</Link>
-                                    <Link className="dropdown-item" to="user/account">{Messages.get("LabelAccountConfig")}</Link>
-                                    <Link className="dropdown-item" to="user/account">{Messages.get("LabelChangeLanguage")}</Link>
+                                    <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
+                                    <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
+                                    <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
+                                    <Link className="dropdown-item" to="/user/account">{Messages.get("LabelChangeLanguage")}</Link>
                                     {!this.context.admin ? "" :
                                         <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
                                     }

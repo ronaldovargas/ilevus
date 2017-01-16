@@ -20,6 +20,7 @@ var ScheduleModel = Fluxbone.Model.extend({
 
 var ScheduleStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_MEETINGS: 'schedule-retrieveMeetings',
+    ACTION_RETRIEVE_MY_MEETINGS: 'schedule-retrieveMyMeetings',
     ACTION_BOOK_MEETING: 'schedule-bookMeeting',
     ACTION_SAVE_CONFIG: 'schedule-saveConfig',
     dispatchAcceptRegex: /^schedule-[a-zA-Z0-9]+$/,
@@ -40,6 +41,21 @@ var ScheduleStore = Fluxbone.Store.extend({
 	        },
 	        success(data, status, opts) {
 	            me.trigger("retrieve-meetings", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	retrieveMyMeetings(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/MyMeetings",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-my-meetings", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
