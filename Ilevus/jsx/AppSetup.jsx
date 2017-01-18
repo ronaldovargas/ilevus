@@ -54,6 +54,7 @@ var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
 var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
 
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
+var AdminPanelAds = require("ilevus/jsx/core/view/admin/AdminPanelAds.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
 var AdminPanelEmails = require("ilevus/jsx/core/view/admin/AdminPanelEmails.jsx");
 var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
@@ -155,6 +156,7 @@ Messages.load(function (success) {
                     </Route>
 
                     <Route path="admin" component={AdminPanel}>
+                        <Route path="ads" component={AdminPanelAds} />
                         <Route path="emails" component={AdminPanelEmails} />
                         <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />

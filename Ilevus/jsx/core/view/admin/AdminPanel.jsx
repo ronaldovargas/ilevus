@@ -11,28 +11,33 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div className="container p-y-3">
+            <div className="container py-3">
                 <div className="row">
-                    <div className="col-xs-2 m-b-1">
+                    <div className="col mb-1">
                         <ul className="ilv-nav ilv-nav-stacked ilv-nav-menu">
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/emails">
+                                <Link className="ilv-nav-link" to="/admin/emails" activeClassName="active">
                                     {Messages.get("LabelEmails")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/users">
+                                <Link className="ilv-nav-link" to="/admin/ads" activeClassName="active">
+                                    {Messages.get("LabelAds")}
+                                </Link>
+                            </li>
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/admin/users" activeClassName="active">
                                     {Messages.get("LabelUsers")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/translate">
+                                <Link className="ilv-nav-link" to="/admin/translate" activeClassName="active">
                                     {Messages.get("LabelTranslations")}
                                 </Link>
                             </li>
                         </ul>
                     </div>
-                    <div className="col-xs-10">
+                    <div className="col-9">
                         {this.props.children}
                     </div>
                 </div>

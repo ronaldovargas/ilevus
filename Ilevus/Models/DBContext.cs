@@ -16,6 +16,7 @@ namespace ilevus.Models
 {
     public class IlevusTableNames
     {
+        public const string AdsTable = "ilevus_ads";
         public const string CitiesTable = "ilevus_cities";
         public const string ConversationsTable = "ilevus_conversations";
         public const string MeetingScheduleTable = "ilevus_meeting_schedule";
@@ -40,6 +41,11 @@ namespace ilevus.Models
         private IlevusDBContext(string url) : base(url)
         {
             IlevusDatabase = GetDatabase("ilevus");
+        }
+
+        public IMongoCollection<Ad> GetAdsCollection()
+        {
+            return IlevusDatabase.GetCollection<Ad>(IlevusTableNames.AdsTable);
         }
 
         public IMongoCollection<ChatConversation> GetConversationsCollection()
@@ -350,10 +356,28 @@ namespace ilevus.Models
 
         public void EnsureIndexes()
         {
+            var ads = GetAdsCollection();
             var conversations = GetConversationsCollection();
             var meetings = GetMeetingScheduleCollection();
             var pictures = GetPicturesCollection();
             var users = IlevusDatabase.GetCollection<IlevusUser>("users");
+
+            // Ad searching opts
+            var adSearch = Builders<Ad>.IndexKeys.Combine(
+                Builders<Ad>.IndexKeys.Text(ad => ad.Headline),
+                Builders<Ad>.IndexKeys.Text(ad => ad.Keywords)
+            );
+            var adWeights = new BsonDocument();
+            adWeights["Headline"] = 2;
+            adWeights["Keywords"] = 3;
+            var adOpts = new CreateIndexOptions<Ad>()
+            {
+                DefaultLanguage = "portuguese",
+                LanguageOverride = "AdLanguage",
+                Name = "AdSearchIndex",
+                Weights = adWeights
+            };
+            ads.Indexes.CreateOne(adSearch, adOpts);
 
             var checksum = Builders<IlevusPicture>.IndexKeys.Ascending(pic => pic.Checksum);
             var unique = new CreateIndexOptions { Unique = true,  };
@@ -380,6 +404,8 @@ namespace ilevus.Models
             meetings.Indexes.CreateOne(begin);
             meetings.Indexes.CreateOne(userId);
 
+
+            // User search indexes
             var text = Builders<IlevusUser>.IndexKeys.Combine(
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Email),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Name),
@@ -391,7 +417,7 @@ namespace ilevus.Models
                 Builders<IlevusUser>.IndexKeys.Text("Professional.Services.Name"),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Specialties)
             );
-             var weights = new BsonDocument();
+            var weights = new BsonDocument();
             weights["Email"] = 10;
             weights["Surname"] = 8;
             weights["Name"] = 6;

@@ -218,6 +218,7 @@
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Models\CitiesModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\AdModels.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
@@ -277,6 +279,8 @@
     <Content Include="jsx\core\store\System.jsx" />
     <Content Include="jsx\core\store\Chat.jsx" />
     <Content Include="jsx\core\store\Schedule.jsx" />
+    <Content Include="jsx\core\store\Ad.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelAds.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
