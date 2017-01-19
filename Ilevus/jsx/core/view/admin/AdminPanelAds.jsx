@@ -2,6 +2,7 @@
 var S = require("string");
 var $ = require("jquery");
 var _ = require("underscore");
+var moment = require("moment");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -9,7 +10,8 @@ var Toastr = require("toastr");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
-var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx"); var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var AdForm = require("ilevus/jsx/core/widget/admin/AdForm.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -50,11 +52,31 @@ module.exports = React.createClass({
             editing: null
         });
     },
-    onEditingAd(event, ad) {
+    onEditingAd(ad, event) {
         event && event.preventDefault();
         this.setState({
             adding: false,
             editing: ad
+        });
+    },
+
+    adCancel() {
+        this.setState({
+            adding: false,
+            editing: null
+        });
+    },
+    adSaved(ad) {
+        Toastr.remove();
+        Toastr.success(Messages.get("TextAdSavedSuccessfully"));
+        this.setState({
+            loading: true,
+            adding: false,
+            editing: null
+        });
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
         });
     },
 
@@ -67,14 +89,20 @@ module.exports = React.createClass({
             <thead>
                 <tr>
                     <th>{Messages.get("LabelHeadline")}</th>
-                    <th>{Messages.get("LabelCreatedAt")}</th>
+                    <th>{Messages.get("LabelViews")}</th>
+                    <th>{Messages.get("LabelClicks")}</th>
                 </tr>
             </thead>
             <tbody>
                 {this.state.ads.map((ad, index) => {
                     return <tr key={"ad-list-"+index}>
-                        <td>{ad.Headline}</td>
-                        <td>{ad.Creation}</td>
+                        <td>
+                            <a onClick={this.onEditingAd.bind(this, ad)}>
+                                {ad.Headline}
+                            </a>
+                        </td>
+                        <td>{ad.Views}</td>
+                        <td>{ad.Hits}</td>
                     </tr>;
                 })}
             </tbody>
@@ -83,6 +111,11 @@ module.exports = React.createClass({
     render () {
         if (this.state.loading)
             return <LoadingGauge />;
+        if (this.state.adding)
+            return <AdForm onSubmit={this.adSaved} onCancel={this.adCancel} />;
+        if (this.state.editing)
+            return <AdForm onSubmit={this.adSaved} onCancel={this.adCancel } ad={this.state.editing} />;
+
         return (<div className="ilv-card">
             <div className="ilv-card-header">
                 <strong>

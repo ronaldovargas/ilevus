@@ -20,6 +20,7 @@ var AdModel = Fluxbone.Model.extend({
 
 var AdStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_ADS: 'ad-retrieveAds',
+    ACTION_SAVE: 'ad-saveAd',
     dispatchAcceptRegex: /^ad-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -40,53 +41,17 @@ var AdStore = Fluxbone.Store.extend({
 	    });
 	},
 
-	retrieveMyMeetings(params) {
-	    var me = this;
-	    $.ajax({
-	        method: "GET",
-	        url: me.url + "/MyMeetings",
-	        dataType: 'json',
-	        success(data, status, opts) {
-	            me.trigger("retrieve-my-meetings", data);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
-	},
-
-	bookMeeting(params) {
+	saveAd(params) {
 	    var me = this;
 	    $.ajax({
 	        method: "POST",
-	        url: me.url + "/BookMeeting",
+	        url: me.url + "/Save",
 	        dataType: 'json',
-	        data: {
-	            UserId: params.UserId,
-	            CoacheeEmail: params.CoacheeEmail,
-	            CoacheeFullName: params.CoacheeFullName,
-	            CoacheePhone: params.CoacheePhone,
-	            Subject: params.Subject,
-	            Begin: params.Begin
-	        },
+	        data: JSON.stringify(params),
+	        contentType: "application/json",
+	        traditional: true,
 	        success(data, status, opts) {
-	            me.trigger("book-meeting", data);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
-	},
-
-	saveConfig(params) {
-	    var me = this;
-	    $.ajax({
-	        method: "POST",
-	        url: me.url + "/Config",
-	        dataType: 'json',
-	        data: params,
-	        success(data, status, opts) {
-	            me.trigger("save-config", data);
+	            me.trigger("save-ad", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

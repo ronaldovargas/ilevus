@@ -40,11 +40,11 @@ namespace ilevus.Models
 
     public class AdBindingModel
     {
-        public string UserId { get; set; }
-        public string CoacheeFullName { get; set; }
-        public string CoacheeEmail { get; set; }
-        public string CoacheePhone { get; set; }
-        public string Subject { get; set; }
-        public DateTime Begin { get; set; }
+        public string Id { get; set; }
+        public string Headline { get; set; }
+        public string Image { get; set; }
+        public string Link { get; set; }
+        public IEnumerable<string> Keywords { get; set; }
+        public bool Active { get; set; }
     }
 }

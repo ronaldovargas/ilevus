@@ -23,7 +23,7 @@ namespace ilevus.Controllers
     [IlevusAuthorization]
     public class AdController : BaseAPIController
     {
-        
+
         [HttpGet]
         [Route("Retrieve")]
         [AllowAnonymous]
@@ -47,60 +47,50 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
-
-        [HttpGet]
-        [Route("MyMeetings")]
-        [AllowAnonymous]
-        public async Task<IHttpActionResult> GetMyMeetings()
-        {
-            var user = await UserManager.FindByNameAsync(User.Identity.Name);
-            var db = IlevusDBContext.Create();
-            var filters = Builders<MeetingSchedule>.Filter;
-            var collection = db.GetMeetingScheduleCollection();
-            try
-            {
-                var results = await collection.FindAsync(
-                    filters.And(
-                        filters.Eq("UserId", user.Id),
-                        filters.Gte("Begin", DateTime.Now)
-                    )
-                );
-                var meetings = await results.ToListAsync();
-                if (meetings != null)
-                {
-                    return Ok(meetings);
-                }
-                return Ok(new List<MeetingSchedule>());
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
-            }
-        }
-
+        
         [HttpPost]
-        [Route("BookMeeting")]
+        [Route("Save")]
         [AllowAnonymous]
-        public async Task<IHttpActionResult> BookMeeting(MeetingBindingModel model)
+        public async Task<IHttpActionResult> SaveAd(AdBindingModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var collection = IlevusDBContext.Create().GetMeetingScheduleCollection();
+
+            var collection = IlevusDBContext.Create().GetAdsCollection();
+            var filters = Builders<Ad>.Filter;
             try
             {
-                var meeting = new MeetingSchedule()
+                if (model.Id != null)
                 {
-                    UserId = model.UserId,
-                    CoacheeEmail = model.CoacheeEmail,
-                    CoacheeFullName = model.CoacheeFullName,
-                    CoacheePhone = model.CoacheePhone,
-                    Subject = model.Subject,
-                    Begin = model.Begin
+                    var updates = Builders<Ad>.Update;
+                    var result = await collection.UpdateOneAsync(
+                        filters.Eq("Id", model.Id),
+                        updates.Combine(
+                            updates.Set("Active", model.Active),
+                            updates.Set("Headline", model.Headline),
+                            updates.Set("Image", model.Image),
+                            updates.Set("Keywords", model.Keywords),
+                            updates.Set("Link", model.Link)
+                        )
+                    );
+                    if (result.MatchedCount == 0)
+                    {
+                        return BadRequest("Ad not found.");
+                    }
+                    return Ok(true);
+                }
+                Ad ad = new Ad()
+                {
+                    Active = model.Active,
+                    Headline = model.Headline,
+                    Image = model.Image,
+                    Keywords = model.Keywords,
+                    Link = model.Link
                 };
-                await collection.InsertOneAsync(meeting);
-                return Ok(meeting);
+                await collection.InsertOneAsync(ad);
+                return Ok(ad);
             }
             catch (Exception e)
             {
@@ -108,30 +98,5 @@ namespace ilevus.Controllers
             }
         }
         
-        [HttpPost]
-        [Route("Config")]
-        public async Task<IHttpActionResult> SaveConfig(UserScheduleConfig model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            
-            try
-            {
-                var user = await UserManager.FindByNameAsync(User.Identity.Name);
-                user.ScheduleConfig = model;
-                var result = await UserManager.UpdateAsync(user);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-                return Ok(true);
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
-            }
-        }
     }
 }
