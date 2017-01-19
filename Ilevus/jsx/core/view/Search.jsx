@@ -9,6 +9,7 @@ var Toastr = require("toastr");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
+var AdSideBar = require("ilevus/jsx/core/widget/AdSideBar.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var UserContactInfo = require("ilevus/jsx/core/widget/user/UserContactInfo.jsx");
@@ -143,6 +144,9 @@ module.exports = React.createClass({
                                 </div>
 
                                 {this.renderModels()}
+                            </div>
+                            <div className="col-3">
+                                <AdSideBar keyword={this.props.params.term} />
                             </div>
                         </div>
                     </div>

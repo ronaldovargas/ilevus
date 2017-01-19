@@ -21,6 +21,7 @@ var AdModel = Fluxbone.Model.extend({
 var AdStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_ADS: 'ad-retrieveAds',
     ACTION_SAVE: 'ad-saveAd',
+    ACTION_SEARCH_ADS: 'ad-searchAds',
     dispatchAcceptRegex: /^ad-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -57,7 +58,25 @@ var AdStore = Fluxbone.Store.extend({
 	            me.handleRequestErrors([], opts);
 	        }
 	    });
-	}
+	},
+    
+	searchAds(keyword) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Search",
+	        dataType: 'json',
+	        data: {
+	            Keyword: keyword
+	        },
+	        success(data, status, opts) {
+	            me.trigger("search-ads", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
 
 });
 

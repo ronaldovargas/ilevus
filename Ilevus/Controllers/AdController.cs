@@ -97,6 +97,109 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
-        
+
+        [HttpGet]
+        [Route("Search")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> SearchAds(string Keyword)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<Ad>.Filter;
+            var collection = db.GetAdsCollection();
+            try
+            {
+                List<Ad> ads = null;
+                if (!string.IsNullOrEmpty(Keyword))
+                {
+                    var directed = await collection.FindAsync(
+                        filters.And(
+                            filters.Eq("Active", true),
+                            filters.Text(Keyword)
+                        )
+                    );
+                    ads = await directed.ToListAsync();
+                }
+
+                if (ads == null || ads.Count < 3)
+                {
+                    var results = await collection.FindAsync(
+                        filters.Eq("Active", true)
+                    );
+                    var all = await results.ToListAsync();
+                    if (all != null)
+                    {
+                        if (ads == null)
+                            ads = all;
+                        else
+                            ads.AddRange(all);
+                        return Ok(ads);
+                    }
+                    return Ok(new List<Ad>());
+                }
+                return Ok(ads);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpGet]
+        [Route("View")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ViewAdImage(string Id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<Ad>.Filter;
+            var updates = Builders<Ad>.Update;
+            var collection = db.GetAdsCollection();
+            try
+            {
+                var result = await collection.FindAsync(filters.Eq("Id", Id));
+                var ad = await result.FirstOrDefaultAsync();
+                if (ad == null)
+                {
+                    return NotFound();
+                }
+                collection.UpdateOneAsync(
+                    filters.Eq("Id", Id),
+                    updates.Inc("Views", 1)
+                );
+                return Redirect(ad.Image);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpGet]
+        [Route("Click")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ClickAd(string Id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<Ad>.Filter;
+            var updates = Builders<Ad>.Update;
+            var collection = db.GetAdsCollection();
+            try
+            {
+                var result = await collection.FindAsync(filters.Eq("Id", Id));
+                var ad = await result.FirstOrDefaultAsync();
+                if (ad == null)
+                {
+                    return NotFound();
+                }
+                collection.UpdateOneAsync(
+                    filters.Eq("Id", Id),
+                    updates.Inc("Hits", 1)
+                );
+                return Redirect(ad.Link);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
     }
 }
