@@ -44,22 +44,21 @@ module.exports = React.createClass({
         if (!this.state.meetings || this.state.meetings.length <= 0) {
             return <i>Nenhuma reunião futura marcada até o momento.</i>;
         }
-        return (<div>
+        return (<div className="ilv-media-list ilv-media-list-bordered">
             {this.state.meetings.map((meeting, index) => {
-                return (<div className="ilv-media mb-2" key={"meeting-" + index}>
-                    <div className="ilv-media-body">
-                        <span className="text-small">
-                            <i className="ilv-icon material-icons md-inherit mr-1">&#xE8B5;</i>
-                            <span>{moment(meeting.Begin).format("dddd, D/MM/YYYY HH:mm")}</span>
-                        </span>
-                        <h3>{meeting.Subject}</h3>
-                        <p>
-                            <b>{meeting.CoacheeFullName}</b><br />
-                            {meeting.CoacheePhone}<br />
-                            {meeting.CoacheeEmail}
-                        </p>
+                return (
+                    <div className="ilv-media mb-3" key={"meeting-" + index}>
+                        <div className="ilv-media-body">
+                            <h4 className="my-0">{meeting.CoacheeFullName}</h4>
+                            <span>
+                                <i className="ilv-icon material-icons md-inherit mr-1">&#xE8B5;</i>
+                                <span>{moment(meeting.Begin).format("dddd, D/MM/YYYY HH:mm")}</span>
+                            </span>
+                            <p><small>{meeting.CoacheePhone} - {meeting.CoacheeEmail}</small></p>
+                            <p>{meeting.Subject}</p>
+                        </div>
                     </div>
-                </div>);
+                );
             })}
         </div>);
     },

@@ -97,19 +97,19 @@ module.exports = React.createClass({
                             </div>
 
                             <div className="nav-item">
-                                <Link to="notifications/timeline" className="nav-link px-2">
+                                <Link className="nav-link ilv-btn ilv-btn-clean" to="notifications/timeline">
                                     <i className="ilv-icon material-icons">&#xE7F4;</i>
                                 </Link>
                             </div>
 
                             <div className="nav-item">
-                                <Link className="nav-link px-2" title={Messages.get("LabelMessages")} to="/notifications/messages">
+                                <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMessages")} to="/notifications/messages">
                                     <i className="ilv-icon material-icons">&#xE0CA;</i>
                                 </Link>
                             </div>
 
                             <div className="nav-item">
-                                <Link className="nav-link px-2" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
+                                <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
                                     <i className="ilv-icon material-icons">&#xE878;</i>
                                 </Link>
                             </div>
