@@ -103,7 +103,7 @@ module.exports = React.createClass({
                             </div>
 
                             <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMyAgenda")} to="/view-schedule">
+                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
                                     <i className="ilv-icon material-icons">&#xE8E9;</i>
                                 </Link>
                             </div>

@@ -146,10 +146,9 @@ Messages.load(function (success) {
                     <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />
 
-                    <Route path="view-schedule" component={UserViewSchedule} />
                     <Route path="user" component={UserManagement}>
                         <Route path="account" component={UserAccount} />
-                        <Route path="dashboard" component={UserDashboard} />
+                        <Route path="dashboard" component={UserViewSchedule} />
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="profile" component={UserProfile} />
                         <Route path="schedule" component={UserSchedule} />

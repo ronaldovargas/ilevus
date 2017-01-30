@@ -68,14 +68,14 @@ module.exports = React.createClass({
         if (!this.state.loaded) {
             return <LoadingGauge />;
         }
-        return (<div className="my-5">
+        return (
             <div className="container">
                 <div className="row">
-                    <div className="col md-6 offset-md-3">
+                    <div className="col">
                         {this.renderMeetings()}
                     </div>
                 </div>
             </div>
-        </div>);
+        );
     }
 });
