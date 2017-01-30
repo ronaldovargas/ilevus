@@ -97,37 +97,31 @@ module.exports = React.createClass({
                             </div>
 
                             <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMessages")} to="/notifications/messages">
-                                    <i className="ilv-icon material-icons">&#xE0C9;</i>
+                                <Link to="notifications/timeline" className="nav-link px-2">
+                                    <i className="ilv-icon material-icons">&#xE7F4;</i>
                                 </Link>
                             </div>
 
                             <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-icon" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
-                                    <i className="ilv-icon material-icons">&#xE8E9;</i>
+                                <Link className="nav-link px-2" title={Messages.get("LabelMessages")} to="/notifications/messages">
+                                    <i className="ilv-icon material-icons">&#xE0CA;</i>
                                 </Link>
                             </div>
-                                        
-                            <div className="dropdown nav-item hidden">
-                                <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean px-0" data-toggle="dropdown">
-                                    <i className="ilv-icon material-icons md-24">&#xE7F4;</i> <span className="hidden-sm-up ml-1">{Messages.get("LabelNotifications")}</span>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right" style={{ minWidth: "18rem" }}>
-                                    <div className="ilv-blankslate">
-                                        <p><i className="ilv-icon material-icons md-36">&#xE7F4;</i></p>
-                                        <p><small>{Messages.get("TextNoNotifications")}</small></p>
-                                    </div>
-                                </div>
+
+                            <div className="nav-item">
+                                <Link className="nav-link px-2" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
+                                    <i className="ilv-icon material-icons">&#xE878;</i>
+                                </Link>
                             </div>
+
                             <div className="dropdown nav-item">
-                                <a data-toggle="dropdown">
+                                <a data-toggle="dropdown" className="ml-2">
                                     <span className="ilv-avatar-fluid ilv-avatar-fluid-sm"
                                             style={{
                                         backgroundImage: "url(" +
                                             (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
                                         }}>
                                     </span>
-                                    <span className="hidden-sm-up ml-1">{this.state.user.Name} {this.state.user.Surname}</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
                                     <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
