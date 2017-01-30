@@ -20,6 +20,7 @@ namespace ilevus.Models
         
         public UserScheduleConfig ScheduleConfig { get; set; }
         public UserProfessionalProfile Professional { get; set; }
+        public bool IsProfessional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
 
@@ -48,6 +49,7 @@ namespace ilevus.Models
             this.Culture = CultureHelper.GetDefaultCulture();
             this.ScheduleConfig = new UserScheduleConfig();
             this.Professional = new UserProfessionalProfile();
+            this.IsProfessional = false;
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)

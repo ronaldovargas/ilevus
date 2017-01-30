@@ -407,6 +407,7 @@ namespace ilevus.Models
 
             // User search indexes
             var text = Builders<IlevusUser>.IndexKeys.Combine(
+                Builders<IlevusUser>.IndexKeys.Ascending(u => u.IsProfessional),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Email),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Name),
                 Builders<IlevusUser>.IndexKeys.Text(u => u.Surname),

@@ -555,7 +555,9 @@ namespace ilevus.Controllers
             user.Professional.County = model.County;
             user.Professional.District = model.District;
             user.Professional.Zipcode = model.Zipcode;
-            
+            user.IsProfessional = user.Professional.AddressInfo && user.Professional.BasicInfo && user.Professional.CareerInfo &&
+                user.Professional.EducationInfo && user.Professional.ServicesInfo;
+
             IdentityResult result = await UserManager.UpdateAsync(user);
 
             if (!result.Succeeded)
@@ -656,6 +658,8 @@ namespace ilevus.Controllers
             professional.Summary = model.Summary;
             professional.SpokenLanguages = model.SpokenLanguages;
             professional.BasicInfo = true;
+            user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
+                professional.EducationInfo && professional.ServicesInfo;
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -683,6 +687,8 @@ namespace ilevus.Controllers
 
             professional.Education = model.Education;
             professional.EducationInfo = true;
+            user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
+                professional.EducationInfo && professional.ServicesInfo;
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -710,6 +716,8 @@ namespace ilevus.Controllers
 
             professional.Career = model.Career;
             professional.CareerInfo = true;
+            user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
+                professional.EducationInfo && professional.ServicesInfo;
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -737,6 +745,8 @@ namespace ilevus.Controllers
 
             professional.Services = model.Services;
             professional.ServicesInfo = true;
+            user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
+                professional.EducationInfo && professional.ServicesInfo;
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 

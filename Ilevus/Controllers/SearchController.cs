@@ -46,7 +46,10 @@ namespace ilevus.Controllers
 
         private FilterDefinition<IlevusUser> GetSearchFilter(string keywords)
         {
-            return Builders<IlevusUser>.Filter.Text(keywords);
+            return Builders<IlevusUser>.Filter.And(
+                Builders<IlevusUser>.Filter.Eq("IsProfessional", true),
+                Builders<IlevusUser>.Filter.Text(keywords)
+            );
         }
         private FindOptions<IlevusUser> GetFindOptions(int start, int limit)
         {
