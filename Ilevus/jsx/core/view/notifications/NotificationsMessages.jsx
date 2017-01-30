@@ -283,14 +283,10 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div className="ilv-card">
-		        <div className="ilv-card-block">
-			        <div className="ilv-chat">
-				        {this.renderChatList()}
-                        {this.renderChat()}
-			        </div>
-		        </div>
-	        </div>
+		    <div className="ilv-chat">
+			    {this.renderChatList()}
+                {this.renderChat()}
+		    </div>
         );
     }
 });

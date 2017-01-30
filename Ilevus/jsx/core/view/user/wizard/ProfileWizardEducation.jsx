@@ -107,12 +107,12 @@ module.exports = React.createClass({
 
     render() {
         return (<div className="container">
-				<div className="p-y-3">
-					<div className="col-sm-6 offset-sm-3">
+				<div className="row justify-content-center">
+					<div className="col-6">
+                        <div className="text-center my-5">
+							<h3>{Messages.get("TextEducation")}</h3>
+                        </div>
 						<div className="ilv-card">
-							<div className="ilv-card-header">
-								<h3>{Messages.get("TextEducation")}</h3>
-							</div>
 							<div className="ilv-card-body">
 								<ul className="ilv-media-list ilv-media-list-bordered">
                                     {this.state.educations.map((education, index) => {
@@ -123,7 +123,7 @@ module.exports = React.createClass({
                                         }
                                         return <li className="ilv-media ilv-media-middle" key={"educ-"+index}>
 										    <div className="ilv-media-body">
-											    <h4 className="m-a-0">{education.Institution}</h4>
+											    <h4 className="ma-0">{education.Institution}</h4>
                                                 <span>
                                                     {Messages.get("EducationType" + education.Type)} | {education.Area}
                                                 </span>
@@ -138,7 +138,7 @@ module.exports = React.createClass({
                                             <div className="ilv-media-right">
                                                 {this.state.educations.length > 1 ?
                                                     (index < this.state.educations.length-1 ?
-                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0"
+                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link px-0"
                                                                 onClick={this.orderDown.bind(this, index)}>
                                                             <i className="ilv-icon material-icons md-18">&#xE5DB;</i>
 											            </button>
@@ -146,16 +146,16 @@ module.exports = React.createClass({
                                                 :""}
                                                 {this.state.educations.length > 1 ?
                                                     (index > 0 ?
-                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0"
+                                                        <button className="ilv-btn ilv-btn-icon ilv-btn-link px-0"
                                                                 onClick={this.orderUp.bind(this, index)}>
                                                             <i className="ilv-icon material-icons md-18">&#xE5D8;</i>
                                                         </button>
                                                     :"")
                                                 :""}
-											    <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0" onClick={this.startEditing.bind(this,index)}>
+											    <button className="ilv-btn ilv-btn-icon ilv-btn-link px-0" onClick={this.startEditing.bind(this,index)}>
                                                     <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
 											    </button>
-                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger p-x-0 m-l-1" onClick={this.removeEducation.bind(this,index)}>
+                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger px-0 ml-3" onClick={this.removeEducation.bind(this,index)}>
                                                     <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
                                                 </button>
                                             </div>

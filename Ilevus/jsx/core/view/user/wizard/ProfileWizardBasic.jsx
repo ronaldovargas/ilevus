@@ -101,15 +101,14 @@ module.exports = React.createClass({
         var langs = this.state.languages;
         return (
           <div className="container">
-            <div className="p-y-3">
-              <div className="col-sm-6 offset-sm-3">
+            <div className="row justify-content-center">
+              <div className="col-6">
                  
                 <form onSubmit={this.saveInfo}>
-                    <div className="ilv-card">
-                      <div className="ilv-card-header">
+                    <div className="text-center my-5">
                         <h3>{Messages.get("TextWizardHeaderBasic")}</h3>
-                      </div>
-
+                    </div>
+                    <div className="ilv-card">
                       <div className="ilv-card-body">
 
                           <fieldset className="ilv-form-group">
@@ -163,7 +162,7 @@ module.exports = React.createClass({
                           </fieldset>
 
                           <fieldset className="ilv-form-group">
-                            <div className="ilv-tag-input m-b-1 ilv-text-xs-center" style={{backgroundColor: '#f5f7f9'}} readonly={true}>
+                            <div className="ilv-tag-input mb-2 ilv-text-xs-center" style={{backgroundColor: '#f5f7f9'}} readonly={true}>
                                 {langs.map((lang, index) => {
                                     return <span className="ilv-tag" key={"lang-" + index }>
                                         {lang.nativeName ? lang.nativeName : lang} <a title={Messages.get("ActionRemoveLanguage")}
@@ -177,9 +176,8 @@ module.exports = React.createClass({
                       <div className="ilv-card-footer ilv-text-xs-right">
                         <Link className="ilv-btn ilv-btn-clean" to="/become-a-professional">
                           {Messages.get("LabelBack")}
-                        </Link>
-                        <input
-                               className="ilv-btn ilv-btn-primary"
+                          </Link>
+                        <input className="ilv-btn ilv-btn-primary"
                                type="submit"
                                ref="btn-submit"
                                value={Messages.get("LabelSave")} />

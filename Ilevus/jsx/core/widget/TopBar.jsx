@@ -109,8 +109,8 @@ module.exports = React.createClass({
                             </div>
                                         
                             <div className="dropdown nav-item hidden">
-                                <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean p-x-0" data-toggle="dropdown">
-                                    <i className="ilv-icon material-icons md-24">&#xE7F4;</i> <span className="hidden-sm-up m-l-1">{Messages.get("LabelNotifications")}</span>
+                                <a href="javascript:;" className="ilv-btn ilv-btn-icon ilv-btn-clean px-0" data-toggle="dropdown">
+                                    <i className="ilv-icon material-icons md-24">&#xE7F4;</i> <span className="hidden-sm-up ml-1">{Messages.get("LabelNotifications")}</span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right" style={{ minWidth: "18rem" }}>
                                     <div className="ilv-blankslate">

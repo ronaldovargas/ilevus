@@ -9,10 +9,10 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <div className="container p-y-3">
-                <div className="row">
-                    <div className="col-xs-12 m-b-0">
-                        <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs ilv-text-sm">
+            <div className="container my-5">
+                <div className="row mb-5">
+                    <div className="col">
+                        <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/notifications/messages">
                                     {Messages.get("LabelMessages")}
@@ -27,7 +27,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col">
                         {this.props.children}
                     </div>
                 </div>

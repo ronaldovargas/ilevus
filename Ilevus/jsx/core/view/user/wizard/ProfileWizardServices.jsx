@@ -92,13 +92,13 @@ module.exports = React.createClass({
 
     render() {
         return (<div className="container">
-				<div className="p-y-3">
-					<div className="col-sm-6 offset-sm-3">
-
-						<div className="ilv-card">
-							<div className="ilv-card-header">
+				<div className="row justify-content-center">
+					<div className="col-6">
+                        <div className="text-center my-5">
 								<h3>{Messages.get("TextOfferedServices")}</h3>
-							</div>
+                        </div>
+						<div className="ilv-card">
+							
 							<div className="ilv-card-body">
 								<ul className="ilv-media-list ilv-media-list-bordered">
 								    {this.state.services.map((service, index) => {
@@ -114,10 +114,10 @@ module.exports = React.createClass({
                                                 </h4>
 										    </div>
                                             <div className="ilv-media-right">
-											    <button className="ilv-btn ilv-btn-icon ilv-btn-link p-x-0" onClick={this.startEditing.bind(this,index)}>
+											    <button className="ilv-btn ilv-btn-icon ilv-btn-link px-0" onClick={this.startEditing.bind(this,index)}>
                                                     <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
 											    </button>
-                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger p-x-0 m-l-1" onClick={this.removeService.bind(this, index)}>
+                                                <button className="ilv-btn ilv-btn-icon ilv-btn-clean text-danger px-0 ml-3" onClick={this.removeService.bind(this, index)}>
                                                     <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
                                                 </button>
                                             </div>

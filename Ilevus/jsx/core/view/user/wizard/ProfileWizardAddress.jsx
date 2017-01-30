@@ -43,13 +43,12 @@ module.exports = React.createClass({
 
     render() {
     return (<div className="container">
-		<div className="p-y-3">
-			<div className="col-sm-6 offset-sm-3">
-
-				<div className="ilv-card">
-					<div className="ilv-card-header">
+		<div className="row justify-content-center">
+			<div className="col-6">
+                <div className="text-center my-5">
 						<h3>{Messages.get("TextWizardHeaderAddress")}</h3>
-					</div>
+                </div>
+				<div className="ilv-card">
 					<div className="ilv-card-body">
 						<AddressForm addressData={this.context.professionalData} ref="form-address" />
 					</div>

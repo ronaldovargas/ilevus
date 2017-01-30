@@ -300,7 +300,7 @@ module.exports = React.createClass({
                                         </Link>
                                     </div>
                                     {!user.get("PhoneNumber") ? "" :
-                                        <div className="col">
+                                        <div className="col mt-3">
                                             <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
                                             </button>
                                         </div>
