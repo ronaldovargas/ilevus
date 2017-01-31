@@ -184,11 +184,6 @@ var MediumModal = React.createClass({
 
 var Modal = {
 	$el: EL,
-	$init() {
-		$(this.$el).modal({
-			show: false
-		});
-	},
 	hide() {
 		$(this.$el).modal("hide");
 		_.defer(() => {
@@ -275,9 +270,5 @@ var Modal = {
 	        .parent().addClass($.support.fileInput ? undefined : 'disabled');
 	}
 };
-
-$(() => {
-	Modal.$init();
-});
 
 module.exports = Modal;
