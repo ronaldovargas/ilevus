@@ -14,13 +14,12 @@ module.exports = React.createClass({
                     <div className="col">
                         <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/notifications/messages">
-                                    {Messages.get("LabelMessages")}
+                                <Link className="ilv-nav-link" to="/notifications/timeline">{Messages.get("LabelNotifications")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/notifications/timeline">
-                                    {Messages.get("LabelNotifications")}
+                                <Link className="ilv-nav-link" to="/notifications/messages">
+                                    {Messages.get("LabelMessages")}
                                 </Link>
                             </li>
                         </ul>
