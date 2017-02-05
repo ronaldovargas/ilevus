@@ -55,7 +55,12 @@ module.exports = React.createClass({
                                 <span>{moment(meeting.Begin).format("dddd, D/MM/YYYY HH:mm")}</span>
                             </span>
                             <p><small>{meeting.CoacheePhone} - {meeting.CoacheeEmail}</small></p>
+                            <small><strong>{Messages.get("LabelDescription")}</strong></small>
                             <p>{meeting.Subject}</p>
+                        </div>
+                        <div className="ilv-media-right">
+                            <button className="ilv-btn ilv-btn-success">{Messages.get("LabelAccept")}</button>
+                            <button className="ilv-btn ilv-btn-destructive">{Messages.get("LabelRefuse")}</button>
                         </div>
                     </div>
                 );
@@ -71,6 +76,19 @@ module.exports = React.createClass({
             <div className="container">
                 <div className="row">
                     <div className="col">
+                        <div className="ilv-media ilv-media-middle mb-4">
+                            <div className="ilv-media-body">
+                                <h4>{Messages.get("YourSchedules")} (1)</h4>
+                            </div>
+                            <div className="ilv-media-right">
+                                <select className="ilv-form-control">
+                                    <option>{Messages.get("AllSchedules")}</option>
+                                    <option>{Messages.get("AcceptedSchedules")}</option>
+                                    <option>{Messages.get("RefusedSchedules")}</option>
+                                </select>
+                            </div>
+                        </div>
+
                         {this.renderMeetings()}
                     </div>
                 </div>

@@ -295,12 +295,12 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-card-footer">
                                 <div className="row">
-                                    <div className="col">
+                                    <div className="col-12">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>
                                     {!user.get("PhoneNumber") ? "" :
-                                        <div className="col mt-3">
+                                        <div className="col-12 mt-3">
                                             <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
                                             </button>
                                         </div>
