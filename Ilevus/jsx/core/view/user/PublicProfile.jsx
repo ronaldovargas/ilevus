@@ -117,12 +117,19 @@ module.exports = React.createClass({
                                     <p className="ilv-text-small">
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
-                                    <p>
-                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success mr-3">
-                                            4.9 <sup>/ 5.0</sup>
-                                        </span>
-                                        <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
-                                    </p>
+                                    <div>
+                                        <div className="ilv-rating">
+                                            <div className="ilv-rating-list">
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                            </div>
+                                            <div className="ilv-rating-label">3.5</div>
+                                        </div>
+                                    </div>
+                                    <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
                         </div>
