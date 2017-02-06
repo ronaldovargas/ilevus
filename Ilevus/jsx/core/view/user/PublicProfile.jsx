@@ -283,19 +283,6 @@ module.exports = React.createClass({
                     <div className="col-4">
                         <div className="ilv-card">
                             <div className="ilv-card-body">
-                                <div className="ilv-form-group">
-                                    <button className="ilv-btn ilv-btn-destructive ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule}>
-                                        <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionBookMeeting")}
-                                    </button>
-                                </div>
-                                <div className="text-center">
-                                    <small className="text-muted">{Messages.get("TextBookingWillNotCharge")}</small>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div className="ilv-card">
-                            <div className="ilv-card-body">
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral">
                                     <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
                                 </button>

@@ -58,10 +58,6 @@ module.exports = React.createClass({
                             <small><strong>{Messages.get("LabelDescription")}</strong></small>
                             <p>{meeting.Subject}</p>
                         </div>
-                        <div className="ilv-media-right">
-                            <button className="ilv-btn ilv-btn-success">{Messages.get("LabelAccept")}</button>
-                            <button className="ilv-btn ilv-btn-destructive">{Messages.get("LabelRefuse")}</button>
-                        </div>
                     </div>
                 );
             })}
