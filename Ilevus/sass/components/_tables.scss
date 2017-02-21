@@ -7,14 +7,13 @@
   background-color: $table-bg;
 
   th, td {
-    vertical-align: top;
+    vertical-align: middle;
     padding: $table-cell-padding;
     border-bottom: $table-border-width solid $table-border-color;
   }
 
   th {
     color: $table-header-color;
-    vertical-align: middle;
     text-align: left;
     word-break: normal;
     font-weight: 600;

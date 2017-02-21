@@ -323,6 +323,7 @@
     <Content Include="sass\dependencies\variables\_progress.scss" />
     <Content Include="sass\custom\_schedule.scss" />
     <Content Include="sass\custom\_notifications.scss" />
+    <Content Include="sass\custom\_rating.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

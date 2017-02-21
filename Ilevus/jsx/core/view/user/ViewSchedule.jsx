@@ -9,6 +9,9 @@ var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingSchedule
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
+var string = require("string");
+var UserIcon = require("ilevus/img/user.png");
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -70,6 +73,137 @@ module.exports = React.createClass({
         }
         return (
             <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h2 className="mb-5">{Messages.get("TextHello")} Jon Snow, {Messages.get("TextWelcomeBack")}!</h2>
+                        <div className="ilv-media ilv-media-middle mb-4">
+                            <div className="ilv-media-body">
+                                <h4>{Messages.get("TextCoachPrograms")} (4)</h4>
+                            </div>
+                            <div className="ilv-media-right">
+                                <input className="ilv-form-control" placeholder={Messages.get("LabelSearch")} />
+                            </div>
+                        </div> 
+
+                        <table className="ilv-table">
+                            <thead>
+                                <tr>
+                                    <th>{Messages.get("LabelCoach")}</th>
+                                    <th>{Messages.get("LabelStatus")}</th>
+                                    <th>{Messages.get("LabelCurrentSession")}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div className="ilv-media ilv-media-middle">
+                                            <div className="ilv-media-left">
+                                                <span className="ilv-avatar-fluid ilv-avatar-fluid-sm" style={{ backgroundImage: `url( ${string(UserIcon)} )` }}></span>
+                                            </div>
+                                            <div className="ilv-media-body">
+                                                Daenerys Targaryen
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label className="ilv-tag ilv-tag-info m-0">{Messages.get("LabelInProgress")}</label>
+                                    </td>
+                                    <td>
+                                        <h3 className="m-0">6</h3>
+                                    </td>
+                                    <td className="text-right">
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                            <i className="material-icons md-24">&#xE037;</i>
+                                        </button>
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
+                                            <i className="material-icons md-24">&#xE838;</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="ilv-media ilv-media-middle">
+                                            <div className="ilv-media-left">
+                                                <span className="ilv-avatar-fluid ilv-avatar-fluid-sm" style={{ backgroundImage: `url( ${string(UserIcon)} )` }}></span>
+                                            </div>
+                                            <div className="ilv-media-body">
+                                                Sansa Stark
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label className="ilv-tag ilv-tag-info m-0">{Messages.get("LabelInProgress")}</label>
+                                    </td>
+                                    <td>
+                                        <h3 className="m-0">3</h3>
+                                    </td>
+                                    <td className="text-right">
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                            <i className="material-icons md-24">&#xE037;</i>
+                                        </button>
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
+                                            <i className="material-icons md-24">&#xE838;</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="ilv-media ilv-media-middle">
+                                            <div className="ilv-media-left">
+                                                <span className="ilv-avatar-fluid ilv-avatar-fluid-sm" style={{ backgroundImage: `url( ${string(UserIcon)} )` }}></span>
+                                            </div>
+                                            <div className="ilv-media-body">
+                                                Arya Stark
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label className="ilv-tag ilv-tag-success m-0">{Messages.get("LabelFinished")}</label>
+                                    </td>
+                                    <td>
+                                        <h3 className="m-0">4</h3>
+                                    </td>
+                                    <td className="text-right">
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                            <i className="material-icons md-24">&#xE037;</i>
+                                        </button>
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
+                                            <i className="material-icons md-24">&#xE838;</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className="ilv-media ilv-media-middle">
+                                            <div className="ilv-media-left">
+                                                <span className="ilv-avatar-fluid ilv-avatar-fluid-sm" style={{ backgroundImage: `url( ${string(UserIcon)} )` }}></span>
+                                            </div>
+                                            <div className="ilv-media-body">
+                                                Clark Kent
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label className="ilv-tag ilv-tag-warning m-0">{Messages.get("LabelNotStarted")}</label>
+                                    </td>
+                                    <td>
+                                        <h3 className="m-0">1</h3>
+                                    </td>
+                                    <td className="text-right">
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                            <i className="material-icons md-24">&#xE037;</i>
+                                        </button>
+                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
+                                            <i className="material-icons md-24">&#xE838;</i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div className="row">
                     <div className="col">
                         <div className="ilv-media ilv-media-middle mb-4">
