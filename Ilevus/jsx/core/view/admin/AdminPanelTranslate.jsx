@@ -200,7 +200,7 @@ module.exports = React.createClass({
                     <tr key={'label-' + index}>
                         <td>
                             <a title={Messages.get("LabelActions")} className="hidden">
-                                <i class="material-icons">&#xE313;</i>
+                                <i className="material-icons">&#xE313;</i>
                             </a> <span onClick={this.tweakEditing.bind(this, msg[0])}>
                                 {msg[0]}
                             </span>
@@ -283,11 +283,11 @@ module.exports = React.createClass({
                         </ul>
 
                         <div className="tab-content">
-                            <div className="tab-pane fade active in">
+                            <div className="tab-pane active">
                                 <form className="ilv-form-inline" onSubmit={this.addTranslationKey}>
                                     <div className="ilv-form-group">
                                         <input type="text"
-                                               spellcheck={false}
+                                               spellCheck={false}
                                                className="ilv-form-control"
                                                ref="new-message-label"
                                                placeholder={Messages.get("LabelNewKey")}

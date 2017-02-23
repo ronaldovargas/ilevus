@@ -168,7 +168,7 @@ module.exports = React.createClass({
                                                             em {career.Institution} - {career.Location}
                                                             {career.Finished
                                                                 ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
-                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
+                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + " " + Messages.get("TextPresent")
                                                             }.
                                                         </span>
                                                     </div>;
