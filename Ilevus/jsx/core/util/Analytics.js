@@ -1,7 +1,7 @@
 ﻿var _ = require("underscore");
 
 module.exports = {
-    sendPhoneRequestEvent() {
+    sendPhoneRequestEvent: function() {
         if (typeof ga != "undefined")
             ga('send', 'event', "Button", "PhoneRequest");
         else
