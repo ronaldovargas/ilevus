@@ -1,8 +1,9 @@
 ﻿var moment = require("moment");
 var React = require('react');
-var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var ScheduleStore = require("ilevus/jsx/core/store/Schedule.jsx");
 var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingScheduleConfig.jsx");
@@ -73,7 +74,7 @@ module.exports = React.createClass({
         }
         return (
             <div className="container">
-                <div className="row">
+                <div className="row mb-5">
                     <div className="col">
                         <h2 className="mb-5">{Messages.get("TextHello")} Jon Snow, {Messages.get("TextWelcomeBack")}!</h2>
                         <div className="ilv-media ilv-media-middle mb-4">
@@ -113,9 +114,9 @@ module.exports = React.createClass({
                                         <h3 className="m-0">6</h3>
                                     </td>
                                     <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
-                                        </button>
+                                        </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
                                             <i className="material-icons md-24">&#xE838;</i>
                                         </button>
@@ -139,9 +140,9 @@ module.exports = React.createClass({
                                         <h3 className="m-0">3</h3>
                                     </td>
                                     <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
-                                        </button>
+                                        </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
                                             <i className="material-icons md-24">&#xE838;</i>
                                         </button>
@@ -165,9 +166,9 @@ module.exports = React.createClass({
                                         <h3 className="m-0">4</h3>
                                     </td>
                                     <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
-                                        </button>
+                                        </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
                                             <i className="material-icons md-24">&#xE838;</i>
                                         </button>
@@ -191,9 +192,9 @@ module.exports = React.createClass({
                                         <h3 className="m-0">1</h3>
                                     </td>
                                     <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
-                                        </button>
+                                        </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
                                             <i className="material-icons md-24">&#xE838;</i>
                                         </button>
@@ -204,7 +205,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row mb-5">
                     <div className="col">
                         <div className="ilv-media ilv-media-middle mb-4">
                             <div className="ilv-media-body">

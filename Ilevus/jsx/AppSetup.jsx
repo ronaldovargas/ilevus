@@ -53,6 +53,8 @@ var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
 var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
 var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
 
+var SessionDetails = require("ilevus/jsx/core/view/user/coaching/SessionDetails.jsx");
+
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
 var AdminPanelAds = require("ilevus/jsx/core/view/admin/AdminPanelAds.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
@@ -152,6 +154,7 @@ Messages.load(function (success) {
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="profile" component={UserProfile} />
                         <Route path="schedule" component={UserSchedule} />
+                        <Route path="session" component={SessionDetails} />
                     </Route>
 
                     <Route path="admin" component={AdminPanel}>
