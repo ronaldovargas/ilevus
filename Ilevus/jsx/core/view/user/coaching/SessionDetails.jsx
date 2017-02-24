@@ -20,18 +20,32 @@ module.exports = React.createClass({
                                 } />
                             </div>
                             <div className="ilv-media-body">
+                                <strong>Sessão de Coacinhg dada por <a href="#">Robert Plant</a></strong>
                                 <p className="ilv-text-large ilv-font-weight-semibold">
                                     {Messages.get('LabelSession')}: 6
                                 </p>
-                                <span className="ilv-font-weight-semibold">{Messages.get('LabelObjective')}</span>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus volutpat fermentum. Nulla et scelerisque magna, id faucibus mi. 
-                                </p>
-                                <hr />
-                                <div>
-                                    <button className="ilv-btn">{Messages.get("LabelRateThisSession")}</button>
-                                    <button className="ilv-btn">{Messages.get("LabelDownloadSession")}</button>
-                                    <button className="ilv-btn">{Messages.get("LabelDownloadAllSessions")}</button>
+                                
+                                <label className="ilv-font-weight-semibold">{Messages.get('LabelObjective')}:</label>
+                                <div className="ilv-card" style={{backgroundColor: '#cfd7e6'}}>
+                                    <div className="ilv-card-body">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus volutpat fermentum. Nulla et scelerisque magna, id faucibus mi.
+                                    </div>
+                                </div>
+                                <div className="ilv-media ilv-media-middle">
+                                    <div className="ilv-media-body">
+                                        <button className="ilv-btn">{Messages.get("LabelRateThisSession")}</button>
+                                    </div>
+                                    <div className="ilv-media-right">
+                                        <div className="dropdown">
+                                            <button className="ilv-btn ilv-btn-clean" data-toggle="dropdown">
+                                                <i className="ilv-icon material-icons md-24">&#xE2C4;</i>
+                                            </button>
+                                            <div className="dropdown-menu dropdown-menu-right">
+                                                <a className="dropdown-item" href="#">{Messages.get("LabelDownloadSession")}</a>
+                                                <a className="dropdown-item" href="#">{Messages.get("LabelDownloadAllSessions")}</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
