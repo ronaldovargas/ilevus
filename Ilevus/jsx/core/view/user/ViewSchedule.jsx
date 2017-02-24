@@ -114,7 +114,7 @@ module.exports = React.createClass({
                                         <h3 className="m-0">6</h3>
                                     </td>
                                     <td className="text-right">
-                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
                                         </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
@@ -140,7 +140,7 @@ module.exports = React.createClass({
                                         <h3 className="m-0">3</h3>
                                     </td>
                                     <td className="text-right">
-                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
                                         </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
@@ -166,7 +166,7 @@ module.exports = React.createClass({
                                         <h3 className="m-0">4</h3>
                                     </td>
                                     <td className="text-right">
-                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
                                         </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>
@@ -192,7 +192,7 @@ module.exports = React.createClass({
                                         <h3 className="m-0">1</h3>
                                     </td>
                                     <td className="text-right">
-                                        <Link to={"/user/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
+                                        <Link to={"/session"} className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelParticipate")}>
                                             <i className="material-icons md-24">&#xE037;</i>
                                         </Link>
                                         <button className="ilv-btn ilv-btn-clean" data-toggle="tooltip" title={Messages.get("LabelRate")}>

@@ -10,7 +10,7 @@ var UserIcon = require("ilevus/img/user.png");
 module.exports = React.createClass({
     render() {
         return (
-            <div>
+            <div className="container my-5">
                 <div className="row mb-5">
                     <div className="col">
                         <div className="ilv-media">
@@ -47,16 +47,17 @@ module.exports = React.createClass({
                 <div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("LabelMyComments")}</h4>
-                        <textarea className="ilv-form-control" cols="100">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem, nec suscipit purus ultrices sit amet.
-
-                            Cras sed sagittis mauris. Phasellus sit amet nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-
-                            Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo porta, aliquet lorem quis, ullamcorper nisi.
-
-                            Sed at turpis sem. Aenean et eleifend enim. Praesent congue vitae turpis non porttitor.
-
-                            Mauris a rutrum justo. Morbi vel risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales. Morbi blandit metus nisi, quis tincidunt purus venenatis in.
+                        <textarea
+                            className="ilv-form-control"
+                            style={{minHeight: '240px'}}
+                            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
+                            nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
+                            nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
+                            Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
+                            porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
+                            enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
+                            risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
+                            Morbi blandit metus nisi, quis tincidunt purus venenatis in.">
                         </textarea>
                     </div>
                 </div>
@@ -64,16 +65,18 @@ module.exports = React.createClass({
                 <div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("LabelCoachComments")}</h4>
-                        <textarea className="ilv-form-control" disabled cols="100">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem, nec suscipit purus ultrices sit amet.
-                            
-                            Cras sed sagittis mauris. Phasellus sit amet nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-                            
-                            Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo porta, aliquet lorem quis, ullamcorper nisi.
-                            
-                            Sed at turpis sem. Aenean et eleifend enim. Praesent congue vitae turpis non porttitor.
-                            
-                            Mauris a rutrum justo. Morbi vel risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales. Morbi blandit metus nisi, quis tincidunt purus venenatis in.
+                        <textarea
+                            className="ilv-form-control"
+                            style={{minHeight: '240px'}}
+                            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
+                                  nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
+                                  nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
+                                  Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
+                                  porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
+                                  enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
+                                  risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
+                                  Morbi blandit metus nisi, quis tincidunt purus venenatis in."
+                            readonly="true">
                         </textarea>
                     </div>
                 </div>

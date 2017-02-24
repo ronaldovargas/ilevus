@@ -154,8 +154,9 @@ Messages.load(function (success) {
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="profile" component={UserProfile} />
                         <Route path="schedule" component={UserSchedule} />
-                        <Route path="session" component={SessionDetails} />
                     </Route>
+
+                    <Route path="session" component={SessionDetails} />
 
                     <Route path="admin" component={AdminPanel}>
                         <Route path="ads" component={AdminPanelAds} />
