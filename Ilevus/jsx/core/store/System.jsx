@@ -25,6 +25,7 @@ var SystemStore = Fluxbone.Store.extend({
     ACTION_ADD_TRANSLATION_KEY: "system-addTranslationKey",
     ACTION_REVIEW_TRANSLATION_KEY: "system-reviewTranslationKey",
     ACTION_UPDATE_TRANSLATION: "system-updateTranslation",
+    ACTION_SYNC_TRANSLATIONS: "system-syncTranslations",
     dispatchAcceptRegex: /^system-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -116,6 +117,23 @@ var SystemStore = Fluxbone.Store.extend({
 	        success(data, status, opts) {
 	            me.trigger("update-config-email", data);
 	            me.trigger("retrieve-config", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	syncTranslations(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Messages/Sync",
+	        dataType: 'json',
+            contentType: "application/json",
+	        data: JSON.stringify(params),
+	        success(data, status, opts) {
+	            me.trigger("translations-synced", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
