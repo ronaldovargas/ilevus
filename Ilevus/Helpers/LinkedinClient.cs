@@ -26,6 +26,11 @@ namespace ilevus.Helpers
         public string industry { get; set; }
         public string publicProfileUrl { get; set; }
     }
+    public class LinkedinPictures
+    {
+        public int _total { get; set; }
+        public IEnumerable<string> values { get; set; }
+    }
 
     public class LinkedinClient
     {

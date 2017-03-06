@@ -892,6 +892,9 @@ namespace ilevus.Controllers
                 "https://api.linkedin.com/v1/people/~"
                 + ":(id,first-name,last-name,headline,picture-url,email-address,summary,specialties,industry,public-profile-url)"
             );
+            var linkedinPictures = await client.Get<LinkedinPictures>(
+               "https://api.linkedin.com/v1/people/~/picture-urls::(original)"
+           );
 
             IlevusUser user = await UserManager.FindAsync(new UserLoginInfo("Linkedin", linkedinUser.id));
 
@@ -911,7 +914,7 @@ namespace ilevus.Controllers
                     EmailConfirmed = true,
                     Name = linkedinUser.firstName,
                     Surname = linkedinUser.lastName,
-                    Image = linkedinUser.pictureUrl,
+                    Image = linkedinPictures.values.FirstOrDefault(),
                     Professional = new UserProfessionalProfile() {
                         Industry = linkedinUser.industry,
                         Headline = linkedinUser.headline,
@@ -926,6 +929,10 @@ namespace ilevus.Controllers
                 {
                     return GetErrorResult(result);
                 }
+            } else
+            {
+                user.Image = linkedinPictures.values.FirstOrDefault();
+                await UserManager.UpdateAsync(user);
             }
 
             if (!hasRegistered)
