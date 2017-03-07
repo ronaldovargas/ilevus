@@ -62,7 +62,18 @@ module.exports = React.createClass({
 
                 <div className="col-6">
                     <div className="my-5">
-                        <h1>{Messages.get("TextCreateYourProfessionalProfile")}</h1>
+                        <h1 className="ma-0">{Messages.get("TextCreateYourProfessionalProfile")}</h1>
+                        {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
+                        && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
+                        && this.state.professionalData.ServicesInfo ?
+                            <li className="ilv-media ilv-media-middle pt-2 pb-0">
+                                <div className="ilv-media-body">
+                                    <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
+                                          to={"/profile/"+this.state.data.Id}>{Messages.get("TextSeeMyProfile")}
+                                    </Link>
+                                </div>
+                            </li>
+                        :""}
                     </div>
                     <ul className="ilv-media-list ma-0">
                         <li className="ilv-media ilv-media-middle pb-4">
@@ -181,17 +192,6 @@ module.exports = React.createClass({
                         </li>
                     </ul>
                   
-                    {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
-                        && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
-                        && this.state.professionalData.ServicesInfo ?
-                            <li className="ilv-media ilv-media-middle pt-2 pb-0">
-                                <div className="ilv-media-body">
-                                    <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
-                                            to={"/profile/"+this.state.data.Id}>{Messages.get("TextSeeMyProfile")}
-                                    </Link>
-                                </div>
-                            </li>
-                    :""}
                 </div>
 
             </div>}
