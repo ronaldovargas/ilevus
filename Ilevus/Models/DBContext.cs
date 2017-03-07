@@ -2,6 +2,7 @@
 using ilevus.Resources;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -197,6 +198,50 @@ namespace ilevus.Models
                 return false;
             }
             return true;
+        }
+
+        public async Task<long> SyncMessages(IDictionary<string, SystemMessages> remote)
+        {
+            long processed = 0;
+            SystemMessages msgs = Messages["en"];
+            SystemMessages remoteMsgs = remote["en"];
+            SystemLabel label;
+            foreach (KeyValuePair<string, SystemLabel> msg in remoteMsgs.Messages)
+            {
+                processed++;
+                if (msgs.Messages.ContainsKey(msg.Key))
+                {
+                    msgs.Messages.TryRemove(msg.Key, out label);
+                }
+                msgs.Add(msg.Key, msg.Value);
+            }
+
+            msgs = Messages["es"];
+            remoteMsgs = remote["es"];
+            foreach (KeyValuePair<string, SystemLabel> msg in remoteMsgs.Messages)
+            {
+                processed++;
+                if (msgs.Messages.ContainsKey(msg.Key))
+                {
+                    msgs.Messages.TryRemove(msg.Key, out label);
+                }
+                msgs.Add(msg.Key, msg.Value);
+            }
+
+            msgs = Messages["pt-br"];
+            remoteMsgs = remote["pt-br"];
+            foreach (KeyValuePair<string, SystemLabel> msg in remoteMsgs.Messages)
+            {
+                processed++;
+                if (msgs.Messages.ContainsKey(msg.Key))
+                {
+                    msgs.Messages.TryRemove(msg.Key, out label);
+                }
+                msgs.Add(msg.Key, msg.Value);
+            }
+
+            await SaveSystemMessages();
+            return processed;
         }
 
         public void EnsureSystemConfig()

@@ -64,10 +64,16 @@ module.exports = React.createClass({
             });
             $("button").removeAttr("disabled");
         }, me);
-
+        
         SystemStore.on("update-translation", () => {
             Toastr.remove();
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            me.refreshMessages();
+        }, me);
+
+        SystemStore.on("translations-synced", (count) => {
+            Toastr.remove();
+            Toastr.success(Messages.format("TextNTranslationsSynced", [count]));
             me.refreshMessages();
         }, me);
 
@@ -86,6 +92,7 @@ module.exports = React.createClass({
         SystemStore.on("fail", (msg) => {
             $("button").removeAttr("disabled");
             $(me.refs["save-btn"]).removeAttr("disabled");
+            $(me.refs["sync-btn"]).removeAttr("disabled");
         }, me);
 
         me.refreshMessages();
@@ -104,6 +111,21 @@ module.exports = React.createClass({
         event && event.preventDefault();
         this.setState({
             lang: lang
+        });
+    },
+
+    syncTranslations(event) {
+        event && event.preventDefault();
+        var prefix = S(this.refs["url-prefix"].value);
+        if (prefix.isEmpty()) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeRemoteUrlPrefix"));
+            return;
+        }
+        $(this.refs['sync-btn']).attr("disabled", "disabled");
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_SYNC_TRANSLATIONS,
+            data: prefix.s
         });
     },
 
@@ -200,7 +222,7 @@ module.exports = React.createClass({
                     <tr key={'label-' + index}>
                         <td>
                             <a title={Messages.get("LabelActions")} className="hidden">
-                                <i class="material-icons">&#xE313;</i>
+                                <i className="material-icons">&#xE313;</i>
                             </a> <span onClick={this.tweakEditing.bind(this, msg[0])}>
                                 {msg[0]}
                             </span>
@@ -258,7 +280,27 @@ module.exports = React.createClass({
             <div>
                 <div className="ilv-card">
                     <div className="ilv-card-header">
-                        <strong>{Messages.get("LabelTranslations")}</strong>
+                        <div className="row">
+                            <div className="col-md-4">
+                                <strong>{Messages.get("LabelTranslations")}</strong>
+                            </div>
+                            <div className="col">
+                                <form className="ilv-form-inline" onSubmit={this.syncTranslations}>
+                                    <div className="ilv-form-group">
+                                        <input type="url"
+                                               spellCheck={false}
+                                               className="ilv-form-control"
+                                               ref="url-prefix"
+                                               placeholder={Messages.get("LabelUrlPrefix")} />
+                                        <button type="submit"
+                                                className="ilv-btn ilv-btn-primary"
+                                                ref='sync-btn'>
+                                            {Messages.get("LabelSyncRemoteTranslations")}
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div className="ilv-card-body">
                         <ul className="ilv-text-sm nav nav-tabs m-b-1">
@@ -283,11 +325,11 @@ module.exports = React.createClass({
                         </ul>
 
                         <div className="tab-content">
-                            <div className="tab-pane fade active in">
+                            <div className="tab-pane active">
                                 <form className="ilv-form-inline" onSubmit={this.addTranslationKey}>
                                     <div className="ilv-form-group">
                                         <input type="text"
-                                               spellcheck={false}
+                                               spellCheck={false}
                                                className="ilv-form-control"
                                                ref="new-message-label"
                                                placeholder={Messages.get("LabelNewKey")}

@@ -308,6 +308,7 @@
     <Content Include="jsx\core\view\user\ViewSchedule.jsx" />
     <Content Include="jsx\core\widget\admin\AdForm.jsx" />
     <Content Include="jsx\core\widget\AdSideBar.jsx" />
+    <Content Include="jsx\core\view\user\coaching\SessionDetails.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
@@ -322,6 +323,8 @@
     <Content Include="sass\dependencies\core\_icons.scss" />
     <Content Include="sass\dependencies\variables\_progress.scss" />
     <Content Include="sass\custom\_schedule.scss" />
+    <Content Include="sass\custom\_notifications.scss" />
+    <Content Include="sass\custom\_rating.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

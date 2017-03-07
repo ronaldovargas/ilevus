@@ -1,0 +1,40 @@
+﻿.ilv-rating {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.ilv-rating-list {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.ilv-rating-item {
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: gold;
+    }
+
+    &.active {
+        color: gold;
+    }
+
+    &:hover,
+    &:hover ~ & {
+       color: gold;
+    }
+}
+
+.ilv-rating-label {
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 1;
+    margin-left: 8px;
+}
+

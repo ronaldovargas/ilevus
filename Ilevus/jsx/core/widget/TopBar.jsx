@@ -93,10 +93,6 @@ module.exports = React.createClass({
                         <form className="form-inline">
 
                             <div className="nav-item">
-                                <Link className="nav-link" to="/become-a-professional">{Messages.get("LabelProfessional")}</Link>
-                            </div>
-
-                            <div className="nav-item">
                                 <Link className="nav-link ilv-btn ilv-btn-clean" to="notifications/timeline">
                                     <i className="ilv-icon material-icons">&#xE7F4;</i>
                                 </Link>
@@ -124,6 +120,8 @@ module.exports = React.createClass({
                                     </span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
+                                    <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessional")}</Link>
+                                    <div className="dropdown-divider"></div>
                                     <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>

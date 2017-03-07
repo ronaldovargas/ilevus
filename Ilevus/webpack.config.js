@@ -5,7 +5,7 @@ var autoprefixer = require("autoprefixer");
 
 module.exports = {
     context: __dirname,
-    devtool: '#source-map',
+    devtool: 'cheap-module-source-map',
     entry: {
         javascript: path.join(__dirname, "jsx", "app.js"),
         html: path.join(__dirname, "index.html"),
@@ -16,6 +16,7 @@ module.exports = {
         filename: "bundle.js"
     },
     resolve: {
+        extensions: ["", ".webpack.js", ".web.js", ".js", ".jsx"],
     	alias: {
     		"ilevus": __dirname,
     		"jquery.ui.widget": "./vendor/jquery.ui.widget.js",
@@ -27,6 +28,11 @@ module.exports = {
               new Webpack.ProvidePlugin({
                   $: "jquery",
                   jQuery: "jquery"
+              }),
+              new Webpack.DefinePlugin({
+                  'process.env': {
+                      'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+                  }
               })
     ],
     postcss: function () {

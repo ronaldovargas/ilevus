@@ -117,12 +117,19 @@ module.exports = React.createClass({
                                     <p className="ilv-text-small">
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
-                                    <p>
-                                        <span className="ilv-btn ilv-btn-sm ilv-btn-success mr-3">
-                                            4.9 <sup>/ 5.0</sup>
-                                        </span>
-                                        <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
-                                    </p>
+                                    <div>
+                                        <div className="ilv-rating">
+                                            <div className="ilv-rating-list">
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                            </div>
+                                            <div className="ilv-rating-label">3.5</div>
+                                        </div>
+                                    </div>
+                                    <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
                         </div>
@@ -161,7 +168,7 @@ module.exports = React.createClass({
                                                             em {career.Institution} - {career.Location}
                                                             {career.Finished
                                                                 ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
-                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + Messages.get("TextPresent")
+                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + " " + Messages.get("TextPresent")
                                                             }.
                                                         </span>
                                                     </div>;
@@ -276,31 +283,18 @@ module.exports = React.createClass({
                     <div className="col-4">
                         <div className="ilv-card">
                             <div className="ilv-card-body">
-                                <div className="ilv-form-group">
-                                    <button className="ilv-btn ilv-btn-destructive ilv-btn-lg ilv-btn-block" onClick={this.openMeetingSchedule}>
-                                        <i className="ilv-icon material-icons md-18">&#xE878;</i>{Messages.get("ActionBookMeeting")}
-                                    </button>
-                                </div>
-                                <div className="text-center">
-                                    <small className="text-muted">{Messages.get("TextBookingWillNotCharge")}</small>
-                                </div>
-                                
-                            </div>
-                        </div>
-                        <div className="ilv-card">
-                            <div className="ilv-card-body">
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral">
                                     <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
                                 </button>
                             </div>
                             <div className="ilv-card-footer">
                                 <div className="row">
-                                    <div className="col">
+                                    <div className="col-12">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>
                                     {!user.get("PhoneNumber") ? "" :
-                                        <div className="col mt-3">
+                                        <div className="col-12 mt-3">
                                             <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
                                             </button>
                                         </div>
