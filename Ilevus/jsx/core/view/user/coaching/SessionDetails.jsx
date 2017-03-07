@@ -90,7 +90,7 @@ module.exports = React.createClass({
                                   enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
                                   risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
                                   Morbi blandit metus nisi, quis tincidunt purus venenatis in."
-                            readonly="true">
+                            readOnly>
                         </textarea>
                     </div>
                 </div>
