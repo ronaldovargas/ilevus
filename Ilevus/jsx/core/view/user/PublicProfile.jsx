@@ -28,7 +28,8 @@ module.exports = React.createClass({
     },
     getInitialState() {
         return {
-            model: null
+            model: null,
+            favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false
         };
     },
     componentDidMount() {
@@ -42,13 +43,21 @@ module.exports = React.createClass({
             });
         }, me);
 
+        UserSession.on("update", () => {
+            me.setState({
+                favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false
+            });
+        });
+
         UserStore.dispatch({
             action: UserStore.ACTION_RETRIEVE,
             data: this.props.params.id
         });
+
     },
     componentWillUnmount() {
         UserStore.off(null, null, this);
+        UserSession.off(null, null, this);
     },
     componentDidUpdate() {
         /*$('[data-toggle="tooltip"]').tooltip({
@@ -64,6 +73,21 @@ module.exports = React.createClass({
         event && event.preventDefault();
         Analytics.sendPhoneRequestEvent();
         Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={this.state.model.attributes} />);
+    },
+
+    favoriteUser(event) {
+        event && event.preventDefault();
+        if (this.state.favorited) {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UNFAVORITE_USER,
+                data: this.props.params.id
+            });
+        } else {
+            UserSession.dispatch({
+                action: UserSession.ACTION_FAVORITE_USER,
+                data: this.props.params.id
+            });
+        }
     },
 
     render() {
@@ -269,9 +293,9 @@ module.exports = React.createClass({
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
                                                 <p>{Messages.get("TextOfferedServicesHelp")}</p>
-                                                <button className="ilv-btn ilv-btn-block ilv-btn-primary">
+                                                <Link className="ilv-btn ilv-btn-block ilv-btn-primary" to={"/notifications/messages/"+user.get("Id")}>
                                                     <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
-                                                </button>
+                                                </Link>
                                             </div>
                                         </div>                                                      
                                     </div>
@@ -282,15 +306,27 @@ module.exports = React.createClass({
                     </div>
                     <div className="col-4">
                         <div className="ilv-card">
-                            <div className="ilv-card-body">
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral">
-                                    <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
-                                </button>
-                            </div>
+                            {!UserSession.get("logged") ? "":<div className="ilv-card-body">
+                                {this.state.favorited ?
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE87D;</i>{Messages.get("LabelSavedAsFavorite")}
+                                    </button>
+                                    :
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                        <i className="ilv-icon material-icons md-18">&#xE87E;</i>{Messages.get("LabelSaveAsFavorite")}
+                                    </button>
+                                }
+                            </div>}
                             <div className="ilv-card-footer">
                                 <div className="row">
                                     <div className="col-12">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>
+                                            {Messages.get("ActionHireProfessional")}
+                                        </Link>
+                                    </div>
+                                    <div className="col-12 mt-3">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
+                                            {Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>
                                     {!user.get("PhoneNumber") ? "" :
