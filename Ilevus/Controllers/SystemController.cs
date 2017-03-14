@@ -6,7 +6,10 @@ using ilevus.Providers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -21,6 +24,7 @@ namespace ilevus.Controllers
     [RoutePrefix("api/System")]
     public class SystemController : BaseAPIController
     {
+        private const string SYNC_KEY = "$kX5zohD!iewu1u@*)H06(u(Ajd82";
         private const string LocalLoginProvider = "Local";
         private IlevusUserManager _userManager;
         public IlevusUserManager UserManager
@@ -57,6 +61,39 @@ namespace ilevus.Controllers
             return Ok(IlevusDBContext.Messages);
         }
 
+        [AllowAnonymous]
+        [Route("Messages/Sync")]
+        [HttpGet]
+        public IHttpActionResult GetMessagesFonSync(string k)
+        {
+            if (!string.Equals(SYNC_KEY, k))
+            {
+                return BadRequest("Invalid sync request");
+            }
+            return Ok(IlevusDBContext.Messages);
+        }
+        
+        [Route("Messages/Sync")]
+        [HttpPost]
+        public async Task<IHttpActionResult> SyncMessages([FromBody] string UrlPrefix)
+        {
+            var client = new HttpClient();
+
+            var response = await client.GetAsync(UrlPrefix + "/api/System/Messages/Sync?k="+SYNC_KEY);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            IDictionary<string, SystemMessages> data = JsonConvert.DeserializeObject<IDictionary<string, SystemMessages>>(responseString);
+            long processed = 0;
+            try
+            {
+                processed =  await IlevusDBContext.Create().SyncMessages(data);
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok(processed);
+        }
+
         [IlevusAuthorization]
         [Route("Messages")]
         [HttpPost]
@@ -69,6 +106,7 @@ namespace ilevus.Controllers
             }
             return Ok("Message updated successfully.");
         }
+
         [IlevusAuthorization]
         [HttpPost]
         [Route("Messages/Review")]
