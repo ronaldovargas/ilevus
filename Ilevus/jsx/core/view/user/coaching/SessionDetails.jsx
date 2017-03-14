@@ -32,27 +32,33 @@ module.exports = React.createClass({
                                     </div>
                                 </div>
                             </div>
-                            <div className="ilv-media-right">
-                                <small>{Messages.get("LabelSessionDuration")}:</small>
-                                <h2 className="ma-0" style={{fontWeight: 'bold'}}>1:31:47</h2>
-                            </div>
                         </div>
                         <hr className="mb-5"/>
                         <div>
-                            <h3 className="ilv-font-weight-semibold my-3">{Messages.get('LabelSessionObjectives')}:</h3>
+                            <h4 className="ilv-font-weight-semibold my-3">{Messages.get('LabelSessionObjectives')}:</h4>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
                                 nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
                                 nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
                                 Nam ut congue leo. Etiam consequat eu ligula blandit convallis.
                             </p>
-                            <div>
-                                <button className="ilv-btn ilv-btn-destructive">{Messages.get("LabelEndSession")}</button>
-                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelNewSession")}</button>
-                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelRateThisSession")}</button>
-                            </div>
                         </div>
                         <hr className="mt-5" />
+                        <div className="ilv-media ilv-media-middle">
+                            <div className="ilv-media-left mr-4">
+                                <strong className="ma-0" style={{lineHeight: '1'}}>{Messages.get("LabelActions")}</strong>
+                            </div>
+                            <div className="ilv-media-body">
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-destructive">{Messages.get("LabelEndSession")}</button>
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-primary">{Messages.get("LabelNewSession")}</button>
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-primary">{Messages.get("LabelRateThisSession")}</button>
+                            </div>
+                            <div className="ilv-media-right">
+                                <small>{Messages.get("LabelSessionDuration")}:</small>
+                                <h2 className="ma-0">1:31:47</h2>
+                            </div>
+                        </div>
+                        <hr />
                     </div>
                 </div>
 
