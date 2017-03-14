@@ -293,9 +293,9 @@ module.exports = React.createClass({
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
                                                 <p>{Messages.get("TextOfferedServicesHelp")}</p>
-                                                <Link className="ilv-btn ilv-btn-block ilv-btn-primary" to={"/notifications/messages/"+user.get("Id")}>
+                                                {!UserSession.get("logged") ? "":<Link className="ilv-btn ilv-btn-block ilv-btn-primary" to={"/notifications/messages/"+user.get("Id")}>
                                                     <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
-                                                </Link>
+                                                </Link>}
                                             </div>
                                         </div>                                                      
                                     </div>
@@ -319,16 +319,16 @@ module.exports = React.createClass({
                             </div>}
                             <div className="ilv-card-footer">
                                 <div className="row">
-                                    <div className="col-12">
+                                    {!UserSession.get("logged") ? "":<div className="col-12">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>
                                             {Messages.get("ActionHireProfessional")}
                                         </Link>
-                                    </div>
-                                    <div className="col-12 mt-3">
+                                    </div>}
+                                    {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
                                             {Messages.get("ActionSendMessage")}
                                         </Link>
-                                    </div>
+                                    </div>}
                                     {!user.get("PhoneNumber") ? "" :
                                         <div className="col-12 mt-3">
                                             <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}

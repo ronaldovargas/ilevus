@@ -19,6 +19,7 @@ namespace ilevus.Models
     {
         public const string AdsTable = "ilevus_ads";
         public const string CitiesTable = "ilevus_cities";
+        public const string CoachingProcessTable = "ilevus_coaching_process";
         public const string ConversationsTable = "ilevus_conversations";
         public const string MeetingScheduleTable = "ilevus_meeting_schedule";
         public const string PicturesTable = "ilevus_pictures";
@@ -47,6 +48,11 @@ namespace ilevus.Models
         public IMongoCollection<Ad> GetAdsCollection()
         {
             return IlevusDatabase.GetCollection<Ad>(IlevusTableNames.AdsTable);
+        }
+
+        public IMongoCollection<CoachingProcess> GetCoachingProcessCollection()
+        {
+            return IlevusDatabase.GetCollection<CoachingProcess>(IlevusTableNames.CoachingProcessTable);
         }
 
         public IMongoCollection<ChatConversation> GetConversationsCollection()
@@ -403,6 +409,7 @@ namespace ilevus.Models
         {
             var ads = GetAdsCollection();
             var conversations = GetConversationsCollection();
+            var coachingProcesses = GetCoachingProcessCollection();
             var meetings = GetMeetingScheduleCollection();
             var pictures = GetPicturesCollection();
             var users = IlevusDatabase.GetCollection<IlevusUser>("users");
