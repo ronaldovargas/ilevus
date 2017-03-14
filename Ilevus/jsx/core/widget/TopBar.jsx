@@ -120,7 +120,7 @@ module.exports = React.createClass({
                                     </span>
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessional")}</Link>
+                                    <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
                                     <div className="dropdown-divider"></div>
                                     <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>

@@ -14,41 +14,45 @@ module.exports = React.createClass({
                 <div className="row mb-5">
                     <div className="col">
                         <div className="ilv-media">
-                            <div className="ilv-media-left ilv-text-xs-center mr-3">
-                                <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
-                                        style={{ backgroundImage: "url(" + (S(UserIcon)) + ")" }
+                            <div className="ilv-media-left mr-4">
+                                <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
+                                     style={{ backgroundImage: "url(" + (S(UserIcon)) + ")" }
                                 } />
                             </div>
                             <div className="ilv-media-body">
-                                <strong>Sessão de Coacinhg dada por <a href="#">Robert Plant</a></strong>
-                                <p className="ilv-text-large ilv-font-weight-semibold">
-                                    {Messages.get('LabelSession')}: 6
-                                </p>
-                                
-                                <label className="ilv-font-weight-semibold">{Messages.get('LabelObjective')}:</label>
-                                <div className="ilv-card" style={{backgroundColor: '#cfd7e6'}}>
-                                    <div className="ilv-card-body">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus volutpat fermentum. Nulla et scelerisque magna, id faucibus mi.
-                                    </div>
-                                </div>
-                                <div className="ilv-media ilv-media-middle">
-                                    <div className="ilv-media-body">
-                                        <button className="ilv-btn">{Messages.get("LabelRateThisSession")}</button>
-                                    </div>
-                                    <div className="ilv-media-right">
-                                        <div className="dropdown">
-                                            <button className="ilv-btn ilv-btn-clean" data-toggle="dropdown">
-                                                <i className="ilv-icon material-icons md-24">&#xE2C4;</i>
-                                            </button>
-                                            <div className="dropdown-menu dropdown-menu-right">
-                                                <a className="dropdown-item" href="#">{Messages.get("LabelDownloadSession")}</a>
-                                                <a className="dropdown-item" href="#">{Messages.get("LabelDownloadAllSessions")}</a>
-                                            </div>
-                                        </div>
+                                <h1 className="ilv-font-weight-bold">{Messages.get('LabelSession')}: 6</h1>
+                                <p className="ilv-text-large">Sessão de Coacinhg dada por <a href="#">Robert Plant</a></p>
+                                <div className="dropdown hidden">
+                                    <button className="ilv-btn ilv-btn-neutral" data-toggle="dropdown">
+                                        <i className="ilv-icon material-icons md-24">&#xE2C4;</i> {Messages.get("LabelDownloadSession")}
+                                    </button>
+                                    <div className="dropdown-menu dropdown-menu-right">
+                                        <a className="dropdown-item" href="#">{Messages.get("LabelDownloadSession")}</a>
+                                        <a className="dropdown-item" href="#">{Messages.get("LabelDownloadAllSessions")}</a>
                                     </div>
                                 </div>
                             </div>
+                            <div className="ilv-media-right">
+                                <small>{Messages.get("LabelSessionDuration")}:</small>
+                                <h2 className="ma-0" style={{fontWeight: 'bold'}}>1:31:47</h2>
+                            </div>
                         </div>
+                        <hr className="mb-5"/>
+                        <div>
+                            <h3 className="ilv-font-weight-semibold my-3">{Messages.get('LabelSessionObjectives')}:</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
+                                nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
+                                nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
+                                Nam ut congue leo. Etiam consequat eu ligula blandit convallis.
+                            </p>
+                            <div>
+                                <button className="ilv-btn ilv-btn-destructive">{Messages.get("LabelEndSession")}</button>
+                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelNewSession")}</button>
+                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelRateThisSession")}</button>
+                            </div>
+                        </div>
+                        <hr className="mt-5" />
                     </div>
                 </div>
 
