@@ -216,6 +216,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
+    <Compile Include="Controllers\CoachingController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdController.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Helpers\IlevusClaimTypes.cs" />
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
+    <Compile Include="Models\CoachingModels.cs" />
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\ChatModels.cs" />
     <Compile Include="Models\CitiesModels.cs" />
@@ -281,6 +283,7 @@
     <Content Include="jsx\core\store\Schedule.jsx" />
     <Content Include="jsx\core\store\Ad.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelAds.jsx" />
+    <Content Include="jsx\core\store\Coaching.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -309,6 +312,7 @@
     <Content Include="jsx\core\widget\admin\AdForm.jsx" />
     <Content Include="jsx\core\widget\AdSideBar.jsx" />
     <Content Include="jsx\core\view\user\coaching\SessionDetails.jsx" />
+    <Content Include="jsx\core\view\user\coaching\HireProfessional.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

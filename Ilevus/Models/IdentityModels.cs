@@ -39,6 +39,8 @@ namespace ilevus.Models
         public string EmailChangeToken { get; set; }
         public string EmailChange { get; set; }
 
+        public List<string> Favorites { get; set; }
+
         public IlevusUser()
         {
             this.Type = UserType.Client;
@@ -50,6 +52,7 @@ namespace ilevus.Models
             this.ScheduleConfig = new UserScheduleConfig();
             this.Professional = new UserProfessionalProfile();
             this.IsProfessional = false;
+            this.Favorites = new List<string>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(IlevusUserManager manager, string authenticationType)

@@ -784,6 +784,40 @@ namespace ilevus.Controllers
             return Ok(accessTokenResponse);
         }
 
+        [HttpPost]
+        [Route("Favorite/{Id}")]
+        public async Task<IHttpActionResult> FavoriteUser(string Id)
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if ((user == null) || string.IsNullOrEmpty(Id))
+            {
+                return NotFound();
+            }
+            if (!user.Favorites.Contains(Id))
+            {
+                user.Favorites.Add(Id);
+                await UserManager.UpdateAsync(user);
+            }
+            return Ok(true);
+        }
+
+        [HttpPost]
+        [Route("Unfavorite/{Id}")]
+        public async Task<IHttpActionResult> UnfavoriteUser(string Id)
+        {
+            var user = await UserManager.FindByNameAsync(User.Identity.Name);
+            if ((user == null) || string.IsNullOrEmpty(Id))
+            {
+                return NotFound();
+            }
+            if (user.Favorites.Contains(Id))
+            {
+                user.Favorites.Remove(Id);
+                await UserManager.UpdateAsync(user);
+            }
+            return Ok(true);
+        }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("LoginWithFacebook")]

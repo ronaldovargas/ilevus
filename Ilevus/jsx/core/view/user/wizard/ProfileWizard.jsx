@@ -61,15 +61,22 @@ module.exports = React.createClass({
                 {this.props.children ? this.props.children : <div className="row justify-content-center">
 
                 <div className="col-6">
-                    <div className="text-center my-5">
-                        <h2>{Messages.get("TextCreateYourProfessionalProfile")}</h2>
+                    <div className="my-5">
+                        <h1 className="ma-0">{Messages.get("TextCreateYourProfessionalProfile")}</h1>
+                        {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
+                        && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
+                        && this.state.professionalData.ServicesInfo ?
+                            <li className="ilv-media ilv-media-middle pt-2 pb-0">
+                                <div className="ilv-media-body">
+                                    <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
+                                          to={"/profile/"+this.state.data.Id}>{Messages.get("TextSeeMyProfile")}
+                                    </Link>
+                                </div>
+                            </li>
+                        :""}
                     </div>
-
-                    <div className="ilv-card">
-                        <div className="ilv-card-body">
-                        <ul className="ilv-media-list ma-0">
-
-                            <li className="ilv-media ilv-media-middle pb-3">
+                    <ul className="ilv-media-list ma-0">
+                        <li className="ilv-media ilv-media-middle pb-4">
                             <div className="ilv-media-body">
                                 <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 1
@@ -89,9 +96,9 @@ module.exports = React.createClass({
                                 </Link>
                                 }
                             </div>
-                            </li>
+                        </li>
 
-                            <li className="ilv-media ilv-media-middle py-2">
+                        <li className="ilv-media ilv-media-middle pb-4">
                             <div className="ilv-media-body">
                                 <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 2
@@ -111,9 +118,9 @@ module.exports = React.createClass({
                                     </Link>
                                 ):""}
                             </div>
-                            </li>
+                        </li>
 
-                            <li className="ilv-media ilv-media-middle py-2">
+                        <li className="ilv-media ilv-media-middle pb-4">
                             <div className="ilv-media-body">
                                 <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 3
@@ -134,9 +141,9 @@ module.exports = React.createClass({
                                         </Link>
                                 ):""}
                             </div>
-                            </li>
+                        </li>
 
-                            <li className="ilv-media ilv-media-middle py-2">
+                        <li className="ilv-media ilv-media-middle pb-4">
                             <div className="ilv-media-body">
                                 <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 4
@@ -158,9 +165,9 @@ module.exports = React.createClass({
                                     </Link>
                                 ):""}
                             </div>
-                            </li>
+                        </li>
 
-                            <li className="ilv-media ilv-media-middle pt-2 pb-0">
+                        <li className="ilv-media ilv-media-middle pb-0">
                             <div className="ilv-media-body">
                                 <strong className="ilv-text-small ilv-text-uppercase text-muted">
                                     {Messages.get("LabelStep")} 5
@@ -182,22 +189,9 @@ module.exports = React.createClass({
                                     </Link>
                                 ):""}
                             </div>
-                            </li>
-                        </ul>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                   
-                    {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
-                        && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
-                        && this.state.professionalData.ServicesInfo ?
-                            <li className="ilv-media ilv-media-middle pt-2 pb-0">
-                                <div className="ilv-media-body">
-                                    <Link className="ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold"
-                                            to={"/profile/"+this.state.data.Id}>{Messages.get("TextSeeMyProfile")}
-                                    </Link>
-                                </div>
-                            </li>
-                    :""}
                 </div>
 
             </div>}

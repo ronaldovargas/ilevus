@@ -93,6 +93,8 @@ namespace ilevus.Models
             Surname = user.Surname;
             Type = user.Type;
 
+            Favorites = user.Favorites;
+
             ScheduleConfig = user.ScheduleConfig;
             Professional = new ProfessionalProfileViewModel(user);
             IsProfessional = user.IsProfessional;
@@ -122,6 +124,8 @@ namespace ilevus.Models
         public UserType Type { get; set; }
         public EmailVisibility EmailVisibility { get; set; }
         public UserStatus Status { get; set; }
+
+        public IEnumerable<string> Favorites { get; set; }
 
         public IEnumerable Permissions { get; set; }
         public IEnumerable Claims { get; set; }

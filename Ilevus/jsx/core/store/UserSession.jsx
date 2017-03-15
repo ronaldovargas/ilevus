@@ -24,6 +24,9 @@ var UserSession = Backbone.Model.extend({
 	ACTION_CHECK_RECOVER_TOKEN: 'checkRecoverToken',
 	ACTION_RESET_PASSWORD: 'resetPassword',
 
+	ACTION_FAVORITE_USER: 'favoriteUser',
+	ACTION_UNFAVORITE_USER: 'unfavoriteUser',
+
 	ACTION_UPDATE_CULTURE: 'updateCulture',
 	ACTION_UPDATE_PASSWORD: 'updatePassword',
 	ACTION_UPDATE_CONFIRMED_EMAIL: 'updateConfirmedEmail',
@@ -391,6 +394,46 @@ var UserSession = Backbone.Model.extend({
 				me.handleRequestErrors([], opts);
 			}
 		});
+	},
+
+	favoriteUser(id) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Favorite/"+id,
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            var favorites = me.get("user").Favorites;
+	            if (favorites.indexOf(id) < 0) {
+	                favorites.push(id);
+	            }
+	            me.trigger("user-favorite", id);
+	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+	unfavoriteUser(id) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Unfavorite/" + id,
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            var favorites = me.get("user").Favorites;
+	            var idx = favorites.indexOf(id);
+	            if (idx >= 0) {
+	                favorites.splice(idx, 1);
+	            }
+	            me.trigger("user-unfavorite", id);
+	            me.trigger("update", me);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
 	},
 
 	updateCulture(params) {
