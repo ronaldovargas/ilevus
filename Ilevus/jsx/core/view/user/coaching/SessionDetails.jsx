@@ -40,7 +40,16 @@ module.exports = React.createClass({
                                         </div>
                                     </div>
                                 </div>
-                                <hr className="mb-5"/>
+                                <hr className="mb-3"/>
+                                <div className="ilv-media ilv-media-middle">
+                                    <div className="ilv-media-left">
+                                        <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcess')}:</span>
+                                    </div>
+                                    <div className="ilv-media-body">
+                                        <a href="javascript:;">{Messages.get("LabelLinkSessionToProcessStep")}</a>
+                                    </div>
+                                </div>
+                                <hr className="mt-3 mb-5" />
                                 <div>
                                     <h4 className="ilv-font-weight-semibold my-3">{Messages.get('LabelSessionObjectives')}:</h4>
                                     <p>
