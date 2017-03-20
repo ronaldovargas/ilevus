@@ -79,8 +79,23 @@ module.exports = React.createClass({
                                                 <tr>
                                                     <td>Roda da vida</td>
                                                     <td className="text-right">
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelView")}</button>
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelDelete")}</button>
+                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
+                                                        </button>
+                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>SMART</td>
+                                                    <td className="text-right">
+                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
+                                                        </button>
+                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </tbody>
