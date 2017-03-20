@@ -11,6 +11,14 @@ module.exports = React.createClass({
     render() {
         return (
             <div className="container my-5">
+                <div className="row">
+                    <div className="col-xs-12 col-sm-8">
+
+                    </div>
+                    <div className="col-sm-4">
+
+                    </div>
+                </div>
                 <div className="row mb-5">
                     <div className="col">
                         <div className="ilv-media">
@@ -42,6 +50,7 @@ module.exports = React.createClass({
                                 nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
                                 Nam ut congue leo. Etiam consequat eu ligula blandit convallis.
                             </p>
+                            <a className="font-weight-bold" href="javascript:;">{Messages.get('LabelEdit')}</a>
                         </div>
                         <hr className="mt-5" />
                         <div className="ilv-media ilv-media-middle">
@@ -65,42 +74,50 @@ module.exports = React.createClass({
                 <div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("SessionTools")}</h4>
+                        <div className="ilv-card">
+                            <div className="ilv-card-body">
+                                <table className="ilv-table ilv-table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>{Messages.get("LabelTool")}</th>
+                                            <th className="text-right">{Messages.get("LabelActions")}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Roda da vida</td>
+                                            <td className="text-right">
+                                                <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelView")}</button>
+                                                <button className="ilv-btn ilv-btn-sm ilv-btn-clean">{Messages.get("LabelDelete")}</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a className="font-weight-bold" href="javascript:;">{Messages.get('LabelApplyTool')}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("LabelMyComments")}</h4>
-                        <textarea
-                            className="ilv-form-control"
-                            style={{minHeight: '240px'}}
-                            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
-                            nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
-                            nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-                            Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
-                            porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
-                            enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
-                            risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
-                            Morbi blandit metus nisi, quis tincidunt purus venenatis in.">
-                        </textarea>
+                        <textarea className="ilv-form-control" style={{minHeight: '200px'}}></textarea>
                     </div>
                 </div>
 
                 <div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("LabelCoachComments")}</h4>
-                        <textarea
-                            className="ilv-form-control"
-                            style={{minHeight: '240px'}}
-                            value="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
-                                  nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
-                                  nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-                                  Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
-                                  porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
-                                  enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
-                                  risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
-                                  Morbi blandit metus nisi, quis tincidunt purus venenatis in."
-                            readOnly>
+                        <textarea className="ilv-form-control" style={{minHeight: '200px'}} readOnly>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
+                            nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
+                            nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
+                            Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
+                            porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
+                            enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
+                            risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
+                            Morbi blandit metus nisi, quis tincidunt purus venenatis in.
                         </textarea>
                     </div>
                 </div>
