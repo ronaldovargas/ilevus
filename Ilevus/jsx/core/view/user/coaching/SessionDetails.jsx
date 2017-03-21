@@ -147,7 +147,8 @@ module.exports = React.createClass({
                                     <tbody>
                                         <tr>
                                             <td>
-                                                {Messages.get('LabelSession')} 5
+                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 5</div>
+                                                <small>{Messages.get('LabelDuration')}: 1:02</small>
                                             </td>
                                             <td className="text-right">
                                                 <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
@@ -157,7 +158,8 @@ module.exports = React.createClass({
                                         </tr>
                                         <tr>
                                             <td>
-                                                {Messages.get('LabelSession')} 4
+                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 4</div>
+                                                <small>{Messages.get('LabelDuration')}: 1:13</small>
                                             </td>
                                             <td className="text-right">
                                                 <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
@@ -167,7 +169,8 @@ module.exports = React.createClass({
                                         </tr>
                                         <tr>
                                             <td>
-                                                {Messages.get('LabelSession')} 3
+                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 3</div>
+                                                <small>{Messages.get('LabelDuration')}: 0:57</small>
                                             </td>
                                             <td className="text-right">
                                                 <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
@@ -177,7 +180,8 @@ module.exports = React.createClass({
                                         </tr>
                                         <tr>
                                             <td>
-                                                {Messages.get('LabelSession')} 2
+                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 2</div>
+                                                <small>{Messages.get('LabelDuration')}: 1:03</small>
                                             </td>
                                             <td className="text-right">
                                                 <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
@@ -187,7 +191,8 @@ module.exports = React.createClass({
                                         </tr>
                                         <tr>
                                             <td>
-                                                {Messages.get('LabelSession')} 1
+                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 1</div>
+                                                <small>{Messages.get('LabelDuration')}: 1:24</small>
                                             </td>
                                             <td className="text-right">
                                                 <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
