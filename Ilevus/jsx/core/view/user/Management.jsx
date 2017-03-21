@@ -16,12 +16,12 @@ module.exports = React.createClass({
                     <div className="col">
                         <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/dashboard">
+                                <Link className="ilv-nav-link" to="/user/dashboard" activeClassName="active">
                                 {Messages.get("LabelDashboard")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/schedule">
+                                <Link className="ilv-nav-link" to="/user/schedule" activeClassName="active">
                                 {Messages.get("LabelSchedule")}
                                 </Link>
                             </li>
@@ -31,17 +31,17 @@ module.exports = React.createClass({
                                 </a>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/profile">
+                                <Link className="ilv-nav-link" to="/user/profile" activeClassName="active">
                                 {Messages.get("LabelProfile")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item hidden">
-                                <Link className="ilv-nav-link" to="/user/professional-profile">
+                                <Link className="ilv-nav-link" to="/user/professional-profile" activeClassName="active">
                                 {Messages.get("LabelProfessionalProfile")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/account">
+                                <Link className="ilv-nav-link" to="/user/account" activeClassName="active">
                                 {Messages.get("LabelAccount")}
                                 </Link>
                             </li>

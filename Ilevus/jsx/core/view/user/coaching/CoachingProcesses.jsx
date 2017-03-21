@@ -5,6 +5,7 @@ var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
@@ -15,23 +16,27 @@ module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
     },
-    propTypes: {
-        user: React.PropTypes.object.isRequired
-    },
 
     getInitialState() {
         return {
-            processes: null,
+            asCoach: null,
+            asCoachee: null,
             loaded: false
         };
     },
 
     componentDidMount() {
         var me = this;
-        CoachingStore.on("retrieve-processes", (processes) => {
+        CoachingStore.on("retrieve-coach-processes", (processes) => {
             me.setState({
-                processes: processes,
-                loaded: true
+                asCoach: processes || [],
+                loaded: !!me.state.asCoachee
+            });
+        }, me);
+        CoachingStore.on("retrieve-coachee-processes", (processes) => {
+            me.setState({
+                asCoachee: processes || [],
+                loaded: !!me.state.asCoach
             });
         }, me);
 
@@ -43,34 +48,28 @@ module.exports = React.createClass({
     },
 
     refreshProcesses() {
-        if (this.props.user.IsProfessional) {
-            CoachingStore.dispatch({
-                action: CoachingStore.ACTION_RETRIEVE_COACH_PROCESSES
-            });
-        } else {
-            CoachingStore.dispatch({
-                action: CoachingStore.ACTION_RETRIEVE_COACHEE_PROCESSES
-            });
-        }
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_RETRIEVE_COACH_PROCESSES
+        });
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_RETRIEVE_COACHEE_PROCESSES
+        });
     },
 
-    renderProcesses() {
-        if (!this.state.processes || this.state.processes.length <= 0) {
-            return <i>Nenhum processo de coaching iniciado até o momento.</i>;
-        }
+    renderProcesses(asCoach) {
         return (<table className="ilv-table">
             <thead>
                 <tr>
-                    <th>{this.props.user.IsProfessional ? Messages.get("LabelCoachee") : Messages.get("LabelCoach")}</th>
+                    <th>{asCoach ? Messages.get("LabelCoachee") : Messages.get("LabelCoach")}</th>
                     <th>{Messages.get("LabelStatus")}</th>
                     <th>{Messages.get("LabelCurrentSession")}</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                {this.state.processes.map((process, index) => {
+                {(asCoach ? this.state.asCoach : this.state.asCoachee).map((process, index) => {
                     console.log(process);
-                    var display = this.props.user.IsProfessional ? process.Coachee : process.Coach;
+                    var display = asCoach ? process.Coachee : process.Coach;
                     var statusEl;
                     if (process.Status == 0) {
                         statusEl = <label className="ilv-tag ilv-tag-warning m-0">{Messages.get("LabelNotStarted")}</label>;
@@ -119,24 +118,47 @@ module.exports = React.createClass({
         if (!this.state.loaded) {
             return <LoadingGauge />;
         }
-        return (
-            <div className="container">
-                <div className="row mb-5">
-                    <div className="col">
-                        <h2 className="mb-5">{Messages.get("TextHello")} Jon Snow, {Messages.get("TextWelcomeBack")}!</h2>
-                        <div className="ilv-media ilv-media-middle mb-4">
-                            <div className="ilv-media-body">
-                                <h4>{Messages.get("TextCoachPrograms")} (4)</h4>
-                            </div>
-                            <div className="ilv-media-right">
-                                <input className="ilv-form-control" placeholder={Messages.get("LabelSearch")} />
-                            </div>
-                        </div>
+        return (<div className="container">
+            <h2 className="mb-5">
+                {Messages.get("TextHello")}&nbsp;
+                {UserSession.get("user").Name},&nbsp;
+                {Messages.get("TextWelcomeBack")}!
+            </h2>
 
-                        {this.renderProcesses()}
+            {this.state.asCoach.length <= 0 ? "":<div className="row mb-5">
+                <div className="col">
+                    <div className="ilv-media ilv-media-middle mb-4">
+                        <div className="ilv-media-body">
+                            <h4>
+                                {Messages.get("TextCoachProgramsAsCoach")} ({this.state.asCoach.length})
+                            </h4>
+                        </div>
+                        <div className="ilv-media-right">
+                            <input className="ilv-form-control" placeholder={Messages.get("LabelSearch")} />
+                        </div>
                     </div>
+
+                    {this.renderProcesses(true)}
                 </div>
-            </div>
-        );
+            </div>}
+
+            {this.state.asCoachee.length <= 0 ? "":<div className="row mb-5">
+                <div className="col">
+                    <div className="ilv-media ilv-media-middle mb-4">
+                        <div className="ilv-media-body">
+                            <h4>
+                                {Messages.get("TextCoachProgramsAsCoachee")} ({this.state.asCoachee.length})
+                            </h4>
+                        </div>
+                        <div className="ilv-media-right">
+                            <input className="ilv-form-control" placeholder={Messages.get("LabelSearch")} />
+                        </div>
+                    </div>
+
+                    {this.renderProcesses(false)}
+                </div>
+            </div>}
+
+        </div>);
     }
 });

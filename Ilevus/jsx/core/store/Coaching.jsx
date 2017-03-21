@@ -34,7 +34,7 @@ var CoachingStore = Fluxbone.Store.extend({
 	        url: me.url + "/Retrieve/Coach",
 	        dataType: 'json',
 	        success(data, status, opts) {
-	            me.trigger("retrieve-processes", data);
+	            me.trigger("retrieve-coach-processes", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
@@ -48,7 +48,7 @@ var CoachingStore = Fluxbone.Store.extend({
 	        url: me.url + "/Retrieve/Coachee",
 	        dataType: 'json',
 	        success(data, status, opts) {
-	            me.trigger("retrieve-processes", data);
+	            me.trigger("retrieve-coachee-processes", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

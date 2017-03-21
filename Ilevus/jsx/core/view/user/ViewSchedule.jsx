@@ -9,7 +9,6 @@ var ScheduleStore = require("ilevus/jsx/core/store/Schedule.jsx");
 var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingScheduleConfig.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
-var CoachingProcesses = require("ilevus/jsx/core/widget/user/CoachingProcesses.jsx");
 
 var string = require("string");
 var UserIcon = require("ilevus/img/user.png");
@@ -75,13 +74,14 @@ module.exports = React.createClass({
         }
         return (
             <div className="container">
-                <CoachingProcesses user={UserSession.get("user")} />
-
                 <div className="row mb-5">
                     <div className="col">
                         <div className="ilv-media ilv-media-middle mb-4">
                             <div className="ilv-media-body">
-                                <h4>{Messages.get("YourSchedules")} (1)</h4>
+                                <h4>
+                                    {Messages.get("YourSchedules")} ({!this.state.meetings || this.state.meetings.length <= 0 ? 0 : this.state.meetings.length})
+                                    &nbsp;<Link to="/user/schedule/configure" className="ilv-btn ilv-btn-primary">{Messages.get("ActionConfigure")}</Link>
+                                </h4>
                             </div>
                             <div className="ilv-media-right">
                                 <select className="ilv-form-control">
