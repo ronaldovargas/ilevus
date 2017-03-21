@@ -54,4 +54,31 @@ namespace ilevus.Models
             Creation = DateTime.Now;
         }
     }
+
+
+    public class CoachingProcessViewModel
+    {
+        public string Id { get; set; }
+
+        public PublicProfileViewModel Coach { get; set; }
+        public PublicProfileViewModel Coachee { get; set; }
+        public DateTime Creation { get; set; }
+        public DateTime Started { get; set; }
+        public DateTime Finished { get; set; }
+
+        public string Objectives { get; set; }
+        public string CoachComments { get; set; }
+        public string CoacheeComments { get; set; }
+        public string Testimony { get; set; }
+
+        public int Status { get; set; }
+        public double Rating { get; set; }
+
+        public List<CoachingSession> Sessions { get; set; }
+
+        public CoachingProcessViewModel()
+        {
+            Sessions = new List<CoachingSession>();
+        }
+    }
 }

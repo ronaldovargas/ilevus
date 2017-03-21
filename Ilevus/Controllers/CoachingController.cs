@@ -15,6 +15,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
+using static ilevus.Models.CoachingSession;
 
 namespace ilevus.Controllers
 {
@@ -61,7 +62,26 @@ namespace ilevus.Controllers
                 var processes = await results.ToListAsync();
                 if (processes != null)
                 {
-                    return Ok(processes);
+                    var viewModels = new List<CoachingProcessViewModel>();
+                    foreach (var process in processes) {
+                        var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                        viewModels.Add(new CoachingProcessViewModel() {
+                            Id = process.Id,
+                            CoachComments = process.CoachComments,
+                            CoacheeComments = process.CoacheeComments,
+                            Creation = process.Creation,
+                            Started = process.Started,
+                            Finished = process.Finished,
+                            Objectives = process.Objectives,
+                            Testimony = process.Testimony,
+                            Rating = process.Rating,
+                            Status = process.Status,
+                            Sessions = process.Sessions,
+                            Coach = new PublicProfileViewModel(user),
+                            Coachee = new PublicProfileViewModel(coachee)
+                        });
+                    }
+                    return Ok(viewModels);
                 }
                 return Ok(new List<CoachingProcess>());
             }
@@ -85,7 +105,28 @@ namespace ilevus.Controllers
                 var processes = await results.ToListAsync();
                 if (processes != null)
                 {
-                    return Ok(processes);
+                    var viewModels = new List<CoachingProcessViewModel>();
+                    foreach (var process in processes)
+                    {
+                        var coach = await UserManager.FindByIdAsync(process.CoachId);
+                        viewModels.Add(new CoachingProcessViewModel()
+                        {
+                            Id = process.Id,
+                            CoachComments = process.CoachComments,
+                            CoacheeComments = process.CoacheeComments,
+                            Creation = process.Creation,
+                            Started = process.Started,
+                            Finished = process.Finished,
+                            Objectives = process.Objectives,
+                            Testimony = process.Testimony,
+                            Rating = process.Rating,
+                            Status = process.Status,
+                            Sessions = process.Sessions,
+                            Coach = new PublicProfileViewModel(coach),
+                            Coachee = new PublicProfileViewModel(user)
+                        });
+                    }
+                    return Ok(viewModels);
                 }
                 return Ok(new List<CoachingProcess>());
             }

@@ -19,21 +19,36 @@ var CoachingModel = Fluxbone.Model.extend({
 });
 
 var CoachingStore = Fluxbone.Store.extend({
-    ACTION_RETRIEVE_ADS: 'coaching-retrieveAds',
+    ACTION_RETRIEVE_COACH_PROCESSES: 'coaching-retrieveCoachProcesses',
+    ACTION_RETRIEVE_COACHEE_PROCESSES: 'coaching-retrieveCoacheeProcesses',
     ACTION_HIRE_PROFESSIONAL: 'coaching-hireProfessional',
     dispatchAcceptRegex: /^coaching-[a-zA-Z0-9]+$/,
 
 	url: URL,
 	model: CoachingModel,
 
-	retrieveAds(params) {
+	retrieveCoachProcesses(params) {
 	    var me = this;
 	    $.ajax({
 	        method: "GET",
-	        url: me.url + "/Retrieve",
+	        url: me.url + "/Retrieve/Coach",
 	        dataType: 'json',
 	        success(data, status, opts) {
-	            me.trigger("retrieve-ads", data);
+	            me.trigger("retrieve-processes", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+	retrieveCoacheeProcesses(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Retrieve/Coachee",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-processes", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
