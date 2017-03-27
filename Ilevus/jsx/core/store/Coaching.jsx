@@ -21,7 +21,9 @@ var CoachingModel = Fluxbone.Model.extend({
 var CoachingStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_COACH_PROCESSES: 'coaching-retrieveCoachProcesses',
     ACTION_RETRIEVE_COACHEE_PROCESSES: 'coaching-retrieveCoacheeProcesses',
+    ACTION_RETRIEVE_COACHING_PROCESS: 'coaching-retrieveCoachingProcess',
     ACTION_HIRE_PROFESSIONAL: 'coaching-hireProfessional',
+    ACTION_UPDATE_SESSION_FIELD: 'coaching-updateSessionField',
     dispatchAcceptRegex: /^coaching-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -56,6 +58,21 @@ var CoachingStore = Fluxbone.Store.extend({
 	    });
 	},
 
+	retrieveCoachingProcess(id) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Retrieve/Process/" + id,
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-coaching-process", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
 	hireProfessional(id) {
 	    var me = this;
 	    $.ajax({
@@ -64,6 +81,22 @@ var CoachingStore = Fluxbone.Store.extend({
 	        dataType: 'json',
 	        success(data, status, opts) {
 	            me.trigger("professional-hired", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateSessionField(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Update/SessionField",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("updated-session-field", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

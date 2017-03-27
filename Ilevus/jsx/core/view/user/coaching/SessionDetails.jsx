@@ -3,12 +3,93 @@ var S = require("string");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
+var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
-var UserStore = require("ilevus/jsx/core/store/User.jsx");
+
+var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
 var UserIcon = require("ilevus/img/user.png");
 
 module.exports = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+
+    getInitialState() {
+        return {
+            isCoach: false,
+            process: null,
+            session: 0,
+            loading: true
+        };
+    },
+
+    componentDidMount() {
+        var me = this;
+        CoachingStore.on("retrieve-coaching-process", (process) => {
+            me.setState({
+                isCoach: UserSession.get("user").Id === process.Coach.Id,
+                process: process,
+                session: process.Sessions.length - 1,
+                loading: false
+            });
+        }, me);
+        CoachingStore.on("updated-session-field", (process) => {
+            me.setState({
+                process: process
+            });
+        }, me);
+
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
+            data: me.props.params.id
+        });
+    },
+
+    componentWillUnmount() {
+        CoachingStore.off(null, null, this);
+    },
+
+    updateSessionField(field, value) {
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_UPDATE_SESSION_FIELD,
+            data: {
+                ProcessId: this.props.params.id,
+                Session: this.state.session,
+                Field: field,
+                Value: value
+            }
+        });
+    },
+    objectiveChange(newValue) {
+        this.state.process.Sessions[this.state.session].Objectives = newValue;
+        this.forceUpdate();
+        this.updateSessionField("Objectives", newValue);
+    },
+    coacheeCommentsChange(newValue) {
+        this.state.process.Sessions[this.state.session].CoacheeComments = newValue;
+        this.forceUpdate();
+        this.updateSessionField("CoacheeComments", newValue);
+    },
+    coachCommentsChange(newValue) {
+        this.state.process.Sessions[this.state.session].CoachComments = newValue;
+        this.forceUpdate();
+        this.updateSessionField("CoachComments", newValue);
+    },
+
     render() {
+        if (this.state.loading) {
+            return <LoadingGauge />;
+        }
+        var process = this.state.process,
+            isCoach = this.state.isCoach,
+            coach = process.Coach,
+            coachee = process.Coachee,
+            other = isCoach ? coachee : coach,
+            session = process.Sessions[this.state.session]
+        ;
+        console.log(session);
         return (
             <div className="container my-5">
                 <div className="row">
@@ -18,12 +99,14 @@ module.exports = React.createClass({
                                 <div className="ilv-media">
                                     <div className="ilv-media-left mr-4">
                                         <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
-                                             style={{ backgroundImage: "url(" + (S(UserIcon)) + ")" }
+                                             style={{ backgroundImage: "url(" + (S(other.Image).isEmpty() ? UserIcon : other.Image) + ")" }
                                         } />
                                     </div>
                                     <div className="ilv-media-body">
-                                        <h1 className="ilv-font-weight-bold">{Messages.get('LabelSession')}: 6</h1>
-                                        <p className="ilv-text-large">Sessão de Coacinhg dada por <a href="#">Robert Plant</a></p>
+                                        <h1 className="ilv-font-weight-bold">{Messages.get('LabelSession')}: {this.state.session + 1}</h1>
+                                        <p className="ilv-text-large">
+                                            {isCoach ? Messages.get("TextCoachingSessionTo") : Messages.get("TextCoachingSessionBy")} <em>{other.Name} {other.Surname}</em>.
+                                        </p>
                                     </div>
                                     <div className="ilv-media-right">
                                         <button className="ilv-btn ilv-btn-clean">
@@ -49,17 +132,14 @@ module.exports = React.createClass({
                                         <a href="javascript:;">{Messages.get("LabelLinkSessionToProcessStep")}</a>
                                     </div>
                                 </div>
+
                                 <hr className="mt-3 mb-5" />
-                                <div>
-                                    <h4 className="ilv-font-weight-semibold my-3">{Messages.get('LabelSessionObjectives')}:</h4>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
-                                        nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
-                                        nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-                                        Nam ut congue leo. Etiam consequat eu ligula blandit convallis.
-                                    </p>
-                                    <a className="font-weight-bold" href="javascript:;">{Messages.get('LabelEdit')}</a>
-                                </div>
+
+                                <EditableTextArea
+                                                  label={Messages.get('LabelSessionObjectives')}
+                                                  value={session.Objectives}
+                                                  editable={isCoach}
+                                                  onChange={this.objectiveChange} />
                             </div>
                         </div>
 
@@ -108,24 +188,17 @@ module.exports = React.createClass({
 
                         <div className="row mb-5">
                             <div className="col">
-                                <h4>{Messages.get("LabelMyComments")}</h4>
-                                <textarea className="ilv-form-control" style={{minHeight: '200px'}}></textarea>
+                                <EditableTextArea label={Messages.get('LabelMyComments')}
+                                              value={isCoach ? session.CoachComments : session.CoacheeComments}
+                                              onChange={isCoach ? this.coachCommentsChange : this.coacheeCommentsChange} />
                             </div>
                         </div>
 
                         <div className="row mb-5">
                             <div className="col">
-                                <h4>{Messages.get("LabelCoachComments")}</h4>
-                                <textarea className="ilv-form-control" style={{minHeight: '200px'}} readOnly>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean blandit auctor sem,
-                                    nec suscipit purus ultrices sit amet. Cras sed sagittis mauris. Phasellus sit amet
-                                    nisi non risus elementum sollicitudin. Morbi eu libero nec urna auctor imperdiet.
-                                    Nam ut congue leo. Etiam consequat eu ligula blandit convallis. Mauris sit amet leo
-                                    porta, aliquet lorem quis, ullamcorper nisi. Sed at turpis sem. Aenean et eleifend
-                                    enim. Praesent congue vitae turpis non porttitor. Mauris a rutrum justo. Morbi vel
-                                    risus eleifend, luctus urna quis, mollis lectus. Aliquam fermentum dapibus sodales.
-                                    Morbi blandit metus nisi, quis tincidunt purus venenatis in.
-                                </textarea>
+                                <EditableTextArea label={Messages.get(isCoach ? 'LabelCoacheeComments':'LabelCoachComments')}
+                                              value={isCoach ? session.CoacheeComments : session.CoachComments}
+                                              editable={false} />
                             </div>
                         </div>
                     </div>

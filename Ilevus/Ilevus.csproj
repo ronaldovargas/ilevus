@@ -314,6 +314,7 @@
     <Content Include="jsx\core\view\user\coaching\SessionDetails.jsx" />
     <Content Include="jsx\core\view\user\coaching\HireProfessional.jsx" />
     <Content Include="jsx\core\view\user\coaching\CoachingProcesses.jsx" />
+    <Content Include="jsx\core\widget\coaching\EditableTextArea.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />

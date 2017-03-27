@@ -4,6 +4,9 @@ var React = require('react');
 var LoadingGif = require('ilevus/img/loading.gif');
 
 module.exports = React.createClass({
+    shouldComponentUpdate() {
+        return false;
+    },
 	render() {
 		return (<div
 				style={{

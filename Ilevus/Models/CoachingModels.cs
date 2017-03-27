@@ -76,9 +76,29 @@ namespace ilevus.Models
 
         public List<CoachingSession> Sessions { get; set; }
 
-        public CoachingProcessViewModel()
+        public CoachingProcessViewModel(CoachingProcess process, IlevusUser coach, IlevusUser coachee)
         {
-            Sessions = new List<CoachingSession>();
+            Id = process.Id;
+            CoachComments = process.CoachComments;
+            CoacheeComments = process.CoacheeComments;
+            Creation = process.Creation;
+            Started = process.Started;
+            Finished = process.Finished;
+            Objectives = process.Objectives;
+            Testimony = process.Testimony;
+            Rating = process.Rating;
+            Status = process.Status;
+            Sessions = process.Sessions;
+            Coach = new PublicProfileViewModel(coach);
+            Coachee = new PublicProfileViewModel(coachee);
         }
+    }
+
+    public class CoachingSessionFieldUpdateBindingModel
+    {
+        public string ProcessId { get; set; }
+        public string Field { get; set; }
+        public string Value { get; set; }
+        public int Session { get; set; }
     }
 }

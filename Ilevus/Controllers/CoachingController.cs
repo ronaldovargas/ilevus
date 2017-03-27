@@ -49,6 +49,83 @@ namespace ilevus.Controllers
         }
 
         [HttpGet]
+        [Route("Retrieve/Process/{id}")]
+        public async Task<IHttpActionResult> GetCoachingProcess(string id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
+                if (process != null)
+                {
+                    if (process.Sessions.Count == 0)
+                    {
+                        var session = new CoachingSession();
+                        await collection.UpdateOneAsync(filters.Eq("Id", id), updates.Push("Sessions", session));
+                        process.Sessions.Add(session);
+                    }
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("Update/SessionField")]
+        public async Task<IHttpActionResult> UpdateSessionField(CoachingSessionFieldUpdateBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+
+                    if ("Objectives".Equals(model.Field))
+                    {
+                        session.Objectives = model.Value;
+                    }
+                    else if ("CoachComments".Equals(model.Field))
+                    {
+                        session.CoachComments = model.Value;
+                    }
+                    else if ("CoacheeComments".Equals(model.Field))
+                    {
+                        session.CoacheeComments = model.Value;
+                    }
+                    else
+                    {
+                        return BadRequest("Invalid request");
+                    }
+
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId), updates.Set("Sessions", process.Sessions));
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+
+        [HttpGet]
         [Route("Retrieve/Coach")]
         public async Task<IHttpActionResult> GetCoachProcesses()
         {
@@ -65,21 +142,7 @@ namespace ilevus.Controllers
                     var viewModels = new List<CoachingProcessViewModel>();
                     foreach (var process in processes) {
                         var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
-                        viewModels.Add(new CoachingProcessViewModel() {
-                            Id = process.Id,
-                            CoachComments = process.CoachComments,
-                            CoacheeComments = process.CoacheeComments,
-                            Creation = process.Creation,
-                            Started = process.Started,
-                            Finished = process.Finished,
-                            Objectives = process.Objectives,
-                            Testimony = process.Testimony,
-                            Rating = process.Rating,
-                            Status = process.Status,
-                            Sessions = process.Sessions,
-                            Coach = new PublicProfileViewModel(user),
-                            Coachee = new PublicProfileViewModel(coachee)
-                        });
+                        viewModels.Add(new CoachingProcessViewModel(process, user, coachee));
                     }
                     return Ok(viewModels);
                 }
@@ -109,22 +172,7 @@ namespace ilevus.Controllers
                     foreach (var process in processes)
                     {
                         var coach = await UserManager.FindByIdAsync(process.CoachId);
-                        viewModels.Add(new CoachingProcessViewModel()
-                        {
-                            Id = process.Id,
-                            CoachComments = process.CoachComments,
-                            CoacheeComments = process.CoacheeComments,
-                            Creation = process.Creation,
-                            Started = process.Started,
-                            Finished = process.Finished,
-                            Objectives = process.Objectives,
-                            Testimony = process.Testimony,
-                            Rating = process.Rating,
-                            Status = process.Status,
-                            Sessions = process.Sessions,
-                            Coach = new PublicProfileViewModel(coach),
-                            Coachee = new PublicProfileViewModel(user)
-                        });
+                        viewModels.Add(new CoachingProcessViewModel(process, coach, user));
                     }
                     return Ok(viewModels);
                 }
