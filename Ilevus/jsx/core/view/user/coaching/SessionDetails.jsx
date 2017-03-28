@@ -7,6 +7,7 @@ var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
@@ -140,6 +141,12 @@ module.exports = React.createClass({
                                                   value={session.Objectives}
                                                   editable={isCoach}
                                                   onChange={this.objectiveChange} />
+                            </div>
+                        </div>
+
+                        <div className="row mb-5">
+                            <div className="col">
+                                <WheelOfLifeChart />
                             </div>
                         </div>
 
