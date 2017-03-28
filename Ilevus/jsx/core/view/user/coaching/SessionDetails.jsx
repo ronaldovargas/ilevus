@@ -7,6 +7,7 @@ var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
 var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
@@ -77,6 +78,12 @@ module.exports = React.createClass({
         this.state.process.Sessions[this.state.session].CoachComments = newValue;
         this.forceUpdate();
         this.updateSessionField("CoachComments", newValue);
+    },
+
+    selectSession(index) {
+        this.setState({
+            session: index
+        });
     },
 
     render() {
@@ -212,76 +219,20 @@ module.exports = React.createClass({
 
                     <div className="col-sm-4">
                         <div className="ilv-card">
-                            <div className="ilv-card-header text-center">
+                            {session.Status == 0 ? <div className="ilv-card-header text-center">
+                                <i>{Messages.get("LabelNotStarted")}</i>
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2">{Messages.get("LabelStartSession")}</button>
+                            </div>:(session.Status < 10 ? <div className="ilv-card-header text-center">
                                 <small>{Messages.get("LabelSessionDuration")}:</small>
                                 <h1 className="mb-3">1:31:47</h1>
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive">{Messages.get("LabelEndSession")}</button>
-                            </div>
+                            </div>:<div className="ilv-card-header text-center">
+                                <small>{Messages.get("LabelSessionDuration")}:</small>
+                                <h1 className="mb-3">1:31:47</h1>
+                                <i>{Messages.get("LabelFinished")}</i>
+                            </div>)}
                             <div className="ilv-card-block">
-                                <table className="ilv-table mb-0">
-                                    <thead>
-                                        <tr style={{backgroundColor: '#f5f7f9'}}>
-                                            <th className="text-center" colSpan="2"><small className="font-weight-bold">{Messages.get("TextSessionHistory")}</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 5</div>
-                                                <small>{Messages.get('LabelDuration')}: 1:02</small>
-                                            </td>
-                                            <td className="text-right">
-                                                <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
-                                                    <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 4</div>
-                                                <small>{Messages.get('LabelDuration')}: 1:13</small>
-                                            </td>
-                                            <td className="text-right">
-                                                <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
-                                                    <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 3</div>
-                                                <small>{Messages.get('LabelDuration')}: 0:57</small>
-                                            </td>
-                                            <td className="text-right">
-                                                <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
-                                                    <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 2</div>
-                                                <small>{Messages.get('LabelDuration')}: 1:03</small>
-                                            </td>
-                                            <td className="text-right">
-                                                <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
-                                                    <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div className="font-weight-bold">{Messages.get('LabelSession')} 1</div>
-                                                <small>{Messages.get('LabelDuration')}: 1:24</small>
-                                            </td>
-                                            <td className="text-right">
-                                                <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="javascript:;">
-                                                    <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button>
                             </div>
                         </div>

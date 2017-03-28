@@ -316,6 +316,7 @@
     <Content Include="jsx\core\view\user\coaching\CoachingProcesses.jsx" />
     <Content Include="jsx\core\widget\coaching\EditableTextArea.jsx" />
     <Content Include="jsx\core\widget\coaching\wheeloflife\Chart.jsx" />
+    <Content Include="jsx\core\widget\coaching\SessionHistory.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
