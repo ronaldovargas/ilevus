@@ -13,6 +13,90 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
 
+var Line = require("react-chartjs-2").Line;
+
+const configCommitment = {
+    data: {
+        labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
+        datasets: [
+            {
+                label: "Comprometimento",
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 10,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(75,192,192,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [5, 7, 8, 8, 6],
+                spanGaps: false,
+            }
+        ],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 10,
+                    stepSize: 2,
+                }
+            }]
+        }
+    }
+};
+
+const configScore = {
+    data: {
+        labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
+        datasets: [
+            {
+                label: "Nota da avaliação",
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255,99,132,1)',
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(255,99,132,1)',
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 10,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(255,99,132,1)',
+                pointHoverBorderColor: 'rgba(255,99,132,1)',
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: [8, 7, 8, 4, 6],
+                spanGaps: false,
+            }
+        ],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 10,
+                    stepSize: 2,
+                }
+            }]
+        }
+    }
+};
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -133,11 +217,17 @@ module.exports = React.createClass({
                                 </div>
                                 <hr className="mb-3"/>
                                 <div className="ilv-media ilv-media-middle">
-                                    <div className="ilv-media-left">
+                                    <div className="ilv-media-left mr-3">
                                         <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcess')}:</span>
                                     </div>
                                     <div className="ilv-media-body">
-                                        <a href="javascript:;">{Messages.get("LabelLinkSessionToProcessStep")}</a>
+                                        <select className="ilv-form-control ilv-form-control-sm">
+                                            <option>1 - Identificar situação atual</option>
+                                            <option>2 - Criar perspectivas</option>
+                                            <option>3 - Definir metas</option>
+                                            <option>4 - Criar plano de ação</option>
+                                            <option>5 - Desenvolver continuamente</option>
+                                        </select>
                                     </div>
                                 </div>
 
@@ -148,12 +238,6 @@ module.exports = React.createClass({
                                                   value={session.Objectives}
                                                   editable={isCoach}
                                                   onChange={this.objectiveChange} />
-                            </div>
-                        </div>
-
-                        <div className="row mb-5">
-                            <div className="col">
-                                <WheelOfLifeChart />
                             </div>
                         </div>
 
@@ -218,7 +302,7 @@ module.exports = React.createClass({
                     </div>
 
                     <div className="col-sm-4">
-                        <div className="ilv-card">
+                        <div className="ilv-card mb-5">
                             {session.Status == 0 ? <div className="ilv-card-header text-center">
                                 <i>{Messages.get("LabelNotStarted")}</i>
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2">{Messages.get("LabelStartSession")}</button>
@@ -235,6 +319,12 @@ module.exports = React.createClass({
                                 <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button>
                             </div>
+                        </div>
+                        <div className="mb-5">
+                            <Line data={configCommitment.data} options={configCommitment.options} />
+                        </div>
+                        <div className="mb-5">
+                            <Line data={configScore.data} options={configScore.options} />
                         </div>
                     </div>
                 </div>
