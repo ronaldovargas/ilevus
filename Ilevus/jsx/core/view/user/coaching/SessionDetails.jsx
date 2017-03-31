@@ -179,7 +179,8 @@ module.exports = React.createClass({
             coach = process.Coach,
             coachee = process.Coachee,
             other = isCoach ? coachee : coach,
-            session = process.Sessions[this.state.session]
+            session = process.Sessions[this.state.session],
+            inProgress = (session.Status > 0) && (session.Status < 10)
         ;
         console.log(session);
         return (
@@ -218,7 +219,7 @@ module.exports = React.createClass({
                                 <hr className="mb-3"/>
                                 <div className="ilv-media ilv-media-middle">
                                     <div className="ilv-media-left mr-3">
-                                        <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcess')}:</span>
+                                        <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcessStep')}:</span>
                                     </div>
                                     <div className="ilv-media-body">
                                         <select className="ilv-form-control ilv-form-control-sm">
@@ -236,7 +237,7 @@ module.exports = React.createClass({
                                 <EditableTextArea
                                                   label={Messages.get('LabelSessionObjectives')}
                                                   value={session.Objectives}
-                                                  editable={isCoach}
+                                                  editable={isCoach && inProgress}
                                                   onChange={this.objectiveChange} />
                             </div>
                         </div>
@@ -288,6 +289,7 @@ module.exports = React.createClass({
                             <div className="col">
                                 <EditableTextArea label={Messages.get('LabelMyComments')}
                                               value={isCoach ? session.CoachComments : session.CoacheeComments}
+                                              editable={inProgress}
                                               onChange={isCoach ? this.coachCommentsChange : this.coacheeCommentsChange} />
                             </div>
                         </div>
@@ -316,15 +318,21 @@ module.exports = React.createClass({
                                 <i>{Messages.get("LabelFinished")}</i>
                             </div>)}
                             <div className="ilv-card-block">
-                                <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button>
+                                {session.Status >= 10 ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button> : ""}
                             </div>
                         </div>
+
                         <div className="mb-5">
                             <Line data={configCommitment.data} options={configCommitment.options} />
                         </div>
                         <div className="mb-5">
                             <Line data={configScore.data} options={configScore.options} />
+                        </div>
+
+                        <div className="ilv-card mb-5">
+                            <div className="ilv-card-block">
+                                <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
+                            </div>
                         </div>
                     </div>
                 </div>

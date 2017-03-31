@@ -45,7 +45,7 @@ module.exports = React.createClass({
             {this.props.editable ? <a className="font-weight-bold" onClick={this.tweakEditing} href="#">{Messages.get('LabelEdit')}</a>:""}
         </div>:<div>
             <h4 className="ilv-font-weight-semibold my-3">{this.props.label}:</h4>
-            <textarea className="ilv-form-control" ref="textarea" style={{minHeight: '150px'}} defaultValue={value.s} />
+            <textarea className="ilv-form-control mb-2" ref="textarea" style={{minHeight: '150px'}} defaultValue={value.s} />
             <button className="ilv-btn ilv-btn-primary" onClick={this.saveEdit}>{Messages.get("LabelSave")}</button>
             <button className="ilv-btn ilv-btn-sm ilv-btn-clean" onClick={this.tweakEditing}>{Messages.get("LabelCancel")}</button>
         </div>);
