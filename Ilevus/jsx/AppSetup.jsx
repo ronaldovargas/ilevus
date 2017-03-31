@@ -74,9 +74,9 @@ S.TMPL_OPEN = '{';
 S.TMPL_CLOSE = '}';
 
 // Numeral configuration
-Numeral.language('pt-BR', require("numeral/languages/pt-br.js"));
-Numeral.language('es', require("numeral/languages/es.js"));
-Numeral.language("pt-BR");
+Numeral.locale('pt-BR', require("numeral/locales/pt-br.js"));
+Numeral.locale('es', require("numeral/locales/es.js"));
+Numeral.locale("pt-BR");
 
 //Toastr.options.positionClass = "toast-top-center";
 Toastr.options.positionClass = "toast-top-full-width";
@@ -126,7 +126,7 @@ Messages.load(function (success) {
         }
 
         if (success) {
-            Numeral.language(culture);
+            Numeral.locale(culture);
             moment.locale(S(culture).toLowerCase());
         }
 

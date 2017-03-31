@@ -50,7 +50,7 @@ namespace ilevus.Controllers
 
         [HttpGet]
         [Route("Retrieve/Process/{id}")]
-        public async Task<IHttpActionResult> GetCoachingProcess(string id)
+        public async Task<IHttpActionResult> GetCoachingProcess(string id, string lastModified = null)
         {
             var db = IlevusDBContext.Create();
             var filters = Builders<CoachingProcess>.Filter;
@@ -58,6 +58,15 @@ namespace ilevus.Controllers
             var collection = db.GetCoachingProcessCollection();
             try
             {
+                if (!string.IsNullOrEmpty(lastModified))
+                {
+                    var modified = await collection.CountAsync(filters.And(
+                        filters.Eq("Id", id),
+                        filters.Gt("LastModified", DateTime.Parse(lastModified))
+                    ));
+                    if (modified == 0)
+                        return Ok(false);
+                }
                 var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
                 if (process != null)
                 {
@@ -110,8 +119,14 @@ namespace ilevus.Controllers
                     {
                         return BadRequest("Invalid request");
                     }
-
-                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId), updates.Set("Sessions", process.Sessions));
+                    
+                    process.LastModified = DateTime.Now;
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", process.LastModified)
+                        )
+                    );
                     var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
                     var coach = await UserManager.FindByIdAsync(process.CoachId);
                     return Ok(new CoachingProcessViewModel(process, coach, coachee));
@@ -123,6 +138,131 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
+
+        [HttpPost]
+        [Route("{id}/NewSession")]
+        public async Task<IHttpActionResult> NewSession(string id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[process.Sessions.Count - 1];
+                    if (session.Status < 10 || !process.CoachId.Equals(user.Id))
+                    {
+                        return BadRequest("Você não pode criar uma nova sessão antes de finalizar a atual.");
+                    }
+                    var newSession = new CoachingSession();
+                    process.Sessions.Add(newSession);
+                    process.LastModified = newSession.Creation;
+
+                    await collection.UpdateOneAsync(filters.Eq("Id", id),
+                        updates.Combine(
+                            updates.AddToSet("Sessions", newSession),
+                            updates.Set("LastModified", newSession.Creation)
+                        )
+                    );
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("{id}/StartSession")]
+        public async Task<IHttpActionResult> StartSession(string id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[process.Sessions.Count - 1];
+                    if (session.Status != 0 || !process.CoachId.Equals(user.Id))
+                    {
+                        return BadRequest("Você não pode iniciar esta sessão.");
+                    }
+                    session.Status = 5;
+                    session.Started = DateTime.Now;
+                    process.LastModified = session.Started;
+
+                    await collection.UpdateOneAsync(filters.Eq("Id", id),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("Status", 5),
+                            updates.Set("LastModified", process.LastModified)
+                        )
+                    );
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("{id}/FinishSession")]
+        public async Task<IHttpActionResult> FinishSession(string id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[process.Sessions.Count - 1];
+                    if (session.Status != 5 || !process.CoachId.Equals(user.Id))
+                    {
+                        return BadRequest("Você não pode finalizar esta sessão.");
+                    }
+                    session.Status = 10;
+                    session.Finished = DateTime.Now;
+                    process.LastModified = session.Finished;
+
+                    await collection.UpdateOneAsync(filters.Eq("Id", id),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", process.LastModified)
+                        )
+                    );
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
 
 
         [HttpGet]

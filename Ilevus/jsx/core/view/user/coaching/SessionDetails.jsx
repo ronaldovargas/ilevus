@@ -1,5 +1,9 @@
-﻿var React = require('react');
+﻿
+var _ = require("underscore");
 var S = require("string");
+var moment = require("moment");
+var numeral = require("numeral");
+var React = require('react');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -10,6 +14,7 @@ var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea
 var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
 var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
 
@@ -20,7 +25,7 @@ const configCommitment = {
         labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
         datasets: [
             {
-                label: "Comprometimento",
+                label: Messages.get("LabelCommitment"),
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: "rgba(75,192,192,0.4)",
@@ -61,7 +66,7 @@ const configScore = {
         labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
         datasets: [
             {
-                label: "Nota da avaliação",
+                label: Messages.get("LabelFeedback"),
                 fill: true,
                 lineTension: 0.1,
                 backgroundColor: 'rgba(103, 58, 183, 0.2)',
@@ -118,12 +123,48 @@ module.exports = React.createClass({
                 isCoach: UserSession.get("user").Id === process.Coach.Id,
                 process: process,
                 session: process.Sessions.length - 1,
-                loading: false
+                lastModified: process.LastModified,
+                loading: false,
             });
+            this.updateDurationCounter();
+            _.delay(this.pollModifications, 5000);
         }, me);
+
+        CoachingStore.on("process-modified", (process) => {
+            me.setState({
+                process: process,
+                lastModified: process.LastModified,
+            });
+            _.delay(this.pollModifications, 5000);
+        }, me);
+        CoachingStore.on("process-not-modified", () => {
+            _.delay(this.pollModifications, 5000);
+        }, me);
+
         CoachingStore.on("updated-session-field", (process) => {
             me.setState({
-                process: process
+                process: process,
+                lastModified: process.LastModified,
+            });
+        }, me);
+
+        CoachingStore.on("new-session", (process) => {
+            me.setState({
+                process: process,
+                session: process.Sessions.length - 1,
+                lastModified: process.LastModified,
+            });
+        }, me);
+        CoachingStore.on("start-session", (process) => {
+            me.setState({
+                process: process,
+                lastModified: process.LastModified,
+            });
+        }, me);
+        CoachingStore.on("finish-session", (process) => {
+            me.setState({
+                process: process,
+                lastModified: process.LastModified,
             });
         }, me);
 
@@ -131,10 +172,38 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
             data: me.props.params.id
         });
+
     },
 
     componentWillUnmount() {
         CoachingStore.off(null, null, this);
+    },
+
+    updateDurationCounter() {
+        var el = this.refs["duration-counter"],
+            session = this.state.process.Sessions[this.state.session];
+        if (session.Status == 5 && el) {
+            if (!this.sessionDuration) {
+                this.sessionDuration = moment.duration(moment().diff(moment(session.Started), "seconds"), "seconds");
+            } else {
+                this.sessionDuration.add(1, "seconds");
+            }
+            var hours = numeral(this.sessionDuration.hours()),
+                minutes = numeral(this.sessionDuration.minutes()),
+                seconds = numeral(this.sessionDuration.seconds());
+            el.innerHTML = hours.format("00") + ":" + minutes.format("00") + ":" + seconds.format("00");
+        }
+        _.delay(this.updateDurationCounter, 1000);
+    },
+
+    pollModifications() {
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_POLL_PROCESS_MODIFICATIONS,
+            data: {
+                id: this.props.params.id,
+                lastModified: this.state.lastModified,
+            }
+        });
     },
 
     updateSessionField(field, value) {
@@ -170,6 +239,32 @@ module.exports = React.createClass({
         });
     },
 
+    newSession(event) {
+        event && event.preventDefault();
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_NEW_SESSION,
+            data: this.props.params.id
+        });
+    },
+    startSession(event) {
+        event && event.preventDefault();
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_START_SESSION,
+            data: this.props.params.id
+        });
+    },
+    finishSession(event) {
+        event && event.preventDefault();
+        var me = this;
+        Modal.confirm(Messages.get("TextAreYouSure"), Messages.get("TextSessionFinishConfirmation"), () => {
+            CoachingStore.dispatch({
+                action: CoachingStore.ACTION_FINISH_SESSION,
+                data: me.props.params.id
+            });
+            Modal.hide();
+        });
+    },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -180,7 +275,15 @@ module.exports = React.createClass({
             coachee = process.Coachee,
             other = isCoach ? coachee : coach,
             session = process.Sessions[this.state.session],
-            inProgress = (session.Status > 0) && (session.Status < 10)
+            inProgress = (session.Status > 0) && (session.Status < 10),
+            currentSession = process.Sessions.length == (this.state.session + 1),
+            latestFinished = process.Sessions[process.Sessions.length - 1].Status >= 10,
+            currentDuration = session.Status >= 10 ? moment.duration(moment(session.Finished).diff(moment(session.Started), "seconds"), "seconds") : null,
+            currentDurationString = currentDuration ? (
+                numeral(currentDuration.hours()).format("00") + ":" +
+                numeral(currentDuration.minutes()).format("00") + ":" +
+                numeral(currentDuration.seconds()).format("00")
+            ):null
         ;
         console.log(session);
         return (
@@ -307,18 +410,20 @@ module.exports = React.createClass({
                         <div className="ilv-card mb-5">
                             {session.Status == 0 ? <div className="ilv-card-header text-center">
                                 <i>{Messages.get("LabelNotStarted")}</i>
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2">{Messages.get("LabelStartSession")}</button>
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2" onClick={this.startSession}>{Messages.get("LabelStartSession")}</button>
                             </div>:(session.Status < 10 ? <div className="ilv-card-header text-center">
                                 <small>{Messages.get("LabelSessionDuration")}:</small>
-                                <h1 className="mb-3">1:31:47</h1>
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive">{Messages.get("LabelEndSession")}</button>
+                                <h1 className="mb-3" ref="duration-counter"></h1>
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive" onClick={this.finishSession}>{Messages.get("LabelEndSession")}</button>
                             </div>:<div className="ilv-card-header text-center">
                                 <small>{Messages.get("LabelSessionDuration")}:</small>
-                                <h1 className="mb-3">1:31:47</h1>
+                                <h1 className="mb-3">
+                                    {currentDurationString}
+                                </h1>
                                 <i>{Messages.get("LabelFinished")}</i>
                             </div>)}
-                            {session.Status >= 10 ? <div className="ilv-card-block">
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button>
+                            {latestFinished ? <div className="ilv-card-block">
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link" onClick={this.newSession}>{Messages.get("LabelNewSession")}</button>
                             </div> : ""}
                         </div>
 
@@ -329,7 +434,7 @@ module.exports = React.createClass({
                             <Line data={configScore.data} options={configScore.options} />
                         </div>
 
-                        <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
+                        <SessionHistory sessions={process.Sessions} current={this.state.session} onChange={this.selectSession} />
                         
                     </div>
                 </div>

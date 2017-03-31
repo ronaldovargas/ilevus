@@ -2,6 +2,8 @@
 var _ = require("underscore");
 var S = require("string");
 var marked = require("marked");
+var moment = require("moment");
+var numeral = require("numeral");
 var React = require('react');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -9,6 +11,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 module.exports = React.createClass({
     propTypes: {
         sessions: React.PropTypes.array.isRequired,
+        current: React.PropTypes.number.isRequired,
         onChange: React.PropTypes.func.isRequired
     },
     getDefaultProps() {
@@ -29,11 +32,30 @@ module.exports = React.createClass({
 
     renderTable() {
         var history = [];
-        for (var i = this.props.sessions.length-2; i >= 0; i--) {
+        if (this.props.current != (this.props.sessions.length - 1)) {
+            history.push(<tr key={"session-"+i}>
+                <td>
+                    <div className="font-weight-bold">{Messages.get('LabelCurrentSession')}</div>
+                </td>
+                <td className="text-right">
+                    <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="#" onClick={this.selectSession.bind(this, this.props.sessions.length - 1)}>
+                        <i className="ilv-icon material-icons md-24">&#xE5CC;</i>
+                    </a>
+                </td>
+            </tr>);
+        }
+        for (var i = this.props.sessions.length - 2; i >= 0; i--) {
+            var duration = moment.duration(moment(this.props.sessions[i].Finished).diff(moment(this.props.sessions[i].Started), "seconds"), "seconds"),
+                durationString = (
+                    numeral(duration.hours()).format("00") + ":" +
+                    numeral(duration.minutes()).format("00") + ":" +
+                    numeral(duration.seconds()).format("00")
+                )
+            ;
             history.push(<tr key={"session-"+i}>
                 <td>
                     <div className="font-weight-bold">{Messages.get('LabelSession')} {i + 1}</div>
-                    <small>{Messages.get('LabelDuration')}: 1:13</small>
+                    <small>{Messages.get('LabelDuration')}: {durationString}</small>
                 </td>
                 <td className="text-right">
                     <a className="ilv-btn ilv-btn-sm ilv-btn-clean px-0" href="#" onClick={this.selectSession.bind(this, i)}>

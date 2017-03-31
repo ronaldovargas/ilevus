@@ -17,6 +17,7 @@ namespace ilevus.Models
         public DateTime Creation { get; set; }
         public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
+        public DateTime LastModified { get; set; }
 
         public string Objectives { get; set; }
         public string CoachComments { get; set; }
@@ -32,7 +33,9 @@ namespace ilevus.Models
         {
             Id = ObjectId.GenerateNewId().ToString();
             Creation = DateTime.Now;
+            LastModified = DateTime.Now;
             Sessions = new List<CoachingSession>();
+            Status = 0;
         }
     }
 
@@ -42,8 +45,10 @@ namespace ilevus.Models
         public string CoachComments { get; set; }
         public string CoacheeComments { get; set; }
 
+        public int ProcessStep { get; set; }
         public int Status { get; set; }
         public double Rating { get; set; }
+        public double Commitment { get; set; }
 
         public DateTime Creation { get; set; }
         public DateTime Started { get; set; }
@@ -52,6 +57,7 @@ namespace ilevus.Models
         public CoachingSession()
         {
             Creation = DateTime.Now;
+            Status = 0;
         }
     }
 
@@ -65,6 +71,7 @@ namespace ilevus.Models
         public DateTime Creation { get; set; }
         public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
+        public DateTime LastModified { get; set; }
 
         public string Objectives { get; set; }
         public string CoachComments { get; set; }
@@ -84,6 +91,7 @@ namespace ilevus.Models
             Creation = process.Creation;
             Started = process.Started;
             Finished = process.Finished;
+            LastModified = process.LastModified;
             Objectives = process.Objectives;
             Testimony = process.Testimony;
             Rating = process.Rating;

@@ -21,7 +21,7 @@ var AlertModal = React.createClass({
 	        			{this.props.message}
 	      			</div>
 	      			<div className="modal-footer">
-	        			<button type="button" className="btn btn-brand" data-dismiss="modal">Ok</button>
+	        			<button type="button" className="ilv-btn ilv-btn-primary ilv-btn-sm" data-dismiss="modal">Ok</button>
 	      			</div>
 				</div>
 			</div>
@@ -42,10 +42,10 @@ var ConfirmModal = React.createClass({
 	        			{this.props.message}
 	      			</div>
 	      			<div className="modal-footer">
-	        			<button type="button" className="btn btn-clean" data-dismiss="modal">
+	        			<button type="button" className="ilv-btn ilv-btn-sm ilv-btn-clean" data-dismiss="modal">
                             {Messages.get("ActionCancel")}
                         </button>
-	        			<button type="button" className="btn btn-brand" onClick={this.props.onConfirm}>
+	        			<button type="button" className="ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.props.onConfirm}>
                             {Messages.get("ActionConfirm")}
                         </button>
 	      			</div>
