@@ -57,6 +57,10 @@ module.exports = React.createClass({
     render() {
         if (!this.props.sessions || (this.props.sessions.length <= 1))
             return <div />;
-        return this.renderTable();
+        return <div className="ilv-card mb-5">
+            <div className="ilv-card-block">
+                {this.renderTable()}
+            </div>
+        </div>;
     }
 });

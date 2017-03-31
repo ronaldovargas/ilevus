@@ -64,18 +64,18 @@ const configScore = {
                 label: "Nota da avaliação",
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255,99,132,1)',
+                backgroundColor: 'rgba(103, 58, 183, 0.2)',
+                borderColor: 'rgba(103, 58, 183,1)',
                 borderCapStyle: 'butt',
                 borderDash: [],
                 borderDashOffset: 0.0,
                 borderJoinStyle: 'miter',
-                pointBorderColor: 'rgba(255,99,132,1)',
+                pointBorderColor: 'rgba(103, 58, 183,1)',
                 pointBackgroundColor: "#fff",
                 pointBorderWidth: 10,
                 pointHoverRadius: 5,
-                pointHoverBackgroundColor: 'rgba(255,99,132,1)',
-                pointHoverBorderColor: 'rgba(255,99,132,1)',
+                pointHoverBackgroundColor: 'rgba(103, 58, 183,1)',
+                pointHoverBorderColor: 'rgba(103, 58, 183,1)',
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
@@ -317,9 +317,9 @@ module.exports = React.createClass({
                                 <h1 className="mb-3">1:31:47</h1>
                                 <i>{Messages.get("LabelFinished")}</i>
                             </div>)}
-                            <div className="ilv-card-block">
-                                {session.Status >= 10 ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button> : ""}
-                            </div>
+                            {session.Status >= 10 ? <div className="ilv-card-block">
+                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link">{Messages.get("LabelNewSession")}</button>
+                            </div> : ""}
                         </div>
 
                         <div className="mb-5">
@@ -329,11 +329,8 @@ module.exports = React.createClass({
                             <Line data={configScore.data} options={configScore.options} />
                         </div>
 
-                        <div className="ilv-card mb-5">
-                            <div className="ilv-card-block">
-                                <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
-                            </div>
-                        </div>
+                        <SessionHistory sessions={process.Sessions} onChange={this.selectSession} />
+                        
                     </div>
                 </div>
             </div>
