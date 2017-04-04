@@ -109,4 +109,12 @@ namespace ilevus.Models
         public string Value { get; set; }
         public int Session { get; set; }
     }
+
+    public class EvaluateSessionBindingModel
+    {
+        public string Id { get; set; }
+        public int Session { get; set; }
+        public double Rating { get; set; }
+        public double Commitment { get; set; }
+    }
 }

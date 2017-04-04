@@ -4,6 +4,7 @@ var S = require("string");
 var moment = require("moment");
 var numeral = require("numeral");
 var React = require('react');
+var Toastr = require('toastr');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -20,6 +21,9 @@ var UserIcon = require("ilevus/img/user.png");
 
 var Line = require("react-chartjs-2").Line;
 
+var CommitmentBg = "rgba(75,192,192,0.4)";
+var FeedbackBg = "rgba(103, 58, 183, 0.2)";
+
 const configCommitment = {
     data: {
         labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
@@ -28,7 +32,7 @@ const configCommitment = {
                 label: Messages.get("LabelCommitment"),
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: "rgba(75,192,192,0.4)",
+                backgroundColor: CommitmentBg,
                 borderColor: "rgba(75,192,192,1)",
                 borderCapStyle: 'butt',
                 borderDash: [],
@@ -69,7 +73,7 @@ const configScore = {
                 label: Messages.get("LabelFeedback"),
                 fill: true,
                 lineTension: 0.1,
-                backgroundColor: 'rgba(103, 58, 183, 0.2)',
+                backgroundColor: FeedbackBg,
                 borderColor: 'rgba(103, 58, 183,1)',
                 borderCapStyle: 'butt',
                 borderDash: [],
@@ -162,6 +166,14 @@ module.exports = React.createClass({
             });
         }, me);
         CoachingStore.on("finish-session", (process) => {
+            me.setState({
+                process: process,
+                lastModified: process.LastModified,
+            });
+        }, me);
+        
+        CoachingStore.on("evaluate-session", (process) => {
+            Toastr.success(Messages.get("TextEvaluationSaved"));
             me.setState({
                 process: process,
                 lastModified: process.LastModified,
@@ -265,6 +277,20 @@ module.exports = React.createClass({
         });
     },
 
+    saveEvaluation(event) {
+        event && event.preventDefault();
+        var me = this;
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_EVALUATE_SESSION,
+            data: {
+                Id: me.props.params.id,
+                Session: this.state.session,
+                Rating: this.refs['rate-feedback'].valueAsNumber,
+                Commitment: this.refs['rate-commitment'].valueAsNumber
+            }
+        });
+    },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -305,9 +331,6 @@ module.exports = React.createClass({
                                         </p>
                                     </div>
                                     <div className="ilv-media-right">
-                                        <button className="ilv-btn ilv-btn-clean">
-                                            <i className="ilv-icon material-icons md-24">&#xE8D0;</i>
-                                        </button>
                                         <div className="dropdown" style={{display: 'inline-block'}}>
                                             <button className="ilv-btn ilv-btn-clean" data-toggle="dropdown">
                                                 <i className="ilv-icon material-icons md-24">&#xE2C4;</i>
@@ -427,16 +450,40 @@ module.exports = React.createClass({
                             </div> : ""}
                         </div>
 
-                        <div className="mb-5">
-                            <Line data={configCommitment.data} options={configCommitment.options} />
-                        </div>
-                        <div className="mb-5">
-                            <Line data={configScore.data} options={configScore.options} />
-                        </div>
+                        {!isCoach && (session.Status >= 10) ? <div className="mb-5 text-center">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="ilv-card" style={{backgroundColor: CommitmentBg}}>
+                                        <div className="ilv-card-body text-center">
+                                            <span>{Messages.get("LabelCommitment")}</span>
+                                            <input className="ilv-form-control mt-2" type="number" ref="rate-commitment" defaultValue={session.Commitment} min="0" max="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="ilv-card" style={{backgroundColor: FeedbackBg}}>
+                                        <div className="ilv-card-body text-center">
+                                            <span>{Messages.get("LabelFeedback")}</span>
+                                            <input className="ilv-form-control mt-2" type="number" ref="rate-feedback" defaultValue={session.Rating} min="0" max="10" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.saveEvaluation}>{Messages.get("LabelSave")}</button>
+                        </div>:""}
+
+                        {process.Sessions.length <= 1 ? "":<div>
+                            <div className="mb-5">
+                                <Line data={configCommitment.data} options={configCommitment.options} />
+                            </div>
+                            <div className="mb-5">
+                                <Line data={configScore.data} options={configScore.options} />
+                            </div>
+                        </div>}
 
                         <SessionHistory sessions={process.Sessions} current={this.state.session} onChange={this.selectSession} />
-                        
-                    </div>
+
+                        </div>
                 </div>
             </div>
         )

@@ -28,6 +28,7 @@ var CoachingStore = Fluxbone.Store.extend({
     ACTION_NEW_SESSION: 'coaching-newSession',
     ACTION_START_SESSION: 'coaching-startSession',
     ACTION_FINISH_SESSION: 'coaching-finishSession',
+    ACTION_EVALUATE_SESSION: 'coaching-evaluateSession',
     dispatchAcceptRegex: /^coaching-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -165,6 +166,22 @@ var CoachingStore = Fluxbone.Store.extend({
 	        dataType: 'json',
 	        success(data, status, opts) {
 	            me.trigger("finish-session", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	evaluateSession(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/EvaluateSession",
+	        dataType: 'json',
+            data: params,
+	        success(data, status, opts) {
+	            me.trigger("evaluate-session", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

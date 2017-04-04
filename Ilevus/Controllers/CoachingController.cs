@@ -263,6 +263,45 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("EvaluateSession")]
+        public async Task<IHttpActionResult> EvaluateSession(EvaluateSessionBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.Id))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null || session.Status < 10)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    session.Rating = model.Rating;
+                    session.Commitment = model.Commitment;
+                    process.LastModified = DateTime.Now;
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.Id),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", process.LastModified)
+                        )
+                    );
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
 
 
         [HttpGet]
