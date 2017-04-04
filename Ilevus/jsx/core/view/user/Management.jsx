@@ -25,19 +25,14 @@ module.exports = React.createClass({
                                 {Messages.get("LabelSchedule")}
                                 </Link>
                             </li>
-                            <li className="ilv-nav-item hidden">
-                                <a className="ilv-nav-link" href="#">
-                                    {Messages.get("LabelInbox")}
-                                </a>
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/user/processes" activeClassName="active">
+                                    {Messages.get("LabelMyProcesses")}
+                                </Link>
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/profile" activeClassName="active">
                                 {Messages.get("LabelProfile")}
-                                </Link>
-                            </li>
-                            <li className="ilv-nav-item hidden">
-                                <Link className="ilv-nav-link" to="/user/professional-profile" activeClassName="active">
-                                {Messages.get("LabelProfessionalProfile")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
