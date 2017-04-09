@@ -317,6 +317,8 @@
     <Content Include="jsx\core\widget\coaching\EditableTextArea.jsx" />
     <Content Include="jsx\core\widget\coaching\wheeloflife\Chart.jsx" />
     <Content Include="jsx\core\widget\coaching\SessionHistory.jsx" />
+    <Content Include="jsx\core\view\user\coaching\CoachingProcessesDefinition.jsx" />
+    <Content Include="jsx\core\view\user\coaching\tools\wheeloflife\WheelOfLife.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
@@ -465,7 +467,6 @@
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
     <Folder Include="Content\" />
-    <Folder Include="jsx\core\view\user\coaching\wheeloflife\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

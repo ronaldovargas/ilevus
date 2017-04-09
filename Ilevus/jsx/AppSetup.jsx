@@ -58,6 +58,8 @@ var CoachingProcesses = require("ilevus/jsx/core/view/user/coaching/CoachingProc
 var HireProfessional = require("ilevus/jsx/core/view/user/coaching/HireProfessional.jsx");
 var SessionDetails = require("ilevus/jsx/core/view/user/coaching/SessionDetails.jsx");
 
+var WheelOfLife = require("ilevus/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
+
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
 var AdminPanelAds = require("ilevus/jsx/core/view/admin/AdminPanelAds.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
@@ -163,6 +165,7 @@ Messages.load(function (success) {
 
                     <Route path="coaching/process/:id" component={SessionDetails} />
                     <Route path="coaching/hire/:id" component={HireProfessional} />
+                    <Route path="coaching/tools/wheeloflife" component={WheelOfLife} />
 
                     <Route path="admin" component={AdminPanel}>
                         <Route path="ads" component={AdminPanelAds} />

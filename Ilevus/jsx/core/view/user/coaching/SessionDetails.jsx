@@ -4,6 +4,7 @@ var S = require("string");
 var moment = require("moment");
 var numeral = require("numeral");
 var React = require('react');
+var Link = require("react-router").Link;
 var Toastr = require('toastr');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -384,9 +385,9 @@ module.exports = React.createClass({
                                                 <tr>
                                                     <td>Roda da vida</td>
                                                     <td className="text-right">
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                                        <Link to="/coaching/tools/wheeloflife" className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
                                                             <i className="ilv-icon material-icons md-18">&#xE89E;</i>
-                                                        </button>
+                                                        </Link>
                                                         <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
                                                             <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
                                                         </button>
