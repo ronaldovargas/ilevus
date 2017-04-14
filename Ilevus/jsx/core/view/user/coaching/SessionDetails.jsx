@@ -13,6 +13,7 @@ var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var SessionCharts = require("ilevus/jsx/core/widget/coaching/SessionCharts.jsx");
 var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
 var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
@@ -20,92 +21,8 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
 
-var Line = require("react-chartjs-2").Line;
-
 var CommitmentBg = "rgba(75,192,192,0.4)";
 var FeedbackBg = "rgba(103, 58, 183, 0.2)";
-
-const configCommitment = {
-    data: {
-        labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
-        datasets: [
-            {
-                label: Messages.get("LabelCommitment"),
-                fill: true,
-                lineTension: 0.1,
-                backgroundColor: CommitmentBg,
-                borderColor: "rgba(75,192,192,1)",
-                borderCapStyle: 'butt',
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: "rgba(75,192,192,1)",
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 10,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: "rgba(75,192,192,1)",
-                pointHoverBorderColor: "rgba(75,192,192,1)",
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: [5, 7, 8, 8, 6],
-                spanGaps: false,
-            }
-        ],
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    max: 10,
-                    stepSize: 2,
-                }
-            }]
-        }
-    }
-};
-
-const configScore = {
-    data: {
-        labels: ["Session 1", "Session 2", "Session 3", "Session 4", "Session 5"],
-        datasets: [
-            {
-                label: Messages.get("LabelFeedback"),
-                fill: true,
-                lineTension: 0.1,
-                backgroundColor: FeedbackBg,
-                borderColor: 'rgba(103, 58, 183,1)',
-                borderCapStyle: 'butt',
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: 'rgba(103, 58, 183,1)',
-                pointBackgroundColor: "#fff",
-                pointBorderWidth: 10,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: 'rgba(103, 58, 183,1)',
-                pointHoverBorderColor: 'rgba(103, 58, 183,1)',
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: [8, 7, 8, 4, 6],
-                spanGaps: false,
-            }
-        ],
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    max: 10,
-                    stepSize: 2,
-                }
-            }]
-        }
-    }
-};
 
 module.exports = React.createClass({
     contextTypes: {
@@ -434,11 +351,11 @@ module.exports = React.createClass({
                         <div className="ilv-card mb-5">
                             {session.Status == 0 ? <div className="ilv-card-header text-center">
                                 <i>{Messages.get("LabelNotStarted")}</i>
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2" onClick={this.startSession}>{Messages.get("LabelStartSession")}</button>
+                                {isCoach ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2" onClick={this.startSession}>{Messages.get("LabelStartSession")}</button>:""}
                             </div>:(session.Status < 10 ? <div className="ilv-card-header text-center">
                                 <small>{Messages.get("LabelSessionDuration")}:</small>
                                 <h1 className="mb-3" ref="duration-counter"></h1>
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive" onClick={this.finishSession}>{Messages.get("LabelEndSession")}</button>
+                                {isCoach ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive" onClick={this.finishSession}>{Messages.get("LabelEndSession")}</button>:""}
                             </div>:<div className="ilv-card-header text-center">
                                 <small>{Messages.get("LabelSessionDuration")}:</small>
                                 <h1 className="mb-3">
@@ -446,7 +363,7 @@ module.exports = React.createClass({
                                 </h1>
                                 <i>{Messages.get("LabelFinished")}</i>
                             </div>)}
-                            {latestFinished ? <div className="ilv-card-block">
+                            {latestFinished && isCoach ? <div className="ilv-card-block">
                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link" onClick={this.newSession}>{Messages.get("LabelNewSession")}</button>
                             </div> : ""}
                         </div>
@@ -473,15 +390,8 @@ module.exports = React.createClass({
                             <button className="ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.saveEvaluation}>{Messages.get("LabelSave")}</button>
                         </div>:""}
 
-                        {process.Sessions.length <= 1 ? "":<div>
-                            <div className="mb-5">
-                                <Line data={configCommitment.data} options={configCommitment.options} />
-                            </div>
-                            <div className="mb-5">
-                                <Line data={configScore.data} options={configScore.options} />
-                            </div>
-                        </div>}
-
+                        <SessionCharts process={process} />
+                        
                         <SessionHistory sessions={process.Sessions} current={this.state.session} onChange={this.selectSession} />
 
                         </div>
