@@ -28,6 +28,7 @@ namespace ilevus.Models
         public double Rating { get; set; }
 
         public List<CoachingSession> Sessions { get; set; }
+        public List<CoachingProcessStep> Steps { get; set; }
 
         public CoachingProcess()
         {
@@ -35,6 +36,7 @@ namespace ilevus.Models
             Creation = DateTime.Now;
             LastModified = DateTime.Now;
             Sessions = new List<CoachingSession>();
+            Steps = new List<CoachingProcessStep>();
             Status = 0;
         }
     }
@@ -57,8 +59,15 @@ namespace ilevus.Models
         public CoachingSession()
         {
             Creation = DateTime.Now;
+            ProcessStep = 0;
             Status = 0;
         }
+    }
+
+    public class CoachingProcessStep
+    {
+        public string Label { get; set; }
+        public string Color { get; set; }
     }
 
 

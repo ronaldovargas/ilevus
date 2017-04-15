@@ -757,6 +757,31 @@ namespace ilevus.Controllers
 
             return Ok(new ProfessionalProfileViewModel(user));
         }
+
+        [HttpPost]
+        [Route("UpdateProcessSteps")]
+        public async Task<IHttpActionResult> UpdateProcessSteps(List<CoachingProcessStep> model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+            var user = await UserManager.FindByNameAsync(identity.Name);
+            var professional = user.Professional;
+
+            professional.ProcessSteps = model;
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok(model);
+        }
+
         // GET api/Account/UpdateProfile
         [HttpPost]
         [Route("ChangeCulture")]

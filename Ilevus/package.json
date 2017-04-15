@@ -45,6 +45,7 @@
     "numeral": "2.x.x",
     "react": "^15.0.2",
     "react-chartjs-2": "^2.0.5",
+    "react-color": "^2.11.4",
     "react-dom": "^15.0.2",
     "react-maskedinput": "^3.2.0",
     "react-router": "^2.4.0",

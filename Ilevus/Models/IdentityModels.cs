@@ -91,6 +91,7 @@ namespace ilevus.Models
             EducationInfo = false;
             CareerInfo = false;
             ServicesInfo = false;
+            ProcessSteps = new List<CoachingProcessStep>();
         }
 
         // Wizard steps concluded?
@@ -124,6 +125,9 @@ namespace ilevus.Models
 
         // Education info
         public IEnumerable<UserService> Services { get; set; }
+
+        // Passos do processo de coaching
+        public List<CoachingProcessStep> ProcessSteps { get; set; }
 
     }
     

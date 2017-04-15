@@ -37,6 +37,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PROFESSIONAL_EDUCATION: 'updateProfessionalEducation',
 	ACTION_UPDATE_PROFESSIONAL_CAREER: 'updateProfessionalCareer',
 	ACTION_UPDATE_PROFESSIONAL_SERVICES: 'updateProfessionalServices',
+	ACTION_UPDATE_PROCESS_STEPS: 'updateProcessSteps',
 
 	ACTION_REMOVE_PICTURE: 'removePicture',
 
@@ -655,6 +656,24 @@ var UserSession = Backbone.Model.extend({
 	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProcessSteps(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProcessSteps",
+	        dataType: 'json',
+            contentType: "application/json",
+	        data: JSON.stringify(params),
+	        success(data, status, opts) {
+	            me.get("user").Professional.Professional.ProcessSteps = data;
+	            me.trigger("update-process-steps", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
