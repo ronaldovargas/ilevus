@@ -36,7 +36,7 @@ namespace ilevus.Models
             Creation = DateTime.Now;
             LastModified = DateTime.Now;
             Sessions = new List<CoachingSession>();
-            Steps = new List<CoachingProcessStep>();
+            Steps = null;
             Status = 0;
         }
     }
@@ -91,6 +91,7 @@ namespace ilevus.Models
         public double Rating { get; set; }
 
         public List<CoachingSession> Sessions { get; set; }
+        public List<CoachingProcessStep> Steps { get; set; }
 
         public CoachingProcessViewModel(CoachingProcess process, IlevusUser coach, IlevusUser coachee)
         {
@@ -106,6 +107,7 @@ namespace ilevus.Models
             Rating = process.Rating;
             Status = process.Status;
             Sessions = process.Sessions;
+            Steps = process.Steps;
             Coach = new PublicProfileViewModel(coach);
             Coachee = new PublicProfileViewModel(coachee);
         }
@@ -117,6 +119,13 @@ namespace ilevus.Models
         public string Field { get; set; }
         public string Value { get; set; }
         public int Session { get; set; }
+    }
+
+    public class ChangeSessionProcessStepBindingModel
+    {
+        public string Id { get; set; }
+        public int Session { get; set; }
+        public int Step { get; set; }
     }
 
     public class EvaluateSessionBindingModel

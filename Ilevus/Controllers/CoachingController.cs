@@ -34,11 +34,13 @@ namespace ilevus.Controllers
             try
             {
                 var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                var coach = await UserManager.FindByIdAsync(Id);
                 var process = new CoachingProcess()
                 {
-                    CoachId = Id,
+                    CoachId = coach.Id,
                     CoacheeId = user.Id
                 };
+                process.Steps = coach.Professional.ProcessSteps;
                 await collection.InsertOneAsync(process);
                 return Ok(process);
             }
@@ -70,14 +72,19 @@ namespace ilevus.Controllers
                 var process = (await collection.FindAsync(filters.Eq("Id", id))).FirstOrDefault();
                 if (process != null)
                 {
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
                     if (process.Sessions.Count == 0)
                     {
                         var session = new CoachingSession();
                         await collection.UpdateOneAsync(filters.Eq("Id", id), updates.Push("Sessions", session));
                         process.Sessions.Add(session);
                     }
-                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
-                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    if (process.Steps == null || process.Steps.Count == 0)
+                    {
+                        await collection.UpdateOneAsync(filters.Eq("Id", id), updates.Set("Steps", coach.Professional.ProcessSteps));
+                        process.Steps = coach.Professional.ProcessSteps;
+                    }
                     return Ok(new CoachingProcessViewModel(process, coach, coachee));
                 }
                 return NotFound();
@@ -246,6 +253,44 @@ namespace ilevus.Controllers
                     process.LastModified = session.Finished;
 
                     await collection.UpdateOneAsync(filters.Eq("Id", id),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", process.LastModified)
+                        )
+                    );
+                    var coachee = await UserManager.FindByIdAsync(process.CoacheeId);
+                    var coach = await UserManager.FindByIdAsync(process.CoachId);
+                    return Ok(new CoachingProcessViewModel(process, coach, coachee));
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("ChangeSessionProcessStep")]
+        public async Task<IHttpActionResult> ChangeSessionProcessStep(ChangeSessionProcessStepBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.Id))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    session.ProcessStep = model.Step;
+                    process.LastModified = DateTime.Now;
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.Id),
                         updates.Combine(
                             updates.Set("Sessions", process.Sessions),
                             updates.Set("LastModified", process.LastModified)

@@ -89,6 +89,13 @@ module.exports = React.createClass({
                 lastModified: process.LastModified,
             });
         }, me);
+
+        CoachingStore.on("change-session-process-step", (process) => {
+            me.setState({
+                process: process,
+                lastModified: process.LastModified,
+            });
+        }, me);
         
         CoachingStore.on("evaluate-session", (process) => {
             Toastr.success(Messages.get("TextEvaluationSaved"));
@@ -132,6 +139,18 @@ module.exports = React.createClass({
             data: {
                 id: this.props.params.id,
                 lastModified: this.state.lastModified,
+            }
+        });
+    },
+
+    updateProcessStep(event) {
+        var step = parseInt(event.target.value);
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_CHANGE_SESSION_PROCESS_STEP,
+            data: {
+                Id: this.props.params.id,
+                Session: this.state.session,
+                Step: step,
             }
         });
     },
@@ -266,13 +285,13 @@ module.exports = React.createClass({
                                         <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcessStep')}:</span>
                                     </div>
                                     <div className="ilv-media-body">
-                                        <select className="ilv-form-control ilv-form-control-sm">
-                                            <option>1 - Identificar situação atual</option>
-                                            <option>2 - Criar perspectivas</option>
-                                            <option>3 - Definir metas</option>
-                                            <option>4 - Criar plano de ação</option>
-                                            <option>5 - Desenvolver continuamente</option>
-                                        </select>
+                                        {isCoach ? (<select className="ilv-form-control ilv-form-control-sm" defaultValue={session.ProcessStep} onChange={this.updateProcessStep}>
+                                            {process.Steps.map((step, index) => {
+                                                return <option value={index} key={"process-step-"+index}>{index+1} - {step.Label}</option>
+                                            })}
+                                        </select>):(<div>
+                                            {session.ProcessStep + 1} - {process.Steps[session.ProcessStep].Label}
+                                        </div>)}
                                     </div>
                                 </div>
 

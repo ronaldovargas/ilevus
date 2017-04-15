@@ -2,6 +2,8 @@
 var React = require("react");
 var Link = require("react-router").Link;
 
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
@@ -25,11 +27,11 @@ module.exports = React.createClass({
                                 {Messages.get("LabelSchedule")}
                                 </Link>
                             </li>
-                            <li className="ilv-nav-item">
+                            {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/processes" activeClassName="active">
                                     {Messages.get("LabelMyProcesses")}
                                 </Link>
-                            </li>
+                            </li>:""}
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/profile" activeClassName="active">
                                 {Messages.get("LabelProfile")}
