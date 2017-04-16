@@ -58,6 +58,7 @@ var CoachingProcesses = require("ilevus/jsx/core/view/user/coaching/CoachingProc
 var HireProfessional = require("ilevus/jsx/core/view/user/coaching/HireProfessional.jsx");
 var SessionDetails = require("ilevus/jsx/core/view/user/coaching/SessionDetails.jsx");
 
+var CoachingToolsContainer = require("ilevus/jsx/core/view/user/coaching/tools/CoachingToolsContainer.jsx");
 var WheelOfLife = require("ilevus/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
 
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
@@ -163,9 +164,14 @@ Messages.load(function (success) {
                         <Route path="schedule/configure" component={UserSchedule} />
                     </Route>
 
-                    <Route path="coaching/process/:id" component={SessionDetails} />
+                    <Route path="coaching/process/:id">
+                        <IndexRoute component={SessionDetails} />
+                        <Route path=":session"  component={SessionDetails} />
+                        <Route path=":session/tools" component={CoachingToolsContainer}>
+                            <Route path="wheeloflife" component={WheelOfLife} />
+                        </Route>
+                    </Route>
                     <Route path="coaching/hire/:id" component={HireProfessional} />
-                    <Route path="coaching/tools/wheeloflife" component={WheelOfLife} />
 
                     <Route path="admin" component={AdminPanel}>
                         <Route path="ads" component={AdminPanelAds} />

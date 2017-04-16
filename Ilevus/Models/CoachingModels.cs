@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using ilevus.Models.CoachingTools;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,8 @@ namespace ilevus.Models
         public DateTime Creation { get; set; }
         public DateTime Started { get; set; }
         public DateTime Finished { get; set; }
+
+        public WheelOfLife WheelOfLifeTool { get; set; }
 
         public CoachingSession()
         {

@@ -15,6 +15,8 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 var SessionCharts = require("ilevus/jsx/core/widget/coaching/SessionCharts.jsx");
 var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
+var SessionTools = require("ilevus/jsx/core/widget/coaching/SessionTools.jsx");
+
 var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -28,12 +30,14 @@ module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
     },
+    getRoute(process, session) {
+        return "/coaching/process/" + process + "/" + session;
+    },
 
     getInitialState() {
         return {
             isCoach: false,
             process: null,
-            session: 0,
             loading: true
         };
     },
@@ -41,10 +45,12 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         CoachingStore.on("retrieve-coaching-process", (process) => {
+            if (!this.props.params.session) {
+                me.context.router.replace(me.getRoute(me.props.params.id, process.Sessions.length - 1));
+            }
             me.setState({
                 isCoach: UserSession.get("user").Id === process.Coach.Id,
                 process: process,
-                session: process.Sessions.length - 1,
                 lastModified: process.LastModified,
                 loading: false,
             });
@@ -73,9 +79,9 @@ module.exports = React.createClass({
         CoachingStore.on("new-session", (process) => {
             me.setState({
                 process: process,
-                session: process.Sessions.length - 1,
                 lastModified: process.LastModified,
             });
+            me.context.router.push(me.getRoute(me.props.params.id, process.Sessions.length - 1));
         }, me);
         CoachingStore.on("start-session", (process) => {
             me.setState({
@@ -116,9 +122,19 @@ module.exports = React.createClass({
         CoachingStore.off(null, null, this);
     },
 
+    componentWillReceiveProps(newProps, newContext) {
+        if (this.props.params.id != newProps.params.id) {
+            console.log("Changing process...");
+            CoachingStore.dispatch({
+                action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
+                data: newProps.params.id
+            });
+        }
+    },
+
     updateDurationCounter() {
         var el = this.refs["duration-counter"],
-            session = this.state.process.Sessions[this.state.session];
+            session = this.state.process.Sessions[parseInt(this.props.params.session)];
         if (session.Status == 5 && el) {
             if (!this.sessionDuration) {
                 this.sessionDuration = moment.duration(moment().diff(moment(session.Started), "seconds"), "seconds");
@@ -149,7 +165,7 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_CHANGE_SESSION_PROCESS_STEP,
             data: {
                 Id: this.props.params.id,
-                Session: this.state.session,
+                Session: parseInt(this.props.params.session),
                 Step: step,
             }
         });
@@ -160,32 +176,30 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_UPDATE_SESSION_FIELD,
             data: {
                 ProcessId: this.props.params.id,
-                Session: this.state.session,
+                Session: parseInt(this.props.params.session),
                 Field: field,
                 Value: value
             }
         });
     },
     objectiveChange(newValue) {
-        this.state.process.Sessions[this.state.session].Objectives = newValue;
+        this.state.process.Sessions[parseInt(this.props.params.session)].Objectives = newValue;
         this.forceUpdate();
         this.updateSessionField("Objectives", newValue);
     },
     coacheeCommentsChange(newValue) {
-        this.state.process.Sessions[this.state.session].CoacheeComments = newValue;
+        this.state.process.Sessions[parseInt(this.props.params.session)].CoacheeComments = newValue;
         this.forceUpdate();
         this.updateSessionField("CoacheeComments", newValue);
     },
     coachCommentsChange(newValue) {
-        this.state.process.Sessions[this.state.session].CoachComments = newValue;
+        this.state.process.Sessions[parseInt(this.props.params.session)].CoachComments = newValue;
         this.forceUpdate();
         this.updateSessionField("CoachComments", newValue);
     },
 
     selectSession(index) {
-        this.setState({
-            session: index
-        });
+        this.context.router.push(this.getRoute(this.props.params.id, index));
     },
 
     newSession(event) {
@@ -221,7 +235,7 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_EVALUATE_SESSION,
             data: {
                 Id: me.props.params.id,
-                Session: this.state.session,
+                Session: parseInt(this.props.params.session),
                 Rating: this.refs['rate-feedback'].valueAsNumber,
                 Commitment: this.refs['rate-commitment'].valueAsNumber
             }
@@ -237,9 +251,10 @@ module.exports = React.createClass({
             coach = process.Coach,
             coachee = process.Coachee,
             other = isCoach ? coachee : coach,
-            session = process.Sessions[this.state.session],
+            sessionIndex = parseInt(this.props.params.session),
+            session = process.Sessions[sessionIndex],
             inProgress = (session.Status > 0) && (session.Status < 10),
-            currentSession = process.Sessions.length == (this.state.session + 1),
+            currentSession = process.Sessions.length == (sessionIndex + 1),
             latestFinished = process.Sessions[process.Sessions.length - 1].Status >= 10,
             currentDuration = session.Status >= 10 ? moment.duration(moment(session.Finished).diff(moment(session.Started), "seconds"), "seconds") : null,
             currentDurationString = currentDuration ? (
@@ -262,7 +277,7 @@ module.exports = React.createClass({
                                         } />
                                     </div>
                                     <div className="ilv-media-body">
-                                        <h1 className="ilv-font-weight-bold">{Messages.get('LabelSession')}: {this.state.session + 1}</h1>
+                                        <h1 className="ilv-font-weight-bold">{Messages.get('LabelSession')}: {sessionIndex + 1}</h1>
                                         <p className="ilv-text-large">
                                             {isCoach ? Messages.get("TextCoachingSessionTo") : Messages.get("TextCoachingSessionBy")} <em>{other.Name} {other.Surname}</em>.
                                         </p>
@@ -306,46 +321,7 @@ module.exports = React.createClass({
                         </div>
 
                         <div className="row mb-5">
-                            <div className="col">
-                                <h4>{Messages.get("SessionTools")}</h4>
-                                <div className="ilv-card">
-                                    <div className="ilv-card-body">
-                                        <table className="ilv-table ilv-table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>{Messages.get("LabelTool")}</th>
-                                                    <th className="text-right">{Messages.get("LabelActions")}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Roda da vida</td>
-                                                    <td className="text-right">
-                                                        <Link to="/coaching/tools/wheeloflife" className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
-                                                        </Link>
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>SMART</td>
-                                                    <td className="text-right">
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
-                                                        </button>
-                                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <a className="font-weight-bold" href="javascript:;">{Messages.get('LabelApplyTool')}</a>
-                                    </div>
-                                </div>
-                            </div>
+                            <SessionTools className="col" isCoach={isCoach} processId={this.props.params.id} session={session} sessionIndex={sessionIndex} />
                         </div>
 
                         <div className="row mb-5">
@@ -411,7 +387,7 @@ module.exports = React.createClass({
 
                         <SessionCharts process={process} />
                         
-                        <SessionHistory sessions={process.Sessions} current={this.state.session} onChange={this.selectSession} />
+                        <SessionHistory sessions={process.Sessions} current={sessionIndex} onChange={this.selectSession} />
 
                         </div>
                 </div>

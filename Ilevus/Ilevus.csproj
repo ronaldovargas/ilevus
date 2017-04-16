@@ -243,6 +243,7 @@
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\ChatModels.cs" />
     <Compile Include="Models\CitiesModels.cs" />
+    <Compile Include="Models\CoachingTools\WheelOfLife.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AdModels.cs" />
@@ -284,6 +285,7 @@
     <Content Include="jsx\core\store\Ad.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelAds.jsx" />
     <Content Include="jsx\core\store\Coaching.jsx" />
+    <Content Include="jsx\core\store\coaching\Tools.json" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -320,6 +322,8 @@
     <Content Include="jsx\core\view\user\coaching\CoachingProcessesDefinition.jsx" />
     <Content Include="jsx\core\view\user\coaching\tools\wheeloflife\WheelOfLife.jsx" />
     <Content Include="jsx\core\widget\coaching\SessionCharts.jsx" />
+    <Content Include="jsx\core\view\user\coaching\tools\CoachingToolsContainer.jsx" />
+    <Content Include="jsx\core\widget\coaching\SessionTools.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
