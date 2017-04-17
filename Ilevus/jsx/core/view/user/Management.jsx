@@ -32,11 +32,11 @@ module.exports = React.createClass({
                                     {Messages.get("LabelMyProcesses")}
                                 </Link>
                             </li>:""}
-                            {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
+                            {/*UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/coaching-tools" activeClassName="active">
                                     {Messages.get("LabelMyTools")}
                                 </Link>
-                            </li>:""}
+                            </li>:""*/}
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/profile" activeClassName="active">
                                     {Messages.get("LabelProfile")}

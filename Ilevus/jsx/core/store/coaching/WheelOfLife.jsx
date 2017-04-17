@@ -20,6 +20,8 @@ var WheelOfLifeModel = Fluxbone.Model.extend({
 
 var WheelOfLifeStore = Fluxbone.Store.extend({
     ACTION_INITIALIZE_TOOL: 'wheeloflife-initializeTool',
+    ACTION_SAVE_EVALUATION: 'wheeloflife-saveEvaluation',
+    ACTION_SAVE_LEARNINGS: 'wheeloflife-saveLearnings',
     dispatchAcceptRegex: /^wheeloflife-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -34,6 +36,38 @@ var WheelOfLifeStore = Fluxbone.Store.extend({
             data: params,
 	        success(data, status, opts) {
 	            me.trigger("initialize-tool", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	saveEvaluation(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Evaluate",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("save-evaluation", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	saveLearnings(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/SaveLearnings",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("save-learnings", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

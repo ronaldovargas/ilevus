@@ -2,8 +2,11 @@
 var marked = require("marked");
 var React = require("react");
 var Link = require("react-router").Link;
+var Toastr = require("toastr");
 
 var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx");
+
+var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
@@ -35,15 +38,18 @@ module.exports = React.createClass({
             tool: session.WheelOfLifeTool,
             loading: !session.WheelOfLifeTool,
             field: 0,
+            fieldEvaluation: session.WheelOfLifeTool ? session.WheelOfLifeTool.Fields[0].Evaluation : 0,
         };
     },
 
     componentDidMount() {
         var me = this;
         WheelOfLifeStore.on("initialize-tool", (toolDef) => {
+            console.log(toolDef);
             me.setState({
                 tool: toolDef,
                 loading: false,
+                fieldEvaluation: toolDef.Fields[this.state.field].Evaluation,
             });
         }, me);
 
@@ -59,6 +65,33 @@ module.exports = React.createClass({
     },
     componentWillUnmount() {
         WheelOfLifeStore.off(null, null, this);
+    },
+
+    componentWillReceiveProps(newProps, newContext) {
+        var session = newContext.process.Sessions[newProps.params.session];
+        if ((this.props.params.id != newProps.params.id) || (this.props.params.session != newProps.params.session)) {
+            this.setState({
+                session: session,
+                tool: session.WheelOfLifeTool,
+                loading: !session.WheelOfLifeTool,
+                field: 0,
+                fieldEvaluation: session.WheelOfLifeTool ? session.WheelOfLifeTool.Fields[0].Evaluation : 0,
+            });
+            if (!session.WheelOfLifeTool) {
+                WheelOfLifeStore.dispatch({
+                    action: WheelOfLifeStore.ACTION_INITIALIZE_TOOL,
+                    data: {
+                        ProcessId: newProps.params.id,
+                        Session: newProps.params.session,
+                    }
+                });
+            }
+        } else {
+            this.setState({
+                session: session,
+                tool: session.WheelOfLifeTool,
+            });
+        }
     },
 
     getChartData() {
@@ -84,20 +117,85 @@ module.exports = React.createClass({
         };
     },
 
-    saveEvaluation(index, event) {
-        event && event.preventDefault();
+    previousField(event) {
+        event && event.preventDefault()
+        var field = this.state.field - 1;
+        if (this.state.field == 0) {
+            field = this.state.tool.Fields.length - 1;
+        }
+        this.setState({
+            field: field,
+            fieldEvaluation: this.state.tool.Fields[field].Evaluation,
+        });
+    },
+    nextField(event) {
+        event && event.preventDefault()
+        var field = this.state.field + 1;
+        if (this.state.field == (this.state.tool.Fields.length - 1)) {
+            field = 0;
+        }
+        this.setState({
+            field: field,
+            fieldEvaluation: this.state.tool.Fields[field].Evaluation,
+        });
     },
 
-    renderField(field, fieldIndex) {
+    saveEvaluation(event) {
+        event && event.preventDefault();
+        WheelOfLifeStore.dispatch({
+            action: WheelOfLifeStore.ACTION_SAVE_EVALUATION,
+            data: {
+                ProcessId: this.props.params.id,
+                Session: this.props.params.session,
+                Field: this.state.field,
+                Evaluation: this.state.fieldEvaluation,
+            }
+        });
+        this.state.tool.Fields[this.state.field].Evaluation = this.state.fieldEvaluation;
+        this.forceUpdate();
+    },
+    onEvaluationChange() {
+        var grade = this.refs['field-grade'].valueAsNumber;
+        if (grade === undefined || grade < 0 || grade > 10) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeValidGrade"));
+            return;
+        }
+        this.setState({
+            fieldEvaluation: grade
+        });
+    },
+
+    learningsChange(newValue) {
+        this.state.tool.Learnings = newValue;
+        this.forceUpdate();
+        WheelOfLifeStore.dispatch({
+            action: WheelOfLifeStore.ACTION_SAVE_LEARNINGS,
+            data: {
+                ProcessId: this.props.params.id,
+                Session: this.props.params.session,
+                Learnings: newValue,
+            }
+        });
+    },
+
+    finish(event) {
+        event && event.preventDefault();
+        history.back();
+    },
+
+    renderField(fieldIndex) {
+        var field = this.state.tool.Fields[fieldIndex];
         return (<div className="col mb-3">
             <h3 className="mb-3">{Messages.get("LabelField")}: {field.Label}</h3>
             <div className="ilv-markdown ilv-form-group" dangerouslySetInnerHTML={{__html: marked(field.Instructions)}} />
-            <form className="ilv-form-group" onSubmit={this.saveEvaluation.bind(this, fieldIndex)}>
+            <div className="ilv-form-group">
                 <label className="ilv-form-label">{Messages.get("LabelGrade")}</label>
-                <input className="ilv-form-control" type="number" max="10" min="0" defaultValue={field.Evaluation} />
-            </form>
-            <a className="font-weight-bold mr-4" href="#">&#8592; {Messages.get("LabelPrevious")}</a>
-            <a className="font-weight-bold" href="#">{Messages.get("LabelNext")} &#8594;</a>
+                <input className="ilv-form-control" type="number" max="10" min="0" value={this.state.fieldEvaluation}
+                       onBlur={this.saveEvaluation} ref="field-grade" onChange={this.onEvaluationChange} />
+            </div>
+            <a className="font-weight-bold mr-4" href="#" onClick={this.previousField}>&#8592; {Messages.get("LabelPrevious")}</a>
+            <a className="font-weight-bold" href="#" onClick={this.nextField}>{Messages.get("LabelNext")} &#8594;</a>
         </div>);
     },
 
@@ -105,7 +203,6 @@ module.exports = React.createClass({
         if (this.state.loading) {
             return <LoadingGauge />;
         }
-        console.log(this.state.tool);
         return (
             <div className="container my-5">
                 <div className="row mb-5">
@@ -115,20 +212,29 @@ module.exports = React.createClass({
                                 <h1>{Messages.get("LabelWheelOfLife")}</h1>
                             </div>
                             <div className="ilv-media-right">
-                                <button className="ilv-btn ilv-btn-primary">{Messages.get("LabelFinish")}</button>
-                                <button className="ilv-btn">{Messages.get("LabelSaveDraft")}</button>
+                                <button className="ilv-btn ilv-btn-primary" onClick={this.finish}>{Messages.get("LabelFinish")}</button>
                             </div>
                         </div>
                     </div>
 
-                    {this.renderField(this.state.tool.Fields[this.state.field])}
+                    {this.context.isCoach ? "":this.renderField(this.state.field)}
                     
                     <div className="col mb-3">
                         <Radar data={this.getChartData()} options={this.chartOptions} />
                     </div>
                 </div>
-                <hr className="mb-5" />
+                
+
                 <div className="row mb-5">
+                    <div className="col-12">
+                        <EditableTextArea label={Messages.get('LabelLearning')}
+                                          value={this.state.tool.Learnings}
+                                          editable={!this.context.isCoach}
+                                          onChange={this.learningsChange} />
+                    </div>
+                </div>
+
+                {/*<div className="row mb-5">
                     <div className="col">
                         <h4>{Messages.get("LabelTasks")}</h4>
                         <table className="ilv-table">
@@ -175,15 +281,8 @@ module.exports = React.createClass({
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div className="row mb-5">
-                    <div className="col-12">
-                        <div className="ilv-form-group">
-                            <h4>{Messages.get("LabelLearning")}</h4>
-                            <textarea className="ilv-form-control" placeholder={Messages.get("PlaceholderDescribeYourWhatYouLearned")}></textarea>
-                        </div>
-                    </div>
-                </div>
+                </div>*/}
+
             </div>
         );
     }

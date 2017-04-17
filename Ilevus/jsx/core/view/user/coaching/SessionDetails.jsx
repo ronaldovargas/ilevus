@@ -135,6 +135,7 @@ module.exports = React.createClass({
     componentWillReceiveProps(newProps, newContext) {
         if (this.props.params.id != newProps.params.id) {
             console.log("Changing process...");
+            this.setState({ loading: true });
             CoachingStore.dispatch({
                 action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
                 data: newProps.params.id

@@ -231,5 +231,20 @@ Constitui a percepção de importância e razão de vida. Une todas as
 
         #endregion
     }
-    
+
+    public class WheelOfLifeFieldEvaluateBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public int Field { get; set; }
+        public double Evaluation { get; set; }
+    }
+
+    public class WheelOfLifeSaveLearningsBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public string Learnings { get; set; }
+    }
+
 }
