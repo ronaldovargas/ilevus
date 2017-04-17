@@ -1,26 +1,111 @@
-﻿var React = require("react");
+﻿
+var marked = require("marked");
+var React = require("react");
 var Link = require("react-router").Link;
+
+var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Radar = require('react-chartjs-2').Radar;
 
-const data = {
-    labels: ['Pessoal', 'Trabalho', 'Estudo', 'Família', 'Filhos', 'Lazer'],
-    datasets: [
-      {
-          label: 'Nota',
-          backgroundColor: "rgba(103, 58, 183, 0.2)",
-          borderColor: 'rgba(103, 58, 183,1)',
-          pointBackgroundColor: '#fff',
-          pointBorderColor: 'rgba(103, 58, 183,1)',
-          ointHoverBackgroundColor: 'rgba(103, 58, 183,1)',
-          pointHoverBorderColor: 'rgba(103, 58, 183,1)',
-          data: [10, 6, 8, 0, 0, 0]
-      }
-    ]
-};
-
 module.exports = React.createClass({
+    contextTypes: {
+        isCoach: React.PropTypes.bool.isRequired,
+        process: React.PropTypes.object.isRequired,
+        router: React.PropTypes.object,
+    },
+
+    chartOptions: {
+        scale: {
+            lineArc: false,
+            ticks: {
+                beginAtZero: true,
+                max: 10,
+                stepSize: 2.5,
+            },
+        }
+    },
+
+    getInitialState() {
+        var session = this.context.process.Sessions[this.props.params.session];
+        return {
+            session: session,
+            tool: session.WheelOfLifeTool,
+            loading: !session.WheelOfLifeTool,
+            field: 0,
+        };
+    },
+
+    componentDidMount() {
+        var me = this;
+        WheelOfLifeStore.on("initialize-tool", (toolDef) => {
+            me.setState({
+                tool: toolDef,
+                loading: false,
+            });
+        }, me);
+
+        if (this.state.loading) {
+            WheelOfLifeStore.dispatch({
+                action: WheelOfLifeStore.ACTION_INITIALIZE_TOOL,
+                data: {
+                    ProcessId: me.props.params.id,
+                    Session: me.props.params.session,
+                }
+            });
+        }
+    },
+    componentWillUnmount() {
+        WheelOfLifeStore.off(null, null, this);
+    },
+
+    getChartData() {
+        var labels = [], data = [], fields = this.state.tool.Fields;
+        for (var i = 0; i < fields.length; i++) {
+            labels.push(fields[i].Label);
+            data.push(fields[i].Evaluation);
+        }
+        return {
+            labels: labels,
+            datasets: [
+              {
+                  label: Messages.get("LabelGrade"),
+                  backgroundColor: "rgba(103, 58, 183, 0.2)",
+                  borderColor: 'rgba(103, 58, 183,1)',
+                  pointBackgroundColor: '#fff',
+                  pointBorderColor: 'rgba(103, 58, 183,1)',
+                  ointHoverBackgroundColor: 'rgba(103, 58, 183,1)',
+                  pointHoverBorderColor: 'rgba(103, 58, 183,1)',
+                  data: data
+              }
+            ]
+        };
+    },
+
+    saveEvaluation(index, event) {
+        event && event.preventDefault();
+    },
+
+    renderField(field, fieldIndex) {
+        return (<div className="col mb-3">
+            <h3 className="mb-3">{Messages.get("LabelField")}: {field.Label}</h3>
+            <div className="ilv-markdown ilv-form-group" dangerouslySetInnerHTML={{__html: marked(field.Instructions)}} />
+            <form className="ilv-form-group" onSubmit={this.saveEvaluation.bind(this, fieldIndex)}>
+                <label className="ilv-form-label">{Messages.get("LabelGrade")}</label>
+                <input className="ilv-form-control" type="number" max="10" min="0" defaultValue={field.Evaluation} />
+            </form>
+            <a className="font-weight-bold mr-4" href="#">&#8592; {Messages.get("LabelPrevious")}</a>
+            <a className="font-weight-bold" href="#">{Messages.get("LabelNext")} &#8594;</a>
+        </div>);
+    },
+
     render() {
+        if (this.state.loading) {
+            return <LoadingGauge />;
+        }
+        console.log(this.state.tool);
         return (
             <div className="container my-5">
                 <div className="row mb-5">
@@ -35,27 +120,11 @@ module.exports = React.createClass({
                             </div>
                         </div>
                     </div>
+
+                    {this.renderField(this.state.tool.Fields[this.state.field])}
+                    
                     <div className="col mb-3">
-                        <h3 className="mb-3">{Messages.get("LabelField")}: {Messages.get("LabelFamily")}</h3>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelQuestions")}</label>
-                            <ul>
-                                <li>Tempo dedicado à família?</li>
-                                <li>Momentos agradáveis e amistosos com a família?</li>
-                                <li>Diálogo e boa vontade para resolver conflitos?</li>
-                                <li>Grau de abertura para falar?</li>
-                                <li>Confiança e apoio mútuos?</li>
-                            </ul>
-                        </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelScore")}</label>
-                            <input className="ilv-form-control" type="number" max="10" min="0" />
-                        </div>
-                        <a className="font-weight-bold mr-4" href="#">&#8592; {Messages.get("LabelPrevious")}</a>
-                        <a className="font-weight-bold" href="#">{Messages.get("LabelNext")} &#8594;</a>
-                    </div>
-                    <div className="col mb-3">
-                        <Radar data={data} />
+                        <Radar data={this.getChartData()} options={this.chartOptions} />
                     </div>
                 </div>
                 <hr className="mb-5" />

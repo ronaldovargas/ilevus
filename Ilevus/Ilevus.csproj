@@ -220,6 +220,7 @@
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdController.cs" />
+    <Compile Include="Controllers\CoachingTools\WheelOfLifeController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -243,7 +244,8 @@
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\ChatModels.cs" />
     <Compile Include="Models\CitiesModels.cs" />
-    <Compile Include="Models\CoachingTools\WheelOfLife.cs" />
+    <Compile Include="Models\CoachingTools\CoachingToolsModels.cs" />
+    <Compile Include="Models\CoachingTools\WheelOfLifeModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AdModels.cs" />
@@ -286,6 +288,7 @@
     <Content Include="jsx\core\view\admin\AdminPanelAds.jsx" />
     <Content Include="jsx\core\store\Coaching.jsx" />
     <Content Include="jsx\core\store\coaching\Tools.json" />
+    <Content Include="jsx\core\store\coaching\WheelOfLife.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />

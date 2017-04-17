@@ -116,6 +116,12 @@ namespace ilevus.Models
         }
     }
 
+    public class CoachingSessionBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+    }
+
     public class CoachingSessionFieldUpdateBindingModel
     {
         public string ProcessId { get; set; }

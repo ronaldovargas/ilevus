@@ -28,7 +28,17 @@ var FeedbackBg = "rgba(103, 58, 183, 0.2)";
 
 module.exports = React.createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: React.PropTypes.object,
+    },
+    childContextTypes: {
+        isCoach: React.PropTypes.bool,
+        process: React.PropTypes.object,
+    },
+    getChildContext() {
+        return {
+            isCoach: this.state.isCoach,
+            process: this.state.process,
+        };
     },
     getRoute(process, session) {
         return "/coaching/process/" + process + "/" + session;
@@ -246,6 +256,11 @@ module.exports = React.createClass({
         if (this.state.loading) {
             return <LoadingGauge />;
         }
+
+        if (this.props.children) {
+            return this.props.children;
+        }
+
         var process = this.state.process,
             isCoach = this.state.isCoach,
             coach = process.Coach,

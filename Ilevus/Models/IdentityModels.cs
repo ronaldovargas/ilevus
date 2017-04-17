@@ -8,6 +8,7 @@ using AspNet.Identity.MongoDB;
 using MongoDB.Driver;
 using ilevus.Helpers;
 using System.Collections.Generic;
+using ilevus.Models.CoachingTools;
 
 namespace ilevus.Models
 {
@@ -92,6 +93,7 @@ namespace ilevus.Models
             CareerInfo = false;
             ServicesInfo = false;
             ProcessSteps = new List<CoachingProcessStep>();
+            CoachingToolsConfigs = new CoachingToolsConfigurations();
         }
 
         // Wizard steps concluded?
@@ -128,6 +130,8 @@ namespace ilevus.Models
 
         // Passos do processo de coaching
         public List<CoachingProcessStep> ProcessSteps { get; set; }
+
+        public CoachingToolsConfigurations CoachingToolsConfigs { get; set; }
 
     }
     

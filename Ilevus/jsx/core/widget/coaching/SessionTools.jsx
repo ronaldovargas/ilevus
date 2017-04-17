@@ -24,6 +24,7 @@ module.exports = React.createClass({
     },
 
     renderActiveTools(tools) {
+        var toolsPath = CoachingTools.path.replace(":process", this.props.processId).replace(":session", this.props.sessionIndex);
         return <table className="ilv-table ilv-table-sm">
             <thead>
                 <tr>
@@ -32,28 +33,19 @@ module.exports = React.createClass({
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Roda da vida</td>
-                    <td className="text-right">
-                        <Link to="/coaching/tools/wheeloflife" className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
-                        </Link>
-                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>SMART</td>
-                    <td className="text-right">
-                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                            <i className="ilv-icon material-icons md-18">&#xE89E;</i>
-                        </button>
-                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                        </button>
-                    </td>
-                </tr>
+                {tools.map((tool, index) => {
+                    return ( <tr key={"active-tool-"+index}>
+                        <td>{Messages.get(tool.labelKey)}</td>
+                        <td className="text-right">
+                            <Link to={toolsPath.replace(":tool", tool.toolPath)} className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                <i className="ilv-icon material-icons md-18">&#xE89E;</i>
+                            </Link>
+                            {/*<button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
+                                <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
+                            </button>*/}
+                        </td>
+                    </tr>);
+                })}
             </tbody>
         </table>;
     },

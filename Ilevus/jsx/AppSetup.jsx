@@ -166,9 +166,8 @@ Messages.load(function (success) {
 
                     <Route path="coaching/process/:id">
                         <IndexRoute component={SessionDetails} />
-                        <Route path=":session"  component={SessionDetails} />
-                        <Route path=":session/tools" component={CoachingToolsContainer}>
-                            <Route path="wheeloflife" component={WheelOfLife} />
+                        <Route path=":session"  component={SessionDetails}>
+                            <Route path="tools/wheeloflife" component={WheelOfLife} />
                         </Route>
                     </Route>
                     <Route path="coaching/hire/:id" component={HireProfessional} />
