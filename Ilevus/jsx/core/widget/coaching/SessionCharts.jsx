@@ -114,12 +114,6 @@ module.exports = React.createClass({
     },
 
     render() {
-        if (this.props.process.Sessions.length <= 1) {
-            return <div />;
-        }
-        if ((this.props.process.Sessions.length == 2) && (this.props.process.Sessions[1].Status < 10)) {
-            return <div />;
-        }
         return (<div>
             <div className="mb-5">
                 <Line data={this.getCommitmentChartData()} options={this.chartOptions} />
