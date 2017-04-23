@@ -4,12 +4,13 @@ var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
+var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx");
 
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var SessionTimer = require("ilevus/jsx/core/widget/coaching/SessionTimer.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
-
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Radar = require('react-chartjs-2').Radar;
 
@@ -53,6 +54,10 @@ module.exports = React.createClass({
             });
         }, me);
 
+        CoachingStore.on("finish-session", (process) => {
+            location.back();
+        }, me);
+
         if (this.state.loading) {
             WheelOfLifeStore.dispatch({
                 action: WheelOfLifeStore.ACTION_INITIALIZE_TOOL,
@@ -63,7 +68,9 @@ module.exports = React.createClass({
             });
         }
     },
+    
     componentWillUnmount() {
+        CoachingStore.off(null, null, this);
         WheelOfLifeStore.off(null, null, this);
     },
 
@@ -203,11 +210,13 @@ module.exports = React.createClass({
         if (this.state.loading) {
             return <LoadingGauge />;
         }
+
+        var session = this.context.process.Sessions[parseInt(this.props.params.session)];
         return (
             <div className="container my-5">
-                <div className="row mb-5">
-                    <div className="col-12 mb-5">
-                        <div className="ilv-media">
+                <div className="row mb-2">
+                    <div className="col">
+                        <div className="ilv-media mb-3">
                             <div className="ilv-media-body">
                                 <h1>{Messages.get("LabelWheelOfLife")}</h1>
                             </div>
@@ -215,11 +224,14 @@ module.exports = React.createClass({
                                 <button className="ilv-btn ilv-btn-primary" onClick={this.finish}>{Messages.get("LabelFinish")}</button>
                             </div>
                         </div>
+                        {this.renderField(this.state.field)}
                     </div>
 
-                    {this.context.isCoach ? "":this.renderField(this.state.field)}
-                    
-                    <div className="col mb-3">
+                    <div className="col-5">
+                        <SessionTimer ref="timer"
+                                      process={this.context.process}
+                                      session={session}
+                                      isCoach={this.context.isCoach} />
                         <Radar data={this.getChartData()} options={this.chartOptions} />
                     </div>
                 </div>

@@ -15,9 +15,9 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 var SessionCharts = require("ilevus/jsx/core/widget/coaching/SessionCharts.jsx");
 var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
+var SessionTimer = require("ilevus/jsx/core/widget/coaching/SessionTimer.jsx");
 var SessionTools = require("ilevus/jsx/core/widget/coaching/SessionTools.jsx");
 
-var WheelOfLifeChart = require("ilevus/jsx/core/widget/coaching/wheeloflife/Chart.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
@@ -64,7 +64,6 @@ module.exports = React.createClass({
                 lastModified: process.LastModified,
                 loading: false,
             });
-            this.updateDurationCounter();
             _.delay(this.pollModifications, 5000);
         }, me);
 
@@ -143,23 +142,6 @@ module.exports = React.createClass({
         }
     },
 
-    updateDurationCounter() {
-        var el = this.refs["duration-counter"],
-            session = this.state.process.Sessions[parseInt(this.props.params.session)];
-        if (session.Status == 5 && el) {
-            if (!this.sessionDuration) {
-                this.sessionDuration = moment.duration(moment().diff(moment(session.Started), "seconds"), "seconds");
-            } else {
-                this.sessionDuration.add(1, "seconds");
-            }
-            var hours = numeral(this.sessionDuration.hours()),
-                minutes = numeral(this.sessionDuration.minutes()),
-                seconds = numeral(this.sessionDuration.seconds());
-            el.innerHTML = hours.format("00") + ":" + minutes.format("00") + ":" + seconds.format("00");
-        }
-        _.delay(this.updateDurationCounter, 1000);
-    },
-
     pollModifications() {
         CoachingStore.dispatch({
             action: CoachingStore.ACTION_POLL_PROCESS_MODIFICATIONS,
@@ -213,32 +195,6 @@ module.exports = React.createClass({
         this.context.router.push(this.getRoute(this.props.params.id, index));
     },
 
-    newSession(event) {
-        event && event.preventDefault();
-        CoachingStore.dispatch({
-            action: CoachingStore.ACTION_NEW_SESSION,
-            data: this.props.params.id
-        });
-    },
-    startSession(event) {
-        event && event.preventDefault();
-        CoachingStore.dispatch({
-            action: CoachingStore.ACTION_START_SESSION,
-            data: this.props.params.id
-        });
-    },
-    finishSession(event) {
-        event && event.preventDefault();
-        var me = this;
-        Modal.confirm(Messages.get("TextAreYouSure"), Messages.get("TextSessionFinishConfirmation"), () => {
-            CoachingStore.dispatch({
-                action: CoachingStore.ACTION_FINISH_SESSION,
-                data: me.props.params.id
-            });
-            Modal.hide();
-        });
-    },
-
     saveEvaluation(event) {
         event && event.preventDefault();
         var me = this;
@@ -271,13 +227,7 @@ module.exports = React.createClass({
             session = process.Sessions[sessionIndex],
             inProgress = (session.Status > 0) && (session.Status < 10),
             currentSession = process.Sessions.length == (sessionIndex + 1),
-            latestFinished = process.Sessions[process.Sessions.length - 1].Status >= 10,
-            currentDuration = session.Status >= 10 ? moment.duration(moment(session.Finished).diff(moment(session.Started), "seconds"), "seconds") : null,
-            currentDurationString = currentDuration ? (
-                numeral(currentDuration.hours()).format("00") + ":" +
-                numeral(currentDuration.minutes()).format("00") + ":" +
-                numeral(currentDuration.seconds()).format("00")
-            ):null
+            latestFinished = process.Sessions[process.Sessions.length - 1].Status >= 10
         ;
         console.log(session);
         return (
@@ -359,25 +309,11 @@ module.exports = React.createClass({
                     </div>
 
                     <div className="col-sm-4">
-                        <div className="ilv-card mb-5">
-                            {session.Status == 0 ? <div className="ilv-card-header text-center">
-                                <i>{Messages.get("LabelNotStarted")}</i>
-                                {isCoach ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2" onClick={this.startSession}>{Messages.get("LabelStartSession")}</button>:""}
-                            </div>:(session.Status < 10 ? <div className="ilv-card-header text-center">
-                                <small>{Messages.get("LabelSessionDuration")}:</small>
-                                <h1 className="mb-3" ref="duration-counter"></h1>
-                                {isCoach ? <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive" onClick={this.finishSession}>{Messages.get("LabelEndSession")}</button>:""}
-                            </div>:<div className="ilv-card-header text-center">
-                                <small>{Messages.get("LabelSessionDuration")}:</small>
-                                <h1 className="mb-3">
-                                    {currentDurationString}
-                                </h1>
-                                <i>{Messages.get("LabelFinished")}</i>
-                            </div>)}
-                            {latestFinished && isCoach ? <div className="ilv-card-block">
-                                <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link" onClick={this.newSession}>{Messages.get("LabelNewSession")}</button>
-                            </div> : ""}
-                        </div>
+                        <SessionTimer ref="timer"
+                                      process={process}
+                                      session={session}
+                                      isCoach={isCoach}
+                                      />
 
                         {!isCoach && (session.Status >= 10) ? <div className="mb-5 text-center">
                             <div className="row">

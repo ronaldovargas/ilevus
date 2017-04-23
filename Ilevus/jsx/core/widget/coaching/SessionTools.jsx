@@ -70,7 +70,7 @@ module.exports = React.createClass({
                         <i className="my-1">{Messages.get("TextNoToolApplied")}</i>
                     )}
                 </div>
-                {this.props.isCoach && (this.props.session.Status < 10) && (unactiveTools.length > 0) ? <div className="ilv-card-footer">
+                {this.props.isCoach && (this.props.session.Status < 10) && (this.props.session.Status > 0) && (unactiveTools.length > 0) ? <div className="ilv-card-footer">
                     <div className="dropdown">
                         <a className="font-weight-bold" data-toggle="dropdown" href="#">
                             {Messages.get('LabelApplyTool')} <i className="material-icons">&#xE313;</i>
