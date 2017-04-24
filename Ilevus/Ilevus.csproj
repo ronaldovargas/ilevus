@@ -320,7 +320,7 @@
     <Content Include="jsx\core\view\user\coaching\HireProfessional.jsx" />
     <Content Include="jsx\core\view\user\coaching\CoachingProcesses.jsx" />
     <Content Include="jsx\core\widget\coaching\EditableTextArea.jsx" />
-    <Content Include="jsx\core\widget\coaching\wheeloflife\Chart.jsx" />
+    <Content Include="jsx\core\widget\coaching\wheeloflife\Tasks.jsx" />
     <Content Include="jsx\core\widget\coaching\SessionHistory.jsx" />
     <Content Include="jsx\core\view\user\coaching\CoachingProcessesDefinition.jsx" />
     <Content Include="jsx\core\view\user\coaching\tools\wheeloflife\WheelOfLife.jsx" />

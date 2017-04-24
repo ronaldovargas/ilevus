@@ -3,7 +3,6 @@ var S = require("string");
 require("ilevus/jsx/vendor/intlTelInput.js");
 
 var React = require("react");
-var MaskedInput = require("react-maskedinput");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
 

@@ -9,6 +9,7 @@ var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx")
 
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 var SessionTimer = require("ilevus/jsx/core/widget/coaching/SessionTimer.jsx");
+var Tasks = require("ilevus/jsx/core/widget/coaching/wheeloflife/Tasks.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -46,7 +47,6 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         WheelOfLifeStore.on("initialize-tool", (toolDef) => {
-            console.log(toolDef);
             me.setState({
                 tool: toolDef,
                 loading: false,
@@ -55,7 +55,7 @@ module.exports = React.createClass({
         }, me);
 
         CoachingStore.on("finish-session", (process) => {
-            location.back();
+            history.back();
         }, me);
 
         if (this.state.loading) {
@@ -241,59 +241,12 @@ module.exports = React.createClass({
                     <div className="col-12">
                         <EditableTextArea label={Messages.get('LabelLearning')}
                                           value={this.state.tool.Learnings}
-                                          editable={!this.context.isCoach}
+                                          editable={!this.context.isCoach && (session.Status > 0) && (session.Status < 10)}
                                           onChange={this.learningsChange} />
                     </div>
                 </div>
 
-                {/*<div className="row mb-5">
-                    <div className="col">
-                        <h4>{Messages.get("LabelTasks")}</h4>
-                        <table className="ilv-table">
-                            <thead>
-                                <tr>
-                                    <th>{Messages.get("LabelDescription")}</th>
-                                    <th width="160">{Messages.get("LabelField")}</th>
-                                    <th width="160">{Messages.get("LabelDeadline")}</th>
-                                    <th width="140"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Fazer check-up anual</td>
-                                    <td>Saúde</td>
-                                    <td>Fev / 2017</td>
-                                    <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
-                                        </button>
-                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Ler livros sobre finanças</td>
-                                    <td>Finanças</td>
-                                    <td>Mar / 2017</td>
-                                    <td className="text-right">
-                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE3C9;</i>
-                                        </button>
-                                        <button className="ilv-btn ilv-btn-sm ilv-btn-clean mx-0">
-                                            <i className="ilv-icon material-icons md-18">&#xE5C9;</i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colSpan="4" className="text-center">
-                                        <a className="font-weight-bold" href="javascript:;">+ {Messages.get("LabelAddTask")}</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>*/}
+                <Tasks tool={this.state.tool} process={this.context.process} session={session} sessionIndex={parseInt(this.props.params.session)} />
 
             </div>
         );

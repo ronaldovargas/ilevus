@@ -138,5 +138,116 @@ namespace ilevus.Controllers.CoachingTools
             }
         }
 
+        [HttpPost]
+        [Route("RemoveTask")]
+        public async Task<IHttpActionResult> RemoveTask(WheelOfLifeRemoveTaskBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null || session.WheelOfLifeTool == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    session.WheelOfLifeTool.Tasks.RemoveAt(model.Task);
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", DateTime.Now)
+                        )
+                    );
+                    return Ok(true);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("SaveTask")]
+        public async Task<IHttpActionResult> SaveTask(WheelOfLifeSaveTaskBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null || session.WheelOfLifeTool == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    session.WheelOfLifeTool.Tasks.Add(new WheelOfLifeTask() {
+                        Label = model.Description,
+                        Field = model.Field,
+                        Deadline = model.Deadline
+                    });
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", DateTime.Now)
+                        )
+                    );
+                    return Ok(true);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateTask")]
+        public async Task<IHttpActionResult> UpdateTask(WheelOfLifeUpdateTaskBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null || session.WheelOfLifeTool == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    session.WheelOfLifeTool.Tasks[model.Task].Label = model.Description;
+                    session.WheelOfLifeTool.Tasks[model.Task].Field = model.Field;
+                    session.WheelOfLifeTool.Tasks[model.Task].Deadline = model.Deadline;
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", DateTime.Now)
+                        )
+                    );
+                    return Ok(true);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
     }
 }

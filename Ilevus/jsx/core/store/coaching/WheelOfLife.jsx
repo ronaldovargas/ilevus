@@ -22,6 +22,9 @@ var WheelOfLifeStore = Fluxbone.Store.extend({
     ACTION_INITIALIZE_TOOL: 'wheeloflife-initializeTool',
     ACTION_SAVE_EVALUATION: 'wheeloflife-saveEvaluation',
     ACTION_SAVE_LEARNINGS: 'wheeloflife-saveLearnings',
+    ACTION_REMOVE_TASK: 'wheeloflife-removeTask',
+    ACTION_SAVE_TASK: 'wheeloflife-saveTask',
+    ACTION_UPDATE_TASK: 'wheeloflife-updateTask',
     dispatchAcceptRegex: /^wheeloflife-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -68,6 +71,54 @@ var WheelOfLifeStore = Fluxbone.Store.extend({
 	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("save-learnings", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	removeTask(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/RemoveTask",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("remove-task", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	saveTask(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/SaveTask",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("save-task", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateTask(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateTask",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("update-task", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

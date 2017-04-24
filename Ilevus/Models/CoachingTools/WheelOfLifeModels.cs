@@ -247,4 +247,30 @@ Constitui a percepção de importância e razão de vida. Une todas as
         public string Learnings { get; set; }
     }
 
+    public class WheelOfLifeRemoveTaskBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public int Task { get; set; }
+    }
+
+    public class WheelOfLifeSaveTaskBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public string Description { get; set; }
+        public string Field { get; set; }
+        public DateTime Deadline { get; set; }
+    }
+
+    public class WheelOfLifeUpdateTaskBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public int Task { get; set; }
+        public string Description { get; set; }
+        public string Field { get; set; }
+        public DateTime Deadline { get; set; }
+    }
+
 }

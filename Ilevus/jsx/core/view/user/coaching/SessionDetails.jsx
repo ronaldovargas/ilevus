@@ -133,7 +133,6 @@ module.exports = React.createClass({
 
     componentWillReceiveProps(newProps, newContext) {
         if (this.props.params.id != newProps.params.id) {
-            console.log("Changing process...");
             this.setState({ loading: true });
             CoachingStore.dispatch({
                 action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
@@ -229,7 +228,6 @@ module.exports = React.createClass({
             currentSession = process.Sessions.length == (sessionIndex + 1),
             latestFinished = process.Sessions[process.Sessions.length - 1].Status >= 10
         ;
-        console.log(session);
         return (
             <div className="container my-5">
                 <div className="row">
