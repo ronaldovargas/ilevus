@@ -45,6 +45,7 @@ namespace ilevus.Models
     public class CoachingSession
     {
         public string Objectives { get; set; }
+        public List<string> Tags { get; set; }
         public string CoachComments { get; set; }
         public string CoacheeComments { get; set; }
 
@@ -64,6 +65,7 @@ namespace ilevus.Models
             Creation = DateTime.Now;
             ProcessStep = 0;
             Status = 0;
+            Tags = new List<string>();
         }
     }
 
@@ -143,5 +145,18 @@ namespace ilevus.Models
         public int Session { get; set; }
         public double Rating { get; set; }
         public double Commitment { get; set; }
+    }
+
+    public class AddTagBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public string Tag { get; set; }
+    }
+    public class RemoveTagBindingModel
+    {
+        public string ProcessId { get; set; }
+        public int Session { get; set; }
+        public int Tag { get; set; }
     }
 }

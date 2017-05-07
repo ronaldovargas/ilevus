@@ -15,6 +15,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 var SessionCharts = require("ilevus/jsx/core/widget/coaching/SessionCharts.jsx");
 var SessionHistory = require("ilevus/jsx/core/widget/coaching/SessionHistory.jsx");
+var SessionTags = require("ilevus/jsx/core/widget/coaching/SessionTags.jsx");
 var SessionTimer = require("ilevus/jsx/core/widget/coaching/SessionTimer.jsx");
 var SessionTools = require("ilevus/jsx/core/widget/coaching/SessionTools.jsx");
 
@@ -281,6 +282,12 @@ module.exports = React.createClass({
                                                   value={session.Objectives}
                                                   editable={isCoach && inProgress}
                                                   onChange={this.objectiveChange} />
+                                <SessionTags ref="timer"
+                                             process={process}
+                                             session={session}
+                                             sessionIndex={sessionIndex}
+                                             isCoach={isCoach} />
+                                
                             </div>
                         </div>
 

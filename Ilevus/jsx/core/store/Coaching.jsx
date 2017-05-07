@@ -30,6 +30,8 @@ var CoachingStore = Fluxbone.Store.extend({
     ACTION_FINISH_SESSION: 'coaching-finishSession',
     ACTION_CHANGE_SESSION_PROCESS_STEP: 'coaching-changeSessionProcessStep',
     ACTION_EVALUATE_SESSION: 'coaching-evaluateSession',
+    ACTION_ADD_TAG: 'coaching-addTag',
+    ACTION_REMOVE_TAG: 'coaching-removeTag',
     dispatchAcceptRegex: /^coaching-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -199,6 +201,37 @@ var CoachingStore = Fluxbone.Store.extend({
             data: params,
 	        success(data, status, opts) {
 	            me.trigger("evaluate-session", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	addTag(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/AddTag",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("add-tag");
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+	removeTag(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/RemoveTag",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("add-tag");
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

@@ -347,6 +347,86 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("AddTag")]
+        public async Task<IHttpActionResult> AddTag(AddTagBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    if (session.Tags == null)
+                    {
+                        session.Tags = new List<string>();
+                    }
+                    session.Tags.Add(model.Tag);
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", DateTime.Now)
+                        )
+                    );
+                    return Ok(true);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+        [HttpPost]
+        [Route("RemoveTag")]
+        public async Task<IHttpActionResult> RemoveTag(RemoveTagBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<CoachingProcess>.Filter;
+            var updates = Builders<CoachingProcess>.Update;
+            var collection = db.GetCoachingProcessCollection();
+            try
+            {
+                var process = (await collection.FindAsync(filters.Eq("Id", model.ProcessId))).FirstOrDefault();
+                if (process != null)
+                {
+                    var session = process.Sessions[model.Session];
+                    if (session == null)
+                    {
+                        return BadRequest("Sessão inválida.");
+                    }
+                    if (session.Tags == null)
+                    {
+                        session.Tags = new List<string>();
+                    }
+                    if (session.Tags.Count > model.Tag)
+                    {
+                        session.Tags.RemoveAt(model.Tag);
+                    }
+                    await collection.UpdateOneAsync(filters.Eq("Id", model.ProcessId),
+                        updates.Combine(
+                            updates.Set("Sessions", process.Sessions),
+                            updates.Set("LastModified", DateTime.Now)
+                        )
+                    );
+                    return Ok(true);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
 
 
         [HttpGet]
