@@ -6,6 +6,8 @@ var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var S = require("string");
 
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
 var URL = Fluxbone.BACKEND_URL + "WheelOfLife";
 
 var WheelOfLifeModel = Fluxbone.Model.extend({
@@ -19,6 +21,7 @@ var WheelOfLifeModel = Fluxbone.Model.extend({
 });
 
 var WheelOfLifeStore = Fluxbone.Store.extend({
+    ACTION_SAVE_CONFIGURATION: 'wheeloflife-saveConfiguration',
     ACTION_INITIALIZE_TOOL: 'wheeloflife-initializeTool',
     ACTION_SAVE_EVALUATION: 'wheeloflife-saveEvaluation',
     ACTION_SAVE_LEARNINGS: 'wheeloflife-saveLearnings',
@@ -29,6 +32,26 @@ var WheelOfLifeStore = Fluxbone.Store.extend({
 
 	url: URL,
 	model: WheelOfLifeModel,
+
+	saveConfiguration(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Configure",
+	        dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                WheelOfLifeDefaults: params
+            }),
+            success(data, status, opts) {
+                UserSession.get("user").Professional.Professional.CoachingToolsConfigs.WheelOfLifeDefaults = data;
+	            me.trigger("save-configuration", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
 
 	initializeTool(params) {
 	    var me = this;

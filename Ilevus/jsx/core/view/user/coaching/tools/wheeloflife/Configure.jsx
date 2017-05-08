@@ -2,8 +2,11 @@
 var S = require('string');
 var marked = require("marked");
 var React = require('react');
+var Toastr = require("toastr");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
+var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var EditableText = require("ilevus/jsx/core/widget/coaching/EditableText.jsx");
@@ -19,10 +22,22 @@ module.exports = React.createClass({
     },
 
     componentDidMount() {
-        window.onbeforeunload = this.beforeClose;
+        var me = this;
+
+        window.onbeforeunload = me.beforeClose;
+
+        WheelOfLifeStore.on("save-configuration", (data) => {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccess"));
+            me.setState({
+                changed: false,
+                configs: data,
+            });
+        }, me);
     },
     componentWillUnmount() {
         window.onbeforeunload = undefined;
+        WheelOfLifeStore.off(null, null, this);
     },
 
     beforeClose() {
@@ -31,8 +46,15 @@ module.exports = React.createClass({
         return undefined;
     },
 
+    saveConfigs(event) {
+        event && event.preventDefault();
+        WheelOfLifeStore.dispatch({
+            action: WheelOfLifeStore.ACTION_SAVE_CONFIGURATION,
+            data: this.state.configs,
+        });
+    },
+
     changeField(event) {
-        console.log(arguments);
         this.setState({
             field: event.target.value,
         });
@@ -55,6 +77,20 @@ module.exports = React.createClass({
         this.setState({
             changed: true,
             field: this.state.configs.length - 1,
+        });
+    },
+    removeField(index, event) {
+        event && event.preventDefault();
+        if (this.state.configs.length == 0)
+            return;
+        var me = this;
+        Modal.deleteConfirm(() => {
+            Modal.hide();
+            me.state.configs.splice(index, 1);
+            me.setState({
+                changed: true,
+                field: me.state.field == 0 ? 0 : me.state.field - 1,
+            });
         });
     },
 
@@ -95,7 +131,10 @@ module.exports = React.createClass({
                 onChange={this.instructionsChange} />
             <div className="mt-3">
                 <a className="font-weight-bold mr-4" href="#" onClick={this.previousField}>&#8592; {Messages.get("LabelPrevious")}</a>
-                <a className="font-weight-bold" href="#" onClick={this.nextField}>{Messages.get("LabelNext")} &#8594;</a>
+                <a className="font-weight-bold mr-4" href="#" onClick={this.nextField}>{Messages.get("LabelNext")} &#8594;</a>
+                <button className="ilv-btn ilv-btn-error" onClick={this.removeField.bind(this, fieldIndex)} title={Messages.get("LabelRemoveField")}>
+                    {Messages.get("LabelRemoveField")}
+                </button>
             </div>
         </div>);
     },

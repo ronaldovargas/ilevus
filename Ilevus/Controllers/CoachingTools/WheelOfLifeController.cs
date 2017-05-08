@@ -27,6 +27,30 @@ namespace ilevus.Controllers.CoachingTools
     {
 
         [HttpPost]
+        [Route("Configure")]
+        public async Task<IHttpActionResult> InitializeTool(CoachingToolsConfigurations model)
+        {
+            if (model == null || model.WheelOfLifeDefaults == null)
+            {
+                return BadRequest("You must provide the configuration.");
+            }
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                {
+                    user.Professional.CoachingToolsConfigs.WheelOfLifeDefaults = model.WheelOfLifeDefaults;
+                    await UserManager.UpdateAsync(user);
+                    return Ok(user.Professional.CoachingToolsConfigs.WheelOfLifeDefaults);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
         [Route("Initialize")]
         public async Task<IHttpActionResult> InitializeTool(CoachingSessionBindingModel model)
         {

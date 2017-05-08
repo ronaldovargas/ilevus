@@ -14,4 +14,5 @@ namespace ilevus.Models.CoachingTools
             WheelOfLifeDefaults = WheelOfLife.GetDefaults();
         }
     }
+    
 }
