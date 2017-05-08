@@ -54,9 +54,11 @@ var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
 var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
 
 var ProcessDefinition = require("ilevus/jsx/core/view/user/coaching/CoachingProcessesDefinition.jsx");
+var CoachingToolsContainer = require("ilevus/jsx/core/view/user/coaching/tools/CoachingToolsContainer.jsx");
 var CoachingProcesses = require("ilevus/jsx/core/view/user/coaching/CoachingProcesses.jsx");
 var HireProfessional = require("ilevus/jsx/core/view/user/coaching/HireProfessional.jsx");
 var SessionDetails = require("ilevus/jsx/core/view/user/coaching/SessionDetails.jsx");
+var WheelOfLifeConfigure = require("ilevus/jsx/core/view/user/coaching/tools/wheeloflife/Configure.jsx");
 
 var CoachingToolsContainer = require("ilevus/jsx/core/view/user/coaching/tools/CoachingToolsContainer.jsx");
 var WheelOfLife = require("ilevus/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
@@ -162,6 +164,9 @@ Messages.load(function (success) {
                         <Route path="profile" component={UserProfile} />
                         <Route path="schedule" component={UserViewSchedule} />
                         <Route path="schedule/configure" component={UserSchedule} />
+                        <Route path="coaching-tools" component={CoachingToolsContainer}>
+                            <Route path="wheeloflife" component={WheelOfLifeConfigure} />
+                        </Route>
                     </Route>
 
                     <Route path="coaching/process/:id">

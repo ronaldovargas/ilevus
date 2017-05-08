@@ -12,6 +12,16 @@ module.exports = React.createClass({
     componentWillUnmount() {
     },
     render() {
-        return this.props.children;
-    }
+        if (this.props.children)
+            return this.props.children;
+        return (<div className="row">
+            {CoachingTools.tools.map((tool, index) => {
+                return (<Link to={"/user/coaching-tools/"+tool.toolPath} className="col col-md-3 ilv-card" key={"tool-"+index}>
+                    <div className="ilv-card-body text-center">
+                        <h2>{Messages.get(tool.labelKey)}</h2>
+                    </div>
+                </Link>);
+            })}
+        </div>);
+            }
 });

@@ -19,12 +19,12 @@ module.exports = React.createClass({
                         <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/dashboard" activeClassName="active">
-                                {Messages.get("LabelDashboard")}
+                                    {Messages.get("LabelDashboard")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/schedule" activeClassName="active">
-                                {Messages.get("LabelSchedule")}
+                                    {Messages.get("LabelSchedule")}
                                 </Link>
                             </li>
                             {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
@@ -32,11 +32,11 @@ module.exports = React.createClass({
                                     {Messages.get("LabelMyProcesses")}
                                 </Link>
                             </li>:""}
-                            {/*UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
+                            {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/coaching-tools" activeClassName="active">
-                                    {Messages.get("LabelMyTools")}
+                                    {Messages.get("LabelTools")}
                                 </Link>
-                            </li>:""*/}
+                            </li>:""}
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/profile" activeClassName="active">
                                     {Messages.get("LabelProfile")}
