@@ -19,6 +19,12 @@ namespace ilevus.Models
         public SystemTranslatedEmail AccountBlockingMessages { get; set; }
         public SystemTranslatedEmail RecoverPasswordMessages { get; set; }
 
+        public string MoipBaseUrl { get; set; }
+        public string MoipToken { get; set; }
+        public string MoipKey { get; set; }
+        public string MoipSubscriptionKey { get; set; }
+        public string MoipCryptoPublicKey { get; set; }
+
         public SystemConfig()
         {
             Id = ObjectId.GenerateNewId().ToString();
@@ -94,5 +100,15 @@ namespace ilevus.Models
         public string Content { get; set; }
         public string Lang { get; set; }
     }
-    
+
+    public class SystemApisConfigsBindingModel
+    {
+        public string MoipBaseUrl { get; set; }
+        public string MoipToken { get; set; }
+        public string MoipKey { get; set; }
+        public string MoipSubscriptionKey { get; set; }
+        public string MoipCryptoPublicKey { get; set; }
+    }
+
+
 }

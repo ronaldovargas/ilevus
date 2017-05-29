@@ -22,6 +22,7 @@ var SystemStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_MESSAGES: 'system-retrieveMessages',
     ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
     ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
+    ACTION_UPDATE_CONFIG_APIS: 'system-updateConfigApis',
     ACTION_ADD_TRANSLATION_KEY: "system-addTranslationKey",
     ACTION_REVIEW_TRANSLATION_KEY: "system-reviewTranslationKey",
     ACTION_UPDATE_TRANSLATION: "system-updateTranslation",
@@ -116,6 +117,23 @@ var SystemStore = Fluxbone.Store.extend({
 	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("update-config-email", data);
+	            me.trigger("retrieve-config", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateConfigApis(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Config/Apis",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("update-config-apis", data);
 	            me.trigger("retrieve-config", data);
 	        },
 	        error(opts, status, errorMsg) {

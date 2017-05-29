@@ -143,6 +143,21 @@ namespace ilevus.Controllers
         }
 
         [IlevusAuthorization]
+        [Route("Config/Apis")]
+        [HttpPost]
+        public async Task<IHttpActionResult> UpdateApisConfigs(SystemApisConfigsBindingModel model)
+        {
+            IlevusDBContext.SystemConfiguration.MoipBaseUrl = model.MoipBaseUrl;
+            IlevusDBContext.SystemConfiguration.MoipToken = model.MoipToken;
+            IlevusDBContext.SystemConfiguration.MoipKey = model.MoipKey;
+            IlevusDBContext.SystemConfiguration.MoipSubscriptionKey = model.MoipSubscriptionKey;
+            IlevusDBContext.SystemConfiguration.MoipCryptoPublicKey = model.MoipCryptoPublicKey;
+            if (await IlevusDBContext.Create().UpdateSystemConfig())
+                return Ok(IlevusDBContext.SystemConfiguration);
+            return BadRequest();
+        }
+
+        [IlevusAuthorization]
         [Route("Config/Welcome")]
         [HttpPost]
         public async Task<IHttpActionResult> UpdateWelcomeEmail(SystemTranslatedEmail model)
