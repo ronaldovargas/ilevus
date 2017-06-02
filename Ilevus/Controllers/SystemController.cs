@@ -151,6 +151,7 @@ namespace ilevus.Controllers
             IlevusDBContext.SystemConfiguration.MoipToken = model.MoipToken;
             IlevusDBContext.SystemConfiguration.MoipKey = model.MoipKey;
             IlevusDBContext.SystemConfiguration.MoipSubscriptionKey = model.MoipSubscriptionKey;
+            IlevusDBContext.SystemConfiguration.MoipSubscriptionCode = model.MoipSubscriptionCode;
             IlevusDBContext.SystemConfiguration.MoipCryptoPublicKey = model.MoipCryptoPublicKey;
             if (await IlevusDBContext.Create().UpdateSystemConfig())
                 return Ok(IlevusDBContext.SystemConfiguration);

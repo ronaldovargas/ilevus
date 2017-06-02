@@ -54,6 +54,7 @@ module.exports = React.createClass({
                 MoipToken: this.refs['MoipToken'].value,
                 MoipKey: this.refs['MoipKey'].value,
                 MoipSubscriptionKey: this.refs['MoipSubscriptionKey'].value,
+                MoipSubscriptionCode: this.refs['MoipSubscriptionCode'].value,
                 MoipCryptoPublicKey: this.refs['MoipCryptoPublicKey'].value,
             }
         });
@@ -67,7 +68,7 @@ module.exports = React.createClass({
             <div className="ilv-card">
                 <div className="ilv-card-header">
                     <strong>
-                        {Messages.get("LabelApisConfiguration")}
+                        {Messages.get("LabelMoipConfiguration")}
                     </strong>
                 </div>
                 <div className="ilv-card-body">
@@ -87,6 +88,10 @@ module.exports = React.createClass({
                         <div className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelMoipSubscriptionKey")}</label>
                             <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipSubscriptionKey" defaultValue={this.state.config.MoipSubscriptionKey} />
+                        </div>
+                        <div className="ilv-form-group">
+                            <label className="ilv-form-label">{Messages.get("LabelMoipSubscriptionCode")}</label>
+                            <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipSubscriptionCode" defaultValue={this.state.config.MoipSubscriptionCode} />
                         </div>
                         <div className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelMoipCryptoPublicKey")}</label>

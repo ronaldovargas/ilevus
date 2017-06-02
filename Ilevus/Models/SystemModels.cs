@@ -23,6 +23,7 @@ namespace ilevus.Models
         public string MoipToken { get; set; }
         public string MoipKey { get; set; }
         public string MoipSubscriptionKey { get; set; }
+        public string MoipSubscriptionCode { get; set; }
         public string MoipCryptoPublicKey { get; set; }
 
         public SystemConfig()
@@ -107,6 +108,7 @@ namespace ilevus.Models
         public string MoipToken { get; set; }
         public string MoipKey { get; set; }
         public string MoipSubscriptionKey { get; set; }
+        public string MoipSubscriptionCode { get; set; }
         public string MoipCryptoPublicKey { get; set; }
     }
 

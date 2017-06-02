@@ -47,6 +47,7 @@ var ProfileWizardServices = require("ilevus/jsx/core/view/user/wizard/ProfileWiz
 
 var UserAccount = require("ilevus/jsx/core/view/user/Account.jsx");
 var UserDashboard = require("ilevus/jsx/core/view/user/Dashboard.jsx");
+var UserFinancial = require("ilevus/jsx/core/view/user/Financial.jsx");
 var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
@@ -73,6 +74,8 @@ var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslat
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
 var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
 var NotificationsTimeline = require("ilevus/jsx/core/view/notifications/NotificationsTimeline.jsx");
+
+var Subscribe = require("ilevus/jsx/core/view/user/Subscribe.jsx");
 
 var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
 
@@ -160,6 +163,7 @@ Messages.load(function (success) {
                     <Route path="user" component={UserManagement}>
                         <Route path="account" component={UserAccount} />
                         <Route path="dashboard" component={CoachingProcesses} />
+                        <Route path="financial" component={UserFinancial} />
                         <Route path="processes" component={ProcessDefinition} />
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="profile" component={UserProfile} />
@@ -169,6 +173,7 @@ Messages.load(function (success) {
                             <Route path="wheeloflife" component={WheelOfLifeConfigure} />
                         </Route>
                     </Route>
+                    <Route path="subscribe" component={Subscribe} />
 
                     <Route path="coaching/process/:id">
                         <IndexRoute component={SessionDetails} />

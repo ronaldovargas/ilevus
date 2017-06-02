@@ -22,11 +22,11 @@ module.exports = React.createClass({
                                     {Messages.get("LabelDashboard")}
                                 </Link>
                             </li>
-                            <li className="ilv-nav-item">
+                            {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/schedule" activeClassName="active">
                                     {Messages.get("LabelSchedule")}
                                 </Link>
-                            </li>
+                            </li>:""}
                             {UserSession.get("user").IsProfessional ? <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/processes" activeClassName="active">
                                     {Messages.get("LabelMyProcesses")}
@@ -45,6 +45,11 @@ module.exports = React.createClass({
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/account" activeClassName="active">
                                 {Messages.get("LabelAccount")}
+                                </Link>
+                            </li>
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/user/financial" activeClassName="active">
+                                    {Messages.get("LabelFinancial")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item hidden">

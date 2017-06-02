@@ -97,6 +97,8 @@ namespace ilevus.Models
 
             ScheduleConfig = user.ScheduleConfig;
             Professional = new ProfessionalProfileViewModel(user);
+            Premium = user.Premium;
+            Financial = user.Financial;
             IsProfessional = user.IsProfessional;
 
         }
@@ -115,6 +117,8 @@ namespace ilevus.Models
 
         public UserScheduleConfig ScheduleConfig { get; set; }
         public ProfessionalProfileViewModel Professional { get; set; }
+        public UserPremiumMembership Premium { get; set; }
+        public UserFinancialProfile Financial { get; set; }
         public bool IsProfessional { get; set; }
 
         public string Culture { get; set; }

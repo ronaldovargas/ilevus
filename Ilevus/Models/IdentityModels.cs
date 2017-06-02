@@ -21,6 +21,8 @@ namespace ilevus.Models
         
         public UserScheduleConfig ScheduleConfig { get; set; }
         public UserProfessionalProfile Professional { get; set; }
+        public UserPremiumMembership Premium { get; set; }
+        public UserFinancialProfile Financial { get; set; }
         public bool IsProfessional { get; set; }
 
         public string LinkedinProfileUrl { get; set; }
@@ -83,6 +85,22 @@ namespace ilevus.Models
         }
     }
 
+    public class UserPremiumMembership
+    {
+        public bool Active { get; set; }
+        public bool Late { get; set; }
+        public DateTime PayedUntil { get; set; }
+        public string MoipSubscriptionId { get; set; }
+    }
+
+    public class UserFinancialProfile
+    {
+        // Document info
+        public string TaxDocument { get; set; }
+        public string IdentityDocument { get; set; }
+
+    }
+
     public class UserProfessionalProfile
     {
         public UserProfessionalProfile()
@@ -118,7 +136,7 @@ namespace ilevus.Models
         public string City { get; set; }
         public string County { get; set; }
         public string Country { get; set; }
-
+        
         // Education info
         public IEnumerable<UserEducation> Education { get; set; }
 
