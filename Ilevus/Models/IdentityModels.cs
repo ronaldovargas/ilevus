@@ -90,7 +90,6 @@ namespace ilevus.Models
         public bool Active { get; set; }
         public bool Late { get; set; }
         public DateTime PayedUntil { get; set; }
-        public string MoipSubscriptionId { get; set; }
     }
 
     public class UserFinancialProfile

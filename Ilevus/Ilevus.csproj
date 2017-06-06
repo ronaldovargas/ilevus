@@ -216,6 +216,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
+    <Compile Include="Controllers\FinancialController.cs" />
     <Compile Include="Controllers\CoachingController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -240,6 +241,7 @@
     <Compile Include="Helpers\IlevusClaimTypes.cs" />
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
+    <Compile Include="Models\FinancialModels.cs" />
     <Compile Include="Models\CoachingModels.cs" />
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\ChatModels.cs" />
@@ -294,6 +296,7 @@
     <Content Include="jsx\core\store\coaching\Tools.json" />
     <Content Include="jsx\core\store\coaching\WheelOfLife.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelApis.jsx" />
+    <Content Include="jsx\core\store\Financial.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -354,6 +357,7 @@
     <Content Include="sass\custom\_schedule.scss" />
     <Content Include="sass\custom\_notifications.scss" />
     <Content Include="sass\custom\_rating.scss" />
+    <Content Include="sass\components\_overlay.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

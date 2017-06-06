@@ -23,6 +23,7 @@ namespace ilevus.Models
         public const string ConversationsTable = "ilevus_conversations";
         public const string MeetingScheduleTable = "ilevus_meeting_schedule";
         public const string PicturesTable = "ilevus_pictures";
+        public const string SubscriptionsTable = "ilevus_subscriptions";
         public const string SystemConfigTable = "ilevus_system";
         public const string SystemMessagesTable = "ilevus_messages";
         public const string UsersTable = "users";
@@ -68,6 +69,11 @@ namespace ilevus.Models
         public IMongoCollection<IlevusPicture> GetPicturesCollection()
         {
             return IlevusDatabase.GetCollection<IlevusPicture>(IlevusTableNames.PicturesTable);
+        }
+
+        public IMongoCollection<IlevusSubscription> GetSubscriptionsCollection()
+        {
+            return IlevusDatabase.GetCollection<IlevusSubscription>(IlevusTableNames.SubscriptionsTable);
         }
 
         public IMongoCollection<IlevusUser> GetUsersCollection()
@@ -412,6 +418,7 @@ namespace ilevus.Models
             var coachingProcesses = GetCoachingProcessCollection();
             var meetings = GetMeetingScheduleCollection();
             var pictures = GetPicturesCollection();
+            var subscriptions = GetSubscriptionsCollection();
             var users = IlevusDatabase.GetCollection<IlevusUser>("users");
 
             // Ad searching opts
@@ -456,6 +463,9 @@ namespace ilevus.Models
             meetings.Indexes.CreateOne(begin);
             meetings.Indexes.CreateOne(userId);
 
+
+            var subUserId = Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.UserId);
+            subscriptions.Indexes.CreateOne(subUserId, unique);
 
             // User search indexes
             var text = Builders<IlevusUser>.IndexKeys.Combine(

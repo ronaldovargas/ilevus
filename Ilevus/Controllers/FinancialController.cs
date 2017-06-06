@@ -1,0 +1,66 @@
+﻿using ilevus.Attributes;
+using ilevus.Helpers;
+using ilevus.Models;
+using ilevus.Resources;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.Cookies;
+using MongoDB.Driver;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Resources;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http;
+using static ilevus.Models.CoachingSession;
+
+namespace ilevus.Controllers
+{
+
+    [RoutePrefix("api/Financial")]
+    [IlevusAuthorization]
+    public class FinancialController : BaseAPIController
+    {
+
+        [HttpGet]
+        [Route("Subscription")]
+        public async Task<IHttpActionResult> GetUserSubscription()
+        {
+            var db = IlevusDBContext.Create();
+            var collection = db.GetSubscriptionsCollection();
+            var filters = Builders<IlevusSubscription>.Filter;
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return BadRequest("You must be logged in.");
+                }
+                if (!user.IsProfessional)
+                {
+                    return BadRequest("Você precisa ser um profissional para ter um plano de assinatura premium.");
+                }
+                IlevusSubscription result = (await collection.FindAsync(filters.Eq("UserId", user.Id))).FirstOrDefault();
+                if (result == null)
+                {
+                    result = new IlevusSubscription()
+                    {
+                        Status = "NEW",
+                        UserId = user.Id
+                    };
+                    await collection.InsertOneAsync(result);
+                }
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+        
+
+    }
+}
