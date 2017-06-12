@@ -465,7 +465,12 @@ namespace ilevus.Models
 
 
             var subUserId = Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.UserId);
-            subscriptions.Indexes.CreateOne(subUserId, unique);
+            var subStatus = Builders<IlevusSubscription>.IndexKeys.Combine(
+                Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.UserId),
+                Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.Status)
+            );
+            subscriptions.Indexes.CreateOne(subUserId);
+            subscriptions.Indexes.CreateOne(subStatus);
 
             // User search indexes
             var text = Builders<IlevusUser>.IndexKeys.Combine(

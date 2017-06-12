@@ -13,15 +13,12 @@ namespace ilevus.Models
         public string Id { get; set; }
         public string UserId { get; set; }
         public int Amount { get; set; }
-
-        public string MoipId { get; set; }
-        public string MoipAccount { get; set; }
-        public MoipInvoice Invoice { get; set; }
-        public MoipDateTime MoipCreation { get; set; }
-        public MoipDate NextInvoiceDate { get; set; }
         
-        public string Status;
+        public MoipInvoice Invoice { get; set; }
+        public MoipDate NextInvoiceDate { get; set; }
         public MoipCreditCard CreditCard { get; set; }
+
+        public string Status;
 
         public DateTime Creation { get; set; }
 
@@ -79,5 +76,16 @@ namespace ilevus.Models
         public int minute { get; set; }
         public int second { get; set; }
     }
-    
+
+    public class MoipSubscriptionBindingModel
+    {
+        public string Id { get; set; }
+        public int Amount { get; set; }
+        public MoipInvoice Invoice { get; set; }
+        public MoipDate NextInvoiceDate { get; set; }
+        public MoipCreditCard CreditCard { get; set; }
+        public string Status;
+
+    }
+
 }

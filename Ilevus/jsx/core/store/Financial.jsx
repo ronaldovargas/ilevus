@@ -20,6 +20,7 @@ var FinancialModel = Fluxbone.Model.extend({
 
 var FinancialStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_USER_SUBSCRIPTION: 'financial-retrieveUserSubscription',
+    ACTION_UPDATE_USER_SUBSCRIPTION: 'financial-updateUserSubscription',
     dispatchAcceptRegex: /^financial-[a-zA-Z0-9]+$/,
 
 	url: URL,
@@ -33,6 +34,22 @@ var FinancialStore = Fluxbone.Store.extend({
 	        dataType: 'json',
 	        success(data, status, opts) {
 	            me.trigger("retrieve-user-subscription", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateUserSubscription(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Subscription",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("update-user-subscription", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

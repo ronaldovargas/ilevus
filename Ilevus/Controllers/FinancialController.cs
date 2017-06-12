@@ -43,7 +43,10 @@ namespace ilevus.Controllers
                 {
                     return BadRequest("Você precisa ser um profissional para ter um plano de assinatura premium.");
                 }
-                IlevusSubscription result = (await collection.FindAsync(filters.Eq("UserId", user.Id))).FirstOrDefault();
+                IlevusSubscription result = (await collection.FindAsync(filters.And(
+                    filters.Eq("UserId", user.Id),
+                    filters.Ne("Status", "CANCELLED")
+                ))).FirstOrDefault();
                 if (result == null)
                 {
                     result = new IlevusSubscription()
@@ -60,7 +63,46 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
-        
+
+        [HttpPost]
+        [Route("Subscription")]
+        public async Task<IHttpActionResult> UpdateUserSubscription(MoipSubscriptionBindingModel model)
+        {
+            var db = IlevusDBContext.Create();
+            var collection = db.GetSubscriptionsCollection();
+            var filters = Builders<IlevusSubscription>.Filter;
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return BadRequest("You must be logged in.");
+                }
+
+                IlevusSubscription result = (await collection.FindAsync(filters.Eq("Id", model.Id))).FirstOrDefault();
+                if (result == null)
+                {
+                    return BadRequest("Invalid subscription.");
+                }
+                if (result.UserId.Equals(user.Id))
+                {
+                    return BadRequest("Essa não é sua assinatura.");
+                }
+                result.Amount = model.Amount;
+                result.CreditCard = model.CreditCard;
+                result.Invoice = model.Invoice;
+                result.NextInvoiceDate = model.NextInvoiceDate;
+                result.Status = model.Status;
+                await collection.ReplaceOneAsync(filters.Eq("Id", model.Id), result);
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
 
     }
 }

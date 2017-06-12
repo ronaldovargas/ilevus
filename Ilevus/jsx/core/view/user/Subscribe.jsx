@@ -50,6 +50,7 @@ module.exports = React.createClass({
                 subscription: data,
             });
         }, me);
+        FinancialStore.on("update-user-subscription", this.processSubscriptionUpdateResponse, me);
 
         SystemStore.on("retrieve-config", (data) => {
             me.setState({
@@ -86,13 +87,24 @@ module.exports = React.createClass({
             event.preventDefault();
     },
 
-    subscribe(event) {
-        event && event.preventDefault();
-        
-        var moip = new MoipAssinaturas(this.state.config.MoipSubscriptionKey);
-        var plan_code = this.state.config.MoipSubscriptionCode;
+    updateSubscription(response) {
+        //a
+
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_UPDATE_USER_SUBSCRIPTION,
+            data: {
+                Id: this.state.subscription.Id,
+                Amount: response.amount,
+                Invoice: response.invoice,
+                NextInvoiceDate: response.next_invoice_date,
+                CreditCard: response.customer.billing_info.credit_card,
+                Status: "PROCESSING",
+            },
+        });
+    },
+
+    getCustomerObject() {
         var birthdate = this.refs['personal-birthdate'].value;
-        var ilevusSubscription = this.state.subscription;
 
         var customer = new Customer({
             fullname: this.refs['personal-fullname'].value,
@@ -121,41 +133,70 @@ module.exports = React.createClass({
                 country: this.refs['address-country'].value
             }),
         });
+        return customer;
+    },
+    getSubscriptionObject() {
+        var plan_code = this.state.config.MoipSubscriptionCode;
+        var ilevusSubscription = this.state.subscription;
 
         var subscription = new Subscription()
                 .with_code(ilevusSubscription.Id)
                 .with_plan_code(plan_code)
         ;
+        return subscription;
+    },
+
+    processMoipResponse(response) {
+        console.log(response);
+        if (response.has_errors()) {
+            var errors = "";
+            for (var i = 0; i < response.errors.length; i++) {
+                var erro = response.errors[i].description;
+                console.error(erro);
+                errors += (errors != "" ? "<br />" : "") + erro;
+                if (erro.indexOf("do cliente") >= 0) {
+                    var moip = new MoipAssinaturas(this.state.config.MoipSubscriptionKey);
+                    var subscription = this.getSubscriptionObject();
+                    var customer = this.getCustomerObject();
+                    subscription.with_customer(customer);
+                    moip.subscribe(subscription).callback(this.processMoipResponse);
+                    return;
+                }
+            }
+            $("#submittingOverlay").removeClass("show");
+            Toastr.remove();
+            Toastr.error(errors);
+            return;
+        }
+        this.updateSubscription(response);
+    },
+    processSubscriptionUpdateResponse(data) {
+        $("#submittingOverlay").removeClass("show");
+        Toastr.remove();
+        Toastr.success(Messages.get("TextPaymentConfirmed"));
+        this.context.router.push("/user/financial");
+    },
+
+    subscribe(event) {
+        event && event.preventDefault();
+
+        var moip = new MoipAssinaturas(this.state.config.MoipSubscriptionKey);
+        var ilevusSubscription = this.state.subscription;
+        var subscription = this.getSubscriptionObject();
+        var customer = this.getCustomerObject();
+
         if (ilevusSubscription.Status === "NEW") {
-            subscription.with_customer(customer);
+            subscription.with_new_customer(customer);
         } else {
             subscription.with_customer(customer);
         }
 
         console.log(subscription);
         $("#submittingOverlay").addClass("show");
-        var me = this;
-        moip.subscribe(subscription).callback(function (response) {
-            if (response.has_errors()) {
-                var errors = "";
-                for (var i = 0; i < response.errors.length; i++) {
-                    var erro = response.errors[i].description;
-                    console.error(erro);
-                    errors += (errors != "" ? "<br />":"")+erro;
-                }
-                $("#submittingOverlay").removeClass("show");
-                Toastr.remove();
-                Toastr.error(errors);
-                return;
-            }
-            $("#submittingOverlay").removeClass("show");
-            console.log(response);
-            Toastr.remove();
-            Toastr.success(Messages.get("TextPaymentConfirmed"));
-            me.context.router.push("/user/financial");
-        });
-
+        moip.subscribe(subscription).callback(this.processMoipResponse);
     },
+    
+
 
     render() {
         if (this.state.loading) {
