@@ -1,13 +1,12 @@
-﻿using ilevus.App_Start;
+﻿using System.Configuration;
+using System.IO;
+using System.Web.Hosting;
+using System.Web.Http;
+using ilevus.App_Start;
 using ilevus.Models;
 using Microsoft.Owin;
 using Microsoft.Owin.Diagnostics;
 using Owin;
-using System.Configuration;
-using System.IO;
-using System.Web.Hosting;
-using System.Web.Http;
-using System.Web.ModelBinding;
 
 [assembly: OwinStartup(typeof(ilevus.Startup))]
 
@@ -29,6 +28,7 @@ namespace ilevus
 
             app.CreatePerOwinContext(IlevusDBContext.Create);
             IlevusDBContext db = IlevusDBContext.Create();
+            db.Migrations();
             db.EnsureIndexes();
             db.EnsureSystemConfig();
 
