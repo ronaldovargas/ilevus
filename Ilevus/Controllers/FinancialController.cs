@@ -84,7 +84,7 @@ namespace ilevus.Controllers
                 {
                     return BadRequest("Invalid subscription.");
                 }
-                if (result.UserId.Equals(user.Id))
+                if (!result.UserId.Equals(user.Id))
                 {
                     return BadRequest("Essa não é sua assinatura.");
                 }
@@ -94,6 +94,13 @@ namespace ilevus.Controllers
                 result.NextInvoiceDate = model.NextInvoiceDate;
                 result.Status = model.Status;
                 await collection.ReplaceOneAsync(filters.Eq("Id", model.Id), result);
+                user.Premium = new UserPremiumMembership()
+                {
+                    Active = true,
+                    Late = false,
+                    PayedUntil = new DateTime(result.NextInvoiceDate.year, result.NextInvoiceDate.month, result.NextInvoiceDate.day)
+                };
+                await UserManager.UpdateAsync(user);
 
                 return Ok(result);
             }

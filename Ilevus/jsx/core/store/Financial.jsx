@@ -3,6 +3,7 @@
 */
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var S = require("string");
 
@@ -49,6 +50,10 @@ var FinancialStore = Fluxbone.Store.extend({
 	        dataType: 'json',
 	        data: params,
 	        success(data, status, opts) {
+	            UserSession.get("user").Premium = {
+	                Active: true,
+                    Late: false
+	            };
 	            me.trigger("update-user-subscription", data);
 	        },
 	        error(opts, status, errorMsg) {
