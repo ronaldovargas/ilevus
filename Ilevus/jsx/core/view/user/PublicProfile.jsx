@@ -6,9 +6,10 @@ var Marked = require("marked");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
-
+var ServicesToHire = require("./../../widget/user/ServiceListToHire")
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
+var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -88,6 +89,15 @@ module.exports = React.createClass({
                 data: this.props.params.id
             });
         }
+    },
+    toHireService(event) {
+        event && event.preventDefault();
+       
+            FinancialStore.dispatch({
+                action: FinancialStore.ACTION_TO_HIRE_SERVICE,
+                data: this.props.params.id
+            });
+        
     },
 
     render() {
@@ -271,7 +281,7 @@ module.exports = React.createClass({
                                     <div className="ilv-card-body">
                                         <div className="row">
                                             <div className="col-8">
-                                                <table className="ilv-table ilv-table-sm ilv-table-hover">
+                                                 <table className="ilv-table ilv-table-sm ilv-table-hover">
                                                     <thead>
                                                         <tr>
                                                             <th>{Messages.get("LabelService")}</th>
@@ -281,10 +291,7 @@ module.exports = React.createClass({
                                                     <tbody>
                                                         {services.map((service, index) => {
                                                             return (
-                                                                <tr key={"service-" + index}>
-                                                                    <td className="ilv-font-weight-semibold">{service.Name}</td>
-                                                                    <td className="ilv-text-xs-right">{service.Price}</td>
-                                                                </tr>
+                                                                <ServicesToHire  key={"service-" + index} service={service} />
                                                             );
                                                         })}
                                                     </tbody>

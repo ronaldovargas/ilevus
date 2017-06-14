@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Linq;
+using AspNet.Identity.MongoDB;
 using ilevus.App_Start;
 using ilevus.Enums;
-using AspNet.Identity.MongoDB;
-using MongoDB.Driver;
 using ilevus.Helpers;
-using System.Collections.Generic;
 using ilevus.Models.CoachingTools;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace ilevus.Models
 {
@@ -176,8 +176,10 @@ namespace ilevus.Models
 
     public class UserService
     {
+        [BsonId(IdGenerator = typeof(GuidGenerator))]
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public double Price { get; set;} 
     }
 
     public class IlevusRole : IdentityRole
