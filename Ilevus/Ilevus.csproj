@@ -97,6 +97,9 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Moip.Net, Version=0.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\moip-net.0.0.7\lib\Moip.Net.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -120,6 +123,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -249,6 +253,7 @@
     <Compile Include="Models\CoachingTools\CoachingToolsModels.cs" />
     <Compile Include="Models\CoachingTools\WheelOfLifeModels.cs" />
     <Compile Include="Models\DBContext.cs" />
+    <Compile Include="Models\HireServiceModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AdModels.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
