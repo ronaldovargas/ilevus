@@ -130,7 +130,7 @@ module.exports = React.createClass({
                 zipcode: this.refs['address-zipcode'].value,
                 city: this.refs['address-city'].value,
                 state: this.refs['address-county'].value,
-                country: this.refs['address-country'].value
+                country: "BRA"
             }),
         });
         return customer;
