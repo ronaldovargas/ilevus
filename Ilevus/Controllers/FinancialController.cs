@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Moip.Net.V2;
+using Moip.Net.V2.Filter;
 using Moip.Net.V2.Model;
 using static ilevus.Models.CoachingSession;
 
@@ -131,10 +132,10 @@ namespace ilevus.Controllers
 					"QXEYNX1WIEGI3VZV9IBKU0ZZQCIKU4BF",
 					"6NU0BEALWOVLIVR4FD1FRIGTE6NONJYJOESOBT5N"
 				);
-
+				
 			    var pedido = new Pedido()
 			    {
-				    OwnId = "SEU_CODIGO_PEDIDO",
+				    OwnId = Guid.NewGuid().ToString(),
 				    Amount = new Valores()
 				    {
 					    Currency = CurrencyType.BRL,
@@ -155,7 +156,7 @@ namespace ilevus.Controllers
 				    },
 				    Customer = new Cliente()
 				    {
-					    OwnId = "SEU_ID_CLIENTE",
+					    OwnId = User.Identity.GetUserId(),
 					    Fullname = "José Silva",
 					    Email = "josesilva@acme.com.br",
 					    BirthDate = DateTime.Now.Date.AddYears(-18).ToString("yyyy-MM-dd"),
@@ -183,10 +184,16 @@ namespace ilevus.Controllers
 					    }
 				    }
 			    };
+				
+				var clienteCriado = v2Client.CriarPedido(pedido);
 
-			    var clienteCriado = v2Client.CriarPedido(pedido);
+			    //Listar todos os pedidos pagos e criados com data superior a 01/01/2016
+			    var filters = new Filters()
+				    .Add(new GreatherThanFilter<DateTime>("createdAt", new DateTime(2016, 01, 01)))
+				    .Add(new InFilter<OrderStatusType>("status", OrderStatusType.CREATED, OrderStatusType.PAID));
 
-			await UserManager.UpdateAsync(user);
+			    var pedidos = v2Client.ListarTodosPedidos();
+				await UserManager.UpdateAsync(user);
 
 			    return Ok();
 		    }

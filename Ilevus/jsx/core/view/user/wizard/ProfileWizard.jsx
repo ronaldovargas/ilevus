@@ -190,6 +190,30 @@ module.exports = React.createClass({
                                 ):""}
                             </div>
                         </li>
+
+                        <li className="ilv-media ilv-media-middle pb-0">
+                            <div className="ilv-media-body">
+                                <strong className="ilv-text-small ilv-text-uppercase text-muted">
+                                    {Messages.get("LabelStep")} 6
+                                    {this.state.professionalData.ServicesInfo ?
+                                    <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
+                                    :""}
+                                </strong>
+                                <h3 className="m-a-0">{Messages.get("TextOfferedServices")}</h3>
+                                <p>{Messages.get("TextServicesProfessionalInfo")}</p>
+                                {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
+                                && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
+                                ? (this.state.professionalData.ServicesInfo ?
+                                    <Link className="ilv-font-weight-semibold" to="/become-a-professional/bankAccount">
+                                        {Messages.get("LabelChangeInformation")}
+                                    </Link>
+                                    :
+                                    <Link className="ilv-btn ilv-btn-success" to="/become-a-professional/bankAccount">
+                                        {Messages.get("LabelContinue")}
+                                    </Link>
+                                ):""}
+                            </div>
+                        </li>
                     </ul>
                   
                 </div>

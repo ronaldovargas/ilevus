@@ -274,6 +274,8 @@
     <Content Include="img\moip.png" />
     <Content Include="img\user.png" />
     <Content Include="jsx\core\util\Analytics.js" />
+    <Content Include="jsx\core\view\user\Checkout.jsx" />
+    <Content Include="jsx\core\view\user\wizard\ProfileWizardBankAccount.jsx" />
     <Content Include="jsx\vendor\intlTelInput.js" />
     <Content Include="jsx\vendor\moip-assinaturas-sandbox.js" />
     <Content Include="jsx\vendor\moip-assinaturas.js" />
