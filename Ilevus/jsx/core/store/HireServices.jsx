@@ -6,7 +6,7 @@ var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var S = require("string");
-var cartStore = require("./Cart.jsx");
+
 var URL = Fluxbone.BACKEND_URL + "Financial";
 
 var FinancialModel = Fluxbone.Model.extend({
@@ -66,19 +66,18 @@ var FinancialStore = Fluxbone.Store.extend({
 	toHireService(params) {
 		var me = this;
 		console.log('contratou');
-		console.log(cartStore.getCacheServicesHired());
-	    $.ajax({
-	        method: "POST",
-	        url: me.url + "/HireService",
-	        dataType: 'json',
-			data: {Services: cartStore.getCacheServicesHired() },
-	        success(data, status, opts) {
-	            me.trigger("update-user-subscription", data);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
+	    // $.ajax({
+	    //     method: "POST",
+	    //     url: me.url + "/Subscription",
+	    //     dataType: 'json',
+	    //     data: params,
+	    //     success(data, status, opts) {
+	    //         me.trigger("update-user-subscription", data);
+	    //     },
+	    //     error(opts, status, errorMsg) {
+	    //         me.handleRequestErrors([], opts);
+	    //     }
+	    // });
 	},
 });
 

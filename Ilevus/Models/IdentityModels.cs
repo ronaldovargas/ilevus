@@ -150,8 +150,20 @@ namespace ilevus.Models
 
         public CoachingToolsConfigurations CoachingToolsConfigs { get; set; }
 
-    }
+		public BankAccount BankAccount { get; set; }
+
+	}
     
+	public class BankAccount
+	{
+		public string BankNumber  { get; set; }
+		public string AgencyNumber  { get; set; }
+		public string AgencyCheckNumber { get; set; }
+		public string AccountNumber  { get; set; }
+		public string AccountCheckNumber  { get; set; }
+
+	}
+
     public class UserEducation
     {
         public bool Finished { get; set; }
