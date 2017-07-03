@@ -276,6 +276,7 @@
     <Content Include="jsx\core\util\Analytics.js" />
     <Content Include="jsx\core\view\user\Checkout.jsx" />
     <Content Include="jsx\core\view\user\wizard\ProfileWizardBankAccount.jsx" />
+    <Content Include="jsx\vendor\bank-account-validator-1.0.0.min.js" />
     <Content Include="jsx\vendor\intlTelInput.js" />
     <Content Include="jsx\vendor\moip-assinaturas-sandbox.js" />
     <Content Include="jsx\vendor\moip-assinaturas.js" />
@@ -348,6 +349,7 @@
     <Content Include="jsx\core\widget\coaching\EditableText.jsx" />
     <Content Include="jsx\core\view\user\Financial.jsx" />
     <Content Include="jsx\core\view\user\Subscribe.jsx" />
+    <Content Include="jsx\core\view\user\HireService.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
