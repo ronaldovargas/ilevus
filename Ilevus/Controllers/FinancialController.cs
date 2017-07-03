@@ -128,10 +128,10 @@ namespace ilevus.Controllers
 			    }
 
 			    var v2Client = new V2Client(
-				    new Uri("https://sandbox.moip.com.br/"),
-					"QXEYNX1WIEGI3VZV9IBKU0ZZQCIKU4BF",
-					"6NU0BEALWOVLIVR4FD1FRIGTE6NONJYJOESOBT5N"
-				);
+				    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
 				
 			    var pedido = new Pedido()
 			    {
