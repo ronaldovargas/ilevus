@@ -1,4 +1,3 @@
-
 var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
@@ -84,11 +83,10 @@ module.exports = React.createClass({
                     <form className="form-inline mr-auto ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
                         <input ref="search-term" className="form-control ilv-form-control ilv-navbar-search-input" type="search" />
                         <button className="ilv-btn ilv-btn-icon ilv-btn-primary ilv-navbar-search-btn" type="submit">
-                            <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
-                            {Messages.get("LabelSearch")}
+                            <i className="ilv-icon material-icons md-18">&#xE8B6;</i>{Messages.get("LabelSearch")}
                         </button>
                     </form>
-                            
+
                     {this.state.logged ? (
                         <form className="form-inline">
 
@@ -113,7 +111,7 @@ module.exports = React.createClass({
                             <div className="dropdown nav-item">
                                 <a data-toggle="dropdown" className="ml-2">
                                     <span className="ilv-avatar-fluid ilv-avatar-fluid-sm"
-                                            style={{
+                                          style={{
                                         backgroundImage: "url(" +
                                             (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
                                         }}>
@@ -130,8 +128,7 @@ module.exports = React.createClass({
                                         <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
                                     }
                                     {this.state.user.EmailConfirmed ? "" :
-                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>
-                                            {Messages.get("LabelConfirmEmail")}
+                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}
                                         </a>
                                     }
                                     <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>

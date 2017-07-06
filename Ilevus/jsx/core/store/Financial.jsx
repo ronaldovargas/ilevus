@@ -20,6 +20,8 @@ var FinancialModel = Fluxbone.Model.extend({
 });
 
 var FinancialStore = Fluxbone.Store.extend({
+    ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMER: 'financial-retrieveSubscriptionsCustomer',
+    ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS: 'financial-retrieveSubscriptionsCustomers',
     ACTION_RETRIEVE_USER_SUBSCRIPTION: 'financial-retrieveUserSubscription',
     ACTION_UPDATE_USER_SUBSCRIPTION: 'financial-updateUserSubscription',
     ACTION_TO_HIRE_SERVICE: 'financial-toHireService',
@@ -27,6 +29,36 @@ var FinancialStore = Fluxbone.Store.extend({
 
 	url: URL,
 	model: FinancialModel,
+
+	retrieveSubscriptionsCustomer(id) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Subscriptions/Customers/" + id,
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-subscriptions-customer", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	retrieveSubscriptionsCustomers(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Subscriptions/Customers",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-subscriptions-customers", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
 
 	retrieveUserSubscription(params) {
 	    var me = this;

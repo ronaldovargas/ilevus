@@ -226,6 +226,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\CoachingTools\WheelOfLifeController.cs" />
+    <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Models\HireServiceModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AdModels.cs" />
+    <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
@@ -307,6 +309,9 @@
     <Content Include="jsx\core\store\coaching\WheelOfLife.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelApis.jsx" />
     <Content Include="jsx\core\store\Financial.jsx" />
+    <Content Include="jsx\core\store\notifications\Notification.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />

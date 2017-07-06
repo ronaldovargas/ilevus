@@ -157,11 +157,11 @@ module.exports = React.createClass({
     },
 
     renderChat() {
-        if (!this.state.conversation) {
+        /*if (!this.state.conversation) {
             return <div className="ilv-chat-messages">
                 <LoadingGauge />
             </div>;
-        }
+        }*/
         var conversation = this.state.conversation;
         
         var dest = conversation.Destination;
