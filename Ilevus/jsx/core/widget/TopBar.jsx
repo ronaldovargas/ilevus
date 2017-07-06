@@ -1,4 +1,3 @@
-
 var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
@@ -75,50 +74,44 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="navbar navbar-inverse ilv-navbar flex-row">
-                <div className="container-fluid d-flex flex-row">
-                    <div className="navbar-header">
-                        <Link to="/home" className="navbar-brand">
-                            <img src={Logo} alt="ilevus" />
-                        </Link>
-                    </div>
+            <nav className="navbar fixed-top ilv-navbar flex-row">
+                <div className="container d-flex flex-row">
+                    <Link to="/home" className="navbar-brand">
+                        <img src={Logo} alt="ilevus" />
+                    </Link>
 
-                    <form className="navbar-form navbar-left mr-auto ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
-                        <div className="input-group">
-                            <input ref="search-term" className="form-control ilv-form-control ilv-navbar-search-input" type="search" />
-                        </div>
-                        <div className="input-group-btn">
-                            <button className="ilv-btn ilv-btn-icon ilv-btn-primary ilv-navbar-search-btn" type="submit">
+                    <form className="form-inline mr-auto ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
+                        <input ref="search-term" className="form-control ilv-form-control ilv-navbar-search-input" type="search" />
+                        <button className="ilv-btn ilv-btn-icon ilv-btn-primary ilv-navbar-search-btn" type="submit">
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>{Messages.get("LabelSearch")}
-                            </button>
-                        </div>
+                        </button>
                     </form>
-                            
-                    {this.state.logged ? (
-                        <ul className="nav navbar-nav">
 
-                            <li>
+                    {this.state.logged ? (
+                        <form className="form-inline">
+
+                            <div className="nav-item">
                                 <Link className="nav-link ilv-btn ilv-btn-clean" to="notifications/timeline">
                                     <i className="ilv-icon material-icons">&#xE7F4;</i>
                                 </Link>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div className="nav-item">
                                 <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMessages")} to="/notifications/messages">
                                     <i className="ilv-icon material-icons">&#xE0CA;</i>
                                 </Link>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div className="nav-item">
                                 <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
                                     <i className="ilv-icon material-icons">&#xE878;</i>
                                 </Link>
-                            </li>
+                            </div>
 
-                            <li className="dropdown nav-item">
+                            <div className="dropdown nav-item">
                                 <a data-toggle="dropdown" className="ml-2">
                                     <span className="ilv-avatar-fluid ilv-avatar-fluid-sm"
-                                            style={{
+                                          style={{
                                         backgroundImage: "url(" +
                                             (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
                                         }}>
@@ -135,23 +128,18 @@ module.exports = React.createClass({
                                         <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
                                     }
                                     {this.state.user.EmailConfirmed ? "" :
-                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>
-                                            {Messages.get("LabelConfirmEmail")}
+                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}
                                         </a>
                                     }
                                     <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                        </form>
                     ) : (
-                        <ul className="nav navbar-nav">
-                            <li>
-                                <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
-                            </li>
-                            <li>
-                                <Link className="ilv-btn ilv-btn-neutral" to="/signup">{Messages.get("LabelSignUp")}</Link>
-                            </li>
-                        </ul>
+                        <form className="form-inline">
+                            <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
+                            <Link className="ilv-btn ilv-btn-neutral" to="/signup">{Messages.get("LabelSignUp")}</Link>
+                        </form>
                     )}
 
                     <div className="hidden-sm-up">
