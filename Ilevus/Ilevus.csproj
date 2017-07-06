@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="ilevus.MoipClient.csproj" />
     <Content Include="img\flags%402x.png" />
     <Content Include="img\flags.png" />
     <Content Include="img\moip.png" />
@@ -282,6 +283,7 @@
     <Content Include="jsx\vendor\moip-assinaturas.js" />
     <Content Include="jsx\vendor\moip.js" />
     <Content Include="jsx\vendor\utils.js" />
+    <Content Include="MoipClientTest.csproj" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -491,6 +493,10 @@
     <None Include="Properties\PublishProfiles\ilevus.pubxml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ilevus.MoipClient\ilevus.MoipClient.csproj">
+      <Project>{005daee5-1d6f-493c-8e40-928cd3fb4fe7}</Project>
+      <Name>ilevus.MoipClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ilevus.Resources\ilevus.Resources.csproj">
       <Project>{a8e0e134-917e-4aa9-8488-3d9ccd987c83}</Project>
       <Name>ilevus.Resources</Name>

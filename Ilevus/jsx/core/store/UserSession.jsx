@@ -37,6 +37,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PROFESSIONAL_EDUCATION: 'updateProfessionalEducation',
 	ACTION_UPDATE_PROFESSIONAL_CAREER: 'updateProfessionalCareer',
 	ACTION_UPDATE_PROFESSIONAL_SERVICES: 'updateProfessionalServices',
+	ACTION_UPDATE_PROFESSIONAL_BANK_ACCOUNT: 'updateProfessionalBankAccount',
 	ACTION_UPDATE_PROCESS_STEPS: 'updateProcessSteps',
 
 	ACTION_REMOVE_PICTURE: 'removePicture',
@@ -652,6 +653,26 @@ var UserSession = Backbone.Model.extend({
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/UpdateProfessionalServices",
+	        dataType: 'json',
+	        data: params,
+	        success(data, status, opts) {
+	            me.trigger("professionalprofile", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateProfessionalBankAccount(params) {
+	    var me = this;
+	    /*if (params.NewPassword !== params.ConfirmPassword) {
+	        me.trigger("fail", "As senhas digitadas não são iguais.");
+	        return;
+	    }*/
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/UpdateProfessionalBankAccount",
 	        dataType: 'json',
 	        data: params,
 	        success(data, status, opts) {
