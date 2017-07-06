@@ -18,6 +18,7 @@ using System.Web.Http;
 using Moip.Net.V2;
 using Moip.Net.V2.Filter;
 using Moip.Net.V2.Model;
+using Moip.Net.Assinaturas;
 using static ilevus.Models.CoachingSession;
 
 namespace ilevus.Controllers
@@ -113,8 +114,48 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("Subscriptions/Customers")]
+        public IHttpActionResult GetAllSubscriptionCustomer()
+        {
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var customersResponse = assClient.GetCustomers();
+                return Ok(customersResponse.Customers);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+        [HttpGet]
+        [Route("Subscriptions/Customers/{Id}")]
+        public IHttpActionResult GetSubscriptionCustomer(string Id)
+        {
 
-	    [HttpPost]
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var customerResponse = assClient.GetCustomer(Id);
+                return Ok(customerResponse);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+
+        [HttpPost]
 	    [Route("HireService")]
 	    public async Task<IHttpActionResult> HireService(HireServiceModel model)
 	    {
@@ -132,8 +173,8 @@ namespace ilevus.Controllers
                     IlevusDBContext.SystemConfiguration.MoipToken,
                     IlevusDBContext.SystemConfiguration.MoipKey
                 );
-				
-			    var pedido = new Pedido()
+
+                var pedido = new Pedido()
 			    {
 				    OwnId = Guid.NewGuid().ToString(),
 				    Amount = new Valores()
