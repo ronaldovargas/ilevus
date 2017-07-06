@@ -21,7 +21,13 @@ module.exports = React.createClass({
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/emails" activeClassName="active">{Messages.get("LabelEmails")}
+                                <Link className="ilv-nav-link" to="/admin/subscriptions" activeClassName="active">
+                                    {Messages.get("LabelSubscriptions")}
+                                </Link>
+                            </li>
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/admin/emails" activeClassName="active">
+                                {Messages.get("LabelEmails")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">

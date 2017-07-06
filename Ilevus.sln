@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus", "ilevus\ilevus.csproj", "{AE7CB436-6B41-482D-BDE0-9D61027A9676}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABED97B6-5479-46AA-9570-1012A9908263} = {ABED97B6-5479-46AA-9570-1012A9908263}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus.Tests", "ilevus.Tests\ilevus.Tests.csproj", "{6AFBA778-B23F-4795-9FDC-21FD94470127}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus.Resources", "ilevus.Resources\ilevus.Resources.csproj", "{A8E0E134-917E-4AA9-8488-3D9CCD987C83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moip.Net", "Moip.Net\Moip.Net.csproj", "{ABED97B6-5479-46AA-9570-1012A9908263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +32,10 @@ Global
 		{A8E0E134-917E-4AA9-8488-3D9CCD987C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8E0E134-917E-4AA9-8488-3D9CCD987C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8E0E134-917E-4AA9-8488-3D9CCD987C83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABED97B6-5479-46AA-9570-1012A9908263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABED97B6-5479-46AA-9570-1012A9908263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABED97B6-5479-46AA-9570-1012A9908263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABED97B6-5479-46AA-9570-1012A9908263}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
