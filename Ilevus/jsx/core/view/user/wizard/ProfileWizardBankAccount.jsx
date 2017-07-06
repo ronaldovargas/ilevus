@@ -47,7 +47,7 @@ module.exports = React.createClass({
         };
         $(this.refs['btn-submit']).attr("disabled", true);
         UserSession.dispatch({
-            action: UserSession.ACTION_UPDATE_PROFESSIONAL_EDUCATION,
+            action: UserSession.ACTION_UPDATE_PROFESSIONAL_BANK_ACCOUNT,
             data: data
         });
         console.log(data);
