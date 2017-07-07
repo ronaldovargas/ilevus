@@ -312,6 +312,11 @@
     <Content Include="jsx\core\store\notifications\Notification.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
+    <Content Include="jsx\core\store\Cart.jsx" />
+    <Content Include="jsx\core\store\HireServices.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsDetails.jsx" />
+    <Content Include="jsx\core\store\moip\SubscriptionStatus.json" />
+    <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsInvoice.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />

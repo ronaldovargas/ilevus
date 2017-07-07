@@ -22,7 +22,6 @@ module.exports = React.createClass({
     componentDidMount() {
         var me = this;
         FinancialStore.on("retrieve-subscriptions-customer", (customer) => {
-            console.log(customer);
             me.setState({
                 loading: false,
                 customer: customer,

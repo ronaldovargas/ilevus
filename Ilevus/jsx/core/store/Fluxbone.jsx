@@ -66,7 +66,7 @@ var Store = Backbone.Collection.extend({
 						console.error("Store: Dispatching",payload.action, "failed:",err);
 					}
 				} else {
-					console.warn("Store: Dispatch action is not a function:",(typeof cb),method);
+				    console.warn("Store: Dispatch action is not a function:", (typeof cb), method, payload,this);
 				}
 			} else {
 				console.warn("Store: Invalid dispatch action:",payload.action);

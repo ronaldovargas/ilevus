@@ -20,6 +20,7 @@ using Moip.Net.V2.Filter;
 using Moip.Net.V2.Model;
 using Moip.Net.Assinaturas;
 using static ilevus.Models.CoachingSession;
+using Moip.Net;
 
 namespace ilevus.Controllers
 {
@@ -115,6 +116,99 @@ namespace ilevus.Controllers
         }
 
         [HttpGet]
+        [Route("Subscriptions")]
+        public IHttpActionResult GetAllSubscriptions()
+        {
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var subsResponse = assClient.GetSubscriptions();
+                return Ok(subsResponse.Subscriptions);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+        [HttpGet]
+        [Route("Subscriptions/Detail/{Id}")]
+        public IHttpActionResult GetSubscriptionDetail(string Id)
+        {
+
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var sub = assClient.GetSubscription(Id);
+                return Ok(sub);
+            }
+            catch (MoipException e)
+            {
+                if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return BadRequest("Assinatura MOIP não encontrado");
+                }
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpGet]
+        [Route("Subscriptions/Invoices/{Id}")]
+        public IHttpActionResult GetSubscriptionInvoices(string Id)
+        {
+
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var invoicesResponse = assClient.GetInvoices(Id);
+                return Ok(invoicesResponse.Invoices);
+            }
+            catch (MoipException e)
+            {
+                if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return BadRequest("Assinatura MOIP não encontrado");
+                }
+                return InternalServerError(e);
+            }
+        }
+        [HttpGet]
+        [Route("Subscriptions/Invoice/{Id}")]
+        public IHttpActionResult GetSubscriptionInvoice(int Id)
+        {
+
+            try
+            {
+                var assClient = new AssinaturasClient(
+                    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                    IlevusDBContext.SystemConfiguration.MoipToken,
+                    IlevusDBContext.SystemConfiguration.MoipKey
+                );
+                var invoice = assClient.GetInvoice(Id);
+                return Ok(invoice);
+            }
+            catch (MoipException e)
+            {
+                if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return BadRequest("Fatura MOIP não encontrado");
+                }
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpGet]
         [Route("Subscriptions/Customers")]
         public IHttpActionResult GetAllSubscriptionCustomer()
         {
@@ -148,12 +242,15 @@ namespace ilevus.Controllers
                 var customerResponse = assClient.GetCustomer(Id);
                 return Ok(customerResponse);
             }
-            catch (Exception e)
+            catch (MoipException e)
             {
+                if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return BadRequest("Cliente MOIP não encontrado");
+                }
                 return InternalServerError(e);
             }
         }
-
 
         [HttpPost]
 	    [Route("HireService")]

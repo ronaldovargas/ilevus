@@ -70,8 +70,10 @@ var AdminPanelAds = require("ilevus/jsx/core/view/admin/AdminPanelAds.jsx");
 var AdminPanelApis = require("ilevus/jsx/core/view/admin/AdminPanelApis.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
 var AdminPanelEmails = require("ilevus/jsx/core/view/admin/AdminPanelEmails.jsx");
-var AdminPanelSubscriptions = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptions.jsx");
-var AdminPanelSubscriptionsCustomer = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsCustomer.jsx");
+var AdminPanelSubscriptions = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptions.jsx"); 
+var AdminPanelSubscriptionsCustomer = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsCustomer.jsx"); AdminPanelSubscriptionsInvoice
+var AdminPanelSubscriptionsDetails = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsDetails.jsx");
+var AdminPanelSubscriptionsInvoice = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsInvoice.jsx");
 var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
 
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
@@ -192,8 +194,10 @@ Messages.load(function (success) {
                         <Route path="ads" component={AdminPanelAds} />
                         <Route path="apis" component={AdminPanelApis} />
                         <Route path="emails" component={AdminPanelEmails} />
-                        <Route path="subscriptions" component={AdminPanelSubscriptions}>
+                        <Route path="subscriptions" component={AdminPanelSubscriptions}>AdminPanelSubscriptionsDetails
                             <Route path="customer/:id" component={AdminPanelSubscriptionsCustomer} />
+                            <Route path="detail/:id" component={AdminPanelSubscriptionsDetails} />
+                            <Route path="invoice/:id" component={AdminPanelSubscriptionsInvoice} />
                         </Route>
                         <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />
