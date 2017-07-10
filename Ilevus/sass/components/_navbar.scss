@@ -6,6 +6,37 @@
     background-color: white;
     border-bottom: 1px solid rgba(0,0,0,.15);
     box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    padding-bottom: 0.8rem;
+}
+
+.#{$prefix}navbar-title-item{
+    text-align: right;
+}
+
+.#{$prefix}navbar-title-item-txt-1{
+    margin-right: 1.7rem;
+}
+
+.#{$prefix}navbar-title-item-txt-2{
+    margin-right: 2.1rem;
+}
+
+.#{$prefix}navbar-title-item-txt-3{
+    margin-right: 1rem;
+}
+
+.#{$prefix}navbar-title-item a:hover{
+    color: #333366;
+}
+
+.#{$prefix}navbar-brand {
+    display: inline-block;
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+    white-space: nowrap;
 }
 
 .#{$prefix}navbar-form {
