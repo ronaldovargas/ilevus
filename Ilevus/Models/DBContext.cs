@@ -421,19 +421,19 @@ namespace ilevus.Models
             var collection = GetUsersCollection();
             var services = collection.Find(f => f.Professional.Services.Any(s => s.Id.Equals(Guid.Empty)));
 
-
-            //var filter = Builders<IlevusUser>.Filter.Eq("Professional.Services.Id", Guid.Empty);
-            //var update = Builders<IlevusUser>.Update.Set("_id", Guid.NewGuid());
-
-            //var result = collection.UpdateMany(filter, update);
-
-
             var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
             var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
             var result = collection.UpdateManyAsync(filter, update).Result;
-        }
 
-        public void EnsureIndexes()
+
+			FieldDefinition<IlevusUser> field = "Financial";
+			var filter2 = Builders<IlevusUser>.Filter.Exists(field);
+			var update2 = Builders<IlevusUser>.Update.Unset(field);
+			var result2 = collection.UpdateManyAsync(filter2, update2).Result;
+
+		}
+
+		public void EnsureIndexes()
         {
             var ads = GetAdsCollection();
             var conversations = GetConversationsCollection();

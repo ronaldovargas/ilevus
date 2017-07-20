@@ -12,31 +12,33 @@ using Owin;
 
 namespace ilevus
 {
-    public partial class Startup
-    {
-        public static string BaseURL = ConfigurationManager.AppSettings["BaseURL"];
+	public partial class Startup
+	{
+		public static string BaseURL = ConfigurationManager.AppSettings["BaseURL"];
 
-        public void Configuration(IAppBuilder app)
-        {
-            log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
-            IlevusIdentityContext context = IlevusIdentityContext.Create();
-            
-            IlevusDbInitializer.Initialize(context);
-            IlevusDbInitializer.InitializeIdentity(context);
+		public void Configuration(IAppBuilder app)
+		{
+			AutoMapperConfig.Initialize();
+			log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
+			IlevusDBContext db = IlevusDBContext.Create();
+			db.Migrations();
+			db.EnsureIndexes();
+			db.EnsureSystemConfig();
 
-            ConfigureAuth(app);
 
-            app.CreatePerOwinContext(IlevusDBContext.Create);
-            IlevusDBContext db = IlevusDBContext.Create();
-            db.Migrations();
-            db.EnsureIndexes();
-            db.EnsureSystemConfig();
+			IlevusIdentityContext context = IlevusIdentityContext.Create();
 
-            app.UseErrorPage(ErrorPageOptions.ShowAll);
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
-            HttpConfiguration config = WebApiConfig.Create();
-            app.UseWebApi(config);
-            
-        }
-    }
+			IlevusDbInitializer.Initialize(context);
+			IlevusDbInitializer.InitializeIdentity(context);
+
+			ConfigureAuth(app);
+
+			app.CreatePerOwinContext(IlevusDBContext.Create);
+			app.UseErrorPage(ErrorPageOptions.ShowAll);
+			//GlobalConfiguration.Configure(WebApiConfig.Register);
+			HttpConfiguration config = WebApiConfig.Create();
+			app.UseWebApi(config);
+
+		}
+	}
 }

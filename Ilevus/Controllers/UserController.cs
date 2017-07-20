@@ -28,6 +28,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using AutoMapper;
+using ilevus.MoipClient.Implementation;
+using ilevus.MoipClient.Models;
 
 namespace ilevus.Controllers
 {
@@ -36,7 +39,7 @@ namespace ilevus.Controllers
 	public class UserController : BaseAPIController
 	{
 		private const string LocalLoginProvider = "Local";
-		
+
 		public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
 		public UserController()
@@ -49,7 +52,7 @@ namespace ilevus.Controllers
 			AccessTokenFormat = accessTokenFormat;
 		}
 
-		
+
 		// GET api/Account/{id}
 		[AllowAnonymous]
 		[HttpGet]
@@ -109,7 +112,7 @@ namespace ilevus.Controllers
 			Authentication.SignOut(CookieAuthenticationDefaults.AuthenticationType);
 			return Ok();
 		}
-		
+
 		// POST api/Account/ChangePassword
 		[Route("ChangePassword")]
 		public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
@@ -215,7 +218,7 @@ namespace ilevus.Controllers
 
 			return Ok();
 		}
-		
+
 		// POST: /Account/ConfirmEmail
 		[AllowAnonymous]
 		[Route("ConfirmEmail")]
@@ -238,7 +241,7 @@ namespace ilevus.Controllers
 			}
 			return Ok("E-mail confirmado com sucesso.");
 		}
-		
+
 		[AllowAnonymous]
 		[Route("ConfirmEmailChange")]
 		public async Task<IHttpActionResult> ConfirmEmailChange(ConfirmEmailBindingModel model)
@@ -345,7 +348,7 @@ namespace ilevus.Controllers
 
 			return BadRequest(ModelState);
 		}
-		
+
 		//
 		// POST: /Account/ResetPassword
 		[AllowAnonymous]
@@ -386,7 +389,8 @@ namespace ilevus.Controllers
 			{
 				return BadRequest(Messages.ValidationEmailExists);
 			}
-			var user = new IlevusUser() {
+			var user = new IlevusUser()
+			{
 				UserName = model.Email,
 				Email = model.Email,
 				Name = model.Name,
@@ -402,7 +406,7 @@ namespace ilevus.Controllers
 
 			return Ok(new UserInfoViewModel(user));
 		}
-		
+
 		// GET api/Account/Picture/{UserId}/{Checksum}
 		[HttpGet]
 		[AllowAnonymous]
@@ -436,7 +440,7 @@ namespace ilevus.Controllers
 
 			HttpServerUtility Server = HttpContext.Current.Server;
 			string multipartDataPath = Server.MapPath("~/App_Data");
-			
+
 			MultipartFormDataStreamProvider provider = new MultipartFormDataStreamProvider(multipartDataPath);
 
 			// Read the form data.
@@ -478,7 +482,7 @@ namespace ilevus.Controllers
 				};
 				await collection.InsertOneAsync(picture);
 			}
-			
+
 			user.Image = "/api/User/Picture/" + picture.Id;
 			var result = await UserManager.UpdateAsync(user);
 			if (!result.Succeeded)
@@ -610,7 +614,8 @@ namespace ilevus.Controllers
 					message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Template;
 				}
 				var mailService = new IlevusEmailService();
-				await mailService.SendAsync(new IdentityMessage() {
+				await mailService.SendAsync(new IdentityMessage()
+				{
 					Destination = user.EmailChange,
 					Subject = subject,
 					Body = string.Format(
@@ -657,10 +662,12 @@ namespace ilevus.Controllers
 			professional.Specialties = model.Specialties;
 			professional.Summary = model.Summary;
 			professional.SpokenLanguages = model.SpokenLanguages;
+			professional.Phone = model.Phone;
+			user.Birthdate = model.BirthDate;
 			professional.BasicInfo = true;
+			professional.Financial = model.Financial;
 			user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
 				professional.EducationInfo && professional.ServicesInfo;
-
 			IdentityResult result = await UserManager.UpdateAsync(user);
 
 			if (!result.Succeeded)
@@ -762,25 +769,42 @@ namespace ilevus.Controllers
 		[Route("UpdateProfessionalBankAccount")]
 		public async Task<IHttpActionResult> UpdateProfessionalBankAccount(BankAccount model)
 		{
-			if (!ModelState.IsValid)
+			try
 			{
-				return BadRequest(ModelState);
+
+
+				if (!ModelState.IsValid)
+				{
+					return BadRequest(ModelState);
+				}
+
+				ClaimsIdentity identity = User.Identity as ClaimsIdentity;
+				var user = await UserManager.FindByNameAsync(identity.Name);
+				var financial = user.Professional.Financial;
+				var clientMoip = new MoipApiClient();
+				var contaMoip = Mapper.Map<IlevusUser, ContaMoip>(user);
+
+
+				var conta = await clientMoip.CriarContaMoip(contaMoip);
+				user.Professional.MoipAccount = conta;
+				financial.BankAccount = model;
+				var clientBankAccount = new MoipApiClient(conta.AccessToken);
+				var bankAccount = clientBankAccount.CriarContaBancaria(Mapper.Map<BankAccount,ContaBancaria>(model));
+
+				IdentityResult result = await UserManager.UpdateAsync(user);
+
+				if (!result.Succeeded)
+				{
+					return GetErrorResult(result);
+				}
+
+				return Ok(new ProfessionalProfileViewModel(user));
 			}
-
-			ClaimsIdentity identity = User.Identity as ClaimsIdentity;
-			var user = await UserManager.FindByNameAsync(identity.Name);
-			var professional = user.Professional;
-
-			professional.BankAccount = model;
-		
-			IdentityResult result = await UserManager.UpdateAsync(user);
-
-			if (!result.Succeeded)
+			catch (Exception e)
 			{
-				return GetErrorResult(result);
-			}
 
-			return Ok(new ProfessionalProfileViewModel(user));
+				throw e;
+			}
 		}
 
 		[HttpPost]
@@ -928,7 +952,7 @@ namespace ilevus.Controllers
 
 			//generate access token response
 			JObject accessTokenResponse = await IlevusOAuthProvider.GenerateLocalAccessTokenResponse(user, UserManager, Request.GetOwinContext());
-			
+
 			return Ok(accessTokenResponse);
 		}
 
@@ -938,14 +962,14 @@ namespace ilevus.Controllers
 		public IHttpActionResult LoginWithLinkedin()
 		{
 			string redirect = Uri.EscapeDataString(BaseURL + "api/User/LoginWithLinkedinCallback");
-			string str = Startup.linkedinAuthOptions.ClientId + DateTime.Now.Day.ToString()+ DateTime.Now.Month.ToString();
+			string str = Startup.linkedinAuthOptions.ClientId + DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString();
 			var state = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
 
 			return Redirect("https://www.linkedin.com/oauth/v2/authorization"
 				+ "?response_type=code"
-				+ "&client_id="+Startup.linkedinAuthOptions.ClientId
-				+ "&redirect_uri="+redirect
-				+ "&state="+state
+				+ "&client_id=" + Startup.linkedinAuthOptions.ClientId
+				+ "&redirect_uri=" + redirect
+				+ "&state=" + state
 				+ "&scope=r_basicprofile%20r_emailaddress"
 			);
 		}
@@ -972,7 +996,7 @@ namespace ilevus.Controllers
 			{
 				return BadRequest("Error retrieving the access token for linkedin.");
 			}
-			var linkedinUser = await client.Get< LinkedinUser>(
+			var linkedinUser = await client.Get<LinkedinUser>(
 				"https://api.linkedin.com/v1/people/~"
 				+ ":(id,first-name,last-name,headline,picture-url,email-address,summary,specialties,industry,public-profile-url)"
 			);
@@ -999,7 +1023,8 @@ namespace ilevus.Controllers
 					Name = linkedinUser.firstName,
 					Surname = linkedinUser.lastName,
 					Image = linkedinPictures.values.FirstOrDefault(),
-					Professional = new UserProfessionalProfile() {
+					Professional = new UserProfessionalProfile()
+					{
 						Industry = linkedinUser.industry,
 						Headline = linkedinUser.headline,
 						Summary = linkedinUser.summary,
@@ -1013,7 +1038,8 @@ namespace ilevus.Controllers
 				{
 					return GetErrorResult(result);
 				}
-			} else
+			}
+			else
 			{
 				user.Image = linkedinPictures.values.FirstOrDefault();
 				await UserManager.UpdateAsync(user);
@@ -1046,7 +1072,7 @@ namespace ilevus.Controllers
 		{
 			public string AccessToken { get; set; }
 		}
-		
+
 		class FacebookUser
 		{
 			public string id { get; set; }
@@ -1058,7 +1084,7 @@ namespace ilevus.Controllers
 			public object location { get; set; }
 			public object work { get; set; }
 		}
-		
+
 
 
 
@@ -1066,7 +1092,7 @@ namespace ilevus.Controllers
 
 
 		#region Helpers
-		
+
 		public class ParsedExternalAccessToken
 		{
 			public string user_id { get; set; }
@@ -1086,7 +1112,7 @@ namespace ilevus.Controllers
 				verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}",
 					accessToken, Startup.FacebookAppToken);
 			}
-			
+
 			var client = new HttpClient();
 			var uri = new Uri(verifyTokenEndPoint);
 			var response = await client.GetAsync(uri);
@@ -1095,7 +1121,7 @@ namespace ilevus.Controllers
 			{
 				var content = await response.Content.ReadAsStringAsync();
 
-				dynamic jObj = (JObject) Newtonsoft.Json.JsonConvert.DeserializeObject(content);
+				dynamic jObj = (JObject)Newtonsoft.Json.JsonConvert.DeserializeObject(content);
 
 				parsedToken = new ParsedExternalAccessToken();
 
@@ -1111,7 +1137,7 @@ namespace ilevus.Controllers
 				}
 				else
 				{
-					
+
 
 				}
 

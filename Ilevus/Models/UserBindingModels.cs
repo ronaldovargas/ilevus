@@ -90,14 +90,21 @@ namespace ilevus.Models
         public string Industry { get; set; }
         public string Specialties { get; set; }
         public string Summary { get; set; }
-        public IEnumerable<string> SpokenLanguages { get; set; }
+
+		public DateTime BirthDate { get; set; }
+
+		public IEnumerable<string> SpokenLanguages { get; set; }
 
         public IEnumerable<UserEducation> Education { get; set; }
 
         public IEnumerable<UserCareer> Career { get; set; }
 
         public IEnumerable<UserService> Services { get; set; }
-    }
+
+		public PhoneModel Phone { get;  set; }
+
+		public UserFinancialProfile Financial  { get; set; }
+	}
 
     public class RegisterExternalBindingModel
     {

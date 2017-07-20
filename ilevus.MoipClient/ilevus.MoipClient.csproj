@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Exceptions\IuguUnauthorizedException.cs" />
     <Compile Include="Exceptions\MoipErrorException.cs" />
+    <Compile Include="Implementation\DateConverter.cs" />
+    <Compile Include="Implementation\EmailConverter.cs" />
     <Compile Include="Implementation\MoipApiContaMoip.cs" />
     <Compile Include="Implementation\MoipApiClient.cs" />
     <Compile Include="Models\Address.cs" />

@@ -5,8 +5,8 @@ namespace ilevus.MoipClient.Models
     public class IdentityDocument
     {
 
-        [JsonProperty("type")]
-        public string Type { get; set; }
+	    [JsonProperty("type")]
+	    public string Type { get; } = "RG";
 
         [JsonProperty("number")]
         public string Number { get; set; }

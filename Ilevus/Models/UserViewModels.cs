@@ -98,7 +98,7 @@ namespace ilevus.Models
             ScheduleConfig = user.ScheduleConfig;
             Professional = new ProfessionalProfileViewModel(user);
             Premium = user.Premium;
-            Financial = user.Financial;
+            Financial = user.Professional.Financial;
             IsProfessional = user.IsProfessional;
 
         }
@@ -140,9 +140,11 @@ namespace ilevus.Models
         public ProfessionalProfileViewModel(IlevusUser user)
         {
             Id = user.Id;
+			this.BirthDate = user.Birthdate;
             Professional = user.Professional;
         }
-        public string Id { get; set; }
+		public DateTime BirthDate { get; set; }
+		public string Id { get; set; }
         public UserProfessionalProfile Professional { get; set; }
     }
 

@@ -22,8 +22,11 @@ namespace MoipClientTest
             var client = new MoipApiClient();
             var conta = Builder<ContaMoip>.CreateNew()
                 .With(x => x.Person = Builder<Person>.CreateNew()
-                            .With(y => y.TaxDocument = new TaxDocument { Type = "CPF", Number = "61427233349" })
-                            .And(y => y.IdentityDocument = Builder<IdentityDocument>.CreateNew().Build())
+							.With(y => y.TaxDocument = new TaxDocument { Number = "68501617504" })
+                            .And(y => y.IdentityDocument = Builder<IdentityDocument>.CreateNew()
+										.With(z=> z.IssueDate="2000-12-12")
+										.And(z=> z.Issuer="SSP")
+										.And(z=>z.Number= "434322344").Build())
                             .And(y => y.Phone = new Phone
                             {
                                 AreaCode = "85",
@@ -34,14 +37,16 @@ namespace MoipClientTest
                                 City = "Fortaleza",
                                 State = "ce",
                                 Street = "Rua tal",
-                                Country = "BRA",
                                 StreetNumber = "1",
                                 District = "Boa Vista",
                                 ZipCode = "60861140"
                             })
-                            .And(y => y.BirthDate = "1986-05-08")
+                            .And(y => y.BirthDate = "1990-01-01")
                         .Build())
-                .And(y => y.Email = new Email("eugenio12@gmail.com"))
+						.And(x => x.AccessToken = null)
+						.And(x => x.createdAt = null)
+						.And(x => x.Login = null)
+				.And(y => y.Email = new Email("eugenio18@gmail.com"))
                 .Build();
             conta.Id = Guid.NewGuid().ToString();
 
@@ -59,14 +64,14 @@ namespace MoipClientTest
                     fullname = "Eugenio Tavares Silva Filho",
                     taxDocument = new TaxDocument
                     {
-                        Type = "CPF",
-                        Number = "61427233349"
-                    }
+                        Number = "68501617504"
+					}
                 }
 
             };
 
-            var contaBancariaCriada = client.CriarContaBancaria(contabancaria).Result;
+			var clientBankAccount = new MoipApiClient(conta.AccessToken);
+			var contaBancariaCriada = clientBankAccount.CriarContaBancaria(contabancaria).Result;
 
             Assert.IsTrue(true);
         }
