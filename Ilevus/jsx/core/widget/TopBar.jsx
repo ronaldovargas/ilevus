@@ -110,7 +110,7 @@ module.exports = React.createClass({
                         <li className="nav-item ilv-navbar-title-item">
                             <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
                                 <span className="hidden-sm-up ilv-navbar-title-item-txt-3">{Messages.get("LabelMyAgenda")}</span>
-                                <i className="ilv-icon material-icons">&#xE878;</i>
+                                <i className="ilv-icon material-icons">&#xE871;</i>
                             </Link>
                         </li>
                         <li className="nav-item ilv-navbar-title-item">

@@ -31,7 +31,14 @@ namespace ilevus.Controllers
             resourceObject.Add("FacebookClientId", Startup.facebookAuthOptions.AppId);
             foreach (var item in messages)
             {
-                resourceObject.Add(item.Key, item.Value.Content);
+                try
+                {
+                    resourceObject.Add(item.Key, item.Value.Content);
+                } catch (Exception ex)
+                {
+                    Console.Write(ex.Message);
+                    continue;
+                }
             }
 
             return Ok(resourceObject);
