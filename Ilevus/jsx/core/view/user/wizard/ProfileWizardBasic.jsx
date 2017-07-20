@@ -22,7 +22,9 @@ module.exports = React.createClass({
         userId: React.PropTypes.string.isRequired
     },
     state: {
-        TaxDocument: ''
+        TaxDocument: '',
+        AreaCode: '',
+        Number: ''
     },
     getInitialState() {
         var map = LanguageSelect.LanguagesMap, lang,
@@ -76,8 +78,8 @@ module.exports = React.createClass({
                 TaxDocument: this.state.TaxDocument
             },
             Phone: {
-                AreaCode: this.refs['field-ddd'].value,
-                Number: this.refs['field-phone'].value
+                AreaCode: this.state.AreaCode,
+                Number: this.state.Number
             },
             SpokenLanguages: langs
         };
@@ -187,24 +189,26 @@ module.exports = React.createClass({
                                 <div className="ilv-form-group m-b-0">
                                         <label className="ilv-form-label" htmlFor="editProfileFormPhone">
                                             {Messages.get("LabelDDD")}
-                                        </label>
-                                        <input
-                                                type="tel"
-                                                spellCheck={false}
-                                                id="editProfileDDD"
-                                                  defaultValue={this.context.professionalData.Phone.AreaCode}
-                                                ref="field-ddd"/>
+                                            </label>
+                                            <MaskedInput mask="(11)"
+                                            name="AreaCode"
+                                            ref="field-ddd"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Phone.AreaCode}
+                                            spellCheck={false}
+                                            onChange={this._onChange} />
                                 </div>
                                  <div className="ilv-form-group m-b-0">
                                         <label className="ilv-form-label" htmlFor="editProfileFormPhone">
                                             {Messages.get("LabelPhoneNumber")}
-                                        </label>
-                                        <input
-                                                type="tel"
-                                                spellCheck={false}
-                                                id="editProfilePhone"
-                                                defaultValue={this.context.professionalData.Phone.Number}
-                                                ref="field-phone"/>
+                                            </label>
+                                        <MaskedInput mask="11111-1111"
+                                            name="Number"
+                                            ref="field-phone"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Phone.Number}
+                                            spellCheck={false}
+                                            onChange={this._onChange} />
                                 </div>
                         </fieldset>
 

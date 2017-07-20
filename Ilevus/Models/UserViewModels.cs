@@ -140,10 +140,10 @@ namespace ilevus.Models
         public ProfessionalProfileViewModel(IlevusUser user)
         {
             Id = user.Id;
-			this.BirthDate = user.Birthdate;
+			this.BirthDate = user.Birthdate.ToString("dd/MM/yyyy");
             Professional = user.Professional;
         }
-		public DateTime BirthDate { get; set; }
+		public string BirthDate { get; set; }
 		public string Id { get; set; }
         public UserProfessionalProfile Professional { get; set; }
     }
