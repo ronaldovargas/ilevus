@@ -17,7 +17,7 @@ module.exports = {
         return S(this._messages[key]);
     },
     _reportUnexistentKey(key) {
-        if (S(key).isEmpty())
+        if (S(key).isEmpty() || S(key).startsWith("_"))
             return;
         $.ajax({
             method: "POST",

@@ -491,41 +491,41 @@ namespace ilevus.Models
                 Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.UserId),
                 Builders<IlevusSubscription>.IndexKeys.Ascending(sub => sub.Status)
             );
-            //subscriptions.Indexes.CreateOne(subUserId);
-            //subscriptions.Indexes.CreateOne(subStatus);
+            subscriptions.Indexes.CreateOne(subUserId);
+            subscriptions.Indexes.CreateOne(subStatus);
 
-            //// User search indexes
-            //var text = Builders<IlevusUser>.IndexKeys.Combine(
-            //    Builders<IlevusUser>.IndexKeys.Ascending(u => u.IsProfessional),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Email),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Name),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Surname),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.City),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.County),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Country),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Industry),
-            //    Builders<IlevusUser>.IndexKeys.Text("Professional.Services.Name"),
-            //    Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Specialties)
-            //);
-            //var weights = new BsonDocument();
-            //weights["Email"] = 10;
-            //weights["Surname"] = 8;
-            //weights["Name"] = 6;
-            //weights["Professional.Industry"] = 6;
-            //weights["Professional.Services.Name"] = 6;
-            //weights["Professional.Specialties"] = 6;
-            //weights["Professional.City"] = 4;
-            //weights["Professional.County"] = 2;
-            //weights["Professional.Country"] = 1;
-            //var textOpts = new CreateIndexOptions<IlevusUser>()
-            //{
-            //    DefaultLanguage = "portuguese",
-            //    LanguageOverride = "SearchLanguage",
-            //    Name = "UserSearchIndex",
-            //    Weights = weights
-            //};
+            // User search indexes
+            var text = Builders<IlevusUser>.IndexKeys.Combine(
+                Builders<IlevusUser>.IndexKeys.Ascending(u => u.IsProfessional),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Email),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Name),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Surname),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.City),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.County),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Country),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Industry),
+                Builders<IlevusUser>.IndexKeys.Text("Professional.Services.Name"),
+                Builders<IlevusUser>.IndexKeys.Text(u => u.Professional.Specialties)
+            );
+            var weights = new BsonDocument();
+            weights["Email"] = 10;
+            weights["Surname"] = 8;
+            weights["Name"] = 6;
+            weights["Professional.Industry"] = 6;
+            weights["Professional.Services.Name"] = 6;
+            weights["Professional.Specialties"] = 6;
+            weights["Professional.City"] = 4;
+            weights["Professional.County"] = 2;
+            weights["Professional.Country"] = 1;
+            var textOpts = new CreateIndexOptions<IlevusUser>()
+            {
+                DefaultLanguage = "portuguese",
+                LanguageOverride = "SearchLanguage",
+                Name = "UserSearchIndex",
+                Weights = weights
+            };
 
-            //users.Indexes.CreateOne(text, textOpts);
+            users.Indexes.CreateOne(text, textOpts);
         }
 
         public void Dispose()

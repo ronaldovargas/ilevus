@@ -114,14 +114,14 @@ Marked.setOptions({
 Messages.load(function (success) {
     // FIXME Pog pro fiorini
     if (success || !success) {
-        var culture = Messages.get("Culture");
+        var culture = Messages.get("_Culture");
 
         // Facebook API config.
         if (typeof FB == 'undefined') {
             window.fbAsyncInit = function () {
                 _.defer(() => {
                     FB.init({
-                        appId: Messages.get("FacebookClientId"),
+                        appId: Messages.get("_FacebookClientId"),
                         cookie: false, // enable cookies to allow the server to access the session
                         oauth: false,
                         status: false,
@@ -132,7 +132,7 @@ Messages.load(function (success) {
         } else {
             _.defer(() => {
                 FB.init({
-                    appId: Messages.get("FacebookClientId"),
+                    appId: Messages.get("_FacebookClientId"),
                     cookie: false, // enable cookies to allow the server to access the session
                     oauth: false,
                     status: false,
