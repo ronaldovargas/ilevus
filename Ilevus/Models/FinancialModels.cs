@@ -1,4 +1,6 @@
-﻿using MongoDB.Bson;
+﻿using Moip.Net;
+using Moip.Net.Assinaturas;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
@@ -14,11 +16,10 @@ namespace ilevus.Models
         public string UserId { get; set; }
         public int Amount { get; set; }
         
-        public MoipInvoice Invoice { get; set; }
+        public Invoice Invoice { get; set; }
         public MoipDate NextInvoiceDate { get; set; }
-        public MoipCreditCard CreditCard { get; set; }
 
-        public string Status;
+        public Subscription.SubscriptionStatus Status { get; set; }
 
         public DateTime Creation { get; set; }
 
@@ -28,64 +29,11 @@ namespace ilevus.Models
             Creation = DateTime.Now;
         }
     }
-
-    public class MoipCreditCard
-    {
-        public string first_six_digits { get; set; }
-        public string last_four_digits { get; set; }
-        public string expiration_year { get; set; }
-        public string expiration_month { get; set; }
-        public string holder_name { get; set; }
-        public string brand { get; set; }
-        public string vault { get; set; }
-    }
-
-    public class MoipInvoice
-    {
-        public int amount { get; set; }
-        public int id { get; set; }
-        public MoipInvoiceStatus status { get; set; }
-    }
-
-    public class MoipInvoiceStatus
-    {
-        public int code { get; set; }
-        public string description { get; set; }
-    }
-
-    public class MoipPlan
-    {
-        public string code { get; set; }
-        public string id { get; set; }
-        public string name { get; set; }
-    }
-
-    public class MoipDate
-    {
-        public int year { get; set; }
-        public int month { get; set; }
-        public int day { get; set; }
-    }
-
-    public class MoipDateTime
-    {
-        public int year { get; set; }
-        public int month { get; set; }
-        public int day { get; set; }
-        public int hour { get; set; }
-        public int minute { get; set; }
-        public int second { get; set; }
-    }
-
+    
     public class MoipSubscriptionBindingModel
     {
         public string Id { get; set; }
-        public int Amount { get; set; }
-        public MoipInvoice Invoice { get; set; }
-        public MoipDate NextInvoiceDate { get; set; }
-        public MoipCreditCard CreditCard { get; set; }
-        public string Status;
-
+        public CustomerRequest Customer { get; set; }
     }
 
 }

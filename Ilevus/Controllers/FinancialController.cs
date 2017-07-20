@@ -56,7 +56,6 @@ namespace ilevus.Controllers
                 {
                     result = new IlevusSubscription()
                     {
-                        Status = "NEW",
                         UserId = user.Id
                     };
                     await collection.InsertOneAsync(result);
@@ -73,6 +72,11 @@ namespace ilevus.Controllers
         [Route("Subscription")]
         public async Task<IHttpActionResult> UpdateUserSubscription(MoipSubscriptionBindingModel model)
         {
+            var assClient = new AssinaturasClient(
+                new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                IlevusDBContext.SystemConfiguration.MoipToken,
+                IlevusDBContext.SystemConfiguration.MoipKey
+            );
             var db = IlevusDBContext.Create();
             var collection = db.GetSubscriptionsCollection();
             var filters = Builders<IlevusSubscription>.Filter;
@@ -93,17 +97,88 @@ namespace ilevus.Controllers
                 {
                     return BadRequest("Essa não é sua assinatura.");
                 }
-                result.Amount = model.Amount;
-                result.CreditCard = model.CreditCard;
-                result.Invoice = model.Invoice;
-                result.NextInvoiceDate = model.NextInvoiceDate;
-                result.Status = model.Status;
+
+                SubscriptionResponse moipSub;
+                try
+                {
+                    moipSub = assClient.GetSubscription(result.Id);
+                }
+                catch (MoipException e)
+                {
+                    if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        moipSub = null;
+                    }
+                    else
+                    {
+                        return InternalServerError(e);
+                    }
+                }
+
+                if (moipSub == null)
+                {
+                    CustomerRequest customer = model.Customer;
+                    customer.Code = user.Id;
+                    bool newCustomer = false;
+                    try
+                    {
+                        CustomerResponse moipCustomer = assClient.GetCustomer(user.Id);
+                        newCustomer = false;
+                    }
+                    catch (MoipException e)
+                    {
+                        if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        {
+                            newCustomer = true;
+                        }
+                        else
+                        {
+                            return InternalServerError(e);
+                        }
+                    }
+                    if (newCustomer)
+                    {
+                        assClient.CreateCustomer(customer, true);
+                    } else
+                    {
+                        assClient.UpdateCustomer(user.Id, customer);
+                        assClient.UpdateBillingInfo(user.Id, customer.BillingInfo);
+                    }
+                    
+                    Subscription subscription = new Subscription()
+                    {
+                        Code = result.Id,
+                        Customer = customer,
+                        PaymentMethod = Plan.PaymentMethodPlan.CREDIT_CARD,
+                        Plan = new Plan()
+                        {
+                            Code = IlevusDBContext.SystemConfiguration.MoipSubscriptionCode
+                        }
+                    };
+                    moipSub = assClient.CreateSubscription(subscription, false);
+                }
+
+                if (!moipSub.Status.Equals(Subscription.SubscriptionStatus.ACTIVE))
+                {
+                    assClient.ActivateSubscription(moipSub.Code);
+                }
+
+                result.Amount = moipSub.Plan.Amount;
+                result.Invoice = moipSub.Invoice;
+                result.NextInvoiceDate = moipSub.NextInvoiceDate;
+                result.Status = moipSub.Status;
                 await collection.ReplaceOneAsync(filters.Eq("Id", model.Id), result);
+
+                DateTime payedUntil = DateTime.Today;
+                if ((result.NextInvoiceDate.Year != null) && (result.NextInvoiceDate.Month != null) && (result.NextInvoiceDate.Day != null))
+                {
+                    payedUntil = new DateTime(result.NextInvoiceDate.Year.Value, result.NextInvoiceDate.Month.Value, result.NextInvoiceDate.Day.Value);
+                }
                 user.Premium = new UserPremiumMembership()
                 {
                     Active = true,
                     Late = false,
-                    PayedUntil = new DateTime(result.NextInvoiceDate.year, result.NextInvoiceDate.month, result.NextInvoiceDate.day)
+                    PayedUntil = payedUntil
                 };
                 await UserManager.UpdateAsync(user);
 
