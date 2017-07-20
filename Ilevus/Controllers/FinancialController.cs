@@ -163,10 +163,10 @@ namespace ilevus.Controllers
                     assClient.ActivateSubscription(moipSub.Code);
                 }
 
-                result.Amount = moipSub.Plan.Amount;
+                result.Amount = moipSub.Invoice.Amount;
                 result.Invoice = moipSub.Invoice;
                 result.NextInvoiceDate = moipSub.NextInvoiceDate;
-                result.Status = moipSub.Status;
+                result.Status = moipSub.Status.ToString();
                 await collection.ReplaceOneAsync(filters.Eq("Id", model.Id), result);
 
                 DateTime payedUntil = DateTime.Today;

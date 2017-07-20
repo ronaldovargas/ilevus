@@ -19,7 +19,7 @@ namespace ilevus.Models
         public Invoice Invoice { get; set; }
         public MoipDate NextInvoiceDate { get; set; }
 
-        public Subscription.SubscriptionStatus Status { get; set; }
+        public string Status { get; set; }
 
         public DateTime Creation { get; set; }
 

@@ -95,30 +95,32 @@ module.exports = React.createClass({
             data: {
                 Id: this.state.subscription.Id,
                 Customer: {
-                    fullname: this.refs['personal-fullname'].value,
-                    email: UserSession.get("user").Email,
-                    code: UserSession.get("user").Id,
-                    cpf: this.refs['personal-cpf'].value,
-                    birthdate_day: birthdate.substr(8, 2),
-                    birthdate_month: birthdate.substr(5, 2),
-                    birthdate_year: birthdate.substr(0, 4),
-                    phone_area_code: this.refs['personal-phone-area'].value,
-                    phone_number: this.refs['personal-phone-number'].value,
-                    billing_info: {
-                        fullname: this.refs['card-holder'].value,
-                        expiration_month: this.refs['card-expiration-month'].value,
-                        expiration_year: this.refs['card-expiration-year'].value,
-                        credit_card_number: this.refs['card-number'].value
+                    Fullname: this.refs['personal-fullname'].value,
+                    Email: UserSession.get("user").Email,
+                    Code: UserSession.get("user").Id,
+                    Cpf: this.refs['personal-cpf'].value,
+                    BirthdateDay: birthdate.substr(8, 2),
+                    BirthdateMonth: birthdate.substr(5, 2),
+                    BirthdateYear: birthdate.substr(0, 4),
+                    PhoneAreaCode: this.refs['personal-phone-area'].value,
+                    PhoneNumber: this.refs['personal-phone-number'].value,
+                    BillingInfo: {
+                        CreditCard: {
+                            HolderName: this.refs['card-holder'].value,
+                            ExpirationMonth: this.refs['card-expiration-month'].value,
+                            ExpirationYear: this.refs['card-expiration-year'].value,
+                            Number: this.refs['card-number'].value,
+                        },
                     },
-                    address: {
-                        street: this.refs['address-street'].value,
-                        number: this.refs['address-number'].value,
-                        complement: this.refs['address-complement'].value,
-                        district: this.refs['address-district'].value,
-                        zipcode: this.refs['address-zipcode'].value,
-                        city: this.refs['address-city'].value,
-                        state: this.refs['address-county'].value,
-                        country: "BRA"
+                    Address: {
+                        Street: this.refs['address-street'].value,
+                        Number: this.refs['address-number'].value,
+                        Complement: this.refs['address-complement'].value,
+                        District: this.refs['address-district'].value,
+                        Zipcode: this.refs['address-zipcode'].value,
+                        City: this.refs['address-city'].value,
+                        State: this.refs['address-county'].value,
+                        Country: "BRA"
                     },
                 },
             },
@@ -126,6 +128,7 @@ module.exports = React.createClass({
     },
 
     processSubscriptionUpdateResponse(data) {
+        console.log(data);
         $("#submittingOverlay").removeClass("show");
         Toastr.remove();
         Toastr.success(Messages.get("TextPaymentConfirmed"));
