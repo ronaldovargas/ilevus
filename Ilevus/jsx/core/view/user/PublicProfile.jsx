@@ -320,11 +320,11 @@ module.exports = React.createClass({
                             {!UserSession.get("logged") ? "":<div className="ilv-card-body">
                                 {this.state.favorited ?
                                     <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE838;</i>{Messages.get("LabelSavedAsFavorite")}
+                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE7FD;</i>{Messages.get("LabelSavedAsFavorite")}
                                     </button>
                                     :
                                     <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18">&#xE83A;</i>{Messages.get("LabelSaveAsFavorite")}
+                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFavorite")}
                                     </button>
                                 }
                             </div>}
