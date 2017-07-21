@@ -5,7 +5,7 @@ namespace Moip.Net.V2.Model
 {
 
     /// <summary>
-    /// Cliente é o usuário de um serviço ou o comprador de uma determinada loja virtual.
+    /// Cliente é o usuário de um serviço ou o comprador de uma determinada loja virtual. 
     /// </summary>
     /// <see cref="http://dev.moip.com.br/referencia-api/#clientes"/>
     public class Cliente
@@ -30,6 +30,6 @@ namespace Moip.Net.V2.Model
             return OwnId;
         }
     }
-
-
+    
+    
 }

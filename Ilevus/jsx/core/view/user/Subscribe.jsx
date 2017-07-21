@@ -87,90 +87,48 @@ module.exports = React.createClass({
             event.preventDefault();
     },
 
-    updateSubscription(response) {
+    updateSubscription() {
         //a
-
+        var birthdate = this.refs['personal-birthdate'].value;
         FinancialStore.dispatch({
             action: FinancialStore.ACTION_UPDATE_USER_SUBSCRIPTION,
             data: {
                 Id: this.state.subscription.Id,
-                Amount: response.amount,
-                Invoice: response.invoice,
-                NextInvoiceDate: response.next_invoice_date,
-                CreditCard: response.customer.billing_info.credit_card,
-                Status: "PROCESSING",
+                Customer: {
+                    Fullname: this.refs['personal-fullname'].value,
+                    Email: UserSession.get("user").Email,
+                    Code: UserSession.get("user").Id,
+                    Cpf: this.refs['personal-cpf'].value,
+                    BirthdateDay: birthdate.substr(8, 2),
+                    BirthdateMonth: birthdate.substr(5, 2),
+                    BirthdateYear: birthdate.substr(0, 4),
+                    PhoneAreaCode: this.refs['personal-phone-area'].value,
+                    PhoneNumber: this.refs['personal-phone-number'].value,
+                    BillingInfo: {
+                        CreditCard: {
+                            HolderName: this.refs['card-holder'].value,
+                            ExpirationMonth: this.refs['card-expiration-month'].value,
+                            ExpirationYear: this.refs['card-expiration-year'].value,
+                            Number: this.refs['card-number'].value,
+                        },
+                    },
+                    Address: {
+                        Street: this.refs['address-street'].value,
+                        Number: this.refs['address-number'].value,
+                        Complement: this.refs['address-complement'].value,
+                        District: this.refs['address-district'].value,
+                        Zipcode: this.refs['address-zipcode'].value,
+                        City: this.refs['address-city'].value,
+                        State: this.refs['address-county'].value,
+                        Country: "BRA"
+                    },
+                },
             },
         });
     },
 
-    getCustomerObject() {
-        var birthdate = this.refs['personal-birthdate'].value;
-
-        var customer = new Customer({
-            fullname: this.refs['personal-fullname'].value,
-            email: UserSession.get("user").Email,
-            code: UserSession.get("user").Id,
-            cpf: this.refs['personal-cpf'].value,
-            birthdate_day: birthdate.substr(8, 2),
-            birthdate_month: birthdate.substr(5, 2),
-            birthdate_year: birthdate.substr(0, 4),
-            phone_area_code: this.refs['personal-phone-area'].value,
-            phone_number: this.refs['personal-phone-number'].value,
-            billing_info: new BillingInfo({
-                fullname: this.refs['card-holder'].value,
-                expiration_month: this.refs['card-expiration-month'].value,
-                expiration_year: this.refs['card-expiration-year'].value,
-                credit_card_number: this.refs['card-number'].value
-            }),
-            address: new Address({
-                street: this.refs['address-street'].value,
-                number: this.refs['address-number'].value,
-                complement: this.refs['address-complement'].value,
-                district: this.refs['address-district'].value,
-                zipcode: this.refs['address-zipcode'].value,
-                city: this.refs['address-city'].value,
-                state: this.refs['address-county'].value,
-                country: "BRA"
-            }),
-        });
-        return customer;
-    },
-    getSubscriptionObject() {
-        var plan_code = this.state.config.MoipSubscriptionCode;
-        var ilevusSubscription = this.state.subscription;
-
-        var subscription = new Subscription()
-                .with_code(ilevusSubscription.Id)
-                .with_plan_code(plan_code)
-        ;
-        return subscription;
-    },
-
-    processMoipResponse(response) {
-        console.log(response);
-        if (response.has_errors()) {
-            var errors = "";
-            for (var i = 0; i < response.errors.length; i++) {
-                var erro = response.errors[i].description;
-                console.error(erro);
-                errors += (errors != "" ? "<br />" : "") + erro;
-                if (erro.indexOf("do cliente") >= 0) {
-                    var moip = new MoipAssinaturas(this.state.config.MoipSubscriptionKey);
-                    var subscription = this.getSubscriptionObject();
-                    var customer = this.getCustomerObject();
-                    subscription.with_customer(customer);
-                    moip.subscribe(subscription).callback(this.processMoipResponse);
-                    return;
-                }
-            }
-            $("#submittingOverlay").removeClass("show");
-            Toastr.remove();
-            Toastr.error(errors);
-            return;
-        }
-        this.updateSubscription(response);
-    },
     processSubscriptionUpdateResponse(data) {
+        console.log(data);
         $("#submittingOverlay").removeClass("show");
         Toastr.remove();
         Toastr.success(Messages.get("TextPaymentConfirmed"));
@@ -179,24 +137,9 @@ module.exports = React.createClass({
 
     subscribe(event) {
         event && event.preventDefault();
-
-        var moip = new MoipAssinaturas(this.state.config.MoipSubscriptionKey);
-        var ilevusSubscription = this.state.subscription;
-        var subscription = this.getSubscriptionObject();
-        var customer = this.getCustomerObject();
-
-        if (ilevusSubscription.Status === "NEW") {
-            subscription.with_new_customer(customer);
-        } else {
-            subscription.with_customer(customer);
-        }
-
-        console.log(subscription);
         $("#submittingOverlay").addClass("show");
-        moip.subscribe(subscription).callback(this.processMoipResponse);
+        this.updateSubscription();
     },
-    
-
 
     render() {
         if (this.state.loading) {
@@ -336,7 +279,7 @@ module.exports = React.createClass({
                             <div className="ilv-form-group">
                                 <div className="row">
                                     <div className="col col-md-6">
-                                        <label className="ilv-form-label">{Messages.get("LabelFullname")}</label> 
+                                        <label className="ilv-form-label">{Messages.get("LabelFullname")}</label>
                                         <input className="ilv-form-control" type="text" ref="personal-fullname" spellCheck={false} defaultValue={user.Name + " " + user.Surname} />
                                     </div>
                                     <div className="col col-md-6">

@@ -4,6 +4,7 @@ var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
 var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
+var SubscriptionStatus = require("ilevus/jsx/core/store/moip/SubscriptionStatus.json");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
@@ -23,13 +24,23 @@ module.exports = React.createClass({
         var me = this;
         FinancialStore.on("retrieve-subscriptions-customers", (customers) => {
             me.setState({
-                loading: false,
-                customers: customers
+                loading: !this.state.subscriptions,
+                customers: customers,
+            });
+        }, me);
+        FinancialStore.on("retrieve-subscriptions", (subscriptions) => {
+            me.setState({
+                loading: !this.state.customers,
+                subscriptions: subscriptions,
             });
         }, me);
 
+
         FinancialStore.dispatch({
-            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS
+            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTIONS,
+        });
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS,
         });
     },
     componentWillUnmount() {
@@ -65,6 +76,36 @@ module.exports = React.createClass({
             </tbody>
         </table>);
     },
+    renderSubscriptions(subscriptions) {
+        if (!subscriptions || subscriptions.length <= 0) {
+            return <i>{Messages.get("TextNoSubscriptionsYet")}</i>;
+        }
+        return (<table className="ilv-table">
+            <thead>
+                <tr>
+                    <th>{Messages.get("LabelCustomer")}</th>
+                    <th>{Messages.get("LabelStatus")}</th>
+                    <th>{Messages.get("LabelNextInvoice")}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {subscriptions.map((subscription, index) => {
+                    console.log(subscription);
+                    return (<tr key={"subscription-" + index}>
+                        <td><Link to={"/admin/subscriptions/detail/" + subscription.Code}>
+                            {subscription.Customer.Fullname}
+                        </Link></td>
+                        <td>
+                            {SubscriptionStatus[subscription.Status]}
+                        </td>
+                        <td>
+                            {subscription.NextInvoiceDate.Day}/{subscription.NextInvoiceDate.Month}/{subscription.NextInvoiceDate.Year}
+                        </td>
+                    </tr>);
+                })}
+            </tbody>
+        </table>);
+    },
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -74,6 +115,15 @@ module.exports = React.createClass({
         }
         return (<div>
             <h1>{Messages.get("LabelSubscriptions")}</h1>
+            <div className="ilv-card">
+                <div className="ilv-card-header">
+                    <strong>{Messages.get("LabelMoipSubscriptions")} ({this.state.subscriptions ? this.state.subscriptions.length : 0})
+                    </strong>
+                </div>
+                <div className="ilv-card-body">{this.renderSubscriptions(this.state.subscriptions)}
+                </div>
+            </div>
+
             <div className="ilv-card">
                 <div className="ilv-card-header">
                     <strong>

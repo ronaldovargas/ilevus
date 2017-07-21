@@ -74,50 +74,55 @@ module.exports = React.createClass({
 
     render() {
         return (
-            <nav className="navbar fixed-top ilv-navbar flex-row">
-                <div className="container d-flex flex-row">
-                    <Link to="/home" className="navbar-brand">
-                        <img src={Logo} alt="ilevus" />
-                    </Link>
+            <nav className="navbar navbar-toggleable-md navbar-light bg-faded fixed-top ilv-navbar">
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i className="ilv-icon material-icons">&#xE5D2;</i>
+                </button>
 
-                    <form className="form-inline mr-auto ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
+                <Link to="/home" className="navbar-brand">
+                    <img src={Logo} alt="ilevus" />
+                </Link>
+
+                <div className="collapse navbar-collapse" id="navbar_menu">
+
+                    <form className="form-inline mr-auto mt-2 mt-lg-0 ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
                         <input ref="search-term" className="form-control ilv-form-control ilv-navbar-search-input" type="search" />
                         <button className="ilv-btn ilv-btn-icon ilv-btn-primary ilv-navbar-search-btn" type="submit">
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>{Messages.get("LabelSearch")}
                         </button>
                     </form>
-
                     {this.state.logged ? (
-                        <form className="form-inline">
+                    <ul className="my-2 my-lg-0 navbar-nav">
 
-                            <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-clean" to="notifications/timeline">
-                                    <i className="ilv-icon material-icons">&#xE7F4;</i>
-                                </Link>
-                            </div>
-
-                            <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMessages")} to="/notifications/messages">
-                                    <i className="ilv-icon material-icons">&#xE0CA;</i>
-                                </Link>
-                            </div>
-
-                            <div className="nav-item">
-                                <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
-                                    <i className="ilv-icon material-icons">&#xE878;</i>
-                                </Link>
-                            </div>
-
-                            <div className="dropdown nav-item">
-                                <a data-toggle="dropdown" className="ml-2">
+                        <li className="nav-item ilv-navbar-title-item">
+                            <Link className="nav-link ilv-btn ilv-btn-clean"title={Messages.get("LabelNotifications")} to="notifications/timeline">
+                                <span className="hidden-sm-up ilv-navbar-title-item-txt-1">{Messages.get("LabelNotifications")}</span>
+                                <i className="ilv-icon material-icons">&#xE7F4;</i>
+                            </Link>
+                        </li>
+                        <li className="nav-item ilv-navbar-title-item">
+                            <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMessages")} to="/notifications/messages">
+                                <span className="hidden-sm-up ilv-navbar-title-item-txt-2">{Messages.get("LabelMessages")}</span>
+                                <i className="ilv-icon material-icons">&#xE0CA;</i>
+                            </Link>
+                        </li>
+                        <li className="nav-item ilv-navbar-title-item">
+                            <Link className="nav-link ilv-btn ilv-btn-clean" title={Messages.get("LabelMyAgenda")} to="/user/dashboard">
+                                <span className="hidden-sm-up ilv-navbar-title-item-txt-3">{Messages.get("LabelMyAgenda")}</span>
+                                <i className="ilv-icon material-icons">&#xE878;</i>
+                            </Link>
+                        </li>
+                        <li className="nav-item ilv-navbar-title-item">
+                            <div className="dropdown">
+                                <a className="nav-link ilv-btn ilv-btn-clean ilv-navbar-title-item ml-2 dropdown-toggle" id="personal_submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span className="ilv-avatar-fluid ilv-avatar-fluid-sm"
                                           style={{
-                                        backgroundImage: "url(" +
-                                            (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
-                                        }}>
+                                            backgroundImage: "url(" +
+                                                (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                          }}>
                                     </span>
                                 </a>
-                                <div className="dropdown-menu dropdown-menu-right">
+                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="personal_submenu">
                                     <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
                                     <div className="dropdown-divider"></div>
                                     <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
@@ -125,31 +130,24 @@ module.exports = React.createClass({
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelChangeLanguage")}</Link>
                                     {!this.context.admin ? "" :
-                                        <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
+                                    <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
                                     }
                                     {this.state.user.EmailConfirmed ? "" :
-                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}
-                                        </a>
+                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
                                     }
                                     <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                 </div>
                             </div>
-                        </form>
+                        </li>
+                    </ul>
                     ) : (
-                        <form className="form-inline">
+                    <ul className="my-2 my-lg-0 navbar-nav">
+                        <li className="nav-item">
                             <Link className="ilv-btn ilv-btn-clean" to="/login">{Messages.get("LabelSignIn")}</Link>
                             <Link className="ilv-btn ilv-btn-neutral" to="/signup">{Messages.get("LabelSignUp")}</Link>
-                        </form>
+                        </li>
+                    </ul>
                     )}
-
-                    <div className="hidden-sm-up">
-                        <button className="navbar-toggler ilv-btn ilv-btn-clean ilv-btn-icon" type="button" data-toggle="collapse" data-target="#js-navbar-search">
-                            <i className="ilv-icon material-icons">&#xE8B6;</i>
-                        </button>
-                        <button className="navbar-toggler ilv-btn ilv-btn-clean ilv-btn-icon" type="button" data-toggle="collapse" data-target="#js-navbar-menu">
-                            <i className="ilv-icon material-icons">&#xE5D2;</i>
-                        </button>
-                    </div>
                 </div>
             </nav>
         );

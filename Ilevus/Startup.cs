@@ -18,27 +18,24 @@ namespace ilevus
 
 		public void Configuration(IAppBuilder app)
 		{
-			AutoMapperConfig.Initialize();
-			log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
-			IlevusDBContext db = IlevusDBContext.Create();
-			db.Migrations();
-			db.EnsureIndexes();
-			db.EnsureSystemConfig();
+            AutoMapperConfig.Initialize();
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
+            IlevusIdentityContext context = IlevusIdentityContext.Create();
 
+            IlevusDbInitializer.Initialize(context);
+            IlevusDbInitializer.InitializeIdentity(context);
 
-			IlevusIdentityContext context = IlevusIdentityContext.Create();
+            ConfigureAuth(app);
 
-			IlevusDbInitializer.Initialize(context);
-			IlevusDbInitializer.InitializeIdentity(context);
+            app.CreatePerOwinContext(IlevusDBContext.Create);
+            IlevusDBContext db = IlevusDBContext.Create();
+            db.Migrations();
+            db.EnsureIndexes();
+            db.EnsureSystemConfig();
 
-			ConfigureAuth(app);
-
-			app.CreatePerOwinContext(IlevusDBContext.Create);
-			app.UseErrorPage(ErrorPageOptions.ShowAll);
-			//GlobalConfiguration.Configure(WebApiConfig.Register);
-			HttpConfiguration config = WebApiConfig.Create();
-			app.UseWebApi(config);
-
+            app.UseErrorPage(ErrorPageOptions.ShowAll);
+            HttpConfiguration config = WebApiConfig.Create();
+            app.UseWebApi(config);
 		}
 	}
 }

@@ -159,7 +159,7 @@ namespace ilevus.Models
             {
                 return false;
             }
-            
+
             return await SaveSystemMessages();
         }
 
@@ -201,7 +201,7 @@ namespace ilevus.Models
             {
                 return false;
             }
-            
+
             result = await msgCol.ReplaceOneAsync(filter.Where((msg) => msg.Id == en.Id), en);
             if (result.MatchedCount == 0)
             {
@@ -352,44 +352,44 @@ namespace ilevus.Models
             var msgCollection = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
             Messages = new ConcurrentDictionary<string, SystemMessages>();
             var msgs = msgCollection.Find(FilterDefinition<SystemMessages>.Empty).ToList();
-            //foreach (var msg in msgs)
-            //{
-            //    Messages.Add(msg.Language, msg);
-            //}
+            foreach (var msg in msgs)
+            {
+                Messages.Add(msg.Language, msg);
+            }
 
-            //var lang = CultureHelper.GetImplementedCulture("pt-br");
-            //SystemMessages messages;
-            //try
-            //{
-            //    messages = Messages[lang];
-            //}
-            //catch (KeyNotFoundException ex)
-            //{
-            //    messages = CreateMSystemMessages(lang, msgCollection);
-            //    Messages.Add(lang, messages);
-            //}
+            var lang = CultureHelper.GetImplementedCulture("pt-br");
+            SystemMessages messages;
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
 
-            //lang = CultureHelper.GetImplementedCulture("en");
-            //try
-            //{
-            //    messages = Messages[lang];
-            //}
-            //catch (KeyNotFoundException ex)
-            //{
-            //    messages = CreateMSystemMessages(lang, msgCollection);
-            //    Messages.Add(lang, messages);
-            //}
+            lang = CultureHelper.GetImplementedCulture("en");
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
 
-            //lang = CultureHelper.GetImplementedCulture("es");
-            //try
-            //{
-            //    messages = Messages[lang];
-            //}
-            //catch (KeyNotFoundException ex)
-            //{
-            //    messages = CreateMSystemMessages(lang, msgCollection);
-            //    Messages.Add(lang, messages);
-            //}
+            lang = CultureHelper.GetImplementedCulture("es");
+            try
+            {
+                messages = Messages[lang];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                messages = CreateMSystemMessages(lang, msgCollection);
+                Messages.Add(lang, messages);
+            }
         }
 
         private SystemMessages CreateMSystemMessages(string lang, IMongoCollection<SystemMessages> msgCollection)
@@ -537,7 +537,7 @@ namespace ilevus.Models
 
         public void Dispose()
         {
-            
+
         }
     }
 }

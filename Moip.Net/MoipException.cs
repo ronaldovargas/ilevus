@@ -3,6 +3,7 @@ using System.Net;
 
 namespace Moip.Net
 {
+    [Serializable]
     public class MoipException : Exception
     {
         public readonly HttpStatusCode StatusCode;

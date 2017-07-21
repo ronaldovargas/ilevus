@@ -47,12 +47,12 @@ namespace Moip.Net.V2
             {
                 arrQuery.Add("offset=" + offset);
             }
-
+            
             if(limit.HasValue)
             {
                 arrQuery.Add("limit=" + limit);
             }
-
+            
             if (!string.IsNullOrEmpty(query))
             {
                 arrQuery.Add("q=" + Uri.EscapeDataString(query));

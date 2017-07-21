@@ -13,7 +13,7 @@ namespace Moip.Net.V2.Filter
             _name = name;
             _value = value;
         }
-
+        
         protected abstract string FilterName { get; }
 
         public override string ToString()

@@ -21,7 +21,8 @@ var NotificationsModel = Fluxbone.Model.extend({
 var NotificationsStore = Fluxbone.Store.extend({
     ACTION_USER_NOTIFICATIONS: 'notifications-notificationsUser',
     ACTION_ALL_NOTIFICATIONS: 'notifications-notificationsAll',
-    
+    dispatchAcceptRegex: /^notifications-[a-zA-Z0-9]+$/,
+
     url: URL,
     model: NotificationsModel,
 

@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus", "ilevus\ilevus.csproj", "{AE7CB436-6B41-482D-BDE0-9D61027A9676}"
 	ProjectSection(ProjectDependencies) = postProject
 		{ABED97B6-5479-46AA-9570-1012A9908263} = {ABED97B6-5479-46AA-9570-1012A9908263}
+		{005DAEE5-1D6F-493C-8E40-928CD3FB4FE7} = {005DAEE5-1D6F-493C-8E40-928CD3FB4FE7}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus.Tests", "ilevus.Tests\ilevus.Tests.csproj", "{6AFBA778-B23F-4795-9FDC-21FD94470127}"
@@ -13,6 +14,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus.Resources", "ilevus.Resources\ilevus.Resources.csproj", "{A8E0E134-917E-4AA9-8488-3D9CCD987C83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ilevus.MoipClient", "ilevus.MoipClient\ilevus.MoipClient.csproj", "{005DAEE5-1D6F-493C-8E40-928CD3FB4FE7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABED97B6-5479-46AA-9570-1012A9908263} = {ABED97B6-5479-46AA-9570-1012A9908263}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoipClientTest", "MoipClientTest\MoipClientTest.csproj", "{6EC41887-4EAC-4BC9-9FB0-ED25711AB3DA}"
 EndProject
