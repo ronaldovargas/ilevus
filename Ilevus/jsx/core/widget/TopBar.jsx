@@ -54,9 +54,11 @@ module.exports = React.createClass({
     },
     onLogout(evt) {
         evt.preventDefault();
-        UserSession.dispatch({
-            action: UserSession.ACTION_LOGOUT
-        });
+        if (confirm('Logout?')) {
+            UserSession.dispatch({
+                action: UserSession.ACTION_LOGOUT
+            });
+        };
     },
     onSearch(evt) {
         evt.preventDefault();
