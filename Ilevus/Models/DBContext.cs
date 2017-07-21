@@ -352,44 +352,44 @@ namespace ilevus.Models
             var msgCollection = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
             Messages = new ConcurrentDictionary<string, SystemMessages>();
             var msgs = msgCollection.Find(FilterDefinition<SystemMessages>.Empty).ToList();
-            foreach (var msg in msgs)
-            {
-                Messages.Add(msg.Language, msg);
-            }
+            //foreach (var msg in msgs)
+            //{
+            //    Messages.Add(msg.Language, msg);
+            //}
 
-            var lang = CultureHelper.GetImplementedCulture("pt-br");
-            SystemMessages messages;
-            try
-            {
-                messages = Messages[lang];
-            }
-            catch (KeyNotFoundException ex)
-            {
-                messages = CreateMSystemMessages(lang, msgCollection);
-                Messages.Add(lang, messages);
-            }
+            //var lang = CultureHelper.GetImplementedCulture("pt-br");
+            //SystemMessages messages;
+            //try
+            //{
+            //    messages = Messages[lang];
+            //}
+            //catch (KeyNotFoundException ex)
+            //{
+            //    messages = CreateMSystemMessages(lang, msgCollection);
+            //    Messages.Add(lang, messages);
+            //}
 
-            lang = CultureHelper.GetImplementedCulture("en");
-            try
-            {
-                messages = Messages[lang];
-            }
-            catch (KeyNotFoundException ex)
-            {
-                messages = CreateMSystemMessages(lang, msgCollection);
-                Messages.Add(lang, messages);
-            }
+            //lang = CultureHelper.GetImplementedCulture("en");
+            //try
+            //{
+            //    messages = Messages[lang];
+            //}
+            //catch (KeyNotFoundException ex)
+            //{
+            //    messages = CreateMSystemMessages(lang, msgCollection);
+            //    Messages.Add(lang, messages);
+            //}
 
-            lang = CultureHelper.GetImplementedCulture("es");
-            try
-            {
-                messages = Messages[lang];
-            }
-            catch (KeyNotFoundException ex)
-            {
-                messages = CreateMSystemMessages(lang, msgCollection);
-                Messages.Add(lang, messages);
-            }
+            //lang = CultureHelper.GetImplementedCulture("es");
+            //try
+            //{
+            //    messages = Messages[lang];
+            //}
+            //catch (KeyNotFoundException ex)
+            //{
+            //    messages = CreateMSystemMessages(lang, msgCollection);
+            //    Messages.Add(lang, messages);
+            //}
         }
 
         private SystemMessages CreateMSystemMessages(string lang, IMongoCollection<SystemMessages> msgCollection)
@@ -418,18 +418,25 @@ namespace ilevus.Models
         public void Migrations()
         {
 
-   //         var collection = GetUsersCollection();
-   //         var services = collection.Find(f => f.Professional.Services.Any(s => s.Id.Equals(Guid.Empty)));
+			var collection = GetUsersCollection();
+			var services = collection.Find(f => f.Professional.Services.Any(s => s.Id.Equals(Guid.Empty)));
 
-   //         var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
-   //         var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
-   //         var result = collection.UpdateManyAsync(filter, update).Result;
+			var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
+			var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
+			var result = collection.UpdateManyAsync(filter, update).Result;
 
 
-			//FieldDefinition<IlevusUser> field = "Financial";
-			//var filter2 = Builders<IlevusUser>.Filter.Exists(field);
-			//var update2 = Builders<IlevusUser>.Update.Unset(field);
-			//var result2 = collection.UpdateManyAsync(filter2, update2).Result;
+			FieldDefinition<IlevusUser> field = "Financial";
+			var filter2 = Builders<IlevusUser>.Filter.Exists(field);
+			var update2 = Builders<IlevusUser>.Update.Unset(field);
+			var result2 = collection.UpdateManyAsync(filter2, update2).Result;
+
+
+			FieldDefinition<IlevusUser> field3 = "Professional.BankAccount";
+			var filter3 = Builders<IlevusUser>.Filter.Exists(field3);
+			var update4 = Builders<IlevusUser>.Update.Unset(field3);
+			var result4 = collection.UpdateManyAsync(filter3, update4).Result;
+
 
 		}
 
