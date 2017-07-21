@@ -261,6 +261,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bundle.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="ilevus.MoipClient.csproj" />
     <Content Include="img\flags%402x.png" />
@@ -308,6 +311,9 @@
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsDetails.jsx" />
     <Content Include="jsx\core\store\moip\SubscriptionStatus.json" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsInvoice.jsx" />
+    <Content Include="bundle.js.map">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
