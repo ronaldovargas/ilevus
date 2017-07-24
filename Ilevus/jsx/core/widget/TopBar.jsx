@@ -15,7 +15,8 @@ module.exports = React.createClass({
         admin: React.PropTypes.bool.isRequired,
         router: React.PropTypes.object
     },
-    getInitialState() {
+    getInitialState() {             
+        
         return {
             user: UserSession.get("user"),
             logged: !!UserSession.get("logged")
@@ -23,6 +24,25 @@ module.exports = React.createClass({
     },
     componentWillMount() {
         var me = this;
+
+        if (me.state && me.state.logged) {
+            window.onbeforeunload = function (event) {
+                if (!this.state || !this.state.logged) {
+                    return null;
+                }
+                var message = 'Important: Please click on \'Save\' button to leave this page.';
+                if (typeof event == 'undefined') {
+                    event = window.event;
+                }
+                if (event) {
+                    event.returnValue = message;
+                }
+                return message;
+            };
+        } else {
+            window.onbeforeunload = null;
+        }
+
         UserSession.on("update", session => {
             me.setState({
                 user: session.get("user"),
@@ -36,6 +56,7 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("logout", session => {
+            window.onbeforeunload = null;
             me.setState({
                 user: null,
                 logged: false

@@ -9,12 +9,46 @@
 		<link rel="icon shortcut" type="image/x-icon" href="favicon.ico" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+
+
+
+      <!-- cdn for modernizr, if you haven't included it already -->
+      <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+      <!-- polyfiller file to detect and load polyfills -->
+      <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+      <script>
+          webshims.setOptions('waitReady', false);
+          webshims.setOptions('forms-ext', {types: 'date'});
+        webshims.polyfill('forms forms-ext');
+      </script>
+
   </head>
   <body>
 	<div id="main-global-popover" class="ilevus-popover"></div>
   	<div id="main-global-modal" class="modal fade" tabindex="-1" role="dialog"></div>
 	<div id="main-body"></div>
 
+
+    <script type="text/javascript">  
+        
+        function monitorSessao() {
+            console.log('passou aqui');
+            window.onbeforeunload = function (event) {
+                var message = 'Important: Please click on \'Save\' button to leave this page.';
+                if (typeof event == 'undefined') {
+                    event = window.event;
+                }
+                if (event) {
+                    event.returnValue = message;
+                }
+                return message;
+            };
+        }
+
+        function endMonitorSessao() {
+            window.onbeforeunload = null;
+        }
+    </script>
 
     <script type="text/javascript">
     	var apiPath = "api/";

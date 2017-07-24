@@ -33,11 +33,12 @@ module.exports = React.createClass({
         UserSession.off(null, null, this);
     },
     onLogout() {
+        endMonitorSessao();
         UserSession.dispatch({
             action: UserSession.ACTION_LOGOUT
         });
     },
-  render() {
+    render() {
     if (!this.state.logged) {
         return <div style={{display: 'none'}} />;
     }
