@@ -30,6 +30,15 @@ module.exports = {
             }
         });
     },
+
+    getFile: function (key, dest) {
+        console.log('nova função');
+        $.get(key, function (data) {
+            $('#' + dest).html(data);
+            console.log("Load was performed.");
+        });
+    },
+
     get: function (key) {
         var str = this._get(key);
         if (str.isEmpty()) {

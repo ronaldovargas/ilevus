@@ -10,8 +10,8 @@ module.exports = React.createClass({
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 text-center">
-							<h1>Política de Privacidade e Termos de Uso</h1>
-							<p>{Messages.get("TextTermsPrivacy")}</p>
+							<h1>{Messages.get("LabelTermsPrivacy")}</h1>
+							<p id="conteudoTerms" className="text-left">{Messages.getFile(Messages.get("TextTermsPrivacy"), "conteudoTerms")}</p>
 						</div>
 					</div>
 				</div>
