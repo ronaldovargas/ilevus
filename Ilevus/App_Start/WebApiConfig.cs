@@ -28,6 +28,11 @@ namespace ilevus
                 routeTemplate: "{controller}/{action}",
                 defaults: new {controller="Home", action="Index"}
             );
+            config.Routes.MapHttpRoute(
+                name: "termosPrivacidade",
+                routeTemplate: "termos-e-privacidade",
+                defaults: new {controller="TermosPrivacidade", action="Index"}
+            );
         }
         public static HttpConfiguration Create()
         {

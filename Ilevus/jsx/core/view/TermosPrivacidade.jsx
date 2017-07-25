@@ -1,4 +1,4 @@
-
+﻿
 var React = require("react");
 var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
@@ -10,9 +10,8 @@ module.exports = React.createClass({
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 text-center">
-							<h1>{Messages.get("TextNotFoundOops")}</h1>
-							<p>{Messages.get("TextNotFound")}</p>
-							<a className="btn btn-primary" href="#/">{Messages.get("ActionBackToMainPage")}</a>
+							<h1>Política de Privacidade e Termos de Uso</h1>
+							<p>{Messages.get("TextTermsPrivacy")}</p>
 						</div>
 					</div>
 				</div>

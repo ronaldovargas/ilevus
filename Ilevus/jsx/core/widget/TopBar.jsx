@@ -25,25 +25,27 @@ module.exports = React.createClass({
     componentWillMount() {
         var me = this;
 
-        if (me.state && me.state.logged) {
-            window.onbeforeunload = function (event) {
-                if (!this.state || !this.state.logged) {
-                    return null;
-                }
-                var message = 'Important: Please click on \'Save\' button to leave this page.';
-                if (typeof event == 'undefined') {
-                    event = window.event;
-                }
-                if (event) {
-                    event.returnValue = message;
-                }
-                return message;
-            };
-        } else {
-            window.onbeforeunload = null;
-        }
-
         UserSession.on("update", session => {
+            console.log('primeiro');
+            if (me.state && me.state.logged) {
+                console.log('entrou');
+                window.onbeforeunload = function (event) {
+                    if (!this.state || !this.state.logged) {
+                        return null;
+                    }
+                    var message = 'Important: Please click on \'Save\' button to leave this page.';
+                    if (typeof event == 'undefined') {
+                        event = window.event;
+                    }
+                    if (event) {
+                        event.returnValue = message;
+                    }
+                    return message;
+                };
+            } else {
+                window.onbeforeunload = null;
+            }
+
             me.setState({
                 user: session.get("user"),
                 logged: true

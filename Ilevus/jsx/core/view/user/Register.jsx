@@ -81,7 +81,7 @@ module.exports = React.createClass({
 
                                     <ErrorAlert store={UserStore} />
 
-                                    <p className="ilv-text-small">{Messages.get("TextSignUpAgreement")}</p>
+                                    <p><a class="ilv-text-small" href="#/termos-privacidade" target="_blank">{Messages.get("TextSignUpAgreement")}</a></p>
                                     <fieldset>
                                         <input
                                                className="ilv-btn ilv-btn-lg ilv-btn-primary ilv-btn-block"
