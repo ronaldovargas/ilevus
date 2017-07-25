@@ -190,6 +190,70 @@ namespace ilevus.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("Subscription/Suspend")]
+        public async Task<IHttpActionResult> SuspendUserSubscription()
+        {
+            var assClient = new AssinaturasClient(
+                new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                IlevusDBContext.SystemConfiguration.MoipToken,
+                IlevusDBContext.SystemConfiguration.MoipKey
+            );
+            var db = IlevusDBContext.Create();
+            var collection = db.GetSubscriptionsCollection();
+            var filters = Builders<IlevusSubscription>.Filter;
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return BadRequest("You must be logged in.");
+                }
+                if (!user.IsProfessional)
+                {
+                    return BadRequest("Você precisa ser um profissional para ter um plano de assinatura premium.");
+                }
+                IlevusSubscription sub = (await collection.FindAsync(filters.And(
+                    filters.Eq("UserId", user.Id),
+                    filters.Ne("Status", "CANCELLED")
+                ))).FirstOrDefault();
+
+                if (sub == null)
+                {
+                    return BadRequest("You must have a subscription to suspend");
+                }
+                
+                try
+                {
+                    SubscriptionResponse moipSub = assClient.GetSubscription(sub.Id);
+                    assClient.SuspendSubscription(moipSub.Code);
+
+                    sub.Status = Subscription.SubscriptionStatus.SUSPENDED.ToString();
+                    await collection.ReplaceOneAsync(filters.Eq("Id", sub.Id), sub);
+
+                    user.Premium.Suspended = true;
+                    await UserManager.UpdateAsync(user);
+
+                    return Ok(user.Premium);
+                }
+                catch (MoipException e)
+                {
+                    if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        return BadRequest("Assiantura MOIP não encontrada.");
+                    }
+                    else
+                    {
+                        return InternalServerError(e);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
         [HttpGet]
         [Route("Subscriptions")]
         public IHttpActionResult GetAllSubscriptions()

@@ -27,6 +27,7 @@ var FinancialStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMER: 'financial-retrieveSubscriptionsCustomer',
     ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS: 'financial-retrieveSubscriptionsCustomers',
     ACTION_RETRIEVE_USER_SUBSCRIPTION: 'financial-retrieveUserSubscription',
+    ACTION_SUSPEND_USER_SUBSCRIPTION: 'financial-suspendUserSubscription',
     ACTION_UPDATE_USER_SUBSCRIPTION: 'financial-updateUserSubscription',
     ACTION_TO_HIRE_SERVICE: 'financial-toHireService',
     dispatchAcceptRegex: /^financial-[a-zA-Z0-9]+$/,
@@ -132,6 +133,22 @@ var FinancialStore = Fluxbone.Store.extend({
 	        dataType: 'json',
 	        success(data, status, opts) {
 	            me.trigger("retrieve-user-subscription", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	suspendUserSubscription() {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Subscription/Suspend",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            UserSession.get("user").Premium = data;
+	            me.trigger("suspend-user-subscription", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
