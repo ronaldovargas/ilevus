@@ -67,7 +67,7 @@ module.exports = React.createClass({
     },
 
     openMeetingSchedule() {
-        
+
     },
 
     openPhoneDialog(event) {
@@ -92,13 +92,13 @@ module.exports = React.createClass({
     },
     toHireService(event) {
         event && event.preventDefault();
-       
-            FinancialStore.dispatch({
-                action: FinancialStore.ACTION_TO_HIRE_SERVICE,
-                data: this.props.params.id
+
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_TO_HIRE_SERVICE,
+            data: this.props.params.id
         });
         this.context.router.push("/checkout");
-        
+
     },
 
     render() {
@@ -130,13 +130,48 @@ module.exports = React.createClass({
         return (<div className="my-5" role="banner">
             <div className="container">
                 <div className="row">
-                    <div className="col-8">
+                    <div className="col-lg-8 col-sm-8 col-xs-12">
                         <div className="mb-5">
                             <div className="ilv-media">
                                 <div className="ilv-media-left ilv-text-xs-center mr-3">
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-public"
-                                        style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }}
-                                    />
+                                         style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }} />
+
+
+                       <div className="hidden-sm-up">
+                        <div className="ilv-card" style={{border: "none", maxWidth: "200px"}}>
+                            {!UserSession.get("logged") ? "":<div className="ilv-card-body">
+                                {this.state.favorited ?
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
+                                    </button>
+                                :
+                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFollow")}
+                                    </button>
+                                }
+                            </div>}
+                            <div className="ilv-card-footer" style={{borderTop: "none"}}>
+                                <div className="row">
+                                    {!UserSession.get("logged") ? "":<div className="col-12">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>{Messages.get("ActionHireProfessional")}
+                                        </Link>
+                                    </div>}
+                                    {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
+                                        </Link>
+                                    </div>}
+                                    {!user.get("PhoneNumber") ? "" :
+                                        <div className="col-12 mt-3">
+                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
+                                                {Messages.get("ActionRequestPhone")}
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                       </div>
                                 </div>
                                 <div className="ilv-media-body">
                                     <span className="h1">
@@ -168,13 +203,13 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                         </div>
-                                                
+
                         {headline.isEmpty() ? "" :
                             <div className="mb-5">
                                 <h4>{Messages.get("LabelHeadline")}</h4>
                                 <hr />
                                 {headline.s}
-                            </div>              
+                            </div>
                         }
 
                         {!scheduleConfig.Enabled ? "":
@@ -273,7 +308,7 @@ module.exports = React.createClass({
                             </div>
 
                         </div>
-                        
+
                         {services.length > 0
                             ?
                             <div className="mb-3">
@@ -281,25 +316,26 @@ module.exports = React.createClass({
                                 <div className="ilv-card">
                                     <div className="ilv-card-body">
                                         <div className="row">
-                                            <div className="col-8">
+                                            <div className="col-lg-8 col-sm-8 col-xs-12">
                                                  <table className="ilv-table ilv-table-sm ilv-table-hover">
                                                     <thead>
                                                         <tr>
                                                             <th>{Messages.get("LabelService")}</th>
                                                             <th className="ilv-text-xs-right">{Messages.get("LabelPrice")}</th>
-                                                        </tr>
+                                                            <th className="ilv-text-xs-right hidden-sm-up"></th>
+                                                        </tr>                                                        
                                                     </thead>
                                                     <tbody>
                                                         {services.map((service, index) => {
                                                             return (
-                                                                <ServicesToHire  key={"service-" + index} service={service} />
+                                                                <ServicesToHire key={"service-" + index} service={service} />
                                                             );
                                                         })}
                                                     </tbody>
-                                                </table>
+                                                 </table>
                                                  <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.toHireService}>
 		                                            <i className="ilv-icon material-icons md-18">&#xE87E;</i>Contratar
-	                                            </button>
+                                                 </button>
                                             </div>
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
@@ -308,14 +344,14 @@ module.exports = React.createClass({
                                                     <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
                                                 </Link>}
                                             </div>
-                                        </div>                                                      
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             :""
                         }
                     </div>
-                    <div className="col-4">
+                    <div className="col-4 hidden-sm-down">
                         <div className="ilv-card">
                             {!UserSession.get("logged") ? "":<div className="ilv-card-body">
                                 {this.state.favorited ?
@@ -332,24 +368,25 @@ module.exports = React.createClass({
                                 <div className="row">
                                     {!UserSession.get("logged") ? "":<div className="col-12">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>
-                                            {Messages.get("ActionHireProfessional")}
+                                        {Messages.get("ActionHireProfessional")}
                                         </Link>
                                     </div>}
                                     {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
                                         <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
-                                            {Messages.get("ActionSendMessage")}
+                                        {Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>}
                                     {!user.get("PhoneNumber") ? "" :
                                         <div className="col-12 mt-3">
-                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
+                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
+                                                {Messages.get("ActionRequestPhone")}
                                             </button>
                                         </div>
                                     }
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>

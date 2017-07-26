@@ -1,6 +1,20 @@
 //
 // Base styles
 //
+
+@media (max-width: 767px) {
+    td .ilv-btn {
+    width: 110px;
+    word-break: break-all;
+    white-space: normal !important;
+    height: auto !important;
+    }
+
+    .mr-3 {
+        margin-right: 0px !important;
+    }
+}
+
 .#{$prefix}btn {
   display: inline-block;
   font-size: $btn-font-size;

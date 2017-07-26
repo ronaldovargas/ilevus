@@ -104,17 +104,18 @@ module.exports = React.createClass({
                                     <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
-                            <div className="ilv-media-right ilv-text-small" style={{minWidth: "12rem"}}>
-                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i>{Messages.get("ActionRequestMeeting")}</a></p>
+                            <div className="ilv-media-right ilv-text-small">
+                                <p style={{marginBottom: ".25rem"}}><a href=""><i className="ilv-icon m-r-1 material-icons md-18">&#xE878;</i><span className="hidden-sm-down">{Messages.get("ActionRequestMeeting")}</span></a></p>
                                 <p style={{marginBottom: ".25rem"}}>
                                     <Link to={"/notifications/messages/"+model.Id}>
                                         <i className="ilv-icon m-r-1 material-icons md-18">&#xE0BE;</i>
-                                        {Messages.get("ActionSendMessage")}
+                                        <span className="hidden-sm-down">{Messages.get("ActionSendMessage")}</span>
                                     </Link>
                                 </p>
                                 {!model.PhoneNumber ? "" :(<p style={{ marginBottom: ".25rem" } }>
                                     <a href="" onClick={this.openPhoneDialog.bind(this, model)}>
-                                        <i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>{Messages.get("ActionRequestPhone")}
+                                        <i className="ilv-icon m-r-1 material-icons md-18">&#xE0B0;</i>
+                                        <span className="hidden-sm-down">{Messages.get("ActionRequestPhone")}</span>
                                     </a>
                                 </p>)}
                             </div>

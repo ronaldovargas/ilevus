@@ -84,7 +84,7 @@ module.exports = React.createClass({
                                             <img src={Logo} alt="ilevus" />
                                         </Link>
                                     </div>
-                                    <div className="ilv-media-right">
+                                    <div className="ilv-media-right" style={{maxWidth: "60%"}}>
                                         <span>©2016 Ilevus. {Messages.get("TextAllRightsReserved")}</span>
                                     </div>
                                 </div>
