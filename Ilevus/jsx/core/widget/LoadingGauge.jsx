@@ -16,7 +16,8 @@ module.exports = React.createClass({
 					width:'175px',
 					height: '175px',
 					display: 'block',
-                    margin: '20px auto'
+					margin: '20px auto',
+					backgroundSize: 'cover'
 				}}
 				></div>);
 	}

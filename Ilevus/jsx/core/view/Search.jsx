@@ -89,7 +89,7 @@ module.exports = React.createClass({
                         <div className="ilv-media" key={"result-"+index}>
                             <div className="ilv-media-left ilv-text-xs-center mr-3">
                                 <div className="ilv-avatar-fluid ilv-avatar-fluid-xl"
-                                    style={{ backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
+                                    style={{marginRight: "10px", backgroundImage: "url(" + (S(model.Image).isEmpty() ? UserIcon : model.Image) + ")" }} />
                             </div>
                             <div className="ilv-media-body">
                                 <div style={{marginBottom: ".25rem"}}>
@@ -132,7 +132,7 @@ module.exports = React.createClass({
         }
 
         return (
-            <div>
+            <div>                
                 <div className="my-5" role="banner">
                     <div className="container">
                         <div className="row">
@@ -146,7 +146,7 @@ module.exports = React.createClass({
 
                                 {this.renderModels()}
                             </div>
-                            <div className="col-3">
+                            <div className="col-3 hidden-sm-down">
                                 <AdSideBar keyword={this.props.params.term} />
                             </div>
                         </div>
