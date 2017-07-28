@@ -97,7 +97,7 @@ module.exports = React.createClass({
                                 </div>
                                 <div>
                                     <p className="ilv-text-small">
-                                        <span className="ilv-tag ilv-tag-warning ml-0">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning ml-0">{model.Premium && model.Premium.Active ? 'Premium' : ''}</span>
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
                                     <span className="ilv-tag ilv-tag-success ml-0">4.9 <sup>/ 5.0</sup></span>
