@@ -213,7 +213,7 @@ namespace ilevus.Models
 			get { return areaCode; }
 			set { areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray()); }
 		}
-		
+
 		public string Number { get; set; }
 	}
 

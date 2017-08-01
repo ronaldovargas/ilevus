@@ -559,7 +559,7 @@ namespace ilevus.Controllers
 			user.Professional.County = model.County;
 			user.Professional.District = model.District;
 			user.Professional.StreetNumber = new string(model.StreetNumber.Where(c => char.IsDigit(c)).ToArray());
-			user.Professional.Zipcode = new string(model.Zipcode.Where(c => char.IsDigit(c)).ToArray()); 
+			user.Professional.Zipcode = new string(model.Zipcode.Where(c => char.IsDigit(c)).ToArray());
 			user.IsProfessional = user.Professional.AddressInfo && user.Professional.BasicInfo && user.Professional.CareerInfo &&
 				user.Professional.EducationInfo && user.Professional.ServicesInfo;
 
