@@ -25,6 +25,18 @@
   padding: .75rem;
 }
 
+.new-message-indicator {
+    position: absolute;
+    bottom: 10%;
+    left: 40%;
+    background: #074377;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: small;
+}
+
 .#{$prefix}chat-list-header,
 .#{$prefix}chat-list-item {
   user-select: none;

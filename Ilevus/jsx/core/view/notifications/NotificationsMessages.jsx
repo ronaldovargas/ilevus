@@ -14,7 +14,8 @@ var UserIcon = require("ilevus/img/user.png");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-var POLL_INTERVAL = 6000;
+var POLL_INTERVAL = 500;
+var showNewMessageIndicator = false;
 
 function isConversationUpdated(old, last) {
     if ((typeof old) != (typeof last)) {
@@ -68,6 +69,8 @@ module.exports = React.createClass({
 
         ChatStore.on("poll-new-messages", (conversation) => {
             if (isConversationUpdated(this.state.conversation, conversation)) {
+                console.log('ativou');
+                showNewMessageIndicator = true;
                 me.setState({
                     conversation: conversation,
                     lastPoll: moment()
@@ -78,6 +81,7 @@ module.exports = React.createClass({
         }, me);
 
         ChatStore.on("send-message", (msg) => {
+            showNewMessageIndicator = true;
             var pos = this.state.conversation.Messages.length - 1;
             this.state.conversation.Messages[pos] = msg;
             me.forceUpdate();
@@ -152,8 +156,13 @@ module.exports = React.createClass({
 
     componentDidUpdate() {
         var chatBody = this.refs['chat-body'];
-        if (chatBody)
-            chatBody.scrollTop = chatBody.scrollHeight;
+        if (chatBody) {
+            if (chatBody.scrollTop + 100 >= (chatBody.scrollHeight - chatBody.offsetHeight)) {
+                chatBody.scrollTop = chatBody.scrollHeight;
+                console.log('desativou');
+                showNewMessageIndicator = false;
+            }
+        }
     },
 
     renderChat() {
@@ -164,8 +173,8 @@ module.exports = React.createClass({
         }*/
         var conversation = this.state.conversation;
         
-        var dest = conversation.Destination;
-        var msgs = conversation.Messages;
+        var dest = conversation ? conversation.Destination : {};
+        var msgs = conversation ? conversation.Messages : {};
         var now = moment();
         var lastDay;
         return (<div className="ilv-chat-messages">
@@ -173,18 +182,21 @@ module.exports = React.createClass({
                 <div className="ilv-media ilv-media-middle">
                     <div className="ilv-media-left">
                         <div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
-                            <img src={S(dest.Image).isEmpty() ? UserIcon : dest.Image} />
+                            <img src={S(dest ? dest.Image : '').isEmpty() ? UserIcon : dest.Image} />
                         </div>
                     </div>
                     <div className="ilv-media-body">
-                        <span className="ilv-chat-list-name">{dest.Name} {dest.Surname}</span>
+                        <span className="ilv-chat-list-name">{dest ? dest.Name : ''} {dest ? dest.Surname : ''}</span>
                         <p className="ilv-chat-list-message"></p>
                     </div>
                 </div>
             </div>
+    <div>{!showNewMessageIndicator ? <span></span> : <span className="new-message-indicator">novas mensagens</span>}</div>               
+            
             <div className="ilv-chat-messages-body" ref="chat-body">
-                {!msgs || msgs.length <= 0 ? <div className="ilv-chat-messages-bubble center">
+                {!msgs || msgs.length <= 0 || !msgs.map ? <div className="ilv-chat-messages-bubble center">
                     <i>{Messages.get("TextNoMessagesYet")}</i>
+
                 </div> : msgs.map((msg, idx) => {
                     var day = moment(conversation.Day);
                     var creation = moment(msg.Creation);
@@ -257,7 +269,7 @@ module.exports = React.createClass({
 			    <div className="ilv-media ilv-media-middle">
 				    <div className="ilv-media-body">
 						<div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
-                            <img src={S(user.Image).isEmpty() ? UserIcon : user.Image} />
+                            <img src={S(user ? user.Image : '').isEmpty() ? UserIcon : user.Image} />
                         </div>
 		            </div>
 					<div className="ilv-media-right">
