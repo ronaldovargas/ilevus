@@ -62,7 +62,7 @@ module.exports = React.createClass({
                     ref="address-StreetNumber"
                     defaultValue={user.StreetNumber} />
             </fieldset>
-            
+
             <fieldset className="ilv-form-group ">
                 <label className="ilv-form-label" htmlFor="editProfileFormAddressApt">
                     {Messages.get("LabelComplement")}
