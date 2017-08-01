@@ -46,7 +46,7 @@ namespace MoipClientTest
 						.And(x => x.AccessToken = null)
 						.And(x => x.createdAt = null)
 						.And(x => x.Login = null)
-				.And(y => y.Email = new Email("eugenio18@gmail.com"))
+				.And(y => y.Email = new Email("eugenio20@gmail.com"))
                 .Build();
             conta.Id = Guid.NewGuid().ToString();
 

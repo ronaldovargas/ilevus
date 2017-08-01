@@ -81,7 +81,8 @@ namespace ilevus.Models
         public string City { get; set; }
         public string County { get; set; }
         public string Country { get; set; }
-    }
+        public string StreetNumber { get; set; }
+	}
 
     public class ProfessionalBindingModel
     {

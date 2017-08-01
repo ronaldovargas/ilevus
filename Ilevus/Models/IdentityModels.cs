@@ -10,6 +10,7 @@ using ilevus.Models.CoachingTools;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using ilevus.MoipClient.Models;
+using System.Linq;
 
 namespace ilevus.Models
 {
@@ -129,6 +130,7 @@ namespace ilevus.Models
 			ProcessSteps = new List<CoachingProcessStep>();
 			CoachingToolsConfigs = new CoachingToolsConfigurations();
 			Financial = new UserFinancialProfile();
+			Phone = new PhoneModel();
 		}
 
 		// Wizard steps concluded?
@@ -144,6 +146,7 @@ namespace ilevus.Models
 		public string Specialties { get; set; }
 		public string Summary { get; set; }
 		public IEnumerable<string> SpokenLanguages { get; set; }
+		public string BirthDate { get; set; }
 
 		// Address info
 		public string Address { get; set; }
@@ -173,7 +176,7 @@ namespace ilevus.Models
 		public UserFinancialProfile Financial { get; set; }
 
 		public ContaMoip MoipAccount { get; set; }
-
+		public string StreetNumber { get; internal set; }
 	}
 
 	public class BankAccount
@@ -201,8 +204,13 @@ namespace ilevus.Models
 
 		public string CountryCode { get; } = "55";
 
-		public string AreaCode { get; set; }
-
+		private string areaCode;
+		public string AreaCode
+		{
+			get { return areaCode; }
+			set { areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray()); }
+		}
+		
 		public string Number { get; set; }
 	}
 
@@ -234,6 +242,7 @@ namespace ilevus.Models
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public double Price { get; set; }
+		public double FinalPrice { get; set; }
 	}
 
 	public class IlevusRole : IdentityRole

@@ -9,6 +9,7 @@ var Toastr = require("toastr");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
 var SystemStore = require("ilevus/jsx/core/store/System.jsx");
+var cartStore = require("ilevus/jsx/core/store/Cart.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -16,7 +17,7 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
-
+var ServicesToHireReadsOnly = require("./../../widget/user/ServiceListReadsOnlyToHire");
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -26,6 +27,7 @@ module.exports = React.createClass({
             loading: true,
             config: null,
             subscription: null,
+            servicesHired: null
         };
     },
     componentDidMount() {
@@ -59,7 +61,7 @@ module.exports = React.createClass({
         SystemStore.dispatch({
             action: SystemStore.ACTION_RETRIEVE_CONFIG
         });
-
+        this.servicesHired = cartStore.getCacheServicesHired();
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
@@ -123,8 +125,6 @@ module.exports = React.createClass({
 	    console.log(this.getCustomerObject());
         console.log(this.state());
     },
-    
-
 
     render() {
         if (this.state.loading) {
@@ -153,7 +153,6 @@ module.exports = React.createClass({
                 {i}
             </option>);
         }
-
         return (
             <div className="container mt-3">
                 <div className="ilv-overlay" id="submittingOverlay">
@@ -164,15 +163,7 @@ module.exports = React.createClass({
                 </div>
                 <div className="ilv-card mb-5">
                     <div className="ilv-card-body">
-                        <h4>{Messages.get("LabelBecomePremiumMember")}</h4>
-                        <div className="ilv-media">
-                            <div className="ilv-media-body">
-                                <p>{Messages.get("TextBecomePremiumMember")}</p>
-                            </div>
-                            <div className="ilv-media-right text-right">
-                                <h1>R$50,00/mês</h1>
-                            </div>
-                        </div>
+                      <ServicesToHireReadsOnly> </ServicesToHireReadsOnly>
 
                         <form onSubmit={this.subscribe}>
 

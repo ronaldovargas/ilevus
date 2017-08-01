@@ -522,7 +522,7 @@ namespace ilevus.Controllers
 			ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 			var user = await UserManager.FindByNameAsync(identity.Name);
 
-			user.Birthdate = model.Birthdate;
+			user.Professional.BirthDate = model.Birthdate.ToString("dd/MM/yyyy");
 			user.Name = model.Name;
 			user.PhoneNumber = model.PhoneNumber;
 			user.Sex = model.Sex;
@@ -558,7 +558,8 @@ namespace ilevus.Controllers
 			user.Professional.Country = model.Country;
 			user.Professional.County = model.County;
 			user.Professional.District = model.District;
-			user.Professional.Zipcode = model.Zipcode;
+			user.Professional.StreetNumber = new string(model.StreetNumber.Where(c => char.IsDigit(c)).ToArray());
+			user.Professional.Zipcode = new string(model.Zipcode.Where(c => char.IsDigit(c)).ToArray()); 
 			user.IsProfessional = user.Professional.AddressInfo && user.Professional.BasicInfo && user.Professional.CareerInfo &&
 				user.Professional.EducationInfo && user.Professional.ServicesInfo;
 
@@ -751,6 +752,12 @@ namespace ilevus.Controllers
 			var professional = user.Professional;
 
 			professional.Services = model.Services;
+
+			foreach (var item in professional.Services)
+			{
+				item.FinalPrice = FinalPrice(item);
+			}
+
 			professional.ServicesInfo = true;
 			user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
 				professional.EducationInfo && professional.ServicesInfo;
@@ -765,14 +772,22 @@ namespace ilevus.Controllers
 			return Ok(new ProfessionalProfileViewModel(user));
 		}
 
+		private double FinalPrice(UserService service)
+		{
+			var percMoip = service.Price * 0.0549;
+			var percImpMoip = percMoip * 0.15;
+			var mktDir = 29.90;
+			var comIle = 1.15;
+
+			return (percMoip + percImpMoip + mktDir + comIle + service.Price * 1);
+		}
+
 		[HttpPost]
 		[Route("UpdateProfessionalBankAccount")]
 		public async Task<IHttpActionResult> UpdateProfessionalBankAccount(BankAccount model)
 		{
 			try
 			{
-
-
 				if (!ModelState.IsValid)
 				{
 					return BadRequest(ModelState);
@@ -781,6 +796,7 @@ namespace ilevus.Controllers
 				ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 				var user = await UserManager.FindByNameAsync(identity.Name);
 				var financial = user.Professional.Financial;
+
 				var clientMoip = new MoipApiClient();
 				var contaMoip = Mapper.Map<IlevusUser, ContaMoip>(user);
 
@@ -789,7 +805,7 @@ namespace ilevus.Controllers
 				user.Professional.MoipAccount = conta;
 				financial.BankAccount = model;
 				var clientBankAccount = new MoipApiClient(conta.AccessToken);
-				var bankAccount = clientBankAccount.CriarContaBancaria(Mapper.Map<BankAccount,ContaBancaria>(model));
+				var bankAccount = clientBankAccount.CriarContaBancaria(Mapper.Map<BankAccount, ContaBancaria>(model));
 
 				IdentityResult result = await UserManager.UpdateAsync(user);
 
