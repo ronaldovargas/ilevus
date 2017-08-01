@@ -49,7 +49,7 @@ module.exports = React.createClass({
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             me.context.router.push("/become-a-professional");
         }, me);
-
+        console.log(this.context);
         this.updatePhoneInput();
     },
     componentWillUnmount() {
@@ -73,13 +73,13 @@ module.exports = React.createClass({
                 IdentityDocument: {
                     Number:  this.refs['field-Number'].value,
                     Issuer:  this.refs['field-Issuer'].value,
-                    IssueDate:  this.refs['field-IssueDate'].value
+                    IssueDate:  $('input[name*=IssueDate')[0].value,
                 },
-                TaxDocument: this.state.TaxDocument
+                TaxDocument: $('input[name*=TaxDocument')[0].value,
             },
             Phone: {
-                AreaCode: this.state.AreaCode,
-                Number: this.state.Number
+                AreaCode: $('input[name*=AreaCode')[0].value,
+                Number: $('input[name*=PhoneNumber')[0].value
             },
             SpokenLanguages: langs
         };
@@ -183,7 +183,12 @@ module.exports = React.createClass({
 
                         <fieldset className="ilv-form-group" >
                             <label className="ilv-form-label">{Messages.get("LabelIssueDate")}</label>
-                            <input className="ilv-form-control ilv-form-control-lg"  ref="field-IssueDate" defaultValue={this.context.professionalData.Financial.IdentityDocument.IssueDate} type="text"/>
+                             <MaskedInput mask="11/11/1111"
+                                            name="IssueDate"
+                                            ref="field-IssueDate"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Financial.IdentityDocument.IssueDate}
+                                            spellCheck={false} />
                         </fieldset>
                         <fieldset className="ilv-form-group">
                                 <div className="ilv-form-group m-b-0">
@@ -192,23 +197,21 @@ module.exports = React.createClass({
                                             </label>
                                             <MaskedInput mask="(11)"
                                             name="AreaCode"
-                                            ref="field-ddd"
+                                            ref="field-AreaCode"
                                             className="ilv-form-control ilv-form-control-lg"
                                             value={this.context.professionalData.Phone.AreaCode}
-                                            spellCheck={false}
-                                            onChange={this._onChange} />
+                                            spellCheck={false}/>
                                 </div>
                                  <div className="ilv-form-group m-b-0">
                                         <label className="ilv-form-label" htmlFor="editProfileFormPhone">
                                             {Messages.get("LabelPhoneNumber")}
                                             </label>
                                         <MaskedInput mask="11111-1111"
-                                            name="Number"
-                                            ref="field-phone"
+                                            name="PhoneNumber"
+                                            ref="field-PhoneNumber"
                                             className="ilv-form-control ilv-form-control-lg"
                                             value={this.context.professionalData.Phone.Number}
-                                            spellCheck={false}
-                                            onChange={this._onChange} />
+                                            spellCheck={false} />
                                 </div>
                         </fieldset>
 
@@ -218,9 +221,8 @@ module.exports = React.createClass({
                                             name="BirthDate"
                                             ref="field-BirthDate"
                                             className="ilv-form-control ilv-form-control-lg"
-                                            value={this.context.BirthDate}
-                                            spellCheck={false}
-                                            onChange={this._onChange} />
+                                            value={this.context.professionalData.BirthDate}
+                                            spellCheck={false} />
 
                           </fieldset>
 

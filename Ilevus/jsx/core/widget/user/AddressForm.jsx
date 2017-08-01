@@ -14,9 +14,10 @@ module.exports = React.createClass({
     getValues() {
         return {
             Address: this.refs['address-address'].value,
+            StreetNumber: this.refs['address-StreetNumber'].value,
             Complement: this.refs['address-complement'].value,
             District: this.refs['address-district'].value,
-            Zipcode: this.refs['address-zipcode'].value,
+            Zipcode: $('input[name*=zipcode')[0].value ,
             City: this.refs['address-city'].value,
             County: this.refs['address-county'].value,
             Country: this.refs['address-country'].value
@@ -30,12 +31,12 @@ module.exports = React.createClass({
                 <label className="ilv-form-label" htmlFor="editProfileFormZipcode">
                     {Messages.get("LabelZipcode")}
                 </label>
-                <input className="ilv-form-control"
-                    type="text"
-                    spellCheck={false}
-                    id="editProfileFormZipcode"
-                    ref="address-zipcode"
-                    defaultValue={user.Zipcode} />
+                     <MaskedInput mask="11.111-111"
+                        name="zipcode"
+                        id="editProfileFormZipcode"
+                        ref="address-zipcode"
+                        className="ilv-form-control ilv-form-control-lg"
+                        value={user.Zipcode}/>
             </fieldset>
 
             <fieldset className="ilv-form-group">
@@ -50,6 +51,18 @@ module.exports = React.createClass({
                     defaultValue={user.Address} />
             </fieldset>
 
+            <fieldset className="ilv-form-group ">
+                <label className="ilv-form-label" htmlFor="editProfileFormStreetNumber">
+                    {Messages.get("LabelStreetNumber")}
+                </label>
+                <input className="ilv-form-control"
+                    type="text"
+                    spellCheck={false}
+                    id="editProfileFormStreetNumber"
+                    ref="address-StreetNumber"
+                    defaultValue={user.StreetNumber} />
+            </fieldset>
+            
             <fieldset className="ilv-form-group ">
                 <label className="ilv-form-label" htmlFor="editProfileFormAddressApt">
                     {Messages.get("LabelComplement")}

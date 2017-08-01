@@ -23,8 +23,8 @@ namespace ilevus.Maps
 				.ForMember(para => para.Country, de => de.MapFrom(o => o.Professional.Country))
 				.ForMember(para => para.District, de => de.MapFrom(o => o.Professional.District))
 				.ForMember(para => para.Street, de => de.MapFrom(o => o.Professional.Address))
-				.ForMember(para => para.StreetNumber, de => de.MapFrom(o => o.Professional.Complement))
 				.ForMember(para => para.State, de => de.MapFrom(o => o.Professional.County))
+				.ForMember(para => para.StreetNumber, de => de.MapFrom(o => o.Professional.StreetNumber))
 				.ForMember(para => para.ZipCode, de => de.MapFrom(o => o.Professional.Zipcode));
 
 
