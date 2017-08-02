@@ -1,7 +1,11 @@
 
+var S = require("string");
+require("ilevus/jsx/vendor/intlTelInput.js");
+
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
+var MaskedInput = require('react-maskedinput')
 
 var LanguageSelect = require("ilevus/jsx/core/widget/LanguageSelect.jsx");
 
@@ -16,6 +20,11 @@ module.exports = React.createClass({
         router: React.PropTypes.object,
         professionalData: React.PropTypes.object.isRequired,
         userId: React.PropTypes.string.isRequired
+    },
+    state: {
+        TaxDocument: '',
+        AreaCode: '',
+        Number: ''
     },
     getInitialState() {
         var map = LanguageSelect.LanguagesMap, lang,
@@ -40,6 +49,8 @@ module.exports = React.createClass({
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             me.context.router.push("/become-a-professional");
         }, me);
+        console.log(this.context);
+        this.updatePhoneInput();
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
@@ -57,6 +68,19 @@ module.exports = React.createClass({
             Headline: this.refs['field-headline'].value,
             Specialties: this.refs['field-specialties'].value,
             Summary: this.refs['field-summary'].value,
+            BirthDate: $('input[name*=BirthDate')[0].value,
+            Financial: {
+                IdentityDocument: {
+                    Number:  this.refs['field-Number'].value,
+                    Issuer:  this.refs['field-Issuer'].value,
+                    IssueDate:  $('input[name*=IssueDate')[0].value,
+                },
+                TaxDocument: $('input[name*=TaxDocument')[0].value,
+            },
+            Phone: {
+                AreaCode: $('input[name*=AreaCode')[0].value,
+                Number: $('input[name*=PhoneNumber')[0].value
+            },
             SpokenLanguages: langs
         };
         console.log("Form submit:\n",data);
@@ -65,7 +89,6 @@ module.exports = React.createClass({
             data: data
         });
     },
-
     addLanguage(event) {
         event.preventDefault();
         var lang = this.refs['field-lang'].getValue();
@@ -96,7 +119,28 @@ module.exports = React.createClass({
             return false;
         return true;
     },
-
+    phoneFilterRe: /[0-9\-\+ ]/,
+    updatePhoneInput() {
+        $("#editProfileFormPhone").intlTelInput();
+    },
+    phoneNumberValidation() {
+        if (!$("#editProfileFormPhone").intlTelInput("isValidNumber")) {
+            $("#editProfileFormPhone").addClass("ilv-invalid");
+            return false;
+        } else {
+            $("#editProfileFormPhone").removeClass("ilv-invalid");
+            return true;
+        }
+    },
+    phoneNumberFilter(event, opts) {
+        if (event.key && event.key.match && !event.key.match(this.phoneFilterRe))
+            event.preventDefault();
+    },
+     _onChange(e) {
+        var stateChange = {}
+        stateChange[e.target.name] = e.target.value
+        this.setState(stateChange)
+    },
     render() {
         var langs = this.state.languages;
         return (
@@ -110,6 +154,77 @@ module.exports = React.createClass({
                     </div>
                     <div className="ilv-card">
                       <div className="ilv-card-body">
+
+                          <fieldset className="ilv-form-group">
+                                        <label className="ilv-form-label">{Messages.get("LabelTaxDocument")}</label>
+                             <MaskedInput mask="111.111.111-11"
+                                            name="TaxDocument"
+                                            ref="field-TaxDocument"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Financial.TaxDocument}
+                                            spellCheck={false}
+                                            onChange={this._onChange} />
+
+                          </fieldset>
+
+                        <fieldset className="ilv-form-group" >
+
+                            <label className="ilv-form-label">{Messages.get("LabelIdentityNumber")}</label>
+                            <input className="ilv-form-control ilv-form-control-lg"
+                                            defaultValue={this.context.professionalData.Financial.IdentityDocument.Number}
+                                                ref="field-Number"
+                                            type="text" />
+                        </fieldset>
+
+                        <fieldset className="ilv-form-group" >
+                            <label className="ilv-form-label">{Messages.get("LabelIssuer")}</label>
+                            <input className="ilv-form-control ilv-form-control-lg" ref="field-Issuer" defaultValue={this.context.professionalData.Financial.IdentityDocument.Issuer} type="text"/>
+                        </fieldset>
+
+                        <fieldset className="ilv-form-group" >
+                            <label className="ilv-form-label">{Messages.get("LabelIssueDate")}</label>
+                             <MaskedInput mask="11/11/1111"
+                                            name="IssueDate"
+                                            ref="field-IssueDate"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Financial.IdentityDocument.IssueDate}
+                                            spellCheck={false} />
+                        </fieldset>
+                        <fieldset className="ilv-form-group">
+                                <div className="ilv-form-group m-b-0">
+                                        <label className="ilv-form-label" htmlFor="editProfileFormPhone">
+                                            {Messages.get("LabelDDD")}
+                                            </label>
+                                            <MaskedInput mask="(11)"
+                                            name="AreaCode"
+                                            ref="field-AreaCode"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Phone.AreaCode}
+                                            spellCheck={false}/>
+                                </div>
+                                 <div className="ilv-form-group m-b-0">
+                                        <label className="ilv-form-label" htmlFor="editProfileFormPhone">
+                                            {Messages.get("LabelPhoneNumber")}
+                                            </label>
+                                        <MaskedInput mask="11111-1111"
+                                            name="PhoneNumber"
+                                            ref="field-PhoneNumber"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.Phone.Number}
+                                            spellCheck={false} />
+                                </div>
+                        </fieldset>
+
+                          <fieldset className="ilv-form-group">
+                                        <label className="ilv-form-label">{Messages.get("LabelBirthDate")}</label>
+                             <MaskedInput mask="11/11/1111"
+                                            name="BirthDate"
+                                            ref="field-BirthDate"
+                                            className="ilv-form-control ilv-form-control-lg"
+                                            value={this.context.professionalData.BirthDate}
+                                            spellCheck={false} />
+
+                          </fieldset>
 
                           <fieldset className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelIndustry")}</label>

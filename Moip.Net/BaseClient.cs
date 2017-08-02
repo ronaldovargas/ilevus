@@ -39,7 +39,7 @@ namespace Moip.Net
         public T FromJson<T>(string json)
         {
             return JsonConvert.DeserializeObject<T>(json, JsonSettings);
-        } 
+        }
 
         #endregion
 
@@ -93,7 +93,7 @@ namespace Moip.Net
             var json = DoRequest(uri, method, body);
             return FromJson<T>(json);
         }
-        
+
         protected virtual string DoRequest(Uri uri, string method)
         {
             return DoRequest(uri, method, null);
@@ -145,7 +145,7 @@ namespace Moip.Net
             }
             return result;
         }
-        
+
         protected virtual Uri PathToUri(string path, string query = null)
         {
             UriBuilder uriBuilder = new UriBuilder(ApiUri);

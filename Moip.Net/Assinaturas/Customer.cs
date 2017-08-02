@@ -67,8 +67,8 @@
         /// <remarks>Obrigatório</remarks>
         /// <example>1999</example>
         public int BirthdateYear { get; set; }
-        
+
     }
-    
-    
+
+
 }

@@ -16,7 +16,7 @@
         /// </summary>
         /// <remarks>Apenas retorno da API</remarks>
         public string CreationTime { get; set; }
-        
+
         /// <summary>
         /// Node com os atributos do endereço.
         /// </summary>
@@ -28,7 +28,7 @@
         /// </summary>
         /// <remarks>Obrigatório</remarks>
         public CustomerBillingInfo BillingInfo { get; set; }
-        
+
         /// <summary>
         /// Dados de pagamento do cliente
         /// </summary>
@@ -39,7 +39,7 @@
             /// </summary>
             /// <remarks>Preenchido no retorno da API</remarks>
             public CustomerBillingCreditCard[] CreditCards { get; set; }
-            
+
             /// <summary>
             /// Estrutura de dados do cartão de crédito retornada da API
             /// </summary>
@@ -96,6 +96,6 @@
         }
 
     }
-    
-    
+
+
 }

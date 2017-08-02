@@ -1,5 +1,6 @@
 ﻿
 var S = require("string");
+var moment = require("moment");
 require("ilevus/jsx/vendor/intlTelInput.js");
 
 var React = require("react");
@@ -7,6 +8,7 @@ var Link = require("react-router").Link;
 var Toastr = require("toastr");
 
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -35,9 +37,23 @@ module.exports = React.createClass({
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
+        FinancialStore.off(null, null, this);
     },
 
     componentDidUpdate() {
+    },
+
+    suspendSubscription(event) {
+        event.preventDefault();
+        Modal.confirm(Messages.get("TextAreYouSure"), Messages.get("TextSubscriptionSuspensionConfirmation"), () => {
+            Modal.hide();
+            FinancialStore.dispatch({
+                action: FinancialStore.ACTION_SUSPEND_USER_SUBSCRIPTION,
+            });
+            UserSession.get("user").Premium = UserSession.get("user").Premium || {};
+            UserSession.get("user").Premium.Suspended = true;
+            this.forceUpdate();
+        });
     },
 
     render() {
@@ -47,8 +63,10 @@ module.exports = React.createClass({
         var user = UserSession.get("user"),
             financial = user.Financial,
             premium = user.Premium ? user.Premium : { Active: false },
-            ilevusCode = "Av7ZseP"
+            ilevusCode = "Av7ZseP",
+            payedUntil = moment(premium.PayedUntil)
         ;
+        console.log(premium);
         return (
             <div>
                 {user.IsProfessional ? (<div className="ilv-card mb-5">
@@ -79,8 +97,17 @@ module.exports = React.createClass({
                             )}
                         </h4>
                         {user.IsProfessional ? (
-                            premium.Active ? (<div>
-                            </div>):(<Link to="/subscribe" className="ilv-btn ilv-btn-primary ilv-btn-sm">{Messages.get("LabelBecomePremium")}</Link>)
+                            premium.Active ? (!premium.Suspended ? (<div className="row">
+                                <div className="col col-sm-7">{Messages.get("LabelNextInvoice")}: {payedUntil.format("D/M/Y")}</div>
+                                <div className="col">
+                                    <button className="ilv-btn ilv-btn-danger ilv-btn-sm" onClick={this.suspendSubscription}>{Messages.get("ActionSuspend")}</button>
+                                </div>
+                            </div>):(<div className="row">
+                                <div className="col col-sm-7">{Messages.get("LabelActiveUntil")}: {payedUntil.format("D/M/Y")}</div>
+                                <div className="col hidden-xs">
+                                    {/*<button className="ilv-btn ilv-btn-primary ilv-btn-sm" onClick={this.reactiveSubscription}>{Messages.get("ActionReactive")}</button>*/}
+                                </div>
+                            </div>)):(<Link to="/subscribe" className="ilv-btn ilv-btn-primary ilv-btn-sm">{Messages.get("LabelBecomePremium")}</Link>)
                         ):(<Link to="/become-a-professional">{Messages.get("TextBecomeProfessionalToPremium")}</Link>)}
                     </div>
 

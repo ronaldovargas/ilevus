@@ -16,7 +16,6 @@ namespace ilevus.MoipClient.Models
         public string Id { get; set; }
 
         [JsonProperty("email")]
-        [JsonConverter(typeof(EmailConverter))]
         public Email Email { get; set; }
 
         [JsonProperty("person")]
@@ -30,7 +29,7 @@ namespace ilevus.MoipClient.Models
         public string AccessToken { get; set; }
 
         [JsonProperty("createdAt")]
-        public DateTime createdAt { get; set; }
+        public DateTime? createdAt { get; set; }
 
         [JsonProperty("businessSegment")]
         public BusinessSegment businessSegment { get; set; }

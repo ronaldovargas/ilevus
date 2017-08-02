@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using ilevus.MoipClient.Implementation;
+using Newtonsoft.Json;
 
 namespace ilevus.MoipClient.Models
 {
@@ -18,7 +20,7 @@ namespace ilevus.MoipClient.Models
         public IdentityDocument IdentityDocument { get; set; }
 
         [JsonProperty("birthDate")]
-        public string BirthDate { get; set; }
+		public string BirthDate { get; set; }
 
         [JsonProperty("phone")]
         public Phone Phone { get; set; }

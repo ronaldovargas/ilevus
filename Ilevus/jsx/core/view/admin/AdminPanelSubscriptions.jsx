@@ -46,7 +46,7 @@ module.exports = React.createClass({
     componentWillUnmount() {
         FinancialStore.off(null, null, this);
     },
-    
+
     renderCustomers(customers) {
         if (!customers || customers.length <= 0) {
             return <i>{Messages.get("TextNoCustomersYet")}</i>;
@@ -122,8 +122,8 @@ module.exports = React.createClass({
                 </div>
                 <div className="ilv-card-body">{this.renderSubscriptions(this.state.subscriptions)}
                 </div>
-            </div>       
-     
+            </div>
+
             <div className="ilv-card">
                 <div className="ilv-card-header">
                     <strong>

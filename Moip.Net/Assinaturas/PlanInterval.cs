@@ -21,7 +21,7 @@ namespace Moip.Net.Assinaturas
         /// </summary>
         /// <remarks>Default é 1. integer(11)</remarks>
         public int? Length { get; set; }
-        
+
         public enum IntervalUnit
         {
             DAY,

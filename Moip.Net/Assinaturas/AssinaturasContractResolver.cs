@@ -10,6 +10,6 @@ namespace Moip.Net.Assinaturas
             var snakeCase = Regex.Replace(propertyName, "([A-Z])", "_$1").ToLower().Trim('_');
             return snakeCase;
         }
-        
+
     }
 }

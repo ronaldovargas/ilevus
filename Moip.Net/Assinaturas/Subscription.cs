@@ -3,7 +3,7 @@
 namespace Moip.Net.Assinaturas
 {
     /// <summary>
-    /// Uma assinatura permite a cobrança recorrente de um cliente(assinante) de forma automática e simples. Para criar uma nova assinatura, basta informar o plano, o cliente da assinatura e um identificador para ela. Se quiser, é possível criar o cliente e seus dados de pagamento junto com a assinatura. 
+    /// Uma assinatura permite a cobrança recorrente de um cliente(assinante) de forma automática e simples. Para criar uma nova assinatura, basta informar o plano, o cliente da assinatura e um identificador para ela. Se quiser, é possível criar o cliente e seus dados de pagamento junto com a assinatura.
     /// </summary>
     public class Subscription
     {

@@ -22,26 +22,25 @@ namespace ilevus.Controllers
         [Route("Current")]
         public IHttpActionResult GetForCurrentCulture(string lang = null)
         {
-            CultureInfo culture = Thread.CurrentThread.CurrentCulture;
-            var implemented = CultureHelper.GetImplementedCulture(culture.Name);
-            var messages = IlevusDBContext.Messages[implemented].Messages;
-            var resourceObject = new JObject();
-            resourceObject.Add("Culture", culture.Name);
-            resourceObject.Add("LinkedinClientId", Startup.linkedinAuthOptions.ClientId);
-            resourceObject.Add("FacebookClientId", Startup.facebookAuthOptions.AppId);
-            foreach (var item in messages)
+            try
             {
-                try
+                CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+                var implemented = CultureHelper.GetImplementedCulture(culture.Name);
+                var messages = IlevusDBContext.Messages[implemented].Messages;
+                var resourceObject = new JObject();
+                resourceObject.Add("_Culture", culture.Name);
+                resourceObject.Add("_LinkedinClientId", Startup.linkedinAuthOptions.ClientId);
+                resourceObject.Add("_FacebookClientId", Startup.facebookAuthOptions.AppId);
+                foreach (var item in messages)
                 {
                     resourceObject.Add(item.Key, item.Value.Content);
-                } catch (Exception ex)
-                {
-                    Console.Write(ex.Message);
-                    continue;
                 }
-            }
 
-            return Ok(resourceObject);
+                return Ok(resourceObject);
+            } catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         // POST /api/Messages
@@ -49,7 +48,7 @@ namespace ilevus.Controllers
         [Route("Report")]
         public async Task<IHttpActionResult> ReportKey(string key)
         {
-            if (string.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key) || key.StartsWith("_"))
             {
                 return BadRequest("You must provide a key.");
             }

@@ -22,6 +22,6 @@
         /// </summary>
         /// <remarks>Opções: TRUE (após) ou FALSE (antes). Default é TRUE.</remarks>
         public bool HoldSetupFee { get; set; }
-        
+
     }
 }

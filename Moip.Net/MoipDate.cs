@@ -29,7 +29,7 @@ namespace Moip.Net
                 data = data.AddMinutes(Minute.Value);
             if (Second.HasValue)
                 data = data.AddSeconds(Second.Value);
-            
+
             return data;
         }
 

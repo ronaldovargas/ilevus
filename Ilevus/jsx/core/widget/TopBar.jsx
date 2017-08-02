@@ -116,7 +116,6 @@ module.exports = React.createClass({
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>{Messages.get("LabelSearch")}
                         </button>
                     </form>
-                    
                     {this.state.logged ? (
                     <ul className="my-2 my-lg-0 navbar-nav">
 
@@ -143,8 +142,8 @@ module.exports = React.createClass({
                                 <a className="nav-link ilv-btn ilv-btn-clean ilv-navbar-title-item ml-2 dropdown-toggle" id="personal_submenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span className="ilv-avatar-fluid ilv-avatar-fluid-sm"
                                           style={{
-                                          backgroundImage: "url(" +
-                                          (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
+                                            backgroundImage: "url(" +
+                                                (string(this.state.user.Image).isEmpty() ? UserIcon : this.state.user.Image) + ")"
                                           }}>
                                     </span>
                                 </a>
@@ -159,7 +158,7 @@ module.exports = React.createClass({
                                     <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>
                                     }
                                     {this.state.user.EmailConfirmed ? "" :
-                                    <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
+                                        <a className="dropdown-item" href="" onClick={this.confirmEmail}>{Messages.get("LabelConfirmEmail")}</a>
                                     }
                                     <a className="dropdown-item" href="" onClick={this.onLogout}>{Messages.get("LabelLogout")}</a>
                                 </div>

@@ -1,7 +1,7 @@
 ﻿namespace Moip.Net.Assinaturas
 {
     /// <summary>
-    /// Retorno da Assinatura 
+    /// Retorno da Assinatura
     /// </summary>
     public class SubscriptionResponse : Subscription
     {
@@ -14,7 +14,7 @@
         /// Erros na criação da assinatura
         /// </summary>
         public ResponseDetail[] Errors { get; set; }
-        
+
         /// <summary>
         /// Status da assinatura
         /// </summary>

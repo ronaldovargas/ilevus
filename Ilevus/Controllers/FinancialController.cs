@@ -144,7 +144,7 @@ namespace ilevus.Controllers
                         assClient.UpdateCustomer(user.Id, customer);
                         assClient.UpdateBillingInfo(user.Id, customer.BillingInfo);
                     }
-                    
+
                     Subscription subscription = new Subscription()
                     {
                         Code = result.Id,
@@ -183,6 +183,70 @@ namespace ilevus.Controllers
                 await UserManager.UpdateAsync(user);
 
                 return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("Subscription/Suspend")]
+        public async Task<IHttpActionResult> SuspendUserSubscription()
+        {
+            var assClient = new AssinaturasClient(
+                new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
+                IlevusDBContext.SystemConfiguration.MoipToken,
+                IlevusDBContext.SystemConfiguration.MoipKey
+            );
+            var db = IlevusDBContext.Create();
+            var collection = db.GetSubscriptionsCollection();
+            var filters = Builders<IlevusSubscription>.Filter;
+            try
+            {
+                var user = await UserManager.FindByNameAsync(User.Identity.Name);
+                if (user == null)
+                {
+                    return BadRequest("You must be logged in.");
+                }
+                if (!user.IsProfessional)
+                {
+                    return BadRequest("Você precisa ser um profissional para ter um plano de assinatura premium.");
+                }
+                IlevusSubscription sub = (await collection.FindAsync(filters.And(
+                    filters.Eq("UserId", user.Id),
+                    filters.Ne("Status", "CANCELLED")
+                ))).FirstOrDefault();
+
+                if (sub == null)
+                {
+                    return BadRequest("You must have a subscription to suspend");
+                }
+                
+                try
+                {
+                    SubscriptionResponse moipSub = assClient.GetSubscription(sub.Id);
+                    assClient.SuspendSubscription(moipSub.Code);
+
+                    sub.Status = Subscription.SubscriptionStatus.SUSPENDED.ToString();
+                    await collection.ReplaceOneAsync(filters.Eq("Id", sub.Id), sub);
+
+                    user.Premium.Suspended = true;
+                    await UserManager.UpdateAsync(user);
+
+                    return Ok(user.Premium);
+                }
+                catch (MoipException e)
+                {
+                    if (e.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        return BadRequest("Assiantura MOIP não encontrada.");
+                    }
+                    else
+                    {
+                        return InternalServerError(e);
+                    }
+                }
             }
             catch (Exception e)
             {
@@ -306,7 +370,7 @@ namespace ilevus.Controllers
         [Route("Subscriptions/Customers/{Id}")]
         public IHttpActionResult GetSubscriptionCustomer(string Id)
         {
-            
+
             try
             {
                 var assClient = new AssinaturasClient(
@@ -340,73 +404,16 @@ namespace ilevus.Controllers
 				    return BadRequest("You must be logged in.");
 			    }
 
-			    var v2Client = new V2Client(
-				    new Uri(IlevusDBContext.SystemConfiguration.MoipBaseUrl),
-                    IlevusDBContext.SystemConfiguration.MoipToken,
-                    IlevusDBContext.SystemConfiguration.MoipKey
-                );
-                
-                var pedido = new Pedido()
-			    {
-				    OwnId = Guid.NewGuid().ToString(),
-				    Amount = new Valores()
-				    {
-					    Currency = CurrencyType.BRL,
-					    Subtotals = new Subtotal()
-					    {
-						    Shipping = 1000
-					    }
-				    },
-				    Items = new List<ItemPedido>()
-				    {
-					    new ItemPedido()
-					    {
-						    Product = "Descrição do produto",
-						    Quantity = 1,
-						    Detail = "Detalhes",
-						    Price = 1000
-					    }
-				    },
-				    Customer = new Cliente()
-				    {
-					    OwnId = User.Identity.GetUserId(),
-					    Fullname = "José Silva",
-					    Email = "josesilva@acme.com.br",
-					    BirthDate = DateTime.Now.Date.AddYears(-18).ToString("yyyy-MM-dd"),
-					    TaxDocument = new Documento()
-					    {
-						    Type = DocumentType.CPF,
-						    Number = "65374721054"
-					    },
-					    Phone = new Telefone()
-					    {
-						    CountryCode = 55,
-						    AreaCode = 11,
-						    Number = 999999999
-					    },
-					    ShippingAddress = new Endereco()
-					    {
-						    ZipCode = "01234000",
-						    Street = "Avenida Faria Lima",
-						    StreetNumber = "2927",
-						    Complement = "SL 1",
-						    City = "São Paulo",
-						    District = "Itaim",
-						    State = "SP",
-						    Country = "BRA"
-					    }
-				    }
-			    };
-				
-				var clienteCriado = v2Client.CriarPedido(pedido);
+			  
+				//var clienteCriado = v2Client.CriarPedido(pedido);
 
-			    //Listar todos os pedidos pagos e criados com data superior a 01/01/2016
-			    var filters = new Filters()
-				    .Add(new GreatherThanFilter<DateTime>("createdAt", new DateTime(2016, 01, 01)))
-				    .Add(new InFilter<OrderStatusType>("status", OrderStatusType.CREATED, OrderStatusType.PAID));
+			 //   //Listar todos os pedidos pagos e criados com data superior a 01/01/2016
+			 //   var filters = new Filters()
+				//    .Add(new GreatherThanFilter<DateTime>("createdAt", new DateTime(2016, 01, 01)))
+				//    .Add(new InFilter<OrderStatusType>("status", OrderStatusType.CREATED, OrderStatusType.PAID));
 
-			    var pedidos = v2Client.ListarTodosPedidos();
-				await UserManager.UpdateAsync(user);
+			 //   var pedidos = v2Client.ListarTodosPedidos();
+				//await UserManager.UpdateAsync(user);
 
 			    return Ok();
 		    }

@@ -12,15 +12,16 @@ using Owin;
 
 namespace ilevus
 {
-    public partial class Startup
-    {
-        public static string BaseURL = ConfigurationManager.AppSettings["BaseURL"];
+	public partial class Startup
+	{
+		public static string BaseURL = ConfigurationManager.AppSettings["BaseURL"];
 
-        public void Configuration(IAppBuilder app)
-        {
+		public void Configuration(IAppBuilder app)
+		{
+            AutoMapperConfig.Initialize();
             log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
             IlevusIdentityContext context = IlevusIdentityContext.Create();
-            
+
             IlevusDbInitializer.Initialize(context);
             IlevusDbInitializer.InitializeIdentity(context);
 
@@ -33,10 +34,8 @@ namespace ilevus
             db.EnsureSystemConfig();
 
             app.UseErrorPage(ErrorPageOptions.ShowAll);
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
             HttpConfiguration config = WebApiConfig.Create();
             app.UseWebApi(config);
-            
-        }
-    }
+		}
+	}
 }

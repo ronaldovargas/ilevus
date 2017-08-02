@@ -199,8 +199,8 @@ module.exports = React.createClass({
                                     <i className="material-icons md-18 text-success" style={{margin: "-3px 0 0 5px"}}>&#xE86C;</i>
                                     :""}
                                 </strong>
-                                <h3 className="m-a-0">{Messages.get("TextOfferedServices")}</h3>
-                                <p>{Messages.get("TextServicesProfessionalInfo")}</p>
+                                <h3 className="m-a-0">{Messages.get("TextTitleBankAccountStep")}</h3>
+                                <p>{Messages.get("TextServicesProfessionalBankAccount")}</p>
                                 {this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo
                                 && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo
                                 ? (this.state.professionalData.ServicesInfo ?

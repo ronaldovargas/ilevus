@@ -160,7 +160,7 @@ namespace Moip.Net.Assinaturas
             }
 
             customer.Code = code;
-            
+
             var uri = PathToUri("customers/" + code);
             DoRequest(uri, "PUT", ToJson(customer));
         }
@@ -261,7 +261,7 @@ namespace Moip.Net.Assinaturas
 
             var uri = PathToUri("subscriptions/" + subscriptionCode);
             DoRequest(uri, "PUT", ToJson(subscription));
-        } 
+        }
 
         public Coupon GetCoupon(string code)
         {
