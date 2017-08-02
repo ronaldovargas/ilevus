@@ -243,6 +243,12 @@ module.exports = React.createClass({
                 var lastMessage = contact.LastMessage;
                 var creation = lastMessage ? moment(lastMessage.Creation):null;
                 var diff = creation ? moment.range(creation, moment()).diff("hours") : null;
+
+                var nomeCompleto = contact.PartnerName + contact.PartnerSurname;
+                if (this.refs['search-user'].value && nomeCompleto.toUpperCase().indexOf(this.refs['search-user'].value.toUpperCase()) < 0) {
+                    return <div></div>;
+                }
+
                 return <Link to={"/notifications/messages/"+contact.PartnerId} className="ilv-chat-list-item" activeClassName="active" key={"contact-item-"+idx}>
 				    <div className="ilv-media anv-media-middle">
 						<div className="ilv-media-left">
@@ -252,7 +258,7 @@ module.exports = React.createClass({
 						</div>
 						<div className="ilv-media-body">
                             <span className="ilv-chat-list-name">{contact.PartnerName} {contact.PartnerSurname}</span>
-							<p className="ilv-chat-list-message">{contact.LastMessage ? contact.LastMessage.Content : ""}</p>
+							<p className="ilv-chat-list-message">{contact.LastMessage ? contact.LastMessage.Content : ""}</p>                            
 						</div>
 						<div className="ilv-media-right">
                             <small className="ilv-text-muted">
@@ -281,7 +287,7 @@ module.exports = React.createClass({
 			</div>
 			<div className="ilv-chat-list-search">
 				<div className="ilv-input-group">
-			        <input className="ilv-form-control" type="search" placeholder="Search or start a new chat..."/>
+			        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..."/>
 					<div className="ilv-input-group-btn">
 						<button className="ilv-btn ilv-btn-icon ilv-btn-neutral">
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
