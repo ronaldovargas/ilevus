@@ -107,6 +107,7 @@ module.exports = React.createClass({
         }
 
         var user = this.state.model;
+        console.log('state model', user);
         var scheduleConfig = user.get("ScheduleConfig");
         var userLocation = user.get("Country");
         if (user.get("County")) {
@@ -126,6 +127,12 @@ module.exports = React.createClass({
         var services = user.get("Professional").Professional.Services || [];
 
         var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
+        var isPremium = false;
+        try {
+            isPremium = user.get("Premium").Premium.Active || false
+        } catch (ex){
+            console.error(ex);
+        }
 
         return (<div className="my-5" role="banner">
             <div className="container">
@@ -178,7 +185,7 @@ module.exports = React.createClass({
                                         {user.get("Name")} {user.get("Surname")}
                                     </span>
                                     <p>
-                                        <span className="ilv-tag ilv-tag-warning ml-0">Premium</span>
+                                        <span className="ilv-tag ilv-tag-warning ml-0">{isPremium ? 'Premium' : ''}</span>                                        
                                         <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
                                     </p>
                                     <p className="ilv-text-small">
