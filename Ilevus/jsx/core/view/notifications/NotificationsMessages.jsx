@@ -207,7 +207,7 @@ module.exports = React.createClass({
                             <div className="ilv-media-body">
                                 {msg.Content}
                             </div>
-                            <div className="ilv-media-right">
+                            <div className="ilv-media-right" style={{marginTop: "20px"}}>
                                 <small>
                                     {msg.Preview ? "P" : (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm'))}
                                 </small>
@@ -256,11 +256,11 @@ module.exports = React.createClass({
                                 <img src={S(contact.PartnerImage).isEmpty() ? UserIcon : contact.PartnerImage} />
                             </div>
 						</div>
-						<div className="ilv-media-body">
+						<div className="ilv-media-body hidden-md-down">
                             <span className="ilv-chat-list-name">{contact.PartnerName} {contact.PartnerSurname}</span>
 							<p className="ilv-chat-list-message">{contact.LastMessage ? contact.LastMessage.Content : ""}</p>                            
 						</div>
-						<div className="ilv-media-right">
+						<div className="ilv-media-right hidden-md-down">
                             <small className="ilv-text-muted">
                                 {diff !== null ? (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm')) : ""}
                             </small>
@@ -271,7 +271,7 @@ module.exports = React.createClass({
         }
 
         return <div className="ilv-chat-list">
-		    <div className="ilv-chat-list-header">
+		    <div className="ilv-chat-list-header hidden-md-down">
 			    <div className="ilv-media ilv-media-middle">
 				    <div className="ilv-media-body">
 						<div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
@@ -287,8 +287,8 @@ module.exports = React.createClass({
 			</div>
 			<div className="ilv-chat-list-search">
 				<div className="ilv-input-group">
-			        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..."/>
-					<div className="ilv-input-group-btn">
+			        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..."/>                    
+					<div className="ilv-input-group-btn hidden-md-down">
 						<button className="ilv-btn ilv-btn-icon ilv-btn-neutral">
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
                         </button>
@@ -301,10 +301,16 @@ module.exports = React.createClass({
 
     render() {
         return (
-		    <div className="ilv-chat">
+            <div>
+		    <div className="ilv-chat hidden-md-down">
 			    {this.renderChatList()}
                 {this.renderChat()}
 		    </div>
+		    <div className="ilv-chat hidden-md-up" style={{maxHeight: "50vh"}}>
+			    {this.renderChatList()}
+                {this.renderChat()}
+		    </div>                
+            </div>
         );
     }
 });
