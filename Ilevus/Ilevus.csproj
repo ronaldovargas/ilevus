@@ -266,6 +266,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cms\PoliticaDePrivacidade-EngUs.html" />
+    <Content Include="cms\PoliticaDePrivacidade-Es.html" />
+    <Content Include="cms\PoliticaDePrivacidade-PtBr.html" />
     <Content Include="Global.asax" />
     <Content Include="ilevus.MoipClient.csproj" />
     <Content Include="img\flags%402x.png" />
@@ -281,9 +284,6 @@
     <Content Include="jsx\vendor\moip-assinaturas.js" />
     <Content Include="jsx\vendor\moip.js" />
     <Content Include="jsx\vendor\utils.js" />
-    <Content Include="PoliticaDePrivacidade-EngUs.html" />
-    <Content Include="PoliticaDePrivacidade-Es.html" />
-    <Content Include="PoliticaDePrivacidade-PtBr.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
