@@ -290,9 +290,6 @@
     <Content Include="jsx\vendor\moip-assinaturas.js" />
     <Content Include="jsx\vendor\moip.js" />
     <Content Include="jsx\vendor\utils.js" />
-    <Content Include="PoliticaDePrivacidade-EngUs.html" />
-    <Content Include="PoliticaDePrivacidade-Es.html" />
-    <Content Include="PoliticaDePrivacidade-PtBr.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
