@@ -7,6 +7,7 @@ var React = require("react");
 var Link = require("react-router").Link;
 
 var ChatStore = require("ilevus/jsx/core/store/Chat.jsx");
+var NotificationStore = require("ilevus/jsx/core/store/notifications/Notification.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
@@ -95,6 +96,18 @@ module.exports = React.createClass({
         } else {
             this.pollContacts();
         }
+
+        NotificationStore.dispatch({
+            action: NotificationStore.ACTION_USER_NOTIFICATIONS,
+            data: {
+                Id: 0
+            }
+        });
+
+        NotificationStore.dispatch({
+            action: NotificationStore.ACTION_ALL_NOTIFICATIONS,
+            data: {}
+        })
     },
     componentWillUnmount() {
         ChatStore.off(null, null, this);

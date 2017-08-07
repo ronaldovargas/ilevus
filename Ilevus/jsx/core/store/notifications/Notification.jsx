@@ -44,7 +44,7 @@ var NotificationsStore = Fluxbone.Store.extend({
         var me = this;
         $.ajax({
             method: "GET",
-            url: me.url + "/UserNotifications/"+param.Id,
+            url: me.url + "/UserNotifications/"+params.Id,
             dataType: 'json',
             success(data, status, opts) {
                 me.trigger("notificationsuser", data);
