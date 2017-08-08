@@ -20,6 +20,8 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Logo = require('ilevus/img/ilevus-logo-20px.png');
 
+//var ConteudoRodape = require("ilevus/jsx/core/view/FooterContent.jsx");
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -75,20 +77,9 @@ module.exports = React.createClass({
             <main className="page-content" role="main">
                 {this.props.children}
                 <footer className="ilv-lp-footer">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col">
-                                <div className="ilv-media ilv-media-middle">
-                                    <div className="ilv-media-body">
-                                        <Link to="/home" className="navbar-brand">
-                                            <img src={Logo} alt="ilevus" />
-                                        </Link>
-                                    </div>
-                                    <div className="ilv-media-right" style={{maxWidth: "60%"}}>
-                                        <span>©2016 Ilevus. {Messages.get("TextAllRightsReserved")}</span>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="footer-top padd-top padd-bottom">
+                        <div className="container" id="FooterContent">
+                            {Messages.getFile(Messages.get("TextFooterContent"), "FooterContent")}
                         </div>
                     </div>
                 </footer>
