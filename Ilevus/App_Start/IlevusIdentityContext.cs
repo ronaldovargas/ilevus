@@ -7,12 +7,23 @@ using AspNet.Identity.MongoDB;
 
 namespace ilevus.App_Start
 {
-    public class IlevusIdentityContext : IDisposable
+	public class IlevusIdentityContext : IDisposable
 	{
 		public static IlevusIdentityContext Create()
 		{
 			// todo add settings where appropriate to switch server & database in your own application
-			var client = new MongoClient("mongodb://localhost:27017");
+			//	var client = new MongoClient("mongodb://52.191.132.220:27017");
+			var mongoCredential = MongoCredential.CreateCredential("admin", "root", ("kCm9yifugdfR"));
+
+			var mongoClientSettings = new MongoClientSettings
+			{
+				Credentials = new[] { mongoCredential },
+				Server = new MongoServerAddress("52.191.132.220", 27017)
+			
+			};
+
+			var client = new MongoClient(mongoClientSettings);
+
 			var database = client.GetDatabase("ilevus");
 			var users = database.GetCollection<IlevusUser>("users");
 			var roles = database.GetCollection<IlevusRole>("roles");
