@@ -13,6 +13,13 @@
   .#{$prefix}chat-messages { width: 66.666667%; }
 }
 
+@media (max-width: 767px) {
+    .my-5 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    }
+
 
 //
 // Chat contact list container

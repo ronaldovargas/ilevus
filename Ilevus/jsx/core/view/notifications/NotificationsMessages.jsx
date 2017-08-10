@@ -7,7 +7,6 @@ var React = require("react");
 var Link = require("react-router").Link;
 
 var ChatStore = require("ilevus/jsx/core/store/Chat.jsx");
-var NotificationStore = require("ilevus/jsx/core/store/notifications/Notification.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
@@ -95,19 +94,7 @@ module.exports = React.createClass({
             });
         } else {
             this.pollContacts();
-        }
-
-        NotificationStore.dispatch({
-            action: NotificationStore.ACTION_USER_NOTIFICATIONS,
-            data: {
-                Id: 0
-            }
-        });
-
-        NotificationStore.dispatch({
-            action: NotificationStore.ACTION_ALL_NOTIFICATIONS,
-            data: {}
-        })
+        }       
     },
     componentWillUnmount() {
         ChatStore.off(null, null, this);
@@ -219,7 +206,7 @@ module.exports = React.createClass({
                             <div className="ilv-media-body">
                                 {msg.Content}
                             </div>
-                            <div className="ilv-media-right horario-mensagem">
+                            <div className="ilv-media-right horario-mensagem" style={{width: "140%", textAlign: "right"}}>
                                 <small>
                                     {msg.Preview ? "P" : (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm'))}
                                 </small>
@@ -277,7 +264,7 @@ module.exports = React.createClass({
     <div className="ilv-media-body">
         {msg.Content}
     </div>
-    <div className="ilv-media-right horario-mensagem">
+    <div className="ilv-media-right horario-mensagem" style={{width: "140%", textAlign: "right"}}>
                                 <small>
                                     {msg.Preview ? "P" : (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm'))}
                                 </small>
@@ -387,7 +374,9 @@ module.exports = React.createClass({
                     return <div></div>;
                 }
 
-                return <Link to={"/notifications/messages/"+contact.PartnerId} className="ilv-chat-list-item" activeClassName="active" key={"contact-item-"+idx}>
+                return <Link to={"/notifications/messages/"+contact.PartnerId} 
+                             style={{borderBottom: "none", borderRadius: "100%"}}
+                    className="ilv-chat-list-item" activeClassName="active" key={"contact-item-"+idx}>
 				    <div className="ilv-media anv-media-middle">
 						<div className="ilv-media-left">
 						    <div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
@@ -441,7 +430,7 @@ module.exports = React.createClass({
 		        {this.renderChatList()}
 		        {this.renderChat()}
 		    </div>
-		    <div className="ilv-chat painel-chat-mobile hidden-md-up" style={{maxHeight: "50vh"}}>
+		    <div className="ilv-chat painel-chat-mobile hidden-md-up" style={{maxHeight: "64vh"}}>
 		        {this.renderChatListMobile()}
 		        {this.renderChatMobile()}
 		    </div>

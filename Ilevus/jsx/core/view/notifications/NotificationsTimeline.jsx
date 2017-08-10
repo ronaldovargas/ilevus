@@ -23,18 +23,23 @@ module.exports = React.createClass({
     componentDidMount() {
         try{
             var me = this;
-            NotificationStore.on("notifications-user", (data) => {
-                me.setState({
-                    notifications: data,
-                    loading: false
-                });                
+            NotificationStore.on("notificationsuser", (data) => {
+                setTimeout(() => {
+                    if (!this.state.notifications || data.length != this.state.notifications.length) {
+                        me.setState({
+                            notifications: data,
+                            loading: false
+                        });
+                    }
+                }, 10);
+                           
             }, me);
 
             var user = UserSession.get("user");
 
             NotificationStore.dispatch({
-                action: NotificationStore.ACTION_USER_NOTIFICATIONS+"/"+user.Id,
-                data: {}
+                action: NotificationStore.ACTION_USER_NOTIFICATIONS,
+                data: {Id: user.Id}
             });        
         } catch (e) {
             console.log(e)
@@ -42,6 +47,36 @@ module.exports = React.createClass({
     },
     componentWillUnmount() {
         NotificationStore.off(null, null, this);
+    },
+
+    renderNotification() {
+        var items;
+        if (!this.state.notifications || this.state.notifications.length == 0) {
+            return <div className="ilv-notification ilv-notification-unread">nenhuma notificação</div>
+        }
+
+        items = this.state.notifications.map((contact, idx) => {
+            return  <div className="ilv-notification ilv-notification-unread">
+                               <div className="ilv-media ilv-media-middle">
+                                   <div className="ilv-media-body">
+                                       <p className="mb-0">{contact.InfoNotification}</p>
+                                       <small className="text-muted">{contact.DateNotification}</small>
+                                   </div>
+                                   <div className="ilv-media-right">
+                                       <div className="dropdown">
+                                           <button className="ilv-btn ilv-btn-clean" data-toggle="dropdown">
+                                               <i className="ilv-btn-icon material-icons md-24">&#xE5D3;</i>
+                                           </button>
+                                           <ul className="dropdown-menu dropdown-menu-right">
+                                               <a href="#" className="dropdown-item">{Messages.get("MarkAsRead")}</a>
+                                               <a href="#" className="dropdown-item">{Messages.get("DeleteNotification")}</a>
+                                           </ul>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+        })
+        return <div>{items}</div>
     },
     
     render() {
@@ -61,26 +96,7 @@ module.exports = React.createClass({
                 </div>
                 
                 <div className="ilv-notification-list">
-                    <div className="ilv-notification ilv-notification-unread">
-                        <div className="ilv-media ilv-media-middle">
-                            <div className="ilv-media-body">
-                                <p className="mb-0">Você recebeu uma solicitação de agendamento de <strong>Jon Snow</strong> para o dia <strong>01/01/2016</strong> às <strong>13:00h</strong>.</p>
-                                <small className="text-muted">21 hours ago</small>
-                            </div>
-                            <div className="ilv-media-right">
-                                <div className="dropdown">
-                                    <button className="ilv-btn ilv-btn-clean" data-toggle="dropdown">
-                                        <i className="ilv-btn-icon material-icons md-24">&#xE5D3;</i>
-                                    </button>
-                                    <ul className="dropdown-menu dropdown-menu-right">
-                                        <a href="#" className="dropdown-item">{Messages.get("MarkAsRead")}</a>
-                                        <a href="#" className="dropdown-item">{Messages.get("DeleteNotification")}</a>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                   {this.renderNotification()}
                     <div className="text-center py-3">
                         <a href="#">{Messages.get("LoadMoreNotifications")}</a>
                     </div>

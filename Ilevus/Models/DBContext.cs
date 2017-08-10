@@ -25,7 +25,7 @@ namespace ilevus.Models
 		public const string SystemConfigTable = "ilevus_system";
 		public const string SystemMessagesTable = "ilevus_messages";
 		public const string UsersTable = "users";
-		public const string NotificationsTable = "notifications";
+		public const string NotificationsTable = "notifications";        
 	}
 
 
