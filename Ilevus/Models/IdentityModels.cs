@@ -10,6 +10,7 @@ using ilevus.Models.CoachingTools;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using ilevus.MoipClient.Models;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace ilevus.Models
@@ -120,6 +121,8 @@ namespace ilevus.Models
 
 	public class UserProfessionalProfile
 	{
+		private IlevusUser user;
+
 		public UserProfessionalProfile()
 		{
 			BasicInfo = false;
@@ -171,6 +174,7 @@ namespace ilevus.Models
 
 		public CoachingToolsConfigurations CoachingToolsConfigs { get; set; }
 
+		[JsonProperty(PropertyName = "Phone")]
 		public PhoneModel Phone { get; set; }
 
 		public UserFinancialProfile Financial { get; set; }
@@ -201,7 +205,6 @@ namespace ilevus.Models
 
 	public class PhoneModel
 	{
-
 		public string CountryCode { get; } = "55";
 
 		private string areaCode;
