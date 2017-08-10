@@ -103,6 +103,76 @@ namespace ilevus.Controllers
             }
         }
 
+       
+        [HttpPost]
+        [Route("Send")]
+        public async Task<IHttpActionResult> SendNotification(NotificationModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            //var user = UserManager.FindByName(User.Identity.Name);
+            //var partner = await UserManager.FindByIdAsync(model.Destination);
+            //if (partner == null)
+            //{
+            //    return BadRequest("You must provide the destination of the message.");
+            //}
+
+            //var filters = Builders<ChatConversation>.Filter;
+            var collection = IlevusDBContext.Create().GetNotificationsCollection();
+           // var first = string.Compare(partner.Id, user.Id) > 0 ? user : partner;
+           // var second = string.Compare(partner.Id, user.Id) < 0 ? user : partner;
+           // var docFilter = filters.And(
+           //    filters.Eq("FirstUser", first.Id),
+           //    filters.Eq("SecondUser", second.Id)
+           //// filters.Eq("Day", DateTime.Today) // Uncomment if per-day conversation is active
+           //);
+            try
+            {
+                await collection.InsertOneAsync(model);
+                return Ok(model);
+                //var results = await collection.FindAsync(docFilter);
+                //ChatMessage msg;
+                //var conversation = await results.FirstOrDefaultAsync();
+                //if (conversation == null)
+                //{
+                //    conversation = new ChatConversation()
+                //    {
+                //        FirstUser = first.Id,
+                //        SecondUser = second.Id
+                //    };
+                //    msg = new ChatMessage()
+                //    {
+                //        AuthorId = user.Id,
+                //        Content = model.Content
+                //    };
+                //    conversation.Messages.Add(msg);
+                //    await collection.InsertOneAsync(conversation);
+                //    return Ok(msg);
+                //}
+                //else
+                //{
+                //    msg = new ChatMessage()
+                //    {
+                //        AuthorId = user.Id,
+                //        Content = model.Content
+                //    };
+                //    await collection.UpdateOneAsync(
+                //        docFilter, Builders<ChatConversation>.Update.AddToSet("Messages", msg)
+                //    );
+                //    return Ok(msg);
+                //}
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+
+
+
         [HttpGet]
         [Route("DelNotification/{id}")]
         public async Task<IHttpActionResult> DelNotification(string Id)
