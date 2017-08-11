@@ -243,7 +243,6 @@
     <Compile Include="Helpers\IlevusClaimTypes.cs" />
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
-    <Compile Include="Converters\JsonCreationConverter.cs" />
     <Compile Include="Maps\ContaMoipProfile.cs" />
     <Compile Include="Models\FinancialModels.cs" />
     <Compile Include="Models\CoachingModels.cs" />
@@ -259,7 +258,6 @@
     <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
-    <Compile Include="Converters\PersonConverter.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
