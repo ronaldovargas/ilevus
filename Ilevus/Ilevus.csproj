@@ -230,8 +230,6 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Converters\JsonCreationConverter.cs" />
-    <Compile Include="Converters\PersonConverter.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserStatus.cs" />
