@@ -20,7 +20,19 @@ namespace ilevus.Models
 		public string Name { get; set; }
 		public string Surname { get; set; }
 		public string Sex { get; set; }
-		public DateTime Birthdate { get; set; }
+
+		private DateTime birthdate;
+		public DateTime Birthdate
+		{
+			get
+			{
+				return  string.IsNullOrEmpty(this.Professional.BirthDate) ? birthdate : DateTime.Parse(this.Professional.BirthDate);
+			}
+			set
+			{
+				birthdate = value;
+			}
+		}
 
 		public UserScheduleConfig ScheduleConfig { get; set; }
 		public UserProfessionalProfile Professional { get; set; }
@@ -91,8 +103,8 @@ namespace ilevus.Models
 	{
 		public bool Active { get; set; }
 		public bool Late { get; set; }
-        public bool Suspended { get; set; }
-        public DateTime PayedUntil { get; set; }
+		public bool Suspended { get; set; }
+		public DateTime PayedUntil { get; set; }
 	}
 
 	public class UserFinancialProfile
@@ -211,16 +223,7 @@ namespace ilevus.Models
 		public string AreaCode
 		{
 			get { return areaCode; }
-			set {
-                try
-                {
-                    areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray());
-                } catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    areaCode = string.Empty;
-                }
-            }
+			set { areaCode = new string(value?.Where(c => char.IsDigit(c)).ToArray()); }
 		}
 
 		public string Number { get; set; }
