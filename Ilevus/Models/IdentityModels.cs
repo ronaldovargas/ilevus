@@ -10,6 +10,7 @@ using ilevus.Models.CoachingTools;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using ilevus.MoipClient.Models;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace ilevus.Models
@@ -19,7 +20,19 @@ namespace ilevus.Models
 		public string Name { get; set; }
 		public string Surname { get; set; }
 		public string Sex { get; set; }
-		public DateTime Birthdate { get; set; }
+
+		private DateTime birthdate;
+		public DateTime Birthdate
+		{
+			get
+			{
+				return  string.IsNullOrEmpty(this.Professional.BirthDate) ? birthdate : DateTime.Parse(this.Professional.BirthDate);
+			}
+			set
+			{
+				birthdate = value;
+			}
+		}
 
 		public UserScheduleConfig ScheduleConfig { get; set; }
 		public UserProfessionalProfile Professional { get; set; }
@@ -90,8 +103,8 @@ namespace ilevus.Models
 	{
 		public bool Active { get; set; }
 		public bool Late { get; set; }
-        public bool Suspended { get; set; }
-        public DateTime PayedUntil { get; set; }
+		public bool Suspended { get; set; }
+		public DateTime PayedUntil { get; set; }
 	}
 
 	public class UserFinancialProfile
@@ -120,6 +133,8 @@ namespace ilevus.Models
 
 	public class UserProfessionalProfile
 	{
+		private IlevusUser user;
+
 		public UserProfessionalProfile()
 		{
 			BasicInfo = false;
@@ -171,6 +186,7 @@ namespace ilevus.Models
 
 		public CoachingToolsConfigurations CoachingToolsConfigs { get; set; }
 
+		[JsonProperty(PropertyName = "Phone")]
 		public PhoneModel Phone { get; set; }
 
 		public UserFinancialProfile Financial { get; set; }
@@ -201,16 +217,15 @@ namespace ilevus.Models
 
 	public class PhoneModel
 	{
-
 		public string CountryCode { get; } = "55";
 
 		private string areaCode;
 		public string AreaCode
 		{
 			get { return areaCode; }
-			set { areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray()); }
+			set { areaCode = new string(value?.Where(c => char.IsDigit(c)).ToArray()); }
 		}
-		
+
 		public string Number { get; set; }
 	}
 

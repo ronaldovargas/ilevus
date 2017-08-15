@@ -429,20 +429,21 @@ namespace ilevus.Models
 			var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
 			var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
 			var result = collection.UpdateManyAsync(filter, update).Result;
+			
+			RemoveField("Financial");
+			RemoveField("Professional.BankAccount");
+			RemoveField("Professional.BirthDate");
+			RemoveField("Professional.StreetNumber");
 
+		}
 
-			FieldDefinition<IlevusUser> field = "Financial";
-			var filter2 = Builders<IlevusUser>.Filter.Exists(field);
-			var update2 = Builders<IlevusUser>.Update.Unset(field);
-			var result2 = collection.UpdateManyAsync(filter2, update2).Result;
-
-
-			FieldDefinition<IlevusUser> field3 = "Professional.BankAccount";
-			var filter3 = Builders<IlevusUser>.Filter.Exists(field3);
-			var update4 = Builders<IlevusUser>.Update.Unset(field3);
-			var result4 = collection.UpdateManyAsync(filter3, update4).Result;
-
-
+		private void RemoveField(string fieldName)
+		{
+			var collection = GetUsersCollection();
+			FieldDefinition<IlevusUser> field = fieldName;
+			var filter = Builders<IlevusUser>.Filter.Exists(field);
+			var update = Builders<IlevusUser>.Update.Unset(field);
+			collection.UpdateMany(filter, update);
 		}
 
 		public void EnsureIndexes()

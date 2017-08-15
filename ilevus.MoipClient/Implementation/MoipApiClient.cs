@@ -146,7 +146,7 @@ namespace ilevus.MoipClient.Implementation
 		{
 			IRestResponse<T> response = await _httpClient.ExecuteTaskAsync<T>(request);
 
-			if (response.StatusCode == HttpStatusCode.Created)
+			if (response.StatusCode == HttpStatusCode.Created || response.StatusCode == HttpStatusCode.OK)
 				return response;
 
 			if (response.StatusCode == HttpStatusCode.Unauthorized)

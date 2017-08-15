@@ -404,7 +404,7 @@ namespace ilevus.Controllers
 				    return BadRequest("You must be logged in.");
 			    }
 
-			  
+
 				//var clienteCriado = v2Client.CriarPedido(pedido);
 
 			 //   //Listar todos os pedidos pagos e criados com data superior a 01/01/2016
