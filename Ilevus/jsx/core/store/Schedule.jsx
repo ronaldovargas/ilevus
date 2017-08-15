@@ -79,20 +79,20 @@ var ScheduleStore = Fluxbone.Store.extend({
 	            Begin: params.Begin
 	        },
 	        success(data, status, opts) {
-	            NotificationStore.dispatch({
-	                action: NotificationStore.ACTION_SEND_NOTIFICATION,
-	                data: {
+	            //NotificationStore.dispatch({
+	            //    action: NotificationStore.ACTION_SEND_NOTIFICATION,
+	            //    data: {
 
             
-	                    User_id: params.UserId,
-	            From: "",
-	            InfoNotification: "nova notificação de booking",
-	            DateNotification: new Date(),
-	            Status: false
+	            //        User_id: params.UserId,
+	            //From: "",
+	            //InfoNotification: "nova notificação de booking",
+	            //DateNotification: new Date(),
+	            //Status: false
 	        
 
-	                }
-	            });
+	            //    }
+	            //});
 
 
 	            me.trigger("book-meeting", data);

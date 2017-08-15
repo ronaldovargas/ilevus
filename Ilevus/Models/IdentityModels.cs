@@ -208,7 +208,16 @@ namespace ilevus.Models
 		public string AreaCode
 		{
 			get { return areaCode; }
-			set { areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray()); }
+			set {
+                try
+                {
+                    areaCode = new string(value.Where(c => char.IsDigit(c)).ToArray());
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    areaCode = string.Empty;
+                }
+            }
 		}
 		
 		public string Number { get; set; }

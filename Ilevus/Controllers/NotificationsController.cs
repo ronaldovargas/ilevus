@@ -33,7 +33,7 @@ namespace ilevus.Controllers
 
             var db = IlevusDBContext.Create();
             var builder = Builders<NotificationModel>.Filter;
-            var filters = builder.Eq("Status", false) & builder.Eq("User_id", Id);
+            var filters = builder.Eq("Status", false) & (builder.Eq("User_id", Id) | builder.Eq("User_id", "0"));
             var collection = db.GetNotificationsCollection();
             try
             {
