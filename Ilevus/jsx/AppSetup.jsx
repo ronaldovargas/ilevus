@@ -76,6 +76,7 @@ var AdminPanelSubscriptionsCustomer = require("ilevus/jsx/core/view/admin/AdminP
 var AdminPanelSubscriptionsDetails = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsDetails.jsx");
 var AdminPanelSubscriptionsInvoice = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptionsInvoice.jsx");
 var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
+var AdminPanelMensagens = require("ilevus/jsx/core/view/admin/AdminPanelMensagens.jsx");
 
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
 var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
@@ -203,6 +204,7 @@ Messages.load(function (success) {
                         </Route>
                         <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />
+                        <Route path="mensagens" component={AdminPanelMensagens} />
                     </Route>
 
                     <Route path="notifications" component={Notifications}>

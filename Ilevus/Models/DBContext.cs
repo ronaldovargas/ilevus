@@ -25,7 +25,7 @@ namespace ilevus.Models
 		public const string SystemConfigTable = "ilevus_system";
 		public const string SystemMessagesTable = "ilevus_messages";
 		public const string UsersTable = "users";
-		public const string NotificationsTable = "notifications";
+		public const string NotificationsTable = "notifications";        
 	}
 
 
@@ -343,8 +343,26 @@ namespace ilevus.Models
 							Subject = es.GetString("EmailWelcomeSubject"),
 							Template = es.GetString("EmailWelcomeBody")
 						}
-					}
-				};
+					},
+                    SystemMessage = new SystemTranslatedEmail()
+                    {
+                        pt_br = new SystemEmail()
+                        {
+                            Subject = pt_br.GetString("EmailWelcomeSubject"),
+                            Template = pt_br.GetString("EmailWelcomeBody")
+                        },
+                        en = new SystemEmail()
+                        {
+                            Subject = en.GetString("EmailWelcomeSubject"),
+                            Template = en.GetString("EmailWelcomeBody")
+                        },
+                        es = new SystemEmail()
+                        {
+                            Subject = es.GetString("EmailWelcomeSubject"),
+                            Template = es.GetString("EmailWelcomeBody")
+                        }
+                    }
+                };
 
 				configCollection.InsertOne(configs);
 			}

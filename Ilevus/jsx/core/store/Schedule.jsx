@@ -4,6 +4,7 @@
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var NotificationStore = require("ilevus/jsx/core/store/notifications/Notification.jsx");
 var S = require("string");
 
 var URL = Fluxbone.BACKEND_URL + "Schedule";
@@ -78,6 +79,22 @@ var ScheduleStore = Fluxbone.Store.extend({
 	            Begin: params.Begin
 	        },
 	        success(data, status, opts) {
+	            //NotificationStore.dispatch({
+	            //    action: NotificationStore.ACTION_SEND_NOTIFICATION,
+	            //    data: {
+
+            
+	            //        User_id: params.UserId,
+	            //From: "",
+	            //InfoNotification: "nova notificação de booking",
+	            //DateNotification: new Date(),
+	            //Status: false
+	        
+
+	            //    }
+	            //});
+
+
 	            me.trigger("book-meeting", data);
 	        },
 	        error(opts, status, errorMsg) {

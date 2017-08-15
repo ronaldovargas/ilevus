@@ -94,7 +94,7 @@ module.exports = React.createClass({
             });
         } else {
             this.pollContacts();
-        }
+        }       
     },
     componentWillUnmount() {
         ChatStore.off(null, null, this);
@@ -134,16 +134,20 @@ module.exports = React.createClass({
 
     sendMessage(event) {
         event.preventDefault();
-        var msg = S(this.refs['message-input'].value);
+        var msg = S(this.refs['message-input'].value);        
         if (msg.isEmpty()) {
-            return;
+            msg = S(this.refs['message-input-mobile'].value);
+            if (msg.isEmpty())
+                return;
         }
+
         this.state.conversation.Messages.push({
             AuthorId: UserSession.get("user").Id,
             Content: msg.s,
             Preview: true
         });
         this.refs['message-input'].value = "";
+        this.refs['message-input-mobile'].value = "";
         this.forceUpdate();
         ChatStore.dispatch({
             action: ChatStore.ACTION_SEND_MESSAGE,
@@ -166,13 +170,8 @@ module.exports = React.createClass({
     },
 
     renderChat() {
-        /*if (!this.state.conversation) {
-            return <div className="ilv-chat-messages">
-                <LoadingGauge />
-            </div>;
-        }*/
         var conversation = this.state.conversation;
-        
+
         var dest = conversation ? conversation.Destination : {};
         var msgs = conversation ? conversation.Messages : {};
         var now = moment();
@@ -191,8 +190,8 @@ module.exports = React.createClass({
                     </div>
                 </div>
             </div>
-    <div>{!showNewMessageIndicator ? <span></span> : <span className="new-message-indicator">novas mensagens</span>}</div>               
-            
+    <div>{!showNewMessageIndicator ? <span></span> : <span className="new-message-indicator">novas mensagens</span>}</div>
+
             <div className="ilv-chat-messages-body" ref="chat-body">
                 {!msgs || msgs.length <= 0 || !msgs.map ? <div className="ilv-chat-messages-bubble center">
                     <i>{Messages.get("TextNoMessagesYet")}</i>
@@ -201,13 +200,13 @@ module.exports = React.createClass({
                     var day = moment(conversation.Day);
                     var creation = moment(msg.Creation);
                     var diff = moment.range(creation, now).diff("hours");
-                    return <div className={"ilv-chat-messages-bubble " + (msg.AuthorId == UserSession.get("user").Id ? "out" : "in")}
-                                key={"chat-msg-" + idx}>
+                    return <div className={"area-mensagem ilv-chat-messages-bubble " + (msg.AuthorId == UserSession.get("user").Id ? "out" : "in")}
+                                key={"chat-msg-" + idx} style={{minWidth: "15%"}}>
                         <div className="ilv-media">
                             <div className="ilv-media-body">
                                 {msg.Content}
                             </div>
-                            <div className="ilv-media-right">
+                            <div className="ilv-media-right horario-mensagem" style={{width: "140%", textAlign: "right"}}>
                                 <small>
                                     {msg.Preview ? "P" : (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm'))}
                                 </small>
@@ -222,12 +221,70 @@ module.exports = React.createClass({
                            type="text"
                            ref="message-input"
                            spellCheck={false}
-                           placeholder="Type a message..."/>
+                           placeholder="Type a message..." />
                     <div className="ilv-input-group-btn">
                         <button className="ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-neutral" type='submit'>
                             <i className="ilv-icon material-icons md-24">&#xE163;</i>
                         </button>
                     </div>
+                </div>
+            </form>
+        </div>);
+    },
+
+    renderChatMobile() {
+        var conversation = this.state.conversation;
+
+        var dest = conversation ? conversation.Destination : {};
+        var msgs = conversation ? conversation.Messages : {};
+        var now = moment();
+        var lastDay;
+        return (<div className="ilv-chat-messages">
+            <div className="ilv-chat-messages-header">
+                <div className="ilv-media ilv-media-middle">
+                    <div className="ilv-media-body">
+                        <span className="ilv-chat-list-name">{dest ? dest.Name : ''} {dest ? dest.Surname : ''}</span>
+                        <p className="ilv-chat-list-message"></p>
+                    </div>
+                </div>
+            </div>
+    <div>{!showNewMessageIndicator ? <span></span> : <span className="new-message-indicator">novas mensagens</span>}</div>
+
+            <div className="ilv-chat-messages-body" ref="chat-body">
+                {!msgs || msgs.length <= 0 || !msgs.map ? <div className="ilv-chat-messages-bubble center">
+                    <i>{Messages.get("TextNoMessagesYet")}</i>
+
+                </div> : msgs.map((msg, idx) => {
+                    var day = moment(conversation.Day);
+                    var creation = moment(msg.Creation);
+                    var diff = moment.range(creation, now).diff("hours");
+                    return <div className={"area-mensagem ilv-chat-messages-bubble " + (msg.AuthorId == UserSession.get("user").Id ? "out" : "in")}
+                                key={"chat-msg-" + idx}>
+<div className="ilv-media">
+    <div className="ilv-media-body">
+        {msg.Content}
+    </div>
+    <div className="ilv-media-right horario-mensagem" style={{width: "140%", textAlign: "right"}}>
+                                <small>
+                                    {msg.Preview ? "P" : (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm'))}
+                                </small>
+    </div>
+</div>
+                    </div>;
+                })}
+            </div>
+            <form className="ilv-chat-messages-footer" onSubmit={this.sendMessage}>
+                <div className="ilv-input-group">
+                    <input className="ilv-form-control ilv-form-control-kg"
+                           type="text"
+                           ref="message-input-mobile"
+                           spellCheck={false}
+                           placeholder="Type a message..." />
+<div className="ilv-input-group-btn">
+    <button className="ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-neutral" type='submit'>
+        <i className="ilv-icon material-icons md-24">&#xE163;</i>
+    </button>
+</div>
                 </div>
             </form>
         </div>);
@@ -254,44 +311,44 @@ module.exports = React.createClass({
 						<div className="ilv-media-left">
 						    <div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
                                 <img src={S(contact.PartnerImage).isEmpty() ? UserIcon : contact.PartnerImage} />
-                            </div>
+						    </div>
 						</div>
 						<div className="ilv-media-body">
                             <span className="ilv-chat-list-name">{contact.PartnerName} {contact.PartnerSurname}</span>
-							<p className="ilv-chat-list-message">{contact.LastMessage ? contact.LastMessage.Content : ""}</p>                            
+							<p className="ilv-chat-list-message">{contact.LastMessage ? contact.LastMessage.Content : ""}</p>
 						</div>
 						<div className="ilv-media-right">
                             <small className="ilv-text-muted">
                                 {diff !== null ? (diff < 24 ? creation.format('HH:mm') : creation.format('D/MM/YYYY HH:mm')) : ""}
                             </small>
-                        </div>
-					</div>
+						</div>
+				    </div>
 			    </Link>;
             });
         }
 
         return <div className="ilv-chat-list">
-		    <div className="ilv-chat-list-header">
+		    <div className="ilv-chat-list-header hidden-md-down">
 			    <div className="ilv-media ilv-media-middle">
 				    <div className="ilv-media-body">
 						<div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
                             <img src={S(user ? user.Image : '').isEmpty() ? UserIcon : user.Image} />
-                        </div>
-		            </div>
+						</div>
+				    </div>
 					<div className="ilv-media-right">
 						<button className="ilv-btn ilv-btn-icon ilv-btn-clean">
                             <i className="ilv-icon material-icons md-24">&#xE0CA;</i>
-                        </button>
+						</button>
 					</div>
-				</div>
-			</div>
+			    </div>
+		    </div>
 			<div className="ilv-chat-list-search">
 				<div className="ilv-input-group">
-			        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..."/>
-					<div className="ilv-input-group-btn">
+			        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..." />
+					<div className="ilv-input-group-btn hidden-md-down">
 						<button className="ilv-btn ilv-btn-icon ilv-btn-neutral">
                             <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
-                        </button>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -299,12 +356,85 @@ module.exports = React.createClass({
         </div>;
     },
 
+
+
+    renderChatListMobile() {
+        var items;
+        var user = UserSession.get("user");
+        if (!this.state.contacts || this.state.contacts.length == 0) {
+            items = <i className="ilv-chat-list-item">Nenhum contato realizado ainda.</i>;
+        } else {
+            items = this.state.contacts.map((contact, idx) => {
+                var lastMessage = contact.LastMessage;
+                var creation = lastMessage ? moment(lastMessage.Creation):null;
+                var diff = creation ? moment.range(creation, moment()).diff("hours") : null;
+
+                var nomeCompleto = contact.PartnerName + contact.PartnerSurname;
+                if (this.refs['search-user'].value && nomeCompleto.toUpperCase().indexOf(this.refs['search-user'].value.toUpperCase()) < 0) {
+                    return <div></div>;
+                }
+
+                return <Link to={"/notifications/messages/"+contact.PartnerId} 
+                             style={{borderBottom: "none", borderRadius: "100%"}}
+                    className="ilv-chat-list-item" activeClassName="active" key={"contact-item-"+idx}>
+				    <div className="ilv-media anv-media-middle">
+						<div className="ilv-media-left">
+						    <div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
+                                <img src={S(contact.PartnerImage).isEmpty() ? UserIcon : contact.PartnerImage} />
+						    </div>
+						</div>
+				    </div>
+			    </Link>;
+            });
+        }
+
+        return <div className="lista-fotos-usuarios">
+                   {items}
+            </div>;
+
+        //return <div className="ilv-chat-list">
+		//    <div className="ilv-chat-list-header hidden-md-down">
+		//	    <div className="ilv-media ilv-media-middle">
+		//		    <div className="ilv-media-body">
+		//				<div className="ilv-avatar ilv-avatar-circle ilv-avatar-md">
+        //                    <img src={S(user ? user.Image : '').isEmpty() ? UserIcon : user.Image} />
+		//				</div>
+		//		    </div>
+		//			<div className="ilv-media-right">
+		//				<button className="ilv-btn ilv-btn-icon ilv-btn-clean">
+        //                    <i className="ilv-icon material-icons md-24">&#xE0CA;</i>
+		//				</button>
+		//			</div>
+		//	    </div>
+		//    </div>
+		//	<div className="ilv-chat-list-search">
+		//		<div className="ilv-input-group">
+		//	        <input ref="search-user" className="ilv-form-control" type="search" placeholder="Search or start a new chat..." />
+		//			<div className="ilv-input-group-btn hidden-md-down">
+		//				<button className="ilv-btn ilv-btn-icon ilv-btn-neutral">
+        //                    <i className="ilv-icon material-icons md-18">&#xE8B6;</i>
+		//				</button>
+		//			</div>
+		//		</div>
+		//	</div>
+        //    {items}
+        //</div>;
+    },
+
+
+
     render() {
         return (
-		    <div className="ilv-chat">
-			    {this.renderChatList()}
-                {this.renderChat()}
+            <div>
+		    <div className="ilv-chat hidden-md-down">
+		        {this.renderChatList()}
+		        {this.renderChat()}
 		    </div>
+		    <div className="ilv-chat painel-chat-mobile hidden-md-up" style={{maxHeight: "64vh"}}>
+		        {this.renderChatListMobile()}
+		        {this.renderChatMobile()}
+		    </div>
+            </div>
         );
     }
 });

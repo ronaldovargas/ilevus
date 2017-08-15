@@ -13,6 +13,13 @@
   .#{$prefix}chat-messages { width: 66.666667%; }
 }
 
+@media (max-width: 767px) {
+    .my-5 {
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    }
+
 
 //
 // Chat contact list container
@@ -24,6 +31,47 @@
   margin: 0;
   padding: .75rem;
 }
+
+// ALTERAÇÕES CHAT
+.horario-mensagem {
+    margin-top: 0px !important;
+    position: absolute !important;
+    right: 0px !important;
+    bottom: -15px !important;
+    color: #000 !important;
+}
+
+.area-mensagem {
+    margin-bottom: 1.8rem !important;
+}
+
+.painel-chat-mobile {
+    margin-top: -40px;
+}
+
+.painel-chat-mobile .ilv-chat-messages {
+    width: 100%;
+    border-left: none;
+    margin-top: 60px;
+}
+
+.painel-chat-mobile .ilv-avatar-md {
+    width: 2rem;
+    height: 2rem;
+}
+
+.painel-chat-mobile .ilv-chat-list-item {
+    width: 3.5rem;
+}
+
+.lista-fotos-usuarios {
+    position: absolute;
+    width: 93%;
+    overflow-x: auto;
+    display: flex;
+}
+
+// *****
 
 .new-message-indicator {
     position: absolute;

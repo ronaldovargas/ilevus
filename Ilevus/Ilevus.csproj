@@ -102,14 +102,17 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.2.4\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.2.4.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.2.4\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MongoDB.Driver.Core.2.4.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.4.26, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -123,9 +126,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -268,10 +268,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cms\ConteudoRodape-EngUs.html" />
-    <Content Include="cms\ConteudoRodape-Es.html" />
-    <Content Include="cms\ConteudoRodape-PtBr.html" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="cms\PoliticaDePrivacidade-EngUs.html" />
+    <Content Include="cms\PoliticaDePrivacidade-Es.html" />
+    <Content Include="cms\PoliticaDePrivacidade-PtBr.html" />
     <Content Include="Global.asax" />
     <Content Include="ilevus.MoipClient.csproj" />
     <Content Include="img\flags%402x.png" />
@@ -313,11 +312,6 @@
     <Content Include="jsx\core\store\notifications\Notification.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -381,21 +375,6 @@
     <Content Include="sass\custom\_notifications.scss" />
     <Content Include="sass\custom\_rating.scss" />
     <Content Include="sass\components\_overlay.scss" />
-    <Content Include="sass\fontawesome\font-awesome.scss" />
-    <Content Include="sass\fontawesome\_animated.scss" />
-    <Content Include="sass\fontawesome\_bordered-pulled.scss" />
-    <Content Include="sass\fontawesome\_core.scss" />
-    <Content Include="sass\fontawesome\_fixed-width.scss" />
-    <Content Include="sass\fontawesome\_icons.scss" />
-    <Content Include="sass\fontawesome\_larger.scss" />
-    <Content Include="sass\fontawesome\_list.scss" />
-    <Content Include="sass\fontawesome\_mixins.scss" />
-    <Content Include="sass\fontawesome\_path.scss" />
-    <Content Include="sass\fontawesome\_rotated-flipped.scss" />
-    <Content Include="sass\fontawesome\_screen-reader.scss" />
-    <Content Include="sass\fontawesome\_stacked.scss" />
-    <Content Include="sass\fontawesome\_variables.scss" />
-    <Content Include="sass\custom\_coaching.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>
@@ -536,6 +515,9 @@
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
     <Folder Include="Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jsx\core\view\admin\AdminPanelMensagens.jsx" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

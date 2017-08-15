@@ -573,6 +573,24 @@ namespace ilevus.Controllers
 			return Ok(new UserInfoViewModel(user));
 		}
 
+        [HttpPost]
+        [Route("SendEmail")]
+        public async Task<IHttpActionResult> SendEmail(string assunto, string mensagem)
+        {
+            var mailService = new IlevusEmailService();
+            await mailService.SendAsync(new IdentityMessage()
+            {
+                Destination = "nilson.carraro@gmail.com",
+                Subject = assunto,
+                Body = string.Format(
+                    mensagem,
+                    "",
+                    ""
+                )
+            });
+            return Ok();
+        }
+
 		[HttpPost]
 		[Route("UpdateEmail")]
 		public async Task<IHttpActionResult> UpdateEmail(ChangeEmailBindingModel model)
@@ -588,32 +606,42 @@ namespace ilevus.Controllers
 			ClaimsIdentity identity = User.Identity as ClaimsIdentity;
 			var user = await UserManager.FindByNameAsync(identity.Name);
 
-			if (user.EmailConfirmed)
-			{
-				var str = user.Email + model.Email + DateTime.Now.Ticks.ToString();
-				user.EmailChangeToken = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
-				user.EmailChange = model.Email;
+            if (user.EmailConfirmed)
+            {
+                var str = user.Email + model.Email + DateTime.Now.Ticks.ToString();
+                user.EmailChangeToken = BitConverter.ToString(new SHA1Managed().ComputeHash(Encoding.ASCII.GetBytes(str)));
+                user.EmailChange = model.Email;
 
-				string link = BaseURL + "#/confirm-email-change/"
-						+ Uri.EscapeDataString(user.Email) + "/"
-						+ Uri.EscapeDataString(user.EmailChangeToken);
-				string subject;
-				string message;
-				if ("en".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
-				{
-					subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Subject;
-					message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Template;
-				}
-				else if ("es".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
-				{
-					subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Subject;
-					message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Template;
-				}
-				else
-				{
-					subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Subject;
-					message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Template;
-				}
+                string link = BaseURL + "#/confirm-email-change/"
+                        + Uri.EscapeDataString(user.Email) + "/"
+                        + Uri.EscapeDataString(user.EmailChangeToken);
+                string subject;
+                string message;
+
+                if (!string.IsNullOrEmpty(model.Message))
+                {
+                    message = model.Message;
+                    subject = model.Subject;
+                }
+                else
+                {
+
+                    if ("en".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Subject;
+                        message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.en.Template;
+                    }
+                    else if ("es".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Subject;
+                        message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.es.Template;
+                    }
+                    else
+                    {
+                        subject = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Subject;
+                        message = IlevusDBContext.SystemConfiguration.EmailValidationMessages.pt_br.Template;
+                    }
+                }
 				var mailService = new IlevusEmailService();
 				await mailService.SendAsync(new IdentityMessage()
 				{
