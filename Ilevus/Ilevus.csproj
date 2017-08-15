@@ -230,8 +230,6 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Converters\JsonCreationConverter.cs" />
-    <Compile Include="Converters\PersonConverter.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserStatus.cs" />
@@ -289,9 +287,6 @@
     <Content Include="jsx\vendor\moip-assinaturas.js" />
     <Content Include="jsx\vendor\moip.js" />
     <Content Include="jsx\vendor\utils.js" />
-    <Content Include="PoliticaDePrivacidade-EngUs.html" />
-    <Content Include="PoliticaDePrivacidade-Es.html" />
-    <Content Include="PoliticaDePrivacidade-PtBr.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
