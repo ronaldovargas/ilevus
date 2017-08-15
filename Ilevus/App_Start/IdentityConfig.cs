@@ -1,4 +1,5 @@
 ﻿using AspNet.Identity.MongoDB;
+using ilevus.Controllers;
 using ilevus.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -95,6 +96,17 @@ namespace ilevus.App_Start
                 IsBodyHtml = true,
                 Subject = message.Subject
             };
+
+            NotificationsController notC = new NotificationsController();
+            notC.SendNotification(new NotificationModel()
+            {
+                DateNotification = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                From = "system",
+                InfoNotification = message.Body,
+                Status = false,
+                User_id = message.Destination
+            });
+
             return client.SendMailAsync(email);
         }
     }

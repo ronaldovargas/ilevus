@@ -106,6 +106,24 @@ namespace ilevus.Controllers
                     Begin = model.Begin
                 };
                 await collection.InsertOneAsync(meeting);
+
+                try
+                {
+                    NotificationsController notC = new NotificationsController();
+                    await notC.SendNotification(new NotificationModel()
+                    {
+                        DateNotification = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                        From = model.CoacheeEmail,
+                        InfoNotification = model.Subject,
+                        Status = false,
+                        Subject = "agendamento",
+                        User_id = model.UserId
+                    });
+                } catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
                 return Ok(meeting);
             }
             catch (Exception e)

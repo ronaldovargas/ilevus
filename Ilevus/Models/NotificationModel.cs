@@ -19,6 +19,7 @@ namespace ilevus.Models
         public string InfoNotification { get; set; }
         public string DateNotification { get; set; }
         public bool Status { get; set; }
+        public string Subject { get; set; }
 
         public NotificationModel()
         {
@@ -28,6 +29,7 @@ namespace ilevus.Models
             InfoNotification = "";
             DateNotification = "";
             Status = false;
+            Subject = "";
         }
     }
 }

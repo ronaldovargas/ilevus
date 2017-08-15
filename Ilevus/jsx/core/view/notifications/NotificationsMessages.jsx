@@ -201,7 +201,7 @@ module.exports = React.createClass({
                     var creation = moment(msg.Creation);
                     var diff = moment.range(creation, now).diff("hours");
                     return <div className={"area-mensagem ilv-chat-messages-bubble " + (msg.AuthorId == UserSession.get("user").Id ? "out" : "in")}
-                                key={"chat-msg-" + idx}>
+                                key={"chat-msg-" + idx} style={{minWidth: "15%"}}>
                         <div className="ilv-media">
                             <div className="ilv-media-body">
                                 {msg.Content}

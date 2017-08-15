@@ -18,6 +18,7 @@ namespace ilevus.Models
         public SystemTranslatedEmail EmailValidationMessages { get; set; }
         public SystemTranslatedEmail AccountBlockingMessages { get; set; }
         public SystemTranslatedEmail RecoverPasswordMessages { get; set; }
+        public SystemTranslatedEmail SystemMessage { get; set; }
 
         public string MoipBaseUrl { get; set; }
         public string MoipToken { get; set; }

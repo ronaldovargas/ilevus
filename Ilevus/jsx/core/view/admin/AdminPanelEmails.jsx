@@ -114,7 +114,7 @@ module.exports = React.createClass({
                                        className="ilv-form-control"
                                        id={which + "-pt-br-subject"}
                                        ref={which + "-pt-br-subject"}
-                                       defaultValue={email.pt_br.Subject} />
+                                       defaultValue={email && email.pt_br ? email.pt_br.Subject : ""} />
                             </div>
 
                             <div className="ilv-form-group">
@@ -126,7 +126,7 @@ module.exports = React.createClass({
                                           className="ilv-form-control"
                                           id={which + "-pt-br"}
                                           ref={which + "-pt-br"}
-                                          defaultValue={email.pt_br.Template} />
+                                          defaultValue={email && email.pt_br ? email.pt_br.Template : ""} />
                             </div>
                         </div>
 
@@ -140,7 +140,7 @@ module.exports = React.createClass({
                                        className="ilv-form-control"
                                        id={which + "-en-subject"}
                                        ref={which + "-en-subject"}
-                                       defaultValue={email.en.Subject} />
+                                       defaultValue={email && email.en ? email.en.Subject : ""} />
                             </div>
                             
                             <div className="ilv-form-group">
@@ -152,7 +152,7 @@ module.exports = React.createClass({
                                         className="ilv-form-control"
                                         id={which + "-en"}
                                         ref={which + "-en"}
-                                        defaultValue={email.en.Template} />
+                                        defaultValue={email && email.en ? email.en.Template : ""} />
                             </div>
                         </div>
 
@@ -166,7 +166,7 @@ module.exports = React.createClass({
                                        className="ilv-form-control"
                                        id={which + "-es-subject"}
                                        ref={which + "-es-subject"}
-                                       defaultValue={email.es.Subject} />
+                                       defaultValue={email && email.es ? email.es.Subject : ""} />
                             </div>
 
                             <div className="ilv-form-group">
@@ -178,7 +178,7 @@ module.exports = React.createClass({
                                           className="ilv-form-control"
                                           id={which + "-es"}
                                           ref={which + "-es"}
-                                          defaultValue={email.es.Template} />
+                                          defaultValue={email && email.es ? email.es.Template : ""} />
                             </div>
                         </div>
                     </form>
@@ -223,6 +223,7 @@ module.exports = React.createClass({
             {this.renderEmailForm(this.state.config.EmailValidationMessages, "EmailValidation")}
             {this.renderEmailForm(this.state.config.RecoverPasswordMessages, "RecoverPassword")}
             {this.renderEmailForm(this.state.config.AccountBlockingMessages, "AccountBlocking")}
+            {this.renderEmailForm(this.state.config.SystemMessage, "SystemMessage")}
         </div>);
     }
 });
