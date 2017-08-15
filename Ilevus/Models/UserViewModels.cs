@@ -142,6 +142,7 @@ namespace ilevus.Models
 			Id = user.Id;
 			this.BirthDate = user.Birthdate.ToString("dd/MM/yyyy");
 			Professional = user.Professional ?? new UserProfessionalProfile();
+			Professional.BirthDate = this.BirthDate;
 			if (Professional.Phone == null)
 				Professional.Phone = new PhoneModel();
 
