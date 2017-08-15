@@ -19,7 +19,15 @@
       <script>
           webshims.setOptions('waitReady', false);
           webshims.setOptions('forms-ext', {types: 'date'});
-        webshims.polyfill('forms forms-ext');
+          webshims.polyfill('forms forms-ext');
+
+          function firstWords(step_description) {
+              var normalize = step_description.replace(/\w\S*/g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+              var matches = normalize.match(/\b([A-Z])/g).join(''); //.match(/\b(\w)/g); // ['J','S','O','N']
+              //var acronym = matches.join('');
+
+              return matches;
+          }
       </script>
       <style>
           .footer-bottom, .ilv-lp-footer {
