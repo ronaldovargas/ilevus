@@ -368,7 +368,6 @@
     <Content Include="jsx\core\view\user\HireService.jsx" />
     <Content Include="jsx\core\view\TermosPrivacidade.jsx" />
     <None Include="package.json" />
-    <None Include="Properties\PublishProfiles\HomologacaoAzure - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
     <Content Include="sass\custom\_buttons-social.scss" />
