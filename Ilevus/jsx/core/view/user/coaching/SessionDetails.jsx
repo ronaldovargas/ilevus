@@ -27,6 +27,8 @@ var UserIcon = require("ilevus/img/user.png");
 var CommitmentBg = "rgba(75,192,192,0.4)";
 var FeedbackBg = "rgba(103, 58, 183, 0.2)";
 
+var ProcessStep = "";
+
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object,
@@ -125,7 +127,10 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
             data: me.props.params.id
         });
-
+    },
+    componentDidUpdate() {
+        if (jQuery('.breadcrumb .active').parent() != null)
+            jQuery('.breadcrumb .active').parent().scrollLeft(document.querySelector('.breadcrumb .active').offsetLeft); 
     },
 
     componentWillUnmount() {
@@ -261,17 +266,21 @@ module.exports = React.createClass({
                                 </div>
                                 <hr className="mb-3"/>
                                 <div className="ilv-media ilv-media-middle">
-                                    <div className="ilv-media-left mr-3">
-                                        <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcessStep')}:</span>
-                                    </div>
-                                    <div className="ilv-media-body">
+                                    
+                                    <div className="ilv-media-body" style={{ width: '100%'}}>
                                         {isCoach ? (<select className="ilv-form-control ilv-form-control-sm" defaultValue={session.ProcessStep} onChange={this.updateProcessStep}>
+                                            <div className="ilv-media-left mr-3">
+                                                <span className="ilv-font-weight-semibold">{Messages.get('LabelRelatedProcessStep')}:</span>
+                                            </div>
                                             {process.Steps.map((step, index) => {
                                                 return <option value={index} key={"process-step-"+index}>{index+1} - {step.Label}</option>
                                             })}
-                                        </select>):(<div>
-                                            {session.ProcessStep + 1} - {process.Steps[session.ProcessStep].Label}
-                                        </div>)}
+                                        </select>):(<div className="dvBreadcrumb" style={{overflowX: 'auto'}}><ul className="breadcrumb mb-3 breadcrumb-scroll">
+                                            {process.Steps.map((step1, index1) => {
+                                                ProcessStep = (session.ProcessStep == index1 ? "active" : session.ProcessStep > index1 ? "completed" : "");
+                                                return <li className={ProcessStep }><a href="javascript:;" title={step1.Label }>{ (step1.Label.length > 20 ? step1.Label.substring(0, 20) + ' ...' : step1.Label) }</a></li>
+                                            })}
+                                        </ul></div>)}
                                     </div>
                                 </div>
 

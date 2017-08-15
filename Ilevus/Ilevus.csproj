@@ -398,6 +398,7 @@
     <Content Include="sass\fontawesome\_screen-reader.scss" />
     <Content Include="sass\fontawesome\_stacked.scss" />
     <Content Include="sass\fontawesome\_variables.scss" />
+    <Content Include="sass\custom\_coaching.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>

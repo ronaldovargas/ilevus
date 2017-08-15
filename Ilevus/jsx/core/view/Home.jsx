@@ -77,17 +77,17 @@ module.exports = React.createClass({
                           </div>
                       </div>
                       <div className="row mb-3">
-              				<div className="col mb-3 text-center">
+              				<div className="col-xs-12 col-sm-12 col-md-4 mb-3 text-center">
                               <img className="ilv-lp-icon-lg mb-2" src={IconSupport} />
             				<h3>Suporte Profissional</h3>
     						<p>Encontre profissionais especializados em várias áreas de conhecimento, para te dar suporte na elaboração e execução dos seus projetos pessoais.</p>
               				</div>
-              						<div className="col mb-3 text-center">
+              						<div className="col-xs-12 col-sm-12 col-md-4 mb-3 text-center">
                               <img className="ilv-lp-icon-lg mb-2" src={IconNetworking} />
                 							<h3>Networking</h3>
                 							<p>Agende reuniões, envie mensagens e troque conhecimento com pessoas que podem ajudar a mudar seu futuro.</p>
               						</div>
-              						<div className="col text-center">
+              						<div className="col-xs-12 col-sm-12 col-md-4 text-center">
                               <img className="ilv-lp-icon-lg mb-2" src={IconGrowth} />
                 							<h3>Crescimento Pessoal</h3>
                 							<p>Torne-se uma pessoa melhor através de orientações que irão te ajudar a alcançar seus objetivos de forma a ser um destaque.</p>
