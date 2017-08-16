@@ -80,10 +80,18 @@ namespace ilevus.App_Start
 
     public class IlevusEmailService : IIdentityMessageService
     {
-        
+
         public Task SendAsync(IdentityMessage message)
         {
-            SmtpClient client = new SmtpClient() {
+            bool isSystemMessage = false;
+            if (message.Destination.Contains("|"))
+            {
+                isSystemMessage = true;
+                message.Destination = message.Destination.Remove(0, 1);
+            }
+
+            SmtpClient client = new SmtpClient()
+            {
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Host = "progolden.com.br",
                 Port = 587,
@@ -104,7 +112,7 @@ namespace ilevus.App_Start
                 From = "system",
                 InfoNotification = message.Body,
                 Status = false,
-                User_id = message.Destination
+                User_id = isSystemMessage ? "0" : message.Destination
             });
 
             return client.SendMailAsync(email);

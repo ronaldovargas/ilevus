@@ -39,6 +39,7 @@ var UserSession = Backbone.Model.extend({
 	ACTION_UPDATE_PROFESSIONAL_SERVICES: 'updateProfessionalServices',
 	ACTION_UPDATE_PROFESSIONAL_BANK_ACCOUNT: 'updateProfessionalBankAccount',
 	ACTION_UPDATE_PROCESS_STEPS: 'updateProcessSteps',
+	ACTION_SEND_SYSTEM_NOTIFICATIONS: 'sendSystemNotifications',
 
 	ACTION_REMOVE_PICTURE: 'removePicture',
 
@@ -494,6 +495,25 @@ var UserSession = Backbone.Model.extend({
 	        data: params,
 	        success(data, status, opts) {
 	            me.trigger("updatepassword", true);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	sendSystemNotifications(dadosMensagem) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/SendEmail?assunto=" + dadosMensagem.pt.assunto + "&mensagem=" + dadosMensagem.pt.mensagem,
+	        dataType: 'json',
+	        data: {
+	            assunto: dadosMensagem.pt.assunto,
+	            mensagem: dadosMensagem.pt.mensagem
+	        },
+	        success(data, status, opts) {
+	            me.trigger("sendSystemNotifications-ok", true);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);
