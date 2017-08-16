@@ -84,10 +84,13 @@ namespace ilevus.App_Start
         public Task SendAsync(IdentityMessage message)
         {
             bool isSystemMessage = false;
+            string idUsuario = string.Empty;
+
             if (message.Destination.Contains("|"))
             {
+                idUsuario = message.Destination.Split('|')[0];
+                message.Destination = message.Destination.Split('|')[1];
                 isSystemMessage = true;
-                message.Destination = message.Destination.Remove(0, 1);
             }
 
             SmtpClient client = new SmtpClient()
@@ -112,7 +115,7 @@ namespace ilevus.App_Start
                 From = "system",
                 InfoNotification = message.Body,
                 Status = false,
-                User_id = isSystemMessage ? "0" : message.Destination
+                User_id = isSystemMessage ? idUsuario : message.Destination
             });
 
             return client.SendMailAsync(email);
@@ -153,7 +156,8 @@ namespace ilevus.App_Start
             var user = userManager.FindByName(email);
             if (user == null)
             {
-                user = new IlevusUser {
+                user = new IlevusUser
+                {
                     UserName = email,
                     Email = email,
                     EmailConfirmed = true,
@@ -162,8 +166,9 @@ namespace ilevus.App_Start
                     Sex = "M",
                     PhoneNumber = "031 999999999",
                     Image = null,
-                    
-                    Professional = new UserProfessionalProfile() {
+
+                    Professional = new UserProfessionalProfile()
+                    {
                         City = "Belo Horizonte",
                         County = "Minas Gerais",
                         Country = "Brasil",
