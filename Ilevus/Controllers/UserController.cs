@@ -574,7 +574,7 @@ namespace ilevus.Controllers
 		}
 
         [HttpPost]
-        [Route("SendEmail")]
+        [Route("SendEmail2")]
         public async Task<IHttpActionResult> SendEmail(string assunto, string mensagem)
         {
             var mailService = new IlevusEmailService();
