@@ -1,7 +1,4 @@
-﻿adminpanelmensagens
-
-
-var React = require("react");
+﻿var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
 

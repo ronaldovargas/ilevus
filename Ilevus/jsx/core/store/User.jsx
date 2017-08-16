@@ -47,7 +47,8 @@ var UserStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE: 'user-retrieve',
     ACTION_SIGNUP: 'user-signup',
     ACTION_SEARCH: 'user-search',
-	ACTION_FIND: 'user-find',
+    ACTION_FIND: 'user-find',
+    ACTION_ALL: 'user-all',
 	ACTION_DESTROY: 'user-destroy',
 	dispatchAcceptRegex: /^user-[a-zA-Z0-9]+$/,
 
@@ -57,6 +58,21 @@ var UserStore = Fluxbone.Store.extend({
 	signup(data) {
 	    return this.create(data, {
             url: this.url+"/Register"
+	    });
+	},
+	all() {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: Fluxbone.BACKEND_URL + "/AllUsers",
+	        dataType: 'json',
+	        data: null,
+	        success(data, status, opts) {
+	            me.trigger("all", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
 	    });
 	},
 	search(params) {
