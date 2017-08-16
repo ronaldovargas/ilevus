@@ -25,7 +25,7 @@ namespace ilevus.Models
 		public const string SystemConfigTable = "ilevus_system";
 		public const string SystemMessagesTable = "ilevus_messages";
 		public const string UsersTable = "users";
-		public const string NotificationsTable = "notifications";        
+		public const string NotificationsTable = "notifications";
 	}
 
 
@@ -79,6 +79,13 @@ namespace ilevus.Models
 		{
 			return IlevusDatabase.GetCollection<IlevusUser>(IlevusTableNames.UsersTable);
 		}
+
+
+		public IMongoCollection<SystemMessages> GetSystemMessagesCollection()
+		{
+			return IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
+		}
+
 
 		public IMongoCollection<NotificationModel> GetNotificationsCollection()
 		{
@@ -344,25 +351,25 @@ namespace ilevus.Models
 							Template = es.GetString("EmailWelcomeBody")
 						}
 					},
-                    SystemMessage = new SystemTranslatedEmail()
-                    {
-                        pt_br = new SystemEmail()
-                        {
-                            Subject = pt_br.GetString("EmailWelcomeSubject"),
-                            Template = pt_br.GetString("EmailWelcomeBody")
-                        },
-                        en = new SystemEmail()
-                        {
-                            Subject = en.GetString("EmailWelcomeSubject"),
-                            Template = en.GetString("EmailWelcomeBody")
-                        },
-                        es = new SystemEmail()
-                        {
-                            Subject = es.GetString("EmailWelcomeSubject"),
-                            Template = es.GetString("EmailWelcomeBody")
-                        }
-                    }
-                };
+					SystemMessage = new SystemTranslatedEmail()
+					{
+						pt_br = new SystemEmail()
+						{
+							Subject = pt_br.GetString("EmailWelcomeSubject"),
+							Template = pt_br.GetString("EmailWelcomeBody")
+						},
+						en = new SystemEmail()
+						{
+							Subject = en.GetString("EmailWelcomeSubject"),
+							Template = en.GetString("EmailWelcomeBody")
+						},
+						es = new SystemEmail()
+						{
+							Subject = es.GetString("EmailWelcomeSubject"),
+							Template = es.GetString("EmailWelcomeBody")
+						}
+					}
+				};
 
 				configCollection.InsertOne(configs);
 			}
@@ -382,6 +389,11 @@ namespace ilevus.Models
 			try
 			{
 				messages = Messages[lang];
+				if (messages.Messages.Any(x => x.Key == "TextFooterContent" && x.Value.Content == "???TextFooterContent???"))
+				{
+					messages.Add("TextFooterContent", new SystemLabel { Content = "/cms/ConteudoRodape-PtBr.html" });
+				}
+
 			}
 			catch (KeyNotFoundException ex)
 			{
@@ -393,6 +405,10 @@ namespace ilevus.Models
 			try
 			{
 				messages = Messages[lang];
+				if (messages.Messages.Any(x => x.Key == "TextFooterContent" && x.Value.Content == "???TextFooterContent???"))
+				{
+					messages.Add("TextFooterContent", new SystemLabel { Content = "/cms/ConteudoRodape-EnUs.html" });
+				}
 			}
 			catch (KeyNotFoundException ex)
 			{
@@ -404,6 +420,11 @@ namespace ilevus.Models
 			try
 			{
 				messages = Messages[lang];
+				if (messages.Messages.Any(x => x.Key == "TextFooterContent" && x.Value.Content == "???TextFooterContent???"))
+				{
+					messages.Add("TextFooterContent", new SystemLabel { Content = "/cms/ConteudoRodape-Es.html" });
+				}
+
 			}
 			catch (KeyNotFoundException ex)
 			{
@@ -447,12 +468,17 @@ namespace ilevus.Models
 			var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
 			var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
 			var result = collection.UpdateManyAsync(filter, update).Result;
-			
+
 			RemoveField("Financial");
 			RemoveField("Professional.BankAccount");
 			RemoveField("Professional.BirthDate");
 			RemoveField("Professional.StreetNumber");
 
+			//var msgs = GetSystemMessagesCollection();
+			//FieldDefinition<sys> field = "Messages.TextFooterContent";
+			//var filter2 = Builders<SystemMessages>.Filter.Exists(field);
+			//var update2 = Builders<SystemMessages>.Update.Set(field, new SystemLabel());
+			collection.UpdateMany(filter, update);
 		}
 
 		private void RemoveField(string fieldName)
