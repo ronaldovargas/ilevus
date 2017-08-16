@@ -52,9 +52,24 @@ namespace ilevus.Controllers
 			AccessTokenFormat = accessTokenFormat;
 		}
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("AllUsers")]
+        public async Task<IHttpActionResult> AllUsers()
+        {
+            var db = IlevusDBContext.Create();
+            var builder = Builders<IlevusUser>.Filter;
+            var filters = builder.Eq("Status", UserStatus.Active);
+            var collection = db.GetUsersCollection();
+            var results = await collection.FindAsync(filters);
+            var users = await results.ToListAsync();
 
-		// GET api/Account/{id}
-		[AllowAnonymous]
+            return Ok(users);
+        }
+
+
+        // GET api/Account/{id}
+        [AllowAnonymous]
 		[HttpGet]
 		[Route("{Id}")]
 		public async Task<IHttpActionResult> GetPublicProfile(string Id)

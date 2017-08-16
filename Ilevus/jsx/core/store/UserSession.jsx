@@ -8,6 +8,7 @@ var Backbone = require("backbone");
 var S = require("string");
 var Dispatcher = require("flux").Dispatcher;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var UserSession = Backbone.Model.extend({
     ACTION_REFRESH: 'refreshStatus',
@@ -504,21 +505,29 @@ var UserSession = Backbone.Model.extend({
 
 	sendSystemNotifications(dadosMensagem) {
 	    var me = this;
-	    $.ajax({
-	        method: "POST",
-	        url: me.url + "/SendEmail?assunto=" + dadosMensagem.pt.assunto + "&mensagem=" + dadosMensagem.pt.mensagem,
-	        dataType: 'json',
-	        data: {
-	            assunto: dadosMensagem.pt.assunto,
-	            mensagem: dadosMensagem.pt.mensagem
-	        },
-	        success(data, status, opts) {
-	            me.trigger("sendSystemNotifications-ok", true);
-	        },
-	        error(opts, status, errorMsg) {
-	            me.handleRequestErrors([], opts);
-	        }
-	    });
+
+	    UserStore.on("all", (lista) => {
+	        console.log('lista de usuarios', lista);
+	        $.ajax({
+	            method: "POST",
+	            url: me.url + "/SendEmail?assunto=" + dadosMensagem.pt.assunto + "&mensagem=" + dadosMensagem.pt.mensagem,
+	            dataType: 'json',
+	            data: {
+	                assunto: dadosMensagem.pt.assunto,
+	                mensagem: dadosMensagem.pt.mensagem
+	            },
+	            success(data, status, opts) {
+	                me.trigger("sendSystemNotifications-ok", true);
+	            },
+	            error(opts, status, errorMsg) {
+	                me.handleRequestErrors([], opts);
+	            }
+	        });
+	    }, me);
+
+	    UserStore.dispatch({
+	        action: UserStore.ACTION_ALL
+	    });	    
 	},
 
 	updateConfirmedEmail(email) {
