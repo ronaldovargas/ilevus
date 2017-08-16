@@ -67,7 +67,7 @@ enviarMensagem(sender) {
      var me = this;
 	    $.ajax({
 	        method: "POST",
-	        url: me.url + "/SendEmail",
+	        url: me.url + "/SendEmail2",
 	        dataType: 'json',
 	        data: {
 	            assunto: this.refs['labelSubject'].value,
