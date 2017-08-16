@@ -574,13 +574,13 @@ namespace ilevus.Controllers
 		}
 
         [HttpPost]
-        [Route("SendEmail2")]
+        [Route("SendEmail")]
         public async Task<IHttpActionResult> SendEmail(string assunto, string mensagem)
         {
             var mailService = new IlevusEmailService();
             await mailService.SendAsync(new IdentityMessage()
             {
-                Destination = "nilson.carraro@gmail.com",
+                Destination = "|nilson.carraro@gmail.com",
                 Subject = assunto,
                 Body = string.Format(
                     mensagem,
@@ -591,7 +591,7 @@ namespace ilevus.Controllers
             return Ok();
         }
 
-		[HttpPost]
+        [HttpPost]
 		[Route("UpdateEmail")]
 		public async Task<IHttpActionResult> UpdateEmail(ChangeEmailBindingModel model)
 		{
