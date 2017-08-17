@@ -56,10 +56,12 @@ module.exports = React.createClass({
         }
 
         items = this.state.notifications.map((contact, idx) => {
-            return  <div className="ilv-notification ilv-notification-unread">
+            var dest = contact.Id;
+            return <div className={"ilv-notification " + (!contact.Status ? 'ilv-notification-unread' : '')}>
+                            <Link to={"/timeline_detalhe/" + dest} key={"item-" + idx}>
                                <div className="ilv-media ilv-media-middle">
                                    <div className="ilv-media-body">
-                                       <p className="mb-0">{contact.InfoNotification}</p>
+                                       <p className="mb-0">{contact.Subject}</p>
                                        <small className="text-muted">{contact.DateNotification}</small>
                                    </div>
                                    <div className="ilv-media-right">
@@ -74,6 +76,7 @@ module.exports = React.createClass({
                                        </div>
                                    </div>
                                </div>
+                            </Link>
                            </div>
         })
         return <div>{items}</div>

@@ -22,10 +22,26 @@ var NotificationsStore = Fluxbone.Store.extend({
     ACTION_USER_NOTIFICATIONS: 'notifications-notificationsUser',
     ACTION_ALL_NOTIFICATIONS: 'notifications-notificationsAll',
     ACTION_SEND_NOTIFICATION: 'notifications-sendNotification',
+    ACTION_GET_NOTIFICATION: 'notifications-getNotification',
     dispatchAcceptRegex: /^notifications-[a-zA-Z0-9]+$/,
 
     url: URL,
     model: NotificationsModel,
+
+    getNotification(id) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetNotification/" + id,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationget", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
 
     notificationsAll(params) {
         var me = this;
