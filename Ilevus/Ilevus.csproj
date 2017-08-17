@@ -316,11 +316,6 @@
     <Content Include="jsx\core\store\notifications\Notification.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -384,21 +379,6 @@
     <Content Include="sass\custom\_notifications.scss" />
     <Content Include="sass\custom\_rating.scss" />
     <Content Include="sass\components\_overlay.scss" />
-    <Content Include="sass\fontawesome\font-awesome.scss" />
-    <Content Include="sass\fontawesome\_animated.scss" />
-    <Content Include="sass\fontawesome\_bordered-pulled.scss" />
-    <Content Include="sass\fontawesome\_core.scss" />
-    <Content Include="sass\fontawesome\_fixed-width.scss" />
-    <Content Include="sass\fontawesome\_icons.scss" />
-    <Content Include="sass\fontawesome\_larger.scss" />
-    <Content Include="sass\fontawesome\_list.scss" />
-    <Content Include="sass\fontawesome\_mixins.scss" />
-    <Content Include="sass\fontawesome\_path.scss" />
-    <Content Include="sass\fontawesome\_rotated-flipped.scss" />
-    <Content Include="sass\fontawesome\_screen-reader.scss" />
-    <Content Include="sass\fontawesome\_stacked.scss" />
-    <Content Include="sass\fontawesome\_variables.scss" />
-    <Content Include="sass\custom\_coaching.scss" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>
