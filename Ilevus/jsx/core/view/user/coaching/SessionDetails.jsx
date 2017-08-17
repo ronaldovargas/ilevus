@@ -127,10 +127,12 @@ module.exports = React.createClass({
             action: CoachingStore.ACTION_RETRIEVE_COACHING_PROCESS,
             data: me.props.params.id
         });
+
     },
     componentDidUpdate() {
-        if (jQuery('.breadcrumb .active').parent() != null)
-            jQuery('.breadcrumb .active').parent().scrollLeft(document.querySelector('.breadcrumb .active').offsetLeft); 
+        setTimeout(function () {
+            jQuery('.breadcrumb .active').parent().scrollLeft(document.querySelector('.breadcrumb .active').offsetLeft);
+        }, 2000);
     },
 
     componentWillUnmount() {

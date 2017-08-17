@@ -271,6 +271,9 @@
     <Content Include="cms\ConteudoRodape-EngUs.html" />
     <Content Include="cms\ConteudoRodape-Es.html" />
     <Content Include="cms\ConteudoRodape-PtBr.html" />
+    <Content Include="cms\PoliticaDePrivacidade-EngUs.html" />
+    <Content Include="cms\PoliticaDePrivacidade-Es.html" />
+    <Content Include="cms\PoliticaDePrivacidade-PtBr.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ilevus.MoipClient.csproj" />
