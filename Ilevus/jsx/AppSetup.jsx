@@ -212,8 +212,8 @@ Messages.load(function (success) {
                         <Route path="messages" component={NotificationsMessages} />
                         <Route path="messages/:destination" component={NotificationsMessages} />                        
                         <Route path="timeline" component={NotificationsTimeline} />
-                    </Route>
-                    <Route path="timeline_detalhe/:destination" component={NotificationsDetalhes} />
+                        <Route path="timeline_detalhe/:destination" component={NotificationsDetalhes} />
+                    </Route>                    
 
                     <Route path="become-a-professional" component={ProfileWizard}>
                       <Route path="basic" component={ProfileWizardBasic} />

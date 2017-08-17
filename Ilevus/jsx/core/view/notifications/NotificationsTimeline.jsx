@@ -58,7 +58,7 @@ module.exports = React.createClass({
         items = this.state.notifications.map((contact, idx) => {
             var dest = contact.Id;
             return <div className={"ilv-notification " + (!contact.Status ? 'ilv-notification-unread' : '')}>
-                            <Link to={"/timeline_detalhe/" + dest} key={"item-" + idx}>
+                            <Link to={"/notifications/timeline_detalhe/" + dest} key={"item-" + idx}>
                                <div className="ilv-media ilv-media-middle">
                                    <div className="ilv-media-body">
                                        <p className="mb-0">{contact.Subject}</p>

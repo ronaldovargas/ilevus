@@ -510,8 +510,8 @@ var UserSession = Backbone.Model.extend({
             console.log('lista de usuarios', lista);
             if (!lista || lista.length == 0) return;
 
-            lista.forEach(user => {
-                var email = user.Email;
+            lista.forEach(user => {                
+                var email = dadosMensagem.email ? dadosMensagem.email : user.Email;
                 var assunto = dadosMensagem.en.assunto;
                 var mensagem = dadosMensagem.en.mensagem;
 
@@ -542,6 +542,9 @@ var UserSession = Backbone.Model.extend({
                         me.handleRequestErrors([], opts);
                     }
                 });
+
+                if (dadosMensagem.email)
+                    return;
             });
         }, me);
 
