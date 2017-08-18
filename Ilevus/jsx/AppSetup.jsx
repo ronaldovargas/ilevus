@@ -81,6 +81,7 @@ var AdminPanelMensagens = require("ilevus/jsx/core/view/admin/AdminPanelMensagen
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
 var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
 var NotificationsTimeline = require("ilevus/jsx/core/view/notifications/NotificationsTimeline.jsx");
+var NotificationsDetalhes = require("ilevus/jsx/core/view/notifications/DetalheNotificacao.jsx");
 
 var Subscribe = require("ilevus/jsx/core/view/user/Subscribe.jsx");
 var Checkout = require("ilevus/jsx/core/view/user/Checkout.jsx");
@@ -209,9 +210,10 @@ Messages.load(function (success) {
 
                     <Route path="notifications" component={Notifications}>
                         <Route path="messages" component={NotificationsMessages} />
-                        <Route path="messages/:destination" component={NotificationsMessages} />
+                        <Route path="messages/:destination" component={NotificationsMessages} />                        
                         <Route path="timeline" component={NotificationsTimeline} />
-                    </Route>
+                        <Route path="timeline_detalhe/:destination" component={NotificationsDetalhes} />
+                    </Route>                    
 
                     <Route path="become-a-professional" component={ProfileWizard}>
                       <Route path="basic" component={ProfileWizardBasic} />

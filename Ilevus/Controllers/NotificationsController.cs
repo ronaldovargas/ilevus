@@ -33,7 +33,7 @@ namespace ilevus.Controllers
 
             var db = IlevusDBContext.Create();
             var builder = Builders<NotificationModel>.Filter;
-            var filters = builder.Eq("Status", false) & (builder.Eq("User_id", Id) | builder.Eq("User_id", "0"));
+            var filters = (builder.Eq("User_id", Id) | builder.Eq("User_id", "0"));
             var collection = db.GetNotificationsCollection();
             try
             {
@@ -75,14 +75,16 @@ namespace ilevus.Controllers
             }
         }
 
+
+
         [HttpGet]
         [Route("SetRead/{id}")]
         public async Task<IHttpActionResult> SetReadyNotification(string Id)
         {
             var db = IlevusDBContext.Create();
-            var filters = Builders<Ad>.Filter;
-            var updates = Builders<Ad>.Update;
-            var collection = db.GetAdsCollection();
+            var filters = Builders<NotificationModel>.Filter;
+            var updates = Builders<NotificationModel>.Update;
+            var collection = db.GetNotificationsCollection();
             try
             {
                 var result = await collection.FindAsync(filters.Eq("Id", Id));
@@ -93,9 +95,9 @@ namespace ilevus.Controllers
                 }
                 await collection.UpdateOneAsync(
                     filters.Eq("Id", Id),
-                    updates.Inc("Status", true)
+                    updates.Set("Status", !notification.Status)
                 );
-                return Redirect(notification.Link);
+                return await GetNotifications(notification.User_id);
             }
             catch (Exception e)
             {
@@ -172,15 +174,40 @@ namespace ilevus.Controllers
 
 
 
+        [HttpGet]
+        [Route("GetNotification/{id}")]
+        public async Task<IHttpActionResult> GetNotification(string Id)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<NotificationModel>.Filter;
+            var collection = db.GetNotificationsCollection();
+            try
+            {
+                var result = await collection.FindAsync(filters.Eq("Id", Id));
+                var notification = await result.FirstOrDefaultAsync();
+                if (notification == null)
+                {
+                    return NotFound();
+                }
+
+                await SetReadyNotification(Id);               
+                return Ok(notification);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
 
         [HttpGet]
         [Route("DelNotification/{id}")]
         public async Task<IHttpActionResult> DelNotification(string Id)
         {
             var db = IlevusDBContext.Create();
-            var filters = Builders<Ad>.Filter;
-            var updates = Builders<Ad>.Update;
-            var collection = db.GetAdsCollection();
+            var filters = Builders<NotificationModel>.Filter;
+            var updates = Builders<NotificationModel>.Update;
+            var collection = db.GetNotificationsCollection();
             try
             {
                 var result = await collection.FindAsync(filters.Eq("Id", Id));
@@ -192,7 +219,7 @@ namespace ilevus.Controllers
                 await collection.DeleteOneAsync(
                     filters.Eq("Id", Id)
                 );
-                return Redirect(notification.Link);
+                return await GetNotifications(notification.User_id);
             }
             catch (Exception e)
             {

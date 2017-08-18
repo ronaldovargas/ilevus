@@ -116,7 +116,7 @@ namespace ilevus.Controllers
                         From = model.CoacheeEmail,
                         InfoNotification = model.Subject,
                         Status = false,
-                        Subject = "agendamento",
+                        Subject = "Agendamento de reunião",
                         User_id = model.UserId
                     });
                 } catch (Exception ex)
