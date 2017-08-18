@@ -26,7 +26,9 @@ namespace ilevus.Models
 		public const string SystemMessagesTable = "ilevus_messages";
 		public const string UsersTable = "users";
 		public const string NotificationsTable = "notifications";
-	}
+
+        public const string SystemDefinitionsTable = "ilevus_definitions";
+    }
 
 
 	public class IlevusDBContext : MongoClient, IDisposable
@@ -35,7 +37,10 @@ namespace ilevus.Models
 		public static SystemConfig SystemConfiguration { get; private set; }
 		public static IDictionary<string, SystemMessages> Messages { get; private set; }
 
-		public static IlevusDBContext Create()
+        public static SystemDefinitions SystemDefinitions { get; private set; }
+        
+
+        public static IlevusDBContext Create()
 		{
 			return new IlevusDBContext("mongodb://localhost:27017");
 		}

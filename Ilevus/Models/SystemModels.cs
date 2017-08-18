@@ -113,5 +113,30 @@ namespace ilevus.Models
         public string MoipCryptoPublicKey { get; set; }
     }
 
+    public class SystemDefinitions
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public SystemTranslatedEmail WelcomeMessages { get; set; }
+        public SystemTranslatedEmail EmailValidationMessages { get; set; }
+        public SystemTranslatedEmail AccountBlockingMessages { get; set; }
+        public SystemTranslatedEmail RecoverPasswordMessages { get; set; }
+        public SystemTranslatedEmail SystemMessage { get; set; }
+
+        public string PathAds { get; set; }
+
+        public SystemDefinitions(string FixedId)
+        {
+            Id = FixedId;
+        }
+    }
+
+    public class SystemDefinitionsConfigsBindingModel
+    {
+        public string PathAds { get; set; }
+
+    }
+
 
 }
