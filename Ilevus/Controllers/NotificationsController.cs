@@ -205,9 +205,9 @@ namespace ilevus.Controllers
         public async Task<IHttpActionResult> DelNotification(string Id)
         {
             var db = IlevusDBContext.Create();
-            var filters = Builders<Ad>.Filter;
-            var updates = Builders<Ad>.Update;
-            var collection = db.GetAdsCollection();
+            var filters = Builders<NotificationModel>.Filter;
+            var updates = Builders<NotificationModel>.Update;
+            var collection = db.GetNotificationsCollection();
             try
             {
                 var result = await collection.FindAsync(filters.Eq("Id", Id));
@@ -219,7 +219,7 @@ namespace ilevus.Controllers
                 await collection.DeleteOneAsync(
                     filters.Eq("Id", Id)
                 );
-                return Redirect(notification.Link);
+                return Ok(notification);
             }
             catch (Exception e)
             {

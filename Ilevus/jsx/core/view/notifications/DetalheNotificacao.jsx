@@ -58,9 +58,9 @@ getInitialState() {
 					<div className="row">
 						<div className="col-sm-12">
                             <div>
-                                Detalhes da notificação<br/>
+                                <h4>Detalhes da notificação</h4>
                             </div>
-                            <div>
+                            <div className="hora-notificacao">
                                 {Messages.get("LabelDataNotificacao")}: {notif.DateNotification}<br/>
                                 {Messages.get("LabelEnviadoPor")}: {notif.From}
                             </div>                            

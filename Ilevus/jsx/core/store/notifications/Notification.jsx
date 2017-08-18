@@ -23,6 +23,8 @@ var NotificationsStore = Fluxbone.Store.extend({
     ACTION_ALL_NOTIFICATIONS: 'notifications-notificationsAll',
     ACTION_SEND_NOTIFICATION: 'notifications-sendNotification',
     ACTION_GET_NOTIFICATION: 'notifications-getNotification',
+    ACTION_READ_NOTIFICATION: 'notifications-readNotification',
+    ACTION_DELETE_NOTIFICATION: 'notifications-deleteNotification',
     dispatchAcceptRegex: /^notifications-[a-zA-Z0-9]+$/,
 
     url: URL,
@@ -36,6 +38,36 @@ var NotificationsStore = Fluxbone.Store.extend({
             dataType: 'json',
             success(data, status, opts) {
                 me.trigger("notificationget", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    deleteNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/DelNotification/" + idNotification,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationsall", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    readNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/SetRead/" + idNotification,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationsall", data);
             },
             error(opts, status, errorMsg) {
                 me.handleRequestErrors([], opts);

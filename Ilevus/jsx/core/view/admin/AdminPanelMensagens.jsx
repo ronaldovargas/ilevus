@@ -38,6 +38,12 @@ module.exports = React.createClass({
             $("button").removeAttr("disabled");
         }, me);
 
+        UserSession.on('sendSystemNotifications-ok', (result) => {
+            if (result == true) {
+                alert('e-mail enviado com sucesso');
+            }
+        });
+
         SystemStore.dispatch({
             action: SystemStore.ACTION_RETRIEVE_CONFIG
         });
@@ -183,6 +189,7 @@ return (<div>
     </label>
                                 <input spellCheck={false}
                                        typeof="email"
+                                       style={{marginBottom: "10px"}}
                                        className="ilv-form-control"
                                        id={"notif-email-teste"}
                                        ref={"notif-email-teste"} />

@@ -510,7 +510,15 @@ var UserSession = Backbone.Model.extend({
             console.log('lista de usuarios', lista);
             if (!lista || lista.length == 0) return;
 
-            lista.forEach(user => {                
+            var qtde = 0;
+
+            lista.forEach(user => {
+                if (dadosMensagem.email && qtde > 0) {
+                    return;
+                }
+
+                qtde++;
+
                 var email = dadosMensagem.email ? dadosMensagem.email : user.Email;
                 var assunto = dadosMensagem.en.assunto;
                 var mensagem = dadosMensagem.en.mensagem;
@@ -528,17 +536,19 @@ var UserSession = Backbone.Model.extend({
 
                 $.ajax({
                     method: "POST",
-                    url: me.url + "/SendEmail?assunto=" + assunto + "&mensagem=" + mensagem + '&email=' + email + '&id=' + user.Id,
+                    url: me.url + "/SendEmail?assunto=" + assunto + "&mensagem=" + mensagem + '&email=' + email
+                        + (dadosMensagem.email ? ('&id=x') : ('&id=' + user.Id)),
                     dataType: 'json',
                     data: {
                         email: email,
                         assunto: assunto,
-                        mensagem: mensagem
+                        mensagem: mensagem,                        
                     },
                     success(data, status, opts) {
                         me.trigger("sendSystemNotifications-ok", true);
                     },
                     error(opts, status, errorMsg) {
+                        me.trigger("sendSystemNotifications-ok", true);
                         me.handleRequestErrors([], opts);
                     }
                 });
