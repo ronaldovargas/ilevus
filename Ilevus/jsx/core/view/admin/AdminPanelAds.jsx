@@ -12,6 +12,8 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx"); var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var AdForm = require("ilevus/jsx/core/widget/admin/AdForm.jsx");
 
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 module.exports = React.createClass({
@@ -51,6 +53,29 @@ module.exports = React.createClass({
             editing: null
         });
     },
+    updateAdPicture() {
+        Modal.uploadFile(
+            Messages.get("ActionSendPicture"),
+            <p>{Messages.get("TextSendPicture")}</p>,
+            UserSession.url + "/UpdatePicture",
+            (arg1, arg2) => {
+                Modal.hide();
+                Toastr.success(Messages.get("TextPictureUpdateSuccess"));
+                UserSession.dispatch({
+                    action: UserSession.ACTION_REFRESH
+                });
+            },
+            (xhr, status) => {
+                Modal.hide();
+                if (xhr.responseJSON && xhr.responseJSON.Message) {
+                    Toastr.error(xhr.responseJSON.Message);
+                } else {
+                    Toastr.error(Messages.get("TextUnexpectedError"));
+                }
+            }
+        );
+    },
+
     onAddCredit(event) {
         event && event.preventDefault();
         /*this.setState({
@@ -59,6 +84,8 @@ module.exports = React.createClass({
         });*/
         alert('adicionar crédito!');
     },
+
+
     onEditingAd(ad, event) {
         event && event.preventDefault();
         this.setState({
