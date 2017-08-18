@@ -545,10 +545,10 @@ var UserSession = Backbone.Model.extend({
                         mensagem: mensagem,                        
                     },
                     success(data, status, opts) {
-                        me.trigger("sendSystemNotifications-ok", true);
+                        //me.trigger("sendSystemNotifications-ok", true);
                     },
                     error(opts, status, errorMsg) {
-                        me.trigger("sendSystemNotifications-ok", true);
+                        //me.trigger("sendSystemNotifications-ok", true);
                         me.handleRequestErrors([], opts);
                     }
                 });
@@ -556,6 +556,7 @@ var UserSession = Backbone.Model.extend({
                 if (dadosMensagem.email)
                     return;
             });
+            me.trigger("sendSystemNotifications-ok", true);
         }, me);
 
         UserStore.dispatch({

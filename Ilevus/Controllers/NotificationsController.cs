@@ -95,9 +95,9 @@ namespace ilevus.Controllers
                 }
                 await collection.UpdateOneAsync(
                     filters.Eq("Id", Id),
-                    updates.Set("Status", true)
+                    updates.Set("Status", !notification.Status)
                 );
-                return Ok(notification);
+                return await GetNotifications(notification.User_id);
             }
             catch (Exception e)
             {
@@ -219,7 +219,7 @@ namespace ilevus.Controllers
                 await collection.DeleteOneAsync(
                     filters.Eq("Id", Id)
                 );
-                return Ok(notification);
+                return await GetNotifications(notification.User_id);
             }
             catch (Exception e)
             {

@@ -52,7 +52,7 @@ var NotificationsStore = Fluxbone.Store.extend({
             url: me.url + "/DelNotification/" + idNotification,
             dataType: 'json',
             success(data, status, opts) {
-                me.trigger("notificationsall", data);
+                me.trigger("notificationsuser", data);
             },
             error(opts, status, errorMsg) {
                 me.handleRequestErrors([], opts);
@@ -67,7 +67,7 @@ var NotificationsStore = Fluxbone.Store.extend({
             url: me.url + "/SetRead/" + idNotification,
             dataType: 'json',
             success(data, status, opts) {
-                me.trigger("notificationsall", data);
+                me.trigger("notificationsuser", data);
             },
             error(opts, status, errorMsg) {
                 me.handleRequestErrors([], opts);

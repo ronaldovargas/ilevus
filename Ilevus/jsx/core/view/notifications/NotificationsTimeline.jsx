@@ -17,7 +17,10 @@ module.exports = React.createClass({
     getInitialState() {
         return {
             loading: true,
-            notifications: []
+            notifications: [],
+            filtro: false,
+            opcaoFiltro: "0",
+            naoLidas: 0
         };
     },
     componentDidMount() {
@@ -26,18 +29,18 @@ module.exports = React.createClass({
             var me = this;
             NotificationStore.on("notificationsuser", (data) => {
                 setTimeout(() => {
-                    if (!this.state.notifications || data.length != this.state.notifications.length) {
+                    //if (!this.state.notifications || data.length != this.state.notifications.length) {
                         me.setState({
                             notifications: data,
-                            allNot: data,
-                            filtro: false,
+                            allNot: data,                            
                             loading: false
                         });
+                        this.qtdeNotifications();
 
                         //for (var i = 0; i <= 2; i++) {
                         //    this.state.notifications.push(this.state.allNot[i]);
                         //}
-                    }
+                    //}
                 }, 10);
                            
             }, me);
@@ -66,8 +69,30 @@ module.exports = React.createClass({
             data: element
         });
     },
+    alterarFiltroExibicao(event) {
+        var user = UserSession.get("user");
+        this.setState({
+            filtro: event.target.value == "0" ? false : true,
+            opcaoFiltro: event.target.value
+        });
+        NotificationStore.dispatch({
+            action: NotificationStore.ACTION_USER_NOTIFICATIONS,
+            data: { Id: user.Id }
+        });
+    },
     showAllNotifications() {
         this.state.notifications = this.state.allNot;
+    },
+    qtdeNotifications() {
+        var qtde = 0;
+        for (var i = 0; i < this.state.notifications.length; i++) {
+            if (!this.state.notifications[0].Status)
+                qtde++;
+        }
+
+        this.setState({
+            naoLidas: qtde
+        });
     },
     itensFiltrados() {
         if (!this.state.filtro)
@@ -91,9 +116,9 @@ module.exports = React.createClass({
 
         items = this.state.notifications.map((contact, idx) => {
             var dest = contact.Id;
-            //if (this.state.filtro && contact.Status) {
-            //    return <div></div>
-            //}
+            if (this.state.filtro && contact.Status) {
+                return <div></div>
+            }
 
             return <div className={"ilv-notification " + (!contact.Status ? 'ilv-notification-unread' : '')}>
                             <Link to={"/notifications/timeline_detalhe/" + dest} key={"item-" + idx}>
@@ -126,12 +151,12 @@ module.exports = React.createClass({
             <div>
                 <div className="ilv-media ilv-media-middle mb-4">
                     <div className="ilv-media-body">
-                        <h4>{Messages.get("YourNotifications")} ()</h4>
+                        <h4>{Messages.get("YourNotifications")} ({this.state.naoLidas})</h4>
                     </div>
                     <div className="ilv-media-right">
-                        <select className="ilv-form-control" value={this.state.filtro} onChange={this.render.bind()}>
-                            <option value="false">{Messages.get("AllNotifications")}</option>
-                            <option value="true">{Messages.get("UnreadNotifications")}</option>
+                        <select className="ilv-form-control" value={this.state.opcaoFiltro} onChange={this.alterarFiltroExibicao}>
+                            <option value="0">{Messages.get("AllNotifications")}</option>
+                            <option value="1">{Messages.get("UnreadNotifications")}</option>
                         </select>
                     </div>
                 </div>
