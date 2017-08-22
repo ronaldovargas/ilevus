@@ -22,10 +22,58 @@ var NotificationsStore = Fluxbone.Store.extend({
     ACTION_USER_NOTIFICATIONS: 'notifications-notificationsUser',
     ACTION_ALL_NOTIFICATIONS: 'notifications-notificationsAll',
     ACTION_SEND_NOTIFICATION: 'notifications-sendNotification',
+    ACTION_GET_NOTIFICATION: 'notifications-getNotification',
+    ACTION_READ_NOTIFICATION: 'notifications-readNotification',
+    ACTION_DELETE_NOTIFICATION: 'notifications-deleteNotification',
     dispatchAcceptRegex: /^notifications-[a-zA-Z0-9]+$/,
 
     url: URL,
     model: NotificationsModel,
+
+    getNotification(id) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetNotification/" + id,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationget", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    deleteNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/DelNotification/" + idNotification,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationsuser", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    readNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/SetRead/" + idNotification,
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("notificationsuser", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
 
     notificationsAll(params) {
         var me = this;

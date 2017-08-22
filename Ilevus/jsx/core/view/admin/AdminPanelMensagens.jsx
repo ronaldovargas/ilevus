@@ -38,6 +38,12 @@ module.exports = React.createClass({
             $("button").removeAttr("disabled");
         }, me);
 
+        UserSession.on('sendSystemNotifications-ok', (result) => {
+            if (result == true) {
+                alert('e-mail enviado com sucesso');
+            }
+        });
+
         SystemStore.dispatch({
             action: SystemStore.ACTION_RETRIEVE_CONFIG
         });
@@ -66,6 +72,7 @@ module.exports = React.createClass({
         UserSession.dispatch({
             action: UserSession.ACTION_SEND_SYSTEM_NOTIFICATIONS,
             data: {
+                email: this.refs['notif-email-teste'].value,
                 pt: {
                     assunto: this.refs['notif-pt-br-subject'].value,
                     mensagem: this.refs['notif-pt-br'].value
@@ -177,10 +184,21 @@ return (<div>
                         </div>
                     </form>
 
+
+    <label className="ilv-form-label" htmlFor={"notif-email-teste"}>{Messages.get("LabelEmailTeste")}
+    </label>
+                                <input spellCheck={false}
+                                       typeof="email"
+                                       style={{marginBottom: "10px"}}
+                                       className="ilv-form-control"
+                                       id={"notif-email-teste"}
+                                       ref={"notif-email-teste"} />
+
                     <button className="ilv-btn ilv-btn-primary"
                             ref={"notif" + "-save"}
                             onClick={this.enviarMensagem.bind(this)}>{Messages.get("LabelEnviar")}
                     </button>
+                        
 </div>
 </div>
 

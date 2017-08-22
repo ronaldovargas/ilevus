@@ -115,6 +115,7 @@ namespace ilevus.App_Start
                 From = "system",
                 InfoNotification = message.Body,
                 Status = false,
+                Subject = message.Subject,
                 User_id = isSystemMessage ? idUsuario : message.Destination
             });
 
