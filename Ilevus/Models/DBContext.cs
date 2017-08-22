@@ -108,7 +108,25 @@ namespace ilevus.Models
 			return false;
 		}
 
-		public async Task<bool> AddSystemMessagesKey(string key)
+        public async Task<bool> UpdateDefinitionsConfigs()
+        {
+            try
+            {
+                var configCollection = IlevusDatabase.GetCollection<SystemDefinitions>(IlevusTableNames.SystemDefinitionsTable);
+                var result = await configCollection.ReplaceOneAsync(FilterDefinition<SystemDefinitions>.Empty, SystemDefinitions);
+                if (result.MatchedCount > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception er) {
+                return false;
+            }
+        }
+
+
+        public async Task<bool> AddSystemMessagesKey(string key)
 		{
 			var ptBR = Messages["pt-br"];
 			var en = Messages["en"];
@@ -380,7 +398,14 @@ namespace ilevus.Models
 			}
 			SystemConfiguration = configs;
 
-			var msgCollection = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
+
+            var DefinitionCollection = IlevusDatabase.GetCollection<SystemDefinitions>(IlevusTableNames.SystemDefinitionsTable);
+            var definitions = DefinitionCollection.Find(FilterDefinition<SystemDefinitions>.Empty).FirstOrDefault();
+
+            SystemDefinitions = (definitions != null) ? definitions : new SystemDefinitions();
+
+
+            var msgCollection = IlevusDatabase.GetCollection<SystemMessages>(IlevusTableNames.SystemMessagesTable);
 			Messages = new ConcurrentDictionary<string, SystemMessages>();
 			var msgs = msgCollection.Find(FilterDefinition<SystemMessages>.Empty).ToList();
 			foreach (var msg in msgs)

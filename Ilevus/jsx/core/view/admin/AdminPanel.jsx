@@ -22,14 +22,14 @@ module.exports = React.createClass({
                             </li>
 
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/apis" activeClassName="active">
-                                APIs
+                                <Link className="ilv-nav-link" to="/admin/definitions" activeClassName="active">
+                                    {Messages.get("LabelDefinitions")}
                                 </Link>
                             </li>
 
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/admin/definitions" activeClassName="active">
-                                    {Messages.get("LabelDefinitions")}
+                                <Link className="ilv-nav-link" to="/admin/subscriptions" activeClassName="active">
+                                    {Messages.get("LabelSubscriptions")}
                                 </Link>
                             </li>
                             <li className="ilv-nav-item">

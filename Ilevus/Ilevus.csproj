@@ -519,6 +519,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
+    <Folder Include="cms\ads\" />
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>

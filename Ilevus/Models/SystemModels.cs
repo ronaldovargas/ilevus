@@ -124,11 +124,13 @@ namespace ilevus.Models
         public SystemTranslatedEmail RecoverPasswordMessages { get; set; }
         public SystemTranslatedEmail SystemMessage { get; set; }
 
-        public string PathAds { get; set; }
+        //public string PathAds { get; set; }
+        public string definitions { get; set; }
 
-        public SystemDefinitions(string FixedId)
+        public SystemDefinitions() //(string FixedId)
         {
-            Id = FixedId;
+            //Id = FixedId;
+            Id = ObjectId.GenerateNewId().ToString();
         }
     }
 

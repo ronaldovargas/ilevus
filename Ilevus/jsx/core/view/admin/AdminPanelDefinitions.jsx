@@ -20,13 +20,13 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         var me = this;
-        SystemStore.on("retrieve-config", (config) => {
+        SystemStore.on("retrieve-definition-config", (config) => {
             me.setState({
                 loading: false,
                 config: config
             });
         }, me);
-        SystemStore.on("update-config-apis", (config) => {
+        SystemStore.on("update-system-definition", (config) => {
             Toastr.remove();
             Toastr.success(Messages.get("TextDataSavedSuccessfully"));
             $("button").removeAttr("disabled");
@@ -36,7 +36,7 @@ module.exports = React.createClass({
         }, me);
 
         SystemStore.dispatch({
-            action: SystemStore.ACTION_RETRIEVE_CONFIG
+            action: SystemStore.ACTION_RETRIEVE_DEFINITIONS
         });
     },
     componentWillUnmount() {
@@ -47,14 +47,9 @@ module.exports = React.createClass({
         event.preventDefault();
 
         SystemStore.dispatch({
-            action: SystemStore.ACTION_UPDATE_CONFIG_APIS,
+            action: SystemStore.ACTION_UPDATE_DEFINITIONS,
             data: {
-                MoipBaseUrl: this.refs['MoipBaseUrl'].value,
-                MoipToken: this.refs['MoipToken'].value,
-                MoipKey: this.refs['MoipKey'].value,
-                MoipSubscriptionKey: this.refs['MoipSubscriptionKey'].value,
-                MoipSubscriptionCode: this.refs['MoipSubscriptionCode'].value,
-                MoipCryptoPublicKey: this.refs['MoipCryptoPublicKey'].value,
+                PathAds: this.refs['PathAds'].value,
             }
         });
     },
@@ -67,35 +62,16 @@ module.exports = React.createClass({
             <div className="ilv-card">
                 <div className="ilv-card-header">
                     <strong>
-                        {Messages.get("LabelMoipConfiguration")}
+                        {Messages.get("LabelDefinitions")}
                     </strong>
                 </div>
                 <div className="ilv-card-body">
                     <form onSubmit={this.saveApiConfigs}>
                         <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipBaseUrl")}</label>
-                            <input className="ilv-form-control" type="url" spellCheck={false} ref="MoipBaseUrl" defaultValue={this.state.config.MoipBaseUrl} />
+                            <label className="ilv-form-label">{Messages.get("LabelAdsBasePathUrl")}</label>
+                            <input className="ilv-form-control" type="text" spellCheck={false} ref="PathAds" defaultValue={JSON.parse(this.state.config.definitions).PathAds} />
                         </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipToken")}</label>
-                            <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipToken" defaultValue={this.state.config.MoipToken} />
-                        </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipKey")}</label>
-                            <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipKey" defaultValue={this.state.config.MoipKey} />
-                        </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipSubscriptionKey")}</label>
-                            <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipSubscriptionKey" defaultValue={this.state.config.MoipSubscriptionKey} />
-                        </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipSubscriptionCode")}</label>
-                            <input className="ilv-form-control" type="text" spellCheck={false} ref="MoipSubscriptionCode" defaultValue={this.state.config.MoipSubscriptionCode} />
-                        </div>
-                        <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelMoipCryptoPublicKey")}</label>
-                            <textarea className="ilv-form-control" spellCheck={false} ref="MoipCryptoPublicKey" defaultValue={this.state.config.MoipCryptoPublicKey} />
-                        </div>
+                        
                         <button type="submit" className="ilv-btn ilv-btn-success">{Messages.get("LabelSave")}</button>
                     </form>
                 </div>
