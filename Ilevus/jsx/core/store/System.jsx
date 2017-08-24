@@ -23,6 +23,10 @@ var SystemStore = Fluxbone.Store.extend({
     ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
     ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
     ACTION_UPDATE_CONFIG_APIS: 'system-updateConfigApis',
+
+    ACTION_RETRIEVE_DEFINITIONS: 'system-retrieveDefinitionsConfig',
+    ACTION_UPDATE_DEFINITIONS: 'system-updateDefinitionsConfigs',
+
     ACTION_ADD_TRANSLATION_KEY: "system-addTranslationKey",
     ACTION_REVIEW_TRANSLATION_KEY: "system-reviewTranslationKey",
     ACTION_UPDATE_TRANSLATION: "system-updateTranslation",
@@ -152,6 +156,39 @@ var SystemStore = Fluxbone.Store.extend({
 	        data: JSON.stringify(params),
 	        success(data, status, opts) {
 	            me.trigger("translations-synced", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+
+	retrieveDefinitionsConfig() {
+	    var me = this;
+	    $.ajax({
+	        method: "GET",
+	        url: me.url + "/Config/RetriveDefinitions",
+	        dataType: 'json',
+	        success(data, status, opts) {
+	            me.trigger("retrieve-definition-config", data);
+	        },
+	        error(opts, status, errorMsg) {
+	            me.handleRequestErrors([], opts);
+	        }
+	    });
+	},
+
+	updateDefinitionsConfigs(params) {
+	    var me = this;
+	    $.ajax({
+	        method: "POST",
+	        url: me.url + "/Config/Definitions",
+	        dataType: 'json',
+	        contentType: "application/json",
+	        data: JSON.stringify(params),
+	        success(data, status, opts) {
+	            me.trigger("update-system-definition", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

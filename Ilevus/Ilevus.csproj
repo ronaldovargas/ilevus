@@ -317,6 +317,7 @@
     <Content Include="jsx\core\store\notifications\Notification.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
     <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
+    <Content Include="jsx\core\view\admin\AdminPanelDefinitions.jsx" />
     <None Include="jsx\core\view\help\markdown-guide.md" />
     <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
     <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -519,6 +520,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
+    <Folder Include="cms\ads\" />
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
