@@ -57,6 +57,11 @@ module.exports = React.createClass({
                                     {Messages.get("LabelCompany")}
                                 </a>
                             </li>
+                              <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/user/assessments" activeClassName="active">
+                                    {Messages.get("LabelAssessments")}
+                                 </Link>
+                              </li>
                         </ul>
                     </div>
                 </div>

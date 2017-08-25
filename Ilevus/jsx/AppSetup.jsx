@@ -55,6 +55,7 @@ var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalPro
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
 var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
 var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
+var UserAssessments = require("ilevus/jsx/core/view/user/Assessments.jsx");
 
 var ProcessDefinition = require("ilevus/jsx/core/view/user/coaching/CoachingProcessesDefinition.jsx");
 var CoachingToolsContainer = require("ilevus/jsx/core/view/user/coaching/tools/CoachingToolsContainer.jsx");
@@ -170,6 +171,7 @@ Messages.load(function (success) {
 
                     <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />
+                    <Route path="assessments" component={UserAssessments} />
 
                     <Route path="user" component={UserManagement}>
                         <Route path="account" component={UserAccount} />
@@ -179,6 +181,7 @@ Messages.load(function (success) {
                         <Route path="professional-profile" component={UserProfessionalProfile} />
                         <Route path="profile" component={UserProfile} />
                         <Route path="schedule" component={UserViewSchedule} />
+                        <Route path="assessments" component={UserAssessments} />
                         <Route path="schedule/configure" component={UserSchedule} />
                         <Route path="coaching-tools" component={CoachingToolsContainer}>
                             <Route path="wheeloflife" component={WheelOfLifeConfigure} />
