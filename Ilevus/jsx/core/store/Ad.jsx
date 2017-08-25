@@ -76,7 +76,7 @@ var AdStore = Fluxbone.Store.extend({
 	            me.handleRequestErrors([], opts);
 	        }
 	    });
-	},
+	}
 
 });
 

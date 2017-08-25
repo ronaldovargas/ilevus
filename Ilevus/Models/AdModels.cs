@@ -14,6 +14,10 @@ namespace ilevus.Models
 
         public string Headline { get; set; }
         public string Image { get; set; }
+
+        public string ImageDesktop { get; set; }
+        public string ImageMobile { get; set; }
+
         public IEnumerable<string> Keywords { get; set; }
         public string Link { get; set; }
         public int Category { get; set; }
@@ -43,6 +47,10 @@ namespace ilevus.Models
         public string Id { get; set; }
         public string Headline { get; set; }
         public string Image { get; set; }
+
+        public string Image_Desktop { get; set; }
+        public string Image_Mobile { get; set; }
+
         public string Link { get; set; }
         public IEnumerable<string> Keywords { get; set; }
         public bool Active { get; set; }

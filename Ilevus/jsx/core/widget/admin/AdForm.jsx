@@ -5,6 +5,8 @@ var moment = require("moment");
 var React = require("react");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
+var ModalAd = require("ilevus/jsx/core/widget/admin/AdModal.jsx");
+
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 
@@ -61,7 +63,9 @@ module.exports = React.createClass({
             data: {
                 Id: this.props.ad ? this.props.ad.Id : undefined,
                 Headline: this.refs['headline'].value,
-                Image: this.refs['image'].value,
+                //Image: this.refs['image'].value,
+                Image_Desktop: this.refs['image_desktop'].value,
+                Image_Mobile: this.refs['image_mobile'].value,
                 Link: this.refs['link'].value,
                 Active: this.state.activated,
                 Keywords: this.state.keywords
@@ -88,6 +92,17 @@ module.exports = React.createClass({
             activated: !this.state.activated
         });
     },
+    
+    uploadDesktopImage(event) {
+        event && event.preventDefault();
+        ModalAd.mostrar(Messages.get("ActionSendImageDesktop"), <p>{Messages.get("TextSendImageDesktop")}</p>,
+        "image_desktop");
+    },
+    uploadMobileImage(event) {
+        event && event.preventDefault();
+        ModalAd.mostrar(Messages.get("ActionSendImageMobile"), <p>{Messages.get("TextSendImageMobile")}</p>,
+        "image_mobile");
+    },
 
     render() {
         return(
@@ -100,13 +115,28 @@ module.exports = React.createClass({
                             <input className="ilv-form-control" type="text" spellCheck={false} ref="headline" defaultValue={this.props.ad ? this.props.ad.Headline:""} />
                         </div>
                         <div className="ilv-form-group">
-                            <label className="ilv-form-label">{Messages.get("LabelAdImage")}</label>
-                            <input className="ilv-form-control" type="url" spellCheck={false} ref="image" defaultValue={this.props.ad ? this.props.ad.Image:""} />
+                            <label className="ilv-form-label">{Messages.get("LabelAdImageDesktop")}</label>
+
+                            <labal id="lbl_image_desktop"></labal><br />
+                            <button className="ilv-btn ilv-btn-neutral" onClick={this.uploadDesktopImage }>{Messages.get("ActionSendImageDesktop")}</button>
+                            
+                            <input type="hidden" ref="image_desktop" id="image_desktop" />
                         </div>
+
+                        <div className="ilv-form-group">
+                            <label className="ilv-form-label">{Messages.get("LabelAdImageMobile")}</label>
+
+                            <labal id="lbl_image_mobile"></labal><br />
+                            <button className="ilv-btn ilv-btn-neutral" onClick={this.uploadMobileImage }>{Messages.get("ActionSendImageMobile")}</button>
+
+                            <input type="hidden" ref="image_mobile" id="image_mobile" />
+                        </div>
+
                         <div className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelAdUrl")}</label>
                             <input className="ilv-form-control" type="url" spellCheck={false} ref="link" defaultValue={this.props.ad ? this.props.ad.Link:""} />
                         </div>
+                        
 
                         <fieldset className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelKeywords")}</label>

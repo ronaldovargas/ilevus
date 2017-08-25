@@ -9,11 +9,15 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Resources;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace ilevus.Controllers
@@ -65,15 +69,28 @@ namespace ilevus.Controllers
                 if (model.Id != null)
                 {
                     var updates = Builders<Ad>.Update;
+
+                    if (!string.IsNullOrEmpty(model.Image_Desktop))
+                    {
+                        var asdf = IlevusDBContext.SystemDefinitions;
+                        updates.Set("Image_Desktop", stroreImage(model.Image_Desktop));
+                    }
+
+                    if (!string.IsNullOrEmpty(model.Image_Mobile))
+                    {
+                        var asdf = IlevusDBContext.SystemDefinitions;
+                        updates.Set("ImageMobile", stroreImage(model.Image_Mobile));
+                    }
+
                     var result = await collection.UpdateOneAsync(
                         filters.Eq("Id", model.Id),
                         updates.Combine(
                             updates.Set("Active", model.Active),
                             updates.Set("Headline", model.Headline),
-                            updates.Set("Image", model.Image),
                             updates.Set("Keywords", model.Keywords),
                             updates.Set("Link", model.Link)
                         )
+
                     );
                     if (result.MatchedCount == 0)
                     {
@@ -85,10 +102,22 @@ namespace ilevus.Controllers
                 {
                     Active = model.Active,
                     Headline = model.Headline,
-                    Image = model.Image,
                     Keywords = model.Keywords,
                     Link = model.Link
                 };
+
+                if (!string.IsNullOrEmpty(model.Image_Desktop))
+                {
+                    var asdf = IlevusDBContext.SystemDefinitions;
+                    ad.ImageDesktop = stroreImage(model.Image_Desktop);
+                }
+
+                if (!string.IsNullOrEmpty(model.Image_Mobile))
+                {
+                    var asdf = IlevusDBContext.SystemDefinitions;
+                    ad.ImageMobile = stroreImage(model.Image_Mobile);
+                }
+
                 await collection.InsertOneAsync(ad);
                 return Ok(ad);
             }
@@ -97,6 +126,73 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
+
+        #region Métodos para salvar as imagens dos anúncios
+
+        public KeyValuePair<System.Drawing.Imaging.ImageFormat, Image> LoadImage(string strBase64)
+        {
+            Regex DataUriPattern = new Regex(@"^data\:(?<type>image\/(png|tiff|jpg|jpeg|gif));base64,(?<data>[A-Z0-9\+\/\=]+)$", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
+            Match match = DataUriPattern.Match(strBase64);
+
+            System.Drawing.Imaging.ImageFormat mimeType = System.Drawing.Imaging.ImageFormat.Jpeg;
+            switch (match.Groups["type"].Value)
+            {
+                case "image/png":
+                    mimeType = System.Drawing.Imaging.ImageFormat.Png;
+                    break;
+                case "image/tiff":
+                    mimeType = System.Drawing.Imaging.ImageFormat.Tiff;
+                    break;
+                case "image/gif":
+                    mimeType = System.Drawing.Imaging.ImageFormat.Gif;
+                    break;
+                case "image/jpeg":
+                case "image/jpg":
+                    mimeType = System.Drawing.Imaging.ImageFormat.Jpeg;
+                    break;
+            }
+            string base64Data = match.Groups["data"].Value;
+
+            byte[] bytes = Convert.FromBase64String(base64Data);
+
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                image = Image.FromStream(ms);
+            }
+
+            return new KeyValuePair<System.Drawing.Imaging.ImageFormat, Image>(mimeType, image);
+        }
+
+        public string stroreImage(string strBase64Image)
+        {
+            var kvImage = LoadImage(strBase64Image);
+            Bitmap desktop = new Bitmap(kvImage.Value);
+
+            JToken token = JObject.Parse(IlevusDBContext.SystemDefinitions.definitions);
+            string path = token.SelectToken("PathAds").ToString();
+            path = (!path.EndsWith(@"/") ? path + "/" : path);
+
+            string ext = "jpg";
+            if (kvImage.Key == System.Drawing.Imaging.ImageFormat.Png)
+                ext = "png";
+            else if (kvImage.Key == System.Drawing.Imaging.ImageFormat.Tiff)
+                ext = "tiff";
+            else if (kvImage.Key == System.Drawing.Imaging.ImageFormat.Gif)
+                ext = "gif";
+            else if (kvImage.Key == System.Drawing.Imaging.ImageFormat.Jpeg)
+                ext = "jpg";
+
+            string name_image = Guid.NewGuid().ToString("D");
+            desktop.Save(HttpContext.Current.Server.MapPath(path) + desktop.RawFormat.Guid + "." + ext, kvImage.Key);
+            return desktop.RawFormat.Guid + "." + ext;
+        }
+
+        #endregion
+
+
+
+
 
         [HttpGet]
         [Route("Search")]

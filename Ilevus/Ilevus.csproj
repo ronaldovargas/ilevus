@@ -363,6 +363,7 @@
     <Content Include="jsx\core\view\user\Subscribe.jsx" />
     <Content Include="jsx\core\view\user\HireService.jsx" />
     <Content Include="jsx\core\view\TermosPrivacidade.jsx" />
+    <Content Include="jsx\core\widget\admin\AdModal.jsx" />
     <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
     <Content Include="sass\custom\_toast.scss" />
