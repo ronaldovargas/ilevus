@@ -7,6 +7,7 @@ using System.Web;
 
 namespace ilevus.Models
 {
+   
     public class AssessmentModel
     {
         [BsonRepresentation(BsonType.ObjectId)]
@@ -15,10 +16,14 @@ namespace ilevus.Models
         public string Rating { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }
-        public string Data { get; set; }
+        public DateTime Data { get; set; }
         public string Programa { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Avaliador { get; set; }
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Avaliado { get; set; }
+        public IlevusUser DadosAvaliado { get; set; }
+        public IlevusUser DadosAvaliador { get; set; }
 
         public AssessmentModel()
         {
@@ -26,7 +31,7 @@ namespace ilevus.Models
             Rating = string.Empty;
             Titulo = string.Empty;
             Descricao = string.Empty;
-            Data = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            Data = DateTime.Now;
             Programa = string.Empty;
             Avaliador = string.Empty;
             Avaliado = string.Empty;

@@ -26,6 +26,7 @@ namespace ilevus.Models
 		public const string SystemMessagesTable = "ilevus_messages";
 		public const string UsersTable = "users";
 		public const string NotificationsTable = "notifications";
+        public const string AssessmentsTable = "assessments";
 
         public const string SystemDefinitionsTable = "ilevus_definitions";
     }
@@ -97,7 +98,12 @@ namespace ilevus.Models
 			return IlevusDatabase.GetCollection<NotificationModel>(IlevusTableNames.NotificationsTable);
 		}
 
-		public async Task<bool> UpdateSystemConfig()
+        public IMongoCollection<AssessmentModel> GeAssessmentsCollection()
+        {
+            return IlevusDatabase.GetCollection<AssessmentModel>(IlevusTableNames.AssessmentsTable);
+        }
+
+        public async Task<bool> UpdateSystemConfig()
 		{
 			var configCollection = IlevusDatabase.GetCollection<SystemConfig>(IlevusTableNames.SystemConfigTable);
 			var result = await configCollection.ReplaceOneAsync(FilterDefinition<SystemConfig>.Empty, SystemConfiguration);

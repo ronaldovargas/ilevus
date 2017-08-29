@@ -3,14 +3,18 @@
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
-
-var NotificationStore = require("ilevus/jsx/core/store/notifications/Notification.jsx");
-
+var AssessmentsStore = require("ilevus/jsx/core/store/Assessments.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var ReactIntl = require('react-intl');
+var moment = require('moment');
+
+var IntlMixin = ReactIntl.IntlMixin;
+var FormattedDate = ReactIntl.FormattedDate;
 
 module.exports = React.createClass({
+    
     contextTypes: {
         router: React.PropTypes.object
     },
@@ -26,10 +30,42 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         console.log('teste teste', this.props.location.pathname);
+
+        var me = this;
+        //if (!UserSession.get("logged") && this.props.location.pathname.indexOf('user') >= 0) {
+        //    this.context.router.replace("/home");
+        //}
+
+        AssessmentsStore.on("receivedassessmentget", (receiveds) => {
+            console.log('recebidas', receiveds);
+            me.setState({
+                receivedsAssessments: receiveds                
+            });
+        }, me);
+
+        AssessmentsStore.on("sendeddassessmentget", (sendeds) => {
+            console.log('enviadas', sendeds);
+            me.setState({
+                sendedsAssessments: sendeds
+            });
+        }, me);
+
+        var user = UserSession.get("user");
+
+        AssessmentsStore.dispatch({
+            action: AssessmentsStore.ACTION_USER_ASSESSMENTS,
+            data: user.Id
+        });
+        AssessmentsStore.dispatch({
+            action: AssessmentsStore.ACTION_SEND_ASSESSMENTS,
+            data: user.Id
+        });
     },
-getDate() {
-return (new Date()).toString()
-},
+
+    getDate() {
+        return (new Date()).toString()
+    },
+
     marcarLido(element, id) {
        
     },
@@ -52,45 +88,48 @@ return (new Date()).toString()
         
     },
 
+    renderStars(qtde) {
+        var tmp = [];
+        for (var i = 0; i < qtde; i++) {
+            tmp.push(i);
+        }
+
+        var stars = tmp.map(function (i) {
+            return (<i className="ilv-rating-item-no-hover material-icons">&#xE838;</i>);
+        });
+
+        return (
+                <div className="ilv-rating" style={{ position: "absolute", right: "20px", top: "15px"}}>
+                    <div className="ilv-rating-list">
+                        {stars}
+                    </div>
+                </div>
+        )        
+    },
+
     renderNotification() {
+        var lista;
+        var items = this.props.location.query.feitas == 1 ? this.state.sendedsAssessments : this.state.receivedsAssessments;
+        if (!items || items.length == 0) {
+            return <div className="ilv-notification ilv-notification-unread">nenhuma avaliação</div>
+        }
 
-        return <div>
-                        <div className="ilv-notification ilv-notification-unread">
-                            <Link to={"/notifications/timeline_detalhe/"}>
+        lista = items.map((contact, idx) => {           
+            return <div className="ilv-notification ilv-notification-unread" style={{position: "relative"}}>
+                            
                                <div className="ilv-media ilv-media-middle">
                                    <div className="ilv-media-body">
-                                       <p className="mb-0">nome usuario</p>
-                                       <small>{this.getDate()}</small>
-                                       <p>descricao avaliação</p>
-                                   </div>                                   
-                               </div>
-                            </Link>
-                           </div> 
-    <div className="ilv-notification ilv-notification-unread">
-                            <Link to={"/notifications/timeline_detalhe/"}>
-                               <div className="ilv-media ilv-media-middle">
-                                   <div className="ilv-media-body">
-                                       <p className="mb-0">nome usuario</p>
-                                       <small>{this.getDate()}</small>
-                                       <p>descricao avaliação</p>
+                                       <p className="mb-0">{contact.Titulo}</p>                                      
+                                       <small>Data: {moment(contact.Data).format('DD/MM/YYYY hh:mm')}</small>
+                                       <p><small>Programa: {contact.Programa}</small></p>
+                                       <p>{contact.Descricao}</p>
+                                       {this.renderStars(contact.Rating)}
                                    </div>
                                </div>
-        </Link>
-    </div> 
-    <div className="ilv-notification ilv-notification-unread">
-                            <Link to={"/notifications/timeline_detalhe/"}>
-                               <div className="ilv-media ilv-media-middle">
-                                   <div className="ilv-media-body">
-                                       <p className="mb-0">nome usuario</p>
-                                       <small>{this.getDate()}</small>
-                                       <p>descricao avaliação</p>
-                                   </div>
-                               </div>
-        </Link>
-    </div> 
-    </div>
-
-       
+                        
+                    </div> 
+        })
+        return <div>{lista}</div>
     },
 
     render() {
@@ -200,13 +239,13 @@ return (new Date()).toString()
 
                 <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs" style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/assessments/feitas" activeClassName="active">
+                                <Link className="ilv-nav-link" to="/user/assessments/?feitas=1" activeClassName="active">
                                 Feitas
                                 </Link>
                             </li>
                     
                             <li className="ilv-nav-item">
-                                <Link className="ilv-nav-link" to="/user/assessments/recebidas" activeClassName="active">
+                                <Link className="ilv-nav-link" to="/user/assessments/?recebidas=1" activeClassName="active">
                                 Recebidas
                                 </Link>
                             </li>

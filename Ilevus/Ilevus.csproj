@@ -217,6 +217,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\IlevusAuthorizationAttribute.cs" />
+    <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\FinancialController.cs" />
     <Compile Include="Controllers\CoachingController.cs" />
     <Compile Include="Controllers\BaseAPIController.cs" />
@@ -523,6 +524,7 @@
     <Folder Include="App_Data\pictures\" />
     <Folder Include="cms\ads\" />
     <Folder Include="Content\" />
+    <Folder Include="Views\Assessment\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="jsx\core\view\admin\AdminPanelMensagens.jsx" />

@@ -31,6 +31,13 @@
     }
 }
 
+.ilv-rating-item-no-hover {
+    font-size: 24px;
+    line-height: 1;
+    cursor: default;
+    user-select: none;
+}
+
 .ilv-rating-label {
     font-size: 13px;
     font-weight: bold;
