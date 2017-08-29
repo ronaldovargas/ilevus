@@ -12,7 +12,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx"); var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var AdForm = require("ilevus/jsx/core/widget/admin/AdForm.jsx");
 
-var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+//var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
@@ -53,7 +53,7 @@ module.exports = React.createClass({
             editing: null
         });
     },
-    updateAdPicture() {
+    /*updateAdPicture() {
         Modal.uploadFile(
             Messages.get("ActionSendPicture"),
             <p>{Messages.get("TextSendPicture")}</p>,
@@ -74,7 +74,7 @@ module.exports = React.createClass({
                 }
             }
         );
-    },
+    },*/
 
     onAddCredit(event) {
         event && event.preventDefault();
