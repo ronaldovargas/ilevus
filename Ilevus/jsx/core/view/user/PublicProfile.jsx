@@ -195,6 +195,7 @@ module.exports = React.createClass({
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
                                     <div>
+                                        <Link className="ilv-nav-link" to="/assessments">
                                         <div className="ilv-rating">
                                             <div className="ilv-rating-list">
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
@@ -203,8 +204,9 @@ module.exports = React.createClass({
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                             </div>
-                                            <div className="ilv-rating-label">3.5</div>
+                                            <div style={{display: "none"}} className="ilv-rating-label">3.5</div>
                                         </div>
+                                        </Link>
                                     </div>
                                     <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>

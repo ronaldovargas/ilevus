@@ -20,11 +20,12 @@ module.exports = React.createClass({
             notifications: [],
             filtro: false,
             opcaoFiltro: "0",
-            naoLidas: 0
+            naoLidas: 0,
+            isUser: this.props.location.pathname.indexOf('user') >= 0 ? true : false
         };
     },
     componentDidMount() {
-        
+        console.log('teste teste', this.props.location.pathname);
     },
 getDate() {
 return (new Date()).toString()
@@ -95,7 +96,7 @@ return (new Date()).toString()
     render() {
 
         return (
-            <div style={{paddingTop: "10px"}}>
+            <div style={{ paddingTop: "10px", padding: this.props.location.pathname.indexOf('user') < 0 ? "30px" : "0px"}}>
                 Filtros
                 <div style={{padding: "8px", border: "solid 1px #cecece"}}>
                 <div className="row">
@@ -153,7 +154,7 @@ return (new Date()).toString()
                                                ref="filtro-avaliador" />
                          </div>
                     </div>
-                    <div className="col col-4">
+                    <div className="col col-4" style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroAvaliado">
                                             Avaliado
@@ -170,12 +171,20 @@ return (new Date()).toString()
                                         <label className="ilv-form-label" htmlFor="editFiltroRating">
                                             Rating
                                         </label>
+                                        <div className="ilv-rating-list" style={{flexDirection: "initial"}} id="editFiltroRating">
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                        </div>    
                                         <input className="ilv-form-control"
                                                type="number"
                                                min="0"
+                                               style={{display: "none"}}
                                                max="6"
                                                spellCheck={false}
-                                               id="editFiltroRating"
+                                               id="editFiltroRating2"
                                                ref="filtro-rating" />
                          </div>
                      </div>
@@ -189,7 +198,7 @@ return (new Date()).toString()
                 </div>
 
 
-                <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs">
+                <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs" style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/assessments/feitas" activeClassName="active">
                                 Feitas
