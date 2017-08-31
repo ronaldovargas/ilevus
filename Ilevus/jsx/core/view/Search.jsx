@@ -101,7 +101,7 @@ module.exports = React.createClass({
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
                                     <span className="ilv-tag ilv-tag-success ml-0">4.9 <sup>/ 5.0</sup></span>
-                                    <Link className="small ilv-nav-link" to="/assessments">{Messages.format("TextEvaluations", [32])}</Link>
+                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + model.Id }>{Messages.format("TextEvaluations", [32])}</Link>
                                 </div>
                             </div>
                             <div className="ilv-media-right ilv-text-small">

@@ -6,6 +6,22 @@ a {
     cursor: pointer;
 }
 
+.ilv-form-group input {
+display: inline-block;
+    padding: 0 0.375rem;
+    vertical-align: middle;
+    min-width: 4rem;
+    width: 100%;
+    min-height: 2rem;
+    background-color: #ffffff;
+    border: 0.0625rem solid #a7b8d1;
+    border-radius: 0.1875rem;
+}
+
+.ilv-form-group div {
+    width: 100%;
+}
+
 .#{$prefix}invalid {
     border-color: $color-primary-danger !important;
 }

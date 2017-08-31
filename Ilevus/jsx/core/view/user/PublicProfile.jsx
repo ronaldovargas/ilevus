@@ -10,6 +10,7 @@ var ServicesToHire = require("./../../widget/user/ServiceListToHire");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
+var AssessmentsStore = require("ilevus/jsx/core/store/Assessments.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -30,6 +31,7 @@ module.exports = React.createClass({
     getInitialState() {
         return {
             model: null,
+            receivedsAssessments: 0,
             favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false
         };
     },
@@ -44,6 +46,13 @@ module.exports = React.createClass({
             });
         }, me);
 
+        AssessmentsStore.on("receivedassessmentget", (receiveds) => {
+            console.log('recebidas', receiveds);
+            me.setState({
+                receivedsAssessments: receiveds ? receiveds.length : 0
+            });
+        }, me);
+
         UserSession.on("update", () => {
             me.setState({
                 favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false
@@ -55,10 +64,16 @@ module.exports = React.createClass({
             data: this.props.params.id
         });
 
+        AssessmentsStore.dispatch({
+            action: AssessmentsStore.ACTION_USER_ASSESSMENTS,
+            data: this.props.params.id
+        });
+
     },
     componentWillUnmount() {
         UserStore.off(null, null, this);
         UserSession.off(null, null, this);
+        AssessmentsStore.off(null, null, this);
     },
     componentDidUpdate() {
         /*$('[data-toggle="tooltip"]').tooltip({
@@ -195,7 +210,7 @@ module.exports = React.createClass({
                                         {userLocation.isEmpty() ? "":userLocation.s}
                                     </p>
                                     <div>
-                                        <Link className="ilv-nav-link" to="/assessments">
+                                        <Link className="ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>
                                         <div className="ilv-rating">
                                             <div className="ilv-rating-list">
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
@@ -208,7 +223,7 @@ module.exports = React.createClass({
                                         </div>
                                         </Link>
                                     </div>
-                                    <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
+                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>{Messages.format("TextEvaluations", [this.state.receivedsAssessments])}</Link>                                    
                                 </div>
                             </div>
                         </div>

@@ -48,6 +48,7 @@
     "numeral": "2.x.x",
     "prop-types": "^15.5.8",
     "react": "15.4.x",
+    "react-autocomplete": "^1.7.1",
     "react-chartjs-2": "^2.0.5",
     "react-color": "^2.11.4",
     "react-dom": "15.4.x",
