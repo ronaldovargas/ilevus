@@ -109,13 +109,7 @@ module.exports = React.createClass({
     },
     toHireService(event) {
         event && event.preventDefault();
-
-        FinancialStore.dispatch({
-            action: FinancialStore.ACTION_TO_HIRE_SERVICE,
-            data: this.props.params.id
-        });
         this.context.router.push("/checkout");
-
     },
 
     renderStars() {

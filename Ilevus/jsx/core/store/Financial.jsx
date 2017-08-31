@@ -178,15 +178,13 @@ var FinancialStore = Fluxbone.Store.extend({
 
 	toHireService(params) {
 		var me = this;
-		console.log('contratou');
-		console.log(cartStore.getCacheServicesHired());
 	    $.ajax({
 	        method: "POST",
 	        url: me.url + "/HireService",
 	        dataType: 'json',
-			data: {Services: cartStore.getCacheServicesHired() },
+			data: params,
 	        success(data, status, opts) {
-	            me.trigger("update-user-subscription", data);
+	            me.trigger("update-user-hire-service", data);
 	        },
 	        error(opts, status, errorMsg) {
 	            me.handleRequestErrors([], opts);

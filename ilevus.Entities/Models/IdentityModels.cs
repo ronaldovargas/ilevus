@@ -142,6 +142,9 @@ namespace ilevus.Models
 			EducationInfo = false;
 			CareerInfo = false;
 			ServicesInfo = false;
+			ServicesInfo = false;
+			BankAccountInfo = false;
+			MoipInfo = false;
 			ProcessSteps = new List<CoachingProcessStep>();
 			CoachingToolsConfigs = new CoachingToolsConfigurations();
 			Financial = new UserFinancialProfile();
@@ -154,6 +157,8 @@ namespace ilevus.Models
 		public bool EducationInfo { get; set; }
 		public bool CareerInfo { get; set; }
 		public bool ServicesInfo { get; set; }
+		public bool BankAccountInfo { get; set; }
+		public bool MoipInfo { get; set; }
 
 		// Basic professional info
 		public string Headline { get; set; }
@@ -203,16 +208,6 @@ namespace ilevus.Models
 		public string AccountNumber { get; set; }
 		public string AccountCheckNumber { get; set; }
 
-	}
-
-	public class MoipAccount
-	{
-		public string Id { get; set; }
-		public string Login { get; set; }
-		public string AccessToken { get; set; }
-		public string ChannelId { get; set; }
-		public string Type { get; set; }
-		public bool TransparentAccount { get; set; }
 	}
 
 	public class PhoneModel

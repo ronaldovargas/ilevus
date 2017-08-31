@@ -33,6 +33,9 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -42,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,9 +69,11 @@
     <Compile Include="Models\Holder.cs" />
     <Compile Include="Models\IdentityDocument.cs" />
     <Compile Include="Models\Links.cs" />
+    <Compile Include="Models\MyCustomIdConverter.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Phone.cs" />
     <Compile Include="Models\Self.cs" />
+    <Compile Include="Models\SetPassword.cs" />
     <Compile Include="Models\TaxDocument.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

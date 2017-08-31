@@ -36,4 +36,10 @@ namespace ilevus.Models
         public CustomerRequest Customer { get; set; }
     }
 
+	public class MoipHireServicesBindingModel
+	{
+		public IList<UserService> Services { get; set; }
+		public CustomerRequest Customer { get; set; }
+	}
+
 }
