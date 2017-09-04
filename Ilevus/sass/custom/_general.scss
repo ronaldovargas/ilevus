@@ -18,8 +18,12 @@ display: inline-block;
     border-radius: 0.1875rem;
 }
 
-.ilv-form-group div {
+.ilv-form-group > div {
     width: 100%;
+}
+
+.Select-input > input {
+    border: none !important;
 }
 
 .#{$prefix}invalid {

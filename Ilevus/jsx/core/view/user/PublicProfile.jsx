@@ -32,7 +32,8 @@ module.exports = React.createClass({
         return {
             model: null,
             receivedsAssessments: 0,
-            favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false
+            favorited: UserSession.get("logged") ? (UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0) : false,
+            mediaRating: 0
         };
     },
     componentDidMount() {
@@ -49,7 +50,8 @@ module.exports = React.createClass({
         AssessmentsStore.on("receivedassessmentget", (receiveds) => {
             console.log('recebidas', receiveds);
             me.setState({
-                receivedsAssessments: receiveds ? receiveds.length : 0
+                receivedsAssessments: receiveds ? receiveds.length : 0,
+                mediaRating: receiveds && receiveds[0] ? receiveds[0].MediaRating : 0
             });
         }, me);
 
@@ -114,6 +116,36 @@ module.exports = React.createClass({
         });
         this.context.router.push("/checkout");
 
+    },
+
+    renderStars() {
+        var qtde = this.state.mediaRating;
+
+        var tmp = [];
+        var cinzas = [];
+        for (var i = 0; i < qtde; i++) {
+            tmp.push(i);
+        }
+
+        for (var i = 0; i < 5-qtde; i++) {
+            cinzas.push(i);
+        }
+
+        var stars = tmp.map(function (i) {
+            return (<i className="ilv-rating-item-no-hover material-icons">&#xE838;</i>);
+        });
+
+        var starsCinzas = cinzas.map(function (i) {
+            return (<i className="ilv-rating-item-no-hover material-icons" style={{ color: "#22C8EB" } }>&#xE838;</i>);
+        });
+
+        return (
+                <div className="ilv-rating">
+                    <div className="ilv-rating-list">
+                        {starsCinzas}{stars}
+                    </div>
+                </div>
+        )
     },
 
     render() {
@@ -211,7 +243,8 @@ module.exports = React.createClass({
                                     </p>
                                     <div>
                                         <Link className="ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>
-                                        <div className="ilv-rating">
+                                        {this.renderStars()}
+                                        <div className="ilv-rating" style={{display: "none"}}>
                                             <div className="ilv-rating-list">
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>

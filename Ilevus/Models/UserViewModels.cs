@@ -29,7 +29,7 @@ namespace ilevus.Models
 
 	public class PublicProfileViewModel
 	{
-		public PublicProfileViewModel(IlevusUser user)
+		public PublicProfileViewModel(IlevusUser user, int qtdeAssessments = 0, int mediaAssessments = 0)
 		{
 			Id = user.Id;
 			Creation = user.Creation;
@@ -40,7 +40,10 @@ namespace ilevus.Models
 			Surname = user.Surname;
 			PhoneNumber = user.PhoneNumber;
 
-			ScheduleConfig = user.ScheduleConfig;
+            Assessments = qtdeAssessments;
+            MediaRating = mediaAssessments;
+
+            ScheduleConfig = user.ScheduleConfig;
 			Professional = new ProfessionalProfileViewModel(user);
 
 			LinkedinProfileUrl = user.LinkedinProfileUrl;
@@ -69,7 +72,10 @@ namespace ilevus.Models
 		public string Image { get; set; }
 		public DateTime Creation { get; set; }
 
-		public UserType Type { get; set; }
+        public int? Assessments { get; set; }
+        public int? MediaRating { get; set; }
+
+        public UserType Type { get; set; }
 		public EmailVisibility EmailVisibility { get; set; }
 	}
 

@@ -24,7 +24,8 @@ module.exports = React.createClass({
         return {
             models: null,
             term: null,
-            total: 0
+            total: 0,
+            receivedsAssessments: 0
         };
     },
     componentDidMount() {
@@ -46,9 +47,10 @@ module.exports = React.createClass({
                 keywords: me.props.params.term
             }
         });
+        
     },
     componentWillUnmount() {
-        UserStore.off(null, null, this);
+        UserStore.off(null, null, this);        
     },
     componentWillReceiveProps(newProps) {
         UserStore.dispatch({
@@ -68,6 +70,34 @@ module.exports = React.createClass({
         event && event.preventDefault();
         Analytics.sendPhoneRequestEvent();
         Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={user} />);
+    },
+
+    renderStars(model, qtde) {
+        var tmp = [];
+        var cinzas = [];
+        for (var i = 0; i < qtde; i++) {
+            tmp.push(i);
+        }
+
+        for (var i = 0; i < 5-qtde; i++) {
+            cinzas.push(i);
+        }
+
+        var stars = tmp.map(function (i) {
+            return (<i className="ilv-rating-item-no-hover material-icons" style={{fontSize: "15px"}}>&#xE838;</i>);
+        });
+
+        var starsCinzas = cinzas.map(function (i) {
+            return (<i className="ilv-rating-item-no-hover material-icons" style={{ fontSize: "15px", color: "#22C8EB" } }>&#xE838;</i>);
+        });
+
+        return (
+                <div className="ilv-rating" style={{ marginLeft: "5px" }}>
+                    <div className="ilv-rating-list">
+                        {starsCinzas}{stars}
+                    </div>
+                </div>
+        )
     },
 
     renderModels() {
@@ -100,8 +130,9 @@ module.exports = React.createClass({
                                         <span className="ilv-tag ilv-tag-warning ml-0">{model.Premium && model.Premium.Active ? 'Premium' : ''}</span>
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
-                                    <span className="ilv-tag ilv-tag-success ml-0">4.9 <sup>/ 5.0</sup></span>
-                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + model.Id }>{Messages.format("TextEvaluations", [32])}</Link>
+                                    
+                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + model.Id }>{Messages.format("TextEvaluations", [model.Assessments])}</Link>
+                                    {this.renderStars(model, model.MediaRating)}
                                 </div>
                             </div>
                             <div className="ilv-media-right ilv-text-small">

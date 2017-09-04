@@ -8,6 +8,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var moment = require('moment');
+var Select = require('react-select');
 
 var DOM = require('react-dom');
 var AutoComplete = require("ilevus/lib/react-autocomplete/build/lib/index");
@@ -30,16 +31,24 @@ module.exports = React.createClass({
             dataFim: null,
             programa: '',
             filtrar: false,
-            isUser: this.props.location.pathname.indexOf('user') >= 0 ? true : false
+            filtroRating: '0',
+            isUser: this.props.location.pathname.indexOf('user') >= 0 ? true : false,
+            optionsRating: []
         };
     },
-    componentDidMount() {
-        console.log('teste teste', this.props.location.pathname);
-
+    componentDidMount() {        
         var me = this;
-        //if (!UserSession.get("logged") && this.props.location.pathname.indexOf('user') >= 0) {
-        //    this.context.router.replace("/home");
-        //}
+
+        me.setState({
+            optionsRating: [
+              { value: "0", label: 'Todos os ratings'},
+              { value: "1", label: '1 ' + Messages.get("LabelEstrela") },
+              { value: "2", label: '2 ' + Messages.get("LabelEstrelas") },
+              { value: "3", label: '3 ' + Messages.get("LabelEstrelas") },
+              { value: "4", label: '4 ' + Messages.get("LabelEstrelas") },
+              { value: "5", label: '5 ' + Messages.get("LabelEstrelas") }
+            ]
+        });
 
         AssessmentsStore.on("receivedassessmentget", (receiveds) => {
             console.log('recebidas', receiveds);
@@ -70,8 +79,19 @@ module.exports = React.createClass({
         });
     },
 
+    logChange(val) {
+        this.setState({
+            filtroRating: val.value
+        });
+        console.log("Selected: " + JSON.stringify(val));
+    },
+
     getDate() {
         return (new Date()).toString()
+    },
+
+    ratingChanged(newRating) {
+        console.log(newRating)
     },
 
     aplicarFiltro() {
@@ -165,6 +185,10 @@ module.exports = React.createClass({
         return items ? items.length : 0;
     },
 
+    loadMore() {
+
+    },
+
     getListaFiltrada(lista) {
         if (!lista)
             return lista;
@@ -194,15 +218,21 @@ module.exports = React.createClass({
                 if (me.state.programa && value.Programa.indexOf(me.state.programa) < 0)
                     ok = false;
 
-                var dataAval = new Date(value.Data);
+                if (me.state.filtroRating && me.state.filtroRating != '0' && me.state.filtroRating != value.Rating)
+                    ok = false;
+
+                var dataAval = new Date(new Date(value.Data).toDateString());
+
                 if (me.refs['filtro-data-inicio'].value) {
-                    var ini = new Date(me.refs['filtro-data-inicio'].value);
+                    var ini = new Date(new Date(me.refs['filtro-data-inicio'].value).toDateString());
+                    ini.setDate(ini.getDate() + 1);
                     if (ini.getTime() > dataAval.getTime())
                         ok = false;
                 }
 
                 if (me.refs['filtro-data-final'].value) {
-                    var fim = new Date(me.refs['filtro-data-final'].value);
+                    var fim =  new Date(new Date(me.refs['filtro-data-final'].value).toDateString());
+                    fim.setDate(fim.getDate() + 1);
                     if (fim.getTime() < dataAval.getTime())
                         ok = false;
                 }
@@ -248,7 +278,7 @@ module.exports = React.createClass({
         } else {
             if (avaliacao.DadosAvaliador)
                 return (                    
-                    <div><small>Avaliador: <Link to={"/profile/"+avaliacao.DadosAvaliador.Id}><strong>{avaliacao.DadosAvaliador.Name} {avaliacao.DadosAvaliador.Surname}</strong></Link></small></div>
+                    <div><small>{Messages.get("LabelAvaliador")}: <Link to={"/profile/"+avaliacao.DadosAvaliador.Id}><strong>{avaliacao.DadosAvaliador.Name} {avaliacao.DadosAvaliador.Surname}</strong></Link></small></div>
                 )
             else
                 return <span></span>
@@ -268,8 +298,8 @@ module.exports = React.createClass({
                                <div className="ilv-media ilv-media-middle">
                                    <div className="ilv-media-body">
                                        <p className="mb-0">{contact.Titulo}</p>                                      
-                                       <small>Data: {moment(contact.Data).format('DD/MM/YYYY hh:mm')}</small>
-                                       <div><small>Programa: {contact.Programa}</small></div>
+                                       <small>{Messages.get("LabelData")}: {moment(contact.Data).format('DD/MM/YYYY hh:mm')}</small>
+                                       <div><small>{Messages.get("LabelService")}: {contact.Programa}</small></div>
                                        {this.renderUsuario(contact)}                                       
                                        <p>{contact.Descricao}</p>
                                        {this.renderStars(contact.Rating)}
@@ -284,14 +314,14 @@ module.exports = React.createClass({
     render() {
 
         return (
-            <div style={{ paddingTop: "10px", padding: this.props.location.pathname.indexOf('user') < 0 ? "30px" : "0px"}}>
-                <span style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>Filtros</span>
+            <div style={{ paddingTop: "10px", padding: this.props.location.pathname.indexOf('user') < 0 ? "30px" : "0px"}}>                                
+                <span style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>{Messages.get("LabelFiltros")}</span>
                 <div style={{ padding: "8px", border: "solid 1px #cecece", display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>
                 <div className="row">
                     <div className="col col-4">
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroDataInicio">
-                                            Data início
+                                            {Messages.get("LabelDataInicio")}
                                         </label>
                                         <input className="ilv-form-control"
                                                type="date"
@@ -303,7 +333,7 @@ module.exports = React.createClass({
                     <div className="col col-4">
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroDataFim">
-                                            Data final
+                                            {Messages.get("LabelDataFinal")}
                                         </label>
                                         <input className="ilv-form-control"
                                                type="date"
@@ -315,7 +345,7 @@ module.exports = React.createClass({
                      <div className="col col-4">
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroPrograma">
-                                            Programa
+                                            {Messages.get("LabelService")}
                                         </label>
                                         <AutoComplete getItemValue={(item) => item} className="ilv-form-control"
                                           items={this.getListaProgramasFiltro()}
@@ -348,7 +378,7 @@ module.exports = React.createClass({
                     <div className="col col-4" style={{ display: this.props.location.query.feitas == 1 ? "none" : "block"}}>
                          <div className="ilv-form-group">
                             <label className="ilv-form-label" htmlFor="editFiltroAvaliador">
-                                Avaliador
+                                {Messages.get("LabelAvaliador")}
                             </label>
                             <AutoComplete getItemValue={(item) => item} className="ilv-form-control"
                                           items={this.getListaUsuariosFiltro()}
@@ -374,10 +404,10 @@ module.exports = React.createClass({
                              />
                         </div>
                     </div>
-                    <div className="col col-4" style={{ display: this.props.location.query.feitas == 1 ? "block" : "none"}}>
+                    <div className="col col-3" style={{ display: this.props.location.query.feitas == 1 ? "block" : "none"}}>
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroAvaliado">
-                                            Avaliado
+                                            {Messages.get("LabelAvaliado")}
                                         </label>
                                         <AutoComplete getItemValue={(item) => item} className="ilv-form-control"
                                           items={this.getListaUsuariosFiltro()}
@@ -403,12 +433,18 @@ module.exports = React.createClass({
                              />
                          </div>
                     </div>
-                     <div className="col col-2">
+                     <div className="col col-3">
                          <div className="ilv-form-group">
                                         <label className="ilv-form-label" htmlFor="editFiltroRating">
-                                            Rating
+                                            {Messages.get("LabelRating")}
                                         </label>
-                                        <div className="ilv-rating-list" style={{flexDirection: "initial"}} id="editFiltroRating">
+                                        
+                                        <Select name="form-field-name"
+                                            value={this.state.filtroRating}
+                                            options={this.state.optionsRating}
+                                            onChange={this.logChange} />
+
+                                        <div className="ilv-rating-list" style={{flexDirection: "initial", display: "none"}} id="editFiltroRating">
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
@@ -427,7 +463,7 @@ module.exports = React.createClass({
                      </div>
                     <div className="col col-2 center-end">
                          <button onClick={()=>this.aplicarFiltro()} className="ilv-btn ilv-btn-primary" ref="aplicar-filtro" style={{ width: "100%", marginTop: "12px" }}>
-                             Aplicar
+                             {Messages.get("LabelAplicar")}
                          </button>
                     </div>
                 </div>
@@ -438,19 +474,19 @@ module.exports = React.createClass({
                 <ul className="ilv-nav ilv-nav-inline ilv-nav-tabs" style={{ display: this.props.location.pathname.indexOf('user') < 0 ? "none" : "block" }}>
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/assessments/?feitas=1" activeClassName="active">
-                                Feitas
+                                {Messages.get("LabelFeitas")}
                                 </Link>
                             </li>
                     
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/assessments/?recebidas=1" activeClassName="active">
-                                Recebidas
+                                {Messages.get("LabelRecebidas")}
                                 </Link>
                             </li>
 
                             <li className="ilv-nav-item">
                                 <Link className="ilv-nav-link" to="/user/assessments/?recebidas=0" activeClassName="active">
-                                Pendentes
+                                {Messages.get("LabelPendentes")}
                                 </Link>
                             </li>
                                           
@@ -458,14 +494,14 @@ module.exports = React.createClass({
 
                 <div className="ilv-media ilv-media-middle mb-4"  style={{paddingTop: "10px"}}>
                     <div className="ilv-media-body">
-                        <h4>{Messages.get("YourAssessments")} ({this.getQtdeAvaliacoes()})</h4>
+                        <h4>{Messages.get(this.state.isUser ? "YourAssessments" : "LabelAssessments")} ({this.getQtdeAvaliacoes()})</h4>                        
                         <div>
                             <small>
-                                1 estrela: {this.getQtdeAvaliacoesRating(1)} | 
-                                2 estrelas: {this.getQtdeAvaliacoesRating(2)} | 
-                                3 estrelas: {this.getQtdeAvaliacoesRating(3)} | 
-                                4 estrelas: {this.getQtdeAvaliacoesRating(4)} | 
-                                5 estrelas: {this.getQtdeAvaliacoesRating(5)}
+                                1 {Messages.get("LabelEstrela")}: {this.getQtdeAvaliacoesRating(1)} | 
+                                2 {Messages.get("LabelEstrelas")}: {this.getQtdeAvaliacoesRating(2)} | 
+                                3 {Messages.get("LabelEstrelas")}: {this.getQtdeAvaliacoesRating(3)} | 
+                                4 {Messages.get("LabelEstrelas")}: {this.getQtdeAvaliacoesRating(4)} | 
+                                5 {Messages.get("LabelEstrelas")}: {this.getQtdeAvaliacoesRating(5)}
                             </small>
                         </div>                        
                     </div>                    
@@ -473,6 +509,10 @@ module.exports = React.createClass({
 
                 <div className="ilv-notification-list">
                    {this.renderNotification()}                    
+                   <div className="text-center py-3">
+                        <a style={{ cursor: "pointer" }} onClick={this.loadMore }>{Messages.get("LoadMoreAssessments")}</a>
+                   </div>
+
                 </div>
             </div>
         );

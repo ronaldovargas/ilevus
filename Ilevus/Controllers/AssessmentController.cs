@@ -68,23 +68,32 @@ namespace ilevus.Controllers
                 }
 
                 avaliacoes = await fillUsers(avaliacoes);
-                //foreach (var aval in avaliacoes)
-                //{
-                //    var resUsu = await collectionUser.FindAsync(filtersUsers.Eq("Id", aval.Avaliado));
-                //    var avaliado = resUsu.FirstOrDefaultAsync();
-                //    aval.DadosAvaliado = await avaliado;
-
-                //    var resUsu2 = await collectionUser.FindAsync(filtersUsers.Eq("Id", aval.Avaliador));
-                //    var avaliador = resUsu2.FirstOrDefaultAsync();
-                //    aval.DadosAvaliador = await avaliador;
-                //}
-
+                avaliacoes = calculaMedia(avaliacoes);
                 return Ok(avaliacoes);
             }
             catch (Exception e)
             {
                 return InternalServerError(e);
             }
+        }
+
+        public static List<AssessmentModel> calculaMedia(List<AssessmentModel> avaliacoes)
+        {
+            try
+            {
+                var soma = avaliacoes.Sum(a => string.IsNullOrEmpty(a.Rating) ? 0 : Convert.ToInt32(a.Rating));
+                int divisao = soma / avaliacoes.Count;
+
+                foreach (var aval in avaliacoes)
+                {
+                    aval.MediaRating = divisao;
+                }
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return avaliacoes;
         }
 
         private async Task<List<AssessmentModel>> fillUsers(List<AssessmentModel> avaliacoes)
@@ -134,17 +143,7 @@ namespace ilevus.Controllers
                 }
 
                 avaliacoes = await fillUsers(avaliacoes);
-                //foreach (var aval in avaliacoes)
-                //{
-                //    var resUsu = await collectionUser.FindAsync(filtersUsers.Eq("Id", aval.Avaliado));
-                //    var avaliado = resUsu.FirstOrDefaultAsync();
-                //    aval.DadosAvaliado = await avaliado;
-
-                //    var resUsu2 = await collectionUser.FindAsync(filtersUsers.Eq("Id", aval.Avaliador));
-                //    var avaliador = resUsu2.FirstOrDefaultAsync();
-                //    aval.DadosAvaliador = await avaliador;
-                //}
-
+                avaliacoes = calculaMedia(avaliacoes);
                 return Ok(avaliacoes);
             }
             catch (Exception e)
