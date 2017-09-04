@@ -94,7 +94,7 @@ module.exports = React.createClass({
         return (
                 <div className="ilv-rating" style={{ marginLeft: "5px" }}>
                     <div className="ilv-rating-list">
-                        {starsCinzas}{stars}
+                        {stars}
                     </div>
                 </div>
         )
