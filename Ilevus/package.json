@@ -51,6 +51,8 @@
     "react-autocomplete": "^1.7.1",
     "react-chartjs-2": "^2.0.5",
     "react-color": "^2.11.4",
+    "react-doc-meta": "^0.2.0",
+    "react-document-title": "^2.0.3",
     "react-dom": "15.4.x",
     "react-intl": "^2.3.0",
     "react-maskedinput": "^3.2.0",

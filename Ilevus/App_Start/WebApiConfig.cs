@@ -24,6 +24,11 @@ namespace ilevus
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
+                name: "SEORoutes",                
+                routeTemplate: "user/{userName}",
+                defaults: new { controller = "SEO", action = "user" }
+            );
+            config.Routes.MapHttpRoute(
                 name: "NonApiRoutes",
                 routeTemplate: "{controller}/{action}",
                 defaults: new {controller="Home", action="Index"}

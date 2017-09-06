@@ -6,6 +6,7 @@ var string = require("string");
 var ImgNetworking = require('ilevus/img/lp-networking.jpg');
 var ImgBanner = require('ilevus/img/lp-banner.jpg');
 var ImgMeeting = require('ilevus/img/img-wizard.png');
+var DocumentTitle = require('react-document-title');
 
 var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
 
@@ -32,6 +33,7 @@ module.exports = React.createClass({
     },
     render() {
         return (
+            <DocumentTitle title='Ilevus | Sua rede de coaching'>
           <div>
               <div className="ilv-lp-banner" style={StyleBanner} role="banner">
                   <div className="container">
@@ -292,6 +294,7 @@ module.exports = React.createClass({
                   </div>
               </div>
           </div>
+          </DocumentTitle>
         );
     }
 });

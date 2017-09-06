@@ -12,6 +12,9 @@ var UserStore = require("ilevus/jsx/core/store/User.jsx");
 var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
 var AssessmentsStore = require("ilevus/jsx/core/store/Assessments.jsx");
 
+var DocumentTitle = require('react-document-title');
+var DocMeta = require('react-doc-meta');
+
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
@@ -181,15 +184,47 @@ module.exports = React.createClass({
             console.error(ex);
         }
 
-        return (<div className="my-5" role="banner">
+        var tags = [
+              {name: "description", content: summary},
+              {name: "keywords", content: summary},
+              {name: "author", content: 'Ilevus'},
+              {name: "Author", content: 'Ilevus'}
+              //{itemProp: "name", content: "The Name or Title Here"},
+              //{itemProp: "description", content: "This is the page description"},
+              //{itemProp: "image", content: "http://www.example.com/image.jpg"},
+              //{name: "twitter:card", content: "product"},
+              //{name: "twitter:site", content: "@publisher_handle"},
+              //{name: "twitter:title", content: "Page Title"},
+              //{name: "twitter:description", content: "Page description less than 200 characters"},
+              //{name: "twitter:creator", content: "@author_handle"},
+              //{name: "twitter:image", content: "http://www.example.com/image.html"},
+              //{name: "twitter:data1", content: "$3"},
+              //{name: "twitter:label1", content: "Price"},
+              //{name: "twitter:data2", content: "Black"},
+              //{name: "twitter:label2", content: "Color"},
+              //{property: "og:title", content: "Title Here"},
+              //{property: "og:type", content: "article"},
+              //{property: "og:url", content: "http://www.example.com/"},
+              //{property: "og:image", content: "http://example.com/image.jpg"},
+              //{property: "og:description", content: "Description Here"},
+              //{property: "og:site_name", content: "Site Name, i.e. Moz"},
+              //{property: "og:price:amount", content: "15.00"},
+              //{property: "og:price:currency", content: "USD"},
+              //{weirdfield: "something", content: "really really cool", hello:"world", meh: "hahaha"}
+        ];
+
+        return (
+            <DocMeta tags={tags}>
+        <DocumentTitle title={user.get("Name") + ' ' + user.get("Surname") + ' | Ilevus'}>                
+            <div className="my-5" role="banner">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-8 col-sm-8 col-xs-12">
                         <div className="mb-5 hidden-sm-down">
                             <div className="ilv-media">
                                 <div className="ilv-media-left ilv-text-xs-center mr-3">
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-up" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-down" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }} />
+                                    <div title={user.get('Name') + ' ' + user.get('Surname')} className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-up" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
+                                    <div title={user.get('Name') + ' ' + user.get('Surname')} className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-down" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }} />
 
 
                        <div className="hidden-sm-up">
@@ -264,7 +299,7 @@ module.exports = React.createClass({
                         <div className="mb-5 hidden-sm-up">
                             <div className="ilv-media">
                                 <div className="ilv-media-left ilv-text-xs-center mr-3" style={{width: "30%"}}>
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
+                                    <div title={user.get('Name') + ' ' + user.get('Surname')} className="ilv-avatar-fluid ilv-avatar-fluid-public" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
 
                        <div className="hidden-sm-up">
                         <div className="ilv-card" style={{border: "none", width: "200px", marginTop: "110px"}}>
@@ -513,6 +548,8 @@ module.exports = React.createClass({
                     </div>
                 </div>
             </div>
-        </div>);
+        </div>
+        </DocumentTitle>
+        </DocMeta>);
     }
 });

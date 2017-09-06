@@ -41,7 +41,7 @@ module.exports = React.createClass({
 
         me.setState({
             optionsRating: [
-              { value: "0", label: 'Todos os ratings'},
+              { value: "0", label: Messages.get("LabelTodosRatings") },
               { value: "1", label: '1 ' + Messages.get("LabelEstrela") },
               { value: "2", label: '2 ' + Messages.get("LabelEstrelas") },
               { value: "3", label: '3 ' + Messages.get("LabelEstrelas") },
@@ -289,7 +289,7 @@ module.exports = React.createClass({
         var lista;
         var items = this.getListaFiltrada(this.props.location.query.feitas == 1 ? this.state.sendedsAssessments : this.state.receivedsAssessments);
         if (!items || items.length == 0) {
-            return <div className="ilv-notification ilv-notification-unread">nenhuma avaliação</div>
+            return <div className="ilv-notification ilv-notification-unread">{Messages.get("LabelNenhumaAvaliacao")}</div>
         }
 
         lista = items.map((contact, idx) => {           
