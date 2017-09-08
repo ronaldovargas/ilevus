@@ -11,7 +11,7 @@ var moment = require('moment');
 var Select = require('react-select');
 
 var DOM = require('react-dom');
-var AutoComplete = require("ilevus/lib/react-autocomplete/build/lib/index");
+var AutoComplete = require("react-autocomplete");
 
 module.exports = React.createClass({
     
