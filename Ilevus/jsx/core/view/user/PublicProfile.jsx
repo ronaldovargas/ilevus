@@ -184,9 +184,17 @@ module.exports = React.createClass({
             console.error(ex);
         }
 
+        var listaKeys = [];
+        listaKeys.push(S(user.get("Professional").Professional.Country));
+        listaKeys.push(S(user.get("Professional").Professional.County));
+        listaKeys.push(S(user.get("Professional").Professional.City));
+        for (var i = 0; i < services.length; i++) {
+            listaKeys.push(services[i].Name);        
+        }        
+
         var tags = [
               {name: "description", content: summary},
-              {name: "keywords", content: summary},
+              {name: "keywords", content: listaKeys.join()},
               {name: "author", content: 'Ilevus'},
               {name: "Author", content: 'Ilevus'}
               //{itemProp: "name", content: "The Name or Title Here"},
@@ -215,7 +223,7 @@ module.exports = React.createClass({
 
         return (
             <DocMeta tags={tags}>
-        <DocumentTitle title={user.get("Name") + ' ' + user.get("Surname") + ' | Ilevus'}>                
+        <DocumentTitle title={'Ilevus | ' + user.get("Name") + ' ' + user.get("Surname")}>                
             <div className="my-5" role="banner">
             <div className="container">
                 <div className="row">
