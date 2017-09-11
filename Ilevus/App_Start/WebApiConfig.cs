@@ -6,6 +6,11 @@ using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using System.Xml;
+using ilevus.Models;
+using MongoDB.Driver;
+using ilevus.Enums;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace ilevus
 {
@@ -44,57 +49,92 @@ namespace ilevus
         {
             HttpConfiguration config = new HttpConfiguration();
             Register(config);
+            execAction();
             return config;
         }
 
-        public static void CreateSiteMap()
+        public static async void execAction()
         {
-            string homeUrl = @"http://www.ilevus.com";
-            XmlDocument doc = new XmlDocument();
-            XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", null, null);
-            doc.AppendChild(dec);
+            int timeoutInMilliseconds = (int) new TimeSpan(1, 0, 0, 0).TotalMilliseconds;
 
-            XmlElement root = doc.CreateElement("urlset");
-            root.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            root.SetAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
-            root.SetAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            doc.AppendChild(root);
+            var path = AppDomain.CurrentDomain.BaseDirectory + "sitemap.xml";
+            if (!File.Exists(path))
+                timeoutInMilliseconds = 10;
+                        
+            await Task.Delay(timeoutInMilliseconds);
+            await CreateSiteMap();
+            execAction();
+        }
 
-            //TODO: CRIAR CAMPO COM DATA DE MODIFICAÇÃO
-            //TODO: CRIAR CAMPO COM NOME-LINK DO USUARIO, COM UM RANDOM NO FINAL (NOME-SOBRENOME-1246)
-            //TODO: BOTÃO GERAR SITEMAP AGORA
-            //TODO: GERAR LOG DE GERAÇÃO/VERIFICAÇÃO SITEMAP
-            //TODO: BOTÃO PARA APARAGAR LOG SITEMAP
-
-            List<string> listaUsuarios = new List<string>();
-
-
-            foreach (var array in listaUsuarios)
+        public static async Task<bool> CreateSiteMap()
+        {
+            try
             {
-                XmlElement MyUrl = doc.CreateElement("url");
+                string homeUrl = @"http://www.ilevus.com";
+                XmlDocument doc = new XmlDocument();
+                XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", null, null);
+                doc.AppendChild(dec);
 
-                XmlElement Loc = doc.CreateElement("loc");
-                XmlElement Freq = doc.CreateElement("changefreq");
-                XmlElement Pri = doc.CreateElement("priority");
+                XmlElement root = doc.CreateElement("urlset");
+                root.SetAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+                root.SetAttribute("xmlns:xsd", "http://www.w3.org/2001/XMLSchema");
+                root.SetAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+                doc.AppendChild(root);
 
-                Loc.InnerText = MyHome + "/" + array;//set value for 1. child node  Loc node
-                Freq.InnerText = "daily";//set value for 1. child node-Freq node
-                Pri.InnerText = "0.85";//set value for 1. child node-Pri node
+                var db = IlevusDBContext.Create();
+                var builder = Builders<IlevusUser>.Filter;
+                var filters = builder.Eq("Status", UserStatus.Active);
+                var collection = db.GetUsersCollection();
+                var results = await collection.FindAsync(filters);
+                var listaUsuarios = await results.ToListAsync();
 
-                MyUrl.AppendChild(Loc); //add child Loc node to MyUrl node
-                MyUrl.AppendChild(Freq);//add child Freq node to MyUrl node
-                MyUrl.AppendChild(Pri);//add child Pri node to MyUrl node
+                int incluidos = 0;
 
+                foreach (var array in listaUsuarios)
+                {
+                    if (array.Professional == null || string.IsNullOrEmpty(array.Professional.NomeURL))
+                        continue;
 
-                root.AppendChild(MyUrl);//add child MyUrl node to root node
+                    incluidos++;
+
+                    XmlElement MyUrl = doc.CreateElement("url");
+
+                    XmlElement Loc = doc.CreateElement("loc");
+                    XmlElement Freq = doc.CreateElement("changefreq");
+                    XmlElement Pri = doc.CreateElement("priority");
+                    XmlElement Mod = doc.CreateElement("lastmod");
+
+                    Loc.InnerText = homeUrl + "/" + array.Professional.NomeURL;
+                    Freq.InnerText = "daily";
+                    Pri.InnerText = "1.0";
+                    Mod.InnerText = array.Modification.ToString("yyyy-MM-dd");
+
+                    MyUrl.AppendChild(Loc);
+                    MyUrl.AppendChild(Freq);
+                    MyUrl.AppendChild(Pri);
+                    MyUrl.AppendChild(Mod);
+
+                    root.AppendChild(MyUrl);
+                }
+
+                doc.Save(AppDomain.CurrentDomain.BaseDirectory + "sitemap.xml");
+
+                var log = new SiteMapLogModel()
+                {
+                    DataGeracao = DateTime.Now,
+                    UsuariosIncluidosArquivos = incluidos,
+                    UsuariosVerificados = listaUsuarios.Count
+                };
+
+                var colLog = IlevusDBContext.Create().GetSiteMapLogCollection();
+                await colLog.InsertOneAsync(log);
+
+                return true;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
             }
-
-
-            Response.Clear();
-            XmlSerializer xs = new XmlSerializer(typeof(XmlDocument));
-            Response.ContentType = "text/xml";
-            xs.Serialize(Response.Output, doc);
-            Response.End();
         }
     }
 }

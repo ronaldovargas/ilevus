@@ -408,8 +408,14 @@ namespace ilevus.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 Name = model.Name,
-                Surname = model.Surname
+                Surname = model.Surname,
+                Modification = DateTime.Now                
             };
+
+            if (user.Professional != null && string.IsNullOrEmpty(user.Professional.NomeURL))
+            {
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+            }
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
@@ -523,6 +529,20 @@ namespace ilevus.Controllers
             return Ok(true);
         }
 
+        private string montaNomeURL(string nome, string sobrenome)
+        {
+            try
+            {
+                var retorno = "";
+                retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + new Random().Next(1000, 9999);
+                return retorno;
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return string.Empty;
+            }
+        }
+
         // GET api/Account/UpdateProfile
         [HttpPost]
         [Route("UpdateProfile")]
@@ -541,6 +561,12 @@ namespace ilevus.Controllers
             user.PhoneNumber = model.PhoneNumber;
             user.Sex = model.Sex;
             user.Surname = model.Surname;
+            user.Modification = DateTime.Now;
+
+            if (string.IsNullOrEmpty(user.Professional.NomeURL))
+            {
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+            }
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 

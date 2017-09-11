@@ -39,7 +39,9 @@ namespace ilevus.Models
 		public UserPremiumMembership Premium { get; set; }
 		public bool IsProfessional { get; set; }
 
-		public string LinkedinProfileUrl { get; set; }
+        public DateTime Modification { get; set; }
+
+        public string LinkedinProfileUrl { get; set; }
 
 		public string Culture { get; set; }
 
@@ -162,9 +164,10 @@ namespace ilevus.Models
 		public string Summary { get; set; }
 		public IEnumerable<string> SpokenLanguages { get; set; }
 		public string BirthDate { get; set; }
+        public string NomeURL { get; set; }
 
-		// Address info
-		public string Address { get; set; }
+        // Address info
+        public string Address { get; set; }
 		public string Complement { get; set; }
 		public string District { get; set; }
 		public string Zipcode { get; set; }

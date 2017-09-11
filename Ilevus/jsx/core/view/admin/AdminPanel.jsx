@@ -56,6 +56,12 @@ module.exports = React.createClass({
                                 <Link className="ilv-nav-link" to="/admin/mensagens" activeClassName="active">{Messages.get("EnviarMensagemSistema")}
                                 </Link>
                             </li>
+
+                            <li className="ilv-nav-item">
+                                <Link className="ilv-nav-link" to="/admin/sitemap" activeClassName="active">
+                                    {Messages.get("LabelSiteMap")}
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="col-9">
