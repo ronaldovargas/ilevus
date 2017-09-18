@@ -29,7 +29,8 @@ namespace ilevus
 
             app.CreatePerOwinContext(IlevusDBContext.Create);
             IlevusDBContext db = IlevusDBContext.Create();
-            db.Migrations();
+
+			db.Migrations();
             db.EnsureIndexes();
             db.EnsureSystemConfig();
 

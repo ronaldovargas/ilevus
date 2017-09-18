@@ -4,12 +4,15 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using CSharpMongoMigrations;
 using ilevus.Helpers;
 using ilevus.Resources;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using RestSharp.Extensions;
 
 namespace ilevus.Models
 {
@@ -498,23 +501,28 @@ namespace ilevus.Models
 		/// </summary>
 		public void Migrations()
 		{
-			var collection = GetUsersCollection();
-			var services = collection.Find(f => f.Professional.Services.Any(s => s.Id.Equals(Guid.Empty)));
+			//var collection = GetUsersCollection();
+			//var services = collection.Find(f => f.Professional.Services.Any(s => s.Id.Equals(Guid.Empty)));
 
-			var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
-			var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
-			var result = collection.UpdateManyAsync(filter, update).Result;
+			//var filter = Builders<IlevusUser>.Filter.Where(x => x.Professional.Services.Any(y => y.Id == Guid.Empty));
+			//var update = Builders<IlevusUser>.Update.Set(x => x.Professional.Services.ElementAt(-1).Id, Guid.NewGuid());
+			//var result = collection.UpdateManyAsync(filter, update).Result;
+			var runner = new MigrationRunner("localhost:27017", "ilevus", Assembly.GetExecutingAssembly().CodeBase);
+			runner.Up();
 
-			RemoveField("Financial");
-			RemoveField("Professional.BankAccount");
-			RemoveField("Professional.BirthDate");
-			RemoveField("Professional.StreetNumber");
+			//MongoMigration.Initialize();
+			//RemoveField("Financial");
+			//RemoveField("Professional.BirthDate");
+			//RemoveField("Professional.StreetNumber");
+			//RemoveField("Professional.Financial");
+			//RemoveField("Professional.Phone");
+			//RemoveField("Professional.BankAccount");
 
 			//var msgs = GetSystemMessagesCollection();
 			//FieldDefinition<sys> field = "Messages.TextFooterContent";
 			//var filter2 = Builders<SystemMessages>.Filter.Exists(field);
 			//var update2 = Builders<SystemMessages>.Update.Set(field, new SystemLabel());
-			collection.UpdateMany(filter, update);
+			//collection.UpdateMany(filter, update);
 		}
 
 		private void RemoveField(string fieldName)
@@ -525,8 +533,7 @@ namespace ilevus.Models
 			var update = Builders<IlevusUser>.Update.Unset(field);
 			collection.UpdateMany(filter, update);
 		}
-
-		public void EnsureIndexes()
+				public void EnsureIndexes()
 		{
 			var ads = GetAdsCollection();
 			var conversations = GetConversationsCollection();

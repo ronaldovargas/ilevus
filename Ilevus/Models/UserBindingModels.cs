@@ -104,9 +104,10 @@ namespace ilevus.Models
 
         public IEnumerable<UserService> Services { get; set; }
 
-		public PhoneModel Phone { get;  set; }
+		public string Phone { get;  set; }
 
-		public UserFinancialProfile Financial  { get; set; }
+		public string TaxDocument { get;  set; }
+
 	}
 
     public class RegisterExternalBindingModel

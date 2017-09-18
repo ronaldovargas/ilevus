@@ -184,7 +184,7 @@ var FinancialStore = Fluxbone.Store.extend({
 	        method: "POST",
 	        url: me.url + "/HireService",
 	        dataType: 'json',
-			data: {Services: cartStore.getCacheServicesHired() },
+			data: params,
 	        success(data, status, opts) {
 	            me.trigger("update-user-subscription", data);
 	        },

@@ -27,6 +27,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,9 +58,15 @@
     <Reference Include="AutoMapper, Version=6.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.6.1.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CSharpMongoMigrations, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CSharpMongoMigrations.1.1\lib\CSharpMongoMigrations.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="LightInject, Version=5.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LightInject.5.0.3\lib\net46\LightInject.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
@@ -124,11 +131,13 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -137,6 +146,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -232,6 +242,8 @@
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
+    <Compile Include="Controllers\PriceManager.cs" />
+    <Compile Include="Controllers\StripeManager.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
@@ -248,6 +260,9 @@
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
     <Compile Include="Maps\ContaMoipProfile.cs" />
+    <Compile Include="MongoMigrations\M002_UserProfessionalEntity.cs" />
+    <Compile Include="MongoMigrations\M001_UserProfessionalEntity.cs" />
+    <Compile Include="Models\AccountPayment.cs" />
     <Compile Include="Models\AssessmentModel.cs" />
     <Compile Include="Models\FinancialModels.cs" />
     <Compile Include="Models\CoachingModels.cs" />
@@ -263,6 +278,7 @@
     <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
     <Compile Include="Models\SystemModels.cs" />
+    <Compile Include="Models\UserProfessionalEntity.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -427,15 +443,6 @@
     <None Include="jsx\core\widget\Popover.jsx" />
     <None Include="jsx\core\widget\TopBar.jsx" />
     <None Include="index.html" />
-    <None Include="jsx\vendor\anvil.js" />
-    <None Include="jsx\vendor\anvil\alert.jsx" />
-    <None Include="jsx\vendor\anvil\button.jsx" />
-    <None Include="jsx\vendor\anvil\carousel.jsx" />
-    <None Include="jsx\vendor\anvil\collapse.jsx" />
-    <None Include="jsx\vendor\anvil\dropdown.jsx" />
-    <None Include="jsx\vendor\anvil\modal.jsx" />
-    <None Include="jsx\vendor\anvil\tooltip.jsx" />
-    <None Include="jsx\vendor\anvil\util.jsx" />
     <None Include="jsx\vendor\daterangepicker.js" />
     <None Include="logs\**" />
     <None Include="sass\anvil.scss" />
@@ -510,10 +517,6 @@
     <None Include="Properties\PublishProfiles\ilevus.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ilevus.MoipClient\ilevus.MoipClient.csproj">
-      <Project>{005daee5-1d6f-493c-8e40-928cd3fb4fe7}</Project>
-      <Name>ilevus.MoipClient</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ilevus.Resources\ilevus.Resources.csproj">
       <Project>{a8e0e134-917e-4aa9-8488-3d9ccd987c83}</Project>
       <Name>ilevus.Resources</Name>

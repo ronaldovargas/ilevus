@@ -7,6 +7,8 @@ namespace ilevus.Models
 {
 	public class HireServiceModel
 	{
-		public IList<UserService> Services { get; set; }
+		public IlevusUser user { get; set; }
+		public Stripe.StripeToken stripe { get; set; }
+		public UserService service { get; set; }
 	}
 }

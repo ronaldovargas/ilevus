@@ -6,10 +6,8 @@ using AspNet.Identity.MongoDB;
 using ilevus.App_Start;
 using ilevus.Enums;
 using ilevus.Helpers;
-using ilevus.Models.CoachingTools;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
-using ilevus.MoipClient.Models;
 using Newtonsoft.Json;
 using System.Linq;
 
@@ -26,7 +24,7 @@ namespace ilevus.Models
 		{
 			get
 			{
-				return  string.IsNullOrEmpty(this.Professional.BirthDate) ? birthdate : DateTime.Parse(this.Professional.BirthDate);
+				return string.IsNullOrEmpty(this.Professional.BirthDate) ? birthdate : DateTime.Parse(this.Professional.BirthDate);
 			}
 			set
 			{
@@ -35,7 +33,7 @@ namespace ilevus.Models
 		}
 
 		public UserScheduleConfig ScheduleConfig { get; set; }
-		public UserProfessionalProfile Professional { get; set; }
+		public UserProfessionalEntity Professional { get; set; }
 		public UserPremiumMembership Premium { get; set; }
 		public bool IsProfessional { get; set; }
 
@@ -67,7 +65,7 @@ namespace ilevus.Models
 			this.SearchLanguage = "portuguese";
 			this.Culture = CultureHelper.GetDefaultCulture();
 			this.ScheduleConfig = new UserScheduleConfig();
-			this.Professional = new UserProfessionalProfile();
+			this.Professional = new UserProfessionalEntity();
 			this.IsProfessional = false;
 			this.Favorites = new List<string>();
 		}
@@ -105,94 +103,6 @@ namespace ilevus.Models
 		public bool Late { get; set; }
 		public bool Suspended { get; set; }
 		public DateTime PayedUntil { get; set; }
-	}
-
-	public class UserFinancialProfile
-	{
-		public UserFinancialProfile()
-		{
-			IdentityDocument = new IdentityDocumentModel();
-			BankAccount = new BankAccount();
-		}
-		// Document info
-		public string TaxDocument { get; set; }
-		public IdentityDocumentModel IdentityDocument { get; set; }
-		public BankAccount BankAccount { get; set; }
-	}
-
-	public class IdentityDocumentModel
-	{
-
-		public string Number { get; set; }
-
-		public string Issuer { get; set; }
-
-		public string IssueDate { get; set; }
-	}
-
-
-	public class UserProfessionalProfile
-	{
-		private IlevusUser user;
-
-		public UserProfessionalProfile()
-		{
-			BasicInfo = false;
-			AddressInfo = false;
-			EducationInfo = false;
-			CareerInfo = false;
-			ServicesInfo = false;
-			ProcessSteps = new List<CoachingProcessStep>();
-			CoachingToolsConfigs = new CoachingToolsConfigurations();
-			Financial = new UserFinancialProfile();
-			Phone = new PhoneModel();
-		}
-
-		// Wizard steps concluded?
-		public bool BasicInfo { get; set; }
-		public bool AddressInfo { get; set; }
-		public bool EducationInfo { get; set; }
-		public bool CareerInfo { get; set; }
-		public bool ServicesInfo { get; set; }
-
-		// Basic professional info
-		public string Headline { get; set; }
-		public string Industry { get; set; }
-		public string Specialties { get; set; }
-		public string Summary { get; set; }
-		public IEnumerable<string> SpokenLanguages { get; set; }
-		public string BirthDate { get; set; }
-
-		// Address info
-		public string Address { get; set; }
-		public string Complement { get; set; }
-		public string District { get; set; }
-		public string Zipcode { get; set; }
-		public string City { get; set; }
-		public string County { get; set; }
-		public string Country { get; set; }
-
-		// Education info
-		public IEnumerable<UserEducation> Education { get; set; }
-
-		// Education info
-		public IEnumerable<UserCareer> Career { get; set; }
-
-		// Education info
-		public IEnumerable<UserService> Services { get; set; }
-
-		// Passos do processo de coaching
-		public List<CoachingProcessStep> ProcessSteps { get; set; }
-
-		public CoachingToolsConfigurations CoachingToolsConfigs { get; set; }
-
-		[JsonProperty(PropertyName = "Phone")]
-		public PhoneModel Phone { get; set; }
-
-		public UserFinancialProfile Financial { get; set; }
-
-		public ContaMoip MoipAccount { get; set; }
-		public string StreetNumber { get; internal set; }
 	}
 
 	public class BankAccount

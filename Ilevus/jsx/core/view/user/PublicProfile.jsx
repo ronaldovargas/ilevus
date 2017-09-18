@@ -23,6 +23,9 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserIcon = require("ilevus/img/user.png");
 
 var Languages = require("ilevus/jsx/core/util/Languages.json");
+var StripeCheckout = require('react-stripe-checkout');
+var Modal = require('boron/DropModal');
+var Checkout = require('./Checkout.jsx');
 
 module.exports = React.createClass({
     contextTypes: {
@@ -65,6 +68,8 @@ module.exports = React.createClass({
             action: UserStore.ACTION_RETRIEVE,
             data: this.props.params.id
         });
+      },
+
 
         AssessmentsStore.dispatch({
             action: AssessmentsStore.ACTION_USER_ASSESSMENTS,
@@ -450,9 +455,6 @@ module.exports = React.createClass({
                                                         })}
                                                     </tbody>
                                                  </table>
-                                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.toHireService}>
-		                                            <i className="ilv-icon material-icons md-18">&#xE87E;</i>Contratar
-                                                 </button>
                                             </div>
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
@@ -507,6 +509,7 @@ module.exports = React.createClass({
                     </div>
                 </div>
             </div>
-        </div>);
+        </div>
+        );
     }
 });

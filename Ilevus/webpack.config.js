@@ -1,4 +1,4 @@
-var path = require('path');
+﻿var path = require('path');
 var node_modules_dir = path.resolve(__dirname, 'node_modules');
 var Webpack = require("webpack");
 var autoprefixer = require("autoprefixer");
@@ -46,7 +46,10 @@ module.exports = {
             query: {
                 presets: ['es2015','react']
             }
-        },{
+
+        },
+            { test: /\.js$/, loader: 'babel-loader', exclude: [node_modules_dir] },
+        {
             test: /\.scss$/,
             loader: "style-loader!css-loader!postcss-loader!sass-loader"
         },{

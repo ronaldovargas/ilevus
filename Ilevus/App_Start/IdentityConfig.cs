@@ -168,7 +168,7 @@ namespace ilevus.App_Start
                     PhoneNumber = "031 999999999",
                     Image = null,
 
-                    Professional = new UserProfessionalProfile()
+                    Professional = new UserProfessionalEntity()
                     {
                         City = "Belo Horizonte",
                         County = "Minas Gerais",
@@ -218,7 +218,7 @@ namespace ilevus.App_Start
                     PhoneNumber = "031 988888888",
                     Image = null,
 
-                    Professional = new UserProfessionalProfile()
+                    Professional = new UserProfessionalEntity()
                     {
                         City = "Belo Horizonte",
                         County = "Minas Gerais",

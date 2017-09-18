@@ -57,6 +57,10 @@ module.exports = React.createClass({
     },
 
     saveInfo(event) {
+        if (!this.phoneNumberValidation()) {
+            Toastr.error(Messages.get("ValidationPhoneNumberInvalid"));
+            return;
+        }
         event.preventDefault();
         $(this.refs['btn-submit']).attr("disabled", true);
         var langs = [];
@@ -69,18 +73,8 @@ module.exports = React.createClass({
             Specialties: this.refs['field-specialties'].value,
             Summary: this.refs['field-summary'].value,
             BirthDate: $('input[name*=BirthDate')[0].value,
-            Financial: {
-                IdentityDocument: {
-                    Number:  this.refs['field-Number'].value,
-                    Issuer:  this.refs['field-Issuer'].value,
-                    IssueDate:  $('input[name*=IssueDate')[0].value,
-                },
-                TaxDocument: $('input[name*=TaxDocument')[0].value,
-            },
-            Phone: {
-                AreaCode: $('input[name*=AreaCode')[0].value,
-                Number: $('input[name*=PhoneNumber')[0].value
-            },
+            TaxDocument: $('input[name*=TaxDocument')[0].value,
+            Phone: $.trim($("#editProfileFormPhone").val()),
             SpokenLanguages: langs
         };
         console.log("Form submit:\n",data);
@@ -161,57 +155,30 @@ module.exports = React.createClass({
                                             name="TaxDocument"
                                             ref="field-TaxDocument"
                                             className="ilv-form-control ilv-form-control-lg"
-                                            value={this.context.professionalData.Financial.TaxDocument}
+                                            value={this.context.professionalData.TaxDocument}
                                             spellCheck={false}
                                             onChange={this._onChange} />
 
                           </fieldset>
 
-                        <fieldset className="ilv-form-group" >
-
-                            <label className="ilv-form-label">{Messages.get("LabelIdentityNumber")}</label>
-                            <input className="ilv-form-control ilv-form-control-lg"
-                                            defaultValue={this.context.professionalData.Financial.IdentityDocument.Number}
-                                                ref="field-Number"
-                                            type="text" />
-                        </fieldset>
-
-                        <fieldset className="ilv-form-group" >
-                            <label className="ilv-form-label">{Messages.get("LabelIssuer")}</label>
-                            <input className="ilv-form-control ilv-form-control-lg" ref="field-Issuer" defaultValue={this.context.professionalData.Financial.IdentityDocument.Issuer} type="text"/>
-                        </fieldset>
-
-                        <fieldset className="ilv-form-group" >
-                            <label className="ilv-form-label">{Messages.get("LabelIssueDate")}</label>
-                             <MaskedInput mask="11/11/1111"
-                                            name="IssueDate"
-                                            ref="field-IssueDate"
-                                            className="ilv-form-control ilv-form-control-lg"
-                                            value={this.context.professionalData.Financial.IdentityDocument.IssueDate}
-                                            spellCheck={false} />
-                        </fieldset>
                         <fieldset className="ilv-form-group">
-                                <div className="ilv-form-group m-b-0">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormPhone">
-                                            {Messages.get("LabelDDD")}
-                                            </label>
-                                            <MaskedInput mask="(11)"
-                                            name="AreaCode"
-                                            ref="field-AreaCode"
-                                            className="ilv-form-control ilv-form-control-lg"
-                                            value={this.context.professionalData.Phone.AreaCode}
-                                            spellCheck={false}/>
-                                </div>
                                  <div className="ilv-form-group m-b-0">
-                                        <label className="ilv-form-label" htmlFor="editProfileFormPhone">
-                                            {Messages.get("LabelPhoneNumber")}
-                                            </label>
-                                        <MaskedInput mask="11111-1111"
-                                            name="PhoneNumber"
-                                            ref="field-PhoneNumber"
-                                            className="ilv-form-control ilv-form-control-lg"
-                                            value={this.context.professionalData.Phone.Number}
-                                            spellCheck={false} />
+
+                                 <label className="ilv-form-label" htmlFor="editProfileFormPhone">
+                                 {Messages.get("LabelPhoneNumber")}
+                             </label>
+                             <input onKeyPress={this.phoneNumberFilter} onKeyUp={this.phoneNumberValidation}
+                                     type="tel"
+                                     spellCheck={false}
+                                     id="editProfileFormPhone"
+                                     ref="profile-phonenumber"
+                                     defaultValue={this.context.professionalData.Phone} />
+                             <span className="ilv-text-small">
+                                 {Messages.get("TextPhoneHelp")}
+                             </span>
+
+
+
                                 </div>
                         </fieldset>
 

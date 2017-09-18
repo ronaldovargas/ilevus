@@ -3,62 +3,63 @@ var React = require("react");
 var MaskedInput = require("react-maskedinput");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var cartStore = require("./../../store/Cart.jsx");
-var classNames = require('classnames');
-var isInCart = false;
+var Modal = require('boron/DropModal');
+
+var Checkout = require('./../../widget/stripe/MyStoreCheckout.jsx');
+var StripeProvider = require('react-stripe-elements/lib/index').StripeProvider;
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
 module.exports = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.object
+    },
     propTypes: {
         service: React.PropTypes.object.isRequired
     },
-
     getInitialState() {
-        console.log(cartStore.getCacheServicesHired());
-        console.log(this.props.service);
-        console.log(cartStore.isInCart(this.props.service));
         return {
-            isInCart: cartStore.isInCart(this.props.service)
+            user: null,
         }
     },
-    handleClick() {
+    componentDidMount() {
+        this.state.userLooged = UserSession.get("logged");
+    },
 
-        if (this.state.isInCart) {
-            this.removeFromCart(this.props.service);
-        } else {
-            this.addToCart(this.props.service);
+    showModal() {
+        this.refs.modal.show();
+    },
+    hideModal() {
+        this.refs.modal.hide();
+    },
+
+    callback(event) {
+        if (!UserSession.get("logged")) {
+            this.context.router.push("/login");
+            return;
         }
-        
-        this.setState({
-             isInCart: cartStore.isInCart(this.props.service)
-        });
-        console.log(cartStore.getCacheServicesHired());
-    },
-    addToCart(service) {
-         cartStore.dispatch({
-            action: cartStore.ACTION_TO_HIRE_SERVICE,
-            data: service
-        });
-    },
-    removeFromCart(service) {
-        cartStore.dispatch({
-            action: cartStore.ACTION_REMOVE_HIRED_SERVICE,
-            data: service
-        });
+        this.state.user = UserSession.get("user");
     },
     render() {
-        let text = this.state.isInCart ? Messages.get("ActionToCancelHireService") : Messages.get("ActionToHireService");
-        var btnClass = classNames({
-            'ilv-btn': true,
-            'ilv-btn-primary': !this.state.isInCart,
-            'ilv-btn-danger': this.state.isInCart,
-        });
-
         return <tr>
-            <td className="ilv-font-weight-semibold">{this.props.service.Name}</td>
+            <td className="ilv-font-weight-semibold">{this.props.service.Name}
+                <Modal ref="modal" onShow={this.callback}>
+                    <table>
+                        <tr>
+                            <td className="ilv-font-weight-semibold">{this.props.service.Name}</td>
+                            <td className="ilv-text-xs-right">{this.props.service.Price}</td>
+                        </tr>
+                    </table>
+                    <StripeProvider apiKey="pk_test_p00RSg3UpH2EcSOh7Qsu0Aif">
+                        <Checkout service={this.props.service}></Checkout>
+                    </StripeProvider>
+                </Modal>
+            </td>
             <td className="ilv-text-xs-right">{this.props.service.Price}</td>
             <td className="ilv-text-xs-right">
-                <button
-                    onClick={this.handleClick}
-                    className={btnClass}>
-                    {text}</button>
+                <button onClick={this.showModal} className={'ilv-btn-primary'}>
+                    {Messages.get("ActionToHireService")}
+                </button>
             </td>
         </tr>
     }

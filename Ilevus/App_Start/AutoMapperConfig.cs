@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using ilevus.Maps;
 using ilevus.Models;
-using ilevus.MoipClient.Models;
 
 public class AutoMapperConfig
 {
@@ -9,7 +8,7 @@ public class AutoMapperConfig
 	{
 		Mapper.Initialize((config) =>
 		{
-			config.AddProfile<ContaMoipProfile>();
+			config.AddProfile<PaymentAccountProfile>();
 		});
 	}
 }

@@ -14,7 +14,6 @@ module.exports = React.createClass({
     getValues() {
         return {
             Address: this.refs['address-address'].value,
-            StreetNumber: this.refs['address-StreetNumber'].value,
             Complement: this.refs['address-complement'].value,
             District: this.refs['address-district'].value,
             Zipcode: $('input[name*=zipcode')[0].value ,
@@ -51,17 +50,6 @@ module.exports = React.createClass({
                     defaultValue={user.Address} />
             </fieldset>
 
-            <fieldset className="ilv-form-group ">
-                <label className="ilv-form-label" htmlFor="editProfileFormStreetNumber">
-                    {Messages.get("LabelStreetNumber")}
-                </label>
-                <input className="ilv-form-control"
-                    type="text"
-                    spellCheck={false}
-                    id="editProfileFormStreetNumber"
-                    ref="address-StreetNumber"
-                    defaultValue={user.StreetNumber} />
-            </fieldset>
 
             <fieldset className="ilv-form-group ">
                 <label className="ilv-form-label" htmlFor="editProfileFormAddressApt">
