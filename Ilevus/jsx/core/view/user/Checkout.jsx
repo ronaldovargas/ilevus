@@ -61,7 +61,6 @@ module.exports = React.createClass({
         SystemStore.dispatch({
             action: SystemStore.ACTION_RETRIEVE_CONFIG
         });
-        FinancialStore.on("update-user-hire-service", this.processSubscriptionUpdateResponse, me);
         this.servicesHired = cartStore.getCacheServicesHired();
     },
     componentWillUnmount() {
@@ -80,39 +79,35 @@ module.exports = React.createClass({
     },
     getCustomerObject() {
         var birthdate = this.refs['personal-birthdate'].value;
-       var services = this.servicesHired;
-       var customer = {
-           Fullname: this.refs['personal-fullname'].value,
-           Email: UserSession.get("user").Email,
-           Code: UserSession.get("user").Id,
-           Cpf: this.refs['personal-cpf'].value,
-           BirthdateDay: birthdate.substr(8, 2),
-           BirthdateMonth: birthdate.substr(5, 2),
-           BirthdateYear: birthdate.substr(0, 4),
-           PhoneAreaCode: this.refs['personal-phone-area'].value,
-           PhoneNumber: this.refs['personal-phone-number'].value,
-           BillingInfo: {
-               CreditCard: {
-                   HolderName: this.refs['card-holder'].value,
-                   ExpirationMonth: this.refs['card-expiration-month'].value,
-                   ExpirationYear: this.refs['card-expiration-year'].value,
-                   Number: this.refs['card-number'].value,
-               },
-           },
-           Address: {
-               Street: this.refs['address-street'].value,
-               Number: this.refs['address-number'].value,
-               Complement: this.refs['address-complement'].value,
-               District: this.refs['address-district'].value,
-               Zipcode: this.refs['address-zipcode'].value,
-               City: this.refs['address-city'].value,
-               State: this.refs['address-county'].value,
-               Country: "BRA"
-           }
-       }   
-        return {
-            model: { Services: services, Customer: customer }
-        };
+
+        var customer = new Customer({
+            fullname: this.refs['personal-fullname'].value,
+            email: UserSession.get("user").Email,
+            code: UserSession.get("user").Id,
+            cpf: this.refs['personal-cpf'].value,
+            birthdate_day: birthdate.substr(8, 2),
+            birthdate_month: birthdate.substr(5, 2),
+            birthdate_year: birthdate.substr(0, 4),
+            phone_area_code: this.refs['personal-phone-area'].value,
+            phone_number: this.refs['personal-phone-number'].value,
+            billing_info: new BillingInfo({
+                fullname: this.refs['card-holder'].value,
+                expiration_month: this.refs['card-expiration-month'].value,
+                expiration_year: this.refs['card-expiration-year'].value,
+                credit_card_number: this.refs['card-number'].value
+            }),
+            address: new Address({
+                street: this.refs['address-street'].value,
+                number: this.refs['address-number'].value,
+                complement: this.refs['address-complement'].value,
+                district: this.refs['address-district'].value,
+                zipcode: this.refs['address-zipcode'].value,
+                city: this.refs['address-city'].value,
+                state: this.refs['address-county'].value,
+                country: this.refs['address-country'].value
+            }),
+        });
+        return customer;
     },
    
    
@@ -127,12 +122,10 @@ module.exports = React.createClass({
         event && event.preventDefault();
 		
         $("#submittingOverlay").addClass("show");
-           FinancialStore.dispatch({
-            action: FinancialStore.ACTION_TO_HIRE_SERVICE,
-            data: this.getCustomerObject()
-        });
 	    console.log(this.getCustomerObject());
+        console.log(this.state());
     },
+
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -296,7 +289,7 @@ module.exports = React.createClass({
 
                             <div className="row">
                                 <div className="col">
-                                    <button type="submit" className="ilv-btn ilv-btn-success">{Messages.get("ActionToHire")}</button>
+                                    <button type="submit" className="ilv-btn ilv-btn-success">{Messages.get("ActionSubscribe")}</button>
                                 </div>
                                 <div className="col text-right">
                                     <img src={require("ilevus/img/moip.png")} />

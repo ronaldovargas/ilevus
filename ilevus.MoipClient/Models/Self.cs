@@ -2,13 +2,11 @@
 
 namespace ilevus.MoipClient.Models
 {
-	public class Self
-	{
+    public class Self
+    {
 
-		[JsonProperty("href")]
-		public string Href { get; set; }
+        [JsonProperty("href")]
+        public string href { get; set; }
+    }
 
-		[JsonProperty("title")]
-		public object Title { get; set; }
-	}
 }
