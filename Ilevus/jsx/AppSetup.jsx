@@ -150,13 +150,14 @@ Messages.load(function (success) {
         if (success) {
             Numeral.locale(culture);
             moment.locale(S(culture).toLowerCase());
-        }
-
+        }        
         ReactDOM.render((
-	        <Router history={hashHistory}>
+	        <Router history={browserHistory}>                            
+                
 		        <Route path="/" component={Application}>
                     <IndexRedirect to="home" />
-                    <Route path="home" component={Home} />
+                    
+                    <Route path="home" component={Home} />                    
                     <Route path="login" component={Login} />
                     <Route path="auth-callback/:accessToken" component={Login} />
                     <Route path="confirm-email/:email/:token" component={ConfirmEmail} />
@@ -169,7 +170,7 @@ Messages.load(function (success) {
                     <Route path="help">
                         <IndexRoute component={MarkdownGuide} />
                     </Route>
-
+                    
                     <Route path="profile/:id" component={PublicProfile} />
                     <Route path="search/:term" component={Search} />
                     <Route path="assessments" component={UserAssessments} />
@@ -193,7 +194,7 @@ Messages.load(function (success) {
 
                     <Route path="coaching/process/:id">
                         <IndexRoute component={SessionDetails} />
-                        <Route path=":session"  component={SessionDetails}>
+                        <Route path=":session" component={SessionDetails}>
                             <Route path="tools/wheeloflife" component={WheelOfLife} />
                         </Route>
                     </Route>
@@ -204,7 +205,8 @@ Messages.load(function (success) {
                         <Route path="apis" component={AdminPanelApis} />
                         <Route path="definitions" component={AdminPanelDefinitions} />
                         <Route path="emails" component={AdminPanelEmails} />
-                        <Route path="subscriptions" component={AdminPanelSubscriptions}>AdminPanelSubscriptionsDetails
+                        <Route path="subscriptions" component={AdminPanelSubscriptions}>
+                            AdminPanelSubscriptionsDetails
                             <Route path="customer/:id" component={AdminPanelSubscriptionsCustomer} />
                             <Route path="detail/:id" component={AdminPanelSubscriptionsDetails} />
                             <Route path="invoice/:id" component={AdminPanelSubscriptionsInvoice} />
@@ -212,15 +214,15 @@ Messages.load(function (success) {
                         <Route path="users" component={AdminPanelUsers} />
                         <Route path="translate" component={AdminPanelTranslate} />
                         <Route path="mensagens" component={AdminPanelMensagens} />
-                        <Route path="sitemap" component={AdminPanelSitemap} />                        
+                        <Route path="sitemap" component={AdminPanelSitemap} />
                     </Route>
 
                     <Route path="notifications" component={Notifications}>
                         <Route path="messages" component={NotificationsMessages} />
-                        <Route path="messages/:destination" component={NotificationsMessages} />                        
+                        <Route path="messages/:destination" component={NotificationsMessages} />
                         <Route path="timeline" component={NotificationsTimeline} />
                         <Route path="timeline_detalhe/:destination" component={NotificationsDetalhes} />
-                    </Route>                    
+                    </Route>
 
                     <Route path="become-a-professional" component={ProfileWizard}>
                       <Route path="basic" component={ProfileWizardBasic} />
@@ -232,8 +234,8 @@ Messages.load(function (success) {
                     </Route>
 
                     <Route path="*" component={NotFound } />
-                </Route>
-            </Router>
+		        </Route>                
+</Router>
   	        ),
   	        document.getElementById('main-body')
         );

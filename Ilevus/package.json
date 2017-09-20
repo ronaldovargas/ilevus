@@ -5,13 +5,13 @@
   "scripts": {
     "whichnode": "where webpack",
     "prestart": "npm install",
-    "devbuild": "set NODE_ENV=development && webpack --progress --colors -d",
-    "devstart": "set NODE_ENV=development && webpack-dev-server --compress --progress --colors --port 8081 --inline --watch --watch-poll",
+    "devbuild": "set NODE_ENV=development && webpack --progress --colors -d --history-api-fallback",
+    "devstart": "set NODE_ENV=development && webpack-dev-server --compress --progress --colors --port 8081 --inline --watch --watch-poll --history-api-fallback",
     "devwatch": "set NODE_ENV=development && webpack --watch --colors --progress -d",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "webpack --colors --progress --config webpack.production.config.js --optimize-dedupe --optimize-occurrence-order --optimize-minimize"
+    "deploy": "webpack --colors --progress --config webpack.production.config.js --optimize-dedupe --optimize-occurrence-order --optimize-minimize --history-api-fallback"
   },
-  "author": "Renato R. R. de Oliveira",
+  "author": "Ilevus",
   "devDependencies": {
     "autoprefixer": "^6.3.7",
     "babel-core": "^6.7.7",

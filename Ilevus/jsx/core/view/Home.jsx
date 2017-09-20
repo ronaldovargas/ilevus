@@ -25,6 +25,13 @@ module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object.isRequired
     },
+    componentDidMount() {
+        var me = this
+        var userID = this.props.location.query.p;
+        if (userID) {
+            me.context.router.push("/profile/" + userID);
+        }        
+    },
     onSearch(evt) {
         evt.preventDefault();
         var term = this.refs['search-term'].value;

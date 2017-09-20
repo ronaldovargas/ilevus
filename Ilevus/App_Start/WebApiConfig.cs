@@ -11,6 +11,9 @@ using MongoDB.Driver;
 using ilevus.Enums;
 using System.Threading.Tasks;
 using System.IO;
+using ilevus.App_Start;
+using System.Web.Routing;
+using System.Web.Mvc;
 
 namespace ilevus
 {
@@ -24,26 +27,41 @@ namespace ilevus
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            //config.Routes.Add("SEORoutes", new SeoFriendlyRoute("user/{id}",
+            //new RouteValueDictionary(new { controller = "User", action = "GetPublicProfile" }),
+            //new MvcRouteHandler()));
+
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );
+            );           
+            //config.Routes.MapHttpRoute(
+            //    name: "NonApiRoutes",
+            //    routeTemplate: "{controller}/{action}",
+            //    defaults: new {controller="Home", action="Index"}
+            //);
             config.Routes.MapHttpRoute(
-                name: "SEORoutes",                
-                routeTemplate: "user/{userName}",
-                defaults: new { controller = "SEO", action = "user" }
-            );
-            config.Routes.MapHttpRoute(
-                name: "NonApiRoutes",
-                routeTemplate: "{controller}/{action}",
-                defaults: new {controller="Home", action="Index"}
-            );
+               name: "AfterLoginRoutes",
+               routeTemplate: "login",
+               defaults: new { controller = "Home", action = "Index" }
+           );
             config.Routes.MapHttpRoute(
                 name: "termosPrivacidade",
                 routeTemplate: "termos-e-privacidade",
                 defaults: new {controller="TermosPrivacidade", action="Index"}
             );
+            // config.Routes.MapHttpRoute(
+            //    name: "ProfieRoute",
+            //    routeTemplate: "profile/{id}",
+            //    defaults: new { controller = "User", action = "GetPublicProfile" }
+            //);
+            config.Routes.MapHttpRoute(
+               name: "NonApiRoutes",
+               routeTemplate: "{*catchall}",
+               defaults: new { controller = "Home", action = "Index" }
+           );
         }
         public static HttpConfiguration Create()
         {

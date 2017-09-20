@@ -77,11 +77,30 @@ namespace ilevus.Controllers
             {
                 return BadRequest();
             }
-            var user = await UserManager.FindByIdAsync(Id);
+
+            IlevusUser user = null;
+            if (System.Text.RegularExpressions.Regex.IsMatch(Id, @"\A\b[0-9a-fA-F]+\b\Z"))
+                user = await UserManager.FindByIdAsync(Id);
+
+            // tentativa de buscar pelo nomeUrl
+            if (user == null)
+            {
+                var db = IlevusDBContext.Create();
+                var builder = Builders<IlevusUser>.Filter;
+                var filters = builder.Eq("Professional.NomeURL", Id);
+                var collection = db.GetUsersCollection();
+                var results = await collection.FindAsync(filters);
+                var users = await results.ToListAsync();
+
+                if (users.Count > 0)
+                    user = users[0];
+            }
+
             if (user == null)
             {
                 return NotFound();
             }
+
             return Ok(new PublicProfileViewModel(user));
         }
 
@@ -563,10 +582,10 @@ namespace ilevus.Controllers
             user.Surname = model.Surname;
             user.Modification = DateTime.Now;
 
-            if (string.IsNullOrEmpty(user.Professional.NomeURL))
-            {
-                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
-            }
+            //if (string.IsNullOrEmpty(user.Professional.NomeURL))
+            //{
+            //    user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+            //}
 
             IdentityResult result = await UserManager.UpdateAsync(user);
 
@@ -737,6 +756,12 @@ namespace ilevus.Controllers
             professional.Financial = model.Financial;
             user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
                 professional.EducationInfo && professional.ServicesInfo;
+
+            if (string.IsNullOrEmpty(user.Professional.NomeURL))
+            {
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+            }
+
             IdentityResult result = await UserManager.UpdateAsync(user);
 
             if (!result.Succeeded)
