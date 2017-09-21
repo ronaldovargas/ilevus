@@ -25,7 +25,7 @@ module.exports = React.createClass({
 	        password: this.refs['password'].value,
 	        stayconnected: this.refs['stayconnected'].checked
 	    };
-	    console.log(data);
+	    
 		UserSession.dispatch({
 			action: UserSession.ACTION_LOGIN,
 			data: data
