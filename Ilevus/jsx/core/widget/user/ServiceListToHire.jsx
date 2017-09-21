@@ -15,7 +15,8 @@ module.exports = React.createClass({
         router: React.PropTypes.object
     },
     propTypes: {
-        service: React.PropTypes.object.isRequired
+        service: React.PropTypes.object.isRequired,
+        blocked: React.PropTypes.bool.isRequired
     },
     getInitialState() {
         return {
@@ -41,6 +42,12 @@ module.exports = React.createClass({
         this.state.user = UserSession.get("user");
     },
     render() {
+        var divStyle = {
+            visibility: 'hidden'
+        };
+
+        const hidden = !this.props.blocked ? {} : divStyle;
+
         return <tr>
             <td className="ilv-font-weight-semibold">{this.props.service.Name}
                 <Modal ref="modal" onShow={this.callback}>
@@ -50,16 +57,20 @@ module.exports = React.createClass({
                             <td className="ilv-text-xs-right">{this.props.service.Price}</td>
                         </tr>
                     </table>
+
                     <StripeProvider apiKey="pk_test_p00RSg3UpH2EcSOh7Qsu0Aif">
                         <Checkout service={this.props.service}></Checkout>
                     </StripeProvider>
                 </Modal>
             </td>
             <td className="ilv-text-xs-right">{this.props.service.Price}</td>
+
             <td className="ilv-text-xs-right">
-                <button onClick={this.showModal} className={'ilv-btn-primary'}>
-                    {Messages.get("ActionToHireService")}
-                </button>
+                <div style={hidden}>
+                    <button onClick={this.showModal} className={'ilv-btn-primary'}>
+                        {Messages.get("ActionToHireService")}
+                    </button>
+                </div>
             </td>
         </tr>
     }

@@ -112,6 +112,7 @@ namespace ilevus.Models
 		public string AgencyCheckNumber { get; set; }
 		public string AccountNumber { get; set; }
 		public string AccountCheckNumber { get; set; }
+		public string Token { get; set; }
 
 	}
 

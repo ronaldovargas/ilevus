@@ -172,11 +172,12 @@ module.exports = React.createClass({
         var careers = user.get("Professional").Professional.Career || [];
         var services = user.get("Professional").Professional.Services || [];
 
+        var professionalAccountBlocked = user.get("Professional").Professional.ProfessionalAccountBlocked;
         var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
         var isPremium = false;
         try {
             isPremium = user.get("Premium").Premium.Active || false
-        } catch (ex){
+        } catch (ex) {
             console.error(ex);
         }
 
@@ -187,58 +188,58 @@ module.exports = React.createClass({
                         <div className="mb-5 hidden-sm-down">
                             <div className="ilv-media">
                                 <div className="ilv-media-left ilv-text-xs-center mr-3">
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-up" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
+                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-up" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width: "5rem", height: "5rem" }} />
                                     <div className="ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-down" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" }} />
 
 
-                       <div className="hidden-sm-up">
-                        <div className="ilv-card" style={{border: "none", maxWidth: "200px"}}>
-                            {!UserSession.get("logged") ? "":<div className="ilv-card-body">
-                                {this.state.favorited ?
-                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
-                                    </button>
-                                :
-                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFollow")}
-                                    </button>
-                                }
-                            </div>}
-                            <div className="ilv-card-footer" style={{borderTop: "none"}}>
-                                <div className="row">
-                                    {!UserSession.get("logged") ? "":<div className="col-12">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>{Messages.get("ActionHireProfessional")}
-                                        </Link>
-                                    </div>}
-                                    {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
-                                        </Link>
-                                    </div>}
-                                    {!user.get("PhoneNumber") ? "" :
-                                        <div className="col-12 mt-3">
-                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
-                                                {Messages.get("ActionRequestPhone")}
-                                            </button>
+                                    <div className="hidden-sm-up">
+                                        <div className="ilv-card" style={{ border: "none", maxWidth: "200px" }}>
+                                            {!UserSession.get("logged") ? "" : <div className="ilv-card-body">
+                                                {this.state.favorited ?
+                                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                                        <i className="ilv-icon material-icons md-18" style={{ "color": "#F00" }}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
+                                                    </button>
+                                                    :
+                                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFollow")}
+                                                    </button>
+                                                }
+                                            </div>}
+                                            <div className="ilv-card-footer" style={{ borderTop: "none" }}>
+                                                <div className="row">
+                                                    {!UserSession.get("logged") ? "" : <div className="col-12">
+                                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/" + user.get("Id")}>{Messages.get("ActionHireProfessional")}
+                                                        </Link>
+                                                    </div>}
+                                                    {!UserSession.get("logged") ? "" : <div className="col-12 mt-3">
+                                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/" + user.get("Id")}>{Messages.get("ActionSendMessage")}
+                                                        </Link>
+                                                    </div>}
+                                                    {!user.get("PhoneNumber") ? "" :
+                                                        <div className="col-12 mt-3">
+                                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>
+                                                                {Messages.get("ActionRequestPhone")}
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                       </div>
+                                    </div>
                                 </div>
                                 <div className="ilv-media-body">
                                     <span className="h1">
                                         {user.get("Name")} {user.get("Surname")}
                                     </span>
                                     <p>
-                                        <span className="ilv-tag ilv-tag-warning ml-0">{isPremium ? 'Premium' : ''}</span>                                        
-                                        <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
+                                        <span className="ilv-tag ilv-tag-warning ml-0">{isPremium ? 'Premium' : ''}</span>
+                                        <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "" : industry.s}</span>
                                     </p>
                                     <p className="ilv-text-small">
-                                        {specialties.isEmpty() ? "":"Especialista em: "+specialties.s}
+                                        {specialties.isEmpty() ? "" : "Especialista em: " + specialties.s}
                                     </p>
                                     <p className="ilv-text-small">
-                                        {userLocation.isEmpty() ? "":userLocation.s}
+                                        {userLocation.isEmpty() ? "" : userLocation.s}
                                     </p>
                                     <div>
                                         <Link className="ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>
@@ -262,53 +263,53 @@ module.exports = React.createClass({
 
                         <div className="mb-5 hidden-sm-up">
                             <div className="ilv-media">
-                                <div className="ilv-media-left ilv-text-xs-center mr-3" style={{width: "30%"}}>
-                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width:"5rem", height:"5rem" }} />
+                                <div className="ilv-media-left ilv-text-xs-center mr-3" style={{ width: "30%" }}>
+                                    <div className="ilv-avatar-fluid ilv-avatar-fluid-public" style={{ backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width: "5rem", height: "5rem" }} />
 
-                       <div className="hidden-sm-up">
-                        <div className="ilv-card" style={{border: "none", width: "200px", marginTop: "110px"}}>
-                            {!UserSession.get("logged") ? "":<div className="ilv-card-body">
-                                {this.state.favorited ?
-                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
-                                    </button>
-                                :
-                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFollow")}
-                                    </button>
-                                }
-                            </div>}
-                            <div className="ilv-card-footer" style={{borderTop: "none"}}>
-                                <div className="row">
-                                    {!UserSession.get("logged") ? "":<div className="col-12">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>{Messages.get("ActionHireProfessional")}
-                                        </Link>
-                                    </div>}
-                                    {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>{Messages.get("ActionSendMessage")}
-                                        </Link>
-                                    </div>}
-                                    {!user.get("PhoneNumber") ? "" :
-                                        <div className="col-12 mt-3">
-                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
-                                            </button>
+                                    <div className="hidden-sm-up">
+                                        <div className="ilv-card" style={{ border: "none", width: "200px", marginTop: "110px" }}>
+                                            {!UserSession.get("logged") ? "" : <div className="ilv-card-body">
+                                                {this.state.favorited ?
+                                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                                        <i className="ilv-icon material-icons md-18" style={{ "color": "#F00" }}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
+                                                    </button>
+                                                    :
+                                                    <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
+                                                        <i className="ilv-icon material-icons md-18">&#xE7FE;</i>{Messages.get("LabelSaveAsFollow")}
+                                                    </button>
+                                                }
+                                            </div>}
+                                            <div className="ilv-card-footer" style={{ borderTop: "none" }}>
+                                                <div className="row">
+                                                    {!UserSession.get("logged") ? "" : <div className="col-12">
+                                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/" + user.get("Id")}>{Messages.get("ActionHireProfessional")}
+                                                        </Link>
+                                                    </div>}
+                                                    {!UserSession.get("logged") ? "" : <div className="col-12 mt-3">
+                                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/" + user.get("Id")}>{Messages.get("ActionSendMessage")}
+                                                        </Link>
+                                                    </div>}
+                                                    {!user.get("PhoneNumber") ? "" :
+                                                        <div className="col-12 mt-3">
+                                                            <button className="ilv-btn ilv-btn-block ilv-btn-neutral" onClick={this.openPhoneDialog}>{Messages.get("ActionRequestPhone")}
+                                                            </button>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                       </div>
+                                    </div>
                                 </div>
                                 <div className="ilv-media-body">
                                     <span className="h1">{user.get("Name")} {user.get("Surname")}
                                     </span>
                                     <p>
                                         <span className="ilv-tag ilv-tag-warning ml-0">{isPremium ? 'Premium' : ''}</span>
-                                        <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "":industry.s}</span>
+                                        <span className="ilv-text-large ilv-font-weight-semibold">{industry.isEmpty() ? "" : industry.s}</span>
                                     </p>
-                                    <p className="ilv-text-small">{specialties.isEmpty() ? "":"Especialista em: "+specialties.s}
+                                    <p className="ilv-text-small">{specialties.isEmpty() ? "" : "Especialista em: " + specialties.s}
                                     </p>
-                                    <p className="ilv-text-small">{userLocation.isEmpty() ? "":userLocation.s}
+                                    <p className="ilv-text-small">{userLocation.isEmpty() ? "" : userLocation.s}
                                     </p>
                                     <div>
                                         <div className="ilv-rating">
@@ -319,7 +320,7 @@ module.exports = React.createClass({
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                                 <i className="ilv-rating-item material-icons">&#xE838;</i>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <a className="ilv-text-small" href="">{Messages.format("TextEvaluations", [32])}</a>
@@ -334,7 +335,7 @@ module.exports = React.createClass({
                             </div>
                         }
 
-                        {!scheduleConfig.Enabled ? "":
+                        {!scheduleConfig.Enabled ? "" :
                             <div className="mb-5">
                                 <h4>{Messages.get("LabelBookMeeting")}</h4>
                                 <MeetingSchedule user={user} />
@@ -347,85 +348,85 @@ module.exports = React.createClass({
                             <div className="ilv-media-list">
                                 {careers.length > 0
                                     ?
-                                        <div className="ilv-media py-3">
-                                            <div className="ilv-media-left mr-3">
-                                                <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
-                                            </div>
-                                            <div className="ilv-media-body">
-                                                <p className="h5">{Messages.get("TextCareer")}</p>
-                                                {careers.map((career, index) => {
-                                                    return <div key={"education-" + index}>
-											            <strong>{career.Role} </strong>
-                                                        <span>
-                                                            em {career.Institution} - {career.Location}
-                                                            {career.Finished
-                                                                ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
-                                                                : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + " " + Messages.get("TextPresent")
-                                                            }.
-                                                        </span>
-                                                    </div>;
-                                                })}
-                                            </div>
+                                    <div className="ilv-media py-3">
+                                        <div className="ilv-media-left mr-3">
+                                            <i className="ilv-icon material-icons md-24">&#xE8F9;</i>
                                         </div>
-                                    :""
+                                        <div className="ilv-media-body">
+                                            <p className="h5">{Messages.get("TextCareer")}</p>
+                                            {careers.map((career, index) => {
+                                                return <div key={"education-" + index}>
+                                                    <strong>{career.Role} </strong>
+                                                    <span>
+                                                        em {career.Institution} - {career.Location}
+                                                        {career.Finished
+                                                            ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "")
+                                                            : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + " " + Messages.get("TextPresent")
+                                                        }.
+                                                        </span>
+                                                </div>;
+                                            })}
+                                        </div>
+                                    </div>
+                                    : ""
                                 }
 
                                 {educations.length > 0
                                     ?
-                                        <div className="ilv-media py-3">
-                                            <div className="ilv-media-left mr-3">
-                                                <i className="ilv-icon material-icons md-24">&#xE80C;</i>
-                                            </div>
-                                            <div className="ilv-media-body">
-                                                <p className="h5">{Messages.get("TextEducation")}</p>
-                                                {educations.map((education, index) => {
-                                                    return <div key={"education-" + index}>
-											            <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
-                                                        <span>
-                                                            na {education.Institution}
-                                                            {education.Finished
-                                                                ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
-                                                                : ", " + Messages.get("LabelStartedAt") + " " + education.Begin
-                                                            }.
-                                                        </span>
-                                                    </div>;
-                                                })}
-                                            </div>
+                                    <div className="ilv-media py-3">
+                                        <div className="ilv-media-left mr-3">
+                                            <i className="ilv-icon material-icons md-24">&#xE80C;</i>
                                         </div>
-                                    :""
+                                        <div className="ilv-media-body">
+                                            <p className="h5">{Messages.get("TextEducation")}</p>
+                                            {educations.map((education, index) => {
+                                                return <div key={"education-" + index}>
+                                                    <strong>{Messages.get("EducationType" + education.Type)} em {education.Area} </strong>
+                                                    <span>
+                                                        na {education.Institution}
+                                                        {education.Finished
+                                                            ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "")
+                                                            : ", " + Messages.get("LabelStartedAt") + " " + education.Begin
+                                                        }.
+                                                        </span>
+                                                </div>;
+                                            })}
+                                        </div>
+                                    </div>
+                                    : ""
                                 }
 
                                 {summary.isEmpty()
                                     ? ""
-                                    :<div className="ilv-media py-3">
+                                    : <div className="ilv-media py-3">
                                         <div className="ilv-media-left mr-3">
                                             <i className="ilv-icon material-icons md-24">&#xE851;</i>
                                         </div>
                                         <div className="ilv-media-body">
                                             <p className="h5">{Messages.get("LabelAboutMe")}</p>
-                                            <div dangerouslySetInnerHTML={{__html: Marked(summary.s)}} />
+                                            <div dangerouslySetInnerHTML={{ __html: Marked(summary.s) }} />
                                         </div>
                                     </div>
                                 }
 
                                 {spokenLanguages.length > 0
                                     ?
-                                        <div className="ilv-media py-3">
-                                            <div className="ilv-media-left mr-3">
-                                                <i className="ilv-icon material-icons md-24">&#xE894;</i>
-                                            </div>
-                                            <div className="ilv-media-body">
-                                                <p className="h5">{Messages.get("LabelLanguages")}</p>
-                                                {spokenLanguages.map((spokenLanguage, index) => {
-                                                    var lang = Languages.Mapped[spokenLanguage];
-                                                    return <span key={"spokenLanguage-" + index}>
-                                                        {lang.nativeName}{lang.name != lang.nativeName ? " ("+lang.name+")":""}
-                                                        {spokenLanguages.length > 1 && index < (spokenLanguages.length - 1) ? ", " :"."}
-                                                    </span>;
-                                                })}
-                                            </div>
+                                    <div className="ilv-media py-3">
+                                        <div className="ilv-media-left mr-3">
+                                            <i className="ilv-icon material-icons md-24">&#xE894;</i>
                                         </div>
-                                    :""
+                                        <div className="ilv-media-body">
+                                            <p className="h5">{Messages.get("LabelLanguages")}</p>
+                                            {spokenLanguages.map((spokenLanguage, index) => {
+                                                var lang = Languages.Mapped[spokenLanguage];
+                                                return <span key={"spokenLanguage-" + index}>
+                                                    {lang.nativeName}{lang.name != lang.nativeName ? " (" + lang.name + ")" : ""}
+                                                    {spokenLanguages.length > 1 && index < (spokenLanguages.length - 1) ? ", " : "."}
+                                                </span>;
+                                            })}
+                                        </div>
+                                    </div>
+                                    : ""
                                 }
                             </div>
 
@@ -439,27 +440,27 @@ module.exports = React.createClass({
                                     <div className="ilv-card-body">
                                         <div className="row">
                                             <div className="col-lg-8 col-sm-8 col-xs-12">
-                                                 <table className="ilv-table ilv-table-sm ilv-table-hover">
+                                                <table className="ilv-table ilv-table-sm ilv-table-hover">
                                                     <thead>
                                                         <tr>
                                                             <th>{Messages.get("LabelService")}</th>
                                                             <th className="ilv-text-xs-right">{Messages.get("LabelPrice")}</th>
                                                             <th className="ilv-text-xs-right hidden-sm-up"></th>
-                                                        </tr>                                                        
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
                                                         {services.map((service, index) => {
                                                             return (
-                                                                <ServicesToHire key={"service-" + index} service={service} />
+                                                                <ServicesToHire key={"service-" + index} service={service} blocked={professionalAccountBlocked} />
                                                             );
                                                         })}
                                                     </tbody>
-                                                 </table>
+                                                </table>
                                             </div>
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>
                                                 <p>{Messages.get("TextOfferedServicesHelp")}</p>
-                                                {!UserSession.get("logged") ? "":<Link className="ilv-btn ilv-btn-block ilv-btn-primary" to={"/notifications/messages/"+user.get("Id")}>
+                                                {!UserSession.get("logged") ? "" : <Link className="ilv-btn ilv-btn-block ilv-btn-primary" to={"/notifications/messages/" + user.get("Id")}>
                                                     <i className="ilv-icon material-icons md-18">&#xE0BE;</i>{Messages.get("ActionSendMessage")}
                                                 </Link>}
                                             </div>
@@ -467,15 +468,15 @@ module.exports = React.createClass({
                                     </div>
                                 </div>
                             </div>
-                            :""
+                            : ""
                         }
                     </div>
                     <div className="col-4 hidden-sm-down">
                         <div className="ilv-card">
-                            {!UserSession.get("logged") ? "":<div className="ilv-card-body">
+                            {!UserSession.get("logged") ? "" : <div className="ilv-card-body">
                                 {this.state.favorited ?
                                     <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
-                                        <i className="ilv-icon material-icons md-18" style={{"color": "#F00"}}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
+                                        <i className="ilv-icon material-icons md-18" style={{ "color": "#F00" }}>&#xE7FD;</i>{Messages.get("LabelSaveAsFollowed")}
                                     </button>
                                     :
                                     <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.favoriteUser}>
@@ -485,14 +486,14 @@ module.exports = React.createClass({
                             </div>}
                             <div className="ilv-card-footer">
                                 <div className="row">
-                                    {!UserSession.get("logged") ? "":<div className="col-12">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/"+user.get("Id")}>
-                                        {Messages.get("ActionHireProfessional")}
+                                    {!UserSession.get("logged") ? "" : <div className="col-12">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/coaching/hire/" + user.get("Id")}>
+                                            {Messages.get("ActionHireProfessional")}
                                         </Link>
                                     </div>}
-                                    {!UserSession.get("logged") ? "":<div className="col-12 mt-3">
-                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/"+user.get("Id")}>
-                                        {Messages.get("ActionSendMessage")}
+                                    {!UserSession.get("logged") ? "" : <div className="col-12 mt-3">
+                                        <Link className="ilv-btn ilv-btn-block ilv-btn-neutral" to={"/notifications/messages/" + user.get("Id")}>
+                                            {Messages.get("ActionSendMessage")}
                                         </Link>
                                     </div>}
                                     {!user.get("PhoneNumber") ? "" :

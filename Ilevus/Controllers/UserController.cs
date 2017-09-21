@@ -711,7 +711,12 @@ namespace ilevus.Controllers
 			user.Birthdate = model.BirthDate;
 			user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
 				professional.EducationInfo && professional.ServicesInfo;
-			user.Professional.AccountPayment = StripeManager.Instance.CreateAccount(user);
+
+			if (user.Professional.AccountPayment == null)
+			{
+				user.Professional.AccountPayment = StripeManager.Instance.CreateAccount(user);
+			}
+
 			IdentityResult result = await UserManager.UpdateAsync(user);
 
 			if (!result.Succeeded)
@@ -832,6 +837,7 @@ namespace ilevus.Controllers
 
 
 				IdentityResult result = await UserManager.UpdateAsync(user);
+				StripeManager.Instance.AddBankAccount(user.Professional.AccountPayment.Id, model.Token);
 
 				if (!result.Succeeded)
 				{

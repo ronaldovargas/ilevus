@@ -44,6 +44,30 @@ namespace ilevus.Controllers
 			StripeConfiguration.SetApiKey("sk_test_oUBTbeU0cX5yhj2bq0g1l1qS");
 		}
 
+		public bool AccountIsValid(IlevusUser user)
+		{
+			//Email = accountLocal.Email,
+			//Type = StripeAccountType.Custom,
+			//Country = accountLocal.Country,
+			//DefaultCurrency = accountLocal.DefaultCurrency
+			//.ForMember(para => para.BirthDay, de => de.MapFrom(o => o.DateBirth.Day))
+			//	.ForMember(para => para.BirthMonth, de => de.MapFrom(o => o.DateBirth.Month))
+			//	.ForMember(para => para.BirthYear, de => de.MapFrom(o => o.DateBirth.Year))
+			//	.ForMember(para => para.FirstName, de => de.MapFrom(o => o.FirstName))
+			//	.ForMember(para => para.LastName, de => de.MapFrom(o => o.LastName))
+			//	.ForMember(para => para.PersonalIdNumber, de => de.MapFrom(o => o.PersonalIdNumber))
+			//	.ForMember(para => para.Type, de => de.MapFrom(o => "individual"))
+
+			//	.ForMember(para => para.AddressCity, de => de.MapFrom(o => o.Address.City))
+			//	.ForMember(para => para.AddressPostalCode, de => de.MapFrom(o => o.Address.PostalCode))
+			//	.ForMember(para => para.AddressLine1, de => de.MapFrom(o => o.Address.Line1))
+			//	.ForMember(para => para.AddressLine2, de => de.MapFrom(o => o.Address.Line2))
+			//	.ForMember(para => para.AddressState, de => de.MapFrom(o => o.Address.State));
+
+
+			return true;
+		}
+
 		public AccountPayment CreateAccount(IlevusUser user)
 		{
 			var accountLocal = Mapper.Map<AccountPayment>(user);
@@ -53,7 +77,9 @@ namespace ilevus.Controllers
 				Email = accountLocal.Email,
 				Type = StripeAccountType.Custom,
 				Country = accountLocal.Country,
-				DefaultCurrency = accountLocal.DefaultCurrency
+				DefaultCurrency = accountLocal.DefaultCurrency,
+				TransferScheduleWeeklyAnchor = "monday",
+				TransferScheduleInterval = "weekly"
 			};
 
 			StripeAccount account = accountService.Create(accountOptions);
@@ -79,8 +105,16 @@ namespace ilevus.Controllers
 			return Mapper.Map<AccountPayment>(account);
 		}
 
-		public void AddBankAccount()
+		public void AddBankAccount(string idStripeAccount, string token)
 		{
+			StripeAccountBankAccountOptions bankaccount = new StripeAccountBankAccountOptions();
+			bankaccount.TokenId = token;
+			var accountOptions = new StripeAccountUpdateOptions()
+			{
+				ExternalBankAccount = bankaccount
+			};
+
+			StripeAccount account = accountService.Update(idStripeAccount,accountOptions);
 
 		}
 
@@ -120,7 +154,7 @@ namespace ilevus.Controllers
 			StripeCharge charge = chargeService.Create(chargeOptions);
 
 			// Verificando se o profissional ja tem conta no stripe. se nao tem se cria.
-			AccountPayment accountStripe = professional.Professional.AccountPayment ?? CreateAccount(professional);
+			AccountPayment accountStripe =  CreateAccount(professional);
 			professional.Professional.AccountPayment = accountStripe;
 			userManager.Update(professional);
 

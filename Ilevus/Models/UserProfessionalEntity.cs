@@ -63,6 +63,13 @@ namespace ilevus.Models
 
 		public string TaxDocument { get; set; }
 
+		public bool ProfessionalAccountBlocked
+		{
+			get
+			{
+				return BankAccount == null || AccountPayment == null;
+			}
+		}
 
 		public AccountPayment AccountPayment { get; set; }
 		public string StreetNumber { get; internal set; }
