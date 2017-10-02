@@ -20,9 +20,7 @@ module.exports = React.createClass({
   handleSubmit(ev) {
 
     ev.preventDefault();
-    this.props.stripe.createToken({
-      postalCode: this.refs['postalCode'].value
-    }).then(({ token, error }) => {
+    this.props.stripe.createToken().then(({ token, error }) => {
       this.toHireService(token);
       console.log('Received Stripe token:', token, error);
     });
@@ -33,29 +31,20 @@ module.exports = React.createClass({
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="ilv-form-group text-center">
-          <ul className="ilv-list-inline">
-            <li className="ilv-list-inline-item">
-              <i className="text-muted fa fa-cc-visa fa-2x"></i>
-            </li>
-            <li className="ilv-list-inline-item">
-              <i className="fa fa-cc-mastercard fa-2x"></i>
-            </li>
-            <li className="ilv-list-inline-item">
-              <i className="fa fa-cc-amex fa-2x"></i>
-            </li>
-            <li className="ilv-list-inline-item">
-              <i className="fa fa-cc-discover fa-2x"></i>
-            </li>
-          </ul>
-        </div>
+
+        <table style={{ width: '100%', marginBottom: '20px' }}>
+          <tr>
+            <th>Serviço</th>
+            <th style={{textAlign:'right'}}>Valor</th>
+          </tr>
+          <tr>
+            <td className="ilv-font-weight-semibold">{this.props.service.Name}</td>
+            <td className="ilv-text-xs-right">{this.props.service.Price}</td>
+          </tr>
+        </table>
         <CardNumberSection />
         <CardCVCSection />
-        <div className="ilv-form-group">
-          <label className="ilv-control-label mb-1">CEP</label>
-          <input className="ilv-form-control" type="text" ref="postalCode" />
-        </div>
-        <button>Confirm order</button>
+        <button className="ilv-btn-primary" style={{ width: '100%', padding: '11px' }}>Confirm order</button>
       </form>
     );
   }

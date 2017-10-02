@@ -20,6 +20,7 @@ namespace ilevus.Controllers
 		readonly StripeAccountService accountService = new StripeAccountService();
 
 		StripeCustomerService customerService = new StripeCustomerService();
+		IlevusUserManager UserManager { get; set; }
 
 		private static StripeManager instance;
 
@@ -71,6 +72,7 @@ namespace ilevus.Controllers
 		public AccountPayment CreateAccount(IlevusUser user)
 		{
 			var accountLocal = Mapper.Map<AccountPayment>(user);
+			var legalPayment = Mapper.Map<StripeAccountLegalEntityOptions>(accountLocal);
 
 			var accountOptions = new StripeAccountCreateOptions()
 			{
@@ -79,7 +81,10 @@ namespace ilevus.Controllers
 				Country = accountLocal.Country,
 				DefaultCurrency = accountLocal.DefaultCurrency,
 				TransferScheduleWeeklyAnchor = "monday",
-				TransferScheduleInterval = "weekly"
+				TransferScheduleInterval = "weekly",
+				TosAcceptanceDate = DateTime.Now,
+				TosAcceptanceIp = GetLocalIPAddress(),
+				LegalEntity = legalPayment
 			};
 
 			StripeAccount account = accountService.Create(accountOptions);
@@ -114,50 +119,28 @@ namespace ilevus.Controllers
 				ExternalBankAccount = bankaccount
 			};
 
-			StripeAccount account = accountService.Update(idStripeAccount,accountOptions);
+			StripeAccount account = accountService.Update(idStripeAccount, accountOptions);
 
 		}
 
 		public void MakePayment(HireServiceModel model, IlevusUserManager userManager)
 		{
+			UserManager = userManager;
+			IlevusUser professionalUser = RetrieveUserByService(model.service.Id);
 
+			UserService servicoToHire = professionalUser.Professional.Services.FirstOrDefault(x => x.Id == model.service.Id);
 
-			IlevusDBContext db = IlevusDBContext.Create();
-
-			// Recuperar o profissional que tem aquele servico.
-			IlevusUser professional = db.GetUsersCollection()
-				.Find(x => x.Professional.Services
-					.Any(y => y.Id == model.service.Id))
-				.FirstOrDefault();
-			UserService servicoToHire = professional.Professional.Services.FirstOrDefault(x => x.Id == model.service.Id);
-
-			// Calcula o preco final.
-			var finalPrice = PriceManager.FinalPrice(servicoToHire);
-			var valueToPay = Int32.Parse(finalPrice.ToString()
-				.Replace(",", string.Empty)
-				.Replace(".", string.Empty));
-
-			// Calcula o valor para transferir.
-			var valueIlevus = Math.Round(servicoToHire.Price, 2);
-
-			// Recebendo o dinheiro.
-			var chargeOptions = new StripeChargeCreateOptions()
-			{
-				Amount = valueToPay,
-				Currency = "brl",
-				Description = servicoToHire.Name,
-
-				SourceTokenOrExistingSourceId = model.stripe.Id,
-				TransferGroup = "{ORDER10}",
-			};
-			var chargeService = new StripeChargeService();
-			StripeCharge charge = chargeService.Create(chargeOptions);
+			BuyAService(servicoToHire, model);
 
 			// Verificando se o profissional ja tem conta no stripe. se nao tem se cria.
-			AccountPayment accountStripe =  CreateAccount(professional);
-			professional.Professional.AccountPayment = accountStripe;
-			userManager.Update(professional);
+			AccountPayment accountStripe = CreateORetrieveStripeAccount(professionalUser);
 
+			TransferToProfessional(servicoToHire.Price, accountStripe);
+		}
+
+		private static void TransferToProfessional(double priceService, AccountPayment accountStripe)
+		{
+			var valueIlevus = Math.Round(priceService, 2);
 			// Faco a transferencia para o professional.
 			var transferOptions = new StripeTransferCreateOptions()
 			{
@@ -172,39 +155,81 @@ namespace ilevus.Controllers
 
 			var transferService = new StripeTransferService();
 			transferService.Create(transferOptions);
+		}
 
+		private AccountPayment CreateORetrieveStripeAccount(IlevusUser professionalUser)
+		{
+			AccountPayment accountStripe = null;
+			if (professionalUser.Professional.AccountPayment == null)
+			{
+				accountStripe = CreateAccount(professionalUser);
+				professionalUser.Professional.AccountPayment = accountStripe;
+				UserManager.Update(professionalUser);
+			}
+
+			return professionalUser.Professional.AccountPayment;
+		}
+
+		private void BuyAService(UserService servicoToHire, HireServiceModel payer)
+		{
+			var customer = CreateOrRetrieveAccountCustomer(payer);
+			var finalPrice = PriceManager.FinalPrice(servicoToHire);
+			var valueToPay = Int32.Parse(finalPrice.ToString()
+				.Replace(",", string.Empty)
+				.Replace(".", string.Empty));
+
+			// Recebendo o dinheiro.
+			var chargeOptions = new StripeChargeCreateOptions()
+			{
+				Amount = valueToPay,
+				Currency = "brl",
+				Description = servicoToHire.Name,
+				CustomerId = customer.Id,
+				TransferGroup = "{ORDER10}",
+			};
+			var chargeService = new StripeChargeService();
+			StripeCharge charge = chargeService.Create(chargeOptions);
+
+			PaymentsCustomer payment = new PaymentsCustomer
+			{
+				Customer = customer,
+				Amount = valueToPay,
+				PayDay = DateTime.Now
+			};
+
+			IlevusDBContext db =  IlevusDBContext.Create();
+			db.GetPaymentsCustomerCollection().InsertOne(payment);
 
 		}
 
-		public Customer CreateCustomer()
+		private static IlevusUser RetrieveUserByService(Guid serviceId)
 		{
-			//var customerOptions = new StripeCustomerCreateOptions()
-			//{
-			//	Description = "Customer for zoey.wilson@example.com",
-			//	SourceToken = "tok_amex"
-			//};
 
-			//StripeCustomer customer = customerService.Create(customerOptions);
-			//return Mapper.Map<Customer>(customer);
-			return null;
+			IlevusDBContext db = IlevusDBContext.Create();
+
+			return db.GetUsersCollection()
+				.Find(x => x.Professional.Services
+				.Any(y => y.Id == serviceId))
+				.FirstOrDefault();
 		}
 
-		public void SaveCreditCard()
+		private AccountCustomer CreateOrRetrieveAccountCustomer(HireServiceModel model)
 		{
+			if (model.user.AccountCustumer == null)
+			{
+				var customerOptions = new StripeCustomerCreateOptions()
+				{
+					Email = model.user.Email,
+					SourceToken = model.stripe.Id
+				};
+				var customerService = new StripeCustomerService();
+				StripeCustomer customer = customerService.Create(customerOptions);
 
-			//var tokenOptions = new StripeTokenCreateOptions()
-			//{
-			//	Card = new StripeCreditCardOptions()
-			//	{
-			//		Number = "4242424242424242",
-			//		ExpirationYear = 2018,
-			//		ExpirationMonth = 9,
-			//		Cvc = "123"
-			//	}
-			//};
+				model.user.AccountCustumer = Mapper.Map<AccountCustomer>(customer);
+				UserManager.Update(model.user);
+			}
 
-			//var tokenService = new StripeTokenService();
-			//StripeToken stripeToken = tokenService.Create(tokenOptions);
+			return model.user.AccountCustumer;
 		}
 
 		private static string GetLocalIPAddress()

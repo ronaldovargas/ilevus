@@ -16,9 +16,9 @@ module.exports = React.createClass({
           <div className="ilv-card-title">
             <h3 className="text-center">Pay Invoice</h3>
           </div>
-          <hr/>
+          <hr />
           <Elements>
-            <StripeCheckoutForm service={this.props.service}/>
+            <StripeCheckoutForm service={this.props.service} />
           </Elements>
         </div>
       </div>

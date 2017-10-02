@@ -36,9 +36,18 @@ namespace ilevus.Models
 		public string State { get; set; }
 	}
 
-	public class Customer
+	public class AccountCustomer
 	{
+		public string Id { get; set; }
 		public string Email { get; set; }
 		public string Description { get; set; }
+	}
+
+	public class PaymentsCustomer
+	{
+		public string Id { get; set; }
+		public AccountCustomer Customer { get; set; }
+		public decimal Amount { get; set; }
+		public DateTime PayDay { get; set; }
 	}
 }

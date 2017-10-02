@@ -259,7 +259,7 @@
     <Compile Include="Helpers\IlevusClaimTypes.cs" />
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
-    <Compile Include="Maps\ContaMoipProfile.cs" />
+    <Compile Include="Maps\PaymentAccountProfile.cs" />
     <Compile Include="MongoMigrations\M002_UserProfessionalEntity.cs" />
     <Compile Include="MongoMigrations\M001_UserProfessionalEntity.cs" />
     <Compile Include="Models\AccountPayment.cs" />
@@ -563,7 +563,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57141</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

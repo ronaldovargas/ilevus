@@ -15,7 +15,7 @@ namespace ilevus.Maps
 		public PaymentAccountProfile()
 		{
 			CreateMap<IlevusUser, AccountPayment>()
-				.ForMember(para => para.Id, de => de.MapFrom(o => o.Id))
+				.ForMember(para => para.Id, de => de.MapFrom(o => o.Professional.AccountPayment.Id))
 				.ForMember(para => para.Email, de => de.MapFrom(o => o.Email))
 				.ForMember(para => para.FirstName, de => de.MapFrom(o => o.Name))
 				.ForMember(para => para.LastName, de => de.MapFrom(o => o.Surname))

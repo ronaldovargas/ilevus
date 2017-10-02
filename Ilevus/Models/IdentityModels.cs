@@ -36,7 +36,7 @@ namespace ilevus.Models
 		public UserProfessionalEntity Professional { get; set; }
 		public UserPremiumMembership Premium { get; set; }
 		public bool IsProfessional { get; set; }
-
+		public AccountCustomer AccountCustumer { get; set; }
 		public string LinkedinProfileUrl { get; set; }
 
 		public string Culture { get; set; }

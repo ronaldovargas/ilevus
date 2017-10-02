@@ -838,7 +838,7 @@ namespace ilevus.Controllers
 
 				IdentityResult result = await UserManager.UpdateAsync(user);
 				StripeManager.Instance.AddBankAccount(user.Professional.AccountPayment.Id, model.Token);
-
+				StripeManager.Instance.UpdateAccountWithLegalEntity(user);
 				if (!result.Succeeded)
 				{
 					return GetErrorResult(result);

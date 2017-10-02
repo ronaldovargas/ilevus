@@ -47,17 +47,9 @@ module.exports = React.createClass({
         };
 
         const hidden = !this.props.blocked ? {} : divStyle;
-
         return <tr>
             <td className="ilv-font-weight-semibold">{this.props.service.Name}
                 <Modal ref="modal" onShow={this.callback}>
-                    <table>
-                        <tr>
-                            <td className="ilv-font-weight-semibold">{this.props.service.Name}</td>
-                            <td className="ilv-text-xs-right">{this.props.service.Price}</td>
-                        </tr>
-                    </table>
-
                     <StripeProvider apiKey="pk_test_p00RSg3UpH2EcSOh7Qsu0Aif">
                         <Checkout service={this.props.service}></Checkout>
                     </StripeProvider>

@@ -12,7 +12,6 @@ using ilevus.Helpers;
 using ilevus.Resources;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using RestSharp.Extensions;
 
 namespace ilevus.Models
 {
@@ -32,6 +31,7 @@ namespace ilevus.Models
         public const string AssessmentsTable = "assessments";
 
         public const string SystemDefinitionsTable = "ilevus_definitions";
+		public const string PaymentsCustomerTable = "payments_customer";
     }
 
 
@@ -57,6 +57,11 @@ namespace ilevus.Models
 		public IMongoCollection<Ad> GetAdsCollection()
 		{
 			return IlevusDatabase.GetCollection<Ad>(IlevusTableNames.AdsTable);
+		}
+
+		public IMongoCollection<PaymentsCustomer> GetPaymentsCustomerCollection()
+		{
+			return IlevusDatabase.GetCollection<PaymentsCustomer>(IlevusTableNames.PaymentsCustomerTable);
 		}
 
 		public IMongoCollection<CoachingProcess> GetCoachingProcessCollection()
