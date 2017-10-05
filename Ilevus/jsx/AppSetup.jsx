@@ -53,6 +53,7 @@ var UserFinancial = require("ilevus/jsx/core/view/user/Financial.jsx");
 var UserManagement = require("ilevus/jsx/core/view/user/Management.jsx");
 var UserProfessionalProfile = require("ilevus/jsx/core/view/user/ProfessionalProfile.jsx");
 var UserProfile = require("ilevus/jsx/core/view/user/Profile.jsx");
+var PaymentsList = require("ilevus/jsx/core/view/user/PaymentsList.jsx");
 var UserSchedule = require("ilevus/jsx/core/view/user/Schedule.jsx");
 var UserViewSchedule = require("ilevus/jsx/core/view/user/ViewSchedule.jsx");
 var UserAssessments = require("ilevus/jsx/core/view/user/Assessments.jsx");
@@ -175,6 +176,7 @@ Messages.load(function (success) {
 
                     <Route path="user" component={UserManagement}>
                         <Route path="account" component={UserAccount} />
+                        <Route path="paymentslist" component={PaymentsList} />
                         <Route path="dashboard" component={CoachingProcesses} />
                         <Route path="financial" component={UserFinancial} />
                         <Route path="processes" component={ProcessDefinition} />

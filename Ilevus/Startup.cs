@@ -1,12 +1,14 @@
-﻿using System.Configuration;
+using System.Configuration;
 using System.IO;
 using System.Web.Hosting;
 using System.Web.Http;
 using ilevus.App_Start;
 using ilevus.Models;
+using ilevus.Repository;
 using Microsoft.Owin;
 using Microsoft.Owin.Diagnostics;
 using Owin;
+using StructureMap;
 
 [assembly: OwinStartup(typeof(ilevus.Startup))]
 
@@ -19,7 +21,8 @@ namespace ilevus
 		public void Configuration(IAppBuilder app)
 		{
             AutoMapperConfig.Initialize();
-            log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
+			ObjectFactory.Initialize(x => { x.For<IRepository>().Use<MongoRepository>(); });
+			log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
             IlevusIdentityContext context = IlevusIdentityContext.Create();
 
             IlevusDbInitializer.Initialize(context);

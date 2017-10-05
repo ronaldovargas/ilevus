@@ -153,6 +153,7 @@ module.exports = React.createClass({
                                     <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
+                                    <Link className="dropdown-item" to="/user/paymentslist">{Messages.get("LabelPaymentsList")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelChangeLanguage")}</Link>
                                     {!this.context.admin ? "" :
                                     <Link className="dropdown-item" to="/admin/emails">{Messages.get("LabelAdminPanel")}</Link>

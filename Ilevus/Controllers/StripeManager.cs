@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -188,7 +188,6 @@ namespace ilevus.Controllers
 				TransferGroup = "{ORDER10}",
 			};
 			var chargeService = new StripeChargeService();
-			StripeCharge charge = chargeService.Create(chargeOptions);
 
 			PaymentsCustomer payment = new PaymentsCustomer
 			{

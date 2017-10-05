@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -109,10 +110,10 @@
       <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\MongoDB.Driver.2.4.4\lib\net45\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
@@ -121,6 +122,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Norm, Version=0.9.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NoRM.0.9.8\lib\Norm.dll</HintPath>
+    </Reference>
     <Reference Include="Owin.Security.Providers.LinkedIn, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.Security.Providers.LinkedIn.2.7.0\lib\net45\Owin.Security.Providers.LinkedIn.dll</HintPath>
       <Private>True</Private>
@@ -128,6 +132,12 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="Stripe.net, Version=10.4.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Stripe.net.10.4.0\lib\net45\Stripe.net.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=3.1.9.463, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.9.463\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Net4, Version=3.1.9.463, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.3.1.9.463\lib\net40\StructureMap.Net4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -238,6 +248,7 @@
     <Compile Include="Controllers\AdController.cs" />
     <Compile Include="Controllers\CoachingTools\WheelOfLifeController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -246,6 +257,21 @@
     <Compile Include="Controllers\StripeManager.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Entities\AccountCustomer.cs" />
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\Payments\PaymentsCustomer.cs" />
+    <Compile Include="Entities\User\BankAccount.cs" />
+    <Compile Include="Entities\User\IdentityModels.cs" />
+    <Compile Include="Entities\User\IlevusRole.cs" />
+    <Compile Include="Entities\User\IlevusRoleStore.cs" />
+    <Compile Include="Entities\User\IlevusUserClaim.cs" />
+    <Compile Include="Entities\User\IlevusUserStore.cs" />
+    <Compile Include="Entities\User\PhoneModel.cs" />
+    <Compile Include="Entities\User\UserCareer.cs" />
+    <Compile Include="Entities\User\UserEducation.cs" />
+    <Compile Include="Entities\User\UserPremiumMembership.cs" />
+    <Compile Include="Entities\User\UserScheduleConfig.cs" />
+    <Compile Include="Entities\User\UserService.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserStatus.cs" />
@@ -260,9 +286,10 @@
     <Compile Include="Helpers\LinkedinClient.cs" />
     <Compile Include="Helpers\UnityResolver.cs" />
     <Compile Include="Maps\PaymentAccountProfile.cs" />
+    <Compile Include="Entities\Payments\CustomAccountKeys.cs" />
     <Compile Include="MongoMigrations\M002_UserProfessionalEntity.cs" />
     <Compile Include="MongoMigrations\M001_UserProfessionalEntity.cs" />
-    <Compile Include="Models\AccountPayment.cs" />
+    <Compile Include="Entities\Payments\AccountPayment.cs" />
     <Compile Include="Models\AssessmentModel.cs" />
     <Compile Include="Models\FinancialModels.cs" />
     <Compile Include="Models\CoachingModels.cs" />
@@ -273,7 +300,6 @@
     <Compile Include="Models\CoachingTools\WheelOfLifeModels.cs" />
     <Compile Include="Models\DBContext.cs" />
     <Compile Include="Models\HireServiceModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\AdModels.cs" />
     <Compile Include="Models\NotificationModel.cs" />
     <Compile Include="Models\ScheduleModels.cs" />
@@ -286,6 +312,10 @@
     <Compile Include="Models\UserBindingModels.cs" />
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\MongoContext.cs" />
+    <Compile Include="Repository\MongoRepository.cs" />
+    <Compile Include="Repository\PagingExtensions.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -402,6 +432,7 @@
     <Content Include="sass\custom\_notifications.scss" />
     <Content Include="sass\custom\_rating.scss" />
     <Content Include="sass\components\_overlay.scss" />
+    <Content Include="Views\web.config" />
     <None Include="webpack.config.js" />
     <None Include="webpack.production.config.js" />
   </ItemGroup>
@@ -512,7 +543,9 @@
     <Content Include="sass\custom\_markdown.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\ilevus.local.pubxml" />
     <None Include="Properties\PublishProfiles\ilevus.pubxml" />
   </ItemGroup>
@@ -530,6 +563,7 @@
     <Folder Include="App_Data\pictures\" />
     <Folder Include="cms\ads\" />
     <Folder Include="Content\" />
+    <Folder Include="Documentation\" />
     <Folder Include="lib\react-autocomplete\" />
     <Folder Include="Views\Assessment\" />
   </ItemGroup>

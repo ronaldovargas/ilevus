@@ -68,14 +68,11 @@ module.exports = React.createClass({
             action: UserStore.ACTION_RETRIEVE,
             data: this.props.params.id
         });
-      },
-
 
         AssessmentsStore.dispatch({
             action: AssessmentsStore.ACTION_USER_ASSESSMENTS,
             data: this.props.params.id
         });
-
     },
     componentWillUnmount() {
         UserStore.off(null, null, this);
@@ -126,7 +123,7 @@ module.exports = React.createClass({
             tmp.push(i);
         }
 
-        for (var i = 0; i < 5-qtde; i++) {
+        for (var i = 0; i < 5 - qtde; i++) {
             cinzas.push(i);
         }
 
@@ -135,15 +132,15 @@ module.exports = React.createClass({
         });
 
         var starsCinzas = cinzas.map(function (i) {
-            return (<i className="ilv-rating-item-no-hover material-icons" style={{ color: "#22C8EB" } }>&#xE838;</i>);
+            return (<i className="ilv-rating-item-no-hover material-icons" style={{ color: "#22C8EB" }}>&#xE838;</i>);
         });
 
         return (
-                <div className="ilv-rating">
-                    <div className="ilv-rating-list">
-                        {starsCinzas}{stars}
-                    </div>
+            <div className="ilv-rating">
+                <div className="ilv-rating-list">
+                    {starsCinzas}{stars}
                 </div>
+            </div>
         )
     },
 
@@ -243,20 +240,20 @@ module.exports = React.createClass({
                                     </p>
                                     <div>
                                         <Link className="ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>
-                                        {this.renderStars()}
-                                        <div className="ilv-rating" style={{display: "none"}}>
-                                            <div className="ilv-rating-list">
-                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
-                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
-                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
-                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
-                                                <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                            {this.renderStars()}
+                                            <div className="ilv-rating" style={{ display: "none" }}>
+                                                <div className="ilv-rating-list">
+                                                    <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                    <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                    <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                    <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                    <i className="ilv-rating-item material-icons">&#xE838;</i>
+                                                </div>
+                                                <div style={{ display: "none" }} className="ilv-rating-label">3.5</div>
                                             </div>
-                                            <div style={{display: "none"}} className="ilv-rating-label">3.5</div>
-                                        </div>
                                         </Link>
                                     </div>
-                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>{Messages.format("TextEvaluations", [this.state.receivedsAssessments])}</Link>                                    
+                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + user.get("Id")}>{Messages.format("TextEvaluations", [this.state.receivedsAssessments])}</Link>
                                 </div>
                             </div>
                         </div>
