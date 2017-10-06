@@ -21,8 +21,14 @@ namespace ilevus.Controllers
 			IlevusDBContext repository = IlevusDBContext.Create();
 			//User.Identity.Name
 			IlevusUser user = UserManager.FindByName(User.Identity.Name);
+			if (user.AccountCustumer == null)
+			{
+				return null;
+			}
 
-			return MongoContext.Current.Find<PaymentsCustomer>(x => x.Customer.Id == user.AccountCustumer.Id).ToList();
+			var lista = MongoContext.Current.Find<PaymentsCustomer>(x => x.Customer.Id == user.AccountCustumer.Id);
+
+			return lista.ToList();
 		}
 	}
 }

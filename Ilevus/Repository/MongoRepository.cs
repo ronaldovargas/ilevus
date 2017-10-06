@@ -14,7 +14,7 @@ namespace ilevus.Repository
 
 		public MongoRepository()
 		{
-			_provider = Mongo.Create(ConfigurationManager.ConnectionStrings["db"].ConnectionString);
+			_provider = Mongo.Create(ConfigurationManager.ConnectionStrings["connectionstrings"].ConnectionString);
 		}
 
 		public void Delete<T>(Expression<Func<T, bool>> expression) where T : class, new()

@@ -36,7 +36,7 @@ namespace ilevus.Repository
 				return session;
 			}
 
-			session = ObjectFactory.GetInstance<IRepository>();
+			session = Ioc.Container.GetInstance<IRepository>();
 			SaveSession(session);
 
 			return session;

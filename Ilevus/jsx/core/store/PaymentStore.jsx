@@ -18,7 +18,7 @@ var PaymentModel = Fluxbone.Model.extend({
 });
 
 var PaymentStore = Fluxbone.Store.extend({
-    ACTION_GET_ALL: 'user-get-all',
+    ACTION_GET_ALL: 'payment-getAll',
     url: URL,
     model: PaymentModel,
 

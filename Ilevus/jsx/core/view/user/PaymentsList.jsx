@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PaymentStore  from "ilevus/jsx/core/store/PaymentStore";
+var PaymentStore = require("ilevus/jsx/core/store/PaymentStore");
 
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");

@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.IO;
 using System.Web.Hosting;
@@ -20,26 +21,54 @@ namespace ilevus
 
 		public void Configuration(IAppBuilder app)
 		{
-            AutoMapperConfig.Initialize();
-			ObjectFactory.Initialize(x => { x.For<IRepository>().Use<MongoRepository>(); });
+			AutoMapperConfig.Initialize();
+
 			log4net.Config.XmlConfigurator.Configure(new FileInfo(HostingEnvironment.MapPath("~/Web.config")));
-            IlevusIdentityContext context = IlevusIdentityContext.Create();
+			IlevusIdentityContext context = IlevusIdentityContext.Create();
 
-            IlevusDbInitializer.Initialize(context);
-            IlevusDbInitializer.InitializeIdentity(context);
+			IlevusDbInitializer.Initialize(context);
+			IlevusDbInitializer.InitializeIdentity(context);
 
-            ConfigureAuth(app);
+			ConfigureAuth(app);
 
-            app.CreatePerOwinContext(IlevusDBContext.Create);
-            IlevusDBContext db = IlevusDBContext.Create();
+			app.CreatePerOwinContext(IlevusDBContext.Create);
+			IlevusDBContext db = IlevusDBContext.Create();
 
 			db.Migrations();
-            db.EnsureIndexes();
-            db.EnsureSystemConfig();
+			db.EnsureIndexes();
+			db.EnsureSystemConfig();
 
-            app.UseErrorPage(ErrorPageOptions.ShowAll);
-            HttpConfiguration config = WebApiConfig.Create();
-            app.UseWebApi(config);
+			app.UseErrorPage(ErrorPageOptions.ShowAll);
+			HttpConfiguration config = WebApiConfig.Create();
+			app.UseWebApi(config);
 		}
+	}
+}
+
+public static class Ioc
+{
+	private static Container container;
+
+	public static Container Container
+	{
+		get
+		{
+			if (container == null)
+			{
+				Initialize();
+			}
+			return container;
+		}
+	}
+
+	public static void Initialize()
+	{
+		container = new Container();
+
+		container.Configure(config2 =>
+		{
+			config2.For(typeof(IRepository)).Use(typeof(MongoRepository));
+		});
+
 	}
 }
