@@ -189,7 +189,7 @@ namespace ilevus.Controllers
 			};
 			var chargeService = new StripeChargeService();
 
-			PaymentsCustomer payment = new PaymentsCustomer
+			CustomerPayments payment = new CustomerPayments
 			{
 				Customer = customer,
 				Amount = valueToPay,
@@ -212,7 +212,7 @@ namespace ilevus.Controllers
 				.FirstOrDefault();
 		}
 
-		private AccountCustomer CreateOrRetrieveAccountCustomer(HireServiceModel model)
+		private CustomerAccount CreateOrRetrieveAccountCustomer(HireServiceModel model)
 		{
 			if (model.user.AccountCustumer == null)
 			{
@@ -224,7 +224,7 @@ namespace ilevus.Controllers
 				var customerService = new StripeCustomerService();
 				StripeCustomer customer = customerService.Create(customerOptions);
 
-				model.user.AccountCustumer = Mapper.Map<AccountCustomer>(customer);
+				model.user.AccountCustumer = Mapper.Map<CustomerAccount>(customer);
 				UserManager.Update(model.user);
 			}
 

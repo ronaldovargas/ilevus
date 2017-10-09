@@ -32,7 +32,7 @@ namespace ilevus.Models
         public const string SiteMapTable = "sitemaplog";
 
         public const string SystemDefinitionsTable = "ilevus_definitions";
-		public const string PaymentsCustomerTable = "payments_customer";
+		public const string CustomerPaymentsTable = "payments_customer";
     }
 
 
@@ -60,9 +60,9 @@ namespace ilevus.Models
 			return IlevusDatabase.GetCollection<Ad>(IlevusTableNames.AdsTable);
 		}
 
-		public IMongoCollection<PaymentsCustomer> GetPaymentsCustomerCollection()
+		public IMongoCollection<CustomerPayments> GetPaymentsCustomerCollection()
 		{
-			return IlevusDatabase.GetCollection<PaymentsCustomer>(IlevusTableNames.PaymentsCustomerTable);
+			return IlevusDatabase.GetCollection<CustomerPayments>(IlevusTableNames.CustomerPaymentsTable);
 		}
 
 		public IMongoCollection<CoachingProcess> GetCoachingProcessCollection()
