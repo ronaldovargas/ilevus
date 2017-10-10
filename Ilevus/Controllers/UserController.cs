@@ -433,7 +433,7 @@ namespace ilevus.Controllers
 
             if (user.Professional != null && string.IsNullOrEmpty(user.Professional.NomeURL))
             {
-                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname, user.Id);
             }
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
@@ -548,12 +548,17 @@ namespace ilevus.Controllers
             return Ok(true);
         }
 
-        private string montaNomeURL(string nome, string sobrenome)
+        private string montaNomeURL(string nome, string sobrenome, string idUser = null)
         {
             try
             {
                 var retorno = "";
-                retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + new Random().Next(1000, 9999);
+                var sufix = new Random().Next(1000, 9999) + "";
+                if (idUser != null)
+                {
+                    sufix = idUser.Substring(0, 5);
+                }
+                retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + sufix;
                 return retorno;
             } catch (Exception ex)
             {
@@ -759,7 +764,7 @@ namespace ilevus.Controllers
 
             if (string.IsNullOrEmpty(user.Professional.NomeURL))
             {
-                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname);
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname, user.Id);
             }
 
             IdentityResult result = await UserManager.UpdateAsync(user);

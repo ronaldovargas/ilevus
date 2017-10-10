@@ -1,0 +1,7 @@
+.#{$prefix}btn-facebook {
+  @include button-variant(#ffffff, #3B5998, #3B5998);
+}
+
+.#{$prefix}btn-linkedin {
+  @include button-variant(#ffffff, #0077b5, #0077b5);
+}

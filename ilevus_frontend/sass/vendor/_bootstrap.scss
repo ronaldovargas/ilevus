@@ -1,0 +1,62 @@
+﻿//
+// Bootstrap V4 Overrides
+//
+
+
+//
+// Navbar Brand
+//
+.navbar-brand {
+  padding: 0;
+  font-size: 1.125rem;
+}
+
+.nav-link {
+    color: #383f56;
+}
+
+//
+// Dropdown Menu
+//
+.dropdown-menu {
+    padding: .625rem;
+}
+.dropdown-item {
+  padding: .375rem .75rem;
+  font-size: $font-size-base;
+  color: $body-color;
+  border-radius: $border-radius;
+
+  @include hover-focus {
+    color: $body-color;
+    text-decoration: none;
+    background-color: $color-brand-lightest;
+  }
+
+  // Active state
+  &.active {
+    @include plain-hover-focus {
+      color: $body-color;
+      text-decoration: none;
+      background-color: $color-brand-lightest;
+      outline: 0;
+    }
+  }
+
+  // Disabled state
+  //
+  // Gray out text and ensure the hover/focus state remains gray
+  &.disabled {
+    @include plain-hover-focus {
+      color: #eee;
+    }
+
+    // Nuke hover/focus effects
+    @include hover-focus {
+      text-decoration: none;
+      cursor: $cursor-disabled;
+      background-color: transparent;
+      background-image: none; // Remove CSS gradient
+    }
+  }
+}

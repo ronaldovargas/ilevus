@@ -1,0 +1,49 @@
+//
+// Text
+//
+
+// Alignment
+
+.#{$prefix}text-justify        { text-align: justify !important; }
+.#{$prefix}text-nowrap         { white-space: nowrap !important; }
+.#{$prefix}text-truncate       { @include text-truncate; }
+
+// Responsive alignment
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    .#{$prefix}text-#{$breakpoint}-left   { text-align: left !important; }
+    .#{$prefix}text-#{$breakpoint}-right  { text-align: right !important; }
+    .#{$prefix}text-#{$breakpoint}-center { text-align: center !important; }
+  }
+}
+
+// Sizing
+
+.#{$prefix}text-small          { font-size: $font-size-sm !important; }
+.#{$prefix}text-large          { font-size: $font-size-lg !important; }
+
+// Transformation
+
+.#{$prefix}text-lowercase      { text-transform: lowercase !important; }
+.#{$prefix}text-uppercase      { text-transform: uppercase !important; }
+.#{$prefix}text-capitalize     { text-transform: capitalize !important; }
+
+// Weight and italics
+
+.#{$prefix}font-weight-normal  { font-weight: normal; }
+.#{$prefix}font-weight-semibold{ font-weight: 600; }
+.#{$prefix}font-weight-bold    { font-weight: 700; }
+.#{$prefix}font-weight-extrabold { font-weight: 800; }
+.#{$prefix}font-italic         { font-style: italic; }
+
+//
+// Contextual text
+//
+
+.#{$prefix}text-primary          { color: $color-primary-brand; }
+.#{$prefix}text-info             { color: $color-primary-info; }
+.#{$prefix}text-success          { color: $color-primary-success; }
+.#{$prefix}text-warning          { color: $color-primary-warning; }
+.#{$prefix}text-danger           { color: $color-primary-danger; }
+

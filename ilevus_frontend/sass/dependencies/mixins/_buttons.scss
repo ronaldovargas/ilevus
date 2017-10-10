@@ -1,0 +1,61 @@
+// Button sizes
+@mixin button-size($height, $line-height, $padding-y, $padding-x, $border-radius) {
+  height: $height;
+  line-height: $line-height;
+  padding: $padding-y $padding-x;
+  @include border-radius($border-radius);
+}
+
+// Button colors
+@mixin button-variant($color, $background, $border) {
+  $active-background: lighten($background, 5%);
+  $active-border: lighten($border, 5%);
+
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  @include hover {
+    color: $color;
+    background-color: $active-background;
+        border-color: $active-border;
+  }
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: $active-background;
+        border-color: $active-border;
+  }
+
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: $active-background;
+        border-color: $active-border;
+    // Remove the gradient for the pressed/active state
+    background-image: none;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 5%);
+          border-color: darken($border, 5%);
+    }
+  }
+
+  &.disabled,
+  &:disabled {
+    &:focus,
+    &.focus {
+      background-color: $background;
+          border-color: $border;
+    }
+    @include hover {
+      background-color: $background;
+          border-color: $border;
+    }
+  }
+}

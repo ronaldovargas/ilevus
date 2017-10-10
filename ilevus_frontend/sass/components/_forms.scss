@@ -1,0 +1,289 @@
+//
+// Form group wrapper
+//
+.#{$prefix}form-group {
+  margin-bottom: $form-group-margin-bottom;
+}
+
+
+//
+// Form control base styles
+//
+.#{$prefix}form-control {
+  display: inline-block;
+  padding: $form-control-padding-y $form-control-padding-x;
+  vertical-align: middle;
+  min-width: 4rem;
+  width: 100%;
+  min-height: $form-control-height;
+  background-color: $form-control-bg;
+  border: $form-control-border-width solid $form-control-border-color;
+  @include border-radius($form-control-border-radius);
+
+  // Unstyle the caret on `<select>`s in IE10+.
+  &::-ms-expand {
+    background-color: transparent;
+    border: 0;
+  }
+
+  &:hover {
+    border-color: $form-control-border-hover;
+  }
+
+  &:focus,
+  &.focus {
+    border-color: $form-control-border-focus;
+    outline: none;
+  }
+
+  // Placeholder
+  &::placeholder {
+    color: $form-control-placeholder;
+    opacity: 1;
+  }
+
+  // Disabled
+  &:disabled,
+  &[readonly] {
+    background-color: $form-control-bg-disabled;
+    opacity: 1;
+  }
+
+  &:disabled {
+    cursor: $cursor-disabled;
+  }
+}
+
+select.#{$prefix}form-control {
+
+  &:not([size]):not([multiple]) {
+    height: $form-control-height;
+  }
+
+  &:focus::-ms-value {
+    // Suppress the nested default white text on blue background highlight given to
+    // the selected option text when the (still closed) <select> receives focus
+    // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
+    // match the appearance of the native widget.
+    // See https://github.com/twbs/bootstrap/issues/19398.
+    color: $form-control-color;
+    background-color: $form-control-bg;
+  }
+}
+
+textarea.#{$prefix}form-control {
+  padding: $form-control-padding-x;
+}
+
+// Form control sizing
+.#{$prefix}form-control-sm {
+  min-height: $form-control-height-sm;
+}
+
+.#{$prefix}form-control-lg {
+  min-height: $form-control-height-lg;
+}
+
+// Form control width
+.#{$prefix}form-control-short {
+  min-width: $form-control-width-short;
+  max-width: $form-control-width-short;
+}
+
+.#{$prefix}form-control-medium {
+  min-width: $form-control-width-medium;
+  max-width: $form-control-width-medium;
+}
+
+.#{$prefix}form-control-long {
+  min-width: $form-control-width-long;
+  max-width: $form-control-width-long;
+}
+
+
+//
+// Form components
+//
+.#{$prefix}form-legend,
+.#{$prefix}form-label {
+  width: 100%;
+  display: block;
+  margin-bottom: 0;
+  font-size: $font-size-base;
+  font-weight: 600;
+  line-height: 1.6em;
+}
+
+.#{$prefix}form-legend {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.#{$prefix}form-label {
+  padding-bottom: .8em;
+  user-select: none;
+
+}
+
+
+//
+// Form orientation
+//
+.#{$prefix}form-inline {
+  display: inline-block;
+
+  @include media-breakpoint-up(sm) {
+    // Inline-block all the things for "inline"
+    .#{$prefix}form-group {
+      display: inline-block;
+      margin-bottom: 0;
+    }
+
+    // Add left margin to sequential form groups
+    .#{$prefix}form-group + .#{$prefix}form-group {
+        margin-left: 1rem;
+    }
+
+    // Allow folks to *not* use `.form-group`
+    .#{$prefix}form-control {
+      display: inline-block;
+      width: auto; // Prevent labels from stacking above inputs in `.form-group`
+    }
+
+    // Make static controls behave like regular ones
+    .#{$prefix}form-control-static {
+      display: inline-block;
+    }
+
+    .#{$prefix}form-label {
+      display: inline-block;
+      width: auto;
+      margin-bottom: 0;
+    }
+  }
+}
+
+
+//
+// Checkbox and Radio buttons
+//
+
+.#{$prefix}checkbox,
+.#{$prefix}radio {
+	display: block;
+
+	label { margin: 0; }
+}
+
+.#{$prefix}checkbox + .#{$prefix}checkbox,
+.#{$prefix}radio + .#{$prefix}radio {
+    margin-top: .5rem;
+}
+
+.#{$prefix}control-indicator {
+	width: $form-check-radio-size;
+	height: $form-check-radio-size;
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	border: $form-control-border-width solid $form-control-border-color;
+	background-color: $form-control-bg;
+  cursor: pointer;
+}
+
+.#{$prefix}control-label {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: .5rem;
+}
+
+.#{$prefix}control-input {
+  width: 1px;
+  height: 1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+
+  &:hover ~ .#{$prefix}control-indicator {
+    border-color: $form-control-border-hover;
+  }
+
+  &:focus ~ .#{$prefix}control-indicator {
+    border-color: $form-control-border-focus;
+  }
+
+  &:checked ~ .#{$prefix}control-indicator {
+    border-color: $form-control-border-focus;
+    background-color: $form-control-border-focus;
+
+    &:after {
+  		display: block;
+  		content: '';
+  		position: absolute;
+  		top: 50%;
+  		left: 50%;
+    }
+  }
+
+  &:hover:checked,
+  &:focus:checked {
+    & ~ .#{$prefix}control-indicator {
+      border-color: darken($form-control-border-focus, 15%);
+    }
+  }
+
+  &:disabled ~ .#{$prefix}control-indicator {
+    background-color: $form-control-bg-disabled;
+		border-color: $form-control-border-color;
+    cursor: $cursor-disabled;
+  }
+
+  &:hover:disabled ~ .#{$prefix}control-indicator {
+    border-color: $form-control-border-hover;
+  }
+}
+
+// Specific styles
+.#{$prefix}checkbox {
+
+  .#{$prefix}control-input:checked ~ .#{$prefix}control-indicator:after {
+    height: .25rem;
+    width: .5rem;
+		transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+		border-bottom: 2px solid $form-control-bg;
+		border-left: 2px solid $form-control-bg;
+  }
+
+  .#{$prefix}control-indicator {
+    border-radius: $border-radius;
+  }
+}
+
+.#{$prefix}radio {
+
+  .#{$prefix}control-input:checked ~ .#{$prefix}control-indicator:after {
+    height: .375rem;
+    width: .375rem;
+		transform: translate3d(-50%, -50%, 0);
+		border-radius: 50%;
+    background-color: $form-control-bg;
+  }
+
+  .#{$prefix}control-indicator {
+    border-radius: 50%;
+  }
+}
+
+// Inline elements
+.#{$prefix}checkbox-inline,
+.#{$prefix}radio-inline {
+	display: inline;
+}
+
+.#{$prefix}checkbox-inline + .#{$prefix}checkbox-inline,
+.#{$prefix}radio-inline + .#{$prefix}radio-inline {
+    margin-left: .625rem;
+}

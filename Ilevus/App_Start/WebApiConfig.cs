@@ -14,6 +14,7 @@ using System.IO;
 using ilevus.App_Start;
 using System.Web.Routing;
 using System.Web.Mvc;
+using System.Web.Http.Cors;
 
 namespace ilevus
 {
@@ -23,6 +24,9 @@ namespace ilevus
         {
             // Configura o Unity para injeção de dependências.
             UnityConfig.Register(config);
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -42,26 +46,26 @@ namespace ilevus
             //    routeTemplate: "{controller}/{action}",
             //    defaults: new {controller="Home", action="Index"}
             //);
-            config.Routes.MapHttpRoute(
-               name: "AfterLoginRoutes",
-               routeTemplate: "login",
-               defaults: new { controller = "Home", action = "Index" }
-           );
-            config.Routes.MapHttpRoute(
-                name: "termosPrivacidade",
-                routeTemplate: "termos-e-privacidade",
-                defaults: new {controller="TermosPrivacidade", action="Index"}
-            );
+           // config.Routes.MapHttpRoute(
+           //    name: "AfterLoginRoutes",
+           //    routeTemplate: "login",
+           //    defaults: new { controller = "Home", action = "Index" }
+           //);
+           // config.Routes.MapHttpRoute(
+           //     name: "termosPrivacidade",
+           //     routeTemplate: "termos-e-privacidade",
+           //     defaults: new {controller="TermosPrivacidade", action="Index"}
+           // );
             // config.Routes.MapHttpRoute(
             //    name: "ProfieRoute",
             //    routeTemplate: "profile/{id}",
             //    defaults: new { controller = "User", action = "GetPublicProfile" }
             //);
-            config.Routes.MapHttpRoute(
-               name: "NonApiRoutes",
-               routeTemplate: "{*catchall}",
-               defaults: new { controller = "Home", action = "Index" }
-           );
+           // config.Routes.MapHttpRoute(
+           //    name: "NonApiRoutes",
+           //    routeTemplate: "{*catchall}",
+           //    defaults: new { controller = "Home", action = "Index" }
+           //);
         }
         public static HttpConfiguration Create()
         {

@@ -1,0 +1,23 @@
+//
+// Progress Bar
+//
+.#{$prefix}progress {
+  display: block;
+  width: 100%;
+  height: $progress-height;
+  margin: $progress-margin-y $progress-margin-x;
+  background-color: $progress-bg;
+}
+
+.#{$prefix}progress-bar {
+  position: relative;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+  background-color: $progress-bar-bg;
+}
+
+.#{$prefix}progress,
+.#{$prefix}progress-bar {
+  border-radius: $progress-border-radius;
+}
