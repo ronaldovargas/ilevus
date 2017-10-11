@@ -1,0 +1,32 @@
+﻿.#{$prefix}overlay {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+    top: -4000px;
+    left: -4000px;
+    background-color: rgba(0, 0, 0, .3);
+    margin: 0;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 1s ease;
+
+    &.show {
+        opacity: 1;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+    }
+    & .#{$prefix}overlay-box {
+        background-color: white;
+        border-radius: 5px;
+        width: 420px;
+        padding: 20px;
+        margin: 0px;
+        text-align: center;
+    }
+}

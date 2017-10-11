@@ -25,9 +25,10 @@ namespace ilevus.Models
 		public bool ServicesInfo { get; set; }
 		public bool BankAccountInfo { get; set; }
 		public bool MoipInfo { get; set; }
+        public string NomeURL { get; set; }
 
-		// Basic professional info
-		public string Headline { get; set; }
+        // Basic professional info
+        public string Headline { get; set; }
 		public string Industry { get; set; }
 		public string Specialties { get; set; }
 		public string Summary { get; set; }

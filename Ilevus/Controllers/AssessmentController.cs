@@ -59,7 +59,19 @@ namespace ilevus.Controllers
             var filtersUsers = Builders<IlevusUser>.Filter;
             try
             {
-                var result = await collection.FindAsync(filters.Eq("Avaliado", Id));
+                var idBusca = Id;
+                if (!System.Text.RegularExpressions.Regex.IsMatch(idBusca, @"\A\b[0-9a-fA-F]+\b\Z"))
+                {                    
+                    var builder = Builders<IlevusUser>.Filter;
+                    var filtersUser = builder.Eq("Professional.NomeURL", idBusca);
+                    var results = await collectionUser.FindAsync(filtersUser);
+                    var users = await results.ToListAsync();
+
+                    if (users.Count > 0)
+                        idBusca = users[0].Id;
+                }
+
+                var result = await collection.FindAsync(filters.Eq("Avaliado", idBusca));
                 var avaliacoes = await result.ToListAsync();                
 
                 if (avaliacoes == null)

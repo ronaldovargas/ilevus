@@ -29,6 +29,7 @@ namespace ilevus.Models
 		public const string UsersTable = "users";
 		public const string NotificationsTable = "notifications";
         public const string AssessmentsTable = "assessments";
+        public const string SiteMapTable = "sitemaplog";
 
         public const string SystemDefinitionsTable = "ilevus_definitions";
 		public const string PaymentsCustomerTable = "payments_customer";
@@ -105,6 +106,11 @@ namespace ilevus.Models
 		{
 			return IlevusDatabase.GetCollection<NotificationModel>(IlevusTableNames.NotificationsTable);
 		}
+
+        public IMongoCollection<SiteMapLogModel> GetSiteMapLogCollection()
+        {
+            return IlevusDatabase.GetCollection<SiteMapLogModel>(IlevusTableNames.SiteMapTable);
+        }
 
         public IMongoCollection<AssessmentModel> GeAssessmentsCollection()
         {

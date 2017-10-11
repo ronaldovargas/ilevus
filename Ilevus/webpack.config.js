@@ -4,7 +4,7 @@ var Webpack = require("webpack");
 var autoprefixer = require("autoprefixer");
 
 module.exports = {
-    context: __dirname,
+    context: __dirname,    
     devtool: 'cheap-module-source-map',
     entry: {
         javascript: path.join(__dirname, "jsx", "app.js"),
@@ -12,7 +12,7 @@ module.exports = {
         icon: path.join(__dirname, 'img', 'favicon.ico')
     },
     output: {
-        path: path.join(__dirname, 'build', 'Debug'),
+        path: __dirname,
         filename: "bundle.js"
     },
     resolve: {
@@ -21,7 +21,7 @@ module.exports = {
     		"ilevus": __dirname,
     		"jquery.ui.widget": "./vendor/jquery.ui.widget.js",
     		"jquery-ui/widget": "./vendor/jquery.ui.widget.js",
-    		"jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js"
+    		"jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js"            
     	}
     },
     plugins: [
@@ -64,7 +64,7 @@ module.exports = {
         	loader: "url-loader?limit=10000&mimetype=application/font-woff"
         },{
         	test: /\.ttf$|\.eot$|\.svg$|\.png$|\.jpe?g$|\.gif$/,
-        	loader: "file-loader?name=images/[name].[ext]"
+        	loader: "file-loader?name=/images/[name].[ext]"
         },{
             test: /\.md$/,
             loader: "raw-loader"

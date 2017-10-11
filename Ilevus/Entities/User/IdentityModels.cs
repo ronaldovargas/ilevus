@@ -15,8 +15,9 @@ namespace ilevus.Models
 		public string Name { get; set; }
 		public string Surname { get; set; }
 		public string Sex { get; set; }
+        public DateTime Modification { get; set; }
 
-		private DateTime birthdate;
+        private DateTime birthdate;
 		public DateTime Birthdate
 		{
 			get
@@ -44,8 +45,9 @@ namespace ilevus.Models
 		public UserType Type { get; set; }
 		public EmailVisibility EmailVisibility { get; set; }
 		public UserStatus Status { get; set; }
+        
 
-		public string SearchLanguage { get; set; }
+        public string SearchLanguage { get; set; }
 		public double SearchRelevance { get; set; }
 
 		public string EmailChangeToken { get; set; }

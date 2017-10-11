@@ -96,8 +96,20 @@ module.exports = React.createClass({
             action: UserSession.ACTION_CONFIRMATION_EMAIL
         });
     },
+    getNomeURL() {
+        console.log('chamou aqui');
+        var idUser = UserSession.get("user").Id;
+        try {
+            console.log('usuário recuperado', UserSession.get("user"));
+            idUser = UserSession.get("user").Professional.Professional.NomeURL;
+        } catch (ex) {
+            console.log('utilizando id como profilepath')
+        }
 
-    render() {
+        return idUser || UserSession.get("user").Id;
+    },
+
+    render() {        
         return (
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded fixed-top ilv-navbar">
                 <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,7 +162,7 @@ module.exports = React.createClass({
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="personal_submenu">
                                     <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
+                                    <Link className="dropdown-item" to={"/profile/" + this.getNomeURL()}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
                                     <Link className="dropdown-item" to="/user/paymentslist">{Messages.get("LabelPaymentsList")}</Link>
