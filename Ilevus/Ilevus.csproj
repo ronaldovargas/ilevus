@@ -288,6 +288,7 @@
     <Compile Include="Helpers\UnityResolver.cs" />
     <Compile Include="Maps\PaymentAccountProfile.cs" />
     <Compile Include="Entities\Payments\CustomAccountKeys.cs" />
+    <Compile Include="Models\SiteMapLogModel.cs" />
     <Compile Include="MongoMigrations\M002_UserProfessionalEntity.cs" />
     <Compile Include="MongoMigrations\M001_UserProfessionalEntity.cs" />
     <Compile Include="Entities\Payments\AccountPayment.cs" />
