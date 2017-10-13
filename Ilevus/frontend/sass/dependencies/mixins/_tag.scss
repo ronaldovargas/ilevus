@@ -1,0 +1,13 @@
+// Tags
+
+@mixin tag-variant($color) {
+  background-color: $color;
+  border: 1px solid darken($color, 20%);
+
+  &[href] {
+    @include hover-focus {
+      background-color: darken($color, 8%);
+      border-color: darken($color, 25%);
+    }
+  }
+}

@@ -1,0 +1,9 @@
+﻿{
+  "path": "/coaching/process/:process/:session/tools/:tool",
+  "tools": [{
+      "labelKey": "LabelWheelOfLife",
+      "sessionField": "WheelOfLifeTool",
+      "toolPath": "wheeloflife",
+      "enabled": true
+    }]
+}

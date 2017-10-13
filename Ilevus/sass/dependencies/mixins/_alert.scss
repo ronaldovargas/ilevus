@@ -1,6 +1,0 @@
-// Alerts
-
-@mixin alert-variant($color) {
-  background-color: $color;
-  border: $alert-border-width solid darken($color, 8%);
-}

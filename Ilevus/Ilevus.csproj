@@ -321,28 +321,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cms\ConteudoRodape-EngUs.html" />
-    <Content Include="cms\ConteudoRodape-Es.html" />
-    <Content Include="cms\ConteudoRodape-PtBr.html" />
-    <Content Include="cms\PoliticaDePrivacidade-EngUs.html" />
-    <Content Include="cms\PoliticaDePrivacidade-Es.html" />
-    <Content Include="cms\PoliticaDePrivacidade-PtBr.html" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="ilevus.MoipClient.csproj" />
-    <Content Include="img\flags%402x.png" />
-    <Content Include="img\flags.png" />
-    <Content Include="img\moip.png" />
-    <Content Include="img\user.png" />
-    <Content Include="jsx\core\util\Analytics.js" />
-    <Content Include="jsx\core\view\user\Checkout.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardBankAccount.jsx" />
-    <Content Include="jsx\vendor\bank-account-validator-1.0.0.min.js" />
-    <Content Include="jsx\vendor\intlTelInput.js" />
-    <Content Include="jsx\vendor\moip-assinaturas-sandbox.js" />
-    <Content Include="jsx\vendor\moip-assinaturas.js" />
-    <Content Include="jsx\vendor\moip.js" />
-    <Content Include="jsx\vendor\utils.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -350,199 +330,34 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="jsx\core\util\Languages.json" />
-    <Content Include="jsx\core\util\Countries.json" />
-    <Content Include="jsx\core\view\admin\AdminPanelUsers.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanel.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelTranslate.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelEmails.jsx" />
-    <Content Include="jsx\core\store\System.jsx" />
-    <Content Include="jsx\core\store\Chat.jsx" />
-    <Content Include="jsx\core\store\Schedule.jsx" />
-    <Content Include="jsx\core\store\Ad.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelAds.jsx" />
-    <Content Include="jsx\core\store\Coaching.jsx" />
-    <Content Include="jsx\core\store\coaching\Tools.json" />
-    <Content Include="jsx\core\store\coaching\WheelOfLife.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelApis.jsx" />
-    <Content Include="jsx\core\store\Financial.jsx" />
-    <Content Include="jsx\core\store\notifications\Notification.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelSubscriptions.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelSubscriptionsCustomer.jsx" />
-    <Content Include="jsx\core\view\admin\AdminPanelDefinitions.jsx" />
-    <None Include="jsx\core\view\help\markdown-guide.md" />
-    <Content Include="jsx\core\view\help\MarkdownGuide.jsx" />
-    <Content Include="jsx\core\view\user\ProfessionalProfile.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizard.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardServices.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardBasic.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardCareer.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardEducation.jsx" />
-    <Content Include="jsx\core\widget\LanguageSelect.jsx" />
-    <Content Include="jsx\core\widget\user\EducationForm.jsx" />
-    <Content Include="jsx\core\widget\user\CareerForm.jsx" />
-    <Content Include="jsx\core\view\user\wizard\ProfileWizardAddress.jsx" />
-    <Content Include="jsx\core\widget\user\AddressForm.jsx" />
-    <Content Include="jsx\core\widget\user\ServiceForm.jsx" />
-    <Content Include="jsx\core\view\user\ConfirmEmailChange.jsx" />
-    <Content Include="jsx\core\view\notifications\Notifications.jsx" />
-    <Content Include="jsx\core\view\notifications\NotificationsMessages.jsx" />
-    <Content Include="jsx\core\view\notifications\NotificationsTimeline.jsx" />
-    <Content Include="jsx\core\widget\user\MeetingSchedule.jsx" />
-    <Content Include="jsx\core\widget\user\UserContactInfo.jsx" />
-    <Content Include="jsx\core\widget\user\MeetingScheduleForm.jsx" />
-    <Content Include="jsx\core\view\user\Dashboard.jsx" />
-    <Content Include="jsx\core\view\user\Schedule.jsx" />
-    <Content Include="jsx\core\widget\user\MeetingScheduleConfig.jsx" />
-    <Content Include="jsx\core\view\user\ViewSchedule.jsx" />
-    <Content Include="jsx\core\widget\admin\AdForm.jsx" />
-    <Content Include="jsx\core\widget\AdSideBar.jsx" />
-    <Content Include="jsx\core\view\user\coaching\SessionDetails.jsx" />
-    <Content Include="jsx\core\view\user\coaching\HireProfessional.jsx" />
-    <Content Include="jsx\core\view\user\coaching\CoachingProcesses.jsx" />
-    <Content Include="jsx\core\widget\coaching\EditableTextArea.jsx" />
-    <Content Include="jsx\core\widget\coaching\wheeloflife\Tasks.jsx" />
-    <Content Include="jsx\core\widget\coaching\SessionHistory.jsx" />
-    <Content Include="jsx\core\view\user\coaching\CoachingProcessesDefinition.jsx" />
-    <Content Include="jsx\core\view\user\coaching\tools\wheeloflife\WheelOfLife.jsx" />
-    <Content Include="jsx\core\widget\coaching\SessionCharts.jsx" />
-    <Content Include="jsx\core\view\user\coaching\tools\CoachingToolsContainer.jsx" />
-    <Content Include="jsx\core\widget\coaching\SessionTools.jsx" />
-    <Content Include="jsx\core\widget\coaching\SessionTimer.jsx" />
-    <Content Include="jsx\core\widget\coaching\SessionTags.jsx" />
-    <Content Include="jsx\core\view\user\coaching\tools\wheeloflife\Configure.jsx" />
-    <Content Include="jsx\core\widget\coaching\EditableText.jsx" />
-    <Content Include="jsx\core\view\user\Financial.jsx" />
-    <Content Include="jsx\core\view\user\Subscribe.jsx" />
-    <Content Include="jsx\core\view\user\HireService.jsx" />
-    <Content Include="jsx\core\view\TermosPrivacidade.jsx" />
-    <Content Include="jsx\core\widget\admin\AdModal.jsx" />
-    <None Include="package.json" />
     <None Include="Properties\PublishProfiles\Ivan.pubxml" />
-    <Content Include="sass\custom\_toast.scss" />
-    <Content Include="sass\custom\_buttons-social.scss" />
-    <Content Include="sass\components\_progress.scss" />
-    <Content Include="sass\custom\_general.scss" />
-    <Content Include="sass\custom\_landing-page.scss" />
-    <Content Include="sass\vendor\intl-tel-input\_intlTelInput.scss" />
-    <Content Include="sass\vendor\intl-tel-input\_sprite%402x.scss" />
-    <Content Include="sass\vendor\intl-tel-input\_sprite.scss" />
-    <Content Include="sass\layouts\_chat.scss" />
-    <Content Include="sass\dependencies\core\_icons.scss" />
-    <Content Include="sass\dependencies\variables\_progress.scss" />
-    <Content Include="sass\custom\_schedule.scss" />
-    <Content Include="sass\custom\_notifications.scss" />
-    <Content Include="sass\custom\_rating.scss" />
-    <Content Include="sass\components\_overlay.scss" />
     <Content Include="Views\web.config" />
-    <None Include="webpack.config.js" />
-    <None Include="webpack.production.config.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="img\**" />
-    <None Include="jsx\app.js" />
-    <None Include="jsx\Application.jsx" />
-    <None Include="jsx\AppSetup.jsx" />
-    <None Include="jsx\core\store\Fluxbone.jsx" />
-    <None Include="jsx\core\store\User.jsx" />
-    <None Include="jsx\core\store\UserSession.jsx" />
-    <None Include="jsx\core\util\DateUtils.jsx" />
-    <None Include="jsx\core\util\Messages.jsx" />
-    <None Include="jsx\core\view\Error.jsx" />
-    <None Include="jsx\core\view\Home.jsx" />
-    <None Include="jsx\core\view\NotFound.jsx" />
-    <None Include="jsx\core\view\Search.jsx" />
-    <None Include="jsx\core\view\user\Account.jsx" />
-    <None Include="jsx\core\view\user\ConfirmEmail.jsx" />
-    <None Include="jsx\core\view\user\Login.jsx" />
-    <None Include="jsx\core\view\user\Management.jsx" />
-    <None Include="jsx\core\view\user\Profile.jsx" />
-    <None Include="jsx\core\view\user\PublicProfile.jsx" />
-    <None Include="jsx\core\view\user\RecoverPassword.jsx" />
-    <None Include="jsx\core\view\user\Register.jsx" />
-    <None Include="jsx\core\view\user\ResetPassword.jsx" />
-    <None Include="jsx\core\widget\ErrorAlert.jsx" />
-    <None Include="jsx\core\widget\form\EditableDataView.jsx" />
-    <None Include="jsx\core\widget\form\Form.jsx" />
-    <None Include="jsx\core\widget\form\HorizontalInput.jsx" />
-    <None Include="jsx\core\widget\form\VerticalInput.jsx" />
-    <None Include="jsx\core\widget\LoadingGauge.jsx" />
-    <None Include="jsx\core\widget\MainMenu.jsx" />
-    <None Include="jsx\core\widget\Modal.jsx" />
-    <None Include="jsx\core\widget\Pagination.jsx" />
-    <None Include="jsx\core\widget\Popover.jsx" />
-    <None Include="jsx\core\widget\TopBar.jsx" />
-    <None Include="index.html" />
-    <None Include="jsx\vendor\daterangepicker.js" />
+    <None Include="img\Business-Profile-Photograph.jpg" />
+    <None Include="img\favicon.ico" />
+    <None Include="img\find.svg" />
+    <None Include="img\flags.png" />
+    <None Include="img\flags%402x.png" />
+    <None Include="img\growth.svg" />
+    <None Include="img\ilevus-logo-20px.png" />
+    <None Include="img\ilevus-logo-60px.png" />
+    <None Include="img\ilevus-logo-white-20px.png" />
+    <None Include="img\img-wizard.png" />
+    <None Include="img\loading.gif" />
+    <None Include="img\logo.png" />
+    <None Include="img\lp-banner.jpg" />
+    <None Include="img\lp-networking.jpg" />
+    <None Include="img\meet.svg" />
+    <None Include="img\moip.png" />
+    <None Include="img\networking.svg" />
+    <None Include="img\support.svg" />
+    <None Include="img\Thumbs.db" />
+    <None Include="img\user.png" />
     <None Include="logs\**" />
-    <None Include="sass\anvil.scss" />
-    <None Include="sass\components\_alert.scss" />
-    <None Include="sass\components\_avatar.scss" />
-    <None Include="sass\components\_blankslate.scss" />
-    <None Include="sass\components\_button-group.scss" />
-    <None Include="sass\components\_buttons.scss" />
-    <None Include="sass\components\_card.scss" />
-    <None Include="sass\components\_forms.scss" />
-    <None Include="sass\components\_input-group.scss" />
-    <None Include="sass\components\_media.scss" />
-    <None Include="sass\components\_nav.scss" />
-    <None Include="sass\components\_navbar.scss" />
-    <None Include="sass\components\_tables.scss" />
-    <None Include="sass\components\_tag.scss" />
-    <None Include="sass\custom\_page-banner.scss" />
-    <None Include="sass\custom\_variables.scss" />
-    <None Include="sass\dependencies\core\_code.scss" />
-    <None Include="sass\dependencies\core\_crossbrowser.scss" />
-    <None Include="sass\dependencies\core\_images.scss" />
-    <None Include="sass\dependencies\core\_reboot.scss" />
-    <None Include="sass\dependencies\core\_type.scss" />
-    <None Include="sass\dependencies\mixins\_alert.scss" />
-    <None Include="sass\dependencies\mixins\_border-radius.scss" />
-    <None Include="sass\dependencies\mixins\_box-shadow.scss" />
-    <None Include="sass\dependencies\mixins\_breakpoints.scss" />
-    <None Include="sass\dependencies\mixins\_buttons.scss" />
-    <None Include="sass\dependencies\mixins\_clearfix.scss" />
-    <None Include="sass\dependencies\mixins\_hover.scss" />
-    <None Include="sass\dependencies\mixins\_image.scss" />
-    <None Include="sass\dependencies\mixins\_lists.scss" />
-    <None Include="sass\dependencies\mixins\_paragraph-width.scss" />
-    <None Include="sass\dependencies\mixins\_size.scss" />
-    <None Include="sass\dependencies\mixins\_tab-focus.scss" />
-    <None Include="sass\dependencies\mixins\_tag.scss" />
-    <None Include="sass\dependencies\mixins\_text-truncate.scss" />
-    <None Include="sass\dependencies\mixins\_transition.scss" />
-    <None Include="sass\dependencies\utilities\_text.scss" />
-    <None Include="sass\dependencies\variables\_alert.scss" />
-    <None Include="sass\dependencies\variables\_avatar.scss" />
-    <None Include="sass\dependencies\variables\_blankslate.scss" />
-    <None Include="sass\dependencies\variables\_breakpoints.scss" />
-    <None Include="sass\dependencies\variables\_button-group.scss" />
-    <None Include="sass\dependencies\variables\_buttons.scss" />
-    <None Include="sass\dependencies\variables\_card.scss" />
-    <None Include="sass\dependencies\variables\_code.scss" />
-    <None Include="sass\dependencies\variables\_colors.scss" />
-    <None Include="sass\dependencies\variables\_forms.scss" />
-    <None Include="sass\dependencies\variables\_images.scss" />
-    <None Include="sass\dependencies\variables\_input-group.scss" />
-    <None Include="sass\dependencies\variables\_links.scss" />
-    <None Include="sass\dependencies\variables\_nav.scss" />
-    <None Include="sass\dependencies\variables\_navbar.scss" />
-    <None Include="sass\dependencies\variables\_scaffolding.scss" />
-    <None Include="sass\dependencies\variables\_spacers.scss" />
-    <None Include="sass\dependencies\variables\_tables.scss" />
-    <None Include="sass\dependencies\variables\_tag.scss" />
-    <None Include="sass\dependencies\variables\_type.scss" />
-    <None Include="sass\dependencies\_mixins.scss" />
-    <None Include="sass\dependencies\_normalize.scss" />
-    <None Include="sass\dependencies\_print.scss" />
-    <None Include="sass\dependencies\_variables.scss" />
-    <None Include="sass\layouts\_page-header.scss" />
-    <None Include="sass\vendor\_bootstrap.scss" />
-    <None Include="sass\vendor\_materialicons.scss" />
-    <Content Include="sass\custom\_markdown.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -563,26 +378,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\pictures\" />
-    <Folder Include="cms\ads\" />
     <Folder Include="Content\" />
     <Folder Include="Documentation\" />
     <Folder Include="lib\react-autocomplete\" />
     <Folder Include="Views\Assessment\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="jsx\core\view\admin\AdminPanelMensagens.jsx" />
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="jsx\core\view\notifications\DetalheNotificacao.jsx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="jsx\core\view\user\Assessments.jsx" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="jsx\core\store\Assessments.jsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -599,7 +401,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57141</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

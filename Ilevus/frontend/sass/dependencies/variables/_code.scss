@@ -1,0 +1,19 @@
+//
+// Code
+//
+
+$code-font-size:               90% !default;
+$code-padding-x:               .4rem !default;
+$code-padding-y:               .2rem !default;
+$code-color:                   #bd4147 !default;
+$code-bg:                      #f7f7f9 !default;
+
+$kbd-color:                    #fff !default;
+$kbd-bg:                       #333 !default;
+$kbd-box-shadow:               inset 0 -.1rem 0 rgba(0,0,0,.25) !default;
+$nested-kbd-font-weight:       bold !default;
+
+$pre-bg:                       #f7f7f9 !default;
+$pre-color:                    $color-neutral-dark !default;
+$pre-border-color:             #ccc !default;
+$pre-scrollable-max-height:    340px !default;

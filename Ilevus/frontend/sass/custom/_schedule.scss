@@ -1,0 +1,44 @@
+﻿.#{$prefix}schedule {
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.#{$prefix}schedule thead {
+    color: #fff;
+    background: $color-brand-base;
+}
+
+.#{$prefix}schedule thead th a {
+    color: #fff;
+}
+
+.#{$prefix}schedule th {
+    font-weight: bold;
+    padding: 12px 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.#{$prefix}schedule td {
+    background: rgba(0,0,0,.015);
+    border-top: 4px solid white;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+
+    &.checked {
+        background: $color-secondary-lightgreen;
+    }
+    &:not(:last-child) {
+        border-right: 4px solid white;
+    }
+}
+
+.#{$prefix}schedule td a {
+    display: block;
+
+    &:hover {
+        background-color: #ececec;
+    }
+}

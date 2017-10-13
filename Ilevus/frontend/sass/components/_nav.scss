@@ -1,0 +1,223 @@
+//
+// Nav
+//
+
+//
+// Base styles
+//
+
+.#{$prefix}nav {
+  margin-bottom: 0;
+  @include list-unstyled;
+}
+
+.#{$prefix}nav-link {
+  display: inline-block;
+  white-space: nowrap;
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+
+  // Disabled state lightens text and removes hover/tab effects
+  &.disabled {
+    color: $nav-disabled-link-color;
+
+    @include plain-hover-focus {
+      color: $nav-disabled-link-hover-color;
+      cursor: $cursor-disabled;
+    }
+  }
+}
+
+
+//
+// Positioning
+//
+
+// Stacked nav
+.#{$prefix}nav-stacked {
+  .#{$prefix}nav-item {
+    display: block;
+    float: none;
+
+    + .#{$prefix}nav-item {
+      margin-top: $nav-item-margin;
+      margin-left: 0;
+    }
+  }
+}
+
+// Inline nav
+.#{$prefix}nav-inline {
+  .#{$prefix}nav-item {
+    display: inline-block;
+  }
+
+  .#{$prefix}nav-item + .#{$prefix}nav-item,
+  .#{$prefix}nav-link + .#{$prefix}nav-link {
+    margin-left: $nav-item-margin;
+  }
+}
+
+
+//
+// Theming
+//
+
+// Menu
+.#{$prefix}nav-menu {
+
+  .#{$prefix}nav-item + .#{$prefix}nav-item {
+    margin: 0;
+  }
+
+  .#{$prefix}nav-header {
+    color: $nav-header-font-color;
+    font-size: $nav-header-font-size;
+    font-weight: $nav-header-font-weight;
+  }
+
+  .#{$prefix}nav-link {
+    color: $nav-menu-link-color;
+
+    @include hover-focus-active {
+      background-color: $nav-link-bg-hover;
+    }
+
+    &.active {
+      @include plain-hover-focus {
+        background-color: $nav-menu-bg-active;
+      }
+    }
+  }
+
+  .#{$prefix}nav-link,
+  .#{$prefix}nav-header {
+    display: block;
+    padding: $nav-item-padding-y $nav-item-padding-x;
+    @include text-truncate;
+  }
+}
+
+// Tabs
+.#{$prefix}nav-tabs {
+    border-bottom: 1px solid rgba(0,0,0,.15);
+
+  .#{$prefix}nav-item + .#{$prefix}nav-item {
+    margin: 0;
+  }
+
+  .#{$prefix}nav-link {
+    display: block;
+    color: $nav-tabs-link-color;
+    padding: 12px;
+    border: none;
+    font-weight: 700;
+    font-size: 13px;
+
+    @include hover {
+      color: $nav-tabs-link-hover-color;
+    }
+
+    &.active {
+      box-shadow: inset 0px -2px 0px 0px $color-primary-brand;
+      background-color: $nav-tabs-link-active-bg;
+      border-color: $nav-tabs-link-active-border;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: $nav-disabled-link-color;
+    }
+
+    &.active,
+    &:disabled,
+    &.disabled {
+      cursor: default;
+      pointer-events: none;
+
+      @include hover-focus-active {
+        background: none;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Pagination
+.#{$prefix}nav-pagination {
+
+  .#{$prefix}nav-item + .#{$prefix}nav-item {
+    margin: 0;
+  }
+
+  .#{$prefix}nav-link {
+    border-radius: $border-radius;
+    display: block;
+    padding: $nav-item-padding-y $nav-item-padding-x;
+
+    @include hover-focus-active {
+      background-color: $nav-link-bg-hover;
+    }
+
+    &.active {
+      color: $nav-link-active;
+      font-weight: 700;
+      cursor: default;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: $nav-disabled-link-color;
+    }
+
+    &.active,
+    &:disabled,
+    &.disabled {
+      pointer-events: none;
+
+      @include hover-focus-active {
+        background: none;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+// Breadcrumb
+.#{$prefix}nav-breadcrumb {
+
+  .#{$prefix}nav-item + .#{$prefix}nav-item {
+    margin: 0;
+  }
+
+  .#{$prefix}nav-item:not(:first-child):before {
+    content: '/';
+    margin: 0 .375rem 0 .125rem;
+    color: $nav-breadcrumb-separator;
+  }
+
+  .#{$prefix}nav-link {
+    font-weight: 400;
+
+    @include hover-focus-active {
+      text-decoration: underline;
+    }
+
+    &.active {
+      font-weight: 600;
+    }
+
+    &:disabled,
+    &.disabled {
+      color: $nav-disabled-link-color;
+      pointer-events: none;
+
+      @include hover-focus-active {
+        background: none;
+        text-decoration: none;
+      }
+    }
+  }
+}
