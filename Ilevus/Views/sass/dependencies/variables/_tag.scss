@@ -1,0 +1,23 @@
+//
+// Tags
+//
+
+$tag-font-size:                $font-size-xs !default; // Or use 75% instead
+$tag-font-weight:              700 !default;
+$tag-font-color:               #484848 !default;
+
+$tag-link-hover-color:         $tag-font-color !default;
+
+$tag-border-radius:            $border-radius !default;
+$tag-pill-border-radius:       10rem !default;
+
+$tag-padding-x:                0 !default;
+$tag-padding-y:                .375rem !default;
+
+$tag-margin-x:                 .375rem !default;
+
+$tag-bg-base:                  $color-neutral-lightest !default;
+$tag-bg-success:               $color-secondary-lightgreen !default;
+$tag-bg-info:                  $color-secondary-lightblue !default;
+$tag-bg-warning:               $color-secondary-lightyellow !default;
+$tag-bg-danger:                $color-secondary-lightred !default;

@@ -1,0 +1,26 @@
+﻿.ilv-notification-list {
+    display: block;
+    margin: 0;
+}
+
+.ilv-notification {
+    padding: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #cfd7e6;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: #fcfcfd;
+    }
+}
+
+.ilv-notification-unread {
+    background-color: #f1f3f7;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: #e5eaf2;
+    }
+}

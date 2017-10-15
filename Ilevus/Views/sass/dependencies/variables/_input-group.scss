@@ -1,0 +1,28 @@
+//
+// Input Group
+//
+
+$input-group-font-size:        $font-size-sm !default;
+$input-group-font-weight:      400 !default;
+
+$input-group-color:            $color-neutral-base !default;
+$input-group-bg:               $color-neutral-lightest !default;
+
+$input-group-border:           $form-control-border-color !default;
+$input-group-border-radius:    $border-radius !default;
+$input-group-border-width:     $form-control-border-width !default;
+
+$input-group-height:           $form-control-height !default;
+$input-group-height-sm:        $form-control-height-sm !default;
+$input-group-height-lg:        $form-control-height-lg !default;
+
+$input-group-line-height:      $form-control-height - ($input-group-border-width * 2) !default;
+$input-group-line-height-sm:   $form-control-height-sm - ($input-group-border-width * 2) !default;
+$input-group-line-height-lg:   $form-control-height-lg - ($input-group-border-width * 2) !default;
+
+$input-group-padding-x:        $form-control-padding-x !default;
+$input-group-padding-y:        $form-control-padding-y !default;
+
+$input-group-control-line-height:    $input-group-line-height - ($input-group-border-width * 2) !default;
+$input-group-control-line-height-sm: $input-group-line-height-sm - ($input-group-border-width * 2) !default;
+$input-group-control-line-height-lg: $input-group-line-height-lg - ($input-group-border-width * 2) !default;
