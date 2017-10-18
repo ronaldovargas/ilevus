@@ -84,8 +84,9 @@ namespace ilevus.Controllers
 		}
 
 
-		// GET api/Account/UserInfo
-		[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
+        // GET api/Account/UserInfo
+        [AllowAnonymous]
+        //[HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
 		[Route("UserInfo")]
 		public UserInfoViewModel GetUserInfo()
 		{

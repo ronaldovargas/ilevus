@@ -35,7 +35,7 @@ namespace ilevus
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );           
+            );
         }
         public static HttpConfiguration Create()
         {

@@ -1,4 +1,3 @@
-
 var React = require("react");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
@@ -23,10 +22,7 @@ module.exports = React.createClass({
             });
         }, me);
         UserSession.on("logout", session => {
-            me.setState({
-                user: null,
-                logged: false
-            });
+            me.setState({user: null, logged: false});
         }, me);
     },
     componentWillUnmount() {
@@ -34,39 +30,41 @@ module.exports = React.createClass({
     },
     onLogout() {
         endMonitorSessao();
-        UserSession.dispatch({
-            action: UserSession.ACTION_LOGOUT
-        });
+        UserSession.dispatch({action: UserSession.ACTION_LOGOUT});
     },
     render() {
-    if (!this.state.logged) {
-        return <div style={{display: 'none'}} />;
+        if (!this.state.logged) {
+            return <div style={{
+                display: 'none'
+            }}/>;
+        }
+        return (
+            <div className='ilevus-app-sidebar'>
+                <div className="ilevus-sidebar-brand">
+                    <img alt="ilevus Logo" src={WhiteLogo}/>
+                </div>
+                <ul className="nav nav-stacked">
+                    <li>
+                        <a href="/users">
+                            <span className="ilevus-nav-icon mdi mdi-account-multiple"></span>
+                            Usuários
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/settings">
+                            <span className="ilevus-nav-icon mdi mdi-settings"></span>
+                            Configurações
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/system">
+                            <span className="ilevus-nav-icon mdi mdi-chemical-weapon"></span>
+                            Sistema
+                        </a>
+                    </li>
+                </ul>
+                <span className="ilevus-fill"/>
+            </div>
+        );
     }
-    return (<div className='ilevus-app-sidebar'>
-        <div className="ilevus-sidebar-brand">
-    	   <img alt="ilevus Logo" src={WhiteLogo} />
-        </div>
-	    <ul className="nav nav-stacked">
-            <li>
-                <a href="#/users">
-                    <span className="ilevus-nav-icon mdi mdi-account-multiple"
-                        ></span> Usuários
-                </a>
-            </li>
-			<li>
-                <a href="#/settings">
-                    <span className="ilevus-nav-icon mdi mdi-settings"
-                    	></span> Configurações
-                </a>
-            </li>
-            <li>
-                <a href="#/system">
-                    <span className="ilevus-nav-icon mdi mdi-chemical-weapon"
-                        ></span> Sistema
-                </a>
-            </li>
-		</ul>
-        <span className="ilevus-fill" />
-   	</div>);
-  }
 });
