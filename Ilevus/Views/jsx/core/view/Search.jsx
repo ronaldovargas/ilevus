@@ -10,6 +10,8 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
 
 var AdSideBar = require("ilevus/jsx/core/widget/AdSideBar.jsx");
+var AdRowBar = require("ilevus/jsx/core/widget/AdRowBar.jsx");
+
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var UserContactInfo = require("ilevus/jsx/core/widget/user/UserContactInfo.jsx");
@@ -24,8 +26,7 @@ module.exports = React.createClass({
         return {
             models: null,
             term: null,
-            total: 0,
-            receivedsAssessments: 0
+            total: 0
         };
     },
     componentDidMount() {
@@ -47,10 +48,9 @@ module.exports = React.createClass({
                 keywords: me.props.params.term
             }
         });
-        
     },
     componentWillUnmount() {
-        UserStore.off(null, null, this);        
+        UserStore.off(null, null, this);
     },
     componentWillReceiveProps(newProps) {
         UserStore.dispatch({
@@ -72,34 +72,6 @@ module.exports = React.createClass({
         Modal.detailsModal(Messages.get("LabelContact"), <UserContactInfo user={user} />);
     },
 
-    renderStars(model, qtde) {
-        var tmp = [];
-        var cinzas = [];
-        for (var i = 0; i < qtde; i++) {
-            tmp.push(i);
-        }
-
-        for (var i = 0; i < 5-qtde; i++) {
-            cinzas.push(i);
-        }
-
-        var stars = tmp.map(function (i) {
-            return (<i className="ilv-rating-item-no-hover material-icons" style={{fontSize: "15px"}}>&#xE838;</i>);
-        });
-
-        var starsCinzas = cinzas.map(function (i) {
-            return (<i className="ilv-rating-item-no-hover material-icons" style={{ fontSize: "15px", color: "#22C8EB" } }>&#xE838;</i>);
-        });
-
-        return (
-                <div className="ilv-rating" style={{ marginLeft: "5px" }}>
-                    <div className="ilv-rating-list">
-                        {stars}
-                    </div>
-                </div>
-        )
-    },
-
     renderModels() {
         if (!(this.state.models.length > 0)) {
             return (
@@ -111,12 +83,10 @@ module.exports = React.createClass({
         }
 
         return <div>
+            
             {this.state.models.map((model, index) => {
                 var industry = S(model.Professional.Professional.Industry);
                 var headline = S(model.Professional.Professional.Headline);
-
-                var identificador = model.Professional.Professional.NomeURL ? model.Professional.Professional.NomeURL : model.Id;
-
                 return (
                     <div className="py-3" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
                         <div className="ilv-media" key={"result-"+index}>
@@ -126,16 +96,15 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-media-body">
                                 <div style={{marginBottom: ".25rem"}}>
-                                    <Link to={"/profile/" + identificador}><strong>{model.Name} {model.Surname}</strong></Link>
+                                    <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
                                 </div>
                                 <div>
                                     <p className="ilv-text-small">
                                         <span className="ilv-tag ilv-tag-warning ml-0">{model.Premium && model.Premium.Active ? 'Premium' : ''}</span>
                                         { industry.isEmpty() ? "" : industry.s }
                                     </p>
-                                    
-                                    <Link className="small ilv-nav-link" to={"/assessments?userId=" + model.Id }>{Messages.format("TextEvaluations", [model.Assessments])}</Link>
-                                    {this.renderStars(model, model.MediaRating)}
+                                    <span className="ilv-tag ilv-tag-success ml-0">4.9 <sup>/ 5.0</sup></span>
+                                    <a className="small" href="">{Messages.format("TextEvaluations", [32])}</a>
                                 </div>
                             </div>
                             <div className="ilv-media-right ilv-text-small">
@@ -171,17 +140,23 @@ module.exports = React.createClass({
                     <div className="container">
                         <div className="row">
                             <div className="col">
-                                <div className="ilv-media ilv-media-middle mb-3">
+                                <div className="ilv-media ilv-media-middle">
                                     <div className="ilv-media-body">
                                         <h2>{this.state.term}</h2>
                                         <p className="ilv-text-small">{Messages.format("TextSearchNumberOfResults", [this.state.total, this.state.term])}</p>
                                     </div>
                                 </div>
+                                <div className="ilv-media ilv-media-middle mb-3">
+                                    <div className="ilv-media-body">
+                                        <AdRowBar keyword={this.props.params.term} limit={"1"} isMobile={"true"} />
+                                    </div>
+                                </div>
+                                
 
                                 {this.renderModels()}
                             </div>
                             <div className="col-3 hidden-sm-down">
-                                <AdSideBar keyword={this.props.params.term} />
+                                <AdSideBar keyword={this.props.params.term} limit={"1"} isMobile={"false"} />
                             </div>
                         </div>
                     </div>

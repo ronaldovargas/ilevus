@@ -68,9 +68,11 @@ var CoachingToolsContainer = require("ilevus/jsx/core/view/user/coaching/tools/C
 var WheelOfLife = require("ilevus/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
 
 var AdminPanel = require("ilevus/jsx/core/view/admin/AdminPanel.jsx");
+var AdminPanelHome = require("ilevus/jsx/core/view/admin/AdminPanelHome.jsx");
 var AdminPanelAds = require("ilevus/jsx/core/view/admin/AdminPanelAds.jsx");
 var AdminPanelApis = require("ilevus/jsx/core/view/admin/AdminPanelApis.jsx");
 var AdminPanelDefinitions = require("ilevus/jsx/core/view/admin/AdminPanelDefinitions.jsx");
+var AdminPanelModerationAds = require("ilevus/jsx/core/view/admin/AdminPanelModerationAds.jsx");
 var AdminPanelUsers = require("ilevus/jsx/core/view/admin/AdminPanelUsers.jsx");
 var AdminPanelEmails = require("ilevus/jsx/core/view/admin/AdminPanelEmails.jsx");
 var AdminPanelSubscriptions = require("ilevus/jsx/core/view/admin/AdminPanelSubscriptions.jsx");
@@ -80,6 +82,7 @@ var AdminPanelSubscriptionsInvoice = require("ilevus/jsx/core/view/admin/AdminPa
 var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslate.jsx");
 var AdminPanelMensagens = require("ilevus/jsx/core/view/admin/AdminPanelMensagens.jsx");
 var AdminPanelSitemap = require("ilevus/jsx/core/view/admin/AdminPanelSitemap.jsx");
+var AdminPanelReports = require("ilevus/jsx/core/view/admin/AdminPanelReports.jsx");
 
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
 var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
@@ -201,9 +204,11 @@ Messages.load(function (success) {
                     <Route path="coaching/hire/:id" component={HireProfessional} />
 
                     <Route path="admin" component={AdminPanel}>
+                        <Route path="home" component={AdminPanelHome} />
                         <Route path="ads" component={AdminPanelAds} />
                         <Route path="apis" component={AdminPanelApis} />
                         <Route path="definitions" component={AdminPanelDefinitions} />
+                        <Route path="moderationads" component={AdminPanelModerationAds} />
                         <Route path="emails" component={AdminPanelEmails} />
                         <Route path="subscriptions" component={AdminPanelSubscriptions}>
                             AdminPanelSubscriptionsDetails
@@ -215,6 +220,7 @@ Messages.load(function (success) {
                         <Route path="translate" component={AdminPanelTranslate} />
                         <Route path="mensagens" component={AdminPanelMensagens} />
                         <Route path="sitemap" component={AdminPanelSitemap} />
+                        <Route path="reports" component={AdminPanelReports} />
                     </Route>
 
                     <Route path="notifications" component={Notifications}>

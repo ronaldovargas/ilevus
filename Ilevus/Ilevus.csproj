@@ -637,6 +637,11 @@
     <Content Include="Views\sass\vendor\intl-tel-input\_sprite.scss" />
     <Content Include="Views\sass\vendor\_bootstrap.scss" />
     <Content Include="Views\sass\vendor\_materialicons.scss" />
+    <Content Include="Views\jsx\core\store\Reports.jsx" />
+    <Content Include="Views\jsx\core\view\admin\AdminPanelHome.jsx" />
+    <Content Include="Views\jsx\core\view\admin\AdminPanelModerationAds.jsx" />
+    <Content Include="Views\jsx\core\view\admin\AdminPanelReports.jsx" />
+    <Content Include="Views\jsx\core\widget\AdRowBar.jsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build\**">

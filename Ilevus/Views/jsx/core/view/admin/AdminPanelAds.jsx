@@ -9,7 +9,8 @@ var Toastr = require("toastr");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
-var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx"); var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+//var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var AdForm = require("ilevus/jsx/core/widget/admin/AdForm.jsx");
 
 //var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -23,6 +24,7 @@ module.exports = React.createClass({
     getInitialState() {
         return {
             loading: true,
+            ads_balance: null,
             ads: null,
             adding: false,
             editing: null
@@ -30,6 +32,13 @@ module.exports = React.createClass({
     },
     componentDidMount() {
         var me = this;
+        AdStore.on("retrieve-ads-balance", (ads_balance) => {
+            me.setState({
+                ads_balance: ads_balance,
+                loading: false
+            });
+        }, me);
+
         AdStore.on("retrieve-ads", (ads) => {
             me.setState({
                 ads: ads,
@@ -41,6 +50,20 @@ module.exports = React.createClass({
             action: AdStore.ACTION_RETRIEVE_ADS,
             data: {}
         });
+
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS_BALANCE,
+            data: {}
+        });
+        /*AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });*/
+
+        /*AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });*/
     },
     componentWillUnmount() {
         AdStore.off(null, null, this);
@@ -53,28 +76,6 @@ module.exports = React.createClass({
             editing: null
         });
     },
-    /*updateAdPicture() {
-        Modal.uploadFile(
-            Messages.get("ActionSendPicture"),
-            <p>{Messages.get("TextSendPicture")}</p>,
-            UserSession.url + "/UpdatePicture",
-            (arg1, arg2) => {
-                Modal.hide();
-                Toastr.success(Messages.get("TextPictureUpdateSuccess"));
-                UserSession.dispatch({
-                    action: UserSession.ACTION_REFRESH
-                });
-            },
-            (xhr, status) => {
-                Modal.hide();
-                if (xhr.responseJSON && xhr.responseJSON.Message) {
-                    Toastr.error(xhr.responseJSON.Message);
-                } else {
-                    Toastr.error(Messages.get("TextUnexpectedError"));
-                }
-            }
-        );
-    },*/
 
     onAddCredit(event) {
         event && event.preventDefault();
@@ -104,7 +105,7 @@ module.exports = React.createClass({
         Toastr.remove();
         Toastr.success(Messages.get("TextAdSavedSuccessfully"));
         this.setState({
-            loading: true,
+            loading: false,
             adding: false,
             editing: null
         });
@@ -123,27 +124,32 @@ module.exports = React.createClass({
             <thead>
                 <tr>
                     <th>{Messages.get("LabelHeadline")}</th>
+                    <th>{Messages.get("LabelStatus")}</th>
                     <th>{Messages.get("LabelViews")}</th>
                     <th>{Messages.get("LabelClicks")}</th>
                 </tr>
             </thead>
             <tbody>
-                {this.state.ads.map((ad, index) => {
-                return
+                {this.state.ads.map((ad, index) =>
                     <tr key={"ad-list-"+index}>
                         <td>
-                            <a onClick={this.onEditingAd.bind(this, ad)}>
-                                {ad.Headline}
+                            <a onClick={this.onEditingAd.bind(this, ad)}>{ad.Headline}
                             </a>
+                        </td>
+                        <td>
+                            {(ad.Active ? <i className='fa fa-thumbs-o-up'> </i> : <i className='fa fa-thumbs-o-down'> </i>)}
                         </td>
                         <td>{ad.Views}</td>
                         <td>{ad.Hits}</td>
-                    </tr>;
-                })}
+                    </tr>
+                )}
             </tbody>
         </table>);
     },
     renderAdsCredit() {
+        if (!this.state.ads_balance || this.state.ads_balance.length == 0) {
+            return <i>{Messages.get("LabelNoCreditBalance")}</i>;
+        }        
         return (<table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
             <thead>
                 <tr>
@@ -151,11 +157,11 @@ module.exports = React.createClass({
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        R$ 0,00
-                    </td>
-                </tr>
+                {this.state.ads_balance.map((adsBalance, index) =>
+                    <tr key={"ad-list-"+index}>
+                        <td>{parseFloat(adsBalance.Balance).toFixed(2)}</td>
+                    </tr>
+                )}
             </tbody>
         </table>);
     },
@@ -171,28 +177,22 @@ module.exports = React.createClass({
             <div>
             <div className="ilv-card">
                 <div className="ilv-card-header">
-                    <strong>
-                        {Messages.get("LabelAdsCredit")}
-                        <button className="float-right ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.onAddCredit}>
-                            {Messages.get("LabelAddMoreCredit")} 
+                    <strong>{Messages.get("LabelAdsCredit")}
+                        <button className="float-right ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.onAddCredit}>{Messages.get("LabelAddMoreCredit")}
                         </button>
                     </strong>
                 </div>
-                <div className="ilv-card-body">
-                    {this.renderAdsCredit()}
+                <div className="ilv-card-body">{this.renderAdsCredit()}
                 </div>
             </div>
             <div className="ilv-card">
                 <div className="ilv-card-header">
-                    <strong>
-                        {Messages.get("LabelAds")}
-                        <button className="float-right ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.onNewAd}>
-                            {Messages.get("LabelNewAd")}
+                    <strong>{Messages.get("LabelAds")}
+                        <button className="float-right ilv-btn ilv-btn-sm ilv-btn-primary" onClick={this.onNewAd}>{Messages.get("LabelNewAd")}
                         </button>
                     </strong>
                 </div>
-                <div className="ilv-card-body">
-                    {this.renderAds()}
+                <div className="ilv-card-body">{this.renderAds()}
                 </div>
             </div>
             </div>
