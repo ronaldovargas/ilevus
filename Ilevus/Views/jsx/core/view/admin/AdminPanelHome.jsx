@@ -33,7 +33,7 @@ module.exports = React.createClass({
             return <LoadingGauge />;
         
         return (<div>
-            <img src={"images/home-logo-admin.png"} style={{ margin: "0px auto" }} />
+            <img src={"/img/home-logo-admin.png"} style={{ margin: "0px auto" }} />
         </div>);
     }
 });

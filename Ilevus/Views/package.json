@@ -41,9 +41,11 @@
     "chart.js": "^2.5.0",
     "classnames": "^2.2.5",
     "create-react-class": "^15.5.2",
+    "daterangepicker": "^2.1.25",
     "flux": "^2.1.1",
     "history": "^2.1.1",
     "jquery": "3",
+    "jquery-maskmoney": "^3.0.2",
     "marked": "^0.3.5",
     "moment": "2.x.x",
     "moment-range": "^2.2.0",
@@ -65,7 +67,7 @@
     "tether": "^1.3.2",
     "toastr": "^2.1.2",
     "underscore": "^1.8.3",
-    "webpack": "^3.6.0"
+    "webpack": "^3.7.1"
   },
   "license": "UNLICENSED",
   "-vs-binding": {
