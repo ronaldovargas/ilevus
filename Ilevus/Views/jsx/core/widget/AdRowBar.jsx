@@ -1,4 +1,5 @@
-﻿var _ = require("underscore");
+﻿
+var _ = require("underscore");
 var S = require("string");
 var moment = require("moment");
 var React = require("react");
@@ -18,32 +19,32 @@ module.exports = React.createClass({
         return {
             keyword: null,
             limit: 1,
-            isMobile: false
+            isMobile: true
         };
     },
     getInitialState() {
         return {
             loading: true,
-            ads: []
+            adsMobile: []
         };
     },
 
     componentDidMount() {
         var me = this;
-        AdStore.on("search-ads", (ads) => {
+        AdStore.on("search-mobile-ads", (adsMobile) => {
             var three = [];
-            for (var i = 0; i < ads.length; i++) {
+            for (var i = 0; i < adsMobile.length; i++) {
                 if (i >= 1)
                     break;
-                three.push(ads[i]);
+                three.push(adsMobile[i]);
             }
             me.setState({
-                ads: three,
+                adsMobile: three,
                 loading: false
             });
         }, me);
 
-        me.refreshAds(me.props.keyword, me.props.limit, me.props.isMobile);
+        me.refreshMobileAds(me.props.keyword, me.props.limit, me.props.isMobile);
     },
     componentWillUnmount() {
         AdStore.off(null, null, this);
@@ -55,9 +56,9 @@ module.exports = React.createClass({
         }
     },
 
-    refreshAds(keyword, limit, isMobile) {
+    refreshMobileAds(keyword, limit, isMobile) {
         AdStore.dispatch({
-            action: AdStore.ACTION_SEARCH_ADS,
+            action: AdStore.ACTION_SEARCH_MOBILE_ADS,
             data: { keyword: keyword, limit: limit, isMobile: isMobile }
         });
     },
@@ -66,12 +67,12 @@ module.exports = React.createClass({
         if (this.state.loading) {
             return <span />;
         }
-
-        return (<div className="ilv-media-list ilv-media-list-bordered">
-            {this.state.ads.map((ad, index) => {
-            return (<div className="ilv-media" key={"ad-" + index }>
+        
+        return (<div className="pb-3 pt-0" style={{ borderBottom: "1px solid #eee" }}>
+            {this.state.adsMobile.map((ad, index) => {
+                return (<div className="ilv-media" key={"ad-" + index }>
                     <a className="ilv-media-body" href={"/api/Ad/Click?Id="+ad.Id}>
-                        <img src={"/api/Ad/View?Id=" + ad.Id + "&Position=desktop"} className="w-100" />
+                        <img src={"/api/Ad/View?Id=" + ad.Id + "&Position=mobile"} className="w-100" />
                     </a>
                 </div>);
             })}
