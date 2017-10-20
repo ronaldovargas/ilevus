@@ -138,7 +138,31 @@ namespace ilevus.Models
     {
         public string PathAds { get; set; }
 
+        public string AdsMaxSize { get; set; }
+
+        //public string CostPerClick { get; set; }
+
+        //public string CostPerView { get; set; }
+        public SystemDefinitionsConfigsCost pt_br { get; set; }
+        public SystemDefinitionsConfigsCost en { get; set; }
+        public SystemDefinitionsConfigsCost es { get; set; }
+
+        public SystemDefinitionsConfigsCost GetByCulture(string culture)
+        {
+            if ("en".Equals(culture))
+                return en;
+            else if ("es".Equals(culture))
+                return es;
+            return pt_br;
+        }
+
     }
 
+    public class SystemDefinitionsConfigsCost
+    {
+        public string CostPerClick { get; set; }
+
+        public string CostPerView { get; set; }
+    }
 
 }
