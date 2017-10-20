@@ -13,6 +13,16 @@ module.exports = {
         path: __dirname,
         filename: "bundle.js"
     },
+    devServer: {
+        "proxy": {
+            "/api/": {
+            "target": 'http://localhost:57141/api/',
+            "pathRewrite": { '^/api/': '' },
+            "changeOrigin": true,
+            "secure": false
+            }
+          }
+    },
     resolve: {
         extensions: [".webpack.js", ".web.js", ".js", ".jsx"],
         alias: {

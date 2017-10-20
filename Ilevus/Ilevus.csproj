@@ -403,8 +403,6 @@
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\.DS_Store" />
-    <Content Include="Views\._.DS_Store" />
     <Content Include="Views\fonts\bootstrap\glyphicons-halflings-regular.eot" />
     <Content Include="Views\fonts\bootstrap\glyphicons-halflings-regular.ttf" />
     <Content Include="Views\fonts\bootstrap\glyphicons-halflings-regular.woff" />

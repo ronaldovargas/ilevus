@@ -24,12 +24,12 @@ namespace ilevus
         {
             // Configura o Unity para injeção de dependências.
             UnityConfig.Register(config);
+			//config.EnableCors();
+			//var cors = new EnableCorsAttribute("*", "*", "*");
+			//config.EnableCors(cors);
 
-            //var cors = new EnableCorsAttribute("*", "*", "*");
-            //config.EnableCors(cors);
-
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+			// Web API routes
+			config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
