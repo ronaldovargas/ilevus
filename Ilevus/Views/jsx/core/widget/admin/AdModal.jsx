@@ -56,7 +56,7 @@ var FileUploadModalAd = React.createClass({
 var ModalAd = {
     $el: EL,
     hide() {
-        $(this.$el).modal("hide");
+        jQuery(this.$el).modal("hide");
         _.defer(() => {
             ReactDOM.render((
 				<div></div>
@@ -64,7 +64,7 @@ var ModalAd = {
         });
     },
     show() {
-        $(this.$el).modal({
+        jQuery(this.$el).modal({
             backdrop: 'static',
             keyboard: false
         });
@@ -74,7 +74,7 @@ var ModalAd = {
         ReactDOM.render((
 			<AlertModal title={title} message={msg} />
 		),this.$el);
-        $(this.$el).modal('show');
+		jQuery(this.$el).modal('show');
     },
 
     mostrar(limit_size, title, msg, targetField, isModal) {
@@ -84,11 +84,11 @@ var ModalAd = {
 		),this.$el);
         this.show();
 
-        $("#modalAdClose").click(function () {
+        jQuery("#modalAdClose").click(function () {
             me.hide();
         });
 
-        $('#file-upload-field').change(function(){
+        jQuery('#file-upload-field').change(function(){
 
             var uplField = this;
 

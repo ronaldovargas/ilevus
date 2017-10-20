@@ -162,7 +162,7 @@ module.exports = React.createClass({
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="personal_submenu">
                                     <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to={"/profile/" + this.getNomeURL()}>{Messages.get("LabelViewProfile")}</Link>
+                                    <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelChangeLanguage")}</Link>
