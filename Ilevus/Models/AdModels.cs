@@ -20,6 +20,9 @@ namespace ilevus.Models
 
         public IEnumerable<string> Keywords { get; set; }
         public string Link { get; set; }
+
+        public double DailyBudgetCap { get; set; }
+
         public int Category { get; set; }
         public long Hits { get; set; }
         public long Views { get; set; }
@@ -29,6 +32,10 @@ namespace ilevus.Models
         public DateTime Creation { get; set; }
 
         public string AdLanguage { get; set; }
+
+        public UserModerator Moderator { get; set; }
+
+        public string Status { get; set; }
 
         public Ad()
         {
@@ -42,6 +49,28 @@ namespace ilevus.Models
         }
     }
 
+    public class AdBalance
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        
+        public float Balance { get; set; }
+    }
+
+    public class UserModerator
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public DateTime? AnalysisHour { get; set; }
+    }
+
+    public class CountPreviewModeration
+    {
+        public int dailyCount { get; set; }
+        public int monthCount { get; set; }
+        public int prevMonthCount { get; set; }
+    }
+
     public class AdBindingModel
     {
         public string Id { get; set; }
@@ -50,9 +79,31 @@ namespace ilevus.Models
 
         public string Image_Desktop { get; set; }
         public string Image_Mobile { get; set; }
+        public string Image_Desktop_old { get; set; }
+        public string Image_Mobile_old { get; set; }
+
+        public string DailyBudgetCap { get; set; }
 
         public string Link { get; set; }
         public IEnumerable<string> Keywords { get; set; }
         public bool Active { get; set; }
+    }
+
+    public class AdLogModeration
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public string user_id { get; set; }
+
+        public string user_nome { get; set; }
+
+        public string user_email { get; set; }
+
+        public string ad_id { get; set; }
+
+        public string status { get; set; }
+
+        public DateTime date { get; set; }
     }
 }

@@ -250,6 +250,7 @@
     <Compile Include="Controllers\CoachingTools\WheelOfLifeController.cs" />
     <Compile Include="Controllers\NotificationsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\ReportsController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Entities\User\UserPremiumMembership.cs" />
     <Compile Include="Entities\User\UserScheduleConfig.cs" />
     <Compile Include="Entities\User\UserService.cs" />
+    <Compile Include="Enums\ModerationAds.cs" />
     <Compile Include="Enums\UserPermissions.cs" />
     <Compile Include="Enums\UserRoles.cs" />
     <Compile Include="Enums\UserStatus.cs" />
