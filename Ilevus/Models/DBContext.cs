@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -60,9 +60,9 @@ namespace ilevus.Models
 			return IlevusDatabase.GetCollection<Ad>(IlevusTableNames.AdsTable);
 		}
 
-		public IMongoCollection<CustomerPayments> GetPaymentsCustomerCollection()
+		public IMongoCollection<PaymentsCustomer> GetPaymentsCustomerCollection()
 		{
-			return IlevusDatabase.GetCollection<CustomerPayments>(IlevusTableNames.CustomerPaymentsTable);
+			return IlevusDatabase.GetCollection<PaymentsCustomer>(IlevusTableNames.CustomerPaymentsTable);
 		}
 
 		public IMongoCollection<CoachingProcess> GetCoachingProcessCollection()

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -189,7 +189,7 @@ namespace ilevus.Controllers
 			};
 			var chargeService = new StripeChargeService();
 
-			CustomerPayments payment = new CustomerPayments
+			PaymentsCustomer payment = new PaymentsCustomer
 			{
 				Customer = customer,
 				Amount = valueToPay,
@@ -212,7 +212,7 @@ namespace ilevus.Controllers
 				.FirstOrDefault();
 		}
 
-		private CustomerAccount CreateOrRetrieveAccountCustomer(HireServiceModel model)
+		private AccountCustomer CreateOrRetrieveAccountCustomer(HireServiceModel model)
 		{
 			if (model.user.AccountCustumer == null)
 			{
@@ -224,7 +224,7 @@ namespace ilevus.Controllers
 				var customerService = new StripeCustomerService();
 				StripeCustomer customer = customerService.Create(customerOptions);
 
-				model.user.AccountCustumer = Mapper.Map<CustomerAccount>(customer);
+				model.user.AccountCustumer = Mapper.Map<AccountCustomer>(customer);
 				UserManager.Update(model.user);
 			}
 
