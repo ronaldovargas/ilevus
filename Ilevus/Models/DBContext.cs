@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -34,7 +34,7 @@ namespace ilevus.Models
         public const string SystemDefinitionsTable = "ilevus_definitions";
         public const string AdsBalanceTable = "ilevus_ads_balance";
         public const string AdsLogTable = "ilevus_ads_log";
-        public const string PaymentsCustomerTable = "payments_customer";
+       	public const string CustomerPaymentsTable = "payments_customer";
     }
 
 
@@ -69,7 +69,7 @@ namespace ilevus.Models
 
         public IMongoCollection<PaymentsCustomer> GetPaymentsCustomerCollection()
 		{
-			return IlevusDatabase.GetCollection<PaymentsCustomer>(IlevusTableNames.PaymentsCustomerTable);
+			return IlevusDatabase.GetCollection<PaymentsCustomer>(IlevusTableNames.CustomerPaymentsTable);
 		}
 
 		public IMongoCollection<CoachingProcess> GetCoachingProcessCollection()
