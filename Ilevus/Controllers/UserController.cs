@@ -64,24 +64,62 @@ namespace ilevus.Controllers
 			return Ok(users);
 		}
 
+        private string montaNomeURL(string nome, string sobrenome, string idUser = null)
+        {
+            try
+            {
+                var retorno = "";
+                var sufix = new Random().Next(1000, 9999) + "";
+                if (idUser != null)
+                {
+                    sufix = idUser.Substring(0, 5);
+                }
+                retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + sufix;
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return string.Empty;
+            }
+        }
 
-		// GET api/Account/{id}
-		[AllowAnonymous]
+        // GET api/Account/{id}
+        [AllowAnonymous]
 		[HttpGet]
 		[Route("{Id}")]
 		public async Task<IHttpActionResult> GetPublicProfile(string Id)
 		{
-			if (Id == null)
-			{
-				return BadRequest();
-			}
-			var user = await UserManager.FindByIdAsync(Id);
-			if (user == null)
-			{
-				return NotFound();
-			}
-			return Ok(new PublicProfileViewModel(user));
-		}
+            if (Id == null)
+            {
+                return BadRequest();
+            }
+
+            IlevusUser user = null;
+            if (System.Text.RegularExpressions.Regex.IsMatch(Id, @"\A\b[0-9a-fA-F]+\b\Z"))
+                user = await UserManager.FindByIdAsync(Id);
+
+            // tentativa de buscar pelo nomeUrl
+            if (user == null)
+            {
+                var db = IlevusDBContext.Create();
+                var builder = Builders<IlevusUser>.Filter;
+                var filters = builder.Eq("Professional.NomeURL", Id);
+                var collection = db.GetUsersCollection();
+                var results = await collection.FindAsync(filters);
+                var users = await results.ToListAsync();
+
+                if (users.Count > 0)
+                    user = users[0];
+            }
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new PublicProfileViewModel(user));
+        }
 
 
         // GET api/Account/UserInfo
@@ -713,7 +751,12 @@ namespace ilevus.Controllers
 			user.IsProfessional = professional.AddressInfo && professional.BasicInfo && professional.CareerInfo &&
 				professional.EducationInfo && professional.ServicesInfo;
 
-			if (user.Professional.AccountPayment == null)
+            if (string.IsNullOrEmpty(user.Professional.NomeURL))
+            {
+                user.Professional.NomeURL = montaNomeURL(user.Name, user.Surname, user.Id);
+            }
+
+            if (user.Professional.AccountPayment == null)
 			{
 				user.Professional.AccountPayment = StripeManager.Instance.CreateAccount(user);
 			}
