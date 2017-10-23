@@ -43,6 +43,7 @@
     "classnames": "^2.2.5",
     "create-react-class": "^15.5.2",
     "daterangepicker": "^2.1.25",
+    "exports-loader": "^0.6.4",
     "flux": "^2.1.1",
     "history": "^2.1.1",
     "jquery": "3",

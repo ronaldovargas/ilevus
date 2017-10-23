@@ -6,5 +6,5 @@ window.jQuery = require("jquery");
 require("blueimp-file-upload/js/jquery.iframe-transport.js");
 require("blueimp-file-upload");
 window.Tether = require("tether");
-//require("bootstrap/dist/js/bootstrap.js");
+require("bootstrap/dist/js/bootstrap.js");
 require("ilevus/jsx/AppSetup.jsx");

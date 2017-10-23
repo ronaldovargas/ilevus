@@ -100,7 +100,7 @@ module.exports = React.createClass({
         console.log('chamou aqui');
         var idUser = UserSession.get("user").Id;
         try {
-            console.log('usuário recuperado', UserSession.get("user"));
+            console.log('usuï¿½rio recuperado', UserSession.get("user"));
             idUser = UserSession.get("user").Professional.Professional.NomeURL;
         } catch (ex) {
             console.log('utilizando id como profilepath')

@@ -36,7 +36,7 @@ module.exports = {
         new Webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
-            'Popper': 'popper.js'
+            Popper: ['popper.js', 'default'],
         }),
         new Webpack.DefinePlugin({
             'process.env': {
