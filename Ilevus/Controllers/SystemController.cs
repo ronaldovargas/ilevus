@@ -174,12 +174,23 @@ namespace ilevus.Controllers
         public async Task<IHttpActionResult> UpdateDefinitionsConfigs(SystemDefinitionsConfigsBindingModel model)
         {
             //IlevusDBContext.SystemDefinitions.PathAds = model.PathAds;
-            IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\"}"; //model.PathAds;
+            //IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\"}"; //model.PathAds;
             /*IlevusDBContext.SystemConfiguration.MoipToken = model.MoipToken;
             IlevusDBContext.SystemConfiguration.MoipKey = model.MoipKey;
             IlevusDBContext.SystemConfiguration.MoipSubscriptionKey = model.MoipSubscriptionKey;
             IlevusDBContext.SystemConfiguration.MoipSubscriptionCode = model.MoipSubscriptionCode;
             IlevusDBContext.SystemConfiguration.MoipCryptoPublicKey = model.MoipCryptoPublicKey;*/
+            //IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\", \"AdsMaxSize\" : \"" + model.AdsMaxSize + "\"}";
+
+            IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\", " +
+                 "\"AdsMaxSize\" : \"" + model.AdsMaxSize + "\", " +
+                 "\"CostPerClick_pt_br\" : \"" + model.pt_br.CostPerClick.Replace("R$", "").Replace(".", "").Replace(",", ".").Trim() + "\", " +
+                 "\"CostPerView_pt_br\" : \"" + model.pt_br.CostPerView.Replace("R$", "").Replace(".", "").Replace(",", ".").Trim() + "\", " +
+                 "\"CostPerClick_en\" : \"" + model.en.CostPerClick.Replace("$", "").Replace(",", "").Trim() + "\", " +
+                 "\"CostPerView_en\" : \"" + model.en.CostPerView.Replace("$", "").Replace(",", "").Trim() + "\", " +
+                 "\"CostPerClick_es\" : \"" + model.es.CostPerClick.Replace("€", "").Replace(".", "").Replace(",", ".").Trim() + "\", " +
+                 "\"CostPerView_es\" : \"" + model.es.CostPerView.Replace("€", "").Replace(".", "").Replace(",", ".").Trim() + "\"}";
+
             if (await IlevusDBContext.Create().UpdateDefinitionsConfigs())
                 return Ok(IlevusDBContext.SystemDefinitions);
             return BadRequest();
