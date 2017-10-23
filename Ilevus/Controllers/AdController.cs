@@ -383,21 +383,22 @@ namespace ilevus.Controllers
                 );
 
                 
-                string path = token.SelectToken("PathAds").ToString();
-                path = (!path.EndsWith(@"/") ? path + "/" : path);
+                string url = token.SelectToken("PathAds").ToString();
+                url = (!url.EndsWith(@"/") ? url + "/" : url);
+                //string path = token.SelectToken("UrlRetriviedAds").ToString();
 
                 //if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(path) + model.Image_Mobile_old))
-                string url = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host;
+                /*string url = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host;
                 if (!HttpContext.Current.Request.Url.IsDefaultPort)
-                    url += ":" + HttpContext.Current.Request.Url.Port;
+                    url += ":" + HttpContext.Current.Request.Url.Port;*/
 
 
                 if (Position == "desktop")
-                    return Redirect(url + path + ad.ImageDesktop);
+                    return Redirect(url + ad.ImageDesktop);
                 else if (Position == "mobile")
-                    return Redirect(url + path + ad.ImageMobile);
+                    return Redirect(url + ad.ImageMobile);
                 else
-                    return Redirect(url + path + ad.ImageDesktop);
+                    return Redirect(url + ad.ImageDesktop);
             }
             catch (Exception e)
             {

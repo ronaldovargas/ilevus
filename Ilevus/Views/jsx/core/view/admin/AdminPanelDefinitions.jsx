@@ -62,6 +62,7 @@ module.exports = React.createClass({
             action: SystemStore.ACTION_UPDATE_DEFINITIONS,
             data: {
                 PathAds: this.refs['PathAds'].value,
+                UrlRetriviedAds: this.refs['UrlRetriviedAds'].value,
                 AdsMaxSize: this.refs['AdsMaxSize'].value,
                 pt_br: {
                     CostPerClick: this.refs["CostPerClick-pt-br"].value,
@@ -95,6 +96,11 @@ module.exports = React.createClass({
                         <div className="ilv-form-group">
                             <label className="ilv-form-label">{Messages.get("LabelAdsBasePathUrl")}</label>
                             <input className="ilv-form-control" type="text" spellCheck={false} ref="PathAds" defaultValue={JSON.parse(this.state.config.definitions).PathAds} />
+                        </div>
+
+                        <div className="ilv-form-group">
+                            <label className="ilv-form-label">{Messages.get("LabelAdsUrlRetrivied")}</label>
+                            <input className="ilv-form-control" type="text" spellCheck={false} ref="UrlRetriviedAds" defaultValue={JSON.parse(this.state.config.definitions).UrlRetriviedAds} />
                         </div>
 
                         <div className="ilv-form-group">

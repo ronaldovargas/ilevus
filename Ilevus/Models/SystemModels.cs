@@ -138,6 +138,8 @@ namespace ilevus.Models
     {
         public string PathAds { get; set; }
 
+        public string UrlRetriviedAds { get; set; }
+
         public string AdsMaxSize { get; set; }
 
         //public string CostPerClick { get; set; }

@@ -183,6 +183,7 @@ namespace ilevus.Controllers
             //IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\", \"AdsMaxSize\" : \"" + model.AdsMaxSize + "\"}";
 
             IlevusDBContext.SystemDefinitions.definitions = "{\"PathAds\" : \"" + model.PathAds + "\", " +
+                 "\"UrlRetriviedAds\" : \"" + model.UrlRetriviedAds + "\", " +
                  "\"AdsMaxSize\" : \"" + model.AdsMaxSize + "\", " +
                  "\"CostPerClick_pt_br\" : \"" + model.pt_br.CostPerClick.Replace("R$", "").Replace(".", "").Replace(",", ".").Trim() + "\", " +
                  "\"CostPerView_pt_br\" : \"" + model.pt_br.CostPerView.Replace("R$", "").Replace(".", "").Replace(",", ".").Trim() + "\", " +

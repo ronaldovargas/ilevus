@@ -133,7 +133,7 @@ module.exports = React.createClass({
         
 
         var limitSize = (this.state.config ? JSON.parse(this.state.config.definitions).AdsMaxSize : 0);
-        var pathImage = (this.state.config ? JSON.parse(this.state.config.definitions).PathAds : "");
+        var pathImage = (this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "");
         
         return (
             <div className="row">
@@ -147,7 +147,7 @@ module.exports = React.createClass({
                     <div className="ilv-form-group">
                         <label className="ilv-form-label">{Messages.get("LabelAdImageDesktop")}</label>
 
-                            <labal id="lbl_image_desktop">{this.props.ad ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).PathAds : "") + this.props.ad.ImageDesktop} style={{ width: "150px" } } /> : ""}</labal><br />
+                            <labal id="lbl_image_desktop">{this.props.ad ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.props.ad.ImageDesktop} style={{ width: "150px" } } /> : ""}</labal><br />
                             <button className="ilv-btn ilv-btn-neutral" onClick={this.uploadDesktopImage.bind(this, limitSize) }>{Messages.get("ActionSendImageDesktop")}</button>
                             &nbsp;&nbsp;<a href="javascript:;" onClick={this.alertAdInfoSize.bind(this, "240px X 475px")}><i className="fa fa-2x fa-info-circle"> </i></a>
 
@@ -158,7 +158,7 @@ module.exports = React.createClass({
                     <div className="ilv-form-group">
                         <label className="ilv-form-label">{Messages.get("LabelAdImageMobile")}</label>
 
-                            <labal id="lbl_image_mobile">{this.props.ad ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).PathAds : "") + this.props.ad.ImageMobile} style={{ width: "150px" } } /> : ""}</labal><br />
+                            <labal id="lbl_image_mobile">{this.props.ad ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.props.ad.ImageMobile} style={{ width: "150px" } } /> : ""}</labal><br />
                             <button className="ilv-btn ilv-btn-neutral" onClick={this.uploadMobileImage.bind(this, limitSize) }>{Messages.get("ActionSendImageMobile")}</button>
                             &nbsp;&nbsp;<a href="javascript:;" onClick={this.alertAdInfoSize.bind(this, "280px X 115px")}><i className="fa fa-2x fa-info-circle"> </i></a>
 
