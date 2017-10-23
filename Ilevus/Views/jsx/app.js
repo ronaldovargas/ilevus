@@ -3,6 +3,8 @@ require("ilevus/css/html5-boilerplate/main.css");
 require("ilevus/sass/anvil.scss");
 
 window.jQuery = require("jquery");
+require("jquery-maskmoney/dist/jquery.maskMoney.js");
+require("daterangepicker/daterangepicker.js");
 require("blueimp-file-upload/js/jquery.iframe-transport.js");
 require("blueimp-file-upload");
 window.Tether = require("tether");
