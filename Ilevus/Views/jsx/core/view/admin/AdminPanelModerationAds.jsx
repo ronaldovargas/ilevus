@@ -91,6 +91,7 @@ module.exports = React.createClass({
     componentWillUnmount() {
         SystemStore.off(null, null, this);
         AdStore.off(null, null, this);
+        clearInterval(this.state.timer);
     },
 
     saveAdModeration(Status) {
@@ -200,12 +201,12 @@ module.exports = React.createClass({
                         <div className="row">
                             <div className="ilv-form-group col-6">
                                 <label className="ilv-form-label">{Messages.get("LabelAdImageDesktop")}</label>
-                                <labal id="lbl_image_desktop">{this.state.ads ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).PathAds : "") + this.state.ads.ImageDesktop} style={{ width: "150px" }} /> : ""}</labal>
+                                <labal id="lbl_image_desktop">{this.state.ads ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.state.ads.ImageDesktop} style={{ width: "150px" }} /> : ""}</labal>
                             </div>
 
                             <div className="ilv-form-group col-6">
                                 <label className="ilv-form-label">{Messages.get("LabelAdImageMobile")}</label>
-                                <labal id="lbl_image_mobile">{this.state.ads ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).PathAds : "") + this.state.ads.ImageMobile} style={{ width: "150px" }} /> : ""}</labal>
+                                <labal id="lbl_image_mobile">{this.state.ads ? <img src={(this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.state.ads.ImageMobile} style={{ width: "150px" }} /> : ""}</labal>
 
                                 <div className="ilv-form-group" style={{ marginTop: "15px"}}>
                                     <label className="ilv-form-label">

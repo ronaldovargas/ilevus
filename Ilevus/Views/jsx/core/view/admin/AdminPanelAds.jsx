@@ -117,6 +117,9 @@ module.exports = React.createClass({
 
 
     renderAds() {
+        if (this.state.ads) {
+            return <i>Carregando anúncios.</i>;
+        }
         if (this.state.ads.length == 0) {
             return <i>Nenhum anúncio cadastrado ainda.</i>;
         }

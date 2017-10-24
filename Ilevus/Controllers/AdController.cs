@@ -383,7 +383,7 @@ namespace ilevus.Controllers
                 );
 
                 
-                string url = token.SelectToken("PathAds").ToString();
+                string url = token.SelectToken("UrlRetriviedAds").ToString();
                 url = (!url.EndsWith(@"/") ? url + "/" : url);
                 //string path = token.SelectToken("UrlRetriviedAds").ToString();
 
