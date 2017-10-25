@@ -499,9 +499,6 @@ module.exports = React.createClass({
                                                         })}
                                                     </tbody>
                                                  </table>
-                                                 <button className="ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral" onClick={this.toHireService}>
-		                                            <i className="ilv-icon material-icons md-18">&#xE87E;</i>Contratar
-                                                 </button>
                                             </div>
                                             <div className="col-4 hidden-sm-down">
                                                 <p className="ilv-font-weight-bold">{Messages.get("LabelTip")}</p>

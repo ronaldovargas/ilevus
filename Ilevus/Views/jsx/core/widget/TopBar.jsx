@@ -117,7 +117,7 @@ module.exports = React.createClass({
                 </button>
 
                 <Link to="/home" className="navbar-brand">
-                    <img src={Logo} alt="ilevus" />
+                    {/* <img src={Logo} alt="ilevus" /> */}
                 </Link>
 
                 <div className="collapse navbar-collapse" id="navbar_menu">

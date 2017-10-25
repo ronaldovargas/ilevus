@@ -3,6 +3,9 @@ var S = require("string");
 var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
+import IntlCurrencyInput from "react-intl-currency-input"
+
 
 module.exports = React.createClass({
     propTypes: {
@@ -11,12 +14,13 @@ module.exports = React.createClass({
         onCancel: React.PropTypes.func.isRequired
     },
     getDefaultProps() {
-        return {service: {}};
+        return { service: {} };
     },
     getInitialState() {
         return {
             edit: !!this.props.service.Name,
-            sellPrice: this.calcFinalPrice(this.props.service.Price)
+            sellPrice: this.calcFinalPrice(this.props.service.Price),
+            price: this.props.service.Price
         };
     },
     onSubmit(event) {
@@ -28,41 +32,47 @@ module.exports = React.createClass({
             return;
         }
         var data = {
-            Name: name
-                .escapeHTML()
-                .s,
-            Price: this.refs['field-price'].valueAsNumber
+            Name: name.escapeHTML().s,
+            Price: this.state.price
         };
-        this
-            .props
-            .onSubmit(data);
+        this.props.onSubmit(data);
     },
     onCancel(event) {
         event.preventDefault();
-        this
-            .props
-            .onCancel();
+        this.props.onCancel();
     },
     calcFinalPrice(value) {
+        if (!value) {
+            return 'R$ 0';
+        }
         var percMoip = value * 0.0549;
         var percImpMoip = percMoip * 0.15;
         var mktDir = 29.90;
         var comIle = 1.15;
-        return percMoip + percImpMoip + mktDir + comIle + (value * 1);
+        var calc = percMoip + percImpMoip + mktDir + comIle + (value * 1);
+        var sellPrice = CurrencyUtils.format(calc);
+        return sellPrice;
     },
-    handleChange(e) {
-        // var calc = (((e.target.value * 0.0579) * 0.15 ) + 29.90 + 1.15 ) +
-        // e.target.value;
-        var percMoip = e.target.value * 0.0549;
-        var percImpMoip = percMoip * 0.15;
-        var mktDir = 29.90;
-        var comIle = 1.15;
-        var calc = percMoip + percImpMoip + mktDir + comIle + (e.target.value * 1);
+    handleChange(event, value, maskedValue) {
         this.setState({
-            sellPrice: calc || 0
+            sellPrice: this.calcFinalPrice(value) || 0,
+            price: value
         });
     },
     render() {
+        const currencyConfig = {
+            locale: "pt-BR",
+            formats: {
+                number: {
+                    BRL: {
+                        style: "currency",
+                        currency: "BRL",
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                    },
+                },
+            },
+        };
         return (
             <form onSubmit={this.onSubmit}>
                 <fieldset className="ilv-form-group">
@@ -75,20 +85,18 @@ module.exports = React.createClass({
                         spellCheck={false}
                         id="serviceName"
                         ref="field-name"
-                        defaultValue={this.props.service.Name}/>
+                        defaultValue={this.props.service.Name} />
                 </fieldset>
 
                 <fieldset className="ilv-form-group">
                     <label className="ilv-form-label" htmlFor="servicePrice">
                         {Messages.get("LabelPrice")}
                     </label>
-                    <input
-                        className="ilv-form-control"
-                        type="number"
-                        id="servicePrice"
-                        ref="field-price"
+
+                    <IntlCurrencyInput currency="BRL"
+                        config={currencyConfig}
                         onChange={this.handleChange}
-                        defaultValue={this.props.service.Price}/>
+                        defaultValue={this.props.service.Price} />
                 </fieldset>
 
                 <fieldset className="ilv-form-group">
@@ -97,19 +105,19 @@ module.exports = React.createClass({
                     </label>
                     <input
                         className="ilv-form-control"
-                        type="number"
+                        type="text"
                         disabled="disabled"
                         id="serviceSellPrice"
                         ref="field-sell-price"
-                        value={this.state.sellPrice}/>
+                        value={this.state.sellPrice} />
                 </fieldset>
 
                 <input
                     type="submit"
                     className="ilv-btn ilv-btn-block ilv-btn-primary"
                     value={this.state.edit
-                    ? Messages.get("ActionSaveOfferedService")
-                    : Messages.get("ActionAddNewOfferedService")}/>
+                        ? Messages.get("ActionSaveOfferedService")
+                        : Messages.get("ActionAddNewOfferedService")} />
                 <button className="ilv-btn ilv-btn-block ilv-btn-clean" onClick={this.onCancel}>
                     {Messages.get("LabelCancel")}
                 </button>

@@ -7,6 +7,7 @@ var CardCVCSection = require('./CardCVCSection.jsx');
 var CardPostalCode = require('./CardPostalCodeSection.jsx');
 var UserSession = require('./../../store/Financial.jsx');
 
+var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
 
 module.exports = React.createClass({
   propTypes: {
@@ -39,7 +40,7 @@ module.exports = React.createClass({
           </tr>
           <tr>
             <td className="ilv-font-weight-semibold">{this.props.service.Name}</td>
-            <td className="ilv-text-xs-right">{this.props.service.Price}</td>
+            <td className="ilv-text-xs-right">{CurrencyUtils.format(this.props.service.Price)}</td>
           </tr>
         </table>
         <CardNumberSection />

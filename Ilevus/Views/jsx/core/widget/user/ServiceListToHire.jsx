@@ -10,6 +10,7 @@ var StripeProvider = require('react-stripe-elements/lib/index').StripeProvider;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
+var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
 module.exports = React.createClass({
     contextTypes: {
         router: React.PropTypes.object
@@ -55,7 +56,7 @@ module.exports = React.createClass({
                     </StripeProvider>
                 </Modal>
             </td>
-            <td className="ilv-text-xs-right">{this.props.service.Price}</td>
+            <td className="ilv-text-xs-right">{CurrencyUtils.format(this.props.service.Price)}</td>
 
             <td className="ilv-text-xs-right">
                 <div style={hidden}>
