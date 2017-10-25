@@ -358,8 +358,10 @@ namespace ilevus.Controllers
 
             try
             {
-                var rBalance = cBalance.Find(filtersBalance.Eq("Id", "59a57df65b32b709e4652e6b"));
+                var rBalance = cBalance.Find(filtersBalance.Empty);
                 var balance = rBalance.FirstOrDefault();
+
+                var _idBalance = balance.Id;
 
                 var result = await collection.FindAsync(filters.Eq("Id", Id));
                 var ad = await result.FirstOrDefaultAsync();
@@ -378,7 +380,7 @@ namespace ilevus.Controllers
                 var implemented = CultureHelper.GetImplementedCulture(culture.Name).Replace("-", "_");
 
                 cBalance.UpdateOne(
-                    filtersBalance.Eq("Id", "59a57df65b32b709e4652e6b"),
+                    filtersBalance.Eq("Id", _idBalance),
                     updatesBalance.Set("Balance", balance.Balance - Convert.ToDouble(token.SelectToken("CostPerView_" + implemented)))
                 );
 
@@ -422,8 +424,10 @@ namespace ilevus.Controllers
 
             try
             {
-                var rBalance = cBalance.Find(filtersBalance.Eq("Id", "59a57df65b32b709e4652e6b"));
+                var rBalance = cBalance.Find(filtersBalance.Empty);
                 var balance = rBalance.FirstOrDefault();
+
+                var _idBalance = balance.Id;
 
                 var result = await collection.FindAsync(filters.Eq("Id", Id));
                 var ad = await result.FirstOrDefaultAsync();
@@ -442,7 +446,7 @@ namespace ilevus.Controllers
                 var implemented = CultureHelper.GetImplementedCulture(culture.Name).Replace("-", "_");
 
                 cBalance.UpdateOne(
-                    filtersBalance.Eq("Id", "59a57df65b32b709e4652e6b"),
+                    filtersBalance.Eq("Id", _idBalance),
                     updatesBalance.Set("Balance", balance.Balance - Convert.ToDouble(token.SelectToken("CostPerClick_" + implemented)))
                 );
 

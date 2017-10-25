@@ -312,6 +312,7 @@
     <Compile Include="MongoMigrations\M003_AdsLogsEntity.cs" />
     <Compile Include="MongoMigrations\M004_AdsEntity.cs" />
     <Compile Include="MongoMigrations\M005_Definitions.cs" />
+    <Compile Include="MongoMigrations\M006_BalanceEntity.cs" />
     <Compile Include="Providers\IlevusPermissionsProvider.cs" />
     <Compile Include="Providers\IlevusOAuthProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
