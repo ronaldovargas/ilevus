@@ -131,6 +131,7 @@ namespace ilevus.Controllers
                         updates.Combine(
                             updates.Set("Active", model.Active),
                             updates.Set("Headline", model.Headline),
+                            updates.Set("Campain", model.Campain),
                             updates.Set("Keywords", model.Keywords),
                             updates.Set("DailyBudgetCap", Convert.ToDouble(model.DailyBudgetCap.Replace("R$", "").Replace(".", "").Trim())),
                             updates.Set("Link", model.Link),
@@ -155,6 +156,7 @@ namespace ilevus.Controllers
                 {
                     Active = model.Active,
                     Headline = model.Headline,
+                    Campain = model.Campain,
                     Keywords = model.Keywords,
                     Link = model.Link,
                     DailyBudgetCap = Convert.ToDouble(model.DailyBudgetCap.Replace("R$", "").Replace(".", "").Trim()),
@@ -175,6 +177,47 @@ namespace ilevus.Controllers
 
                 await collection.InsertOneAsync(ad);
                 return Ok(ad);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+
+        [HttpPost]
+        [Route("ChageAdStatus")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> ChageAdStatus(AdBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var collection = IlevusDBContext.Create().GetAdsCollection();
+            var filters = Builders<Ad>.Filter;
+            try
+            {
+                if (model.Id != null)
+                {
+                    var updates = Builders<Ad>.Update;
+
+                    var result = await collection.UpdateOneAsync(
+                        filters.Eq("Id", model.Id),
+                        updates.Combine(
+                            updates.Set("Active", model.Active)
+                        )
+                    );
+                    if (result.MatchedCount == 0)
+                    {
+                        return BadRequest("Ad not found.");
+                    }
+                    return Ok(true);
+                }
+                else
+                {
+                    return BadRequest("Ad not found.");
+                }
             }
             catch (Exception e)
             {

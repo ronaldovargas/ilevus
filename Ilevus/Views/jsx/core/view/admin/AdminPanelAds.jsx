@@ -46,6 +46,15 @@ module.exports = React.createClass({
             });
         }, me);
 
+        AdStore.on("change-ads-status", (ad) => {
+            
+            if (jQuery("#lnkActive_" + ad.Id).find("i:first").hasClass("fa-toggle-on"))
+                jQuery("#lnkActive_" + ad.Id).find("i:first").removeClass("fa-toggle-on").addClass("fa-toggle-off");
+            else
+                jQuery("#lnkActive_" + ad.Id).find("i:first").removeClass("fa-toggle-off").addClass("fa-toggle-on");
+            
+        }, me);
+
         AdStore.dispatch({
             action: AdStore.ACTION_RETRIEVE_ADS,
             data: {}
@@ -115,12 +124,23 @@ module.exports = React.createClass({
         });
     },
 
+    changeStatusAd(ad, event) {
+        event && event.preventDefault();
+        
+        AdStore.dispatch({
+            action: AdStore.ACTION_CHANGE_ADS_STATUS,
+            data: {
+                Id: ad ? ad.Id : undefined,
+                Active: ad ? !ad.Active : false,
+            }
+        });
+    },
+
 
     renderAds() {
-        if (this.state.ads) {
+        if (!this.state.ads) {
             return <i>Carregando anúncios.</i>;
-        }
-        if (this.state.ads.length == 0) {
+        } else if (this.state.ads.length == 0) {
             return <i>Nenhum anúncio cadastrado ainda.</i>;
         }
         return (<table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
@@ -128,22 +148,31 @@ module.exports = React.createClass({
                 <tr>
                     <th>{Messages.get("LabelHeadline")}</th>
                     <th>{Messages.get("LabelStatus")}</th>
-                    <th>{Messages.get("LabelViews")}</th>
-                    <th>{Messages.get("LabelClicks")}</th>
+                    <th>{Messages.get("LabelEdit")}</th>
+                    <th>{Messages.get("LabelReport")}</th>
                 </tr>
             </thead>
             <tbody>
                 {this.state.ads.map((ad, index) =>
                     <tr key={"ad-list-"+index}>
                         <td>
-                            <a onClick={this.onEditingAd.bind(this, ad)}>{ad.Headline}
+                            {ad.Headline}
+                        </td>
+                        <td>
+                            <a onClick={this.changeStatusAd.bind(this, ad)} id={"lnkActive_" + ad.Id}>
+                                {(ad.Active ? <i className='fa fa-toggle-on'> </i> : <i className='fa fa-toggle-off'> </i>)}
                             </a>
                         </td>
                         <td>
-                            {(ad.Active ? <i className='fa fa-thumbs-o-up'> </i> : <i className='fa fa-thumbs-o-down'> </i>)}
+                            <a onClick={this.onEditingAd.bind(this, ad)}>
+                                <i className='fa fa-sliders'> </i>
+                            </a>
                         </td>
-                        <td>{ad.Views}</td>
-                        <td>{ad.Hits}</td>
+                        <td>
+                            <Link to={"/admin/report-preview/" + ad.Id}>
+                                <i className='fa fa-area-chart'> </i>
+                            </Link>
+                        </td>
                     </tr>
                 )}
             </tbody>

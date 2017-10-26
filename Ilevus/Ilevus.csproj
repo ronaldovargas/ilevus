@@ -626,6 +626,7 @@
     <Content Include="Views\jsx\core\view\admin\AdminPanelModerationAds.jsx" />
     <Content Include="Views\jsx\core\view\admin\AdminPanelReports.jsx" />
     <Content Include="Views\jsx\core\widget\AdRowBar.jsx" />
+    <Content Include="Views\jsx\core\view\admin\AdminPanelReportPreview.jsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="build\**">

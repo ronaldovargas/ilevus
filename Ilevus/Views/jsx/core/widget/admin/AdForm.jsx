@@ -52,13 +52,16 @@ module.exports = React.createClass({
                 loading: false,
                 config: config
             });
+
+            jQuery("#txtbxDailyBudgetCap").maskMoney({ thousands: ".", decimal: ",", prefix: "R$ ", allowZero: true });
+            jQuery("#txtbxDailyBudgetCap").trigger('mask.maskMoney');
+
         }, me);
         SystemStore.dispatch({
             action: SystemStore.ACTION_RETRIEVE_DEFINITIONS
         });
 
-        jQuery("#txtbxDailyBudgetCap").maskMoney({ thousands: ".", decimal: ",", prefix: "R$ ", allowZero: true });
-        jQuery("#txtbxDailyBudgetCap").trigger('mask.maskMoney');
+        
     },
     componentWillUnmount() {
         AdStore.off(null, null, this);
@@ -84,6 +87,7 @@ module.exports = React.createClass({
             data: {
                 Id: this.props.ad ? this.props.ad.Id : undefined,
                 Headline: this.refs['headline'].value.substring(0, 100),
+                Campain: this.refs['campain'].value.substring(0, 50),
                 //Image: this.refs['image'].value,
                 Image_Desktop: this.refs['image_desktop'].value,
                 Image_Mobile: this.refs['image_mobile'].value,
@@ -140,6 +144,10 @@ module.exports = React.createClass({
             <div className="col">
                 <h4>{!this.props.ad ? Messages.get("LabelNewAd") : Messages.get("LabelEditAd")}</h4>
                 <form onSubmit={this.saveAd }>
+                    <div className="ilv-form-group">
+                        <label className="ilv-form-label">{Messages.get("LabelCampain")}</label>
+                        <input className="ilv-form-control" type="text" spellCheck={false} ref="campain" maxLength="50" defaultValue={this.props.ad ? this.props.ad.Campain : "" } />
+                    </div>
                     <div className="ilv-form-group">
                         <label className="ilv-form-label">{Messages.get("LabelHeadline")}</label>
                         <input className="ilv-form-control" type="text" spellCheck={false} ref="headline" maxLength="100" defaultValue={this.props.ad ? this.props.ad.Headline : "" } />

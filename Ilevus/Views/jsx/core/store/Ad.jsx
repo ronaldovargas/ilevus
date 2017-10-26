@@ -24,6 +24,7 @@ var AdStore = Fluxbone.Store.extend({
 
     ACTION_RETRIEVE_ADS: 'ad-retrieveAds',
     ACTION_SAVE: 'ad-saveAd',
+    ACTION_CHANGE_ADS_STATUS: 'ad-changeAdsStatus',
 
     ACTION_SEARCH_ADS: 'ad-searchAds',
     ACTION_SEARCH_MOBILE_ADS: 'ad-searchMobileAds',
@@ -86,6 +87,24 @@ var AdStore = Fluxbone.Store.extend({
             traditional: true,
             success(data, status, opts) {
                 me.trigger("save-ad", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    changeAdsStatus(params) {
+        var me = this;
+        $.ajax({
+            method: "POST",
+            url: me.url + "/ChageAdStatus",
+            dataType: 'json',
+            data: JSON.stringify(params),
+            contentType: "application/json",
+            traditional: true,
+            success(data, status, opts) {
+                me.trigger("change-ads-status", params);
             },
             error(opts, status, errorMsg) {
                 me.handleRequestErrors([], opts);
