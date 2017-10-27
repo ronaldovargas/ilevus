@@ -1,4 +1,4 @@
-
+﻿
 var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
@@ -25,7 +25,6 @@ module.exports = React.createClass({
 	        password: this.refs['password'].value,
 	        stayconnected: this.refs['stayconnected'].checked
 	    };
-	    console.log(data);
 		UserSession.dispatch({
 			action: UserSession.ACTION_LOGIN,
 			data: data
@@ -85,15 +84,7 @@ module.exports = React.createClass({
 	},
 
 	loginWithLinkedin() {
-	    console.log(IN);
-	    IN.User.authorize((arg) => {
-	        console.log(IN);
-	        console.log(IN.API.Profile());
-	        /*UserSession.dispatch({
-	            action: UserSession.ACTION_LOGIN_LINKEDIN,
-	            data: IN.ENV.auth.anonymous_token
-	        });*/
-	    });
+	    IN.User.authorize((arg) => {});
 	},
 
 	render() {

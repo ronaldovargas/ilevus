@@ -506,7 +506,6 @@ var UserSession = Backbone.Model.extend({
         var me = this;
 
         UserStore.on("all", (lista) => {
-            console.log('lista de usuarios', lista);
             if (!lista || lista.length == 0) return;
 
             var qtde = 0;

@@ -51,14 +51,12 @@ module.exports = React.createClass({
         });
 
         AssessmentsStore.on("receivedassessmentget", (receiveds) => {
-            console.log('recebidas', receiveds);
             me.setState({
                 receivedsAssessments: receiveds                
             });
         }, me);
 
         AssessmentsStore.on("sendeddassessmentget", (sendeds) => {
-            console.log('enviadas', sendeds);
             me.setState({
                 sendedsAssessments: sendeds
             });

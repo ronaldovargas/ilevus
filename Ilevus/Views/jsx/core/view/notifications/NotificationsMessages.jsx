@@ -68,8 +68,7 @@ module.exports = React.createClass({
         }, me);
 
         ChatStore.on("poll-new-messages", (conversation) => {
-            if (isConversationUpdated(this.state.conversation, conversation)) {
-                console.log('ativou');
+            if (isConversationUpdated(this.state.conversation, conversation)) {                
                 showNewMessageIndicator = true;
                 me.setState({
                     conversation: conversation,
@@ -163,7 +162,6 @@ module.exports = React.createClass({
         if (chatBody) {
             if (chatBody.scrollTop + 100 >= (chatBody.scrollHeight - chatBody.offsetHeight)) {
                 chatBody.scrollTop = chatBody.scrollHeight;
-                console.log('desativou');
                 showNewMessageIndicator = false;
             }
         }

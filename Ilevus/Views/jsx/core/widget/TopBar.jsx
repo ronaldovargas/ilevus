@@ -25,10 +25,8 @@ module.exports = React.createClass({
     componentWillMount() {
         var me = this;
 
-        UserSession.on("update", session => {
-            console.log('primeiro');
+        UserSession.on("update", session => {            
             if (me.state && me.state.logged) {
-                console.log('entrou');
                 window.onbeforeunload = function (event) {
                     if (!this.state || !this.state.logged) {
                         return null;
