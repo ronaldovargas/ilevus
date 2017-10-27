@@ -2,6 +2,7 @@ var path = require('path');
 var node_modules_dir = path.resolve(__dirname, 'node_modules');
 var Webpack = require("webpack");
 var autoprefixer = require("autoprefixer");
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     context: __dirname,
@@ -33,6 +34,18 @@ module.exports = {
         }
     },
     plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            analyzerHost: '127.0.0.1',
+            analyzerPort: 8880,
+            reportFilename: 'report.html',
+            defaultSizes: 'parsed',
+            openAnalyzer: true,
+            generateStatsFile: false,
+            statsFilename: 'stats.json',
+            statsOptions: null,
+            logLevel: 'info'
+          }),
         new Webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery",
