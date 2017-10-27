@@ -384,7 +384,6 @@
     <Content Include="Views\jsx\app.js" />
     <Content Include="Views\jsx\core\util\Analytics.js" />
     <Content Include="Views\jsx\core\view\admin\AdminPanelMensagens.js" />
-    <Content Include="Views\jsx\vendor\._bank-account-validator-1.0.0.min.js" />
     <Content Include="Views\jsx\vendor\bank-account-validator-1.0.0.min.js" />
     <Content Include="Views\jsx\vendor\daterangepicker.js" />
     <Content Include="Views\jsx\vendor\intlTelInput.js" />
@@ -392,10 +391,6 @@
     <Content Include="Views\jsx\vendor\moip-assinaturas.js" />
     <Content Include="Views\jsx\vendor\moip.js" />
     <Content Include="Views\jsx\vendor\utils.js" />
-    <Content Include="Views\lib\react-autocomplete\build\lib\Autocomplete.js" />
-    <Content Include="Views\lib\react-autocomplete\build\lib\index.js" />
-    <Content Include="Views\lib\react-autocomplete\dist\react-autocomplete.js" />
-    <Content Include="Views\lib\react-autocomplete\dist\react-autocomplete.min.js" />
     <Content Include="Views\webpack.config.js" />
     <Content Include="Views\webpack.production.config.js" />
     <Content Include="Web.config" />
@@ -486,7 +481,6 @@
     <Content Include="Views\jsx\core\view\user\ConfirmEmailChange.jsx" />
     <Content Include="Views\jsx\core\view\user\Dashboard.jsx" />
     <Content Include="Views\jsx\core\view\user\Financial.jsx" />
-    <Content Include="Views\jsx\core\view\user\HireService.jsx" />
     <Content Include="Views\jsx\core\view\user\Login.jsx" />
     <Content Include="Views\jsx\core\view\user\Management.jsx" />
     <Content Include="Views\jsx\core\view\user\ProfessionalProfile.jsx" />
@@ -540,12 +534,6 @@
     <Content Include="Views\jsx\core\widget\user\ServiceListReadsOnlyToHire.jsx" />
     <Content Include="Views\jsx\core\widget\user\ServiceListToHire.jsx" />
     <Content Include="Views\jsx\core\widget\user\UserContactInfo.jsx" />
-    <Content Include="Views\lib\react-autocomplete\CHANGELOG.md" />
-    <Content Include="Views\lib\react-autocomplete\dist\react-autocomplete.js.map" />
-    <Content Include="Views\lib\react-autocomplete\dist\react-autocomplete.min.js.map" />
-    <Content Include="Views\lib\react-autocomplete\LICENSE" />
-    <Content Include="Views\lib\react-autocomplete\package.json" />
-    <Content Include="Views\lib\react-autocomplete\README.md" />
     <Content Include="Views\package-lock.json" />
     <Content Include="Views\package.json" />
     <Content Include="Views\sass\anvil.scss" />
@@ -679,6 +667,7 @@
     <Folder Include="lib\react-autocomplete\" />
     <Folder Include="Views\cms\ads\" />
     <Folder Include="Views\jsx\vendor\anvil\" />
+    <Folder Include="Views\lib\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

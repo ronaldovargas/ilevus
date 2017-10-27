@@ -87,6 +87,8 @@ module.exports = React.createClass({
             {this.state.models.map((model, index) => {
                 var industry = S(model.Professional.Professional.Industry);
                 var headline = S(model.Professional.Professional.Headline);
+                var identificador = model.Professional.Professional.NomeURL ? model.Professional.Professional.NomeURL : model.Id;
+
                 return (
                     <div className="py-3" style={{ borderBottom: "1px solid #eee" }} key={"search-result-"+index}>
                         <div className="ilv-media" key={"result-"+index}>
@@ -96,7 +98,7 @@ module.exports = React.createClass({
                             </div>
                             <div className="ilv-media-body">
                                 <div style={{marginBottom: ".25rem"}}>
-                                    <Link to={"/profile/"+model.Id}><strong>{model.Name} {model.Surname}</strong></Link>
+                                    <Link to={"/profile/" + identificador}><strong>{model.Name} {model.Surname}</strong></Link>
                                 </div>
                                 <div>
                                     <p className="ilv-text-small">

@@ -1,8 +1,8 @@
-var path = require('path');
+﻿var path = require('path');
 var Webpack = require("webpack");
 module.exports = require("./webpack.config.js");
 module.exports.output.path = path.join(__dirname, 'build', 'Release');
-module.exports.devtool = null;
+module.exports.devtool = false;
 
 module.exports.plugins = [
               new Webpack.ProvidePlugin({

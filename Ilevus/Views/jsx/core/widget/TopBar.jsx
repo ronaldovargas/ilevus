@@ -1,4 +1,4 @@
-var React = require("react");
+﻿var React = require("react");
 var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var string = require("string");
@@ -97,10 +97,8 @@ module.exports = React.createClass({
         });
     },
     getNomeURL() {
-        console.log('chamou aqui');
         var idUser = UserSession.get("user").Id;
-        try {
-            console.log('usu�rio recuperado', UserSession.get("user"));
+        try {            
             idUser = UserSession.get("user").Professional.Professional.NomeURL;
         } catch (ex) {
             console.log('utilizando id como profilepath')
@@ -117,7 +115,7 @@ module.exports = React.createClass({
                 </button>
 
                 <Link to="/home" className="navbar-brand">
-                    {/* <img src={Logo} alt="ilevus" /> */}
+                    {<img src={Logo} alt="ilevus" />}
                 </Link>
 
                 <div className="collapse navbar-collapse" id="navbar_menu">
@@ -162,7 +160,7 @@ module.exports = React.createClass({
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="personal_submenu">
                                     <Link className="dropdown-item" to="/become-a-professional">{Messages.get("LabelProfessionalProfile")}</Link>
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" to={"/profile/"+UserSession.get("user").Id}>{Messages.get("LabelViewProfile")}</Link>
+                                    <Link className="dropdown-item" to={"/profile/" + this.getNomeURL()}>{Messages.get("LabelViewProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/profile">{Messages.get("LabelEditProfile")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelAccountConfig")}</Link>
                                     <Link className="dropdown-item" to="/user/account">{Messages.get("LabelChangeLanguage")}</Link>

@@ -1,4 +1,4 @@
-/**
+﻿/**
     Este é um modelo global diferente dos outros. Ele é responsável por todo o controle de sessão
     e autenticação/autorização do usuário do sistema.
 */
@@ -268,7 +268,7 @@ var UserSession = Backbone.Model.extend({
             });
             me.clearStorage();
             me.trigger("logout");
-            location.assign("#/");
+            location.assign("/");            
         }
     },
 

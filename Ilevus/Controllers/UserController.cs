@@ -69,12 +69,14 @@ namespace ilevus.Controllers
             try
             {
                 var retorno = "";
-                var sufix = new Random().Next(1000, 9999) + "";
-                if (idUser != null)
-                {
+                var sufix = "";
+
+				if (idUser != null)
                     sufix = idUser.Substring(0, 5);
-                }
-                retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + sufix;
+				else
+					sufix = new Random().Next(1000, 9999) + "";
+
+				retorno = nome.ToLower().Replace(" ", "-") + "-" + sobrenome.ToLower().Replace(" ", "-") + "-" + sufix;
                 return retorno;
             }
             catch (Exception ex)
