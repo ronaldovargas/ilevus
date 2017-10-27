@@ -62,7 +62,7 @@ namespace ilevus
         {
             try
             {
-                string homeUrl = @"https://www.ilevus.com";
+                string homeUrl = @"https://www.ilevus.com/profile/";
                 XmlDocument doc = new XmlDocument();
                 XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", null, null);
                 doc.AppendChild(dec);
