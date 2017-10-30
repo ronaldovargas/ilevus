@@ -1,15 +1,9 @@
 <?xml version="1.0"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.ilevus.com/carlos-albuquerque-8009</loc>
+    <loc>http://www.ilevus.com/eugenio-tavares-59f0b</loc>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <lastmod>2017-09-12</lastmod>
-  </url>
-  <url>
-    <loc>https://www.ilevus.com/usuario-teste-1848</loc>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    <lastmod>2017-09-13</lastmod>
+    <lastmod>0001-01-01</lastmod>
   </url>
 </urlset>
