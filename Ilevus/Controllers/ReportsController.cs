@@ -108,5 +108,81 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
+
+        [HttpGet]
+        [Route("AdsClicks_Views")]
+        [AllowAnonymous]
+        public async Task<IHttpActionResult> AdsClicks_Views(string Id, string modeView, string DtIni, string DtEnd, string Click_View)
+        {
+            var db = IlevusDBContext.Create();
+            var filters = Builders<AdsReport>.Filter;
+            var collection = db.GetAdsReport();
+
+            if (string.IsNullOrEmpty(modeView))
+                modeView = "m";
+
+            DateTime dtStart;
+            if (string.IsNullOrEmpty(DtIni))
+                dtStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+            else if (!DateTime.TryParseExact(DtIni, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtStart))
+                dtStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 0, 0, 0);
+
+            DateTime dtEnds;
+            if (string.IsNullOrEmpty(DtEnd))
+                dtEnds = new DateTime(DateTime.Today.Year, DateTime.Today.Month, (DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month)), 23, 59, 59);
+            else if (!DateTime.TryParseExact(DtEnd, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dtEnds))
+                dtEnds = new DateTime(DateTime.Today.Year, DateTime.Today.Month, (DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month)), 23, 59, 59);
+            else
+                dtEnds = dtEnds.AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            List<AdsReport> lReturn = null;
+
+            try
+            {
+                var directed = collection.Find(
+                    filters.And(
+                        filters.Eq("ad_id", Id),
+                        filters.Eq("ad_event", Click_View),
+                        filters.Lte("date", dtEnds),
+                        filters.Gte("date", dtStart)
+                        
+                    )
+                );
+
+                lReturn = directed.ToList();
+
+                List<KeyValuePair<string, string>> Valores = new List<KeyValuePair<string, string>>();
+
+                switch (modeView)
+                {
+                    case "m":
+
+                        int iDeference = Math.Abs((dtStart.Month - dtEnds.Month) + 12 * (dtStart.Year - dtEnds.Year));
+                        
+                        for (var iCont = 0; iCont <= iDeference; iCont++)
+                        {
+                            lReturn.Where(x => x.date >= dtStart && x.date <= dtStart.AddMonths(iCont));
+                            Valores.Add(new KeyValuePair<string, string>(dtStart.ToString("MM/yyyy"), lReturn.Count().ToString()));
+                        }
+
+                        break;
+                    case "w":
+                        break;
+                    case "d":
+                        break;
+                }
+
+                //lReturn.GroupBy(x => x.date.ToString("yyyy-M-dd"));
+                
+
+
+                return Ok(Valores);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
+        }
+        
     }
 }

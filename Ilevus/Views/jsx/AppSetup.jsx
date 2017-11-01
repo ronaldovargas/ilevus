@@ -83,7 +83,7 @@ var AdminPanelTranslate = require("ilevus/jsx/core/view/admin/AdminPanelTranslat
 var AdminPanelMensagens = require("ilevus/jsx/core/view/admin/AdminPanelMensagens.jsx");
 var AdminPanelSitemap = require("ilevus/jsx/core/view/admin/AdminPanelSitemap.jsx");
 var AdminPanelReports = require("ilevus/jsx/core/view/admin/AdminPanelReports.jsx");
-var AdminPanelReportPreview = require("ilevus/jsx/core/view/admin/AdminPanelReportPreview.jsx");
+var AdminPanelReportAds = require("ilevus/jsx/core/view/admin/AdminPanelReportAds.jsx");
 
 var Notifications = require("ilevus/jsx/core/view/notifications/Notifications.jsx");
 var NotificationsMessages = require("ilevus/jsx/core/view/notifications/NotificationsMessages.jsx");
@@ -222,7 +222,7 @@ Messages.load(function (success) {
                         <Route path="mensagens" component={AdminPanelMensagens} />
                         <Route path="sitemap" component={AdminPanelSitemap} />
                         <Route path="reports" component={AdminPanelReports} />
-                        <Route path="report-preview/:idAd" component={AdminPanelReportPreview} />
+                        <Route path="report-ads/:idAd" component={AdminPanelReportAds} />
                     </Route>
 
                     <Route path="notifications" component={Notifications}>

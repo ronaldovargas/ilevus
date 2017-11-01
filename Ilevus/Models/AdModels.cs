@@ -14,7 +14,7 @@ namespace ilevus.Models
 
         public string Headline { get; set; }
 
-        public string Campain { get; set; }
+        public string Campaign { get; set; }
 
         public string Image { get; set; }
 
@@ -79,7 +79,7 @@ namespace ilevus.Models
         public string Id { get; set; }
         public string Headline { get; set; }
 
-        public string Campain { get; set; }
+        public string Campaign { get; set; }
 
         public string Image { get; set; }
 
@@ -111,5 +111,19 @@ namespace ilevus.Models
         public string status { get; set; }
 
         public DateTime date { get; set; }
+    }
+
+    public class AdsReport
+    {
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+
+        public string ad_id { get; set; }
+
+        public DateTime date { get; set; }
+
+        public string ad_event { get; set; }
+
+        public double cost { get; set; }
     }
 }

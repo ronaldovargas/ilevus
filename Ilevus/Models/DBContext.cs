@@ -35,6 +35,8 @@ namespace ilevus.Models
         public const string AdsBalanceTable = "ilevus_ads_balance";
         public const string AdsLogTable = "ilevus_ads_log";
        	public const string CustomerPaymentsTable = "payments_customer";
+
+        public const string AdsReport = "ilevus_report_ads";
     }
 
 
@@ -65,6 +67,11 @@ namespace ilevus.Models
         public IMongoCollection<AdBalance> GetAdsBalanceCollection()
         {
             return IlevusDatabase.GetCollection<AdBalance>(IlevusTableNames.AdsBalanceTable);
+        }
+
+        public IMongoCollection<AdsReport> GetAdsReport()
+        {
+            return IlevusDatabase.GetCollection<AdsReport>(IlevusTableNames.AdsReport);
         }
 
         public IMongoCollection<PaymentsCustomer> GetPaymentsCustomerCollection()

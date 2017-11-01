@@ -131,7 +131,7 @@ namespace ilevus.Controllers
                         updates.Combine(
                             updates.Set("Active", model.Active),
                             updates.Set("Headline", model.Headline),
-                            updates.Set("Campain", model.Campain),
+                            updates.Set("Campaign", model.Campaign),
                             updates.Set("Keywords", model.Keywords),
                             updates.Set("DailyBudgetCap", Convert.ToDouble(model.DailyBudgetCap.Replace("R$", "").Replace(".", "").Trim())),
                             updates.Set("Link", model.Link),
@@ -156,7 +156,7 @@ namespace ilevus.Controllers
                 {
                     Active = model.Active,
                     Headline = model.Headline,
-                    Campain = model.Campain,
+                    Campaign = model.Campaign,
                     Keywords = model.Keywords,
                     Link = model.Link,
                     DailyBudgetCap = Convert.ToDouble(model.DailyBudgetCap.Replace("R$", "").Replace(".", "").Trim()),

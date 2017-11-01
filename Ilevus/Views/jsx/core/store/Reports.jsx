@@ -21,6 +21,9 @@ var ReportsModel = Fluxbone.Model.extend({
 var ReportsStore = Fluxbone.Store.extend({
     ACTION_DOWNLOAD_PRODUTIVITY_CSV: 'rep-downloadProductivityCSV',
 
+    ACTION_ADS_CLICKS: 'rep-adsClicks',
+    ACTION_ADS_VIEWS: 'rep-adsViews',
+
     dispatchAcceptRegex: /^rep-[a-zA-Z0-9]+$/,
 
     url: URL,
@@ -44,6 +47,38 @@ var ReportsStore = Fluxbone.Store.extend({
         strHTML += "&dtEnd=" + params["DtEnd"];
         strHTML += "&searchTerm=" + params["SearchTerm"];
         jQuery('<form action="' + me.url + '/DownloadProductivityReport' + strHTML + '" method="post" target="_blank"></form>').appendTo('body').submit().remove();
+    },
+
+    adsClicks(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/AdsClicks_Views",
+            data: { Id: params.Id, modeView: params.modeView, DtIni: params.DtIni, DtEnd: params.DtEnd, Click_View: "click" },
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("load-clicks-report", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    adsViews(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/AdsClicks_Views",
+            data: { Id: params.Id, modeView: params.modeView, DtIni: params.DtIni, DtEnd: params.DtEnd, Click_View: "view" },
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("load-views-report", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
     }
 
 });

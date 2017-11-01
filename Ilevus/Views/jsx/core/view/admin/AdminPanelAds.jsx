@@ -146,7 +146,7 @@ module.exports = React.createClass({
         return (<table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
             <thead>
                 <tr>
-                    <th>{Messages.get("LabelHeadline")}</th>
+                    <th>{Messages.get("LabelCampaign")}</th>
                     <th>{Messages.get("LabelStatus")}</th>
                     <th>{Messages.get("LabelEdit")}</th>
                     <th>{Messages.get("LabelReport")}</th>
@@ -156,7 +156,7 @@ module.exports = React.createClass({
                 {this.state.ads.map((ad, index) =>
                     <tr key={"ad-list-"+index}>
                         <td>
-                            {ad.Headline}
+                            {ad.Campaign}
                         </td>
                         <td>
                             <a onClick={this.changeStatusAd.bind(this, ad)} id={"lnkActive_" + ad.Id}>
@@ -169,7 +169,7 @@ module.exports = React.createClass({
                             </a>
                         </td>
                         <td>
-                            <Link to={"/admin/report-preview/" + ad.Id}>
+                            <Link to={"/admin/report-ads/" + ad.Id}>
                                 <i className='fa fa-area-chart'> </i>
                             </Link>
                         </td>

@@ -29,3 +29,12 @@ display: inline-block;
 .#{$prefix}invalid {
     border-color: $color-primary-danger !important;
 }
+
+.mr-10 {
+    margin-right: 10px !important;
+}
+
+.#{$prefix}checkbox .inline,
+.#{$prefix}radio .inline {
+	display: inline !important;
+}

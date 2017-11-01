@@ -1,6 +1,7 @@
 require("bootstrap/scss/bootstrap.scss");
 require("ilevus/css/html5-boilerplate/main.css");
 require("ilevus/sass/anvil.scss");
+require("daterangepicker/daterangepicker.css");
 
 window.jQuery = require("jquery");
 require("jquery-maskmoney/dist/jquery.maskMoney.js");
