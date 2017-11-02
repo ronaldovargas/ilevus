@@ -23,6 +23,9 @@ var ReportsStore = Fluxbone.Store.extend({
 
     ACTION_ADS_CLICKS: 'rep-adsClicks',
     ACTION_ADS_VIEWS: 'rep-adsViews',
+    ACTION_ADS_EFFICIENCY: 'rep-adsEfficiency',
+    ACTION_ADS_CONSUMPTION: 'rep-adsConsumption',
+
 
     dispatchAcceptRegex: /^rep-[a-zA-Z0-9]+$/,
 
@@ -74,6 +77,38 @@ var ReportsStore = Fluxbone.Store.extend({
             dataType: 'json',
             success(data, status, opts) {
                 me.trigger("load-views-report", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    adsEfficiency(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/AdsEfficiency",
+            data: { Id: params.Id, modeView: params.modeView, DtIni: params.DtIni, DtEnd: params.DtEnd },
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("load-efficiency-report", data);
+            },
+            error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+
+    adsConsumption(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/AdsConsumption",
+            data: { Id: params.Id, modeView: params.modeView, DtIni: params.DtIni, DtEnd: params.DtEnd },
+            dataType: 'json',
+            success(data, status, opts) {
+                me.trigger("load-consumption-report", data);
             },
             error(opts, status, errorMsg) {
                 me.handleRequestErrors([], opts);

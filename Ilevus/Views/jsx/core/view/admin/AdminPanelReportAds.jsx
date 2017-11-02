@@ -30,6 +30,8 @@ module.exports = React.createClass({
             dtEnd: null,
             adsClicks: [],
             adsViews: [],
+            adsEfficiency: [],
+            adsConsumption: [],
             loading: true
         };
     },
@@ -53,9 +55,20 @@ module.exports = React.createClass({
             });
         }, me);
 
+        ReportStore.on("load-efficiency-report", (ads) => {
+            me.setState({
+                adsEfficiency: ads,
+                loading: false
+            });
+        }, me);
+
+        ReportStore.on("load-consumption-report", (ads) => {
+            me.setState({
+                adsConsumption: ads,
+                loading: false
+            });
+        }, me);
         
-
-
         var di = new Date();
         di.setDate(1);
         //di.setMonth(di.getMonth() - 1);
@@ -64,7 +77,7 @@ module.exports = React.createClass({
 
         this.state.dtInit = ("0" + di.getDate()).slice(-2) + "/" + ("0" + (di.getMonth() + 1)).slice(-2) + "/" + di.getFullYear();
         this.state.dtEnd = ("0" + de.getDate()).slice(-2) + "/" + ("0" + (de.getMonth() + 1)).slice(-2) + "/" + de.getFullYear();
-
+        
         ReportStore.dispatch({
             action: ReportStore.ACTION_ADS_CLICKS,
             data: {
@@ -84,10 +97,30 @@ module.exports = React.createClass({
                 DtEnd: this.state.dtEnd
             }
         });
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_EFFICIENCY,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: this.state.dtInit,
+                DtEnd: this.state.dtEnd
+            }
+        });
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_CONSUMPTION,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: this.state.dtInit,
+                DtEnd: this.state.dtEnd
+            }
+        });
     },
 
     componentDidUpdate() {
-        
+
         var di = new Date();
         //di.setDate(1);
         var de = new Date(di.getFullYear() - 1, di.getMonth() + 1, di.getDate());
@@ -114,7 +147,7 @@ module.exports = React.createClass({
         ReportStore.off(null, null, this);
     },
 
-    chartOptions: {
+    chartOptionsClicks_Views: {
         tooltips: {
             mode: 'index',
             intersect: false,
@@ -128,7 +161,84 @@ module.exports = React.createClass({
                 ticks: {
                     beginAtZero: true,
                     //max: 10,
-                    //stepSize: 2,
+                    stepSize: 2,
+                }
+            }]
+        }
+    },
+
+    chartOptionsEfficiency: {
+        tooltips: {
+            intersect: false,
+            enabled: true,
+            mode: 'index',
+            callbacks: {
+                label: function(tooltipItems, data) { 
+                    var item = String(tooltipItems.yLabel).replace(",", ".");
+                    var p = parseFloat(item).toFixed(2).split(".");
+                    return p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+                        return num + (i && !(i % 3) ? "." : "") + acc;
+                    }, "") + "," + p[1] + " %";
+                    //return tooltipItems.yLabel + ' €';
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1,
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, values) {
+                        var item = String(value).replace(",", ".");
+                        var p = parseFloat(item).toFixed(2).split(".");
+                        return p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+                            return num + (i && !(i % 3) ? "." : "") + acc;
+                        }, "") + "," + p[1] + " %";
+                    }
+                }
+            }]
+        }
+    },
+
+    chartOptionsConsumption: {
+        tooltips: {
+            intersect: false,
+            tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+            enabled: true,
+            mode: 'index',
+            callbacks: {
+                label: function(tooltipItems, data) { 
+                    var item = String(tooltipItems.yLabel).replace(",", ".");
+                    var p = parseFloat(item).toFixed(2).split(".");
+                    return "R$ " + p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+                        return num + (i && !(i % 3) ? "." : "") + acc;
+                    }, "") + "," + p[1];
+                    //return tooltipItems.yLabel + ' €';
+                }
+            }
+        },
+        hover: {
+            mode: 'nearest',
+            intersect: true
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 1,
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, values) {
+                        var item = String(value).replace(",", ".");
+                        var p = parseFloat(item).toFixed(2).split(".");
+                        return "R$ " + p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+                            return num + (i && !(i % 3) ? "." : "") + acc;
+                        }, "") + "," + p[1];
+                    }
                 }
             }]
         }
@@ -155,7 +265,7 @@ module.exports = React.createClass({
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
                     pointBorderColor: "rgba(255, 195, 10, 1)",
-                    pointBackgroundColor: "#fff",
+                    pointBackgroundColor: "rgba(255, 195, 10, 1)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
                     pointHoverBackgroundColor: "rgba(255, 195, 10, 1)",
@@ -166,7 +276,7 @@ module.exports = React.createClass({
                     data: data,
                     spanGaps: false,
                 }
-            ],
+            ]
         };
     },
 
@@ -190,7 +300,7 @@ module.exports = React.createClass({
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
                     pointBorderColor: "rgba(238, 127, 52, 1)",
-                    pointBackgroundColor: "#fff",
+                    pointBackgroundColor: "rgba(238, 127, 52, 1)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
                     pointHoverBackgroundColor: "rgba(238, 127, 52, 1)",
@@ -201,23 +311,17 @@ module.exports = React.createClass({
                     data: data,
                     spanGaps: false,
                 }
-            ],
+            ]
         };
     },
 
     getEfficiencyChartData() {
-        var process = this.props.process, labels = [], data = [];
-        /*for (var i = 0; i < process.Sessions.length - 1; i++) {
-            labels.push(Messages.get("LabelSession") + " " + (i + 1));
-            data.push(process.Sessions[i].Commitment);
-        }*/
-        labels.push("Jan", "Fev");
-        data.push("45", "89");
-        /*var latest = process.Sessions[process.Sessions.length - 1];
-        if (latest.Status >= 10) {
-            labels.push(Messages.get("LabelSession") + " " + process.Sessions.length);
-            data.push(latest.Commitment);
-        }*/
+        var process = this.state.adsEfficiency, labels = [], data = [];
+        for (var i = 0; i < process.length; i++) {
+            labels.push(process[i].Key);
+            data.push(process[i].Value);
+        }
+
         return {
             labels: labels,
             datasets: [
@@ -232,7 +336,7 @@ module.exports = React.createClass({
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
                     pointBorderColor: "rgba(255, 4, 4, 1)",
-                    pointBackgroundColor: "#fff",
+                    pointBackgroundColor: "rgba(255, 4, 4, 1)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
                     pointHoverBackgroundColor: "rgba(255, 4, 4, 1)",
@@ -244,22 +348,17 @@ module.exports = React.createClass({
                     spanGaps: false,
                 }
             ],
+            
         };
     },
 
     getConsumptionChartData() {
-        var process = this.props.process, labels = [], data = [];
-        /*for (var i = 0; i < process.Sessions.length - 1; i++) {
-            labels.push(Messages.get("LabelSession") + " " + (i + 1));
-            data.push(process.Sessions[i].Commitment);
-        }*/
-        labels.push("Jan", "Fev");
-        data.push("12.50", "36.00");
-        /*var latest = process.Sessions[process.Sessions.length - 1];
-        if (latest.Status >= 10) {
-            labels.push(Messages.get("LabelSession") + " " + process.Sessions.length);
-            data.push(latest.Commitment);
-        }*/
+        var process = this.state.adsConsumption, labels = [], data = [];
+        for (var i = 0; i < process.length; i++) {
+            labels.push(process[i].Key);
+            data.push(process[i].Value);
+        }
+
         return {
             labels: labels,
             datasets: [
@@ -274,7 +373,7 @@ module.exports = React.createClass({
                     borderDashOffset: 0.0,
                     borderJoinStyle: 'miter',
                     pointBorderColor: "rgba(166, 166, 166, 1)",
-                    pointBackgroundColor: "#fff",
+                    pointBackgroundColor: "rgba(166, 166, 166, 1)",
                     pointBorderWidth: 10,
                     pointHoverRadius: 5,
                     pointHoverBackgroundColor: "rgba(166, 166, 166, 1)",
@@ -285,8 +384,57 @@ module.exports = React.createClass({
                     data: data,
                     spanGaps: false,
                 }
-            ],
+            ]
         };
+    },
+    
+    eventloadDataGraphs() {
+        //event.stopPropagation();
+        var me = this;
+
+        var DtInit = $('#DtInit').val();
+        var DtEnd = $('#DtEnd').val();
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_CLICKS,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: DtInit,
+                DtEnd: DtEnd
+            }
+        });
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_VIEWS,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: DtInit,
+                DtEnd: DtEnd
+            }
+        });
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_EFFICIENCY,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: DtInit,
+                DtEnd: DtEnd
+            }
+        });
+
+        ReportStore.dispatch({
+            action: ReportStore.ACTION_ADS_CONSUMPTION,
+            data: {
+                Id: me.props.params.idAd,
+                modeView: "m",
+                DtIni: DtInit,
+                DtEnd: DtEnd
+            }
+        });
+
     },
     
     render() {
@@ -319,6 +467,9 @@ module.exports = React.createClass({
                                     <input className="ilv-form-control" type="text" id="DtEnd" ref="DtEnd" defaultValue={this.state.dtEnd} />
                                 </div>
                             </div>
+                             <div className="col-2">
+                                <input className="ilv-btn ilv-btn-lg ilv-btn-success" type="button" value={Messages.get("LabelFilter")} onClick={this.eventloadDataGraphs} disabled={this.state.saving} />
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col-12">
@@ -350,21 +501,21 @@ module.exports = React.createClass({
 
             <div className="row">
                 <div className="col-md-6 mb-5">
-                    <Line data={this.getClicksChartData()} options={this.chartOptions} />
+                    <Line data={this.getClicksChartData()} options={this.chartOptionsClicks_Views} />
                 </div>
 
                 <div className="col-md-6 mb-5">
-                    <Line data={this.getViewsChartData()} options={this.chartOptions} />
+                    <Line data={this.getViewsChartData()} options={this.chartOptionsClicks_Views} />
                 </div>
             </div>
 
             <div className="row">
                 <div className="col-md-6 mb-5">
-                    <Line data={this.getEfficiencyChartData()} options={this.chartOptions} />
+                    <Line data={this.getEfficiencyChartData()} options={this.chartOptionsEfficiency} />
                 </div>
 
                 <div className="col-md-6 mb-5">
-                    <Line data={this.getConsumptionChartData()} options={this.chartOptions} />
+                    <Line data={this.getConsumptionChartData()} options={this.chartOptionsConsumption} />
                 </div>
             </div>
 
