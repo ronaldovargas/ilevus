@@ -1,0 +1,909 @@
+"use strict";
+
+var _ = require("underscore");
+var $ = require("jquery");
+var S = require("string");
+var Marked = require("marked");
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+var ServicesToHire = require("./../../widget/user/ServiceListToHire");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var UserStore = require("ilevus/jsx/core/store/User.jsx");
+var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
+var AssessmentsStore = require("ilevus/jsx/core/store/Assessments.jsx");
+
+var DocumentTitle = require('react-document-title');
+var DocMeta = require('react-doc-meta');
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var MeetingSchedule = require("ilevus/jsx/core/widget/user/MeetingSchedule.jsx");
+var UserContactInfo = require("ilevus/jsx/core/widget/user/UserContactInfo.jsx");
+
+var Analytics = require("ilevus/jsx/core/util/Analytics.js");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserIcon = require("ilevus/img/user.png");
+
+var Languages = require("ilevus/jsx/core/util/Languages.json");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            model: null,
+            receivedsAssessments: 0,
+            favorited: UserSession.get("logged") ? UserSession.get("user").Favorites.indexOf(this.props.params.id) >= 0 : false,
+            mediaRating: 0
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        UserStore.on("fail", function (msg) {
+            Toastr.error(msg);
+        }, me);
+        UserStore.on("retrieve", function (model) {
+            me.setState({
+                model: model
+            });
+        }, me);
+
+        AssessmentsStore.on("receivedassessmentget", function (receiveds) {
+            console.log('recebidas', receiveds);
+            me.setState({
+                receivedsAssessments: receiveds ? receiveds.length : 0,
+                mediaRating: receiveds && receiveds[0] ? receiveds[0].MediaRating : 0
+            });
+        }, me);
+
+        UserSession.on("update", function () {
+            me.setState({
+                favorited: UserSession.get("logged") ? UserSession.get("user").Favorites.indexOf(_this.props.params.id) >= 0 : false
+            });
+        });
+
+        UserStore.dispatch({
+            action: UserStore.ACTION_RETRIEVE,
+            data: this.props.params.id
+        });
+
+        AssessmentsStore.dispatch({
+            action: AssessmentsStore.ACTION_USER_ASSESSMENTS,
+            data: this.props.params.id
+        });
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserStore.off(null, null, this);
+        UserSession.off(null, null, this);
+        AssessmentsStore.off(null, null, this);
+    },
+    componentDidUpdate: function componentDidUpdate() {
+        /*$('[data-toggle="tooltip"]').tooltip({
+            animation: true
+        });*/
+    },
+    openMeetingSchedule: function openMeetingSchedule() {},
+    openPhoneDialog: function openPhoneDialog(event) {
+        event && event.preventDefault();
+        Analytics.sendPhoneRequestEvent();
+        Modal.detailsModal(Messages.get("LabelContact"), React.createElement(UserContactInfo, { user: this.state.model.attributes }));
+    },
+    favoriteUser: function favoriteUser(event) {
+        event && event.preventDefault();
+        if (this.state.favorited) {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UNFAVORITE_USER,
+                data: this.props.params.id
+            });
+        } else {
+            UserSession.dispatch({
+                action: UserSession.ACTION_FAVORITE_USER,
+                data: this.props.params.id
+            });
+        }
+    },
+    toHireService: function toHireService(event) {
+        event && event.preventDefault();
+
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_TO_HIRE_SERVICE,
+            data: this.props.params.id
+        });
+        this.context.router.push("/checkout");
+    },
+    renderStars: function renderStars() {
+        var qtde = this.state.mediaRating;
+
+        var tmp = [];
+        var cinzas = [];
+        for (var i = 0; i < qtde; i++) {
+            tmp.push(i);
+        }
+
+        for (var i = 0; i < 5 - qtde; i++) {
+            cinzas.push(i);
+        }
+
+        var stars = tmp.map(function (i) {
+            return React.createElement(
+                "i",
+                { className: "ilv-rating-item-no-hover material-icons" },
+                "\uE838"
+            );
+        });
+
+        var starsCinzas = cinzas.map(function (i) {
+            return React.createElement(
+                "i",
+                { className: "ilv-rating-item-no-hover material-icons", style: { color: "#22C8EB" } },
+                "\uE838"
+            );
+        });
+
+        return React.createElement(
+            "div",
+            { className: "ilv-rating" },
+            React.createElement(
+                "div",
+                { className: "ilv-rating-list" },
+                starsCinzas,
+                stars
+            )
+        );
+    },
+    render: function render() {
+        if (!this.state.model) {
+            return React.createElement(LoadingGauge, null);
+        }
+
+        var user = this.state.model;
+        console.log('state model', user);
+        var scheduleConfig = user.get("ScheduleConfig");
+        var userLocation = user.get("Country");
+        if (user.get("County")) {
+            userLocation = user.get("County") + ", " + userLocation;
+        }
+        if (user.get("City")) {
+            userLocation = user.get("City") + ", " + userLocation;
+        }
+        userLocation = S(userLocation);
+        var industry = S(user.get("Professional").Professional.Industry);
+        var headline = S(user.get("Professional").Professional.Headline);
+        var summary = S(user.get("Professional").Professional.Summary);
+        var specialties = S(user.get("Professional").Professional.Specialties);
+
+        var educations = user.get("Professional").Professional.Education || [];
+        var careers = user.get("Professional").Professional.Career || [];
+        var services = user.get("Professional").Professional.Services || [];
+
+        var spokenLanguages = user.get("Professional").Professional.SpokenLanguages || [];
+        var isPremium = false;
+        try {
+            isPremium = user.get("Premium").Premium.Active || false;
+        } catch (ex) {
+            console.error(ex);
+        }
+
+        var listaKeys = [];
+        listaKeys.push(S(user.get("Professional").Professional.Country));
+        listaKeys.push(S(user.get("Professional").Professional.County));
+        listaKeys.push(S(user.get("Professional").Professional.City));
+        for (var i = 0; i < services.length; i++) {
+            listaKeys.push(services[i].Name);
+        }
+
+        var tags = [{ name: "description", content: summary }, { name: "keywords", content: listaKeys.join() }, { name: "author", content: 'Ilevus' }, { name: "Author", content: 'Ilevus'
+            //{itemProp: "name", content: "The Name or Title Here"},
+            //{itemProp: "description", content: "This is the page description"},
+            //{itemProp: "image", content: "http://www.example.com/image.jpg"},
+            //{name: "twitter:card", content: "product"},
+            //{name: "twitter:site", content: "@publisher_handle"},
+            //{name: "twitter:title", content: "Page Title"},
+            //{name: "twitter:description", content: "Page description less than 200 characters"},
+            //{name: "twitter:creator", content: "@author_handle"},
+            //{name: "twitter:image", content: "http://www.example.com/image.html"},
+            //{name: "twitter:data1", content: "$3"},
+            //{name: "twitter:label1", content: "Price"},
+            //{name: "twitter:data2", content: "Black"},
+            //{name: "twitter:label2", content: "Color"},
+            //{property: "og:title", content: "Title Here"},
+            //{property: "og:type", content: "article"},
+            //{property: "og:url", content: "http://www.example.com/"},
+            //{property: "og:image", content: "http://example.com/image.jpg"},
+            //{property: "og:description", content: "Description Here"},
+            //{property: "og:site_name", content: "Site Name, i.e. Moz"},
+            //{property: "og:price:amount", content: "15.00"},
+            //{property: "og:price:currency", content: "USD"},
+            //{weirdfield: "something", content: "really really cool", hello:"world", meh: "hahaha"}
+        }];
+
+        return React.createElement(
+            DocMeta,
+            { tags: tags },
+            React.createElement(
+                DocumentTitle,
+                { title: 'Ilevus | ' + user.get("Name") + ' ' + user.get("Surname") },
+                React.createElement(
+                    "div",
+                    { className: "my-5", role: "banner" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-lg-8 col-sm-8 col-xs-12" },
+                                React.createElement(
+                                    "div",
+                                    { className: "mb-5 hidden-sm-down" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-left ilv-text-xs-center mr-3" },
+                                            React.createElement("div", { title: user.get('Name') + ' ' + user.get('Surname'), className: "ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-up", style: { backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width: "5rem", height: "5rem" } }),
+                                            React.createElement("div", { title: user.get('Name') + ' ' + user.get('Surname'), className: "ilv-avatar-fluid ilv-avatar-fluid-public hidden-sm-down", style: { backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")" } }),
+                                            React.createElement(
+                                                "div",
+                                                { className: "hidden-sm-up" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "ilv-card", style: { border: "none", maxWidth: "200px" } },
+                                                    !UserSession.get("logged") ? "" : React.createElement(
+                                                        "div",
+                                                        { className: "ilv-card-body" },
+                                                        this.state.favorited ? React.createElement(
+                                                            "button",
+                                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-icon material-icons md-18", style: { "color": "#F00" } },
+                                                                "\uE7FD"
+                                                            ),
+                                                            Messages.get("LabelSaveAsFollowed")
+                                                        ) : React.createElement(
+                                                            "button",
+                                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-icon material-icons md-18" },
+                                                                "\uE7FE"
+                                                            ),
+                                                            Messages.get("LabelSaveAsFollow")
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "ilv-card-footer", style: { borderTop: "none" } },
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "row" },
+                                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12" },
+                                                                React.createElement(
+                                                                    Link,
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/coaching/hire/" + user.get("Id") },
+                                                                    Messages.get("ActionHireProfessional")
+                                                                )
+                                                            ),
+                                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12 mt-3" },
+                                                                React.createElement(
+                                                                    Link,
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/notifications/messages/" + user.get("Id") },
+                                                                    Messages.get("ActionSendMessage")
+                                                                )
+                                                            ),
+                                                            !user.get("PhoneNumber") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12 mt-3" },
+                                                                React.createElement(
+                                                                    "button",
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", onClick: this.openPhoneDialog },
+                                                                    Messages.get("ActionRequestPhone")
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-body" },
+                                            React.createElement(
+                                                "span",
+                                                { className: "h1" },
+                                                user.get("Name"),
+                                                " ",
+                                                user.get("Surname")
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                null,
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "ilv-tag ilv-tag-warning ml-0" },
+                                                    isPremium ? 'Premium' : ''
+                                                ),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "ilv-text-large ilv-font-weight-semibold" },
+                                                    industry.isEmpty() ? "" : industry.s
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "ilv-text-small" },
+                                                specialties.isEmpty() ? "" : "Especialista em: " + specialties.s
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "ilv-text-small" },
+                                                userLocation.isEmpty() ? "" : userLocation.s
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                React.createElement(
+                                                    Link,
+                                                    { className: "ilv-nav-link", to: "/assessments?userId=" + user.get("Id") },
+                                                    this.renderStars(),
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "ilv-rating", style: { display: "none" } },
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "ilv-rating-list" },
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-rating-item material-icons" },
+                                                                "\uE838"
+                                                            ),
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-rating-item material-icons" },
+                                                                "\uE838"
+                                                            ),
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-rating-item material-icons" },
+                                                                "\uE838"
+                                                            ),
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-rating-item material-icons" },
+                                                                "\uE838"
+                                                            ),
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-rating-item material-icons" },
+                                                                "\uE838"
+                                                            )
+                                                        ),
+                                                        React.createElement(
+                                                            "div",
+                                                            { style: { display: "none" }, className: "ilv-rating-label" },
+                                                            "3.5"
+                                                        )
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                Link,
+                                                { className: "small ilv-nav-link", to: "/assessments?userId=" + user.get("Id") },
+                                                Messages.format("TextEvaluations", [this.state.receivedsAssessments])
+                                            )
+                                        )
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "mb-5 hidden-sm-up" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-left ilv-text-xs-center mr-3", style: { width: "30%" } },
+                                            React.createElement("div", { title: user.get('Name') + ' ' + user.get('Surname'), className: "ilv-avatar-fluid ilv-avatar-fluid-public", style: { backgroundImage: "url(" + (S(user.get("Image")).isEmpty() ? UserIcon : user.get("Image")) + ")", width: "5rem", height: "5rem" } }),
+                                            React.createElement(
+                                                "div",
+                                                { className: "hidden-sm-up" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "ilv-card", style: { border: "none", width: "200px", marginTop: "110px" } },
+                                                    !UserSession.get("logged") ? "" : React.createElement(
+                                                        "div",
+                                                        { className: "ilv-card-body" },
+                                                        this.state.favorited ? React.createElement(
+                                                            "button",
+                                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-icon material-icons md-18", style: { "color": "#F00" } },
+                                                                "\uE7FD"
+                                                            ),
+                                                            Messages.get("LabelSaveAsFollowed")
+                                                        ) : React.createElement(
+                                                            "button",
+                                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                                            React.createElement(
+                                                                "i",
+                                                                { className: "ilv-icon material-icons md-18" },
+                                                                "\uE7FE"
+                                                            ),
+                                                            Messages.get("LabelSaveAsFollow")
+                                                        )
+                                                    ),
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "ilv-card-footer", style: { borderTop: "none" } },
+                                                        React.createElement(
+                                                            "div",
+                                                            { className: "row" },
+                                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12" },
+                                                                React.createElement(
+                                                                    Link,
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/coaching/hire/" + user.get("Id") },
+                                                                    Messages.get("ActionHireProfessional")
+                                                                )
+                                                            ),
+                                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12 mt-3" },
+                                                                React.createElement(
+                                                                    Link,
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/notifications/messages/" + user.get("Id") },
+                                                                    Messages.get("ActionSendMessage")
+                                                                )
+                                                            ),
+                                                            !user.get("PhoneNumber") ? "" : React.createElement(
+                                                                "div",
+                                                                { className: "col-12 mt-3" },
+                                                                React.createElement(
+                                                                    "button",
+                                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", onClick: this.openPhoneDialog },
+                                                                    Messages.get("ActionRequestPhone")
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-body" },
+                                            React.createElement(
+                                                "span",
+                                                { className: "h1" },
+                                                user.get("Name"),
+                                                " ",
+                                                user.get("Surname")
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                null,
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "ilv-tag ilv-tag-warning ml-0" },
+                                                    isPremium ? 'Premium' : ''
+                                                ),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "ilv-text-large ilv-font-weight-semibold" },
+                                                    industry.isEmpty() ? "" : industry.s
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "ilv-text-small" },
+                                                specialties.isEmpty() ? "" : "Especialista em: " + specialties.s
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "ilv-text-small" },
+                                                userLocation.isEmpty() ? "" : userLocation.s
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                null,
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "ilv-rating" },
+                                                    React.createElement(
+                                                        "div",
+                                                        { className: "ilv-rating-list" },
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-rating-item material-icons" },
+                                                            "\uE838"
+                                                        ),
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-rating-item material-icons" },
+                                                            "\uE838"
+                                                        ),
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-rating-item material-icons" },
+                                                            "\uE838"
+                                                        ),
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-rating-item material-icons" },
+                                                            "\uE838"
+                                                        ),
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-rating-item material-icons" },
+                                                            "\uE838"
+                                                        )
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "a",
+                                                { className: "ilv-text-small", href: "" },
+                                                Messages.format("TextEvaluations", [32])
+                                            )
+                                        )
+                                    )
+                                ),
+                                headline.isEmpty() ? "" : React.createElement(
+                                    "div",
+                                    { className: "mb-5" },
+                                    React.createElement(
+                                        "h4",
+                                        null,
+                                        Messages.get("LabelHeadline")
+                                    ),
+                                    React.createElement("hr", null),
+                                    headline.s
+                                ),
+                                !scheduleConfig.Enabled ? "" : React.createElement(
+                                    "div",
+                                    { className: "mb-5" },
+                                    React.createElement(
+                                        "h4",
+                                        null,
+                                        Messages.get("LabelBookMeeting")
+                                    ),
+                                    React.createElement(MeetingSchedule, { user: user })
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "mb-5" },
+                                    React.createElement(
+                                        "h4",
+                                        null,
+                                        Messages.get("LabelExperience")
+                                    ),
+                                    React.createElement("hr", null),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-list" },
+                                        careers.length > 0 ? React.createElement(
+                                            "div",
+                                            { className: "ilv-media py-3" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-left mr-3" },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-24" },
+                                                    "\uE8F9"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-body" },
+                                                React.createElement(
+                                                    "p",
+                                                    { className: "h5" },
+                                                    Messages.get("TextCareer")
+                                                ),
+                                                careers.map(function (career, index) {
+                                                    return React.createElement(
+                                                        "div",
+                                                        { key: "education-" + index },
+                                                        React.createElement(
+                                                            "strong",
+                                                            null,
+                                                            career.Role,
+                                                            " "
+                                                        ),
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "em ",
+                                                            career.Institution,
+                                                            " - ",
+                                                            career.Location,
+                                                            career.Finished ? ", " + career.Begin + (career.End ? " " + Messages.get("LabelTo") + " " + career.End : "") : ", " + Messages.get("LabelStartedAt") + " " + career.Begin + " " + Messages.get("LabelTo") + " " + Messages.get("TextPresent"),
+                                                            "."
+                                                        )
+                                                    );
+                                                })
+                                            )
+                                        ) : "",
+                                        educations.length > 0 ? React.createElement(
+                                            "div",
+                                            { className: "ilv-media py-3" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-left mr-3" },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-24" },
+                                                    "\uE80C"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-body" },
+                                                React.createElement(
+                                                    "p",
+                                                    { className: "h5" },
+                                                    Messages.get("TextEducation")
+                                                ),
+                                                educations.map(function (education, index) {
+                                                    return React.createElement(
+                                                        "div",
+                                                        { key: "education-" + index },
+                                                        React.createElement(
+                                                            "strong",
+                                                            null,
+                                                            Messages.get("EducationType" + education.Type),
+                                                            " em ",
+                                                            education.Area,
+                                                            " "
+                                                        ),
+                                                        React.createElement(
+                                                            "span",
+                                                            null,
+                                                            "na ",
+                                                            education.Institution,
+                                                            education.Finished ? ", " + education.Begin + (education.End ? " " + Messages.get("LabelTo") + " " + education.End : "") : ", " + Messages.get("LabelStartedAt") + " " + education.Begin,
+                                                            "."
+                                                        )
+                                                    );
+                                                })
+                                            )
+                                        ) : "",
+                                        summary.isEmpty() ? "" : React.createElement(
+                                            "div",
+                                            { className: "ilv-media py-3" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-left mr-3" },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-24" },
+                                                    "\uE851"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-body" },
+                                                React.createElement(
+                                                    "p",
+                                                    { className: "h5" },
+                                                    Messages.get("LabelAboutMe")
+                                                ),
+                                                React.createElement("div", { dangerouslySetInnerHTML: { __html: Marked(summary.s) } })
+                                            )
+                                        ),
+                                        spokenLanguages.length > 0 ? React.createElement(
+                                            "div",
+                                            { className: "ilv-media py-3" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-left mr-3" },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-24" },
+                                                    "\uE894"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-media-body" },
+                                                React.createElement(
+                                                    "p",
+                                                    { className: "h5" },
+                                                    Messages.get("LabelLanguages")
+                                                ),
+                                                spokenLanguages.map(function (spokenLanguage, index) {
+                                                    var lang = Languages.Mapped[spokenLanguage];
+                                                    return React.createElement(
+                                                        "span",
+                                                        { key: "spokenLanguage-" + index },
+                                                        lang.nativeName,
+                                                        lang.name != lang.nativeName ? " (" + lang.name + ")" : "",
+                                                        spokenLanguages.length > 1 && index < spokenLanguages.length - 1 ? ", " : "."
+                                                    );
+                                                })
+                                            )
+                                        ) : ""
+                                    )
+                                ),
+                                services.length > 0 ? React.createElement(
+                                    "div",
+                                    { className: "mb-3" },
+                                    React.createElement(
+                                        "h4",
+                                        null,
+                                        Messages.get("TextOfferedServices")
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-card" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-card-body" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "row" },
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "col-lg-8 col-sm-8 col-xs-12" },
+                                                    React.createElement(
+                                                        "table",
+                                                        { className: "ilv-table ilv-table-sm ilv-table-hover" },
+                                                        React.createElement(
+                                                            "thead",
+                                                            null,
+                                                            React.createElement(
+                                                                "tr",
+                                                                null,
+                                                                React.createElement(
+                                                                    "th",
+                                                                    null,
+                                                                    Messages.get("LabelService")
+                                                                ),
+                                                                React.createElement(
+                                                                    "th",
+                                                                    { className: "ilv-text-xs-right" },
+                                                                    Messages.get("LabelPrice")
+                                                                ),
+                                                                React.createElement("th", { className: "ilv-text-xs-right hidden-sm-up" })
+                                                            )
+                                                        ),
+                                                        React.createElement(
+                                                            "tbody",
+                                                            null,
+                                                            services.map(function (service, index) {
+                                                                return React.createElement(ServicesToHire, { key: "service-" + index, service: service });
+                                                            })
+                                                        )
+                                                    )
+                                                ),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "col-4 hidden-sm-down" },
+                                                    React.createElement(
+                                                        "p",
+                                                        { className: "ilv-font-weight-bold" },
+                                                        Messages.get("LabelTip")
+                                                    ),
+                                                    React.createElement(
+                                                        "p",
+                                                        null,
+                                                        Messages.get("TextOfferedServicesHelp")
+                                                    ),
+                                                    !UserSession.get("logged") ? "" : React.createElement(
+                                                        Link,
+                                                        { className: "ilv-btn ilv-btn-block ilv-btn-primary", to: "/notifications/messages/" + user.get("Id") },
+                                                        React.createElement(
+                                                            "i",
+                                                            { className: "ilv-icon material-icons md-18" },
+                                                            "\uE0BE"
+                                                        ),
+                                                        Messages.get("ActionSendMessage")
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                ) : ""
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-4 hidden-sm-down" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-card" },
+                                    !UserSession.get("logged") ? "" : React.createElement(
+                                        "div",
+                                        { className: "ilv-card-body" },
+                                        this.state.favorited ? React.createElement(
+                                            "button",
+                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                            React.createElement(
+                                                "i",
+                                                { className: "ilv-icon material-icons md-18", style: { "color": "#F00" } },
+                                                "\uE7FD"
+                                            ),
+                                            Messages.get("LabelSaveAsFollowed")
+                                        ) : React.createElement(
+                                            "button",
+                                            { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-neutral", onClick: this.favoriteUser },
+                                            React.createElement(
+                                                "i",
+                                                { className: "ilv-icon material-icons md-18" },
+                                                "\uE7FE"
+                                            ),
+                                            Messages.get("LabelSaveAsFollow")
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-card-footer" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "row" },
+                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                "div",
+                                                { className: "col-12" },
+                                                React.createElement(
+                                                    Link,
+                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/coaching/hire/" + user.get("Id") },
+                                                    Messages.get("ActionHireProfessional")
+                                                )
+                                            ),
+                                            !UserSession.get("logged") ? "" : React.createElement(
+                                                "div",
+                                                { className: "col-12 mt-3" },
+                                                React.createElement(
+                                                    Link,
+                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", to: "/notifications/messages/" + user.get("Id") },
+                                                    Messages.get("ActionSendMessage")
+                                                )
+                                            ),
+                                            !user.get("PhoneNumber") ? "" : React.createElement(
+                                                "div",
+                                                { className: "col-12 mt-3" },
+                                                React.createElement(
+                                                    "button",
+                                                    { className: "ilv-btn ilv-btn-block ilv-btn-neutral", onClick: this.openPhoneDialog },
+                                                    Messages.get("ActionRequestPhone")
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/PublicProfile.jsx");
+}();
+
+;

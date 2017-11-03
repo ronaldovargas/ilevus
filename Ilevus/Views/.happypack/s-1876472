@@ -1,0 +1,71 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _styledTheme = require('styled-theme');
+
+var _components = require('components');
+
+var _containers = require('containers');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Wrapper = (0, _styledComponents2.default)(_components.Block).withConfig({
+  displayName: 'Header__Wrapper'
+})(['\n  display: flex;\n  justify-content: center;\n  padding: 1rem;\n  @media screen and (max-width: 640px) {\n    padding: 0.5rem;\n  }\n']);
+
+var InnerWrapper = _styledComponents2.default.div.withConfig({
+  displayName: 'Header__InnerWrapper'
+})(['\n  display: flex;\n  align-items: center;\n  width: 100%;\n  max-width: ', ';\n  > :not(:first-child) {\n    margin-left: 1rem;\n  }\n'], (0, _styledTheme.size)('maxWidth'));
+
+var StyledPrimaryNavigation = (0, _styledComponents2.default)(_components.PrimaryNavigation).withConfig({
+  displayName: 'Header__StyledPrimaryNavigation'
+})(['\n  flex: 1\n']);
+
+var Header = function Header(props) {
+  return _react2.default.createElement(
+    Wrapper,
+    _extends({ opaque: true, reverse: true }, props),
+    _react2.default.createElement(
+      InnerWrapper,
+      null,
+      _react2.default.createElement(_components.IconLink, { to: '/', icon: 'arc', height: 100 }),
+      _react2.default.createElement(StyledPrimaryNavigation, { reverse: true }),
+      _react2.default.createElement(_containers.UserButton, { reverse: true, transparent: true })
+    )
+  );
+};
+
+var _default = Header;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Wrapper, 'Wrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(InnerWrapper, 'InnerWrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledPrimaryNavigation, 'StyledPrimaryNavigation', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(Header, 'Header', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+}();
+
+;

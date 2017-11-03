@@ -1,0 +1,304 @@
+
+var marked = require("marked");
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
+var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx");
+
+var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
+var SessionTimer = require("ilevus/jsx/core/widget/coaching/SessionTimer.jsx");
+var Tasks = require("ilevus/jsx/core/widget/coaching/wheeloflife/Tasks.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Radar = require('react-chartjs-2').Radar;
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        isCoach: React.PropTypes.bool.isRequired,
+        process: React.PropTypes.object.isRequired,
+        router: React.PropTypes.object
+    },
+
+    chartOptions: {
+        scale: {
+            lineArc: false,
+            ticks: {
+                beginAtZero: true,
+                max: 10,
+                stepSize: 2.5
+            }
+        }
+    },
+
+    getInitialState: function getInitialState() {
+        var session = this.context.process.Sessions[this.props.params.session];
+        return {
+            session: session,
+            tool: session.WheelOfLifeTool,
+            loading: !session.WheelOfLifeTool,
+            field: 0,
+            fieldEvaluation: session.WheelOfLifeTool ? session.WheelOfLifeTool.Fields[0].Evaluation : 0
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        WheelOfLifeStore.on("initialize-tool", function (toolDef) {
+            me.setState({
+                tool: toolDef,
+                loading: false,
+                fieldEvaluation: toolDef.Fields[_this.state.field].Evaluation
+            });
+        }, me);
+
+        CoachingStore.on("finish-session", function (process) {
+            history.back();
+        }, me);
+
+        if (this.state.loading) {
+            WheelOfLifeStore.dispatch({
+                action: WheelOfLifeStore.ACTION_INITIALIZE_TOOL,
+                data: {
+                    ProcessId: me.props.params.id,
+                    Session: me.props.params.session
+                }
+            });
+        }
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        CoachingStore.off(null, null, this);
+        WheelOfLifeStore.off(null, null, this);
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(newProps, newContext) {
+        var session = newContext.process.Sessions[newProps.params.session];
+        if (this.props.params.id != newProps.params.id || this.props.params.session != newProps.params.session) {
+            this.setState({
+                session: session,
+                tool: session.WheelOfLifeTool,
+                loading: !session.WheelOfLifeTool,
+                field: 0,
+                fieldEvaluation: session.WheelOfLifeTool ? session.WheelOfLifeTool.Fields[0].Evaluation : 0
+            });
+            if (!session.WheelOfLifeTool) {
+                WheelOfLifeStore.dispatch({
+                    action: WheelOfLifeStore.ACTION_INITIALIZE_TOOL,
+                    data: {
+                        ProcessId: newProps.params.id,
+                        Session: newProps.params.session
+                    }
+                });
+            }
+        } else {
+            this.setState({
+                session: session,
+                tool: session.WheelOfLifeTool
+            });
+        }
+    },
+    getChartData: function getChartData() {
+        var labels = [],
+            data = [],
+            fields = this.state.tool.Fields;
+        for (var i = 0; i < fields.length; i++) {
+            labels.push(fields[i].Label);
+            data.push(fields[i].Evaluation);
+        }
+        return {
+            labels: labels,
+            datasets: [{
+                label: Messages.get("LabelGrade"),
+                backgroundColor: "rgba(103, 58, 183, 0.2)",
+                borderColor: 'rgba(103, 58, 183,1)',
+                pointBackgroundColor: '#fff',
+                pointBorderColor: 'rgba(103, 58, 183,1)',
+                ointHoverBackgroundColor: 'rgba(103, 58, 183,1)',
+                pointHoverBorderColor: 'rgba(103, 58, 183,1)',
+                data: data
+            }]
+        };
+    },
+    previousField: function previousField(event) {
+        event && event.preventDefault();
+        var field = this.state.field - 1;
+        if (this.state.field == 0) {
+            field = this.state.tool.Fields.length - 1;
+        }
+        this.setState({
+            field: field,
+            fieldEvaluation: this.state.tool.Fields[field].Evaluation
+        });
+    },
+    nextField: function nextField(event) {
+        event && event.preventDefault();
+        var field = this.state.field + 1;
+        if (this.state.field == this.state.tool.Fields.length - 1) {
+            field = 0;
+        }
+        this.setState({
+            field: field,
+            fieldEvaluation: this.state.tool.Fields[field].Evaluation
+        });
+    },
+    saveEvaluation: function saveEvaluation(event) {
+        event && event.preventDefault();
+        WheelOfLifeStore.dispatch({
+            action: WheelOfLifeStore.ACTION_SAVE_EVALUATION,
+            data: {
+                ProcessId: this.props.params.id,
+                Session: this.props.params.session,
+                Field: this.state.field,
+                Evaluation: this.state.fieldEvaluation
+            }
+        });
+        this.state.tool.Fields[this.state.field].Evaluation = this.state.fieldEvaluation;
+        this.forceUpdate();
+    },
+    onEvaluationChange: function onEvaluationChange() {
+        var grade = this.refs['field-grade'].valueAsNumber;
+        if (grade === undefined || grade < 0 || grade > 10) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeValidGrade"));
+            return;
+        }
+        this.setState({
+            fieldEvaluation: grade
+        });
+    },
+    learningsChange: function learningsChange(newValue) {
+        this.state.tool.Learnings = newValue;
+        this.forceUpdate();
+        WheelOfLifeStore.dispatch({
+            action: WheelOfLifeStore.ACTION_SAVE_LEARNINGS,
+            data: {
+                ProcessId: this.props.params.id,
+                Session: this.props.params.session,
+                Learnings: newValue
+            }
+        });
+    },
+    finish: function finish(event) {
+        event && event.preventDefault();
+        history.back();
+    },
+    renderField: function renderField(fieldIndex) {
+        var field = this.state.tool.Fields[fieldIndex];
+        return React.createElement(
+            "div",
+            { className: "col mb-3" },
+            React.createElement(
+                "h3",
+                { className: "mb-3" },
+                Messages.get("LabelField"),
+                ": ",
+                field.Label
+            ),
+            React.createElement("div", { className: "ilv-markdown ilv-form-group", dangerouslySetInnerHTML: { __html: marked(field.Instructions) } }),
+            React.createElement(
+                "div",
+                { className: "ilv-form-group" },
+                React.createElement(
+                    "label",
+                    { className: "ilv-form-label" },
+                    Messages.get("LabelGrade")
+                ),
+                React.createElement("input", { className: "ilv-form-control", type: "number", max: "10", min: "0", value: this.state.fieldEvaluation,
+                    onBlur: this.saveEvaluation, ref: "field-grade", onChange: this.onEvaluationChange })
+            ),
+            React.createElement(
+                "a",
+                { className: "font-weight-bold mr-4", href: "#", onClick: this.previousField },
+                "\u2190 ",
+                Messages.get("LabelPrevious")
+            ),
+            React.createElement(
+                "a",
+                { className: "font-weight-bold", href: "#", onClick: this.nextField },
+                Messages.get("LabelNext"),
+                " \u2192"
+            )
+        );
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+
+        var session = this.context.process.Sessions[parseInt(this.props.params.session)];
+        return React.createElement(
+            "div",
+            { className: "container my-5" },
+            React.createElement(
+                "div",
+                { className: "row mb-2" },
+                React.createElement(
+                    "div",
+                    { className: "col" },
+                    React.createElement(
+                        "div",
+                        { className: "ilv-media mb-3" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-media-body" },
+                            React.createElement(
+                                "h1",
+                                null,
+                                Messages.get("LabelWheelOfLife")
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-media-right" },
+                            React.createElement(
+                                "button",
+                                { className: "ilv-btn ilv-btn-primary", onClick: this.finish },
+                                Messages.get("LabelFinish")
+                            )
+                        )
+                    ),
+                    this.renderField(this.state.field)
+                ),
+                React.createElement(
+                    "div",
+                    { className: "col-5" },
+                    React.createElement(SessionTimer, { ref: "timer",
+                        process: this.context.process,
+                        session: session,
+                        isCoach: this.context.isCoach }),
+                    React.createElement(Radar, { data: this.getChartData(), options: this.chartOptions })
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "row mb-5" },
+                React.createElement(
+                    "div",
+                    { className: "col-12" },
+                    React.createElement(EditableTextArea, { label: Messages.get('LabelLearning'),
+                        value: this.state.tool.Learnings,
+                        editable: !this.context.isCoach && session.Status > 0 && session.Status < 10,
+                        onChange: this.learningsChange })
+                )
+            ),
+            React.createElement(Tasks, { tool: this.state.tool, process: this.context.process, session: session, sessionIndex: parseInt(this.props.params.session) })
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
+
+    __REACT_HOT_LOADER__.register(Radar, "Radar", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/coaching/tools/wheeloflife/WheelOfLife.jsx");
+}();
+
+;

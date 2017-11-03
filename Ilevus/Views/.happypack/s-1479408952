@@ -1,0 +1,215 @@
+"use strict";
+
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var LanguageSelect = require("ilevus/jsx/core/widget/LanguageSelect.jsx");
+var ServiceForm = require("ilevus/jsx/core/widget/user/ServiceForm.jsx");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object,
+        professionalData: React.PropTypes.object.isRequired,
+        userId: React.PropTypes.string.isRequired
+    },
+    getInitialState: function getInitialState() {
+        return {
+            services: this.context.professionalData.Services || [],
+            adding: false,
+            editing: -1
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        UserSession.on("professionalprofile", function (data) {
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            me.context.router.push("/become-a-professional");
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+    saveInfo: function saveInfo(event) {
+        event.preventDefault();
+        $(this.refs['btn-submit']).attr("disabled", true);
+        var data = {
+            Services: this.state.services
+        };
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PROFESSIONAL_SERVICES,
+            data: data
+        });
+    },
+    addService: function addService(data) {
+        if (data) {
+            this.state.services.push(data);
+            this.setState({
+                adding: false
+            });
+        }
+    },
+    removeService: function removeService(index, event) {
+        event.preventDefault();
+        this.state.services.splice(index, 1);
+        this.forceUpdate();
+    },
+    tweakAdding: function tweakAdding(event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: !this.state.adding,
+            editing: -1
+        });
+    },
+    startEditing: function startEditing(index, event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: false,
+            editing: index
+        });
+    },
+    editService: function editService(data) {
+        if (data) {
+            this.state.services[this.state.editing] = data;
+            this.setState({
+                adding: false,
+                editing: -1
+            });
+        }
+    },
+    cancelEditing: function cancelEditing() {
+        this.setState({
+            adding: false,
+            editing: -1
+        });
+    },
+    render: function render() {
+        var _this = this;
+
+        return React.createElement(
+            "div",
+            { className: "container" },
+            React.createElement(
+                "div",
+                { className: "row justify-content-center" },
+                React.createElement(
+                    "div",
+                    { className: "col-6" },
+                    React.createElement(
+                        "div",
+                        { className: "text-center my-5" },
+                        React.createElement(
+                            "h3",
+                            null,
+                            Messages.get("TextOfferedServices")
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "ilv-card" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-card-body" },
+                            React.createElement(
+                                "ul",
+                                { className: "ilv-media-list ilv-media-list-bordered" },
+                                this.state.services.map(function (service, index) {
+                                    if (index == _this.state.editing) {
+                                        return React.createElement(ServiceForm, { onSubmit: _this.editService,
+                                            onCancel: _this.cancelEditing,
+                                            service: _this.state.services[_this.state.editing] });
+                                    }
+                                    return React.createElement(
+                                        "li",
+                                        { className: "ilv-media ilv-media-middle", key: "career-" + index },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-body" },
+                                            React.createElement(
+                                                "h4",
+                                                { className: "m-a-0" },
+                                                service.Name
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-media-right" },
+                                            React.createElement(
+                                                "button",
+                                                { className: "ilv-btn ilv-btn-icon ilv-btn-link px-0", onClick: _this.startEditing.bind(_this, index) },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-18" },
+                                                    "\uE3C9"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "button",
+                                                { className: "ilv-btn ilv-btn-icon ilv-btn-clean text-danger px-0 ml-3", onClick: _this.removeService.bind(_this, index) },
+                                                React.createElement(
+                                                    "i",
+                                                    { className: "ilv-icon material-icons md-18" },
+                                                    "\uE5C9"
+                                                )
+                                            )
+                                        )
+                                    );
+                                }),
+                                !this.state.adding && this.state.editing < 0 ? React.createElement(
+                                    "li",
+                                    { className: "ilv-media" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body ilv-text-xs-center" },
+                                        React.createElement(
+                                            "button",
+                                            { className: "ilv-btn ilv-btn-link", onClick: this.tweakAdding },
+                                            Messages.get("ActionAddNewOfferedService")
+                                        )
+                                    )
+                                ) : ""
+                            ),
+                            this.state.adding ? React.createElement(ServiceForm, { onSubmit: this.addService,
+                                onCancel: this.tweakAdding }) : ""
+                        ),
+                        !this.state.adding && this.state.editing < 0 ? React.createElement(
+                            "div",
+                            { className: "ilv-card-footer ilv-text-xs-right" },
+                            React.createElement(
+                                Link,
+                                { className: "ilv-btn ilv-btn-clean", to: "/become-a-professional" },
+                                Messages.get("LabelBack")
+                            ),
+                            React.createElement(
+                                "button",
+                                { className: "ilv-btn ilv-btn-primary",
+                                    onClick: this.saveInfo,
+                                    ref: "btn-submit" },
+                                Messages.get("LabelSave")
+                            )
+                        ) : ""
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/wizard/ProfileWizardServices.jsx");
+}();
+
+;

@@ -1,0 +1,52 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// https://github.com/diegohaz/arc/wiki/Example-redux-modules#entities
+import { normalize } from 'normalizr';
+import { env } from 'config';
+import { entitiesReceive } from './actions';
+import * as schemas from './schemas';
+
+var middleware = function middleware(store) {
+  return function (next) {
+    return function (action) {
+      var payload = action.payload,
+          meta = action.meta;
+
+
+      if (meta && meta.entities) {
+        var schema = schemas[meta.entities];
+
+        if (schema) {
+          var _normalize = normalize(payload, Array.isArray(payload) ? [schema] : schema),
+              result = _normalize.result,
+              entities = _normalize.entities;
+
+          store.dispatch(entitiesReceive(entities));
+          return next(_extends({}, action, { payload: result }));
+        }
+        // istanbul ignore next
+        if (env === 'development') {
+          // eslint-disable-next-line no-console
+          console.warn('[entities] There is no ' + meta.entities + ' schema on schemas.js');
+        }
+      }
+      return next(action);
+    };
+  };
+};
+
+var _default = middleware;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(middleware, 'middleware', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/entities/middleware.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/entities/middleware.js');
+}();
+
+;

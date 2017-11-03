@@ -1,0 +1,117 @@
+/**
+    Esta é a store da entidade de Usuário do sistema.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+
+var URL = Fluxbone.BACKEND_URL + "Chat";
+
+var ChatModel = Fluxbone.Model.extend({
+	url: URL,
+	validate: function validate(attrs, options) {
+		var errors = [];
+
+		if (errors.length > 0) return errors;
+	}
+});
+
+var ChatStore = Fluxbone.Store.extend({
+	ACTION_POLL_CONTACTS: 'chat-pollContacts',
+	ACTION_POLL_NEW_MESSAGES: 'chat-pollNewMessages',
+	ACTION_RETRIEVE_CONVERSATION: 'chat-retrieveConversation',
+	ACTION_SEND_MESSAGE: 'chat-sendMessage',
+	dispatchAcceptRegex: /^chat-[a-zA-Z0-9]+$/,
+
+	url: URL,
+	model: ChatModel,
+
+	pollContacts: function pollContacts(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/PollContacts",
+			dataType: 'json',
+			data: {
+				Since: params.Since
+			},
+			success: function success(data, status, opts) {
+				me.trigger("poll-contacts", data.Contacts);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	pollNewMessages: function pollNewMessages(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Poll",
+			dataType: 'json',
+			data: {
+				Destination: params.Destination,
+				Since: params.Since
+			},
+			success: function success(data, status, opts) {
+				me.trigger("poll-new-messages", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveConversation: function retrieveConversation(destination) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Ensure",
+			dataType: 'json',
+			data: {
+				Destination: destination
+			},
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-conversation", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	sendMessage: function sendMessage(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Send",
+			dataType: 'json',
+			data: {
+				Destination: params.Destination,
+				Content: params.Content
+			},
+			success: function success(data, status, opts) {
+				me.trigger("send-message", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	}
+});
+
+module.exports = new ChatStore();
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Chat.jsx");
+
+	__REACT_HOT_LOADER__.register(ChatModel, "ChatModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Chat.jsx");
+
+	__REACT_HOT_LOADER__.register(ChatStore, "ChatStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Chat.jsx");
+}();
+
+;

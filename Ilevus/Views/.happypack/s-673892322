@@ -1,0 +1,37 @@
+var _templateObject = _taggedTemplateLiteral(['\n  display: ', ';\n  font-family: ', ';\n  color: ', ';\n  background-color: ', ';\n  padding: ', ';\n  white-space: ', ';\n  overflow: auto;\n  line-height: 150%;\n'], ['\n  display: ', ';\n  font-family: ', ';\n  color: ', ';\n  background-color: ', ';\n  padding: ', ';\n  white-space: ', ';\n  overflow: auto;\n  line-height: 150%;\n']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { font, palette } from 'styled-theme';
+import { ifProp } from 'styled-tools';
+
+var PreformattedText = styled.pre(_templateObject, ifProp('block', 'block', 'inline'), font('pre'), palette({ grayscale: 0 }, 1), palette('grayscale', 1, true), ifProp('block', '1em', '0 0.5em'), ifProp('wrapped', 'pre-wrap', 'nowrap'));
+
+PreformattedText.propTypes = {
+  palette: PropTypes.string,
+  reverse: PropTypes.bool,
+  block: PropTypes.bool,
+  wrapped: PropTypes.bool
+};
+
+PreformattedText.defaultProps = {
+  palette: 'grayscale'
+};
+
+var _default = PreformattedText;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(PreformattedText, 'PreformattedText', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/atoms/PreformattedText/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/atoms/PreformattedText/index.js');
+}();
+
+;

@@ -1,0 +1,316 @@
+"use strict";
+
+var S = require("string");
+var $ = require("jquery");
+var _ = require("underscore");
+var moment = require("moment");
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+//var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+var AdForm = require("ilevus/jsx/core/widget/admin/AdForm.jsx");
+
+//var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true,
+            ads_balance: null,
+            ads: null,
+            adding: false,
+            editing: null
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        AdStore.on("retrieve-ads-balance", function (ads_balance) {
+            me.setState({
+                ads_balance: ads_balance,
+                loading: false
+            });
+        }, me);
+
+        AdStore.on("retrieve-ads", function (ads) {
+            me.setState({
+                ads: ads,
+                loading: false
+            });
+        }, me);
+
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });
+
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS_BALANCE,
+            data: {}
+        });
+        /*AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });*/
+
+        /*AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });*/
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        AdStore.off(null, null, this);
+    },
+    onNewAd: function onNewAd(event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: true,
+            editing: null
+        });
+    },
+    onAddCredit: function onAddCredit(event) {
+        event && event.preventDefault();
+        /*this.setState({
+            adding: true,
+            editing: null
+        });*/
+        alert('adicionar crédito!');
+    },
+    onEditingAd: function onEditingAd(ad, event) {
+        event && event.preventDefault();
+        this.setState({
+            adding: false,
+            editing: ad
+        });
+    },
+    adCancel: function adCancel() {
+        this.setState({
+            adding: false,
+            editing: null
+        });
+    },
+    adSaved: function adSaved(ad) {
+        Toastr.remove();
+        Toastr.success(Messages.get("TextAdSavedSuccessfully"));
+        this.setState({
+            loading: false,
+            adding: false,
+            editing: null
+        });
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_ADS,
+            data: {}
+        });
+    },
+    renderAds: function renderAds() {
+        var _this = this;
+
+        if (this.state.ads) {
+            return React.createElement(
+                "i",
+                null,
+                "Carregando an\xFAncios."
+            );
+        }
+        if (this.state.ads.length == 0) {
+            return React.createElement(
+                "i",
+                null,
+                "Nenhum an\xFAncio cadastrado ainda."
+            );
+        }
+        return React.createElement(
+            "table",
+            { className: "ilv-table ilv-table-sm ilv-table-middle ilv-text-sm" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelHeadline")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelStatus")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelViews")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelClicks")
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                this.state.ads.map(function (ad, index) {
+                    return React.createElement(
+                        "tr",
+                        { key: "ad-list-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            React.createElement(
+                                "a",
+                                { onClick: _this.onEditingAd.bind(_this, ad) },
+                                ad.Headline
+                            )
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            ad.Active ? React.createElement(
+                                "i",
+                                { className: "fa fa-thumbs-o-up" },
+                                " "
+                            ) : React.createElement(
+                                "i",
+                                { className: "fa fa-thumbs-o-down" },
+                                " "
+                            )
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            ad.Views
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            ad.Hits
+                        )
+                    );
+                })
+            )
+        );
+    },
+    renderAdsCredit: function renderAdsCredit() {
+        if (!this.state.ads_balance || this.state.ads_balance.length == 0) {
+            return React.createElement(
+                "i",
+                null,
+                Messages.get("LabelNoCreditBalance")
+            );
+        }
+        return React.createElement(
+            "table",
+            { className: "ilv-table ilv-table-sm ilv-table-middle ilv-text-sm" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelHeadlineCredit")
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                this.state.ads_balance.map(function (adsBalance, index) {
+                    return React.createElement(
+                        "tr",
+                        { key: "ad-list-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            parseFloat(adsBalance.Balance).toFixed(2)
+                        )
+                    );
+                })
+            )
+        );
+    },
+    render: function render() {
+        if (this.state.loading) return React.createElement(LoadingGauge, null);
+        if (this.state.adding) return React.createElement(AdForm, { onSubmit: this.adSaved, onCancel: this.adCancel });
+        if (this.state.editing) return React.createElement(AdForm, { onSubmit: this.adSaved, onCancel: this.adCancel, ad: this.state.editing });
+
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelAdsCredit"),
+                        React.createElement(
+                            "button",
+                            { className: "float-right ilv-btn ilv-btn-sm ilv-btn-primary", onClick: this.onAddCredit },
+                            Messages.get("LabelAddMoreCredit")
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    this.renderAdsCredit()
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelAds"),
+                        React.createElement(
+                            "button",
+                            { className: "float-right ilv-btn ilv-btn-sm ilv-btn-primary", onClick: this.onNewAd },
+                            Messages.get("LabelNewAd")
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    this.renderAds()
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelAds.jsx");
+}();
+
+;

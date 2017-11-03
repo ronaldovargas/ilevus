@@ -1,0 +1,161 @@
+"use strict";
+
+var _ = require("underscore");
+var S = require("string");
+var React = require('react');
+var Link = require('react-router').Link;
+
+var CoachingTools = require("ilevus/jsx/core/store/coaching/Tools.json");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    propTypes: {
+        isCoach: React.PropTypes.bool.isRequired,
+        processId: React.PropTypes.string.isRequired,
+        session: React.PropTypes.object.isRequired,
+        sessionIndex: React.PropTypes.number.isRequired
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            processId: null,
+            session: null,
+            sessionIndex: null
+        };
+    },
+    renderActiveTools: function renderActiveTools(tools) {
+        var toolsPath = CoachingTools.path.replace(":process", this.props.processId).replace(":session", this.props.sessionIndex);
+        return React.createElement(
+            "table",
+            { className: "ilv-table ilv-table-sm" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelTool")
+                    ),
+                    React.createElement(
+                        "th",
+                        { className: "text-right" },
+                        Messages.get("LabelActions")
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                tools.map(function (tool, index) {
+                    return React.createElement(
+                        "tr",
+                        { key: "active-tool-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            Messages.get(tool.labelKey)
+                        ),
+                        React.createElement(
+                            "td",
+                            { className: "text-right" },
+                            React.createElement(
+                                Link,
+                                { to: toolsPath.replace(":tool", tool.toolPath), className: "ilv-btn ilv-btn-sm ilv-btn-clean mx-0" },
+                                React.createElement(
+                                    "i",
+                                    { className: "ilv-icon material-icons md-18" },
+                                    "\uE89E"
+                                )
+                            )
+                        )
+                    );
+                })
+            )
+        );
+    },
+    render: function render() {
+        var tools = CoachingTools.tools;
+        var activeTools = [];
+        var unactiveTools = [];
+        for (var i = 0; i < tools.length; i++) {
+            if (tools[i].enabled && this.props.session[tools[i].sessionField]) {
+                activeTools.push(tools[i]);
+            } else {
+                unactiveTools.push(tools[i]);
+            }
+        }
+        var toolsPath = CoachingTools.path.replace(":process", this.props.processId).replace(":session", this.props.sessionIndex);
+        return React.createElement(
+            "div",
+            { className: this.props.className },
+            React.createElement(
+                "h4",
+                null,
+                Messages.get("SessionTools")
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    activeTools.length > 0 ? this.renderActiveTools(activeTools) : React.createElement(
+                        "i",
+                        { className: "my-1" },
+                        Messages.get("TextNoToolApplied")
+                    )
+                ),
+                this.props.isCoach && this.props.session.Status < 10 && this.props.session.Status > 0 && unactiveTools.length > 0 ? React.createElement(
+                    "div",
+                    { className: "ilv-card-footer" },
+                    React.createElement(
+                        "div",
+                        { className: "dropdown" },
+                        React.createElement(
+                            "a",
+                            { className: "font-weight-bold", "data-toggle": "dropdown", href: "#" },
+                            Messages.get('LabelApplyTool'),
+                            " ",
+                            React.createElement(
+                                "i",
+                                { className: "material-icons" },
+                                "\uE313"
+                            )
+                        ),
+                        React.createElement(
+                            "ul",
+                            { className: "dropdown-menu" },
+                            unactiveTools.map(function (tool, index) {
+                                return React.createElement(
+                                    "li",
+                                    { className: "dropdown-item", key: "apply-tool-" + index },
+                                    React.createElement(
+                                        Link,
+                                        { to: toolsPath.replace(":tool", tool.toolPath) },
+                                        Messages.get(tool.labelKey)
+                                    )
+                                );
+                            })
+                        )
+                    )
+                ) : ""
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/coaching/SessionTools.jsx");
+}();
+
+;

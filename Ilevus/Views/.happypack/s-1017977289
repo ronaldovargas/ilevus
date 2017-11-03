@@ -1,0 +1,152 @@
+
+var React = require("react");
+var Link = require("react-router").Link;
+var ErrorAlert = require("ilevus/jsx/core/widget/ErrorAlert.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var AppLogo = require("ilevus/img/logo.png");
+
+module.exports = React.createClass({
+    displayName: "exports",
+    getInitialState: function getInitialState() {
+        return {
+            reseted: false,
+            error: null
+        };
+    },
+    onSubmit: function onSubmit(evt) {
+        evt.preventDefault();
+        UserSession.dispatch({
+            action: UserSession.ACTION_RESET_PASSWORD,
+            data: {
+                Email: this.props.params.email,
+                Code: this.props.params.token,
+                Password: this.refs['password'].value,
+                ConfirmPassword: this.refs['passwordconfirm'].value
+            }
+        });
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        UserSession.on("resetpassword", function (model) {
+            me.setState({
+                reseted: true
+            });
+        }, me);
+        UserSession.on("fail", function (msg) {
+            me.setState({
+                error: msg
+            });
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+    render: function render() {
+        if (this.state.reseted) {
+            return React.createElement(
+                "div",
+                { className: "my-3", role: "banner" },
+                React.createElement(
+                    "div",
+                    { className: "container" },
+                    React.createElement(
+                        "div",
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-sm-offset-2 col-sm-8 col-xs-12 text-xs-center" },
+                            React.createElement(
+                                "div",
+                                { className: "alert alert-success" },
+                                Messages.get("TextPasswordSetSuccess")
+                            ),
+                            React.createElement(
+                                Link,
+                                { to: "/login", className: "btn btn-brand" },
+                                Messages.get("ActionBackToLogin")
+                            )
+                        )
+                    )
+                )
+            );
+        }
+        return React.createElement(
+            "div",
+            { className: "container" },
+            React.createElement(
+                "div",
+                { className: "row" },
+                React.createElement(
+                    "div",
+                    { className: "col-md-10 col-sm-offset-1 col-lg-8 col-lg-offset-2 col-xl-6 col-xl-offset-3" },
+                    React.createElement(
+                        "form",
+                        { className: "mt-3", onSubmit: this.onSubmit },
+                        React.createElement(
+                            "h3",
+                            null,
+                            Messages.get("LabelChangePassword")
+                        ),
+                        React.createElement(
+                            "fieldset",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "password" },
+                                Messages.get("LabelPasswordNew")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control ilv-form-control-lg", id: "password", name: "password", type: "password", ref: "password" })
+                        ),
+                        React.createElement(
+                            "fieldset",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "passwordconfirm" },
+                                Messages.get("LabelPasswordConfirm")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control ilv-form-control-lg", id: "passwordconfirm", name: "passwordconfirm", type: "password", ref: "passwordconfirm" })
+                        ),
+                        this.state.error ? React.createElement(
+                            "div",
+                            { className: "ilv-alert ilv-alert-danger" },
+                            this.state.error
+                        ) : "",
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "fieldset",
+                                { className: "ilv-form-group col-md-6" },
+                                React.createElement("input", { className: "ilv-btn ilv-btn-primary ilv-btn-block", type: "submit", value: Messages.get("ActionChangePassword") })
+                            ),
+                            React.createElement(
+                                "fieldset",
+                                { className: "ilv-form-group col-md-6" },
+                                React.createElement(
+                                    Link,
+                                    { to: "/login", className: "btn btn-link btn-block" },
+                                    Messages.get("ActionBackToLogin")
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/ResetPassword.jsx");
+}();
+
+;

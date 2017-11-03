@@ -1,0 +1,318 @@
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
+
+var SystemStore = require("ilevus/jsx/core/store/System.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+//var DateUtils = require("ilevus/jsx/core/util/DateUtils.jsx");
+
+
+var router_test = require("react-router");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true,
+            ads: null,
+            countPreviews: null,
+            time: { h: "00", m: "05", s: "00" },
+            seconds: 300,
+            timer: 0
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        AdStore.on("retrieve-moderation-ads", function (ads) {
+            me.setState({
+                ads: ads,
+                loading: false
+            });
+
+            if (_this.state.ads) {
+                //Inicia a Contagem
+                _this.startTimer();
+            }
+        }, me);
+        AdStore.dispatch({
+            action: AdStore.ACTION_RETRIEVE_MODERATIONS_ADS,
+            data: {}
+        });
+
+        SystemStore.on("retrieve-definition-config", function (config) {
+            me.setState({
+                loading: false,
+                config: config
+            });
+        }, me);
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_RETRIEVE_DEFINITIONS
+        });
+
+        AdStore.on("count-previews-moderation-ad", function (countPreviews) {
+            me.setState({
+                loading: false,
+                countPreviews: countPreviews
+            });
+        }, me);
+        AdStore.dispatch({
+            action: AdStore.ACTION_COUNT_PREVIEWS_MODERATION
+        });
+
+        AdStore.on("save-moderation-ad", function () {
+            AdStore.dispatch({
+                action: AdStore.ACTION_COUNT_PREVIEWS_MODERATION,
+                data: {}
+            });
+
+            AdStore.dispatch({
+                action: AdStore.ACTION_RETRIEVE_MODERATIONS_ADS,
+                data: {}
+            });
+            _this.renderAd();
+        }, me);
+
+        AdStore.on("leave-moderation-ad", function () {
+            me.context.router.push("/admin/home");
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        SystemStore.off(null, null, this);
+        AdStore.off(null, null, this);
+        clearInterval(this.state.timer);
+    },
+    saveAdModeration: function saveAdModeration(Status) {
+        event.preventDefault();
+
+        AdStore.dispatch({
+            action: AdStore.ACTION_SAVE_MODERATION,
+            data: {
+                Id: this.state.ads.Id,
+                Status: Status
+            }
+        });
+    },
+    secondsToTime: function secondsToTime(secs) {
+        var hours = Math.floor(secs / (60 * 60));
+
+        var divisor_for_minutes = secs % (60 * 60);
+        var minutes = Math.floor(divisor_for_minutes / 60);
+
+        var divisor_for_seconds = divisor_for_minutes % 60;
+        var seconds = Math.ceil(divisor_for_seconds);
+
+        var obj = {
+            "h": hours.toString().length == 1 ? "0" + hours : hours,
+            "m": minutes.toString().length == 1 ? "0" + minutes : minutes,
+            "s": seconds.toString().length == 1 ? "0" + seconds : seconds
+        };
+        return obj;
+    },
+    startTimer: function startTimer() {
+        if (this.state.timer == 0) {
+            this.state.timer = setInterval(this.countDown, 1000);
+        }
+    },
+    countDown: function countDown() {
+        // Remove one second, set state so a re-render happens.
+        var seconds = this.state.seconds - 1;
+        this.setState({
+            time: this.secondsToTime(seconds),
+            seconds: seconds
+        });
+
+        // Verifica se acabou
+        if (seconds == 0) {
+            clearInterval(this.state.timer);
+            this.cancel();
+        }
+    },
+    cancel: function cancel() {
+        AdStore.dispatch({
+            action: AdStore.ACTION_LEAVE_MODERATION,
+            data: {
+                Id: this.state.ads.Id
+            }
+        });
+    },
+    catchModeration: function catchModeration(adId) {
+        AdStore.dispatch({
+            action: AdStore.ACTION_CATCH_MODERATION,
+            data: {
+                Id: adId,
+                Status: "OnAnalysing"
+            }
+        });
+    },
+    renderStartModeration: function renderStartModeration() {
+        return React.createElement(
+            "div",
+            { className: "row" },
+            React.createElement("input", { className: "ilv-btn ilv-btn-lg ilv-btn-success", id: "btnStartModeration", type: "button", value: Messages.get("LabelStart"), onClick: this.renderAd() })
+        );
+    },
+    renderCountModerations: function renderCountModerations() {
+        var d = new Date();
+        d.setMonth(d.getMonth() - 1);
+
+        return React.createElement(
+            "strong",
+            { className: "pull-right" },
+            Messages.get("LabelDailyDoneModeration").replace("{0}", this.state.countPreviews ? this.state.countPreviews.dailyCount : 0),
+            " /",
+            Messages.get("LabelMonthDoneModeration").replace("{0}", this.state.countPreviews ? this.state.countPreviews.monthCount : 0),
+            " /",
+            Messages.get("LabelPrevMonthDoneModeration").replace("{0}", this.state.countPreviews ? this.state.countPreviews.prevMonthCount : 0)
+        );
+    },
+    renderAd: function renderAd() {
+        if (!this.state.ads) {
+            return React.createElement(
+                "i",
+                null,
+                "Nenhum an\xFAncio a ser moderado"
+            );
+        } else {
+
+            return React.createElement(
+                "form",
+                { onSubmit: this.saveAdModeration },
+                React.createElement(
+                    "div",
+                    { className: "row" },
+                    React.createElement(
+                        "div",
+                        { className: "col-9" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelHeadline")
+                            ),
+                            React.createElement(
+                                "span",
+                                null,
+                                this.state.ads ? this.state.ads.Headline : ""
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-form-group col-6" },
+                                React.createElement(
+                                    "label",
+                                    { className: "ilv-form-label" },
+                                    Messages.get("LabelAdImageDesktop")
+                                ),
+                                React.createElement(
+                                    "labal",
+                                    { id: "lbl_image_desktop" },
+                                    this.state.ads ? React.createElement("img", { src: (this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.state.ads.ImageDesktop, style: { width: "150px" } }) : ""
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ilv-form-group col-6" },
+                                React.createElement(
+                                    "label",
+                                    { className: "ilv-form-label" },
+                                    Messages.get("LabelAdImageMobile")
+                                ),
+                                React.createElement(
+                                    "labal",
+                                    { id: "lbl_image_mobile" },
+                                    this.state.ads ? React.createElement("img", { src: (this.state.config ? JSON.parse(this.state.config.definitions).UrlRetriviedAds : "") + this.state.ads.ImageMobile, style: { width: "150px" } }) : ""
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-form-group", style: { marginTop: "15px" } },
+                                    React.createElement(
+                                        "label",
+                                        { className: "ilv-form-label" },
+                                        Messages.get("LabelAdUrl"),
+                                        ": ",
+                                        React.createElement(
+                                            "a",
+                                            { href: this.state.ads ? this.state.ads.Link : "", target: "_blank", style: { wordWrap: "break-word" } },
+                                            this.state.ads ? this.state.ads.Link : ""
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "col-3", style: { borderLeft: "1px solid #cfd7e6", paddingTop: "25px" } },
+                        React.createElement(
+                            "h4",
+                            null,
+                            "Tempo: ",
+                            React.createElement("br", null),
+                            this.state.time.m,
+                            ":",
+                            this.state.time.s
+                        ),
+                        React.createElement("input", { className: "ilv-btn ilv-btn-lg ilv-btn-success", type: "button", value: Messages.get("LabelAdApproved"), onClick: this.saveAdModeration.bind(this, "Approved"), disabled: this.state.saving, style: { marginBottom: "5px", width: "100%" } }),
+                        React.createElement("input", { className: "ilv-btn ilv-btn-lg ilv-btn-destructive", type: "button", value: Messages.get("LabelAdDenied"), onClick: this.saveAdModeration.bind(this, "Denied"), disabled: this.state.saving, style: { marginLeft: "0px", marginBottom: "5px", width: "100%" } }),
+                        React.createElement("input", { className: "ilv-btn ilv-btn-lg ilv-btn-default", type: "button", value: Messages.get("LabelCancel"), onClick: this.cancel, style: { marginLeft: "0px", width: "100%" } })
+                    )
+                )
+            );
+        }
+    },
+    render: function render() {
+        if (this.state.loading) return React.createElement(LoadingGauge, null);
+
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelModerationAds")
+                    ),
+                    this.renderCountModerations()
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    this.renderAd()
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelModerationAds.jsx");
+}();
+
+;

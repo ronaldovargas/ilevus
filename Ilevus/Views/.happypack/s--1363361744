@@ -1,0 +1,126 @@
+"use strict";
+
+var _ = require("underscore");
+var S = require("string");
+var React = require('react');
+
+var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    propTypes: {
+        process: React.PropTypes.object.isRequired,
+        session: React.PropTypes.object.isRequired,
+        sessionIndex: React.PropTypes.number.isRequired,
+        isCoach: React.PropTypes.bool.isRequired
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            process: null
+        };
+    },
+    componentDidMount: function componentDidMount() {},
+    componentWillReceiveProps: function componentWillReceiveProps() {},
+    addTag: function addTag(event) {
+        event && event.preventDefault();
+        var el = this.refs['field-tag'],
+            tag = S(el.value);
+        if (tag.isEmpty()) return;
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_ADD_TAG,
+            data: {
+                ProcessId: this.props.process.Id,
+                Session: this.props.sessionIndex,
+                Tag: tag.s
+            }
+        });
+        if (this.props.session.Tags) this.props.session.Tags.push(tag.s);else this.props.session.Tags = [tag.s];
+        el.value = "";
+        this.forceUpdate();
+    },
+    removeTag: function removeTag(index, event) {
+        event && event.preventDefault();
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_REMOVE_TAG,
+            data: {
+                ProcessId: this.props.process.Id,
+                Session: this.props.sessionIndex,
+                Tag: index
+            }
+        });
+        this.props.session.Tags.splice(index, 1);
+        this.forceUpdate();
+    },
+    render: function render() {
+        var _this = this;
+
+        var tags = this.props.session.Tags || [];
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "fieldset",
+                { className: "ilv-form-group" },
+                React.createElement(
+                    "label",
+                    { className: "ilv-form-label" },
+                    Messages.get("LabelTags")
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-input-group" },
+                    React.createElement("input", { className: "ilv-form-control ilv-form-control-lg",
+                        ref: "field-tag",
+                        spellCheck: false }),
+                    React.createElement(
+                        "div",
+                        { className: "ilv-input-group-btn" },
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-lg ilv-btn-icon ilv-btn-success", onClick: this.addTag },
+                            React.createElement(
+                                "i",
+                                { className: "ilv-icon material-icons md-24" },
+                                "\uE145"
+                            )
+                        )
+                    )
+                )
+            ),
+            React.createElement(
+                "fieldset",
+                { className: "ilv-form-group" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-tag-input mb-2 ilv-text-xs-center", style: { backgroundColor: '#f5f7f9' }, readOnly: true },
+                    tags.map(function (tag, index) {
+                        return React.createElement(
+                            "span",
+                            { className: "ilv-tag", key: "tag-" + index },
+                            tag,
+                            " ",
+                            React.createElement(
+                                "a",
+                                { title: Messages.get("ActionRemoveTag"), onClick: _this.removeTag.bind(_this, index) },
+                                "\xD7"
+                            )
+                        );
+                    })
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

@@ -1,0 +1,168 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var Grid = _styledComponents2.default.div.withConfig({
+  displayName: 'FeatureList__Grid'
+})(['\n  display: flex;\n  flex-flow: row wrap;\n  > * {\n    width: calc(50% - 2rem);\n    @media screen and (max-width: 640px) {\n      width: 100%;\n    }\n  }\n']);
+
+var StyledHeading = (0, _styledComponents2.default)(_components.Heading).withConfig({
+  displayName: 'FeatureList__StyledHeading'
+})(['\n  text-align: center;\n']);
+
+var Description = (0, _styledComponents2.default)(_components.Paragraph).withConfig({
+  displayName: 'FeatureList__Description'
+})(['\n  text-align: center;\n  margin: 2rem;\n  @media screen and (max-width: 640px) {\n    margin: 1rem;\n  }\n']);
+
+var StyledFeature = (0, _styledComponents2.default)(_components.Feature).withConfig({
+  displayName: 'FeatureList__StyledFeature'
+})(['\n  margin: 1rem;\n  @media screen and (max-width: 640px) {\n    margin: 0;\n  }\n']);
+
+var FeatureList = function FeatureList(_ref) {
+  var props = _objectWithoutProperties(_ref, []);
+
+  return _react2.default.createElement(
+    'div',
+    props,
+    _react2.default.createElement(
+      StyledHeading,
+      null,
+      'Basic stack'
+    ),
+    _react2.default.createElement(
+      Description,
+      null,
+      'It includes everything necessary to build a tipical web app with focus on productivity and developer experience.',
+      _react2.default.createElement('br', null),
+      _react2.default.createElement(
+        _components.Link,
+        { href: 'https://github.com/diegohaz/arc/wiki/Workflow' },
+        'Learn more about the recomended workflow'
+      )
+    ),
+    _react2.default.createElement(
+      Grid,
+      null,
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'react',
+          link: 'https://facebook.github.io/react',
+          title: 'React',
+          code: '<MyComponent attr=\'value\' />'
+        },
+        'The Facebook\'s JavaScript library for building user interfaces using components.'
+      ),
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'react-router',
+          link: 'https://github.com/ReactTraining/react-router',
+          title: 'React Router',
+          code: '<Route path=\'/sample-page\' />'
+        },
+        'The most popular declarative routing library for React and React Native.'
+      ),
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'webpack',
+          link: 'https://webpack.github.io/',
+          title: 'Webpack',
+          code: 'npm run build'
+        },
+        'The awesome module bundler with ',
+        _react2.default.createElement(
+          _components.Link,
+          { href: 'https://webpack.github.io/docs/hot-module-replacement.html' },
+          'Hot Module Replacement'
+        ),
+        ' enabled.'
+      ),
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'jest',
+          link: 'https://facebook.github.io/jest',
+          title: 'Jest',
+          code: 'npm run test'
+        },
+        'The great testing framework used by Facebook to test all their Javascript code.'
+      )
+    ),
+    _react2.default.createElement(
+      StyledHeading,
+      null,
+      'Optional features'
+    ),
+    _react2.default.createElement(
+      Description,
+      null,
+      'Features separated into another branches so you can use them only if you need to.'
+    ),
+    _react2.default.createElement(
+      Grid,
+      null,
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'redux',
+          link: 'https://github.com/diegohaz/arc/tree/redux',
+          title: 'Redux',
+          code: 'git clone -b redux https://github.com/diegohaz/arc my-app'
+        },
+        'The predictable state container for JavaScript apps.'
+      ),
+      _react2.default.createElement(
+        StyledFeature,
+        {
+          icon: 'dist',
+          link: 'https://github.com/diegohaz/arc/tree/redux-ssr',
+          title: 'Server Side Rendering',
+          code: 'git clone -b redux-ssr https://github.com/diegohaz/arc my-app'
+        },
+        'Write once and run on both server and client.'
+      )
+    )
+  );
+};
+
+var _default = FeatureList;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Grid, 'Grid', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledHeading, 'StyledHeading', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+
+  __REACT_HOT_LOADER__.register(Description, 'Description', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledFeature, 'StyledFeature', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+
+  __REACT_HOT_LOADER__.register(FeatureList, 'FeatureList', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/FeatureList/index.js');
+}();
+
+;

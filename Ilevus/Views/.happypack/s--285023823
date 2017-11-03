@@ -1,0 +1,45 @@
+
+var S = require("string");
+var React = require("react");
+var MaskedInput = require("react-maskedinput");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    propTypes: {
+        user: React.PropTypes.object.isRequired
+    },
+
+    render: function render() {
+        console.log(this.props.user);
+        var user = this.props.addressData;
+        return React.createElement(
+            "div",
+            { className: this.props.className },
+            React.createElement(
+                "h3",
+                { className: "ilv-text-primary" },
+                this.props.user.Name,
+                " ",
+                this.props.user.Surname
+            ),
+            React.createElement(
+                "h4",
+                null,
+                Messages.get("LabelPhoneNumber"),
+                ": ",
+                this.props.user.PhoneNumber
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

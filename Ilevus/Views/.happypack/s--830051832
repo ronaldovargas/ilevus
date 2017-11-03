@@ -1,0 +1,250 @@
+
+var Numeral = require("numeral");
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
+var SubscriptionStatus = require("ilevus/jsx/core/store/moip/SubscriptionStatus.json");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        FinancialStore.on("retrieve-subscription-invoice", function (invoice) {
+            me.setState({
+                loading: false,
+                invoice: invoice
+            });
+        }, me);
+
+        this.loadInvoice(this.props.params.id);
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+        if (this.props.params.id != newProps.params.id) {
+            this.loadInvoice(newProps.params.id);
+        }
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        FinancialStore.off(null, null, this);
+    },
+    loadInvoice: function loadInvoice(id) {
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTION_INVOICE,
+            data: id
+        });
+    },
+    renderItems: function renderItems(items) {
+        return React.createElement(
+            "table",
+            { className: "ilv-table" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelDescription")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelValue")
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                items.map(function (item, index) {
+                    return React.createElement(
+                        "tr",
+                        { key: "item-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            item.Type
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            "R$",
+                            Numeral(item.Amount / 100).format("0,0.00")
+                        )
+                    );
+                }),
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "td",
+                        null,
+                        React.createElement(
+                            "b",
+                            null,
+                            Messages.get("LabelTotal")
+                        )
+                    ),
+                    React.createElement(
+                        "td",
+                        null,
+                        React.createElement(
+                            "b",
+                            null,
+                            "R$",
+                            Numeral(this.state.invoice.Amount / 100).format("0,0.00")
+                        )
+                    )
+                )
+            )
+        );
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        var invoice = this.state.invoice;
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h2",
+                null,
+                Messages.get("LabelInvoice"),
+                " ",
+                invoice.Id
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "h4",
+                        null,
+                        invoice.Customer.Fullname
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    React.createElement(
+                        "div",
+                        { className: "row mb-2" },
+                        React.createElement(
+                            "div",
+                            { className: "col col-md-6" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-small" },
+                                Messages.get("LabelPlan")
+                            ),
+                            React.createElement(
+                                "b",
+                                null,
+                                invoice.Plan.Name
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col col-md-6" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-small" },
+                                Messages.get("LabelCreatedAt")
+                            ),
+                            React.createElement(
+                                "b",
+                                null,
+                                invoice.CreationDate.Day,
+                                "/",
+                                invoice.CreationDate.Month,
+                                "/",
+                                invoice.CreationDate.Year,
+                                "\xA0",
+                                Messages.get("LabelAt"),
+                                " ",
+                                invoice.CreationDate.Hour,
+                                ":",
+                                invoice.CreationDate.Minute
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row mb-2" },
+                        React.createElement(
+                            "div",
+                            { className: "col col-md-6" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-small" },
+                                Messages.get("LabelStatus")
+                            ),
+                            React.createElement(
+                                "b",
+                                null,
+                                invoice.Status.Description
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col col-md-6" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-small" },
+                                Messages.get("LabelTotal")
+                            ),
+                            React.createElement(
+                                "b",
+                                null,
+                                "R$",
+                                Numeral(invoice.Amount / 100).format("0,0.00")
+                            )
+                        )
+                    ),
+                    React.createElement("hr", { className: "mb-4" }),
+                    React.createElement(
+                        "div",
+                        { className: "mb-4" },
+                        React.createElement(
+                            "strong",
+                            null,
+                            Messages.get("LabelInvoiceDetail")
+                        )
+                    ),
+                    this.renderItems(invoice.Items)
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelSubscriptionsInvoice.jsx");
+}();
+
+;

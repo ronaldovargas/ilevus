@@ -1,0 +1,33 @@
+// https://github.com/diegohaz/arc/wiki/Atomic-Design
+import React from 'react';
+
+import { PageTemplate, Header, Hero, Footer, FeatureList, CodeSponsor } from 'components';
+
+var HomePage = function HomePage() {
+  return React.createElement(
+    PageTemplate,
+    {
+      header: React.createElement(Header, null),
+      hero: React.createElement(Hero, null),
+      sponsor: React.createElement(CodeSponsor, null),
+      footer: React.createElement(Footer, null)
+    },
+    React.createElement(FeatureList, null)
+  );
+};
+
+var _default = HomePage;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(HomePage, 'HomePage', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/HomePage/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/HomePage/index.js');
+}();
+
+;

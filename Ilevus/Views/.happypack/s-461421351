@@ -1,0 +1,224 @@
+var React = require('react');
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Toastr = require("toastr");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var ScheduleStore = require("ilevus/jsx/core/store/Schedule.jsx");
+var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingScheduleConfig.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+
+    getInitialState: function getInitialState() {
+        var configs = UserSession.get("user").ScheduleConfig;
+        return {
+            antecedence: configs.Antecedence,
+            enabled: configs.Enabled,
+            interval: configs.Interval,
+            config: JSON.parse(configs.HourConfig)
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        ScheduleStore.on("save-config", function () {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        ScheduleStore.off(null, null, this);
+    },
+    changeInterval: function changeInterval(event) {
+        this.setState({
+            interval: parseInt(this.refs['interval'].value)
+        });
+    },
+    enabledChange: function enabledChange() {
+        this.setState({
+            enabled: !this.state.enabled
+        });
+    },
+    saveConfig: function saveConfig(event) {
+        event && event.preventDefault();
+        ScheduleStore.dispatch({
+            action: ScheduleStore.ACTION_SAVE_CONFIG,
+            data: {
+                Enabled: this.state.enabled,
+                Antecedence: this.state.enabled ? this.refs['antecedence'].valueAsNumber : this.state.antecedence,
+                Interval: this.state.interval,
+                HourConfig: this.state.enabled ? JSON.stringify(this.refs['schedule-config'].getConfigs()) : "[]"
+            }
+        });
+    },
+    render: function render() {
+        var user = this.state.model;
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h4",
+                null,
+                Messages.get("LabelScheduleConfigurations")
+            ),
+            React.createElement(
+                "form",
+                { className: "mb-5" },
+                React.createElement(
+                    "div",
+                    { className: "row" },
+                    React.createElement(
+                        "div",
+                        { className: "col" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelMeetingDuration")
+                            ),
+                            React.createElement(
+                                "select",
+                                { className: "ilv-form-control", onChange: this.changeInterval, ref: "interval", defaultValue: this.state.interval, disabled: !this.state.enabled },
+                                React.createElement(
+                                    "option",
+                                    { value: "15" },
+                                    "15 ",
+                                    Messages.get("LabelMinutes")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "30" },
+                                    "30 ",
+                                    Messages.get("LabelMinutes")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "45" },
+                                    "45 ",
+                                    Messages.get("LabelMinutes")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "60" },
+                                    "60 ",
+                                    Messages.get("LabelMinutes")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "90" },
+                                    "90 ",
+                                    Messages.get("LabelMinutes")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "120" },
+                                    "120 ",
+                                    Messages.get("LabelMinutes")
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelAntecedence")
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ilv-input-group" },
+                                React.createElement("input", { className: "ilv-form-control", type: "number", defaultValue: this.state.antecedence, disabled: !this.state.enabled, ref: "antecedence" }),
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-input-group-addon" },
+                                    Messages.get("LabelHours")
+                                )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "col" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("DeactivateScheduling")
+                            ),
+                            React.createElement(
+                                "p",
+                                null,
+                                Messages.get("DeactivateSchedulingHelpText")
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ilv-checkbox" },
+                                React.createElement(
+                                    "label",
+                                    { htmlFor: "ex-form-checkebox" },
+                                    React.createElement("input", { className: "ilv-control-input", id: "ex-form-checkebox", name: "ex-form-radio-stacked", type: "checkbox", onChange: this.enabledChange, checked: this.state.enabled }),
+                                    React.createElement("span", { className: "ilv-control-indicator" }),
+                                    React.createElement(
+                                        "span",
+                                        { className: "ilv-control-label" },
+                                        Messages.get("LabelEnableSchedule")
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-primary", onClick: this.saveConfig },
+                    Messages.get("LabelSave")
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "mb-5" },
+                React.createElement(
+                    "h4",
+                    null,
+                    Messages.get("LabelSchedule")
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card" },
+                    React.createElement(
+                        "div",
+                        { className: "ilv-card-body" },
+                        this.state.enabled ? React.createElement(MeetingScheduleConfig, { interval: this.state.interval, config: this.state.config, ref: "schedule-config" }) : React.createElement(
+                            "p",
+                            null,
+                            React.createElement(
+                                "i",
+                                null,
+                                "A agenda n\xE3o est\xE1 habilitada."
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

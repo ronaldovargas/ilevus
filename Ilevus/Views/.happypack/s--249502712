@@ -1,0 +1,488 @@
+"use strict";
+
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: UserSession.get("loading")
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        UserSession.on("fail", function (msg) {
+            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.error(msg);
+        }, me);
+        UserSession.on("loaded", function () {
+            me.setState({
+                loading: false
+            });
+        }, me);
+        UserSession.on("updatepassword", function () {
+            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.success(Messages.get("TextPasswordSetSuccess"));
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+    updatePassword: function updatePassword(event) {
+        $(this.refs["setpwd-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            OldPassword: this.refs['setpwd-oldpassword'].value,
+            NewPassword: this.refs['setpwd-password'].value,
+            ConfirmPassword: this.refs['setpwd-passwordconfirm'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PASSWORD,
+            data: data
+        });
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        var user = UserSession.get("user");
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        "Experi\xEAncia profissional"
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    React.createElement(
+                        "ul",
+                        { className: "ilv-media-list ilv-media-list-bordered" },
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "h4",
+                                    null,
+                                    "Consultor de Gest\xE3o"
+                                ),
+                                React.createElement(
+                                    "span",
+                                    { className: "ilv-text-large" },
+                                    "Biboca e Parafuseta"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    { className: "ilv-text-small" },
+                                    "Fevereiro de 2015 - Dezembro de 2015 (12 meses)"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Respons\xE1vel pelo suporte em gest\xE3o na an\xE1lise da cadeia de distribui\xE7\xE3o internacional de materiais de produ\xE7\xE3o automobil\xEDstica."
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-right" },
+                                React.createElement(
+                                    "button",
+                                    { className: "ilv-btn ilv-btn-link" },
+                                    "Editar"
+                                )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "ilv-form-group" },
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-link" },
+                            "Adicionar nova experi\xEAncia"
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6" },
+                            React.createElement(
+                                "form",
+                                { className: "ilv-card" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-card-body" },
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newExperienceCompanyName" },
+                                            "Nome da empresa"
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "password", id: "newExperienceCompanyName", ref: "setpwd-oldpassword" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newExperienceRole" },
+                                            "Cargo / Servi\xE7o"
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "password", id: "newExperienceRole", ref: "setpwd-password" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newExperienceLocation" },
+                                            "Localidade"
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "password", id: "newExperienceLocation", ref: "setpwd-passwordconfirm" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "legend",
+                                            { className: "ilv-form-legend" },
+                                            "Per\xEDodo"
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "row" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-1" },
+                                                React.createElement(
+                                                    "label",
+                                                    { className: "ilv-form-label", htmlFor: "newExperienceTimePeriodBegin" },
+                                                    "De"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-6" },
+                                                React.createElement(
+                                                    "select",
+                                                    { className: "ilv-form-control", id: "newExperienceTimePeriodBegin" },
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Janeiro"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Fevereiro"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Mar\xE7o"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-5" },
+                                                React.createElement("input", { className: "ilv-form-control", type: "number", placeholder: "Ano" })
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "row" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-1" },
+                                                React.createElement(
+                                                    "label",
+                                                    { className: "ilv-form-label", htmlFor: "newExperienceTimePeriodEnd" },
+                                                    "At\xE9"
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-6" },
+                                                React.createElement(
+                                                    "select",
+                                                    { className: "ilv-form-control", id: "newExperienceTimePeriodEnd" },
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Janeiro"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Fevereiro"
+                                                    ),
+                                                    React.createElement(
+                                                        "option",
+                                                        null,
+                                                        "Mar\xE7o"
+                                                    )
+                                                )
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-5" },
+                                                React.createElement("input", { className: "ilv-form-control", type: "number", placeholder: "Ano" })
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-checkbox" },
+                                            React.createElement(
+                                                "label",
+                                                { htmlFor: "work-here" },
+                                                React.createElement("input", { className: "ilv-control-input", type: "checkbox", id: "work-here" }),
+                                                React.createElement("span", { className: "ilv-control-indicator" }),
+                                                React.createElement(
+                                                    "span",
+                                                    { className: "ilv-control-label" },
+                                                    "At\xE9 o momento."
+                                                )
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newExperienceDescription" },
+                                            "Descri\xE7\xE3o"
+                                        ),
+                                        React.createElement("textarea", { className: "ilv-form-control", id: "newExperienceDescription" })
+                                    ),
+                                    React.createElement(
+                                        "button",
+                                        { className: "ilv-btn ilv-btn-primary" },
+                                        "Adicionar"
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        "Forma\xE7\xE3o acad\xEAmica"
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    React.createElement(
+                        "ul",
+                        { className: "ilv-media-list ilv-media-list-bordered" },
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "h4",
+                                    null,
+                                    "Universidade Federal de Minas Gerais"
+                                ),
+                                React.createElement(
+                                    "span",
+                                    { className: "ilv-text-large" },
+                                    "Bacharel em Administra\xE7\xE3o e Economia"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    { className: "ilv-text-small" },
+                                    "2010 - 2014"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Descri\xE7\xE3o sobre atividades realizadas durante o per\xEDodo de gradua\xE7\xE3o."
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-right" },
+                                React.createElement(
+                                    "button",
+                                    { className: "ilv-btn ilv-btn-link" },
+                                    "Editar"
+                                )
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "ilv-form-group" },
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-link" },
+                            "Adicionar nova forma\xE7\xE3o"
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-md-6" },
+                            React.createElement(
+                                "form",
+                                { className: "ilv-card" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-card-body" },
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newFormationSchoolName" },
+                                            "Institui\xE7\xE3o de ensino"
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "password", id: "newFormationSchoolName" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newFormationArea" },
+                                            "\xC1rea de atua\xE7\xE3o"
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "password", id: "newFormationArea" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newFormationDegree" },
+                                            "Forma\xE7\xE3o"
+                                        ),
+                                        React.createElement(
+                                            "select",
+                                            { className: "ilv-form-control", id: "newFormationDegree" },
+                                            React.createElement(
+                                                "option",
+                                                null,
+                                                "Bacharel"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                null,
+                                                "Mestrado"
+                                            ),
+                                            React.createElement(
+                                                "option",
+                                                null,
+                                                "Doutorado"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newFormationTimePeriod" },
+                                            "Per\xEDodo"
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "row" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-6" },
+                                                React.createElement("input", { className: "ilv-form-control", type: "number", id: "newFormationTimePeriod", placeholder: "Ano" })
+                                            ),
+                                            React.createElement(
+                                                "div",
+                                                { className: "col-xs-6" },
+                                                React.createElement("input", { className: "ilv-form-control", type: "number", placeholder: "Ano" })
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label", htmlFor: "newFormationDescription" },
+                                            "Descri\xE7\xE3o"
+                                        ),
+                                        React.createElement("textarea", { className: "ilv-form-control", id: "newFormationDescription" })
+                                    ),
+                                    React.createElement(
+                                        "button",
+                                        { className: "ilv-btn ilv-btn-primary" },
+                                        "Adicionar"
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/ProfessionalProfile.jsx");
+}();
+
+;

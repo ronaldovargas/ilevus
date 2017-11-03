@@ -1,0 +1,150 @@
+
+var _ = require("underscore");
+var moment = require("moment");
+var numeral = require("numeral");
+var React = require('react');
+
+var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    propTypes: {
+        process: React.PropTypes.object.isRequired,
+        session: React.PropTypes.object.isRequired,
+        isCoach: React.PropTypes.bool.isRequired
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            process: null
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        this.updateDurationCounter();
+    },
+    componentWillReceiveProps: function componentWillReceiveProps() {
+        this.sessionDuration = null;
+    },
+    newSession: function newSession(event) {
+        event && event.preventDefault();
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_NEW_SESSION,
+            data: this.props.process.Id
+        });
+    },
+    startSession: function startSession(event) {
+        event && event.preventDefault();
+        CoachingStore.dispatch({
+            action: CoachingStore.ACTION_START_SESSION,
+            data: this.props.process.Id
+        });
+    },
+    finishSession: function finishSession(event) {
+        var _this = this;
+
+        event && event.preventDefault();
+        var me = this;
+        Modal.confirm(Messages.get("TextAreYouSure"), Messages.get("TextSessionFinishConfirmation"), function () {
+            CoachingStore.dispatch({
+                action: CoachingStore.ACTION_FINISH_SESSION,
+                data: me.props.process.Id
+            });
+            _this.sessionDuration = null;
+            Modal.hide();
+        });
+    },
+    updateDurationCounter: function updateDurationCounter() {
+        var el = this.refs["duration-counter"],
+            session = this.props.session;
+        if (session.Status == 5 && el) {
+            if (!this.sessionDuration) {
+                this.sessionDuration = moment.duration(moment().diff(moment(session.Started), "seconds"), "seconds");
+            } else {
+                this.sessionDuration.add(1, "seconds");
+            }
+            var hours = numeral(this.sessionDuration.hours()),
+                minutes = numeral(this.sessionDuration.minutes()),
+                seconds = numeral(this.sessionDuration.seconds());
+            el.innerHTML = hours.format("00") + ":" + minutes.format("00") + ":" + seconds.format("00");
+        }
+        if (this.isMounted()) _.delay(this.updateDurationCounter, 1000);
+    },
+    render: function render() {
+        var latestFinished = this.props.process.Sessions[this.props.process.Sessions.length - 1].Status >= 10,
+            currentDuration = this.props.session.Status >= 10 ? moment.duration(moment(this.props.session.Finished).diff(moment(this.props.session.Started), "seconds"), "seconds") : null,
+            currentDurationString = currentDuration ? numeral(currentDuration.hours()).format("00") + ":" + numeral(currentDuration.minutes()).format("00") + ":" + numeral(currentDuration.seconds()).format("00") : null;
+        return React.createElement(
+            "div",
+            { className: "ilv-card mb-5" },
+            this.props.session.Status == 0 ? React.createElement(
+                "div",
+                { className: "ilv-card-header text-center" },
+                React.createElement(
+                    "i",
+                    null,
+                    Messages.get("LabelNotStarted")
+                ),
+                this.props.isCoach ? React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success mt-2", onClick: this.startSession },
+                    Messages.get("LabelStartSession")
+                ) : ""
+            ) : this.props.session.Status < 10 ? React.createElement(
+                "div",
+                { className: "ilv-card-header text-center" },
+                React.createElement(
+                    "small",
+                    null,
+                    Messages.get("LabelSessionDuration"),
+                    ":"
+                ),
+                React.createElement("h1", { className: "mb-3", ref: "duration-counter" }),
+                this.props.isCoach ? React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-destructive", onClick: this.finishSession },
+                    Messages.get("LabelEndSession")
+                ) : ""
+            ) : React.createElement(
+                "div",
+                { className: "ilv-card-header text-center" },
+                React.createElement(
+                    "small",
+                    null,
+                    Messages.get("LabelSessionDuration"),
+                    ":"
+                ),
+                React.createElement(
+                    "h1",
+                    { className: "mb-3" },
+                    currentDurationString
+                ),
+                React.createElement(
+                    "i",
+                    null,
+                    Messages.get("LabelFinished")
+                )
+            ),
+            latestFinished && this.props.isCoach ? React.createElement(
+                "div",
+                { className: "ilv-card-block" },
+                React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-link", onClick: this.newSession },
+                    Messages.get("LabelNewSession")
+                )
+            ) : ""
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

@@ -1,0 +1,56 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  justify-content: center;\n  padding: 1rem;\n  @media screen and (max-width: 640px) {\n    padding: 0.5rem;\n  }\n'], ['\n  display: flex;\n  justify-content: center;\n  padding: 1rem;\n  @media screen and (max-width: 640px) {\n    padding: 0.5rem;\n  }\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n  width: 100%;\n  max-width: ', ';\n  > :not(:first-child) {\n    margin-left: 1rem;\n  }\n'], ['\n  display: flex;\n  align-items: center;\n  width: 100%;\n  max-width: ', ';\n  > :not(:first-child) {\n    margin-left: 1rem;\n  }\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n  flex: 1\n'], ['\n  flex: 1\n']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+import React from 'react';
+import styled from 'styled-components';
+import { size } from 'styled-theme';
+
+import { IconLink, PrimaryNavigation, Block } from 'components';
+import { UserButton } from 'containers';
+
+var Wrapper = styled(Block)(_templateObject);
+
+var InnerWrapper = styled.div(_templateObject2, size('maxWidth'));
+
+var StyledPrimaryNavigation = styled(PrimaryNavigation)(_templateObject3);
+
+var Header = function Header(props) {
+  return React.createElement(
+    Wrapper,
+    _extends({ opaque: true, reverse: true }, props),
+    React.createElement(
+      InnerWrapper,
+      null,
+      React.createElement(IconLink, { to: '/', icon: 'arc', height: 100 }),
+      React.createElement(StyledPrimaryNavigation, { reverse: true }),
+      React.createElement(UserButton, { reverse: true, transparent: true })
+    )
+  );
+};
+
+var _default = Header;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Wrapper, 'Wrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(InnerWrapper, 'InnerWrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledPrimaryNavigation, 'StyledPrimaryNavigation', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(Header, 'Header', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Header/index.js');
+}();
+
+;

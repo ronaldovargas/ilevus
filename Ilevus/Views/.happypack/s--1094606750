@@ -1,0 +1,134 @@
+/**
+    Esta é a store da entidade de Notificacoes do sistema.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+
+var URL = Fluxbone.BACKEND_URL + "Notifications";
+
+var NotificationsModel = Fluxbone.Model.extend({
+    url: URL,
+    validate: function validate(attrs, options) {
+        var errors = [];
+
+        if (errors.length > 0) return errors;
+    }
+});
+
+var NotificationsStore = Fluxbone.Store.extend({
+    ACTION_USER_NOTIFICATIONS: 'notifications-notificationsUser',
+    ACTION_ALL_NOTIFICATIONS: 'notifications-notificationsAll',
+    ACTION_SEND_NOTIFICATION: 'notifications-sendNotification',
+    ACTION_GET_NOTIFICATION: 'notifications-getNotification',
+    ACTION_READ_NOTIFICATION: 'notifications-readNotification',
+    ACTION_DELETE_NOTIFICATION: 'notifications-deleteNotification',
+    dispatchAcceptRegex: /^notifications-[a-zA-Z0-9]+$/,
+
+    url: URL,
+    model: NotificationsModel,
+
+    getNotification: function getNotification(id) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetNotification/" + id,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("notificationget", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    deleteNotification: function deleteNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/DelNotification/" + idNotification,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("notificationsuser", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    readNotification: function readNotification(idNotification) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/SetRead/" + idNotification,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("notificationsuser", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    notificationsAll: function notificationsAll(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/AllNotifications",
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("notificationsall", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    notificationsUser: function notificationsUser(params) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/UserNotifications/" + params.Id,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("notificationsuser", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    sendNotification: function sendNotification(params) {
+        var me = this;
+        $.ajax({
+            method: "POST",
+            url: me.url + "/Send",
+            dataType: "json",
+            data: params,
+            success: function success(data, status, opts) {
+                me.trigger("send-notification", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    }
+});
+
+module.exports = new NotificationsStore();
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/notifications/Notification.jsx");
+
+    __REACT_HOT_LOADER__.register(NotificationsModel, "NotificationsModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/notifications/Notification.jsx");
+
+    __REACT_HOT_LOADER__.register(NotificationsStore, "NotificationsStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/notifications/Notification.jsx");
+}();
+
+;

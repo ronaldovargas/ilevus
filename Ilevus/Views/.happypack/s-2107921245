@@ -1,0 +1,122 @@
+"use strict";
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var React = require("react");
+
+module.exports = React.createClass({
+    displayName: "exports",
+    getDefaultProps: function getDefaultProps() {
+        return {
+            className: "alert alert-danger alert-dismissible",
+            store: null
+        };
+    },
+    getInitialState: function getInitialState() {
+        return {
+            error: false,
+            errorMessage: ""
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        if (!this.props.store) {
+            console.error("You must define a store for error alert handling.");
+            return;
+        }
+        this.props.store.on('invalid', this.handleValidation, this);
+        this.props.store.on('fail', this.handleFailure, this);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        if (this.props.store) {
+            this.props.store.off(null, null, this);
+        }
+    },
+    handleValidation: function handleValidation(model, errors, opts) {
+        this.setState({
+            error: true,
+            errorMessage: errors
+        });
+    },
+    handleFailure: function handleFailure(errors) {
+        this.setState({
+            error: true,
+            errorMessage: errors
+        });
+    },
+    closeAlerts: function closeAlerts() {
+        this.setState({
+            error: false
+        });
+    },
+    render: function render() {
+        if (!this.state.error) return React.createElement("span", { className: "hidden" });
+        if (this.state.error) {
+            if (typeof this.state.errorMessage == 'string') {
+                return React.createElement(
+                    "div",
+                    { className: this.props.className, role: "alert" },
+                    React.createElement(
+                        "a",
+                        { className: "close", "aria-label": "Fechar Alerta", onClick: this.closeAlerts },
+                        React.createElement(
+                            "span",
+                            { "aria-hidden": "true" },
+                            "\xD7"
+                        )
+                    ),
+                    this.state.errorMessage
+                );
+            } else if (_typeof(this.state.errorMessage) == 'object') {
+                var errNo = 0;
+                return React.createElement(
+                    "div",
+                    { className: this.props.className, role: "alert" },
+                    React.createElement(
+                        "a",
+                        { className: "close", "aria-label": "Fechar Alerta", onClick: this.closeAlerts },
+                        React.createElement(
+                            "span",
+                            { "aria-hidden": "true" },
+                            "\xD7"
+                        )
+                    ),
+                    React.createElement(
+                        "ul",
+                        null,
+                        this.state.errorMessage.map(function (err) {
+                            return React.createElement(
+                                "li",
+                                { key: "errmsg-" + errNo++ },
+                                err
+                            );
+                        })
+                    )
+                );
+            } else {
+                return React.createElement(
+                    "div",
+                    { className: this.props.className, role: "alert" },
+                    React.createElement(
+                        "a",
+                        { className: "close", "aria-label": "Fechar Alerta", onClick: this.closeAlerts },
+                        React.createElement(
+                            "span",
+                            { "aria-hidden": "true" },
+                            "\xD7"
+                        )
+                    ),
+                    "An unexpected error occurred."
+                );
+            }
+        }
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

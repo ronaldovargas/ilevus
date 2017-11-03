@@ -1,0 +1,204 @@
+/**
+    Esta é a store da entidade de Usuário do sistema.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+
+var URL = Fluxbone.BACKEND_URL + "System";
+
+var SystemConfigModel = Fluxbone.Model.extend({
+	url: URL,
+	validate: function validate(attrs, options) {
+		var errors = [];
+
+		if (errors.length > 0) return errors;
+	}
+});
+
+var SystemStore = Fluxbone.Store.extend({
+	ACTION_RETRIEVE_MESSAGES: 'system-retrieveMessages',
+	ACTION_RETRIEVE_CONFIG: 'system-retrieveConfig',
+	ACTION_UPDATE_CONFIG_EMAIL: 'system-updateConfigEmail',
+	ACTION_UPDATE_CONFIG_APIS: 'system-updateConfigApis',
+
+	ACTION_RETRIEVE_DEFINITIONS: 'system-retrieveDefinitionsConfig',
+	ACTION_UPDATE_DEFINITIONS: 'system-updateDefinitionsConfigs',
+
+	ACTION_ADD_TRANSLATION_KEY: "system-addTranslationKey",
+	ACTION_REVIEW_TRANSLATION_KEY: "system-reviewTranslationKey",
+	ACTION_UPDATE_TRANSLATION: "system-updateTranslation",
+	ACTION_SYNC_TRANSLATIONS: "system-syncTranslations",
+	dispatchAcceptRegex: /^system-[a-zA-Z0-9]+$/,
+
+	url: URL,
+	model: SystemConfigModel,
+
+	addTranslationKey: function addTranslationKey(key) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: BACKEND_URL + "Messages/Report?key=" + key,
+			success: function success() {
+				me.trigger("add-translation-key");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	reviewTranslationKey: function reviewTranslationKey(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Messages/Review",
+			data: params,
+			success: function success() {
+				me.trigger("review-translation-key");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateTranslation: function updateTranslation(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Messages",
+			data: params,
+			success: function success() {
+				me.trigger("update-translation");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveMessages: function retrieveMessages() {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Messages",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-messages", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveConfig: function retrieveConfig() {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Config",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-config", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateConfigEmail: function updateConfigEmail(params) {
+		var me = this;
+		var which = params.which;
+		delete params.which;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Config/" + which,
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("update-config-email", data);
+				me.trigger("retrieve-config", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateConfigApis: function updateConfigApis(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Config/Apis",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("update-config-apis", data);
+				me.trigger("retrieve-config", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	syncTranslations: function syncTranslations(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Messages/Sync",
+			dataType: 'json',
+			contentType: "application/json",
+			data: JSON.stringify(params),
+			success: function success(data, status, opts) {
+				me.trigger("translations-synced", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveDefinitionsConfig: function retrieveDefinitionsConfig() {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Config/RetriveDefinitions",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-definition-config", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateDefinitionsConfigs: function updateDefinitionsConfigs(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Config/Definitions",
+			dataType: 'json',
+			contentType: "application/json",
+			data: JSON.stringify(params),
+			success: function success(data, status, opts) {
+				me.trigger("update-system-definition", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	}
+});
+
+module.exports = new SystemStore();
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/System.jsx");
+
+	__REACT_HOT_LOADER__.register(SystemConfigModel, "SystemConfigModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/System.jsx");
+
+	__REACT_HOT_LOADER__.register(SystemStore, "SystemStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/System.jsx");
+}();
+
+;

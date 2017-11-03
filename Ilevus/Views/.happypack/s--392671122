@@ -1,0 +1,43 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { PageTemplate, Header, Footer, Heading } from 'components';
+
+var NotFoundPage = function NotFoundPage(_ref) {
+  var staticContext = _ref.staticContext;
+
+  if (staticContext) {
+    // eslint-disable-next-line no-param-reassign
+    staticContext.status = 404;
+  }
+
+  return React.createElement(
+    PageTemplate,
+    { header: React.createElement(Header, null), footer: React.createElement(Footer, null) },
+    React.createElement(
+      Heading,
+      null,
+      '404 Not Found'
+    )
+  );
+};
+
+NotFoundPage.propTypes = {
+  staticContext: PropTypes.object
+};
+
+var _default = NotFoundPage;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(NotFoundPage, 'NotFoundPage', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/NotFoundPage/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/NotFoundPage/index.js');
+}();
+
+;

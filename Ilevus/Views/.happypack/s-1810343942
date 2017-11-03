@@ -1,0 +1,276 @@
+// https://github.com/diegohaz/arc/wiki/Actions
+// https://github.com/diegohaz/arc/wiki/Example-redux-modules#resource
+export var RESOURCE_CREATE_REQUEST = 'RESOURCE_CREATE_REQUEST';
+export var RESOURCE_CREATE_SUCCESS = 'RESOURCE_CREATE_SUCCESS';
+export var RESOURCE_CREATE_FAILURE = 'RESOURCE_CREATE_FAILURE';
+
+export var resourceCreateRequest = function resourceCreateRequest(resource, data) {
+  return {
+    type: RESOURCE_CREATE_REQUEST,
+    payload: { data: data },
+    meta: {
+      resource: resource,
+      // https://github.com/diegohaz/arc/wiki/Actions#async-actions
+      thunk: resource + 'Create'
+    }
+  };
+};
+
+export var resourceCreateSuccess = function resourceCreateSuccess(resource, detail, request, thunk) {
+  return {
+    type: RESOURCE_CREATE_SUCCESS,
+    payload: detail,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource,
+      // https://github.com/diegohaz/arc/wiki/Example-redux-modules#entities
+      entities: resource
+    }
+  };
+};
+
+export var resourceCreateFailure = function resourceCreateFailure(resource, error, request, thunk) {
+  return {
+    type: RESOURCE_CREATE_FAILURE,
+    error: true,
+    payload: error,
+    meta: {
+      request: request,
+      resource: resource,
+      // https://github.com/diegohaz/arc/wiki/Actions#async-actions
+      thunk: thunk
+    }
+  };
+};
+
+export var RESOURCE_LIST_READ_REQUEST = 'RESOURCE_LIST_READ_REQUEST';
+export var RESOURCE_LIST_READ_SUCCESS = 'RESOURCE_LIST_READ_SUCCESS';
+export var RESOURCE_LIST_READ_FAILURE = 'RESOURCE_LIST_READ_FAILURE';
+
+export var resourceListReadRequest = function resourceListReadRequest(resource, params) {
+  return {
+    type: RESOURCE_LIST_READ_REQUEST,
+    payload: { params: params },
+    meta: {
+      resource: resource,
+      thunk: resource + 'ListRead'
+    }
+  };
+};
+
+export var resourceListReadSuccess = function resourceListReadSuccess(resource, list, request, thunk) {
+  return {
+    type: RESOURCE_LIST_READ_SUCCESS,
+    payload: list,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource,
+      entities: resource
+    }
+  };
+};
+
+export var resourceListReadFailure = function resourceListReadFailure(resource, error, request, thunk) {
+  return {
+    type: RESOURCE_LIST_READ_FAILURE,
+    error: true,
+    payload: error,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource
+    }
+  };
+};
+
+export var RESOURCE_DETAIL_READ_REQUEST = 'RESOURCE_DETAIL_READ_REQUEST';
+export var RESOURCE_DETAIL_READ_SUCCESS = 'RESOURCE_DETAIL_READ_SUCCESS';
+export var RESOURCE_DETAIL_READ_FAILURE = 'RESOURCE_DETAIL_READ_FAILURE';
+
+export var resourceDetailReadRequest = function resourceDetailReadRequest(resource, needle) {
+  return {
+    type: RESOURCE_DETAIL_READ_REQUEST,
+    payload: { needle: needle },
+    meta: {
+      resource: resource,
+      thunk: resource + 'DetailRead'
+    }
+  };
+};
+
+export var resourceDetailReadSuccess = function resourceDetailReadSuccess(resource, detail, request, thunk) {
+  return {
+    type: RESOURCE_DETAIL_READ_SUCCESS,
+    payload: detail,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource,
+      entities: resource
+    }
+  };
+};
+
+export var resourceDetailReadFailure = function resourceDetailReadFailure(resource, error, request, thunk) {
+  return {
+    type: RESOURCE_DETAIL_READ_FAILURE,
+    error: true,
+    payload: error,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource
+    }
+  };
+};
+
+export var RESOURCE_UPDATE_REQUEST = 'RESOURCE_UPDATE_REQUEST';
+export var RESOURCE_UPDATE_SUCCESS = 'RESOURCE_UPDATE_SUCCESS';
+export var RESOURCE_UPDATE_FAILURE = 'RESOURCE_UPDATE_FAILURE';
+
+export var resourceUpdateRequest = function resourceUpdateRequest(resource, needle, data) {
+  return {
+    type: RESOURCE_UPDATE_REQUEST,
+    payload: { needle: needle, data: data },
+    meta: {
+      resource: resource,
+      thunk: resource + 'Update'
+    }
+  };
+};
+
+export var resourceUpdateSuccess = function resourceUpdateSuccess(resource, detail, request, thunk) {
+  return {
+    type: RESOURCE_UPDATE_SUCCESS,
+    payload: detail,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource,
+      entities: resource
+    }
+  };
+};
+
+export var resourceUpdateFailure = function resourceUpdateFailure(resource, error, request, thunk) {
+  return {
+    type: RESOURCE_UPDATE_FAILURE,
+    error: true,
+    payload: error,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource
+    }
+  };
+};
+
+export var RESOURCE_DELETE_REQUEST = 'RESOURCE_DELETE_REQUEST';
+export var RESOURCE_DELETE_SUCCESS = 'RESOURCE_DELETE_SUCCESS';
+export var RESOURCE_DELETE_FAILURE = 'RESOURCE_DELETE_FAILURE';
+
+export var resourceDeleteRequest = function resourceDeleteRequest(resource, needle) {
+  return {
+    type: RESOURCE_DELETE_REQUEST,
+    payload: { needle: needle },
+    meta: {
+      resource: resource,
+      thunk: resource + 'Delete'
+    }
+  };
+};
+
+export var resourceDeleteSuccess = function resourceDeleteSuccess(resource, request, thunk) {
+  return {
+    type: RESOURCE_DELETE_SUCCESS,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource
+    }
+  };
+};
+
+export var resourceDeleteFailure = function resourceDeleteFailure(resource, error, request, thunk) {
+  return {
+    type: RESOURCE_DELETE_FAILURE,
+    error: true,
+    payload: error,
+    meta: {
+      request: request,
+      thunk: thunk,
+      resource: resource
+    }
+  };
+};
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(RESOURCE_CREATE_REQUEST, 'RESOURCE_CREATE_REQUEST', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_CREATE_SUCCESS, 'RESOURCE_CREATE_SUCCESS', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_CREATE_FAILURE, 'RESOURCE_CREATE_FAILURE', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceCreateRequest, 'resourceCreateRequest', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceCreateSuccess, 'resourceCreateSuccess', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceCreateFailure, 'resourceCreateFailure', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_LIST_READ_REQUEST, 'RESOURCE_LIST_READ_REQUEST', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_LIST_READ_SUCCESS, 'RESOURCE_LIST_READ_SUCCESS', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_LIST_READ_FAILURE, 'RESOURCE_LIST_READ_FAILURE', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceListReadRequest, 'resourceListReadRequest', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceListReadSuccess, 'resourceListReadSuccess', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceListReadFailure, 'resourceListReadFailure', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DETAIL_READ_REQUEST, 'RESOURCE_DETAIL_READ_REQUEST', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DETAIL_READ_SUCCESS, 'RESOURCE_DETAIL_READ_SUCCESS', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DETAIL_READ_FAILURE, 'RESOURCE_DETAIL_READ_FAILURE', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDetailReadRequest, 'resourceDetailReadRequest', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDetailReadSuccess, 'resourceDetailReadSuccess', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDetailReadFailure, 'resourceDetailReadFailure', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_UPDATE_REQUEST, 'RESOURCE_UPDATE_REQUEST', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_UPDATE_SUCCESS, 'RESOURCE_UPDATE_SUCCESS', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_UPDATE_FAILURE, 'RESOURCE_UPDATE_FAILURE', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceUpdateRequest, 'resourceUpdateRequest', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceUpdateSuccess, 'resourceUpdateSuccess', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceUpdateFailure, 'resourceUpdateFailure', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DELETE_REQUEST, 'RESOURCE_DELETE_REQUEST', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DELETE_SUCCESS, 'RESOURCE_DELETE_SUCCESS', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(RESOURCE_DELETE_FAILURE, 'RESOURCE_DELETE_FAILURE', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDeleteRequest, 'resourceDeleteRequest', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDeleteSuccess, 'resourceDeleteSuccess', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+
+  __REACT_HOT_LOADER__.register(resourceDeleteFailure, 'resourceDeleteFailure', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/actions.js');
+}();
+
+;

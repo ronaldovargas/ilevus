@@ -1,0 +1,321 @@
+"use strict";
+
+var S = require("string");
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: UserSession.get("loading")
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        UserSession.on("fail", function (msg) {
+            $("button").removeAttr("disabled");
+            Toastr.remove();
+            Toastr.error(msg);
+        }, me);
+        UserSession.on("loaded", function () {
+            me.setState({
+                loading: false
+            });
+        }, me);
+        UserSession.on("updatepassword", function () {
+            $(me.refs["setpwd-save"]).removeClass("loading").removeAttr("disabled");
+            Toastr.remove();
+            Toastr.success(Messages.get("TextPasswordSetSuccess"));
+        }, me);
+
+        UserSession.on("update-confirmed-email", function () {
+            $("button").removeAttr("disabled");
+            Toastr.remove();
+            Toastr.success(Messages.get("TextChangeEmailConfirmationSent"));
+            _this.refs['profile-email'].value = "";
+            me.forceUpdate();
+        }, me);
+
+        UserSession.on("confirmationemail", function () {
+            $("button").removeAttr("disabled");
+        }, me);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+    updateLanguage: function updateLanguage(event) {
+        $(this.refs["culture-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            Culture: this.refs['account-culture'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_CULTURE,
+            data: data
+        });
+    },
+    updatePassword: function updatePassword(event) {
+        $(this.refs["setpwd-save"]).addClass("loading").attr("disabled", "disabled");
+        var data = {
+            OldPassword: this.refs['setpwd-oldpassword'].value,
+            NewPassword: this.refs['setpwd-password'].value,
+            ConfirmPassword: this.refs['setpwd-passwordconfirm'].value
+        };
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PASSWORD,
+            data: data
+        });
+    },
+    updateEmail: function updateEmail(event) {
+        event.preventDefault();
+        var email = S(this.refs['profile-email'].value);
+        if (email.isEmpty()) {
+            Toastr.remove();
+            Toastr.error(Messages.get("TextTypeYourEmail"));
+            return;
+        }
+        $(this.refs["email-save"]).attr("disabled", "disabled");
+        var user = UserSession.get("user");
+        if (user.EmailConfirmed) {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UPDATE_CONFIRMED_EMAIL,
+                data: email.s
+            });
+        } else {
+            UserSession.dispatch({
+                action: UserSession.ACTION_UPDATE_EMAIL,
+                data: email.s
+            });
+        }
+    },
+    confirmEmail: function confirmEmail(event) {
+        event.preventDefault();
+        $(this.refs["email-confirm"]).attr("disabled", "disabled");
+        UserSession.dispatch({
+            action: UserSession.ACTION_CONFIRMATION_EMAIL
+        });
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        var user = UserSession.get("user");
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "row" },
+                React.createElement(
+                    "div",
+                    { className: "col mb-5" },
+                    React.createElement(
+                        "h4",
+                        null,
+                        Messages.get("LabelChangePassword")
+                    ),
+                    React.createElement(
+                        "form",
+                        null,
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "editAccountFormPassword" },
+                                Messages.get("LabelPasswordCurrent")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "password", id: "editAccountFormPassword", ref: "setpwd-oldpassword" })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "editAccountFormNewPassword" },
+                                Messages.get("LabelPasswordNew")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "password", id: "editAccountFormNewPassword", ref: "setpwd-password" })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group m-b-0" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "editAccountFormConfirmPassword" },
+                                Messages.get("LabelPasswordConfirm")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "password", id: "editAccountFormConfirmPassword", ref: "setpwd-passwordconfirm" })
+                        )
+                    ),
+                    React.createElement(
+                        "button",
+                        { className: "ilv-btn ilv-btn-primary", ref: "setpwd-save", onClick: this.updatePassword },
+                        Messages.get("ActionChangePassword")
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "col mb-5" },
+                    React.createElement(
+                        "form",
+                        { className: "mb-5" },
+                        React.createElement(
+                            "h4",
+                            null,
+                            Messages.get("LabelChangeEmail")
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "editProfileFormMail" },
+                                user.EmailConfirmed ? Messages.get("LabelNewEmail") : Messages.get("LabelEmail")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control",
+                                type: "email",
+                                spellCheck: false,
+                                id: "editProfileFormMail",
+                                ref: "profile-email",
+                                defaultValue: user.EmailConfirmed ? "" : user.Email }),
+                            React.createElement(
+                                "span",
+                                { className: "ilv-text-small" },
+                                Messages.get("TextEmailWillNotBeShared")
+                            )
+                        ),
+                        user.EmailConfirmed ? React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelActualEmail")
+                            ),
+                            React.createElement(
+                                "div",
+                                null,
+                                user.Email,
+                                " ",
+                                React.createElement(
+                                    "i",
+                                    { className: "ilv-text-success material-icons md-18",
+                                        title: Messages.get("TextEmailConfirmed") },
+                                    "\uE86C"
+                                )
+                            ),
+                            user.EmailChange ? React.createElement(
+                                "div",
+                                null,
+                                user.EmailChange,
+                                " ",
+                                React.createElement(
+                                    "i",
+                                    { className: "ilv-text-warning material-icons md-18",
+                                        title: Messages.get("TextEmailWaitingConfirmation") },
+                                    "\uE887"
+                                )
+                            ) : ""
+                        ) : "",
+                        user.EmailConfirmed ? "" : React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelActualEmail")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", value: user.Email, disabled: true }),
+                            React.createElement(
+                                "a",
+                                { className: "ilv-text-small", href: "javascrip:;", onClick: this.confirmEmail, ref: "email-confirm" },
+                                Messages.get("LabelConfirmEmail")
+                            )
+                        ),
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-primary", ref: "email-save", onClick: this.updateEmail },
+                            Messages.get("ActionChangeEmail")
+                        )
+                    ),
+                    React.createElement(
+                        "form",
+                        { className: "mb-5" },
+                        React.createElement(
+                            "h4",
+                            null,
+                            Messages.get("LabelChangeLanguage")
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: "editAccountCulture" },
+                                Messages.get("LabelLanguage")
+                            ),
+                            React.createElement(
+                                "select",
+                                { className: "ilv-form-control", id: "editAccountCulture", ref: "account-culture", defaultValue: user.Culture },
+                                React.createElement(
+                                    "option",
+                                    { value: "" },
+                                    "-- ",
+                                    Messages.get("LabelLanguage"),
+                                    " --"
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "pt-br" },
+                                    Messages.get("LanguagePortuguese")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "en" },
+                                    Messages.get("LanguageEnglish")
+                                ),
+                                React.createElement(
+                                    "option",
+                                    { value: "es" },
+                                    Messages.get("LanguageSpanish")
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-primary", ref: "culture-save", onClick: this.updateLanguage },
+                            Messages.get("ActionChangeLanguage")
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/Account.jsx");
+}();
+
+;

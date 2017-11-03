@@ -1,0 +1,678 @@
+"use strict";
+
+var React = require("react");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var string = require("string");
+
+var ImgNetworking = require('ilevus/img/lp-networking.jpg');
+var ImgBanner = require('ilevus/img/lp-banner.jpg');
+var ImgMeeting = require('ilevus/img/img-wizard.png');
+var DocumentTitle = require('react-document-title');
+
+var LogoWhite = require('ilevus/img/ilevus-logo-white-20px.png');
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var IconGrowth = require("ilevus/img/growth.svg");
+var IconSupport = require("ilevus/img/support.svg");
+var IconNetworking = require("ilevus/img/networking.svg");
+var IconMeet = require("ilevus/img/meet.svg");
+
+var StyleBanner = {
+    backgroundImage: 'url(' + ImgBanner + ')'
+};
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object.isRequired
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        var userID = this.props.location.query.p;
+        if (userID) {
+            me.context.router.push("/profile/" + userID);
+        }
+    },
+    onSearch: function onSearch(evt) {
+        evt.preventDefault();
+        var term = this.refs['search-term'].value;
+        if (!string(term).isEmpty()) this.context.router.push("/search/" + encodeURI(term));
+    },
+    render: function render() {
+        return React.createElement(
+            DocumentTitle,
+            { title: "Ilevus | Sua rede de coaching" },
+            React.createElement(
+                "div",
+                null,
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-banner", style: StyleBanner, role: "banner" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-lp-banner-content" },
+                                    React.createElement(
+                                        "form",
+                                        { onSubmit: this.onSearch },
+                                        React.createElement(
+                                            "div",
+                                            { className: "ilv-text-xs-center" },
+                                            React.createElement(
+                                                "h1",
+                                                { className: "ilv-lp-banner-slogan" },
+                                                Messages.get("TextSlogan")
+                                            ),
+                                            React.createElement(
+                                                "p",
+                                                { className: "ilv-lp-banner-lead" },
+                                                Messages.get("TextSloganDescription")
+                                            )
+                                        ),
+                                        React.createElement(
+                                            "div",
+                                            { className: "center-block" },
+                                            React.createElement(
+                                                "div",
+                                                { className: "ilv-input-group" },
+                                                React.createElement("input", { ref: "search-term",
+                                                    className: "ilv-form-control ilv-form-control-lg ilv-lp-banner-form-control",
+                                                    type: "search", placeholder: Messages.get("TextSearchPlaceholder") }),
+                                                React.createElement(
+                                                    "div",
+                                                    { className: "ilv-input-group-btn" },
+                                                    React.createElement(
+                                                        "button",
+                                                        { className: "ilv-btn ilv-btn-lg ilv-btn-block ilv-btn-success ilv-lp-banner-btn", type: "submit" },
+                                                        "Pesquisar"
+                                                    )
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-section ilv-lp-section-white" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-text-xs-center" },
+                                    React.createElement(
+                                        "h1",
+                                        { className: "ilv-lp-section-heading" },
+                                        "Crescimento profissional \xE9 na Ilevus",
+                                        React.createElement(
+                                            "small",
+                                            null,
+                                            React.createElement(
+                                                "sup",
+                                                null,
+                                                "\xAE"
+                                            )
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "p",
+                                        { className: "ilv-lp-section-lead" },
+                                        "Desenvolva sua carreira junto dos melhores profissionais do mercado e acelere o seu caminho at\xE9 o sucesso."
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "row mb-3" },
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 col-sm-12 col-md-4 mb-3 text-center" },
+                                React.createElement("img", { className: "ilv-lp-icon-lg mb-2", src: IconSupport }),
+                                React.createElement(
+                                    "h3",
+                                    null,
+                                    "Suporte Profissional"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Encontre profissionais especializados em v\xE1rias \xE1reas de conhecimento, para te dar suporte na elabora\xE7\xE3o e execu\xE7\xE3o dos seus projetos pessoais."
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 col-sm-12 col-md-4 mb-3 text-center" },
+                                React.createElement("img", { className: "ilv-lp-icon-lg mb-2", src: IconNetworking }),
+                                React.createElement(
+                                    "h3",
+                                    null,
+                                    "Networking"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Agende reuni\xF5es, envie mensagens e troque conhecimento com pessoas que podem ajudar a mudar seu futuro."
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 col-sm-12 col-md-4 text-center" },
+                                React.createElement("img", { className: "ilv-lp-icon-lg mb-2", src: IconGrowth }),
+                                React.createElement(
+                                    "h3",
+                                    null,
+                                    "Crescimento Pessoal"
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    "Torne-se uma pessoa melhor atrav\xE9s de orienta\xE7\xF5es que ir\xE3o te ajudar a alcan\xE7ar seus objetivos de forma a ser um destaque."
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col text-center" },
+                                React.createElement(
+                                    "button",
+                                    { className: "ilv-btn ilv-btn-primary ilv-btn-lg" },
+                                    "Comece agora"
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-section ilv-lp-section-inverse p-b-0 hidden" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-md-6 m-y-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-form-group" },
+                                    React.createElement(
+                                        "h2",
+                                        { className: "m-b-2" },
+                                        "Agende uma reuni\xE3o hoje mesmo."
+                                    ),
+                                    React.createElement(
+                                        "p",
+                                        { className: "ilv-text-large m-b-2" },
+                                        "Escolha entre os melhores profissionais do mundo e envie uma mensagem para agendar sua primeira reuni\xE3o."
+                                    )
+                                ),
+                                React.createElement(
+                                    "form",
+                                    { className: "ilv-form" },
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement("input", { className: "ilv-form-control ilv-form-control-long ilv-form-control-lg", type: "text", placeholder: "Localiza\xE7\xE3o" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement("input", { className: "ilv-form-control ilv-form-control-long ilv-form-control-lg", type: "text", placeholder: "Especialidade" })
+                                    ),
+                                    React.createElement(
+                                        "fieldset",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "button",
+                                            { className: "ilv-btn ilv-btn-lg ilv-btn-success", type: "submit" },
+                                            "Pesquisar"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-6 ilv-text-xs-center" },
+                                React.createElement("img", { style: { height: "500px" }, src: ImgMeeting })
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-section ilv-lp-section-white p-b-0 hidden" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 col-md-6 m-y-2 text-xs-center text-sm-left pull-md-right" },
+                                React.createElement(
+                                    "h2",
+                                    { className: "m-t-3 m-b-2" },
+                                    "Fa\xE7a parte da maior rede de profissionais em coaching do mundo."
+                                ),
+                                React.createElement(
+                                    "p",
+                                    { className: "ilv-text-large m-b-2" },
+                                    "\xC9 um profissional especializado em coaching? Crie seu perfil e divulgue seus servi\xE7os de coaching e consultoria para clientes do mundo todo."
+                                ),
+                                React.createElement(
+                                    "button",
+                                    { className: "ilv-btn ilv-btn-lg ilv-btn-destructive" },
+                                    "Crie seu perfil profissional"
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 col-md-6 ilv-text-xs-center" },
+                                React.createElement("img", { style: { "height": "500px" }, src: ImgNetworking, alt: "ilevus" })
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-section hidden" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-md-8 offset-md-2 ilv-text-xs-center" },
+                                React.createElement(
+                                    "h2",
+                                    { className: "m-b-2" },
+                                    "Diversas ferramentas a sua disposi\xE7\xE3o."
+                                ),
+                                React.createElement(
+                                    "p",
+                                    { className: "ilv-text-large m-b-3" },
+                                    "Na Ilevus",
+                                    React.createElement(
+                                        "sup",
+                                        null,
+                                        "\xAE"
+                                    ),
+                                    " voc\xEA tem acesso a ferramentas de ponta que ir\xE3o te auxiliar nas tarefas do dia a dia. Torne seu trabalho mais din\xE2mico e produtivo, crie seu perfil profissional agora."
+                                ),
+                                React.createElement("br", null),
+                                React.createElement("br", null)
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Roda da vida"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Rota de a\xE7\xE3o"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Grande jornada"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "S.M.A.R.T"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Dar e receber"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Roda da realiza\xE7\xE3o"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Lista de desejos"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Ganhos e perdas"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "DISC"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "Miss\xE3o e vis\xE3o"
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-md-3 m-b-3" },
+                                React.createElement(
+                                    "div",
+                                    { className: "ilv-media ilv-media-middle" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-left" },
+                                        React.createElement(
+                                            "i",
+                                            { className: "material-icons md-48" },
+                                            "\uE837"
+                                        )
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-media-body" },
+                                        React.createElement(
+                                            "span",
+                                            { className: "ilv-text-large ilv-font-weight-semibold" },
+                                            "E muito mais..."
+                                        )
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12 text-xs-center m-t-2" },
+                                React.createElement(
+                                    "button",
+                                    { className: "ilv-btn ilv-btn-destructive ilv-btn-lg" },
+                                    "Crie seu perfil profssional agora"
+                                )
+                            )
+                        )
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-lp-testimonial hidden" },
+                    React.createElement(
+                        "div",
+                        { className: "container" },
+                        React.createElement(
+                            "div",
+                            { className: "row" },
+                            React.createElement(
+                                "div",
+                                { className: "col-xs-12" },
+                                React.createElement(
+                                    "h3",
+                                    { className: "ilv-font-weight-normal m-b-2" },
+                                    "\"O sistema da Ilevus",
+                                    React.createElement(
+                                        "sup",
+                                        null,
+                                        "\xAE"
+                                    ),
+                                    " mudou minha vida. Atrav\xE9s das ferramentas disponibilizadas gratuitamente na plataforma, pude coordenar melhor meu trabalho e enxugar meus processos, trazendo benef\xEDcios para mim e para meus clientes.\""
+                                ),
+                                React.createElement(
+                                    "p",
+                                    { className: "ilv-text-large", style: { opacity: ".8" } },
+                                    "Jo\xE3o da Silva, Gestor de RH."
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(StyleBanner, "StyleBanner", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/Home.jsx");
+}();
+
+;

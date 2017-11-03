@@ -1,0 +1,89 @@
+/**
+    Esta é a store da entidade de Avaliações de usuários.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+
+var URL = Fluxbone.BACKEND_URL + "Assessments";
+
+var AssessmentsModel = Fluxbone.Model.extend({
+    url: URL,
+    validate: function validate(attrs, options) {
+        var errors = [];
+
+        if (errors.length > 0) return errors;
+    }
+});
+
+var AssessmentsStore = Fluxbone.Store.extend({
+    ACTION_USER_ASSESSMENTS: 'assessments-getReceivedAssessments',
+    ACTION_SEND_ASSESSMENTS: 'assessments-getSendAssessments',
+    ACTION_GET_ASSESSMENT: 'assessments-getAssessment',
+    ACTION_AVERAGE_ASSESSMENTS: 'assessments-getAverageAssessments',
+    dispatchAcceptRegex: /^assessments-[a-zA-Z0-9]+$/,
+
+    url: URL,
+    model: AssessmentsModel,
+
+    getAssessment: function getAssessment(id) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetAssessment/" + id,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("assessmentget", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    getSendAssessments: function getSendAssessments(idAvaliador) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetSendedAssessment/" + idAvaliador,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("sendeddassessmentget", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    },
+    getReceivedAssessments: function getReceivedAssessments(idAvaliado) {
+        var me = this;
+        $.ajax({
+            method: "GET",
+            url: me.url + "/GetReceivedAssessment/" + idAvaliado,
+            dataType: 'json',
+            success: function success(data, status, opts) {
+                me.trigger("receivedassessmentget", data);
+            },
+            error: function error(opts, status, errorMsg) {
+                me.handleRequestErrors([], opts);
+            }
+        });
+    }
+});
+
+module.exports = new AssessmentsStore();
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Assessments.jsx");
+
+    __REACT_HOT_LOADER__.register(AssessmentsModel, "AssessmentsModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Assessments.jsx");
+
+    __REACT_HOT_LOADER__.register(AssessmentsStore, "AssessmentsStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Assessments.jsx");
+}();
+
+;

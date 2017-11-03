@@ -1,0 +1,120 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; // https://github.com/diegohaz/arc/wiki/Reducers
+// https://github.com/diegohaz/arc/wiki/Example-redux-modules#resource
+
+
+var _findIndex = require('lodash/findIndex');
+
+var _findIndex2 = _interopRequireDefault(_findIndex);
+
+var _get = require('lodash/get');
+
+var _get2 = _interopRequireDefault(_get);
+
+var _selectors = require('./selectors');
+
+var _actions = require('./actions');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var updateOrDeleteReducer = function updateOrDeleteReducer(state, _ref) {
+  var type = _ref.type,
+      payload = _ref.payload,
+      meta = _ref.meta;
+
+  var resource = (0, _get2.default)(meta, 'resource');
+  var needle = (0, _get2.default)(meta, 'request.needle');
+  var needleIsObject = (typeof needle === 'undefined' ? 'undefined' : _typeof(needle)) === 'object';
+  var list = (0, _selectors.getList)(state, resource);
+  var index = needleIsObject ? (0, _findIndex2.default)(list, needle) : list.indexOf(needle);
+
+  if (index < 0) {
+    return state;
+  }
+
+  switch (type) {
+    case _actions.RESOURCE_UPDATE_SUCCESS:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        list: [].concat(_toConsumableArray(list.slice(0, index)), [needleIsObject ? _extends({}, list[index], payload) : payload], _toConsumableArray(list.slice(index + 1)))
+      })));
+    case _actions.RESOURCE_DELETE_SUCCESS:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        list: [].concat(_toConsumableArray(list.slice(0, index)), _toConsumableArray(list.slice(index + 1)))
+      })));
+    // istanbul ignore next
+    default:
+      return state;
+  }
+};
+
+var _default = function _default() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _selectors.initialState;
+  var _ref2 = arguments[1];
+  var type = _ref2.type,
+      payload = _ref2.payload,
+      meta = _ref2.meta;
+
+  var resource = (0, _get2.default)(meta, 'resource');
+
+  if (!resource) {
+    return state;
+  }
+
+  switch (type) {
+    case _actions.RESOURCE_CREATE_SUCCESS:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        list: [payload].concat(_toConsumableArray((0, _selectors.getList)(state, resource)))
+      })));
+
+    case _actions.RESOURCE_LIST_READ_REQUEST:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        list: (0, _selectors.getList)(_selectors.initialState, resource)
+      })));
+    case _actions.RESOURCE_LIST_READ_SUCCESS:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        list: payload
+      })));
+
+    case _actions.RESOURCE_DETAIL_READ_REQUEST:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        detail: (0, _selectors.getDetail)(_selectors.initialState, resource)
+      })));
+    case _actions.RESOURCE_DETAIL_READ_SUCCESS:
+      return _extends({}, state, _defineProperty({}, resource, _extends({}, (0, _selectors.getResourceState)(state, resource), {
+        detail: payload
+      })));
+
+    case _actions.RESOURCE_UPDATE_SUCCESS:
+    case _actions.RESOURCE_DELETE_SUCCESS:
+      return updateOrDeleteReducer(state, { type: type, payload: payload, meta: meta });
+
+    default:
+      return state;
+  }
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(updateOrDeleteReducer, 'updateOrDeleteReducer', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/reducer.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/resource/reducer.js');
+}();
+
+;

@@ -1,0 +1,18 @@
+"use strict";
+
+var _ = require("underscore");
+
+module.exports = {
+    sendPhoneRequestEvent: function sendPhoneRequestEvent() {
+        if (typeof ga != "undefined") ga('send', 'event', "Button", "PhoneRequest");else console.warn("Analytics not found.");
+    }
+};
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

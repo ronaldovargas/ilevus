@@ -1,0 +1,267 @@
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var SystemStore = require("ilevus/jsx/core/store/System.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        SystemStore.on("retrieve-definition-config", function (config) {
+            me.setState({
+                loading: false,
+                config: config
+            });
+
+            jQuery("#CostPerClick-pt-br, #CostPerView-pt-br").maskMoney({ thousands: ".", decimal: ",", prefix: "R$ ", allowZero: true });
+            jQuery("#CostPerClick-pt-br, #CostPerView-pt-br").trigger('mask.maskMoney');
+
+            jQuery("#CostPerClick-en, #CostPerView-en").maskMoney({ thousands: ",", decimal: ".", prefix: "$ ", allowZero: true });
+            jQuery("#CostPerClick-en, #CostPerView-en").trigger('mask.maskMoney');
+
+            jQuery("#CostPerClick-es, #CostPerView-es").maskMoney({ thousands: ".", decimal: ",", suffix: " €", allowZero: true });
+            jQuery("#CostPerClick-es, #CostPerView-es").trigger('mask.maskMoney');
+        }, me);
+        SystemStore.on("update-system-definition", function (config) {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            $("button").removeAttr("disabled");
+        }, me);
+        SystemStore.on("fail", function (msg) {
+            $("button").removeAttr("disabled");
+        }, me);
+
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_RETRIEVE_DEFINITIONS
+        });
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        SystemStore.off(null, null, this);
+    },
+    saveApiConfigs: function saveApiConfigs(event) {
+        event.preventDefault();
+
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_UPDATE_DEFINITIONS,
+            data: {
+                PathAds: this.refs['PathAds'].value,
+                UrlRetriviedAds: this.refs['UrlRetriviedAds'].value,
+                AdsMaxSize: this.refs['AdsMaxSize'].value,
+                pt_br: {
+                    CostPerClick: this.refs["CostPerClick-pt-br"].value,
+                    CostPerView: this.refs["CostPerView-pt-br"].value
+                },
+                en: {
+                    CostPerClick: this.refs["CostPerClick-en"].value,
+                    CostPerView: this.refs["CostPerView-en"].value
+                },
+                es: {
+                    CostPerClick: this.refs["CostPerClick-es"].value,
+                    CostPerView: this.refs["CostPerView-es"].value
+                }
+            }
+        });
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelDefinitions")
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    React.createElement(
+                        "form",
+                        { onSubmit: this.saveApiConfigs },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelAdsBasePathUrl")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, ref: "PathAds", defaultValue: JSON.parse(this.state.config.definitions).PathAds })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelAdsUrlRetrivied")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, ref: "UrlRetriviedAds", defaultValue: JSON.parse(this.state.config.definitions).UrlRetriviedAds })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label" },
+                                Messages.get("LabelAdsMaxSize")
+                            ),
+                            React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, ref: "AdsMaxSize", defaultValue: JSON.parse(this.state.config.definitions).AdsMaxSize })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group", id: "cost-container" },
+                            React.createElement(
+                                "ul",
+                                { className: "ilv-text-sm nav nav-tabs m-b-1" },
+                                React.createElement(
+                                    "li",
+                                    { className: "nav-item" },
+                                    React.createElement(
+                                        "a",
+                                        { className: "nav-link active", "data-toggle": "tab", href: "#cost-pt-br-form" },
+                                        Messages.get("LanguagePortuguese")
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    { className: "nav-item" },
+                                    React.createElement(
+                                        "a",
+                                        { className: "nav-link", "data-toggle": "tab", href: "#cost-en-form" },
+                                        Messages.get("LanguageEnglish")
+                                    )
+                                ),
+                                React.createElement(
+                                    "li",
+                                    { className: "nav-item" },
+                                    React.createElement(
+                                        "a",
+                                        { className: "nav-link", "data-toggle": "tab", href: "#cost-es-form" },
+                                        Messages.get("LanguageSpanish")
+                                    )
+                                )
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "tab-content" },
+                                React.createElement(
+                                    "div",
+                                    { className: "tab-pane active in", id: "cost-pt-br-form" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerClick")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerClick-pt-br", ref: "CostPerClick-pt-br", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerClick_pt_br).toFixed(2) })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerView")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerView-pt-br", ref: "CostPerView-pt-br", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerView_pt_br).toFixed(2) })
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "tab-pane", id: "cost-en-form" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerClick")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerClick-en", ref: "CostPerClick-en", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerClick_en).toFixed(2) })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerView")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerView-en", ref: "CostPerView-en", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerView_en).toFixed(2) })
+                                    )
+                                ),
+                                React.createElement(
+                                    "div",
+                                    { className: "tab-pane", id: "cost-es-form" },
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerClick")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerClick-es", ref: "CostPerClick-es", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerClick_es).toFixed(2) })
+                                    ),
+                                    React.createElement(
+                                        "div",
+                                        { className: "ilv-form-group" },
+                                        React.createElement(
+                                            "label",
+                                            { className: "ilv-form-label" },
+                                            Messages.get("LabelAdsCostPerView")
+                                        ),
+                                        React.createElement("input", { className: "ilv-form-control", type: "text", spellCheck: false, id: "CostPerView-es", ref: "CostPerView-es", defaultValue: parseFloat(JSON.parse(this.state.config.definitions).CostPerView_es).toFixed(2) })
+                                    )
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "button",
+                            { type: "submit", className: "ilv-btn ilv-btn-success" },
+                            Messages.get("LabelSave")
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelDefinitions.jsx");
+}();
+
+;

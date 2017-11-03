@@ -1,0 +1,214 @@
+var _ = require('underscore');
+var $ = require('jquery');
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var Modal = require("ilevus/jsx/core/widget/admin/AdModal.jsx");
+
+var EL = document.getElementById("main-global-modal");
+
+var AlertModal = React.createClass({
+    displayName: 'AlertModal',
+    render: function render() {
+        return React.createElement(
+            'div',
+            { className: 'modal-dialog modal-sm' },
+            React.createElement(
+                'div',
+                { className: 'modal-content' },
+                React.createElement(
+                    'div',
+                    { className: 'modal-header' },
+                    React.createElement(
+                        'a',
+                        { className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                        React.createElement(
+                            'span',
+                            { 'aria-hidden': 'true' },
+                            '\xD7'
+                        )
+                    ),
+                    React.createElement(
+                        'h4',
+                        { className: 'modal-title', id: 'myModalLabel' },
+                        this.props.title
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'modal-body' },
+                    this.props.message
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'modal-footer' },
+                    React.createElement(
+                        'button',
+                        { type: 'button', className: 'ilv-btn ilv-btn-primary ilv-btn-sm', 'data-dismiss': 'modal' },
+                        'Ok'
+                    )
+                )
+            )
+        );
+    }
+});
+
+var FileUploadModalAd = React.createClass({
+    displayName: 'FileUploadModalAd',
+    render: function render() {
+        return React.createElement(
+            'div',
+            { className: 'modal-dialog' },
+            React.createElement(
+                'div',
+                { className: 'modal-content' },
+                React.createElement(
+                    'div',
+                    { className: 'modal-header' },
+                    React.createElement(
+                        'button',
+                        { type: 'button', id: 'modalAdClose', className: 'close', 'data-dismiss': 'modal', 'aria-label': 'Close' },
+                        React.createElement(
+                            'span',
+                            { 'aria-hidden': 'true' },
+                            '\xD7'
+                        )
+                    ),
+                    React.createElement(
+                        'h4',
+                        { className: 'modal-title', id: 'myModalLabel' },
+                        this.props.title
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'modal-body' },
+                    React.createElement(
+                        'div',
+                        null,
+                        this.props.message
+                    ),
+                    React.createElement('input', { type: 'file', name: 'file', className: 'form-control', ref: 'file-upload-field', id: 'file-upload-field' }),
+                    React.createElement('span', { className: 'text-danger', id: 'spErrorImage' })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'panel-footer' },
+                    React.createElement(
+                        'div',
+                        { id: 'file-upload-progress', className: 'progress', style: { border: '1px solid #ccc' } },
+                        React.createElement('div', { className: 'progress-bar progress-bar-success' })
+                    )
+                )
+            )
+        );
+    }
+});
+
+var ModalAd = {
+    $el: EL,
+    hide: function hide() {
+        var _this = this;
+
+        jQuery(this.$el).modal("hide");
+        _.defer(function () {
+            ReactDOM.render(React.createElement('div', null), _this.$el);
+        });
+    },
+    show: function show() {
+        jQuery(this.$el).modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    },
+    alert: function alert(title, msg) {
+        ReactDOM.render(React.createElement(AlertModal, { title: title, message: msg }), this.$el);
+        jQuery(this.$el).modal('show');
+    },
+    mostrar: function mostrar(limit_size, title, msg, targetField, isModal) {
+        var me = this;
+        ReactDOM.render(React.createElement(FileUploadModalAd, { limit_size: limit_size, isModal: isModal, title: title, message: msg }), this.$el);
+        this.show();
+
+        jQuery("#modalAdClose").click(function () {
+            me.hide();
+        });
+
+        jQuery('#file-upload-field').change(function () {
+
+            var uplField = this;
+
+            var file = jQuery(uplField)[0].files[0];
+
+            if (file.size / 1024 > limit_size) {
+                var txtErro = Messages.get("LabelErrorAdImageSize");
+                txtErro = txtErro.replace("{0}", limit_size + "Kb");
+                jQuery("#spErrorImage").html("<b>" + txtErro + "</b>");
+                jQuery(uplField).val("");
+            } else {
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+
+                    var tmpImg = new Image();
+                    tmpImg.src = window.URL.createObjectURL(file);
+
+                    tmpImg.onload = function () {
+                        if (!isModal && (tmpImg.naturalWidth != 240 || tmpImg.naturalHeight != 475)) {
+                            var txtErro = "";
+                            txtErro = Messages.get("TextAdImageMaxSize").replace("{0}", "240px X 475px");
+                            jQuery("#spErrorImage").html("<b>" + txtErro + "</b>");
+                            jQuery(uplField).val("");
+                            return false;
+                        } else if (isModal && (tmpImg.naturalWidth != 280 || tmpImg.naturalHeight != 115)) {
+                            var txtErro = "";
+                            txtErro = Messages.get("TextAdImageMaxSize").replace("{0}", "280px X 115px");
+                            jQuery("#spErrorImage").html("<b>" + txtErro + "</b>");
+                            jQuery(uplField).val("");
+                            return false;
+                        } else {
+                            if ($("#lbl_" + targetField + " img").length > 0) {
+                                var img = $("#lbl_" + targetField + " img");
+                                img.attr('src', e.target.result);
+                            } else {
+                                var img = $("<img>");
+                                img.attr('src', e.target.result).css("width", "150px");
+                                img.appendTo("#lbl_" + targetField);
+                            }
+
+                            jQuery("#" + targetField).val(reader.result);
+
+                            me.hide();
+                        }
+                    };
+                };
+                reader.onerror = function (error) {
+                    jQuery("lbl_" + targetField).text("");
+                    jQuery("#" + targetField).val("");
+
+                    me.hide();
+                };
+            }
+        });
+    }
+};
+
+module.exports = ModalAd;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(EL, 'EL', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/admin/AdModal.jsx');
+
+    __REACT_HOT_LOADER__.register(AlertModal, 'AlertModal', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/admin/AdModal.jsx');
+
+    __REACT_HOT_LOADER__.register(FileUploadModalAd, 'FileUploadModalAd', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/admin/AdModal.jsx');
+
+    __REACT_HOT_LOADER__.register(ModalAd, 'ModalAd', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/admin/AdModal.jsx');
+}();
+
+;

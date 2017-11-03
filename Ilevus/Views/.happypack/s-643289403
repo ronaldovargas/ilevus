@@ -1,0 +1,96 @@
+"use strict";
+
+var _ = require("underscore");
+var S = require("string");
+var moment = require("moment");
+var React = require("react");
+var Link = require("react-router").Link;
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    propTypes: {
+        keyword: React.PropTypes.string,
+        limit: React.PropTypes.string,
+        isMobile: React.PropTypes.string
+    },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            keyword: null,
+            limit: 1,
+            isMobile: false
+        };
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true,
+            ads: []
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        AdStore.on("search-ads", function (ads) {
+            var three = [];
+            for (var i = 0; i < ads.length; i++) {
+                if (i >= 1) break;
+                three.push(ads[i]);
+            }
+            me.setState({
+                ads: three,
+                loading: false
+            });
+        }, me);
+
+        me.refreshAds(me.props.keyword, me.props.limit, me.props.isMobile);
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        AdStore.off(null, null, this);
+    },
+    componentWillReceiveProps: function componentWillReceiveProps(newProps) {
+        if (newProps.keyword != this.props.keyword) {
+            this.refreshAds(newProps.keyword, me.props.limit, me.props.isMobile);
+        }
+    },
+    refreshAds: function refreshAds(keyword, limit, isMobile) {
+        AdStore.dispatch({
+            action: AdStore.ACTION_SEARCH_ADS,
+            data: { keyword: keyword, limit: limit, isMobile: isMobile }
+        });
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement("span", null);
+        }
+
+        return React.createElement(
+            "div",
+            { className: "ilv-media-list ilv-media-list-bordered" },
+            this.state.ads.map(function (ad, index) {
+                return React.createElement(
+                    "div",
+                    { className: "ilv-media", key: "ad-" + index },
+                    React.createElement(
+                        "a",
+                        { className: "ilv-media-body", href: "/api/Ad/Click?Id=" + ad.Id },
+                        React.createElement("img", { src: "/api/Ad/View?Id=" + ad.Id + "&Position=desktop", className: "w-100" })
+                    )
+                );
+            })
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/AdSideBar.jsx");
+}();
+
+;

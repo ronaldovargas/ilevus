@@ -1,0 +1,23 @@
+// https://github.com/diegohaz/arc/wiki/Selectors
+// https://github.com/diegohaz/arc/wiki/Example-redux-modules#social
+export var initialState = {
+  user: null
+};
+
+export var getUser = function getUser() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  return state.user || initialState.user;
+};
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(initialState, "initialState", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/social/selectors.js");
+
+  __REACT_HOT_LOADER__.register(getUser, "getUser", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/social/selectors.js");
+}();
+
+;

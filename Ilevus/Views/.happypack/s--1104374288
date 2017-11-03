@@ -1,0 +1,72 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reduxForm = require('redux-form');
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Form = _styledComponents2.default.form.withConfig({
+  displayName: 'PostForm__Form'
+})(['\n  width: 100%;\n  box-sizing: border-box;\n  padding: 1rem;\n']);
+
+var PostForm = function PostForm(_ref) {
+  var handleSubmit = _ref.handleSubmit,
+      submitting = _ref.submitting;
+
+  return _react2.default.createElement(
+    Form,
+    { onSubmit: handleSubmit },
+    _react2.default.createElement(
+      _components.Heading,
+      { level: 2 },
+      'Create a post'
+    ),
+    _react2.default.createElement(_reduxForm.Field, { name: 'title', label: 'Title', component: _components.ReduxField }),
+    _react2.default.createElement(_reduxForm.Field, { name: 'body', label: 'Body', type: 'textarea', component: _components.ReduxField }),
+    _react2.default.createElement(
+      _components.Button,
+      { type: 'submit', disabled: submitting },
+      'Create'
+    )
+  );
+};
+
+PostForm.propTypes = {
+  handleSubmit: _propTypes2.default.func.isRequired,
+  submitting: _propTypes2.default.bool
+};
+
+var _default = PostForm;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Form, 'Form', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+
+  __REACT_HOT_LOADER__.register(PostForm, 'PostForm', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+}();
+
+;

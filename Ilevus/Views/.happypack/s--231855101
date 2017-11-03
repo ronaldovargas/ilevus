@@ -1,0 +1,24 @@
+"use strict";
+
+var React = require('react');
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+    render: function render() {
+        return React.createElement(
+            "div",
+            null,
+            "Dashboard"
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+}();
+
+;

@@ -1,0 +1,219 @@
+'use strict';
+
+var S = require('string');
+var React = require('react');
+var ReactColor = require("react-color");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var TwitterPicker = ReactColor.TwitterPicker;
+
+module.exports = React.createClass({
+    displayName: 'exports',
+    getInitialState: function getInitialState() {
+        return {
+            newStepColor: "#AAAAAA",
+            processSteps: UserSession.get("user").Professional.Professional.ProcessSteps
+        };
+    },
+    onColorPick: function onColorPick(color) {
+        this.setState({ newStepColor: color.hex });
+    },
+    saveProcessSteps: function saveProcessSteps() {
+        UserSession.dispatch({
+            action: UserSession.ACTION_UPDATE_PROCESS_STEPS,
+            data: this.state.processSteps
+        });
+    },
+    raiseStep: function raiseStep(index, event) {
+        event && event.preventDefault();
+        var step = this.state.processSteps[index];
+        this.state.processSteps.splice(index, 1);
+        this.state.processSteps.splice(index - 1, 0, step);
+        this.forceUpdate();
+        this.saveProcessSteps();
+    },
+    dropStep: function dropStep(index, event) {
+        event && event.preventDefault();
+        var step = this.state.processSteps[index];
+        this.state.processSteps.splice(index, 1);
+        this.state.processSteps.splice(index + 1, 0, step);
+        this.forceUpdate();
+        this.saveProcessSteps();
+    },
+    removeStep: function removeStep(index, event) {
+        event && event.preventDefault();
+        this.state.processSteps.splice(index, 1);
+        this.forceUpdate();
+        this.saveProcessSteps();
+    },
+    addStep: function addStep(event) {
+        event && event.preventDefault();
+        var label = S(this.refs['step-label'].value);
+        if (label.isEmpty()) {
+            return;
+        }
+        this.state.processSteps.push({
+            Label: label.s,
+            Color: this.state.newStepColor
+        });
+        this.refs['step-label'].value = '';
+        this.setState({ newStepColor: '#AAAAAA' });
+        this.saveProcessSteps();
+    },
+    renderSteps: function renderSteps() {
+        var _this = this;
+
+        if (this.state.processSteps.length == 0) {
+            return React.createElement(
+                'i',
+                null,
+                Messages.get("TextNoProcessStepYet")
+            );
+        }
+
+        return React.createElement(
+            'table',
+            { className: 'ilv-table' },
+            React.createElement(
+                'thead',
+                null,
+                React.createElement(
+                    'tr',
+                    null,
+                    React.createElement('th', { width: '80' }),
+                    React.createElement('th', null),
+                    React.createElement('th', null)
+                )
+            ),
+            React.createElement(
+                'tbody',
+                null,
+                this.state.processSteps.map(function (step, index) {
+                    return React.createElement(
+                        'tr',
+                        { key: "process-step-" + index },
+                        React.createElement(
+                            'td',
+                            null,
+                            React.createElement(
+                                'div',
+                                { className: 'ilv-btn-group' },
+                                index > 0 ? React.createElement(
+                                    'button',
+                                    { className: 'ilv-btn ilv-btn-sm ilv-btn-clean p-0', title: Messages.get("LabelRaiseOneLevel"), onClick: _this.raiseStep.bind(_this, index) },
+                                    React.createElement(
+                                        'i',
+                                        { className: 'ilv-icon material-icons md-24' },
+                                        '\uE316'
+                                    )
+                                ) : "",
+                                index < _this.state.processSteps.length - 1 ? React.createElement(
+                                    'button',
+                                    { className: 'ilv-btn ilv-btn-sm ilv-btn-clean p-0', title: Messages.get("LabelDropOneLevel"), onClick: _this.dropStep.bind(_this, index) },
+                                    React.createElement(
+                                        'i',
+                                        { className: 'ilv-icon material-icons md-24' },
+                                        '\uE313'
+                                    )
+                                ) : ""
+                            )
+                        ),
+                        React.createElement(
+                            'td',
+                            null,
+                            React.createElement('span', { 'data-toggle': 'dropdown', className: 'mr-1',
+                                style: { width: "20px", height: "20px", borderRadius: '2px', display: 'inline-block', verticalAlign: 'middle', backgroundColor: step.Color, transition: "all 0.5s" } }),
+                            React.createElement(
+                                'span',
+                                null,
+                                step.Label
+                            )
+                        ),
+                        React.createElement(
+                            'td',
+                            { className: 'text-right' },
+                            React.createElement(
+                                'div',
+                                { className: 'ilv-btn-group' },
+                                React.createElement(
+                                    'button',
+                                    { className: 'ilv-btn ilv-btn-sm ilv-btn-clean ilv-btn-block', title: Messages.get("LabelDelete"), onClick: _this.removeStep.bind(_this, index) },
+                                    React.createElement(
+                                        'i',
+                                        { className: 'ilv-icon material-icons md-18' },
+                                        '\uE5C9'
+                                    )
+                                )
+                            )
+                        )
+                    );
+                })
+            )
+        );
+    },
+    render: function render() {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'form',
+                { onSubmit: this.addStep },
+                React.createElement(
+                    'div',
+                    { className: 'ilv-form-group' },
+                    React.createElement(
+                        'div',
+                        { className: 'ilv-media ilv-media-middle' },
+                        React.createElement(
+                            'div',
+                            { className: 'ilv-media-left mr-3 row' },
+                            React.createElement(
+                                'div',
+                                { className: 'col-sm-10' },
+                                React.createElement('input', { className: 'ilv-form-control d-inline-block',
+                                    type: 'text',
+                                    required: true,
+                                    style: { minWidth: '280px' },
+                                    placeholder: Messages.get("LabelAddProcessStep"),
+                                    ref: 'step-label' })
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'col-sm-2 dropdown' },
+                                React.createElement('a', { 'data-toggle': 'dropdown', style: { width: "30px", height: "30px", borderRadius: '2px', display: 'inline-block', backgroundColor: this.state.newStepColor } }),
+                                React.createElement(
+                                    'div',
+                                    { className: 'dropdown-menu', id: 'color-picker-dropdown' },
+                                    React.createElement(TwitterPicker, { onChangeComplete: this.onColorPick })
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'ilv-media-body' },
+                            React.createElement(
+                                'button',
+                                { type: 'submit', className: 'ilv-btn ilv-btn-success' },
+                                Messages.get("LabelAdd")
+                            )
+                        )
+                    )
+                )
+            ),
+            this.renderSteps()
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(TwitterPicker, 'TwitterPicker', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/coaching/CoachingProcessesDefinition.jsx');
+}();
+
+;

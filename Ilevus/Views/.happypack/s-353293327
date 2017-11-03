@@ -1,0 +1,57 @@
+var _templateObject = _taggedTemplateLiteral(['\n  width: 100%;\n  box-sizing: border-box;\n  padding: 1rem;\n'], ['\n  width: 100%;\n  box-sizing: border-box;\n  padding: 1rem;\n']);
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
+import styled from 'styled-components';
+
+import { ReduxField, Heading, Button } from 'components';
+
+var Form = styled.form(_templateObject);
+
+var PostForm = function PostForm(_ref) {
+  var handleSubmit = _ref.handleSubmit,
+      submitting = _ref.submitting;
+
+  return React.createElement(
+    Form,
+    { onSubmit: handleSubmit },
+    React.createElement(
+      Heading,
+      { level: 2 },
+      'Create a post'
+    ),
+    React.createElement(Field, { name: 'title', label: 'Title', component: ReduxField }),
+    React.createElement(Field, { name: 'body', label: 'Body', type: 'textarea', component: ReduxField }),
+    React.createElement(
+      Button,
+      { type: 'submit', disabled: submitting },
+      'Create'
+    )
+  );
+};
+
+PostForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool
+};
+
+var _default = PostForm;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Form, 'Form', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+
+  __REACT_HOT_LOADER__.register(PostForm, 'PostForm', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/PostForm/index.js');
+}();
+
+;

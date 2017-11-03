@@ -1,0 +1,70 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _reactRedux = require('react-redux');
+
+var _selectors = require('store/selectors');
+
+var _actions = require('store/actions');
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ModalContainer = function ModalContainer(props) {
+  return _react2.default.createElement(_components.Modal, props);
+};
+
+ModalContainer.propTypes = {
+  name: _propTypes2.default.string.isRequired,
+  isOpen: _propTypes2.default.bool
+};
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var name = _ref.name,
+      isOpen = _ref.isOpen;
+  return {
+    isOpen: isOpen || _selectors.fromModal.isOpen(state, name)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref2) {
+  var name = _ref2.name;
+  return {
+    onClose: function onClose() {
+      return dispatch((0, _actions.modalHide)(name));
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ModalContainer);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(ModalContainer, 'ModalContainer', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/Modal.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/Modal.js');
+
+  __REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/Modal.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/Modal.js');
+}();
+
+;

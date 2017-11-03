@@ -1,0 +1,53 @@
+var CardCVCElement = require('react-stripe-elements/lib/index').CardCVCElement;
+var CardExpiryElement = require('react-stripe-elements/lib/index').CardExpiryElement;
+var React = require('react');
+module.exports = React.createClass({
+  displayName: 'exports',
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'row' },
+      React.createElement(
+        'div',
+        { className: 'col-6' },
+        React.createElement(
+          'div',
+          { className: 'ilv-form-group' },
+          React.createElement(
+            'label',
+            { 'for': 'cc-payment', className: 'ilv-control-label mb-1' },
+            'Payment amount'
+          ),
+          React.createElement(CardCVCElement, { className: 'ilv-form-control' })
+        )
+      ),
+      React.createElement(
+        'div',
+        { className: 'col-6' },
+        React.createElement(
+          'div',
+          { className: 'ilv-form-group' },
+          React.createElement(
+            'label',
+            { 'for': 'cc-payment', className: 'ilv-control-label mb-1' },
+            'Payment amount'
+          ),
+          React.createElement(CardExpiryElement, { className: 'ilv-form-control' })
+        )
+      )
+    );
+  }
+});
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CardCVCElement, 'CardCVCElement', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/stripe/CardCVCSection.jsx');
+
+  __REACT_HOT_LOADER__.register(CardExpiryElement, 'CardExpiryElement', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/widget/stripe/CardCVCSection.jsx');
+}();
+
+;

@@ -1,0 +1,75 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _templateObject = _taggedTemplateLiteral(['\n  display: flex;\n  align-items: center;\n'], ['\n  display: flex;\n  align-items: center;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n  margin-right: 0.5rem;\n'], ['\n  margin-right: 0.5rem;\n']);
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
+import { Button } from 'components';
+import { LoginModal } from 'containers';
+
+var InnerButton = styled.div(_templateObject);
+
+var Image = styled.img(_templateObject2);
+
+var UserButton = function UserButton(_ref) {
+  var user = _ref.user,
+      onLogin = _ref.onLogin,
+      onLogout = _ref.onLogout,
+      props = _objectWithoutProperties(_ref, ['user', 'onLogin', 'onLogout']);
+
+  return React.createElement(
+    'div',
+    null,
+    user && React.createElement(
+      Button,
+      _extends({}, props, { onClick: onLogout }),
+      React.createElement(
+        InnerButton,
+        null,
+        React.createElement(Image, { src: user.picture, width: 20, height: 20 }),
+        'Sign out'
+      )
+    ),
+    !user && React.createElement(
+      Button,
+      _extends({}, props, { onClick: onLogin }),
+      'Sign in'
+    ),
+    React.createElement(LoginModal, null)
+  );
+};
+
+UserButton.propTypes = {
+  user: PropTypes.shape({
+    picture: PropTypes.string.isRequired
+  }),
+  onLogin: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired
+};
+
+var _default = UserButton;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(InnerButton, 'InnerButton', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/UserButton/index.js');
+
+  __REACT_HOT_LOADER__.register(Image, 'Image', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/UserButton/index.js');
+
+  __REACT_HOT_LOADER__.register(UserButton, 'UserButton', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/UserButton/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/UserButton/index.js');
+}();
+
+;

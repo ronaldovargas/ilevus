@@ -1,0 +1,60 @@
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+// https://github.com/diegohaz/arc/wiki/Redux-modules
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { isDev, isBrowser } from 'config';
+import middlewares from './middlewares';
+import reducer from './reducer';
+import sagas from './sagas';
+
+var devtools = isDev && isBrowser && window.devToolsExtension ? window.devToolsExtension : function () {
+  return function (fn) {
+    return fn;
+  };
+};
+
+var configureStore = function configureStore(initialState) {
+  var services = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  var sagaMiddleware = createSagaMiddleware();
+
+  var enhancers = [applyMiddleware.apply(undefined, _toConsumableArray(middlewares).concat([sagaMiddleware])), devtools()];
+
+  var store = createStore(reducer, initialState, compose.apply(undefined, enhancers));
+  var sagaTask = sagaMiddleware.run(sagas, services);
+
+  if (module.hot) {
+    module.hot.accept('./reducer', function () {
+      var nextReducer = require('./reducer').default;
+      store.replaceReducer(nextReducer);
+    });
+    module.hot.accept('./sagas', function () {
+      var nextSagas = require('./sagas').default;
+      sagaTask.cancel();
+      sagaTask.done.then(function () {
+        sagaTask = sagaMiddleware.run(nextSagas, services);
+      });
+    });
+  }
+
+  return store;
+};
+
+var _default = configureStore;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(devtools, 'devtools', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/configure.js');
+
+  __REACT_HOT_LOADER__.register(configureStore, 'configureStore', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/configure.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/configure.js');
+}();
+
+;

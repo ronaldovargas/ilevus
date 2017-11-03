@@ -1,0 +1,248 @@
+"use strict";
+
+/**
+    Esta é a store da entidade de Usuário do sistema.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+
+var URL = Fluxbone.BACKEND_URL + "Coaching";
+
+var CoachingModel = Fluxbone.Model.extend({
+	url: URL,
+	validate: function validate(attrs, options) {
+		var errors = [];
+
+		if (errors.length > 0) return errors;
+	}
+});
+
+var CoachingStore = Fluxbone.Store.extend({
+	ACTION_RETRIEVE_COACH_PROCESSES: 'coaching-retrieveCoachProcesses',
+	ACTION_RETRIEVE_COACHEE_PROCESSES: 'coaching-retrieveCoacheeProcesses',
+	ACTION_RETRIEVE_COACHING_PROCESS: 'coaching-retrieveCoachingProcess',
+	ACTION_POLL_PROCESS_MODIFICATIONS: 'coaching-pollProcessModifications',
+	ACTION_HIRE_PROFESSIONAL: 'coaching-hireProfessional',
+	ACTION_UPDATE_SESSION_FIELD: 'coaching-updateSessionField',
+	ACTION_NEW_SESSION: 'coaching-newSession',
+	ACTION_START_SESSION: 'coaching-startSession',
+	ACTION_FINISH_SESSION: 'coaching-finishSession',
+	ACTION_CHANGE_SESSION_PROCESS_STEP: 'coaching-changeSessionProcessStep',
+	ACTION_EVALUATE_SESSION: 'coaching-evaluateSession',
+	ACTION_ADD_TAG: 'coaching-addTag',
+	ACTION_REMOVE_TAG: 'coaching-removeTag',
+	dispatchAcceptRegex: /^coaching-[a-zA-Z0-9]+$/,
+
+	url: URL,
+	model: CoachingModel,
+
+	retrieveCoachProcesses: function retrieveCoachProcesses(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Retrieve/Coach",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-coach-processes", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveCoacheeProcesses: function retrieveCoacheeProcesses(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Retrieve/Coachee",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-coachee-processes", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveCoachingProcess: function retrieveCoachingProcess(id) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Retrieve/Process/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-coaching-process", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	pollProcessModifications: function pollProcessModifications(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Retrieve/Process/" + params.id,
+			dataType: 'json',
+			data: {
+				lastModified: params.lastModified
+			},
+			success: function success(data, status, opts) {
+				if (data) me.trigger("process-modified", data);else me.trigger("process-not-modified");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	hireProfessional: function hireProfessional(id) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Hire/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("professional-hired", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateSessionField: function updateSessionField(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Update/SessionField",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("updated-session-field", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	newSession: function newSession(id) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/" + id + "/NewSession",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("new-session", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	startSession: function startSession(id) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/" + id + "/StartSession",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("start-session", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	finishSession: function finishSession(id) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/" + id + "/FinishSession",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("finish-session", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	changeSessionProcessStep: function changeSessionProcessStep(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/ChangeSessionProcessStep",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("change-session-process-step", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	evaluateSession: function evaluateSession(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/EvaluateSession",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("evaluate-session", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	addTag: function addTag(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/AddTag",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("add-tag");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	removeTag: function removeTag(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/RemoveTag",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				me.trigger("add-tag");
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	}
+});
+
+module.exports = new CoachingStore();
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Coaching.jsx");
+
+	__REACT_HOT_LOADER__.register(CoachingModel, "CoachingModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Coaching.jsx");
+
+	__REACT_HOT_LOADER__.register(CoachingStore, "CoachingStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Coaching.jsx");
+}();
+
+;

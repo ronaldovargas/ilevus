@@ -1,0 +1,29 @@
+import React from 'react';
+
+import { PageTemplate, Header, Footer } from 'components';
+import { PostForm, PostList } from 'containers';
+
+var SamplePage = function SamplePage() {
+  return React.createElement(
+    PageTemplate,
+    { header: React.createElement(Header, null), footer: React.createElement(Footer, null) },
+    React.createElement(PostForm, null),
+    React.createElement(PostList, { limit: 15 })
+  );
+};
+
+var _default = SamplePage;
+export default _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SamplePage, 'SamplePage', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/SamplePage/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/pages/SamplePage/index.js');
+}();
+
+;

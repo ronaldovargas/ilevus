@@ -1,0 +1,341 @@
+"use strict";
+
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+var ImgWizard = require('ilevus/img/img-wizard.png');
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    userData: {},
+    childContextTypes: {
+        professionalData: React.PropTypes.object,
+        userId: React.PropTypes.string
+    },
+    getChildContext: function getChildContext() {
+        return this.userData;
+    },
+    getInitialState: function getInitialState() {
+        return {
+            professionalData: null,
+            data: null
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        UserSession.on("fail", function (msg) {
+            Toastr.error(msg);
+        }, me);
+        UserSession.on("professionalprofile", function (data) {
+            _this.userData.professionalData = data.Professional, _this.userData.userId = data.Id;
+            me.setState({
+                professionalData: data.Professional,
+                data: data
+            });
+            console.log(data);
+        }, me);
+
+        UserSession.dispatch({
+            action: UserSession.ACTION_RETRIEVE_PROFESSIONAL_PROFILE
+        });
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        UserSession.off(null, null, this);
+    },
+    render: function render() {
+        if (!this.state.professionalData) {
+            return React.createElement(LoadingGauge, null);
+        }
+        return React.createElement(
+            "div",
+            { className: "container" },
+            this.props.children ? this.props.children : React.createElement(
+                "div",
+                { className: "row justify-content-center" },
+                React.createElement(
+                    "div",
+                    { className: "col-6" },
+                    React.createElement(
+                        "div",
+                        { className: "my-5" },
+                        React.createElement(
+                            "h1",
+                            { className: "ma-0" },
+                            Messages.get("TextCreateYourProfessionalProfile")
+                        ),
+                        this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo && this.state.professionalData.ServicesInfo ? React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pt-2 pb-0" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-block ilv-btn-link ilv-font-weight-semibold",
+                                        to: "/profile/" + this.state.data.Id },
+                                    Messages.get("TextSeeMyProfile")
+                                )
+                            )
+                        ) : ""
+                    ),
+                    React.createElement(
+                        "ul",
+                        { className: "ilv-media-list ma-0" },
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-4" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 1",
+                                    this.state.professionalData.BasicInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "ma-0" },
+                                    Messages.get("LabelBasicInformation")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextBasicProfessionalInfo")
+                                ),
+                                this.state.professionalData.BasicInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/basic" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/basic" },
+                                    Messages.get("LabelContinue")
+                                )
+                            )
+                        ),
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-4" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 2",
+                                    this.state.professionalData.AddressInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "ma-0" },
+                                    Messages.get("LabelAddress")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextAddressInfo")
+                                ),
+                                this.state.professionalData.BasicInfo ? this.state.professionalData.AddressInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/address" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/address" },
+                                    Messages.get("LabelContinue")
+                                ) : ""
+                            )
+                        ),
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-4" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 3",
+                                    this.state.professionalData.EducationInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "ma-0" },
+                                    Messages.get("TextEducation")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextEducationProfessionalInfo")
+                                ),
+                                this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo ? this.state.professionalData.EducationInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/education" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/education" },
+                                    Messages.get("LabelContinue")
+                                ) : ""
+                            )
+                        ),
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-4" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 4",
+                                    this.state.professionalData.CareerInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "ma-0" },
+                                    Messages.get("TextCareer")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextCareerProfessionalInfo")
+                                ),
+                                this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo && this.state.professionalData.EducationInfo ? this.state.professionalData.CareerInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/career" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/career" },
+                                    Messages.get("LabelContinue")
+                                ) : ""
+                            )
+                        ),
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-0" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 5",
+                                    this.state.professionalData.ServicesInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "m-a-0" },
+                                    Messages.get("TextOfferedServices")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextServicesProfessionalInfo")
+                                ),
+                                this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo ? this.state.professionalData.ServicesInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/services" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/services" },
+                                    Messages.get("LabelContinue")
+                                ) : ""
+                            )
+                        ),
+                        React.createElement(
+                            "li",
+                            { className: "ilv-media ilv-media-middle pb-0" },
+                            React.createElement(
+                                "div",
+                                { className: "ilv-media-body" },
+                                React.createElement(
+                                    "strong",
+                                    { className: "ilv-text-small ilv-text-uppercase text-muted" },
+                                    Messages.get("LabelStep"),
+                                    " 6",
+                                    this.state.professionalData.ServicesInfo ? React.createElement(
+                                        "i",
+                                        { className: "material-icons md-18 text-success", style: { margin: "-3px 0 0 5px" } },
+                                        "\uE86C"
+                                    ) : ""
+                                ),
+                                React.createElement(
+                                    "h3",
+                                    { className: "m-a-0" },
+                                    Messages.get("TextTitleBankAccountStep")
+                                ),
+                                React.createElement(
+                                    "p",
+                                    null,
+                                    Messages.get("TextServicesProfessionalBankAccount")
+                                ),
+                                this.state.professionalData.BasicInfo && this.state.professionalData.AddressInfo && this.state.professionalData.EducationInfo && this.state.professionalData.CareerInfo ? this.state.professionalData.ServicesInfo ? React.createElement(
+                                    Link,
+                                    { className: "ilv-font-weight-semibold", to: "/become-a-professional/bankAccount" },
+                                    Messages.get("LabelChangeInformation")
+                                ) : React.createElement(
+                                    Link,
+                                    { className: "ilv-btn ilv-btn-success", to: "/become-a-professional/bankAccount" },
+                                    Messages.get("LabelContinue")
+                                ) : ""
+                            )
+                        )
+                    )
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/user/wizard/ProfileWizard.jsx");
+}();
+
+;

@@ -1,0 +1,167 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _styledTheme = require('styled-theme');
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Wrapper = (0, _styledComponents2.default)(_components.Block).withConfig({
+  displayName: 'Hero__Wrapper'
+})(['\n  display: flex;\n  justify-content: center;\n  padding: 2rem;\n  box-sizing: border-box;\n  @media screen and (max-width: 640px) {\n    padding-left: 0.25rem;\n    padding-right: 0.25rem;\n  }\n']);
+
+var InnerWrapper = _styledComponents2.default.div.withConfig({
+  displayName: 'Hero__InnerWrapper'
+})(['\n  display: flex;\n  width: 100%;\n  max-width: ', ';\n  @media screen and (max-width: 640px) {\n    flex-wrap: wrap;\n  }\n'], (0, _styledTheme.size)('maxWidth'));
+
+var Section = _styledComponents2.default.section.withConfig({
+  displayName: 'Hero__Section'
+})(['\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 2rem;\n  box-sizing: border-box;\n  &:first-child {\n    flex: none;\n  }\n  @media screen and (max-width: 640px) {\n    padding: 0.25rem;\n    width: 100%;\n  }\n']);
+
+var Text = (0, _styledComponents2.default)(_components.Paragraph).withConfig({
+  displayName: 'Hero__Text'
+})(['\n  color: ', ';\n  font-weight: 300;\n  font-size: 1.35rem;\n  line-height: 1.35em;\n  width: 100%;\n  letter-spacing: 0.05em;\n  @media screen and (max-width: 640px) {\n    text-align: center;\n    font-size: 1rem;\n  }\n'], (0, _styledTheme.palette)('grayscale', 3, true));
+
+var ButtonGroup = _styledComponents2.default.div.withConfig({
+  displayName: 'Hero__ButtonGroup'
+})(['\n  margin-top: 2rem;\n  display: flex;\n  > :not(:first-child) {\n    margin-left: 0.5rem;\n  }\n']);
+
+var Instructions = _styledComponents2.default.div.withConfig({
+  displayName: 'Hero__Instructions'
+})(['\n  width: 100%;\n  margin-top: 2rem;\n  @media screen and (max-width: 640px) {\n    margin-top: 1rem;\n  }\n']);
+
+var Hero = function Hero(props) {
+  return _react2.default.createElement(
+    Wrapper,
+    _extends({ opaque: true, reverse: true }, props),
+    _react2.default.createElement(
+      InnerWrapper,
+      null,
+      _react2.default.createElement(
+        Section,
+        null,
+        _react2.default.createElement(_components.LogoImage, { height: 265 }),
+        _react2.default.createElement(
+          ButtonGroup,
+          null,
+          _react2.default.createElement(
+            _components.Tooltip,
+            { reverse: true, 'data-title': 'Just a fancy tooltip \uD83D\uDE04' },
+            _react2.default.createElement(
+              _components.IconButton,
+              { icon: 'github', href: 'https://github.com/diegohaz/arc' },
+              'GitHub'
+            )
+          ),
+          _react2.default.createElement(
+            _components.Tooltip,
+            { reverse: true, 'data-title': 'Another tooltip aligned differently', align: 'end', position: 'bottom' },
+            _react2.default.createElement(
+              _components.IconButton,
+              { icon: 'docs', href: 'https://github.com/diegohaz/arc/wiki' },
+              'Docs'
+            )
+          )
+        )
+      ),
+      _react2.default.createElement(
+        Section,
+        null,
+        _react2.default.createElement(
+          Text,
+          null,
+          _react2.default.createElement(
+            'strong',
+            null,
+            'ARc'
+          ),
+          ' is a ',
+          _react2.default.createElement(
+            _components.IconLink,
+            { reverse: true, icon: 'react', href: 'https://facebook.github.io/react/' },
+            'React'
+          ),
+          ' starter kit based on the ',
+          _react2.default.createElement(
+            _components.IconLink,
+            { reverse: true, icon: 'atomic-design', href: 'http://bradfrost.com/blog/post/atomic-web-design/' },
+            'Atomic Design'
+          ),
+          ' methodology. It\'s ',
+          _react2.default.createElement(
+            'strong',
+            null,
+            'progressive'
+          ),
+          ', which means that you can start with the basic boilerplate and try the other features when you are comfortable.'
+        ),
+        _react2.default.createElement(
+          Instructions,
+          null,
+          _react2.default.createElement(
+            _components.Heading,
+            { level: 2, reverse: true },
+            'Install'
+          ),
+          _react2.default.createElement(
+            _components.PreformattedText,
+            { block: true, reverse: true, wrapped: true },
+            'git clone -b master https://github.com/diegohaz/arc my-app'
+          ),
+          _react2.default.createElement(
+            _components.IconLink,
+            {
+              icon: 'docs',
+              right: true,
+              reverse: true,
+              href: 'https://github.com/diegohaz/arc/wiki/Setup'
+            },
+            'Learn more'
+          )
+        )
+      )
+    )
+  );
+};
+
+var _default = Hero;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Wrapper, 'Wrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(InnerWrapper, 'InnerWrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(Section, 'Section', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(Text, 'Text', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(ButtonGroup, 'ButtonGroup', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(Instructions, 'Instructions', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(Hero, 'Hero', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/organisms/Hero/index.js');
+}();
+
+;

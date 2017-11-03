@@ -1,0 +1,117 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _styledComponents = require('styled-components');
+
+var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _styledTools = require('styled-tools');
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+var Wrapper = _styledComponents2.default.div.withConfig({
+  displayName: 'Feature__Wrapper'
+})(['\n  position: relative;\n  display: flex;\n  padding: 1rem;\n  box-sizing: border-box;\n  opacity: ', ';\n  @media screen and (max-width: 640px) {\n    padding: 0.5rem;\n  }\n'], (0, _styledTools.ifProp)('soon', 0.4, 1));
+
+var StyledIcon = (0, _styledComponents2.default)(_components.Icon).withConfig({
+  displayName: 'Feature__StyledIcon'
+})(['\n  flex: none;\n  @media screen and (max-width: 640px) {\n    width: 32px;\n  }\n']);
+
+var Text = _styledComponents2.default.div.withConfig({
+  displayName: 'Feature__Text'
+})(['\n  margin-left: 1rem;\n  overflow: auto;\n  > :first-child {\n    margin: 0;\n  }\n']);
+
+var StyledBadge = (0, _styledComponents2.default)(_components.Badge).withConfig({
+  displayName: 'Feature__StyledBadge'
+})(['\n  position: absolute;\n  top: 1rem;\n  right: 1rem;\n  @media screen and (max-width: 640px) {\n    top: 0.5rem;\n    right: 0.5rem;\n  }\n']);
+
+var Feature = function Feature(_ref) {
+  var icon = _ref.icon,
+      title = _ref.title,
+      link = _ref.link,
+      code = _ref.code,
+      children = _ref.children,
+      props = _objectWithoutProperties(_ref, ['icon', 'title', 'link', 'code', 'children']);
+
+  return _react2.default.createElement(
+    Wrapper,
+    props,
+    icon && _react2.default.createElement(StyledIcon, { icon: icon, width: 64 }),
+    _react2.default.createElement(
+      Text,
+      null,
+      _react2.default.createElement(
+        _components.Heading,
+        { level: 2 },
+        link ? _react2.default.createElement(
+          _components.Link,
+          { href: link },
+          title
+        ) : title
+      ),
+      _react2.default.createElement(
+        _components.Paragraph,
+        null,
+        children
+      ),
+      code && _react2.default.createElement(
+        _components.PreformattedText,
+        { block: true },
+        code
+      )
+    ),
+    props.soon && _react2.default.createElement(
+      StyledBadge,
+      { palette: 'grayscale' },
+      'soon'
+    )
+  );
+};
+
+Feature.propTypes = {
+  title: _propTypes2.default.string.isRequired,
+  icon: _propTypes2.default.string,
+  link: _propTypes2.default.string,
+  soon: _propTypes2.default.bool,
+  children: _propTypes2.default.any,
+  code: _propTypes2.default.node
+};
+
+var _default = Feature;
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(Wrapper, 'Wrapper', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledIcon, 'StyledIcon', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+
+  __REACT_HOT_LOADER__.register(Text, 'Text', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+
+  __REACT_HOT_LOADER__.register(StyledBadge, 'StyledBadge', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+
+  __REACT_HOT_LOADER__.register(Feature, 'Feature', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/components/molecules/Feature/index.js');
+}();
+
+;

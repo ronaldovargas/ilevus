@@ -1,0 +1,205 @@
+"use strict";
+
+/**
+    Esta é a store da entidade de Usuário do sistema.
+*/
+
+var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+var S = require("string");
+var cartStore = require("./Cart.jsx");
+var URL = Fluxbone.BACKEND_URL + "Financial";
+
+var FinancialModel = Fluxbone.Model.extend({
+	url: URL,
+	validate: function validate(attrs, options) {
+		var errors = [];
+
+		if (errors.length > 0) return errors;
+	}
+});
+
+var FinancialStore = Fluxbone.Store.extend({
+	ACTION_RETRIEVE_SUBSCRIPTIONS: 'financial-retrieveSubscriptions',
+	ACTION_RETRIEVE_SUBSCRIPTION_DETAIL: 'financial-retrieveSubscriptionDetail',
+	ACTION_RETRIEVE_SUBSCRIPTION_INVOICE: 'financial-retrieveSubscriptionInvoice',
+	ACTION_RETRIEVE_SUBSCRIPTION_INVOICES: 'financial-retrieveSubscriptionInvoices',
+	ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMER: 'financial-retrieveSubscriptionsCustomer',
+	ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS: 'financial-retrieveSubscriptionsCustomers',
+	ACTION_RETRIEVE_USER_SUBSCRIPTION: 'financial-retrieveUserSubscription',
+	ACTION_SUSPEND_USER_SUBSCRIPTION: 'financial-suspendUserSubscription',
+	ACTION_UPDATE_USER_SUBSCRIPTION: 'financial-updateUserSubscription',
+	ACTION_TO_HIRE_SERVICE: 'financial-toHireService',
+	dispatchAcceptRegex: /^financial-[a-zA-Z0-9]+$/,
+
+	url: URL,
+	model: FinancialModel,
+
+	retrieveSubscriptions: function retrieveSubscriptions(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscriptions", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveSubscriptionDetail: function retrieveSubscriptionDetail(id) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions/Detail/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscription-detail", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveSubscriptionInvoice: function retrieveSubscriptionInvoice(id) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions/Invoice/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscription-invoice", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveSubscriptionInvoices: function retrieveSubscriptionInvoices(id) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions/Invoices/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscription-invoices", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveSubscriptionsCustomer: function retrieveSubscriptionsCustomer(id) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions/Customers/" + id,
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscriptions-customer", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveSubscriptionsCustomers: function retrieveSubscriptionsCustomers(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscriptions/Customers",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-subscriptions-customers", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	retrieveUserSubscription: function retrieveUserSubscription(params) {
+		var me = this;
+		$.ajax({
+			method: "GET",
+			url: me.url + "/Subscription",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				me.trigger("retrieve-user-subscription", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	suspendUserSubscription: function suspendUserSubscription() {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Subscription/Suspend",
+			dataType: 'json',
+			success: function success(data, status, opts) {
+				UserSession.get("user").Premium = data;
+				me.trigger("suspend-user-subscription", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	updateUserSubscription: function updateUserSubscription(params) {
+		var me = this;
+		$.ajax({
+			method: "POST",
+			url: me.url + "/Subscription",
+			dataType: 'json',
+			data: params,
+			success: function success(data, status, opts) {
+				UserSession.get("user").Premium = {
+					Active: true,
+					Late: false
+				};
+				me.trigger("update-user-subscription", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	},
+	toHireService: function toHireService(params) {
+		var me = this;
+		console.log('contratou');
+		console.log(cartStore.getCacheServicesHired());
+		$.ajax({
+			method: "POST",
+			url: me.url + "/HireService",
+			dataType: 'json',
+			data: { Services: cartStore.getCacheServicesHired() },
+			success: function success(data, status, opts) {
+				me.trigger("update-user-subscription", data);
+			},
+			error: function error(opts, status, errorMsg) {
+				me.handleRequestErrors([], opts);
+			}
+		});
+	}
+});
+
+module.exports = new FinancialStore();
+;
+
+var _temp = function () {
+	if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+		return;
+	}
+
+	__REACT_HOT_LOADER__.register(URL, "URL", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Financial.jsx");
+
+	__REACT_HOT_LOADER__.register(FinancialModel, "FinancialModel", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Financial.jsx");
+
+	__REACT_HOT_LOADER__.register(FinancialStore, "FinancialStore", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/store/Financial.jsx");
+}();
+
+;

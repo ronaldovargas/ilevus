@@ -1,0 +1,61 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = require('react-redux');
+
+var _selectors = require('store/selectors');
+
+var _actions = require('store/actions');
+
+var _components = require('components');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserButtonContainer = function UserButtonContainer(props) {
+  return _react2.default.createElement(_components.UserButton, props);
+};
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: _selectors.fromSocial.getUser(state)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onLogin: function onLogin() {
+      return dispatch((0, _actions.modalShow)('login'));
+    },
+    onLogout: function onLogout() {
+      return dispatch((0, _actions.socialLogout)());
+    }
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(UserButtonContainer);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(UserButtonContainer, 'UserButtonContainer', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/UserButton.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/UserButton.js');
+
+  __REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/UserButton.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/containers/UserButton.js');
+}();
+
+;

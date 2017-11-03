@@ -1,0 +1,258 @@
+"use strict";
+
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
+var SubscriptionStatus = require("ilevus/jsx/core/store/moip/SubscriptionStatus.json");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var _this = this;
+
+        var me = this;
+        FinancialStore.on("retrieve-subscriptions-customers", function (customers) {
+            me.setState({
+                loading: !_this.state.subscriptions,
+                customers: customers
+            });
+        }, me);
+        FinancialStore.on("retrieve-subscriptions", function (subscriptions) {
+            me.setState({
+                loading: !_this.state.customers,
+                subscriptions: subscriptions
+            });
+        }, me);
+
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTIONS
+        });
+        FinancialStore.dispatch({
+            action: FinancialStore.ACTION_RETRIEVE_SUBSCRIPTIONS_CUSTOMERS
+        });
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        FinancialStore.off(null, null, this);
+    },
+    renderCustomers: function renderCustomers(customers) {
+        if (!customers || customers.length <= 0) {
+            return React.createElement(
+                "i",
+                null,
+                Messages.get("TextNoCustomersYet")
+            );
+        }
+        return React.createElement(
+            "table",
+            { className: "ilv-table" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelName")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelEmail")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        "CPF"
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                customers.map(function (customer, index) {
+                    return React.createElement(
+                        "tr",
+                        { key: "customer-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            React.createElement(
+                                Link,
+                                { to: "/admin/subscriptions/customer/" + customer.Code },
+                                customer.Fullname
+                            )
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            customer.Email
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            customer.Cpf
+                        )
+                    );
+                })
+            )
+        );
+    },
+    renderSubscriptions: function renderSubscriptions(subscriptions) {
+        if (!subscriptions || subscriptions.length <= 0) {
+            return React.createElement(
+                "i",
+                null,
+                Messages.get("TextNoSubscriptionsYet")
+            );
+        }
+        return React.createElement(
+            "table",
+            { className: "ilv-table" },
+            React.createElement(
+                "thead",
+                null,
+                React.createElement(
+                    "tr",
+                    null,
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelCustomer")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelStatus")
+                    ),
+                    React.createElement(
+                        "th",
+                        null,
+                        Messages.get("LabelNextInvoice")
+                    )
+                )
+            ),
+            React.createElement(
+                "tbody",
+                null,
+                subscriptions.map(function (subscription, index) {
+                    console.log(subscription);
+                    return React.createElement(
+                        "tr",
+                        { key: "subscription-" + index },
+                        React.createElement(
+                            "td",
+                            null,
+                            React.createElement(
+                                Link,
+                                { to: "/admin/subscriptions/detail/" + subscription.Code },
+                                subscription.Customer.Fullname
+                            )
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            SubscriptionStatus[subscription.Status]
+                        ),
+                        React.createElement(
+                            "td",
+                            null,
+                            subscription.NextInvoiceDate.Day,
+                            "/",
+                            subscription.NextInvoiceDate.Month,
+                            "/",
+                            subscription.NextInvoiceDate.Year
+                        )
+                    );
+                })
+            )
+        );
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        if (this.props.children) {
+            return this.props.children;
+        }
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "h1",
+                null,
+                Messages.get("LabelSubscriptions")
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelMoipSubscriptions"),
+                        " (",
+                        this.state.subscriptions ? this.state.subscriptions.length : 0,
+                        ")"
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    this.renderSubscriptions(this.state.subscriptions)
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelMoipCustomers"),
+                        " (",
+                        this.state.customers ? this.state.customers.length : 0,
+                        ")"
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    this.renderCustomers(this.state.customers)
+                )
+            )
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelSubscriptions.jsx");
+}();
+
+;

@@ -1,0 +1,40 @@
+// https://github.com/diegohaz/arc/wiki/Selectors
+var upperFirst = require('lodash/upperFirst');
+
+var req = require.context('.', true, /\.\/.+\/selectors\.js$/);
+
+req.keys().forEach(function (key) {
+  var storeName = key.replace(/\.\/(.+)\/.+$/, '$1');
+  var fromName = 'from' + upperFirst(storeName);
+  var selectors = req(key);
+  var getState = function getState() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return state[storeName] || {};
+  };
+
+  module.exports[fromName] = {};
+
+  Object.keys(selectors).forEach(function (name) {
+    var selector = selectors[name];
+    if (typeof selector === 'function') {
+      module.exports[fromName][name] = function (state) {
+        for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+          args[_key - 1] = arguments[_key];
+        }
+
+        return selector.apply(undefined, [getState(state)].concat(args));
+      };
+    }
+  });
+});
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(req, 'req', 'C:/Projetos/Nova pasta/ilevus/Ilevus/Views/src/store/selectors.js');
+}();
+
+;

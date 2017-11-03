@@ -1,0 +1,331 @@
+"use strict";
+
+var React = require("react");
+var Link = require("react-router").Link;
+var Toastr = require("toastr");
+
+var SystemStore = require("ilevus/jsx/core/store/System.jsx");
+var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
+
+var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+
+var Messages = require("ilevus/jsx/core/util/Messages.jsx");
+
+module.exports = React.createClass({
+    displayName: "exports",
+
+    contextTypes: {
+        router: React.PropTypes.object
+    },
+    getInitialState: function getInitialState() {
+        return {
+            loading: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var me = this;
+        SystemStore.on("retrieve-config", function (config) {
+            me.setState({
+                loading: false,
+                config: config
+            });
+        }, me);
+        SystemStore.on("update-config-email", function (config) {
+            Toastr.remove();
+            Toastr.success(Messages.get("TextDataSavedSuccessfully"));
+            $("button").removeAttr("disabled");
+        }, me);
+        SystemStore.on("fail", function (msg) {
+            $("button").removeAttr("disabled");
+        }, me);
+
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_RETRIEVE_CONFIG
+        });
+    },
+    componentWillUnmount: function componentWillUnmount() {
+        SystemStore.off(null, null, this);
+    },
+    updateTranslatedEmail: function updateTranslatedEmail(which, event) {
+        event.preventDefault();
+        $(this.refs[which + "-save"]).attr("disabled", "disabled");
+        var data = {
+            which: which,
+            pt_br: {
+                Subject: this.refs[which + "-pt-br-subject"].value,
+                Template: this.refs[which + "-pt-br"].value
+            },
+            en: {
+                Subject: this.refs[which + "-en-subject"].value,
+                Template: this.refs[which + "-en"].value
+            },
+            es: {
+                Subject: this.refs[which + "-es-subject"].value,
+                Template: this.refs[which + "-es"].value
+            }
+        };
+
+        SystemStore.dispatch({
+            action: SystemStore.ACTION_UPDATE_CONFIG_EMAIL,
+            data: data
+        });
+    },
+    renderEmailForm: function renderEmailForm(email, which) {
+        return React.createElement(
+            "div",
+            { className: "ilv-card" },
+            React.createElement(
+                "div",
+                { className: "ilv-card-header" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-media ilv-media-middle" },
+                    React.createElement(
+                        "div",
+                        { className: "ilv-media-body" },
+                        React.createElement(
+                            "strong",
+                            null,
+                            Messages.get("LabelEmail" + which)
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "ilv-media-right" },
+                        React.createElement(
+                            "button",
+                            { className: "ilv-btn ilv-btn-link", "data-toggle": "collapse", href: "#" + which + "-container" },
+                            Messages.get("ActionEdit")
+                        )
+                    )
+                )
+            ),
+            React.createElement(
+                "div",
+                { className: "ilv-card-body collapse", id: which + "-container" },
+                React.createElement(
+                    "ul",
+                    { className: "ilv-text-sm nav nav-tabs m-b-1" },
+                    React.createElement(
+                        "li",
+                        { className: "nav-item" },
+                        React.createElement(
+                            "a",
+                            { className: "nav-link active", "data-toggle": "tab", href: "#" + which + "-pt-br-form" },
+                            Messages.get("LanguagePortuguese")
+                        )
+                    ),
+                    React.createElement(
+                        "li",
+                        { className: "nav-item" },
+                        React.createElement(
+                            "a",
+                            { className: "nav-link", "data-toggle": "tab", href: "#" + which + "-en-form" },
+                            Messages.get("LanguageEnglish")
+                        )
+                    ),
+                    React.createElement(
+                        "li",
+                        { className: "nav-item" },
+                        React.createElement(
+                            "a",
+                            { className: "nav-link", "data-toggle": "tab", href: "#" + which + "-es-form" },
+                            Messages.get("LanguageSpanish")
+                        )
+                    )
+                ),
+                React.createElement(
+                    "form",
+                    { className: "tab-content" },
+                    React.createElement(
+                        "div",
+                        { className: "tab-pane fade active in", id: which + "-pt-br-form" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-pt-br-subject" },
+                                Messages.get("LabelSubject")
+                            ),
+                            React.createElement("input", { spellCheck: false,
+                                "typeof": "text",
+                                className: "ilv-form-control",
+                                id: which + "-pt-br-subject",
+                                ref: which + "-pt-br-subject",
+                                defaultValue: email && email.pt_br ? email.pt_br.Subject : "" })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-pt-br" },
+                                Messages.get("LabelMessage")
+                            ),
+                            React.createElement("textarea", { rows: 5,
+                                spellCheck: false,
+                                className: "ilv-form-control",
+                                id: which + "-pt-br",
+                                ref: which + "-pt-br",
+                                defaultValue: email && email.pt_br ? email.pt_br.Template : "" })
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "tab-pane fade", id: which + "-en-form" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-en-subject" },
+                                Messages.get("LabelSubject")
+                            ),
+                            React.createElement("input", { spellCheck: false,
+                                "typeof": "text",
+                                className: "ilv-form-control",
+                                id: which + "-en-subject",
+                                ref: which + "-en-subject",
+                                defaultValue: email && email.en ? email.en.Subject : "" })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-en" },
+                                Messages.get("LabelMessage")
+                            ),
+                            React.createElement("textarea", { rows: 5,
+                                spellCheck: false,
+                                className: "ilv-form-control",
+                                id: which + "-en",
+                                ref: which + "-en",
+                                defaultValue: email && email.en ? email.en.Template : "" })
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "tab-pane fade", id: which + "-es-form" },
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-es-subject" },
+                                Messages.get("LabelSubject")
+                            ),
+                            React.createElement("input", { spellCheck: false,
+                                "typeof": "text",
+                                className: "ilv-form-control",
+                                id: which + "-es-subject",
+                                ref: which + "-es-subject",
+                                defaultValue: email && email.es ? email.es.Subject : "" })
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "ilv-form-group" },
+                            React.createElement(
+                                "label",
+                                { className: "ilv-form-label", htmlFor: which + "-es" },
+                                Messages.get("LabelMessage")
+                            ),
+                            React.createElement("textarea", { rows: 5,
+                                spellCheck: false,
+                                className: "ilv-form-control",
+                                id: which + "-es",
+                                ref: which + "-es",
+                                defaultValue: email && email.es ? email.es.Template : "" })
+                        )
+                    )
+                ),
+                React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-primary",
+                        ref: which + "-save",
+                        onClick: this.updateTranslatedEmail.bind(this, which) },
+                    Messages.get("LabelSave")
+                ),
+                React.createElement(
+                    "button",
+                    { className: "ilv-btn ilv-btn-clean", "data-toggle": "collapse", href: "#" + which + "-container" },
+                    Messages.get("ActionCancel")
+                )
+            )
+        );
+    },
+    render: function render() {
+        if (this.state.loading) {
+            return React.createElement(LoadingGauge, null);
+        }
+        return React.createElement(
+            "div",
+            null,
+            React.createElement(
+                "div",
+                { className: "ilv-card" },
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-header" },
+                    React.createElement(
+                        "strong",
+                        null,
+                        Messages.get("LabelInstructions")
+                    )
+                ),
+                React.createElement(
+                    "div",
+                    { className: "ilv-card-body" },
+                    React.createElement(
+                        "p",
+                        null,
+                        Messages.get("TextAdminConfigEmailHelp")
+                    ),
+                    React.createElement(
+                        "ul",
+                        null,
+                        React.createElement(
+                            "li",
+                            null,
+                            React.createElement(
+                                "code",
+                                null,
+                                "{0}"
+                            ),
+                            " - ",
+                            Messages.get("TextAdminConfigEmailHelpNameItem")
+                        ),
+                        React.createElement(
+                            "li",
+                            null,
+                            React.createElement(
+                                "code",
+                                null,
+                                "{1}"
+                            ),
+                            " - ",
+                            Messages.get("TextAdminConfigEmailHelpLinkItem")
+                        )
+                    )
+                )
+            ),
+            this.renderEmailForm(this.state.config.WelcomeMessages, "Welcome"),
+            this.renderEmailForm(this.state.config.EmailValidationMessages, "EmailValidation"),
+            this.renderEmailForm(this.state.config.RecoverPasswordMessages, "RecoverPassword"),
+            this.renderEmailForm(this.state.config.AccountBlockingMessages, "AccountBlocking"),
+            this.renderEmailForm(this.state.config.SystemMessage, "SystemMessage")
+        );
+    }
+});
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(Link, "Link", "C:/Projetos/Nova pasta/ilevus/Ilevus/Views/legacy/jsx/core/view/admin/AdminPanelEmails.jsx");
+}();
+
+;
