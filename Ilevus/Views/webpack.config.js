@@ -41,6 +41,7 @@ const resolveModules = modules => () => ({
             "jquery.ui.widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js",
+            "config": "./src/config.js",
             moment$: 'moment/moment.js',
         }
     },
@@ -81,6 +82,8 @@ const config = createConfig([
             $: "jquery",
             jQuery: "jquery",
             Popper: ['popper.js', 'default'],
+            PropTypes : 'prop-types',
+            createClass : 'create-react-class',
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),

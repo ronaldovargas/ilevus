@@ -1,12 +1,11 @@
 ﻿
 var S = require("string");
 var React = require("react");
-var MaskedInput = require("react-maskedinput");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        user: React.PropTypes.object.isRequired
+        user: PropTypes.object.isRequired
     },
 
     render() {

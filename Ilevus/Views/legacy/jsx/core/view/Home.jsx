@@ -21,9 +21,9 @@ var StyleBanner = {
     backgroundImage: 'url(' + ImgBanner + ')'
 }
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     },
     componentDidMount() {
         var me = this

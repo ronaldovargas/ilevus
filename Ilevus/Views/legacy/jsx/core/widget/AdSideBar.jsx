@@ -8,11 +8,11 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        keyword: React.PropTypes.string,
-        limit: React.PropTypes.string,
-        isMobile: React.PropTypes.string
+        keyword: PropTypes.string,
+        limit: PropTypes.string,
+        isMobile: PropTypes.string
     },
     getDefaultProps() {
         return {

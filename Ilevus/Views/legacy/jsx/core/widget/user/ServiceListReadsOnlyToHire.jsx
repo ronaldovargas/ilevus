@@ -5,7 +5,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var cartStore = require("./../../store/Cart.jsx");
 var classNames = require('classnames');
 var isInCart = false;
-module.exports = React.createClass({
+module.exports = createClass({
     getInitialState() {
         return {
             services: cartStore.getCacheServicesHired()

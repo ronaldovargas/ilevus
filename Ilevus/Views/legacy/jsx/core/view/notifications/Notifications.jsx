@@ -2,9 +2,9 @@
 var Link = require("react-router").Link;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
 
     render() {

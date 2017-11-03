@@ -12,10 +12,10 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        config: React.PropTypes.array.isRequired,
-        interval: React.PropTypes.number.isRequired
+        config: PropTypes.array.isRequired,
+        interval: PropTypes.number.isRequired
     },
     getDefaultProps() {
         return {

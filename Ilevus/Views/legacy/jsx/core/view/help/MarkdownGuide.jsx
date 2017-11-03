@@ -3,7 +3,7 @@ var Content = require("./markdown-guide.md");
 var Marked = require("marked");
 var React = require("react");
 
-module.exports = React.createClass({
+module.exports = createClass({
     render() {
         return <div className="m-y-3">
             <div className="container">

@@ -1,7 +1,7 @@
 var React = require('react');
 
 var PostalCodeElement = require('react-stripe-elements/lib/index').PostalCodeElement;
-module.exports = React.createClass({
+module.exports = createClass({
 
   render() {
     return (

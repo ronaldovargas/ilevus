@@ -8,7 +8,7 @@ var Modal = require("ilevus/jsx/core/widget/admin/AdModal.jsx");
 
 var EL = document.getElementById("main-global-modal");
 
-var AlertModal = React.createClass({
+var AlertModal = createClass({
     render() {
         return (
 			<div className="modal-dialog modal-sm">
@@ -28,7 +28,7 @@ var AlertModal = React.createClass({
     }
 });
 
-var FileUploadModalAd = React.createClass({
+var FileUploadModalAd = createClass({
     render() {
         return (
 			<div className="modal-dialog">

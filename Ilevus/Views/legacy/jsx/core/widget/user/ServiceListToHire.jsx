@@ -1,9 +1,8 @@
 ﻿var S = require("string");
 var React = require("react");
-var MaskedInput = require("react-maskedinput");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var cartStore = require("./../../store/Cart.jsx");
-var Modal = require('boron/DropModal');
+// var Modal = require("boron/DropModal");
 
 var Checkout = require('./../../widget/stripe/MyStoreCheckout.jsx');
 var StripeProvider = require('react-stripe-elements/lib/index').StripeProvider;
@@ -11,13 +10,13 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     propTypes: {
-        service: React.PropTypes.object.isRequired,
-        blocked: React.PropTypes.bool.isRequired
+        service: PropTypes.object.isRequired,
+        blocked: PropTypes.bool.isRequired
     },
     getInitialState() {
         return {

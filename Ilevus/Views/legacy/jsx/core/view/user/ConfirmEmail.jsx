@@ -10,7 +10,7 @@ var AppLogo = require("ilevus/img/logo.png");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
 	getInitialState() {
 		return {
 			loading: true,

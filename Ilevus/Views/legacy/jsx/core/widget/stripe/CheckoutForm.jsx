@@ -9,9 +9,9 @@ var UserSession = require('./../../store/Financial.jsx');
 
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
   propTypes: {
-    service: React.PropTypes.object.isRequired
+    service: PropTypes.object.isRequired
   },
   getInitialState() {
     return {

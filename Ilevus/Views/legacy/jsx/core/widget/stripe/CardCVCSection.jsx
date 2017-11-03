@@ -1,7 +1,7 @@
 var CardCVCElement = require('react-stripe-elements/lib/index').CardCVCElement;
 var CardExpiryElement = require('react-stripe-elements/lib/index').CardExpiryElement;
 var React = require('react');
-module.exports = React.createClass({
+module.exports = createClass({
 
   render() {
     return (

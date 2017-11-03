@@ -1,12 +1,10 @@
 
 var React = require("react");
-import PropTypes from 'prop-types'; // ES6
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var WhiteLogo = require('ilevus/img/logo.png');
-var createReactClass = require('create-react-class');
 
-module.exports = createReactClass({
+module.exports = createClass({
     contextTypes: {
         admin: PropTypes.bool.isRequired
     },

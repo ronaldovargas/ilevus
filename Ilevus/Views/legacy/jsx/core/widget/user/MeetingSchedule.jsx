@@ -13,9 +13,9 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        user: React.PropTypes.object.isRequired
+        user: PropTypes.object.isRequired
     },
     getDefaultProps() {
         return {

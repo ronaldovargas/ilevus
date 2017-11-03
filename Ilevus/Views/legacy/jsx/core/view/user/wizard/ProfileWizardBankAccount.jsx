@@ -10,11 +10,11 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object,
-        professionalData: React.PropTypes.object.isRequired,
-        userId: React.PropTypes.string.isRequired
+        router: PropTypes.object,
+        professionalData: PropTypes.object.isRequired,
+        userId: PropTypes.string.isRequired
     },
     getInitialState() {
         return {

@@ -4,7 +4,7 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
 	render() {
 		return (<div>
 			<div className="ilevus-error-404">

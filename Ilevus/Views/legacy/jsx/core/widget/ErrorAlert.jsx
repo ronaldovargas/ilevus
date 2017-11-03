@@ -1,6 +1,6 @@
 ﻿var React = require("react");
 
-module.exports = React.createClass({
+module.exports = createClass({
     getDefaultProps() {
         return {
             className: "alert alert-danger alert-dismissible",

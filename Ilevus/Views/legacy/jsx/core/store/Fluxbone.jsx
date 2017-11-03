@@ -1,17 +1,17 @@
 /**
     Este componente extende as funcionalidades de modelo e store do Backbone para que atenda
-    ao padrão de projeto Flux que é utilizado com o React. Este padrão de projeto define um fluxo
+    ao padrï¿½o de projeto Flux que ï¿½ utilizado com o  Este padrï¿½o de projeto define um fluxo
     unidirecional de dados dentro da estrutura do frontend, onde os componentes visuais despacham
-    requisições de dados às stores. As stores não devolvem os dados diretamente à esses componentes,
-    elas recuperam os dados e disparam eventos quando estes dados estão prontos para uso. Os
-    componentes visuais que estão interessados nesses dados registram listeners nas stores apropriadas.
+    requisiï¿½ï¿½es de dados ï¿½s stores. As stores nï¿½o devolvem os dados diretamente ï¿½ esses componentes,
+    elas recuperam os dados e disparam eventos quando estes dados estï¿½o prontos para uso. Os
+    componentes visuais que estï¿½o interessados nesses dados registram listeners nas stores apropriadas.
 
     Essa arquitetura implementada com o Backbone.js foi chamada de Fluxbone.
-    Esta arquitetura permite que sejam contruídas interfaces reativas com um fluxo e funcionamento fáceis
-    de entender. Além de ser extramamente fácil de se utilizar com o React.
+    Esta arquitetura permite que sejam contruï¿½das interfaces reativas com um fluxo e funcionamento fï¿½ceis
+    de entender. Alï¿½m de ser extramamente fï¿½cil de se utilizar com o
 
-    Aqui estão implementados os principais métodos da store, a store de cada entidade pode criar
-    novos métodos e especializar o funcionamento da store.
+    Aqui estï¿½o implementados os principais mï¿½todos da store, a store de cada entidade pode criar
+    novos mï¿½todos e especializar o funcionamento da store.
 */
 
 var Dispatcher = require("flux").Dispatcher;
@@ -21,7 +21,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Toastr = require("toastr")
-
+var config = require("config")
 var Model = Backbone.Model.extend({
 	parse(response, opts) {
 		if (response.data) {
@@ -32,7 +32,7 @@ var Model = Backbone.Model.extend({
 });
 
 var Store = Backbone.Collection.extend({
-    BACKEND_URL: BACKEND_URL,
+    BACKEND_URL: config.BACKEND_URL,
     userSession: UserSession,
 	$dispatcherActionRegex: /[a-zA-Z0-9]+$/,
 	$dispatcher: new Dispatcher(),
@@ -170,7 +170,7 @@ var Store = Backbone.Collection.extend({
 });
 
 module.exports = {
-	BACKEND_URL: BACKEND_URL,
+	BACKEND_URL: config.BACKEND_URL,
 	Model: Model,
 	Store: Store
 };

@@ -25,9 +25,9 @@ function filterAll(value) {
     return value[1] && (!value[1].New) && value[1].Reviewed;
 }
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     getInitialState() {
         return {

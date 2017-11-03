@@ -11,9 +11,9 @@ var Line = require("react-chartjs-2").Line;
 var CommitmentBg = "rgba(75,192,192,0.4)";
 var FeedbackBg = "rgba(103, 58, 183, 0.2)";
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        process: React.PropTypes.object.isRequired
+        process: PropTypes.object.isRequired
     },
     getDefaultProps() {
         return {

@@ -46,7 +46,7 @@ const createOptions = (fontSize: string) => {
   };
 };
 
-class _CardForm extends React.Component {
+class _CardForm extends Component {
   props: {
     fontSize: string,
     stripe: StripeProps,
@@ -75,7 +75,7 @@ class _CardForm extends React.Component {
 }
 const CardForm = injectStripe(_CardForm);
 
-class _SplitForm extends React.Component {
+class _SplitForm extends Component {
   props: {
     fontSize: string,
     stripe: StripeProps,
@@ -134,7 +134,7 @@ class _SplitForm extends React.Component {
 }
 const SplitForm = injectStripe(_SplitForm);
 
-class CheckoutForm extends React.Component {
+class CheckoutForm extends Component {
   constructor() {
     super();
     this.state = {

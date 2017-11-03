@@ -10,11 +10,11 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var Link = require("react-router").Link;
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object,
-        professionalData: React.PropTypes.object.isRequired,
-        userId: React.PropTypes.string.isRequired
+        router: PropTypes.object,
+        professionalData: PropTypes.object.isRequired,
+        userId: PropTypes.string.isRequired
     },
     componentDidMount() {
         var me = this;

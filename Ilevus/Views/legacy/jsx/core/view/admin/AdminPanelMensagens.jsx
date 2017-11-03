@@ -9,12 +9,13 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
-var URL = BACKEND_URL+"User";
+var config = require("config")
+var URL = config.BACKEND_URL+"User";
 
-module.exports = React.createClass({
+module.exports = createClass({
     url: URL,
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     getInitialState() {
         return {

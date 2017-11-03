@@ -10,6 +10,10 @@ const config = {
     fbAppId: '991453140998882',
     googleClientId: '464712936089-q953apdu1bjiqtcjndktnnk1ts4f2cgv.apps.googleusercontent.com',
     gtmId: 'GTM-WX5ZNVC',
+    apiPath: "api/",
+    urlBase: "http://localhost:57141/",
+    //var old_urlBase = location.origin + "/";
+    BACKEND_URL :"/api/"//urlBase + apiPath;
   },
   test: {},
   development: {},

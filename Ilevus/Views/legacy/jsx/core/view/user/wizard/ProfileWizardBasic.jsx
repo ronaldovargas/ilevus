@@ -5,7 +5,7 @@ require("ilevus/jsx/vendor/intlTelInput.js");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
-var MaskedInput = require('react-maskedinput')
+// var MaskedInput = require('react-maskedinput')
 
 var LanguageSelect = require("ilevus/jsx/core/widget/LanguageSelect.jsx");
 
@@ -15,11 +15,11 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object,
-        professionalData: React.PropTypes.object.isRequired,
-        userId: React.PropTypes.string.isRequired
+        router: PropTypes.object,
+        professionalData: PropTypes.object.isRequired,
+        userId: PropTypes.string.isRequired
     },
     state: {
         TaxDocument: '',

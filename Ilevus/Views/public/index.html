@@ -15,7 +15,7 @@
     <!-- polyfiller file to detect and load polyfills -->
     <script src="https://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    
+
 
     <script>
         webshims.setOptions('waitReady', false);
@@ -47,7 +47,8 @@
 <body>
     <div id="main-global-popover" class="ilevus-popover"></div>
     <div id="main-global-modal" class="modal fade" tabindex="-1" role="dialog"></div>
-    <div id="main-body"></div>
+    <main id="app"></main>
+
 
     <script type="text/javascript">
         function monitorSessao() {
@@ -68,29 +69,9 @@
         }
     </script>
 
-    <script type="text/javascript">
-        var apiPath = "api/";
-        var urlBase = "http://localhost:57141/";
-        //var old_urlBase = location.origin + "/";
-        var BACKEND_URL = "/api/"//urlBase + apiPath;
-    </script>
     <script type="text/javascript" src="https://s3.amazonaws.com/assets-sandbox.moip.com.br/assinaturas/moip-assinaturas.min.js"></script>
-    <script type="text/javascript" src="/bundle.js" charset="utf-8"></script>
 
-    <script type="text/javascript">
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {
-                return;
-            }
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "//connect.facebook.net/pt_BR/sdk.js";
-            js.async = true;
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-        var auth2 = {};
-    </script>
+
     <script type="text/javascript">
         WebFontConfig = {
             google: {
@@ -109,21 +90,7 @@
             s.parentNode.insertBefore(wf, s);
         })();
     </script>
-    <script type="text/javascript">
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', 'UA-80430405-1', 'auto');
-    </script>
     <script type='text/javascript'>
         var fc_CSS = document.createElement('link');
         var fc_Protocol = ('https:' == document.location.protocol ? 'https' : 'http');

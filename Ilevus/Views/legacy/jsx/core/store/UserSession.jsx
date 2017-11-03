@@ -8,7 +8,7 @@ var S = require("string");
 var Dispatcher = require("flux").Dispatcher;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserStore = require("ilevus/jsx/core/store/User.jsx");
-
+var config = require("config")
 var UserSession = Backbone.Model.extend({
     ACTION_REFRESH: 'refreshStatus',
     ACTION_RETRIEVE_PROFESSIONAL_PROFILE: 'retrieveProfessionalProfile',
@@ -43,8 +43,8 @@ var UserSession = Backbone.Model.extend({
 
     ACTION_REMOVE_PICTURE: 'removePicture',
 
-    BACKEND_URL: BACKEND_URL,
-    url: BACKEND_URL + "User",
+    BACKEND_URL: config.BACKEND_URL,
+    url: config.BACKEND_URL + "User",
     $dispatcher: new Dispatcher(),
     dispatch(payload) {
         this.$dispatcher.dispatch(payload);

@@ -10,10 +10,10 @@ var UserIcon = require("ilevus/img/user.png");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        admin: React.PropTypes.bool.isRequired,
-        router: React.PropTypes.object
+        admin: PropTypes.bool.isRequired,
+        router: PropTypes.object
     },
     getInitialState() {             
         

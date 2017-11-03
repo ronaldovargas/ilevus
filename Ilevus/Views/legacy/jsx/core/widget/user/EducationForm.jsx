@@ -5,11 +5,11 @@ var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        education: React.PropTypes.object.isRequired,
-        onSubmit: React.PropTypes.func.isRequired,
-        onCancel: React.PropTypes.func.isRequired
+        education: PropTypes.object.isRequired,
+        onSubmit: PropTypes.func.isRequired,
+        onCancel: PropTypes.func.isRequired
     },
     getDefaultProps() {
         return {

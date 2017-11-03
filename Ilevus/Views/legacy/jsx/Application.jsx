@@ -22,13 +22,13 @@ var Logo = require('ilevus/img/ilevus-logo-20px.png');
 
 //var ConteudoRodape = require("ilevus/jsx/core/view/FooterContent.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     childContextTypes: {
-        admin: React.PropTypes.bool,
-        messages: React.PropTypes.object
+        admin: PropTypes.bool,
+        messages: PropTypes.object
     },
     getChildContext() {
         return {

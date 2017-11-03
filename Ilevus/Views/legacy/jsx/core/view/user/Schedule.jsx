@@ -8,9 +8,9 @@ var MeetingScheduleConfig = require("ilevus/jsx/core/widget/user/MeetingSchedule
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
 
     getInitialState() {

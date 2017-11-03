@@ -13,10 +13,10 @@ var Select = require('react-select');
 var DOM = require('react-dom');
 var AutoComplete = require("react-autocomplete/build/lib/index");
 
-module.exports = React.createClass({
+module.exports = createClass({
     
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     getInitialState() {
         return {

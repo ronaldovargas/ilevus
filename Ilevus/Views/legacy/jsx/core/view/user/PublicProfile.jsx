@@ -13,7 +13,7 @@ var FinancialStore = require("ilevus/jsx/core/store/Financial.jsx");
 var AssessmentsStore = require("ilevus/jsx/core/store/Assessments.jsx");
 
 var DocumentTitle = require('react-document-title');
-var DocMeta = require('react-doc-meta');
+// var DocMeta = require('react-doc-meta');
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
@@ -27,9 +27,9 @@ var UserIcon = require("ilevus/img/user.png");
 
 var Languages = require("ilevus/jsx/core/util/Languages.json");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     getInitialState() {
         return {
@@ -222,7 +222,7 @@ module.exports = React.createClass({
         ];
 
         return (
-            <DocMeta tags={tags}>
+            // <DocMeta tags={tags}>
         <DocumentTitle title={'Ilevus | ' + user.get("Name") + ' ' + user.get("Surname")}>                
             <div className="my-5" role="banner">
             <div className="container">
@@ -555,6 +555,7 @@ module.exports = React.createClass({
             </div>
         </div>
         </DocumentTitle>
-        </DocMeta>);
+        // </DocMeta>
+        );
     }
 });

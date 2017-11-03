@@ -2,12 +2,12 @@
 var React = require('react');
 var string = require("string");
 
-module.exports = React.createClass({
+module.exports = createClass({
 	propTypes: {
-		store: React.PropTypes.object.isRequired,
-		modelId: React.PropTypes.any.isRequired,
-		field: React.PropTypes.string.isRequired,
-		type: React.PropTypes.string
+		store: PropTypes.object.isRequired,
+		modelId: PropTypes.any.isRequired,
+		field: PropTypes.string.isRequired,
+		type: PropTypes.string
 	},
 	getDefaultProps() {
 		return {

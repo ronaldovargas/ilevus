@@ -7,7 +7,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var LanguagesMap = Languages.Mapped;
 
-module.exports = React.createClass({
+module.exports = createClass({
     statics: {
         LanguagesMap: LanguagesMap
     },

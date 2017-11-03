@@ -13,11 +13,11 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 var SystemStore = require("ilevus/jsx/core/store/System.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        ad: React.PropTypes.object,
-        onSubmit: React.PropTypes.func.isRequired,
-        onCancel: React.PropTypes.func.isRequired
+        ad: PropTypes.object,
+        onSubmit: PropTypes.func.isRequired,
+        onCancel: PropTypes.func.isRequired
     },
     getDefaultProps() {
         return {

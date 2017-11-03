@@ -9,11 +9,11 @@ var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        process: React.PropTypes.object.isRequired,
-        session: React.PropTypes.object.isRequired,
-        isCoach: React.PropTypes.bool.isRequired,
+        process: PropTypes.object.isRequired,
+        session: PropTypes.object.isRequired,
+        isCoach: PropTypes.bool.isRequired,
     },
     getDefaultProps() {
         return {

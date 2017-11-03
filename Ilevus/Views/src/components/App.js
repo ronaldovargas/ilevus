@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, IndexRedirect, IndexRoute, BrowserRouter } from 'react-router-dom'
 import { injectGlobal, ThemeProvider } from 'styled-components'
 import Helmet from 'react-helmet'
 
@@ -16,10 +16,10 @@ import Numeral from "numeral";
 import Toastr from "toastr";
 import S from "string";
 import Marked from "marked";
-const IndexRedirect = ReactRouter.IndexRedirect;
-const IndexRoute = ReactRouter.IndexRoute;
-const browserHistory = ReactRouter.browserHistory;
-const hashHistory = ReactRouter.hashHistory;
+// const IndexRedirect = Route.IndexRedirect;
+// const IndexRoute = Route.IndexRoute;
+// const browserHistory = Route.browserHistory;
+// const hashHistory = Route.hashHistory;
 
 import Application from "ilevus/jsx/Application.jsx";
 import Error from "ilevus/jsx/core/view/Error.jsx";

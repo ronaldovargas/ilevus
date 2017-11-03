@@ -8,7 +8,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var AppLogo = require("ilevus/img/logo.png");
 
-module.exports = React.createClass({
+module.exports = createClass({
 	getInitialState() {
 		return {
 		    reseted: false,

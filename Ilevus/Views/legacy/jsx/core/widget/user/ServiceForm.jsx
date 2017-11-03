@@ -4,14 +4,14 @@ var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
-import IntlCurrencyInput from "react-intl-currency-input"
+// import IntlCurrencyInput from "react-intl-currency-input"
 
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        service: React.PropTypes.object.isRequired,
-        onSubmit: React.PropTypes.func.isRequired,
-        onCancel: React.PropTypes.func.isRequired
+        service: PropTypes.object.isRequired,
+        onSubmit: PropTypes.func.isRequired,
+        onCancel: PropTypes.func.isRequired
     },
     getDefaultProps() {
         return { service: {} };

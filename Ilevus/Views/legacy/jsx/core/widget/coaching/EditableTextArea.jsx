@@ -6,12 +6,12 @@ var React = require('react');
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        label: React.PropTypes.string.isRequired,
-        value: React.PropTypes.string,
-        onChange: React.PropTypes.func.isRequired,
-        editable: React.PropTypes.bool.isRequired
+        label: PropTypes.string.isRequired,
+        value: PropTypes.string,
+        onChange: PropTypes.func.isRequired,
+        editable: PropTypes.bool.isRequired
     },
     getDefaultProps() {
         return {

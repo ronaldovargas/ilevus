@@ -8,12 +8,12 @@ var CoachingTools = require("ilevus/jsx/core/store/coaching/Tools.json");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        isCoach: React.PropTypes.bool.isRequired,
-        processId: React.PropTypes.string.isRequired,
-        session: React.PropTypes.object.isRequired,
-        sessionIndex: React.PropTypes.number.isRequired,
+        isCoach: PropTypes.bool.isRequired,
+        processId: PropTypes.string.isRequired,
+        session: PropTypes.object.isRequired,
+        sessionIndex: PropTypes.number.isRequired,
     },
     getDefaultProps() {
         return {

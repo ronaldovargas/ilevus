@@ -6,9 +6,9 @@ var Fluxbone = require("ilevus/jsx/core/store/Fluxbone.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var S = require("string");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        initialValue: React.PropTypes.string
+        initialValue: PropTypes.string
     },
     getInitialState: function () {
         return {

@@ -3,7 +3,7 @@ var Link = require("react-router").Link;
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     render () {
         return (
             <div>

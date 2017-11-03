@@ -6,11 +6,11 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var ScheduleStore = require("ilevus/jsx/core/store/Schedule.jsx");
 
-var MeetingScheduleForm = React.createClass({
+var MeetingScheduleForm = createClass({
     propTypes: {
-        hour: React.PropTypes.object.isRequired,
-        user: React.PropTypes.object.isRequired,
-        onBook: React.PropTypes.func.isRequired
+        hour: PropTypes.object.isRequired,
+        user: PropTypes.object.isRequired,
+        onBook: PropTypes.func.isRequired
     },
     getDefaultProps() {
         return {

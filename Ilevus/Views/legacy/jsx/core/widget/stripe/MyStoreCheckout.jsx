@@ -5,9 +5,9 @@ var CheckoutForm = require('./CheckoutForm');
 var injectStripe = require('react-stripe-elements/lib/index').injectStripe
 var StripeCheckoutForm = injectStripe(CheckoutForm);
 
-module.exports = React.createClass({
+module.exports = createClass({
   propTypes: {
-    service: React.PropTypes.object.isRequired
+    service: PropTypes.object.isRequired
   },
   render() {
     return (

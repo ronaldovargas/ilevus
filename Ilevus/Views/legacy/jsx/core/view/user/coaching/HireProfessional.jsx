@@ -8,9 +8,9 @@ var CoachingStore = require("ilevus/jsx/core/store/Coaching.jsx");
 
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object.isRequired
+        router: PropTypes.object.isRequired
     },
     componentDidMount() {
         var me = this;

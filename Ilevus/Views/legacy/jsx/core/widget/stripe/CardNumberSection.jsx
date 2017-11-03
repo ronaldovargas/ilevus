@@ -1,7 +1,7 @@
 var React = require('react');
 
 var CardNumberElement = require('react-stripe-elements/lib/index').CardNumberElement;
-module.exports = React.createClass({
+module.exports = createClass({
 
   render() {
     return (

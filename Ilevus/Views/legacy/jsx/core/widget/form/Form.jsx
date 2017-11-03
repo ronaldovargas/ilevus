@@ -3,7 +3,7 @@ var React = require("react");
 var HorizontalInput = require("ilevus/jsx/core/widget/form/HorizontalInput.jsx");
 var VerticalInput = require("ilevus/jsx/core/widget/form/VerticalInput.jsx");
 
-var VerticalForm =  React.createClass({
+var VerticalForm =  createClass({
 	getDefaultProps() {
 	    return {
             className: "",

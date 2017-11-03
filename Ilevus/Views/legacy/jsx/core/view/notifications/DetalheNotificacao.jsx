@@ -4,7 +4,7 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var NotificationStore = require("ilevus/jsx/core/store/notifications/Notification.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
 getInitialState() {
         return {
             destination: this.props.params.destination,

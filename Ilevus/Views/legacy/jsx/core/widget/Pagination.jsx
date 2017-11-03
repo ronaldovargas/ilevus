@@ -3,7 +3,7 @@ var _ = require('underscore');
 var React = require("react");
 var Store = require('ilevus/jsx/core/store/Fluxbone.jsx').Store;
 
-module.exports = React.createClass({
+module.exports = createClass({
 	getDefaultProps() {
 		return {
 			store: Store,

@@ -11,14 +11,14 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var ImgWizard = require('ilevus/img/img-wizard.png');
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
     userData: {},
     childContextTypes: {
-        professionalData: React.PropTypes.object,
-        userId: React.PropTypes.string
+        professionalData: PropTypes.object,
+        userId: PropTypes.string
     },
     getChildContext() {
         return this.userData;

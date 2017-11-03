@@ -13,9 +13,9 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var string = require("string");
 var UserIcon = require("ilevus/img/user.png");
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object
+        router: PropTypes.object
     },
 
     getInitialState() {

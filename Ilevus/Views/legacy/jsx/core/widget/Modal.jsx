@@ -8,7 +8,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var EL = document.getElementById("main-global-modal");
 
-var AlertModal = React.createClass({
+var AlertModal = createClass({
 	render() {
 		return (
 			<div className="modal-dialog modal-sm fade in">
@@ -29,7 +29,7 @@ var AlertModal = React.createClass({
 	}
 });
 
-var ConfirmModal = React.createClass({
+var ConfirmModal = createClass({
 	render() {
 		return (
 			<div className="modal-dialog modal-sm">
@@ -55,7 +55,7 @@ var ConfirmModal = React.createClass({
 	}
 });
 
-var DeleteConfirmModal = React.createClass({
+var DeleteConfirmModal = createClass({
 	getDefaultProps() {
 		return {
 			text: "Você tem certeza que deseja excluir este registro?",
@@ -84,7 +84,7 @@ var DeleteConfirmModal = React.createClass({
 	}
 });
 
-var ReadTextModal = React.createClass({
+var ReadTextModal = createClass({
 	onConfirmWrapper(evt) {
 		var me = this,
 			value = me.refs['text-input'].value;
@@ -114,7 +114,7 @@ var ReadTextModal = React.createClass({
 	}
 });
 
-var FileUploadModal = React.createClass({
+var FileUploadModal = createClass({
 	render() {
 		return (
 			<div className="modal-dialog">
@@ -138,7 +138,7 @@ var FileUploadModal = React.createClass({
 	}
 });
 
-var LargeContentModal = React.createClass({
+var LargeContentModal = createClass({
     render() {
         return <div className="modal-dialog modal-lg" role="document">
             <div className="modal-content">
@@ -159,7 +159,7 @@ var LargeContentModal = React.createClass({
     }
 });
 
-var MediumModal = React.createClass({
+var MediumModal = createClass({
 	getDefaultProps() {
 		return {
 			title: null

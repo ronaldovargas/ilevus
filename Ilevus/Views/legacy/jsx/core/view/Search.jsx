@@ -21,7 +21,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
 
-module.exports = React.createClass({
+module.exports = createClass({
     getInitialState() {
         return {
             models: null,

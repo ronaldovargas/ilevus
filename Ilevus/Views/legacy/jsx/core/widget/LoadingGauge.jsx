@@ -3,7 +3,7 @@ var React = require('react');
 
 var LoadingGif = require('ilevus/img/loading.gif');
 
-module.exports = React.createClass({
+module.exports = createClass({
     shouldComponentUpdate() {
         return false;
     },

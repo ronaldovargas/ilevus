@@ -1,15 +1,15 @@
 ﻿var React = require("react");
 
-var Modal = require('boron/DropModal');
+// var Modal = require('boron/DropModal');
 
 var MyStoreCheckout = require('./../../widget/stripe/MyStoreCheckout.jsx');
 var StripeProvider = require('react-stripe-elements/lib/index').StripeProvider;
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
   contextTypes: {
-    router: React.PropTypes.object
+    router: PropTypes.object
 },
   getInitialState(){
     return {
