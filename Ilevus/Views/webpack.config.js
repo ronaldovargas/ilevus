@@ -21,6 +21,18 @@ const babel = () => () => ({
     module: {
         rules: [
             { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+            {
+                test: /\.scss$/,
+                loader: "style-loader!css-loader!postcss-loader!sass-loader"
+            },
+            {
+                test: /\.css$/,
+                loader: "style-loader!css-loader!postcss-loader"
+            },
+            {
+                test: /\.json$/,
+                loader: "json-loader"
+              }
         ],
     },
 })
@@ -41,7 +53,8 @@ const resolveModules = modules => () => ({
             "jquery.ui.widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js",
-            "config": "./src/config.js",
+            "config": path.join(__dirname, "src", "config.js"),
+
             moment$: 'moment/moment.js',
         }
     },
@@ -82,8 +95,8 @@ const config = createConfig([
             $: "jquery",
             jQuery: "jquery",
             Popper: ['popper.js', 'default'],
-            PropTypes : 'prop-types',
-            createClass : 'create-react-class',
+            PropTypes: 'prop-types',
+            createClass: 'create-react-class',
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -105,10 +118,17 @@ const config = createConfig([
 
     env('development', [
         devServer({
+            "proxy": {
+                "/api/": {
+                    "target": 'http://localhost:57141/api/',
+                    "pathRewrite": { '^/api/': '' },
+                    "changeOrigin": true,
+                    "secure": false
+                }
+            },
             contentBase: 'public',
             stats: 'errors-only',
             historyApiFallback: { index: publicPath },
-            headers: { 'Access-Control-Allow-Origin': '*' },
             host,
             port,
         }),

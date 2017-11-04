@@ -5,7 +5,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var CoachingTools = require("ilevus/jsx/core/store/coaching/Tools.json");
 
-module.exports = React.createClass({
+module.exports = createClass({
     componentDidMount() {
         console.log(CoachingTools);
     },

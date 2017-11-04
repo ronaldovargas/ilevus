@@ -29,13 +29,13 @@ var FeedbackBg = "rgba(103, 58, 183, 0.2)";
 
 var ProcessStep = "";
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        router: React.PropTypes.object,
+        router: PropTypes.object,
     },
     childContextTypes: {
-        isCoach: React.PropTypes.bool,
-        process: React.PropTypes.object,
+        isCoach: PropTypes.bool,
+        process: PropTypes.object,
     },
     getChildContext() {
         return {

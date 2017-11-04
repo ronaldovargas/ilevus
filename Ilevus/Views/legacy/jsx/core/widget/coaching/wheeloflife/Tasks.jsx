@@ -8,12 +8,12 @@ var WheelOfLifeStore = require("ilevus/jsx/core/store/coaching/WheelOfLife.jsx")
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     propTypes: {
-        process: React.PropTypes.object.isRequired,
-        session: React.PropTypes.object.isRequired,
-        sessionIndex: React.PropTypes.number.isRequired,
-        tool: React.PropTypes.object.isRequired,
+        process: PropTypes.object.isRequired,
+        session: PropTypes.object.isRequired,
+        sessionIndex: PropTypes.number.isRequired,
+        tool: PropTypes.object.isRequired,
     },
     getDefaultProps() {
         return {

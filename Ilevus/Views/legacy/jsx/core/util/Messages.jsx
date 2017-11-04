@@ -4,6 +4,8 @@
 
 var $ = require("jquery");
 var S = require("string");
+var config = require("config")
+import axios from 'axios';
 
 module.exports = {
     _loaded: false,
@@ -21,7 +23,7 @@ module.exports = {
             return;
         $.ajax({
             method: "POST",
-            url: BACKEND_URL + "Messages/Report?key=" + key,
+            url: config.BACKEND_URL + "Messages/Report?key=" + key,
             success() {
                 console.warn("Reported unexistent key:", key);
             },
@@ -69,25 +71,24 @@ module.exports = {
         }
         return str.template(tplValues).s;
     },
-    load: function (callback) {
+    load: function () {
         var me = this;
-        if (me._loaded) {
+        if (this._loaded) {
             console.warn("Messages already loaded.");
             return null;
         }
-        $.ajax({
-            url: BACKEND_URL + "Messages/Current",
-            method: "GET",
-            dataType: 'json',
-            success: function (data, status, opts) {
-                me._messages = data;
-                me._loaded = true;
-                callback(true);
-            },
-            error: function (opts, status, errorMsg) {
-                console.error("Error loading system messages:\n", opts, status, errorMsg);
-                callback(false);
-            }
+        return new Promise((resolve, reject) => {
+            axios.get(config.BACKEND_URL + "Messages/Current")
+                .then(response => {
+                    console.log(response);
+                    me._messages = response.data;
+                    me._loaded = true;
+                    resolve(response);
+                })
+                .catch(function (error) {
+                    reject(error);
+                    console.error("Error loading system messages:\n", opts, status, errorMsg);
+                });
         });
     }
 };

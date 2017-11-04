@@ -4,7 +4,6 @@ import 'babel-polyfill'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
 
 import { basename } from 'config'
 import configureStore from 'store/configure'
@@ -13,11 +12,22 @@ import App from 'components/App'
 
 const store = configureStore({}, { api: api.create() })
 
+require("bootstrap/scss/bootstrap.scss");
+require("ilevus/css/html5-boilerplate/main.css");
+require("ilevus/sass/anvil.scss");
+
+window.jQuery = require("jquery");
+require("jquery-maskmoney/dist/jquery.maskMoney.js");
+require("daterangepicker/daterangepicker.js");
+require("blueimp-file-upload/js/jquery.iframe-transport.js");
+require("blueimp-file-upload");
+window.Tether = require("tether");
+require("bootstrap/dist/js/bootstrap.js");
+// require("ilevus/jsx/AppSetup.jsx");
+
 const renderApp = () => (
   <Provider store={store}>
-    <BrowserRouter basename={basename}>
-      <App />
-    </BrowserRouter>
+   <App/>
   </Provider>
 )
 

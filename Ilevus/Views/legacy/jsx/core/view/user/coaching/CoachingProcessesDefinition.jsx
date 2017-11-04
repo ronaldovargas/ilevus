@@ -8,7 +8,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var TwitterPicker = ReactColor.TwitterPicker;
 
-module.exports = React.createClass({
+module.exports = createClass({
     getInitialState() {
         return {
             newStepColor: "#AAAAAA",

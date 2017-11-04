@@ -12,7 +12,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var EditableText = require("ilevus/jsx/core/widget/coaching/EditableText.jsx");
 var EditableTextArea = require("ilevus/jsx/core/widget/coaching/EditableTextArea.jsx");
 
-module.exports = React.createClass({
+module.exports = createClass({
     getInitialState() {
         return {
             changed: false,

@@ -198,7 +198,7 @@ var UserSession = Backbone.Model.extend({
         } else {
             $.ajax({
                 method: "POST",
-                url: BACKEND_URL + "Token",
+                url: config.BACKEND_URL + "Token",
                 dataType: 'json',
                 data: {
                     "grant_type": "password",
@@ -361,7 +361,7 @@ var UserSession = Backbone.Model.extend({
         }
         $.ajax({
             method: "GET",
-            url: BACKEND_URL + "user/reset/" + token,
+            url: config.BACKEND_URL + "user/reset/" + token,
             dataType: 'json',
             success(data, status, opts) {
                 me.trigger("recovertoken", true);

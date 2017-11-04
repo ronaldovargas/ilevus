@@ -15,11 +15,11 @@ var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var Radar = require('react-chartjs-2').Radar;
 
-module.exports = React.createClass({
+module.exports = createClass({
     contextTypes: {
-        isCoach: React.PropTypes.bool.isRequired,
-        process: React.PropTypes.object.isRequired,
-        router: React.PropTypes.object,
+        isCoach: PropTypes.bool.isRequired,
+        process: PropTypes.object.isRequired,
+        router: PropTypes.object,
     },
 
     chartOptions: {

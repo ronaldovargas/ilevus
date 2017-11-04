@@ -5,7 +5,7 @@
 */
 
 var React = require("react");
-var Router = require('react-router').Router;
+// var Router = require('react-router').Router;
 var Route = require('react-router').Route;
 var Link = require("react-router").Link;
 
@@ -19,8 +19,6 @@ var TopBar = require("ilevus/jsx/core/widget/TopBar.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Logo = require('ilevus/img/ilevus-logo-20px.png');
-
-//var ConteudoRodape = require("ilevus/jsx/core/view/FooterContent.jsx");
 
 module.exports = createClass({
     contextTypes: {
@@ -74,13 +72,13 @@ module.exports = createClass({
         }
         return (<div>
 			<TopBar />
-            <main className="page-content" role="main">
+            <main id="app" className="page-content" role="main">
                 {this.props.children}
                 <footer className="ilv-lp-footer">
                     <div className="footer-top padd-top padd-bottom">
-                        <div className="container" id="FooterContent">
+                        {/* <div className="container" id="FooterContent">
                             {Messages.getFile(Messages.get("TextFooterContent"), "FooterContent")}
-                        </div>
+                        </div>  */}
                     </div>
                 </footer>
 		    </main>
