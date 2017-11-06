@@ -329,8 +329,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="ilevus.MoipClient.csproj" />
-    <Content Include="Views\bundle.js" />
+    <Content Include="ilevus.MoipClient.csproj" />    
     <Content Include="Views\cms\ConteudoRodape-EngUs.html" />
     <Content Include="Views\cms\ConteudoRodape-Es.html" />
     <Content Include="Views\cms\ConteudoRodape-PtBr.html" />
@@ -382,18 +381,6 @@
     <Content Include="Views\img\support.svg" />
     <Content Include="Views\img\user.png" />
     <Content Include="Views\index.html" />
-    <Content Include="Views\jsx\app.js" />
-    <Content Include="Views\jsx\core\util\Analytics.js" />
-    <Content Include="Views\jsx\core\view\admin\AdminPanelMensagens.js" />
-    <Content Include="Views\jsx\vendor\bank-account-validator-1.0.0.min.js" />
-    <Content Include="Views\jsx\vendor\daterangepicker.js" />
-    <Content Include="Views\jsx\vendor\intlTelInput.js" />
-    <Content Include="Views\jsx\vendor\moip-assinaturas-sandbox.js" />
-    <Content Include="Views\jsx\vendor\moip-assinaturas.js" />
-    <Content Include="Views\jsx\vendor\moip.js" />
-    <Content Include="Views\jsx\vendor\utils.js" />
-    <Content Include="Views\webpack.config.js" />
-    <Content Include="Views\webpack.production.config.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
