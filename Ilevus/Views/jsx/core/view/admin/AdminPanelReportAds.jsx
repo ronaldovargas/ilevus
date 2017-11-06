@@ -399,7 +399,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_CLICKS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: me.refs['rdbView'].value,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -409,7 +409,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_VIEWS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: me.refs['rdbView'].value,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -419,7 +419,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_EFFICIENCY,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: me.refs['rdbView'].value,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -429,7 +429,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_CONSUMPTION,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: me.refs['rdbView'].value,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }

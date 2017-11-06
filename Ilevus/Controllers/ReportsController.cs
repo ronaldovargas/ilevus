@@ -171,12 +171,21 @@ namespace ilevus.Controllers
                     case "w":
                         break;
                     case "d":
+
+                        TimeSpan date = Convert.ToDateTime(dtEnds) - Convert.ToDateTime(dtStart);
+
+                        int totalDias = date.Days;
+
+                        for (var iCont = 0; iCont <= date.Days; iCont++)
+                        {
+                            var dt = new DateTime(dtStart.AddDays(iCont).Year, dtStart.AddDays(iCont).Month, dtStart.AddDays(iCont).Day);
+
+                            var totalFiltro = lReturn.Where(x => x.date >= new DateTime(dt.Year, dt.Month, dt.Day) && x.date <= dt).Count();
+                            Valores.Add(new KeyValuePair<string, string>(dt.ToString("dd/MM/yyyy"), totalFiltro.ToString()));
+                        }
+
                         break;
                 }
-
-                //lReturn.GroupBy(x => x.date.ToString("yyyy-M-dd"));
-                
-
 
                 return Ok(Valores);
             }
@@ -255,6 +264,24 @@ namespace ilevus.Controllers
                     case "w":
                         break;
                     case "d":
+
+                        TimeSpan date = Convert.ToDateTime(dtEnds) - Convert.ToDateTime(dtStart);
+
+                        int totalDias = date.Days;
+
+                        for (var iCont = 0; iCont <= date.Days; iCont++)
+                        {
+                            var dt = new DateTime(dtStart.AddDays(iCont).Year, dtStart.AddDays(iCont).Month, dtStart.AddDays(iCont).Day);
+
+                            var totalClicks = lReturn.Where(x => x.date >= new DateTime(dt.Year, dt.Month, dt.Day) && x.date <= dt && x.ad_event == "click").Count();
+                            var totalViews = lReturn.Where(x => x.date >= new DateTime(dt.Year, dt.Month, dt.Day) && x.date <= dt && x.ad_event == "view").Count();
+
+                            if (totalViews == 0)
+                                Valores.Add(new KeyValuePair<string, string>(dt.ToString("dd/MM/yyyy"), "0"));
+                            else
+                                Valores.Add(new KeyValuePair<string, string>(dt.ToString("dd/MM/yyyy"), string.Format("{0:0.##}", (Convert.ToDecimal(totalClicks) / Convert.ToDecimal(totalViews))).ToString().Replace(",", ".")));
+                        }
+
                         break;
                 }
 
@@ -334,6 +361,19 @@ namespace ilevus.Controllers
                     case "w":
                         break;
                     case "d":
+                        TimeSpan date = Convert.ToDateTime(dtEnds) - Convert.ToDateTime(dtStart);
+
+                        int totalDias = date.Days;
+
+                        for (var iCont = 0; iCont <= date.Days; iCont++)
+                        {
+                            var dt = new DateTime(dtStart.AddDays(iCont).Year, dtStart.AddDays(iCont).Month, dtStart.AddDays(iCont).Day);
+
+                            var filtrado = lReturn.Where(x => x.date >= new DateTime(dt.Year, dt.Month, dt.Day) && x.date <= dt).Sum(y => y.cost);
+
+                            Valores.Add(new KeyValuePair<string, string>(dt.ToString("dd/MM/yyyy"), string.Format("{0:0.##}", (Convert.ToDecimal(filtrado))).ToString().Replace(",", ".")));
+                        }
+
                         break;
                 }
 
