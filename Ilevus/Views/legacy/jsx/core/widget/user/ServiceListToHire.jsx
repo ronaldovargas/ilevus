@@ -2,7 +2,7 @@
 var React = require("react");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var cartStore = require("./../../store/Cart.jsx");
-// var Modal = require("boron/DropModal");
+var Modal = require("boron/DropModal");
 
 var Checkout = require('./../../widget/stripe/MyStoreCheckout.jsx');
 var StripeProvider = require('react-stripe-elements/lib/index').StripeProvider;
@@ -16,7 +16,7 @@ module.exports = createClass({
     },
     propTypes: {
         service: PropTypes.object.isRequired,
-        blocked: PropTypes.bool.isRequired
+        blocked: PropTypes.bool
     },
     getInitialState() {
         return {

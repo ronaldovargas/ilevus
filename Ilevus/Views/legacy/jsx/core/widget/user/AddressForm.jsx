@@ -1,7 +1,7 @@
 ﻿
 var S = require("string");
 var React = require("react");
-// var MaskedInput = require("react-maskedinput");
+var MaskedInput = require("react-maskedinput");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var Countries = require("ilevus/jsx/core/util/Countries.json");

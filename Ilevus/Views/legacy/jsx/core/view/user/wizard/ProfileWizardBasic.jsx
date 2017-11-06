@@ -5,7 +5,7 @@ require("ilevus/jsx/vendor/intlTelInput.js");
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
-// var MaskedInput = require('react-maskedinput')
+var MaskedInput = require('react-maskedinput')
 
 var LanguageSelect = require("ilevus/jsx/core/widget/LanguageSelect.jsx");
 

@@ -1,8 +1,11 @@
 {
   "presets": [
-    ["env", {
-      "modules": false
-    }],
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ],
     "react",
     "stage-1"
   ],
@@ -13,9 +16,12 @@
     "development": {
       "plugins": [
         "transform-es2015-modules-commonjs",
-        ["styled-components", {
-          "minify": false
-        }]
+        [
+          "styled-components",
+          {
+            "minify": false
+          }
+        ]
       ]
     },
     "test": {
@@ -26,9 +32,12 @@
     "production": {
       "plugins": [
         "transform-react-remove-prop-types",
-        ["styled-components", {
-          "displayName": false
-        }]
+        [
+          "styled-components",
+          {
+            "displayName": false
+          }
+        ]
       ]
     }
   }
