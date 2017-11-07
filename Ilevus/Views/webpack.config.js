@@ -32,7 +32,7 @@ const babel = () => () => ({
             {
                 test: /\.json$/,
                 loader: "json-loader"
-              }
+            }
         ],
     },
 })
@@ -54,7 +54,6 @@ const resolveModules = modules => () => ({
             "jquery-ui/widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js",
             "config": path.join(__dirname, "src", "config.js"),
-
             moment$: 'moment/moment.js',
         }
     },
@@ -115,7 +114,6 @@ const config = createConfig([
     ]),
     assets(),
     resolveModules(sourceDir),
-
     env('development', [
         devServer({
             "proxy": {

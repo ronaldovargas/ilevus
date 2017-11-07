@@ -5,11 +5,13 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
+import { browserHistory } from 'react-router'
+
 import configureStore from 'store/configure'
 import api from 'services/api'
 import App from 'components/App'
 
-const store = configureStore({}, { api: api.create() })
+const store = configureStore({}, browserHistory)
 
 require('bootstrap/scss/bootstrap.scss')
 require('ilevus/css/html5-boilerplate/main.css')
@@ -39,3 +41,24 @@ if (module.hot) {
     render(renderApp(), root)
   })
 }
+
+
+
+// import 'react-hot-loader/patch'
+// import 'babel-polyfill'
+// import React from 'react'
+// import { render } from 'react-dom'
+// import { Provider } from 'react-redux'
+// import { AppContainer } from 'react-hot-loader'
+// import { Router, browserHistory, applyRouterMiddleware } from 'react-router'
+// import { syncHistoryWithStore } from 'react-router-redux'
+// import { useScroll } from 'react-router-scroll'
+// import configureStore from 'store/configure'
+
+// import { Routes } from './routes'
+
+// const history = syncHistoryWithStore(browserHistory, store)
+// const root = document.getElementById('app')
+
+
+//   <Router history={history} render={applyRouterMiddleware(useScroll())} />
