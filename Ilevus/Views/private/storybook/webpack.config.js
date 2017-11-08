@@ -7,6 +7,7 @@ module.exports = storybookBaseConfig =>
     }),
     resolve: Object.assign({}, storybookBaseConfig.resolve, {
       modules: baseConfig.resolve.modules,
+      alias: baseConfig.resolve.alias,
     }),
     module: Object.assign({}, storybookBaseConfig.module, {
       rules: storybookBaseConfig.module.rules.concat(baseConfig.module.rules.slice(1)),

@@ -149,14 +149,14 @@ class App extends React.Component {
 const Erro = () => {
   return (<Error />);
 }
-
+import { PaymentStatement } from 'components'
 const Valid = () => {
   return (
     <div>
       <Router history={browserHistory}>
         <Route path="/" component={Application}>
           <IndexRedirect to="home" />
-
+          <Route path="paymentStatement" component={PaymentStatement} />
           <Route path="home" component={Home} />
           <Route path="login" component={Login} />
           <Route path="auth-callback/:accessToken" component={Login} />
