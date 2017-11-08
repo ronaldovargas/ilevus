@@ -28,6 +28,7 @@ module.exports = React.createClass({
         return {
             dtInit: null,
             dtEnd: null,
+            modeView: null,
             adsClicks: [],
             adsViews: [],
             adsEfficiency: [],
@@ -35,6 +36,7 @@ module.exports = React.createClass({
             loading: true
         };
     },
+
     componentDidMount() {
         var me = this;
         me.setState({
@@ -77,12 +79,14 @@ module.exports = React.createClass({
 
         this.state.dtInit = ("0" + di.getDate()).slice(-2) + "/" + ("0" + (di.getMonth() + 1)).slice(-2) + "/" + di.getFullYear();
         this.state.dtEnd = ("0" + de.getDate()).slice(-2) + "/" + ("0" + (de.getMonth() + 1)).slice(-2) + "/" + de.getFullYear();
+
+        this.state.modeView = "m";
         
         ReportStore.dispatch({
             action: ReportStore.ACTION_ADS_CLICKS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: this.state.modeView,
                 DtIni: this.state.dtInit,
                 DtEnd: this.state.dtEnd
             }
@@ -92,7 +96,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_VIEWS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: this.state.modeView,
                 DtIni: this.state.dtInit,
                 DtEnd: this.state.dtEnd
             }
@@ -102,7 +106,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_EFFICIENCY,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: this.state.modeView,
                 DtIni: this.state.dtInit,
                 DtEnd: this.state.dtEnd
             }
@@ -112,7 +116,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_CONSUMPTION,
             data: {
                 Id: me.props.params.idAd,
-                modeView: "m",
+                modeView: this.state.modeView,
                 DtIni: this.state.dtInit,
                 DtEnd: this.state.dtEnd
             }
@@ -140,7 +144,7 @@ module.exports = React.createClass({
             maxDate: di
         });
 
-        $("#rdbView1").prop("checked", true);
+        //$("#rdbView1").prop("checked", true);
     },
 
     componentWillUnmount() {
@@ -475,20 +479,14 @@ module.exports = React.createClass({
                             <div className="col-12">
                                 <div className="ilv-radio inline">
 									<label htmlFor="rdbView1" className="mr-10">
-										<input className="ilv-control-input" id="rdbView1" name="rdbView" ref="rdbView" value="m" type="radio" />
+										<input className="ilv-control-input" id="rdbView1" name="rdbView" ref="rdbView" value="m" type="radio" checked={this.state.modeView == "m"} onClick={this.state.modeView = "m"} />
                                         <span className="ilv-control-indicator"></span>
                                         <span className="ilv-control-label">Mensal</span>
 									</label>
                                 
                                 
-									<label htmlFor="rdbView2" className="mr-10">
-										<input className="ilv-control-input" id="rdbView2" name="rdbView" ref="rdbView" value="w" type="radio" />
-                                        <span className="ilv-control-indicator"></span>
-                                        <span className="ilv-control-label">Semana</span>
-									</label>
-                                
 									<label htmlFor="rdbView3">
-										<input className="ilv-control-input" id="rdbView3" name="rdbView" ref="rdbView" value="d" type="radio" />
+										<input className="ilv-control-input" id="rdbView3" name="rdbView" ref="rdbView" value="d" type="radio" checked={this.state.modeView == "d"} onClick={this.state.modeView = "d"} />
                                         <span className="ilv-control-indicator"></span>
                                         <span className="ilv-control-label">Diário</span>
 									</label>
