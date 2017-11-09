@@ -403,7 +403,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_CLICKS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: me.refs['rdbView'].value,
+                modeView: me.state.modeView,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -413,7 +413,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_VIEWS,
             data: {
                 Id: me.props.params.idAd,
-                modeView: me.refs['rdbView'].value,
+                modeView: me.state.modeView,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -423,7 +423,7 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_EFFICIENCY,
             data: {
                 Id: me.props.params.idAd,
-                modeView: me.refs['rdbView'].value,
+                modeView: me.state.modeView,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
@@ -433,12 +433,19 @@ module.exports = React.createClass({
             action: ReportStore.ACTION_ADS_CONSUMPTION,
             data: {
                 Id: me.props.params.idAd,
-                modeView: me.refs['rdbView'].value,
+                modeView: me.state.modeView,
                 DtIni: DtInit,
                 DtEnd: DtEnd
             }
         });
 
+    },
+
+    handleChange(e) {
+        var value = e.target.value;
+        this.setState({
+            modeView: value
+        })
     },
     
     render() {
@@ -479,14 +486,14 @@ module.exports = React.createClass({
                             <div className="col-12">
                                 <div className="ilv-radio inline">
 									<label htmlFor="rdbView1" className="mr-10">
-										<input className="ilv-control-input" id="rdbView1" name="rdbView" ref="rdbView" value="m" type="radio" checked={this.state.modeView == "m"} onClick={this.state.modeView = "m"} />
+										<input className="ilv-control-input" id="rdbView1" name="rdbView" ref="rdbViewM" value="m" type="radio" checked={this.state.modeView == "m"} onChange={this.handleChange} />
                                         <span className="ilv-control-indicator"></span>
                                         <span className="ilv-control-label">Mensal</span>
 									</label>
                                 
                                 
 									<label htmlFor="rdbView3">
-										<input className="ilv-control-input" id="rdbView3" name="rdbView" ref="rdbView" value="d" type="radio" checked={this.state.modeView == "d"} onClick={this.state.modeView = "d"} />
+										<input className="ilv-control-input" id="rdbView3" name="rdbView" ref="rdbViewD" value="d" type="radio" checked={this.state.modeView == "d"} onChange={this.handleChange} />
                                         <span className="ilv-control-indicator"></span>
                                         <span className="ilv-control-label">Diário</span>
 									</label>
