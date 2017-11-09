@@ -78,7 +78,7 @@ namespace ilevus.Controllers
                 return InternalServerError(e);
             }
         }
-        
+
         [HttpPost]
         [Route("Save")]
         [AllowAnonymous]
@@ -138,7 +138,8 @@ namespace ilevus.Controllers
                             updates.Set("ImageDesktop", strDesktopImageName),
                             updates.Set("ImageMobile", strMobileImageName),
                             updates.Set("Status", Enums.ModerationAds.WaitingAnalysis),
-                            updates.Set("Moderator", new UserModerator() {
+                            updates.Set("Moderator", new UserModerator()
+                            {
                                 AnalysisHour = null,
                                 Email = "",
                                 Id = ""
@@ -287,7 +288,7 @@ namespace ilevus.Controllers
         }
 
         #endregion
-        
+
         public static bool fBrowserIsMobile()
         {
             System.Diagnostics.Debug.Assert(HttpContext.Current != null);
@@ -314,11 +315,11 @@ namespace ilevus.Controllers
             var db = IlevusDBContext.Create();
             var filters = Builders<Ad>.Filter;
             var collection = db.GetAdsCollection();
-            
+
             try
             {
                 List<Ad> ads = null;
-                
+
                 string ImagePosition = (isMobile ? "ImageMobile" : "ImageDesktop");
 
                 if (!isMobile && fBrowserIsMobile())
@@ -347,9 +348,9 @@ namespace ilevus.Controllers
                     directed.Skip(new Random().Next(0, iCont));
 
                     ads = await directed.ToListAsync();
-                    
+
                 }
-                
+
                 if (ads == null)
                 {
                     var directed = collection.Find(
@@ -427,7 +428,7 @@ namespace ilevus.Controllers
                     updatesBalance.Set("Balance", balance.Balance - Convert.ToDouble(token.SelectToken("CostPerView_" + implemented)))
                 );
 
-                
+
                 string url = token.SelectToken("UrlRetriviedAds").ToString();
                 url = (!url.EndsWith(@"/") ? url + "/" : url);
                 //string path = token.SelectToken("UrlRetriviedAds").ToString();
@@ -502,7 +503,7 @@ namespace ilevus.Controllers
         }
 
         #region Moderação de anúncios
-        
+
         [HttpGet]
         [Route("CheckPendingModerations")]
         [AllowAnonymous]
@@ -513,7 +514,7 @@ namespace ilevus.Controllers
             var collection = db.GetAdsCollection();
             try
             {
-                
+
                 var directed = collection.Find(
                     filters.And(
                         filters.Eq("Active", true),
@@ -568,7 +569,7 @@ namespace ilevus.Controllers
                                 filters.Lt("Moderator.AnalysisHour", DateTime.Now.AddMinutes(-5))
                             )
                         )
-                        
+
                     )
                 ).FirstOrDefault();
 
@@ -648,7 +649,8 @@ namespace ilevus.Controllers
                     filters.Eq("Id", Id),
                     updates.Combine(
                         updates.Set("Status", Status),
-                        updates.Set("Moderator", new UserModerator() {
+                        updates.Set("Moderator", new UserModerator()
+                        {
                             AnalysisHour = null,
                             Email = "",
                             Id = ""
@@ -732,7 +734,7 @@ namespace ilevus.Controllers
             try
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                
+
                 //Somatório Dia
                 var dtStart = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 0, 0, 0);
                 var dtEnd = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 23, 59, 59);

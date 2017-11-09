@@ -36,11 +36,11 @@ namespace ilevus.Controllers
         {
             var db = IlevusDBContext.Create();
             //var filters = Builders<AdLogModeration>.Filter;
-            
+
             var builder = Builders<AdLogModeration>.Filter;
 
             var collection = db.GetAdsLogCollection();
-                        
+
             try
             {
                 DateTime dtStart;
@@ -70,7 +70,7 @@ namespace ilevus.Controllers
                 var ads = await directed.ToListAsync();
 
                 var users = ads.Select(x => x.user_id).Distinct().ToList();
-                
+
                 StringBuilder csv = new StringBuilder();
                 csv.Append(string.Format("{0};{1};{2};{3};{4}", "Nome", "Email", "Dt. Inícial", "Dt. Final", "Quantidade de Moderações") + Environment.NewLine);
 

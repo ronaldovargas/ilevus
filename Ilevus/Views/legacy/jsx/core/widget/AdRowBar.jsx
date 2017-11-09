@@ -9,11 +9,11 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var AdStore = require("ilevus/jsx/core/store/Ad.jsx");
 
-module.exports = createClass({
+module.exports = React.createClass({
     propTypes: {
-        keyword: PropTypes.string,
-        limit: PropTypes.string,
-        isMobile: PropTypes.string
+        keyword: React.PropTypes.string,
+        limit: React.PropTypes.string,
+        isMobile: React.PropTypes.string
     },
     getDefaultProps() {
         return {
@@ -51,7 +51,6 @@ module.exports = createClass({
     },
 
     componentWillReceiveProps(newProps) {
-        var me = this;
         if (newProps.keyword != this.props.keyword) {
             this.refreshMobileAds(newProps.keyword, me.props.limit, me.props.isMobile);
         }

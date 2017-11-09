@@ -47,12 +47,12 @@ module.exports = createClass({
         }, me);
 
         AdStore.on("change-ads-status", (ad) => {
-            
+
             if (jQuery("#lnkActive_" + ad.Id).find("i:first").hasClass("fa-toggle-on"))
                 jQuery("#lnkActive_" + ad.Id).find("i:first").removeClass("fa-toggle-on").addClass("fa-toggle-off");
             else
                 jQuery("#lnkActive_" + ad.Id).find("i:first").removeClass("fa-toggle-off").addClass("fa-toggle-on");
-            
+
         }, me);
 
         AdStore.dispatch({
@@ -126,7 +126,7 @@ module.exports = createClass({
 
     changeStatusAd(ad, event) {
         event && event.preventDefault();
-        
+
         AdStore.dispatch({
             action: AdStore.ACTION_CHANGE_ADS_STATUS,
             data: {
