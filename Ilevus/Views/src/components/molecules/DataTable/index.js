@@ -4,20 +4,27 @@ import ReactTable from 'react-table'
 // import 'react-table/react-table.css'
 
 const DataTable = ({
-  data, columns, ...props
+  list, columns, loading, failed, ...props
 }) => {
   return (
-    <ReactTable
-      {...props}
-      data={data}
-      columns={columns}
-    />
+    <div>
+      {!list.length && loading && <div>Loading</div>}
+      {failed && <div>Something went wrong while fetching posts. Please, try again later.</div>}
+      {!list.length > 0 && !loading && <ReactTable
+        {...props}
+        data={list}
+        columns={columns}
+      />
+      }
+    </div>
   )
 }
 
 DataTable.propTypes = {
-  data: PropTypes.array,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
   columns: PropTypes.array,
+  loading: PropTypes.bool,
+  failed: PropTypes.bool,
 }
 
 export default DataTable

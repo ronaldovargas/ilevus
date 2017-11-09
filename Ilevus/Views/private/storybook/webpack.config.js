@@ -10,6 +10,24 @@ module.exports = storybookBaseConfig =>
       alias: baseConfig.resolve.alias,
     }),
     module: Object.assign({}, storybookBaseConfig.module, {
-      rules: storybookBaseConfig.module.rules.concat(baseConfig.module.rules.slice(1)),
+      rules: storybookBaseConfig.module.rules.concat([
+        { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
+        {
+          test: /\.scss$/,
+          loader: "style-loader!css-loader!postcss-loader!sass-loader"
+        },
+        {
+          test: /\.css$/,
+          loader: "style-loader!css-loader!postcss-loader"
+        },
+        {
+          test: /\.json$/,
+          loader: "json-loader"
+        },
+        {
+          test: /\.(md|gif|png|jpe?g|svg|woff2?|ttf|eot)$/,
+          loader: 'url-loader?limit=8000'
+        }
+      ]),
     }),
   })

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { DataTable, PageTemplate } from 'components'
+import 'react-table/react-table.css'
 
 const columns = [{
   Header: 'Data',
@@ -36,20 +37,26 @@ const columns = [{
 ]
 
 
-const PaymentStatement = ({ data, ...props }) => {
+const PaymentStatement = ({
+  list, loading, failed, ...props
+}) => {
   return (
     <PageTemplate>
       <DataTable
         {...props}
         columns={columns}
-        data={data}
+        data={list}
+        loading={loading}
+        failed={failed}
       />
     </PageTemplate>
   )
 }
 
 PaymentStatement.propTypes = {
-  data: PropTypes.array.isRequired,
+  list: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool,
+  failed: PropTypes.bool,
 }
 
 
