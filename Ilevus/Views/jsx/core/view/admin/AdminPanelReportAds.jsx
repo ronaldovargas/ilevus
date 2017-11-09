@@ -248,6 +248,24 @@ module.exports = React.createClass({
         }
     },
 
+    formatToCurrency(num, type) {
+        type = type || "BRL";
+        var _formtas = ["BRL", "USD", "EUR", "PERCENT"];
+        _formtas["BRL"] = {"prefix" : "R$ ", "suffix" : "", "decimal" : ",", "thousand" : "."};
+        _formtas["USD"] = {"prefix" : "$ ", "suffix" : "", "decimal" : ".", "thousand" : ","};
+        _formtas["EUR"] = {"prefix" : "", "suffix" : " €", "decimal" : ",", "thousand" : "."};
+        _formtas["PERCENT"] = {"prefix" : "", "suffix" : " %", "decimal" : ".", "thousand" : ","};
+
+        var p = parseFloat(num.trim()).toFixed(2).split(".");
+        return _formtas[type]["prefix"] + p[0].split("").reverse().reduce(function (acc, num, i, orig) {
+            return num + (i && !(i % 3) ? _formtas[type]["thousand"] : "") + acc;
+        }, "") + _formtas[type]["decimal"] + p[1] + _formtas[type]["suffix"];
+    },
+    parseDate(str) {
+        var dmy = str.split('/');
+        return new Date(dmy[2], dmy[1]-1, dmy[0]);
+    },
+
     getClicksChartData() {
         var process = this.state.adsClicks, labels = [], data = [];
         for (var i = 0; i < process.length; i++) {
@@ -391,53 +409,120 @@ module.exports = React.createClass({
             ]
         };
     },
+
+    exportCSV(e) {
+        /*var A = [['n','sqrt(n)']];
+
+        for(var j=1; j<10; ++j){
+            A.push([j, Math.sqrt(j)]);
+        }*/
+
+        var csvRows = [];
+
+        var line = "";
+        this.state.adsClicks.map((Header, index) =>
+            line += (line != "" ? ";" : "") + Header.Key
+        )
+        csvRows.push(line);
+
+        line = "";
+        this.state.adsClicks.map((clicks, index) =>
+            line += (line != "" ? ";" : "") + clicks.Value
+        )
+        csvRows.push(line);
+
+        line = "";
+        this.state.adsViews.map((clicks, index) =>
+            line += (line != "" ? ";" : "") + clicks.Value
+        )
+        csvRows.push(line);
+
+        line = "";
+        this.state.adsEfficiency.map((clicks, index) =>
+            line += (line != "" ? ";" : "") + clicks.Value
+        )
+        csvRows.push(line);
+
+        line = "";
+        this.state.adsConsumption.map((clicks, index) =>
+            line += (line != "" ? ";" : "") + clicks.Value
+        )
+        csvRows.push(line);
+
+        var csvString = csvRows.join('\n');
+        var a         = document.createElement('a');
+        a.href        = 'data:attachment/csv,' +  encodeURIComponent(csvString);
+        a.target      = '_blank';
+        a.download    = 'Report-Ad.csv';
+
+        document.body.appendChild(a);
+        a.click();
+    },
     
     eventloadDataGraphs() {
-        //event.stopPropagation();
         var me = this;
 
         var DtInit = $('#DtInit').val();
         var DtEnd = $('#DtEnd').val();
 
-        ReportStore.dispatch({
-            action: ReportStore.ACTION_ADS_CLICKS,
-            data: {
-                Id: me.props.params.idAd,
-                modeView: me.state.modeView,
-                DtIni: DtInit,
-                DtEnd: DtEnd
-            }
-        });
+        var blExecuteQuery = true;
 
-        ReportStore.dispatch({
-            action: ReportStore.ACTION_ADS_VIEWS,
-            data: {
-                Id: me.props.params.idAd,
-                modeView: me.state.modeView,
-                DtIni: DtInit,
-                DtEnd: DtEnd
-            }
-        });
+        if (!(this.parseDate(DtInit) > this.parseDate(DtEnd))) {
 
-        ReportStore.dispatch({
-            action: ReportStore.ACTION_ADS_EFFICIENCY,
-            data: {
-                Id: me.props.params.idAd,
-                modeView: me.state.modeView,
-                DtIni: DtInit,
-                DtEnd: DtEnd
+            if (me.state.modeView == "d") {
+                var diffDays = Math.abs(Math.round((this.parseDate(DtInit) - this.parseDate(DtEnd)) / (1000 * 60 * 60 * 24)));
+                if (diffDays >= 30) {
+                    blExecuteQuery = false;
+                    alert("Período não pode ser superior a 30 dias");
+                }
             }
-        });
 
-        ReportStore.dispatch({
-            action: ReportStore.ACTION_ADS_CONSUMPTION,
-            data: {
-                Id: me.props.params.idAd,
-                modeView: me.state.modeView,
-                DtIni: DtInit,
-                DtEnd: DtEnd
+            if (blExecuteQuery) {
+                ReportStore.dispatch({
+                    action: ReportStore.ACTION_ADS_CLICKS,
+                    data: {
+                        Id: me.props.params.idAd,
+                        modeView: me.state.modeView,
+                        DtIni: DtInit,
+                        DtEnd: DtEnd
+                    }
+                });
+
+                ReportStore.dispatch({
+                    action: ReportStore.ACTION_ADS_VIEWS,
+                    data: {
+                        Id: me.props.params.idAd,
+                        modeView: me.state.modeView,
+                        DtIni: DtInit,
+                        DtEnd: DtEnd
+                    }
+                });
+
+                ReportStore.dispatch({
+                    action: ReportStore.ACTION_ADS_EFFICIENCY,
+                    data: {
+                        Id: me.props.params.idAd,
+                        modeView: me.state.modeView,
+                        DtIni: DtInit,
+                        DtEnd: DtEnd
+                    }
+                });
+
+                ReportStore.dispatch({
+                    action: ReportStore.ACTION_ADS_CONSUMPTION,
+                    data: {
+                        Id: me.props.params.idAd,
+                        modeView: me.state.modeView,
+                        DtIni: DtInit,
+                        DtEnd: DtEnd
+                    }
+                });
             }
-        });
+        } else {
+            alert("Data inicial não pode ser maior do que a data final!");
+        }
+
+
 
     },
 
@@ -447,13 +532,57 @@ module.exports = React.createClass({
             modeView: value
         })
     },
+
+    createGridResult() {
+
+        if (!this.state.adsClicks && !this.state.adsViews && !this.state.adsEfficiency && !this.state.adsConsumption) {
+            return <i>Carregando Dados...</i>;
+        }
+
+        return (<table className="ilv-table ilv-table-sm ilv-table-middle ilv-text-sm">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    {this.state.adsClicks.map((Header, index) =>
+                        <th>{Header.Key}</th>
+                    )}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Cliques</td>
+                    {this.state.adsClicks.map((clicks, index) =>
+                        <td>{clicks.Value}</td>
+                    )}
+                </tr>
+                <tr>
+                    <td>Visualizacoes</td>
+                    {this.state.adsViews.map((views, index) =>
+                        <td>{views.Value}</td>
+                    )}
+                </tr>
+                <tr>
+                    <td>Eficiência</td>
+                    {this.state.adsEfficiency.map((efficiency, index) =>
+                        <td>{this.formatToCurrency(efficiency.Value, "PERCENT")}</td>
+                    )}
+                </tr>
+                <tr>
+                    <td>Consumo</td>
+                    {this.state.adsConsumption.map((consumption, index) =>
+                        <td>{this.formatToCurrency(consumption.Value, "BRL")}</td>
+                    )}
+                </tr>
+            </tbody>
+        </table>);
+    },
     
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
         }
         return (<div>
-            <h5>{Messages.get("LabelReport")} <button className="ilv-btn ilv-btn-link pull-right"><i className="fa fa-download"></i></button></h5>
+            <h5>{Messages.get("LabelReport")} <button className="ilv-btn ilv-btn-link pull-right" onClick={this.exportCSV}><i className="fa fa-download"></i></button></h5>
             <div className="ilv-card">
                 <div className="ilv-card-header">
                     <div className="ilv-media ilv-media-middle">
@@ -521,6 +650,12 @@ module.exports = React.createClass({
 
                 <div className="col-md-6 mb-5">
                     <Line data={this.getConsumptionChartData()} options={this.chartOptionsConsumption} />
+                </div>
+            </div>
+
+            <div className="row">
+                <div className="col-md-12 table-responsive">
+                    {this.createGridResult()}
                 </div>
             </div>
 

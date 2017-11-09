@@ -53,7 +53,7 @@ module.exports = createClass({
     componentWillReceiveProps(newProps) {
         var me = this;
         if (newProps.keyword != this.props.keyword) {
-            this.refreshAds(newProps.keyword, me.props.limit, me.props.isMobile);
+            this.refreshMobileAds(newProps.keyword, me.props.limit, me.props.isMobile);
         }
     },
 
