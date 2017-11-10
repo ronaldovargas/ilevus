@@ -126,7 +126,7 @@ const config = createConfig([
                 }
             },
             contentBase: 'public',
-            stats: 'errors-only',
+            stats: 'verbose',
             historyApiFallback: { index: publicPath },
             host,
             port,

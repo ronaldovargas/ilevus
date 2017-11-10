@@ -10,7 +10,8 @@ const DataTable = ({
     <div>
       {!list.length && loading && <div>Loading</div>}
       {failed && <div>Something went wrong while fetching posts. Please, try again later.</div>}
-      {!list.length > 0 && !loading && <ReactTable
+      { list.length > 0 && !loading &&
+      <ReactTable
         {...props}
         data={list}
         columns={columns}

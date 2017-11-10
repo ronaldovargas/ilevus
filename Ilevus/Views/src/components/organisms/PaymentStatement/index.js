@@ -45,9 +45,9 @@ const PaymentStatement = ({
       <DataTable
         {...props}
         columns={columns}
-        data={list}
+        list={list}
         loading={loading}
-        failed={failed}
+        failed={false}
       />
     </PageTemplate>
   )

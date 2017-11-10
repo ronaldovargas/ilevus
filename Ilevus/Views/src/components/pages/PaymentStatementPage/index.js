@@ -1,7 +1,8 @@
-// https://github.com/diegohaz/arc/wiki/Storybook
+// https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { PaymentStatement } from 'components'
+
+import { PageTemplate } from 'components'
+import { PaymentStatement } from 'containers'
 
 const data = [{
   Data: '13/01/2017',
@@ -13,7 +14,13 @@ const data = [{
   ValorTaxas: 'R$  500,00',
   ValorLíquido: 'R$ 2000,00',
 }]
-storiesOf('PaymentStatement', module)
-  .add('default', () => (
-    <PaymentStatement list={data} />
-  ))
+
+const HomePage = () => {
+  return (
+    <PageTemplate>
+      <PaymentStatement  list={ data } />
+    </PageTemplate>
+  )
+}
+
+export default HomePage
