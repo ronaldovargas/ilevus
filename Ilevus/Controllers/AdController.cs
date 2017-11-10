@@ -395,6 +395,7 @@ namespace ilevus.Controllers
             var filters = Builders<Ad>.Filter;
             var updates = Builders<Ad>.Update;
             var collection = db.GetAdsCollection();
+            var collectionReport = db.GetAdsReport();
 
             var cBalance = db.GetAdsBalanceCollection();
             var filtersBalance = Builders<AdBalance>.Filter;
@@ -431,12 +432,17 @@ namespace ilevus.Controllers
 
                 string url = token.SelectToken("UrlRetriviedAds").ToString();
                 url = (!url.EndsWith(@"/") ? url + "/" : url);
-                //string path = token.SelectToken("UrlRetriviedAds").ToString();
 
-                //if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(path) + model.Image_Mobile_old))
-                /*string url = HttpContext.Current.Request.Url.Scheme + "://" + HttpContext.Current.Request.Url.Host;
-                if (!HttpContext.Current.Request.Url.IsDefaultPort)
-                    url += ":" + HttpContext.Current.Request.Url.Port;*/
+
+                AdsReport adReport = new AdsReport()
+                {
+                    ad_event = "view",
+                    ad_id = Id,
+                    cost = Convert.ToDouble(token.SelectToken("CostPerView_" + implemented)),
+                    date = DateTime.Now
+                };
+
+                collectionReport.InsertOne(adReport);
 
 
                 if (Position == "desktop")
@@ -461,6 +467,7 @@ namespace ilevus.Controllers
             var filters = Builders<Ad>.Filter;
             var updates = Builders<Ad>.Update;
             var collection = db.GetAdsCollection();
+            var collectionReport = db.GetAdsReport();
 
             var cBalance = db.GetAdsBalanceCollection();
             var filtersBalance = Builders<AdBalance>.Filter;
@@ -493,6 +500,16 @@ namespace ilevus.Controllers
                     filtersBalance.Eq("Id", _idBalance),
                     updatesBalance.Set("Balance", balance.Balance - Convert.ToDouble(token.SelectToken("CostPerClick_" + implemented)))
                 );
+
+                AdsReport adReport = new AdsReport()
+                {
+                    ad_event = "click",
+                    ad_id = Id,
+                    cost = Convert.ToDouble(token.SelectToken("CostPerClick_" + implemented)),
+                    date = DateTime.Now
+                };
+
+                collectionReport.InsertOne(adReport);
 
                 return Redirect(ad.Link);
             }

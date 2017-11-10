@@ -419,31 +419,36 @@ module.exports = React.createClass({
 
         var csvRows = [];
 
-        var line = "";
+        var line = Messages.get("LabelPeriod");
+        line = line.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         this.state.adsClicks.map((Header, index) =>
             line += (line != "" ? ";" : "") + Header.Key
         )
         csvRows.push(line);
 
-        line = "";
+        line = Messages.get("LabelClicks");
+        line = line.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         this.state.adsClicks.map((clicks, index) =>
             line += (line != "" ? ";" : "") + clicks.Value
         )
         csvRows.push(line);
 
-        line = "";
+        line = Messages.get("LabelViews");
+        line = line.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         this.state.adsViews.map((clicks, index) =>
             line += (line != "" ? ";" : "") + clicks.Value
         )
         csvRows.push(line);
 
-        line = "";
+        line = Messages.get("LabelEfficiency");
+        line = line.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         this.state.adsEfficiency.map((clicks, index) =>
             line += (line != "" ? ";" : "") + clicks.Value
         )
         csvRows.push(line);
 
-        line = "";
+        line = Messages.get("LabelConsumption");
+        line = line.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
         this.state.adsConsumption.map((clicks, index) =>
             line += (line != "" ? ";" : "") + clicks.Value
         )
@@ -451,7 +456,7 @@ module.exports = React.createClass({
 
         var csvString = csvRows.join('\n');
         var a         = document.createElement('a');
-        a.href        = 'data:attachment/csv,' +  encodeURIComponent(csvString);
+        a.href        = 'data:attachment/csv,' + encodeURIComponent(csvString);
         a.target      = '_blank';
         a.download    = 'Report-Ad.csv';
 
@@ -608,7 +613,7 @@ module.exports = React.createClass({
                                 </div>
                             </div>
                              <div className="col-2">
-                                <input className="ilv-btn ilv-btn-lg ilv-btn-success" type="button" value={Messages.get("LabelFilter")} onClick={this.eventloadDataGraphs} disabled={this.state.saving} />
+                                <input className="ilv-btn ilv-btn-lg ilv-btn-success" type="button" value={Messages.get("LabelFilter")} onClick={this.eventloadDataGraphs} disabled={this.state.saving} style={{ marginTop: '30px' }} />
                             </div>
                         </div>
                         <div className="row">
