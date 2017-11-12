@@ -1,8 +1,7 @@
 // https://github.com/diegohaz/arc/wiki/Atomic-Design
 import React from 'react'
 
-import { PageTemplate } from 'components'
-import { PaymentStatement } from 'containers'
+import { PageTemplate, PaymentStatement } from 'components'
 
 const data = [{
   Data: '13/01/2017',

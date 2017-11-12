@@ -54,6 +54,9 @@ const resolveModules = modules => () => ({
             "jquery.ui.widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/widget": "./vendor/jquery.ui.widget.js",
             "jquery-ui/ui/widget": "./vendor/jquery.ui.widget.js",
+            "react-chartjs-2": "react-chartjs-2/dist/react-chartjs-2.min.js",
+            "chart.js": "chart.js/dist/Chart.bundle.min.js",
+            "bootstrap": "bootstrap/dist",
             "config": path.join(__dirname, "src", "config.js"),
             moment$: 'moment/moment.js',
         }
@@ -61,6 +64,8 @@ const resolveModules = modules => () => ({
 })
 
 const config = createConfig([
+
+
     entryPoint({
         app: sourcePath,
     }),
@@ -126,7 +131,12 @@ const config = createConfig([
                 }
             },
             contentBase: 'public',
-            stats: 'verbose',
+            stats: {
+                // fallback value for stats options when an option is not defined (has precedence over local webpack defaults)
+                all: undefined,
+                // Add asset Information
+                assets: true,
+              },
             historyApiFallback: { index: publicPath },
             host,
             port,

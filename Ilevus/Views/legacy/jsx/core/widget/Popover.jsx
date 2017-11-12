@@ -2,7 +2,7 @@
 var _ = require('underscore');
 var $ = require('jquery');
 var React = require('react');
-var ReactDOM = require('react-dom');
+var ReactDOM = require('react-dom/react-dom.min.js');
 
 var EL = document.getElementById("main-global-popover");
 
