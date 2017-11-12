@@ -29,6 +29,17 @@ class PaymentStatementContainer extends Component {
   }
 }
 
+const data = [{
+  Data: '13/01/2017',
+  Usuario: 'Marcos Moacir',
+  Servico: 'Curso de gestão da informação.',
+  FormaDePagamento: 'xx.xx.xx.xx.xx.42',
+  Status: 'Aguardando Aprovação',
+  ValorTotal: 'R$ 2500,00',
+  ValorTaxas: 'R$  500,00',
+  ValorLíquido: 'R$ 2000,00',
+}]
+
 const mapStateToProps = state => ({
   list: fromEntities.getList(state, 'PaymentStatement', fromResource.getList(state, 'PaymentStatement')),
   loading: isPending(state, 'PaymentStatementsListRead'),
@@ -36,7 +47,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch, { limit }) => ({
-  readList: () => dispatch(resourceListReadRequest('PaymentStatement', { _limit: limit })),
+  readList: () => dispatch(resourceListReadRequest('PaymentStatement')),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PaymentStatementContainer)
