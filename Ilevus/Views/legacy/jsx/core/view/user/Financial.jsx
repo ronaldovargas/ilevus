@@ -1,7 +1,6 @@
 ﻿
 var S = require("string");
 var moment = require("moment");
-require("ilevus/jsx/vendor/intlTelInput.js");
 
 var React = require("react");
 var Link = require("react-router").Link;

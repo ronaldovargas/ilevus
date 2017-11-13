@@ -4,8 +4,7 @@ var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
-// import IntlCurrencyInput from "react-intl-currency-input"
-
+import { CurrencyInput } from 'components'
 
 module.exports = createClass({
     propTypes: {
@@ -60,19 +59,6 @@ module.exports = createClass({
         });
     },
     render() {
-        const currencyConfig = {
-            locale: "pt-BR",
-            formats: {
-                number: {
-                    BRL: {
-                        style: "currency",
-                        currency: "BRL",
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                    },
-                },
-            },
-        };
         return (
             <form onSubmit={this.onSubmit}>
                 <fieldset className="ilv-form-group">
@@ -93,10 +79,9 @@ module.exports = createClass({
                         {Messages.get("LabelPrice")}
                     </label>
 
-                    <IntlCurrencyInput currency="BRL"
-                        config={currencyConfig}
+                    <CurrencyInput
                         onChange={this.handleChange}
-                        defaultValue={this.props.service.Price} />
+                        value={this.props.service.Price} />
                 </fieldset>
 
                 <fieldset className="ilv-form-group">

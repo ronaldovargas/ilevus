@@ -10,6 +10,7 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
+
 module.exports = createClass({
     contextTypes: {
         router: PropTypes.object

@@ -12,8 +12,8 @@ const config = {
     gtmId: 'GTM-WX5ZNVC',
     apiPath: "api/",
     urlBase: "http://localhost:57141/",
-    //var old_urlBase = location.origin + "/";
-    BACKEND_URL :"/api/"//urlBase + apiPath;
+    culture: "",
+    BACKEND_URL :"/api/"
   },
   test: {},
   development: {},

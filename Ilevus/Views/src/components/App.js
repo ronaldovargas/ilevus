@@ -91,6 +91,7 @@ var Checkout = require("ilevus/jsx/core/view/user/Checkout.jsx");
 
 var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
+import config from 'config'
 
 class App extends React.Component {
   constructor(props) {
@@ -130,6 +131,7 @@ class App extends React.Component {
 
     Messages.load().then(response => {
       var culture = Messages.get("_Culture");
+      config.culture = culture;
       Numeral.locale(culture);
       moment.locale(S(culture).toLowerCase());
       this.setState({ valid: 'OK' });

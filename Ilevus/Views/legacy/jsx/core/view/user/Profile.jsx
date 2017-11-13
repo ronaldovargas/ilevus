@@ -1,7 +1,5 @@
 ﻿
 var S = require("string");
-require("ilevus/jsx/vendor/intlTelInput.js");
-
 var React = require("react");
 var Link = require("react-router").Link;
 var Toastr = require("toastr");
@@ -15,6 +13,7 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
+import {Telephone} from 'components'
 
 module.exports = createClass({
     contextTypes: {
@@ -23,10 +22,10 @@ module.exports = createClass({
     getInitialState() {
         return {
             loading: UserSession.get("loading"),
-            picture: UserSession.get("loading") ? null : UserSession.get("user").Image
+            picture: UserSession.get("loading") ? null : UserSession.get("user").Image,
+            telephone:''
         };
     },
-    phoneFilterRe: /[0-9\-\+ ]/,
     componentDidMount() {
         var me = this;
         UserSession.on("fail", (msg) => {
@@ -54,27 +53,17 @@ module.exports = createClass({
             $(me.refs["address-save"]).removeClass("loading").removeAttr("disabled");
             Toastr.success(Messages.get("TextAddressUpdateSuccess"));
         }, me);
-
-        this.updatePhoneInput();
     },
     componentWillUnmount() {
         UserSession.off(null, null, this);
     },
-
-    componentDidUpdate() {
-        this.updatePhoneInput();
-    },
-
     saveProfile(event) {
-        if (!this.phoneNumberValidation()) {
-            Toastr.error(Messages.get("ValidationPhoneNumberInvalid"));
-            return;
-        }
+        
         $(this.refs["profile-save"]).addClass("loading").attr("disabled", "disabled");
         var data = {
             Birthdate: this.refs['profile-birthdate'].value,
             Name: this.refs['profile-name'].value,
-            PhoneNumber: $.trim($("#editProfileFormPhone").val()),
+            PhoneNumber: this.state.telephone,
             Sex: this.refs['profile-sex'].value,
             Surname: this.refs['profile-surname'].value
         };
@@ -131,25 +120,11 @@ module.exports = createClass({
             }
         );
     },
-
-    updatePhoneInput() {
-        $("#editProfileFormPhone").intlTelInput();
+    changeStateTelephone(value){
+        this.setState({
+            telephone: value
+        })
     },
-    phoneNumberValidation() {
-        if (!$("#editProfileFormPhone").intlTelInput("isValidNumber")) {
-            $("#editProfileFormPhone").addClass("ilv-invalid");
-            return false;
-        } else {
-            $("#editProfileFormPhone").removeClass("ilv-invalid");
-            return true;
-        }
-    },
-    phoneNumberFilter(event, opts) {
-        if (event.key && event.key.match && !event.key.match(this.phoneFilterRe))
-            event.preventDefault();
-    },
-
-
     render() {
         if (this.state.loading) {
             return <LoadingGauge />;
@@ -236,12 +211,7 @@ module.exports = createClass({
                                 <label className="ilv-form-label" htmlFor="editProfileFormPhone">
                                     {Messages.get("LabelPhoneNumber")}
                                 </label>
-                                <input onKeyPress={this.phoneNumberFilter} onKeyUp={this.phoneNumberValidation}
-                                        type="tel"
-                                        spellCheck={false}
-                                        id="editProfileFormPhone"
-                                        ref="profile-phonenumber"
-                                        defaultValue={user.PhoneNumber} />
+                                <Telephone onChange={this.changeStateTelephone} value={user.phonenumber}/>
                                 <span className="ilv-text-small">
                                     {Messages.get("TextPhoneHelp")}
                                 </span>

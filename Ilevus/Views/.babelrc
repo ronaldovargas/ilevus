@@ -31,6 +31,7 @@
     },
     "production": {
       "plugins": [
+        "transform-es2015-modules-commonjs",
         "transform-react-remove-prop-types",
         [
           "styled-components",
