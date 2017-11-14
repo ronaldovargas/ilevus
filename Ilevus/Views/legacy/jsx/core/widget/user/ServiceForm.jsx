@@ -4,7 +4,7 @@ var Toastr = require("toastr");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 var CurrencyUtils = require("ilevus/jsx/core/util/CurrencyUtils.jsx");
-import { CurrencyInput } from 'components'
+var CurrencyInput =  require('components').CurrencyInput;
 
 module.exports = createClass({
     propTypes: {

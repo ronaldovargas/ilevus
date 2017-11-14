@@ -1,9 +1,4 @@
-import React from 'react'
-import { injectGlobal, ThemeProvider } from 'styled-components'
-import Helmet from 'react-helmet'
-
-import { GoogleTagManager } from 'containers'
-
+var React = require("react");
 var ReactRouter = require("react-router");
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
@@ -91,7 +86,7 @@ var Checkout = require("ilevus/jsx/core/view/user/Checkout.jsx");
 
 var MarkdownGuide = require("ilevus/jsx/core/view/help/MarkdownGuide.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
-import config from 'config'
+var config = require('config')
 
 class App extends React.Component {
   constructor(props) {

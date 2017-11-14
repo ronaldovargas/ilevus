@@ -13,7 +13,8 @@ var Modal = require("ilevus/jsx/core/widget/Modal.jsx");
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 
 var UserIcon = require("ilevus/img/user.png");
-import {Telephone} from 'components'
+var Telephone =  require('components').Telephone;
+
 
 module.exports = createClass({
     contextTypes: {

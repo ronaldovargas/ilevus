@@ -13,7 +13,7 @@ var UserSession = require("ilevus/jsx/core/store/UserSession.jsx");
 var LoadingGauge = require("ilevus/jsx/core/widget/LoadingGauge.jsx");
 
 var Messages = require("ilevus/jsx/core/util/Messages.jsx");
-import {Telephone} from 'components'
+var Telephone = require('components').Telephone;
 
 module.exports = createClass({
     contextTypes: {

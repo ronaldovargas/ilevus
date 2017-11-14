@@ -5,7 +5,7 @@
 var $ = require("jquery");
 var S = require("string");
 var config = require("config")
-import axios from 'axios';
+var axios = require('axios');
 
 module.exports = {
     _loaded: false,
