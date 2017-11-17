@@ -51,7 +51,7 @@ module.exports = React.createClass({
 
     componentWillReceiveProps(newProps) {
         if (newProps.keyword != this.props.keyword) {
-            this.refreshAds(newProps.keyword, me.props.limit, me.props.isMobile);
+            this.refreshAds(newProps.keyword, this.props.limit, this.props.isMobile);
         }
     },
 
