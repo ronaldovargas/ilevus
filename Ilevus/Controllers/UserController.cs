@@ -1,4 +1,4 @@
-﻿using Facebook;
+using Facebook;
 using ilevus.App_Start;
 using ilevus.Attributes;
 using ilevus.Enums;
@@ -337,7 +337,7 @@ namespace ilevus.Controllers
 
             CultureInfo culture = Thread.CurrentThread.CurrentCulture;
             var implemented = CultureHelper.GetImplementedCulture(culture.Name);
-            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Email);
 
             string link = BaseURL + "#/confirm-email/"
                     + Uri.EscapeDataString(user.Email) + "/"
@@ -377,7 +377,7 @@ namespace ilevus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     return BadRequest("Este e-mail não está cadastrado no sistema.");
@@ -385,7 +385,7 @@ namespace ilevus.Controllers
 
                 var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
 
-                string link = BaseURL + "#/reset-password/"
+                string link = BaseURL + "reset-password/"
                             + Uri.EscapeDataString(user.Email) + "/"
                             + Uri.EscapeDataString(code);
                 await UserManager.SendEmailAsync(user.Id,
@@ -442,7 +442,32 @@ namespace ilevus.Controllers
             {
                 return BadRequest(Messages.ValidationEmailExists);
             }
-            var user = new IlevusUser()
+
+			//pega a cultura corrente no site
+	        CultureInfo culture = Thread.CurrentThread.CurrentCulture;
+	        var implemented = CultureHelper.GetImplementedCulture(culture.Name);
+
+	        string subject;
+	        string message;
+
+			//verifica a cultura e monta a mensagem e sujeito do /
+	        if ("en".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+	        {
+		        subject = IlevusDBContext.SystemConfiguration.WelcomeMessages.en.Subject;
+		        message = IlevusDBContext.SystemConfiguration.WelcomeMessages.en.Template;
+	        }
+	        else if ("es".Equals(implemented, StringComparison.InvariantCultureIgnoreCase))
+	        {
+		        subject = IlevusDBContext.SystemConfiguration.WelcomeMessages.es.Subject;
+		        message = IlevusDBContext.SystemConfiguration.WelcomeMessages.es.Template;
+	        }
+	        else
+	        {
+		        subject = IlevusDBContext.SystemConfiguration.WelcomeMessages.pt_br.Subject;
+		        message = IlevusDBContext.SystemConfiguration.WelcomeMessages.pt_br.Template;
+	        }
+
+			var user = new IlevusUser()
             {
                 UserName = model.Email,
                 Email = model.Email,
@@ -450,14 +475,34 @@ namespace ilevus.Controllers
                 Surname = model.Surname
             };
 
+			
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+			
 
-            if (!result.Succeeded)
+			if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+				return GetErrorResult(result);
             }
 
-            return Ok(new UserInfoViewModel(user));
+	       
+
+			var userResult = await UserManager.FindByEmailAsync(user.Email);
+	        var code = await UserManager.GeneratePasswordResetTokenAsync(userResult.Id);
+
+			string link = BaseURL + "confirm-email/"
+			              + Uri.EscapeDataString(user.Email) + "/"
+			              + Uri.EscapeDataString(code);
+
+			await UserManager.SendEmailAsync(user.Id,
+		        subject,
+		        string.Format(
+			        message,
+			        user.Name,
+			        "</br><a href='" + link + "'>" + link + "</a>"
+		        )
+	        );
+
+			return Ok(new UserInfoViewModel(user));
         }
 
         // GET api/Account/Picture/{UserId}/{Checksum}
