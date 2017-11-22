@@ -487,7 +487,7 @@ namespace ilevus.Controllers
 	       
 
 			var userResult = await UserManager.FindByEmailAsync(user.Email);
-	        var code = await UserManager.GeneratePasswordResetTokenAsync(userResult.Id);
+	        var code = await UserManager.GenerateEmailConfirmationTokenAsync(userResult.Id);
 
 			string link = BaseURL + "confirm-email/"
 			              + Uri.EscapeDataString(user.Email) + "/"
