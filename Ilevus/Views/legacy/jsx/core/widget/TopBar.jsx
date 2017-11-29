@@ -13,18 +13,20 @@ var Messages = require("ilevus/jsx/core/util/Messages.jsx");
 module.exports = createClass({
     contextTypes: {
         admin: PropTypes.bool.isRequired,
-        router: PropTypes.object
-    },
-    getInitialState() {             
+        router: PropTypes.object,
         
+    },    
+   
+    getInitialState() {            
+      
         return {
             user: UserSession.get("user"),
-            logged: !!UserSession.get("logged")
+            logged: !!UserSession.get("logged"),
+            ariaExpanded: false              
         };
     },
     componentWillMount() {
-        var me = this;
-
+        var me = this;      
         UserSession.on("update", session => {            
             if (me.state && me.state.logged) {
                 window.onbeforeunload = function (event) {
@@ -87,6 +89,7 @@ module.exports = createClass({
         this.refs['search-term'].value = "";
         if (!string(term).isEmpty())
             this.context.router.push("/search/" + encodeURI(term));
+            this.closeNavBar();          
     },
     confirmEmail(evt) {
         evt.preventDefault();
@@ -105,10 +108,29 @@ module.exports = createClass({
         return idUser || UserSession.get("user").Id;
     },
 
-    render() {        
+    closeNavBar(){      
+       this.setState({
+        ariaExpanded: false,      
+        });   
+      },
+
+    setHidden(){
+        this.setState({
+            ariaExpanded: true           
+        });      
+    },
+
+    render() { 
+
+        var divStyle = {
+            display: 'none'
+        };
+
+        const hidden = this.state.ariaExpanded ? {} : divStyle;  
+             
         return (
             <nav className="navbar navbar-toggleable-md navbar-light bg-faded fixed-top ilv-navbar">
-                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar_menu" aria-controls="navbar_menu" onClick={this.setHidden} aria-expanded="false" aria-label="Toggle navigation">
                     <i className="ilv-icon material-icons">&#xE5D2;</i>
                 </button>
 
@@ -116,7 +138,7 @@ module.exports = createClass({
                     {<img src={Logo} alt="ilevus" />}
                 </Link>
 
-                <div className="collapse navbar-collapse" id="navbar_menu">
+                <div className='navbar-collapse collapse' style={hidden} id="navbar_menu">
 
                     <form className="form-inline mr-auto mt-2 mt-lg-0 ilv-navbar-search" onSubmit={this.onSearch} id="js-navbar-search">
                         <input ref="search-term" className="form-control ilv-form-control ilv-navbar-search-input" type="search" />
@@ -186,3 +208,5 @@ module.exports = createClass({
         );
     }
 });
+
+

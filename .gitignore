@@ -252,3 +252,4 @@ node_modules/
 /Ilevus/Views/cms/ads
 .happypack/
 dist/
+Ilevus/App_Data/
