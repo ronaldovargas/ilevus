@@ -3,6 +3,26 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { ifProp } from 'styled-tools'
 import { palette, size } from 'styled-theme'
+// import Sticky from 'react-sticky-state';
+import Progress from 'react-progressbar';
+
+import iconMessage from '../../../../images/message.svg'
+import iconcheck from '../../../../images/check.svg'
+import starGreen from '../../../../images/star_green.svg'
+import starWhite from '../../../../images/star_white.svg'
+import video from '../../../../images/video.svg'
+import artigo from '../../../../images/artigo.svg'
+import recurso_complementar from '../../../../images/recurso_complementar.svg'
+import acesso_total from '../../../../images/acesso_total.svg'
+import dispositivos_modeis from '../../../../images/dispositivos_moveis.svg'
+import certificado_conclusao from '../../../../images/certificado_conclusao.svg'
+import pessoa from '../../../../images/pessoa.svg'
+import heart from '../../../../images/heart.svg'
+import marker from '../../../../images/marker.svg'
+import star_black from '../../../../images/star_black.svg'
+
+import user from '../../../../images/user.svg'
+import message_black from '../../../../images/message_black.svg'
 
 
 import {
@@ -24,7 +44,7 @@ import {
 
 const Wrapper = styled(Block) `
   display: flex;
-  position:relative;
+  // position:relative;
    padding-left: 4rem;
   box-sizing: border-box;
   color:#fff;
@@ -32,9 +52,31 @@ const Wrapper = styled(Block) `
   @media screen and (max-width: 640px) {
      padding-left: 0.25rem;
      padding-right: 0.025rem;
+  },
+  '&::after': {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+    clear: both;
   }
 `
+const DivRight  = styled.div`
+float:right;
+padding-right:10px;
+`
 
+const CardBlack = styled.div`
+// display:none;
+padding-bottom:50px;
+*zoom: 1;
+'&::after': {
+  clear: both;
+}
+'&::before .after': {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+`
 const InnerWrapper = styled.div`
   display: flex;
   width: 90%;
@@ -63,6 +105,25 @@ const Section = styled.section`
   }
 `
 
+
+const SectionCardFloat = styled.section`
+// display: flex;
+flex-direction: column;
+align-items: center;
+//padding: 1rem;
+padding-left: 2rem;
+color:#fff;
+box-sizing: border-box;
+width:90%;
+
+
+
+@media screen and (max-width: 640px) {
+  padding: 0.025rem;
+  width: 90%;
+}
+`
+
 const Text = styled(Paragraph) `
   
   font-weight: 300;
@@ -78,6 +139,21 @@ const Text = styled(Paragraph) `
   }
 `
 
+const TextMiniCard = styled.div `
+
+font-weight: 200;
+font-size: 1.35rem;
+line-height: 1.35em;
+width: 100%;
+letter-spacing: 0.05em;
+color:#fff;
+
+@media screen and (max-width: 640px) {
+  // text-align: center;
+  font-size: 1rem;
+}
+`
+
 const CardGroup = styled.div`
   margin-top: 2rem;
   display: flex;
@@ -86,20 +162,20 @@ const CardGroup = styled.div`
   border: 1 solid black;
  // padding-left:3em;
   width:300px;
-  height:700px;
+  height:450px;
   > :not(:first-child) {
     // margin-left: 0.5rem;
   }
 `
 
 const ListGroup = styled.div`
-margin-top: 2rem;
+margin-top: 600px;
 // display: flex;
 position:relative;
 background-color:#f2f2f2;
 border: 1 solid black;
-width:800px;
-// height:1200px;
+width:850px;
+height:260px;
 padding-left:2rem;
 
 `
@@ -120,6 +196,8 @@ width:800px;
 height:200px;
 // padding-left:2rem;
 border-bottom: 1px solid #efefef;
+border-top: 1px solid #efefef;
+diaplay:none;
 
 `
 const ItemImagem = styled.div`
@@ -166,6 +244,23 @@ padding-left:1rem;
 float:left;
 margin-top:60px;
 `
+
+const TextList = styled(Paragraph) `
+
+font-weight: 400;
+font-size: 0.55rem;
+line-height: 0.35em;
+width: 100%;
+letter-spacing: 0.05em;
+color:#fff;
+margin:0px;
+
+@media screen and (max-width: 640px) {
+  // text-align: center;
+  font-size: 1rem;
+}
+`
+
 const Mapa = styled.div `
 width:1000px;
 height:600px;
@@ -248,61 +343,107 @@ margin-top: 2rem;
 position:relative;
 background-color:#f2f2f2;
 border: 1 solid black;
-width:800px;
+width:710px;
  height:400px;
-padding-left:2rem;
+// padding-left:2rem;
+padding: 15px 10px 0 15px;
 
 `
 const CardMiniContent = styled.div`
 position:relative;
-width:200px;
-height:280px;
+width:210px;
+height:290px;
+float:left;
+// padding-left:10px;
 background-color:#fff;
 // padding-left:2rem;
 border: 1px solid #efefef;
+margin-left:10px;
+
+box-shadow: 0 2px 8px 2px rgba(20,23,28,.15);
 
 `
+
+
+
 const DivFloat = styled.div`
+position: -webkit-sticky;
+position: sticky;
+top: 300px;
+margin-top:320px;
+
+`
+
+const DivMenuFloat = styled.div`
 position: fixed;
-right:25%;
-top:10%;
-width: 8em;
+ right:0%;
+top:0%;
+width: 100%;
 margin-top: -2.5em;
+z-index:2;
 @media screen and (max-width: 800px) {
   right:1%;
   
 }
 `
+
+
+
+const MenuFloat = styled.div`
+  background-color:#212121;
+  margin-top: 2.5em;
+  padding-left:50px;
+  opacity: 0.8;
+`
+const Star = styled.div`
+right:25%;
+top:10%;
+width: 8em;
+margin-top: -2.5em;
+icon:'../../../../images/star.svg'
+`
+
+
+
 const styles = {
     buttonStyleGreen: {
       backgroundColor: "#2CBC4D",
-      width:"13em",
+      width:"15em",
       margingBottom:"1em",
     },
     buttonStyleTransparent:{
       backgroundColor: "transparent",
       color: "#2CBC4D",
-      width:"13em",
+      width:"15em",
       top:"1em"
     },
     buttonStyleTransparentBold:{
       backgroundColor: "transparent",
       color: "#00aa38",
-      width:"13em",
+      width:"15em",
       top:"2em"
     },
     divCard: {
       border:"0.0625em solid #e7e7e7",
-      marginTop:"2rem"
+      marginTop:"5px"
     },
     labelSmall:{
-      fontSize:"8"
+      fontSize:"9"
     },
     labelListItem:{
+      fontSize:"12"
+    },
+    labelListItemBlack:{
       fontSize:"10",
+      fontWeight:"bold"
     },
     labelGreen:{
       color:"#2CBC4D",
+    },
+    labelGreenDesconto:{
+      color:"#2CBC4D",
+      textDecorationStyle:"dashed",
+      fontWeight:"dashed"
     },
     labelGreenText:{
       color:"#2CBC4D",
@@ -317,7 +458,16 @@ const styles = {
     labelList:{
       fontSize:"14",
       position:"relative",
-      display:"flex",
+      display:"table",
+      paddingBottom:"20px"
+      // top:"80px"
+    },
+    labelListStar:{
+      fontSize:"14",
+      position:"relative",
+      display:"table",
+      paddingLeft:"10px"
+      // paddingBottom:"20px"
       // top:"80px"
     },
     List:{
@@ -326,11 +476,12 @@ const styles = {
       // display:"block",
     },
     ListItens:{
-      // position:"absolute",
+      //position:"absolute",
       width:"400px",
       float:"left",
-      marginLeft:"10"
-      // display:"block",
+      marginLeft:"0",
+      display:"block",
+      paddingBottom:"10rem"
     },
     labelBoldList:{
       textDecoration:"bold",
@@ -344,11 +495,12 @@ const styles = {
       display:"block",
     },
     itensImage:{
-      width:"200px",
+      width:"210px",
         // display:"block",
     },
     itensOutrosMini:{
-      fontSize:"20",
+      fontSize:"15",
+      paddingLeft:"60px"
     },
     labelItemBold:{
       color:"#2CBC4D",
@@ -409,41 +561,128 @@ const styles = {
       fontSize:"50",
       fontWeight:"bold",
       lineHeight: "1em"    
-    }
-  }
-
-
+    },
+    iconWhite:{
+      width:"17",
+      paddingRight:"5",
+      marginTop:"-10",
+     
+    },
+    iconGreen:{
+      width:"17",
+      paddingRight:"5",
+      marginTop:"-10",
+      position:"relative",
+      top:"0",
+      display:"table-cell"
+    },
+    starGreen:{
+      width:"15",
+      paddingRight:"5",
+      marginTop:"-10",
+      position:"relative",
+      top:"0",
+      display:"table-cell"
+    },
+    miniIcon:{
+      width:"12",
+    },
+    starGreenMini:{
+      width:"15",
+      paddingRight:"5",
+      marginTop:"-10",
+      position:"relative",
+      top:"0",
+      display:"table-cell"
+  },
+  progressBar:{
+    fontWeight:"bold",
+    fontSize:"30",
+    display:"block",
+    paddingBottom:"10",
+    height:"30px"
+  },
+  Progress:{
+    height:"50px",
+  },
+  progressbarProgress:{
+    height:"50px !important"
+  },
+  CardlabelMiniBold:{
+    fontSize:"14px",
+    fontWeight:"bold",
+    display:"flex",
+    lineHeight:"22px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "normal",
+    fontWeight: "600",
+    height: "36px",
+    minHeight: "42px",
+    fontSize: "15px",
+    color: "#29303b",
+    marginBottom: "10px",
+    paddingLeft:"10px"
+   
+  },
+  CardMiniTextContent:{
+     paddingTop:"-10px"
+  },
+  CardlabelMini:{
+    fontSize:"11px",
+    marginLeft: "10px"
+  },
+  sticky: {
+    top: "0",
+    position: "fixed"
+}
+}
+  
 
 const Card = ({ ...props }) => {
   return (
     <Wrapper opaque reverse {...props}>
       <InnerWrapper>
         <Section>
+          <CardBlack>
           <Text>
             <Heading level={1} reverse>Como Resolver Problemas Complexos e Tomar Decisões Efetivas</Heading>
             <Heading level={2} reverse> Saiba analisar um problema complexo estruturar seus pensamentos de maneira lógica e tomar a melhor decisão possível</Heading>
           </Text>
           <Text>
-            <Label reverse>4.1(32 classificações)</Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Label reverse>185 processos concluídos</Label>
+          
+            <Label reverse>
+              <div className="ilv-rating-list">
+                  <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                  <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                  <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                  <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                  <img alt="star"  src={starWhite} style={styles.iconWhite}/>
+                    <a>4.1(32 classificações)</a>
+                       185 processos concluídos
+              </div>
+            </Label>
+            <Label reverse></Label>
           </Text>
           <Text>
             <Label reverse>Criado por Kleber Donady</Label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img alt="conversation"  src={iconMessage} style={styles.iconWhite}/>
             <Label reverse>Portugues</Label>
           </Text>
           <Text>
           </Text>
+        </CardBlack>
           <ListGroup style={styles.divCard}>
           <Text style={styles.List}>
               <Label style={styles.labelBoldList}>Principais pontos</Label>
           </Text>
           <Text style={styles.ListItens}>
-              <Label style={styles.labelList}> / Analisar os problemas de outras maneiras, descobrindo novas oportuniadades. </Label>
-              <Label style={styles.labelList}> / Pensar de maneira lógica e sequencial. </Label>
+              <Label style={styles.labelList}><img alt="Check"  src={iconcheck} style={styles.iconGreen}/> Analisar os problemas de outras maneiras, descobrindo novas oportuniadades. </Label>
+              <Label style={styles.labelList}><img alt="Check"  src={iconcheck} style={styles.iconGreen}/> Pensar de maneira lógica e sequencial. </Label>
           </Text>
-          <Text>
-              <Label style={styles.labelList}> / Conhecerá ferramentas utilizadas por empresas referencia de mercado para resolução de problemas complexos e Tomar Decisões efetivas é uma das mais requisitadas da atualidade? e tende a ser por muito mais tempo? </Label>
-              <Label style={styles.labelList}> / Tomar desizões mais efetivas. </Label>
+          <Text style={styles.ListItens}>
+              <Label style={styles.labelList}><img alt="Check"  src={iconcheck} style={styles.iconGreen}/> Conhecerá ferramentas utilizadas por empresas referencia de mercado para resolução de problemas </Label>
+              <Label style={styles.labelList}><img alt="Check"  src={iconcheck} style={styles.iconGreen}/> Tomar desizões mais efetivas. </Label>
           </Text>
           </ListGroup>
           <CardText>
@@ -471,10 +710,11 @@ const Card = ({ ...props }) => {
                          <Label >Atualizado em 30/11/2017</Label>
                     </ItemTitulo>
                     <ItemPontos>
-                        <Label> * 4.1</Label>
+                        <Label> <img alt="star"  src={starGreen} style={styles.miniIcon}/> 4.1</Label>
                     </ItemPontos>
                     <ItemViews>
-                        <Label> :) 185</Label>
+                         <img alt="star"  src={pessoa} style={styles.miniIcon}/>
+                        <Label> 185</Label>
                     </ItemViews>
                     <ItemPrice>
                     <Label style={styles.labelItemNormal}> R$20</Label>
@@ -491,6 +731,7 @@ const Card = ({ ...props }) => {
                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7501.343771187411!2d-43.935295999999994!3d-19.938226999999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x66287bc4d1c5327c!2sSavassi!5e0!3m2!1spt-BR!2sbr!4v1512238716850" width="500" height="400" frameborder="0" allowfullscreen></iframe>
             </CardMapa>
             <CardMapaCidade>
+                 <img alt="star"  src={marker} style={styles.iconGreen}/>
                 <Label style={styles.labelList}> Belo Horizonte , Rua Sergipe, 1418 Belo Horizonte , 30120-000</Label>
                 <Link href="">+ Como chegar</Link>
             </CardMapaCidade>
@@ -499,10 +740,10 @@ const Card = ({ ...props }) => {
             <CardUser>
                <Heading level={1}>Sobre o Instrutor</Heading>
                <img src=" https://www.aciworldwide.com/-/media/images/components/text-and-media/500x333-user-group.jpg?la=en&hash=D7946C2F2D89388DD6295EB24E449D4C0B4742A8" style={styles.imageRound}/>
-               <Label style={styles.labelList}>4,3 Classificações Média </Label>
-               <Label style={styles.labelList}>1.395 Avaliações</Label>
-               <Label style={styles.labelList}>5.742 Alunos</Label>
-               <Label style={styles.labelList}>8 Cursos </Label>
+               <Label style={styles.labelList}> <img alt="star" src={star_black} style={styles.miniIcon}/> 4,3 Classificações Média </Label>
+               <Label style={styles.labelList}><img alt="text"  src={message_black} style={styles.miniIcon}/> 1.395 Avaliações</Label>
+               <Label style={styles.labelList}><img alt="people"  src={user} style={styles.miniIcon}/> 5.742 Alunos</Label>
+               <Label style={styles.labelList}><img alt="video"  src={video} style={styles.miniIcon}/> 8 Cursos </Label>
             </CardUser>
             <CardUserCidade>
               <Text>
@@ -521,16 +762,22 @@ const Card = ({ ...props }) => {
                 <ItemImagem>
                     <Text style={styles.textCenter}>
                         <Label style={styles.labelFeedbackGde}> 4.1</Label>
-                        <Label style={styles.labelFeedbackStar}> *****</Label>
+                        <Label style={styles.labelFeedbackStar}>
+                        <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                        <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                        <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                        <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                        <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                        </Label>
                         <Label style={styles.labelFeedbackAv}> Avaliação Média</Label>
                     </Text>
                 </ItemImagem>
                 <ItemTitulo>
-                     <Label style={styles.itensOutrosProdutosB}>************************</Label>
-                     <Label style={styles.itensOutrosProdutosB}>*************************</Label>
-                     <Label style={styles.itensOutrosProdutosB}>*******************************</Label>
-                     <Label style={styles.itensOutrosProdutosB}>*******************************</Label>
-                     <Label style={styles.itensOutrosProdutosB}>**********</Label>
+                     <Label style={styles.itensOutrosProdutosB}></Label>
+                     <Label style={styles.progressBar}> <Progress style={styles.progress} completed={98} /></Label>
+                     <Label style={styles.progressBar}> <Progress completed={75} /></Label>
+                     <Label style={styles.progressBar}> <Progress completed={50} /></Label>
+                     <Label style={styles.progressBar}> <Progress completed={10} /></Label>
                 </ItemTitulo>
               </CardTextContent>
             </List>
@@ -549,7 +796,11 @@ const Card = ({ ...props }) => {
                       <Label style={styles.itensAvaliacaoDenun}>denunciar</Label>
                   </ItemAvalPes>
                     <ItemAvalText>
-                         <Label >*********************</Label>
+                         <Label > 
+                           <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                           <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                           <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+                         </Label>
                          <Label style={styles.itensOutrosProdutosB}>Adorei  as idéias propostas  e com certeza  aplicarei no meu dia a dia</Label>
                          <Label >Atualizado em 30/11/2017</Label>
                     </ItemAvalText>
@@ -573,60 +824,122 @@ const Card = ({ ...props }) => {
             <CardMini style={styles.divCard}>
               <Heading level={1}>Mais cursos de Kleber Donady</Heading>
                 <CardMiniContent>
-                <img src="https://reactjs.org/logo-og.png" style={styles.itensImage}/>
-                <Text>
-                  <Label style={styles.labelList} >Gestão financeira para pequenas e médias</Label>
-                  <Label style={styles.labelList} >Por Kleber Donady</Label>
-                  <Label style={styles.labelList} >****** 4,4(394)</Label>
+                <img src="https://udemy-images.udemy.com/course/240x135/1383810_0c42.jpg" style={styles.itensImage}/>
+                <TextMiniCard style={styles.CardMiniTextContent}>
+                  <Label style={styles.CardlabelMiniBold}> Curso Design Gráfico COMPLETO -7 Cursos</Label>
+                  <Label style={styles.CardlabelMini} >iMedia Brasil</Label>
+                  <Label style={styles.labelListStar} >
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        &nbsp;
+                        4,6 (437)
+                  </Label>
+                  <DivRight>
+                  <Label style={styles.labelItemNormal}> R$580</Label>
+                  <Label style={styles.labelItemBold}> R$20</Label>
+                   </DivRight>
+                </TextMiniCard>
+              </CardMiniContent>
+              <CardMiniContent>
+                <img src="https://udemy-images.udemy.com/course/240x135/1276020_afbc.jpg" style={styles.itensImage}/>
+                <TextMiniCard style={styles.CardMiniTextContent}>
+                  <Label style={styles.CardlabelMiniBold} >Gestão financeira para pequenas e médias</Label>
+                  <Label style={styles.CardlabelMini} >Por Kleber Donady</Label>
+                  <Label style={styles.labelListStar} >
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        &nbsp;
+                        4,4 (394)
+                  </Label>
+                  <DivRight>
                   <Label style={styles.labelItemNormal}> R$385</Label>
                   <Label style={styles.labelItemBold}> R$20</Label>
-                </Text>
-               
+                   </DivRight>
+                   </TextMiniCard>
+              </CardMiniContent>
+              <CardMiniContent>
+                <img src="https://udemy-images.udemy.com/course/240x135/406424_7ca9_9.jpg" style={styles.itensImage}/>
+                <TextMiniCard style={styles.CardMiniTextContent}>
+                  <Label style={styles.CardlabelMiniBold} >Gestão financeira para pequenas e médias</Label>
+                  <Label style={styles.CardlabelMini} >Por Kleber Donady</Label>
+                  <Label style={styles.labelListStar} >
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        <img alt="star"  src={starGreen} style={styles.miniIcon}/> 
+                        &nbsp;
+                        4,4 (394)
+                  </Label>
+                  <DivRight>
+                  <Label style={styles.labelItemNormal}> R$385</Label>
+                  <Label style={styles.labelItemBold}> R$20</Label>
+                   </DivRight>
+                   </TextMiniCard>
               </CardMiniContent>
               </CardMini>
         </CardText>
-
         </Section>
-        <Section >
          <DivFloat>
-         <CardGroup style={styles.divCard}>
-          <Section>
-            <LogoImage height={170} />
+          <SectionCardFloat>
+            {/* <LogoImage height={170} /> */}
             <Text>
               <Label style={styles.itenValor}> R$20</Label>
-              <Label  style={styles.labelGreen}> R$85</Label>
+              <Label  style={styles.labelGreenDesconto}> R$85</Label>
               <Label  style={styles.labelGreenText}>76% de desconto</Label>
               <Text></Text>
               <Button style={styles.buttonStyleGreen}>Contratar</Button>
               <Text></Text>
               <Button  style={styles.buttonStyleTransparent} transparent>Sessão grátis</Button>
               <Paragraph style={styles.labelSmall} >Garantia de devolução do dinheiro em 30 dias</Paragraph>
-              <Paragraph style={styles.labelListItem} >Inclui</Paragraph>
+              <Paragraph style={styles.labelListItemBlack} >Inclui</Paragraph>
             </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * Video sob demanda de 1 hora</Label>
-            </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * 1 artigo</Label>
-            </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * 1 recurso  complementar</Label>
-            </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * Acesso total vitalicio</Label>
-            </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * Acesso no dipositivo móvel  e na tv</Label>
-            </Text >
-            <Text>
-              <Label style={styles.labelListItem} > * Certificado de conclusão</Label>
-            </Text>
-            </Section>
-          </CardGroup>
+            <TextList>
+              <Label style={styles.labelListItem} >   <img alt="video"  src={video} style={styles.miniIcon}/> Video sob demanda de 1 hora</Label>
+            </TextList >
+            <TextList>
+              <Label style={styles.labelListItem} > <img alt="artigo"  src={artigo} style={styles.miniIcon}/> 1 artigo</Label>
+            </TextList >
+            <TextList>
+              <Label style={styles.labelListItem} >  <img alt="recurso_complementar"  src={recurso_complementar} style={styles.miniIcon}/> 1 recurso  complementar</Label>
+            </TextList >
+            <TextList>
+              <Label style={styles.labelListItem} >  <img alt="acesso_total"  src={acesso_total} style={styles.miniIcon}/> Acesso total vitalicio</Label>
+            </TextList >
+            <TextList>
+              <Label style={styles.labelListItem} >  <img alt="dispositivos_modeis"  src={dispositivos_modeis} style={styles.miniIcon}/> Acesso no dipositivo móvel  e na tv</Label>
+            </TextList >
+            <TextList>
+              <Label style={styles.labelListItem} >  <img alt="certificado_conclusao"  src={certificado_conclusao} style={styles.miniIcon}/> Certificado de conclusão</Label>
+            </TextList>
+            </SectionCardFloat>
             </DivFloat>
-        </Section>
+      <DivMenuFloat>
+          <MenuFloat>
+          <Text>
+            <Heading level={1} reverse>Como Resolver Problemas Complexos e Tomar Decisões Efetivas</Heading>
+            <div className="ilv-rating-list">
+              <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+              <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+              <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+              <img alt="star"  src={starGreen} style={styles.iconWhite}/>
+              <img alt="star"  src={starWhite} style={styles.iconWhite}/>
+              <a>4.1(32 classificações)</a>
+              185 processos concluídos
+            </div>
+           </Text>
+          </MenuFloat>
+        </DivMenuFloat>
       </InnerWrapper>
-    
     </Wrapper>
   )
 }
